@@ -44,6 +44,8 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
  </div>
  <button class="primary" id="showAdd">＋ เพิ่มรายการทดสอบ</button>
  <button class="secondary" id="exportBackup" type="button">↓ สำรองข้อมูล (JSON)</button>
+ <button class="secondary" id="importBackup" type="button">↑ นำเข้าข้อมูล (JSON)</button>
+<input id="importFile" type="file" accept=".json,application/json" hidden>
  <section id="addPanel" class="card" hidden>
   <div class="sectionhead"><h2>เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><span class="small">บันทึกในเครื่องนี้</span></div>
   <form id="addForm">
@@ -237,7 +239,39 @@ function updateStats(){
  }catch(error){
   alert("สำรองข้อมูลไม่สำเร็จ: "+error.message);
  }
-}
+}function importBackup(event){
+ const file=event.target.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const backup=JSON.parse(reader.result);
+   if(!backup||backup.app!=="Project Football Time"||backup.version!==1||backup.storageKey!==STORAGE_KEY||!Array.isArray(backup.matches)){
+    throw new Error("ไฟล์สำรองไม่ถูกต้องหรือไม่รองรับ");
+   }
+   const imported=backup.matches;
+   const valid=imported.every(m=>m&&typeof m==="object"&&!Array.isArray(m)&&["id","home","away","league","date"].every(k=>typeof m[k]==="string"));
+   if(!valid)throw new Error("ข้อมูลการแข่งขันในไฟล์ไม่ครบหรือไม่ถูกต้อง");
+   const ids=imported.map(m=>m.id);
+   if(new Set(ids).size!==ids.length)throw new Error("พบรหัสการแข่งขันซ้ำในไฟล์");
+   if(!confirm("พบข้อมูล "+imported.length+" รายการ ข้อมูลปัจจุบัน "+matches.length+" รายการ\nการนำเข้าจะเขียนทับข้อมูลปัจจุบัน ต้องการดำเนินการหรือไม่?"))return;
+   const previous=matches;
+   matches=imported.map(m=>migrateRecord({...m}));
+   if(!saveMatches()){
+    matches=previous;
+    return;
+   }
+   render();
+   alert("นำเข้าข้อมูลสำเร็จ "+matches.length+" รายการ");
+  }catch(error){
+   alert("นำเข้าข้อมูลไม่สำเร็จ: "+error.message);
+  }finally{
+   event.target.value="";
+  }
+ };
+ reader.onerror=()=>alert("ไม่สามารถอ่านไฟล์ได้");
+ reader.readAsText(file);
+  }
 function render(){
  const root=document.getElementById("matches");
  const sorted=[...matches].sort((a,b)=>Number(b.id)-Number(a.id));
@@ -272,6 +306,8 @@ function render(){
 }
 render();
  document.getElementById("exportBackup").addEventListener("click",exportBackup);
+ document.getElementById("importBackup").addEventListener("click",()=>document.getElementById("importFile").click());
+document.getElementById("importFile").addEventListener("change",importBackup);
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-page]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");window.scrollTo(0,0)}));
 const addPanel=document.getElementById("addPanel");
 document.getElementById("showAdd").addEventListener("click",()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth",block:"start"});});
