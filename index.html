@@ -96,8 +96,8 @@ const starterMatches=[
 {id:"007",home:"Vietnam U23",away:"Thailand U23",league:"ฟุตบอลทีมชาติ U23",date:"2026-11-10",time:"19:00",selectedTeam:"Thailand U23",handicap:"",prob:"32%",pred:"1-2"},
 {id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"2026-11-10",time:"ยังไม่ยืนยัน",selectedTeam:"CE Sabadell",handicap:"",prob:"61%",pred:"1-0"},
 {id:"005",home:"CSKA Sofia II",away:"Rilski Sportist",league:"ลีกบัลแกเรีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"CSKA Sofia II",handicap:"",prob:"62%",pred:"2-0"},
-{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Olympic MobiUz",handicap:"-1.5",prob:"58%",pred:"1-2"},
-{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Shurtan Guzor",handicap:"-1.5",prob:"72%",pred:"2-0"},
+{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Olympic MobiUz",handicap:"-1.5",prob:"58%",pred:"1-2",finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
+{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Shurtan Guzor",handicap:"-1.5",prob:"72%",pred:"2-0",finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
 {id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Metallurg Bekabad",handicap:"0",prob:"38%",pred:"1-1",finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
 {id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"FC Iberia 1999",handicap:"-1.25",prob:"68%",pred:"2-0"}
 ];
@@ -107,10 +107,23 @@ const verifiedResults={
  "004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}
 };
 function inferSelection(m){
+ const known={
+  "001":{selectedTeam:"FC Iberia 1999",handicap:"-1.25"},
+  "002":{selectedTeam:"Metallurg Bekabad",handicap:"0"},
+  "003":{selectedTeam:"Shurtan Guzor",handicap:"-1.5"},
+  "004":{selectedTeam:"Olympic MobiUz",handicap:"-1.5"},
+  "005":{selectedTeam:"CSKA Sofia II",handicap:""},
+  "006":{selectedTeam:"CE Sabadell",handicap:""},
+  "007":{selectedTeam:"Thailand U23",handicap:""}
+ };
+ const saved=known[String(m.id)];
+ if(saved){
+  return {selectedTeam:saved.selectedTeam,handicap:saved.handicap};
+ }
  const old=String(m.market||"");
  const teams=[m.home,m.away].filter(Boolean);
  let selected=m.selectedTeam||"";
- if(!selected){
+ if(!selected||selected==="ไม่ระบุ"){
   selected=teams.find(t=>old.toLowerCase().includes(String(t).toLowerCase()))||"";
   if(!selected&&/เจ้าบ้าน/.test(old))selected=m.home||"";
   if(!selected&&/ทีมเยือน/.test(old))selected=m.away||"";
