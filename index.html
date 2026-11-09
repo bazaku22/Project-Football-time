@@ -192,12 +192,52 @@ function formatDate(value){
  if(p.length!==3)return value;
  return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
 }
-function updateStats(){
+function calculateHandicapResult(record,finalScore){
+ const selected=String(record.selectedTeam||"").trim();
+ const home=String(record.home||"").trim();
+ const away=String(record.away||"").trim();
+ const handicap=String(record.handicap??"").trim();
+ const score=String(finalScore||"").trim();
+
+ if(!selected||!handicap||!score)return null;
+ if(selected!==home&&selected!==away)return null;
+
+ const parsed=score.match(/^(\d{1,2})-(\d{1,2})$/);
+ if(!parsed)return null;
+
+ const h=Number(handicap);
+ if(!Number.isFinite(h)||Math.abs(h*4-Math.round(h*4))>0.000001)return null;
+
+ const homeGoals=Number(parsed[1]);
+ const awayGoals=Number(parsed[2]);
+ const goalDiff=selected===home
+  ?homeGoals-awayGoals
+  :awayGoals-homeGoals;
+
+ const quarter=Math.abs(Math.round(h*4))%2===1;
+ const lines=quarter?[h-0.25,h+0.25]:[h];
+
+ const outcomes=lines.map(line=>{
+  const total=goalDiff+line;
+  return total>0?"win":total<0?"loss":"push";
+ });
+
+ if(outcomes.every(x=>x==="win"))return "ชนะเต็ม";
+ if(outcomes.every(x=>x==="loss"))return "แพ้เต็ม";
+ if(outcomes.every(x=>x==="push"))return "คืนทุน";
+ if(outcomes.includes("win")&&outcomes.includes("push"))return "ชนะครึ่ง";
+ if(outcomes.includes("loss")&&outcomes.includes("push"))return "แพ้ครึ่ง";
+
+ return null;
+}
+ function updateStats(){
  const count=matches.length;
- const checked=matches.filter(m=>m.resultStatus).length;
- const passed=matches.filter(m=>m.resultStatus==="ผ่าน").length;
- const failed=matches.filter(m=>m.resultStatus==="ไม่ผ่าน").length;
+ const validStatuses=["ผ่าน","ไม่ผ่าน","คืนทุน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"];
+ const checked=matches.filter(m=>validStatuses.includes(m.resultStatus)).length;
+ const passed=matches.filter(m=>["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus)).length;
+ const failed=matches.filter(m=>["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus)).length;
  const pushed=matches.filter(m=>m.resultStatus==="คืนทุน").length;
+
  document.getElementById("count").textContent=String(count).padStart(2,"0");
  document.getElementById("checkedCount").textContent=checked;
  document.getElementById("goal").textContent=count+"/20";
@@ -206,7 +246,11 @@ function updateStats(){
  document.getElementById("statPassed").textContent=passed+" คู่";
  document.getElementById("statFailed").textContent=failed+" คู่";
  document.getElementById("statPush").textContent=pushed+" คู่";
- document.getElementById("statAccuracy").textContent=checked?(passed/checked*100).toFixed(0)+"%":"—";
+
+ const accuracyTotal=matches.filter(m=>["ผ่าน","ไม่ผ่าน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"].includes(m.resultStatus));
+ const accuracyScore=accuracyTotal.reduce((sum,m)=>sum+(["ผ่าน","ชนะเต็ม"].includes(m.resultStatus)?1:m.resultStatus==="ชนะครึ่ง"?0.5:0),0);
+
+ document.getElementById("statAccuracy").textContent=accuracyTotal.length?(accuracyScore/accuracyTotal.length*100).toFixed(0)+"%":"—";
 }function exportBackup(){
  try{
   const raw=localStorage.getItem(STORAGE_KEY);
@@ -282,13 +326,16 @@ function render(){
  <div><span class="label">แฮนดิแคปของทีมที่เลือก</span><span class="${m.handicap?'handicap':'missing'}">${m.handicap?escapeHTML(m.handicap):"ไม่ระบุ"}</span></div>
  <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob||"—")}</span></div>
  <div><span class="label">สกอร์คาดการณ์</span><span class="value">${escapeHTML(m.pred||"ยังไม่ระบุ")}</span></div></div>
- <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status ${m.resultStatus==='ผ่าน'?'pass':m.resultStatus==='ไม่ผ่าน'?'fail':m.resultStatus?'push':''}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
+ <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status ${["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus)?"pass":["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus)?"fail":m.resultStatus==="คืนทุน"?"push":""}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
  <button class="detail" aria-expanded="false">ดูรายละเอียด ＋</button>
  <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${escapeHTML(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${escapeHTML(m.finalScore)}</b><br>ผลทดสอบ: <b>${escapeHTML(m.resultStatus)}</b><br><span class="small">${escapeHTML(m.resultSource||"")}</span>`:"ยังไม่ได้บันทึกผลการแข่งขันจริง"}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
  <button class="result-button" data-result-id="${escapeHTML(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
  <form class="result-form" data-result-form="${escapeHTML(m.id)}">
   <div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="finalScore" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="เช่น 2-1" value="${escapeHTML(m.finalScore||"")}"></div>
-  <div class="field"><label>ผลการทดสอบ</label><select name="resultStatus" required><option value="">เลือกผลการทดสอบ</option><option value="ผ่าน" ${m.resultStatus==="ผ่าน"?"selected":""}>ผ่าน</option><option value="ไม่ผ่าน" ${m.resultStatus==="ไม่ผ่าน"?"selected":""}>ไม่ผ่าน</option><option value="คืนทุน" ${m.resultStatus==="คืนทุน"?"selected":""}>คืนทุน / เสมอ</option></select></div>
+  <div class="field">
+ <label>ผลการทดสอบอัตโนมัติ</label>
+ <div class="result-status">ระบบจะคำนวณจากสกอร์จริงและ Handicap</div>
+</div>
   <div class="form-actions"><button class="primary" type="submit">บันทึกผลจริง</button><button class="secondary" type="button" data-cancel-result="${escapeHTML(m.id)}">ยกเลิก</button></div>
  </form>
  </article>`).join("")||'<div class="empty">ยังไม่มีรายการ</div>';
@@ -297,10 +344,37 @@ function render(){
  root.querySelectorAll("[data-cancel-result]").forEach(b=>b.addEventListener("click",()=>{root.querySelector(`[data-result-form="${b.dataset.cancelResult}"]`).classList.remove("open");}));
  root.querySelectorAll("[data-result-form]").forEach(form=>form.addEventListener("submit",e=>{
   e.preventDefault();const id=form.dataset.resultForm;const record=matches.find(x=>x.id===id);if(!record)return;
-  const data=new FormData(form);const old={finalScore:record.finalScore,resultStatus:record.resultStatus,resultSource:record.resultSource};
-  record.finalScore=String(data.get("finalScore")).trim();record.resultStatus=String(data.get("resultStatus"));record.resultSource="บันทึกผลในแอปโดยผู้ใช้";
-  if(!saveMatches()){Object.assign(record,old);return;}
-  render();alert("บันทึกผลหลังแข่ง TEST #"+id+" เรียบร้อยแล้ว");
+  const data=new FormData(form);
+const finalScore=String(data.get("finalScore")).trim();
+const handicap=String(record.handicap??"").trim();
+const resultStatus=handicap
+ ?calculateHandicapResult(record,finalScore)
+ :"ไม่มี Handicap";
+
+if(handicap&&!resultStatus){
+ alert("คำนวณผลไม่ได้ กรุณาตรวจสอบทีมที่เลือก สกอร์จริง และค่า Handicap");
+ return;
+}
+
+const old={
+ finalScore:record.finalScore,
+ resultStatus:record.resultStatus,
+ resultSource:record.resultSource
+};
+
+record.finalScore=finalScore;
+record.resultStatus=resultStatus;
+record.resultSource=handicap
+ ?"คำนวณอัตโนมัติจากสกอร์จริงและ Handicap"
+ :"บันทึกสกอร์จริง (ไม่มี Handicap สำหรับคำนวณ)";
+
+if(!saveMatches()){
+ Object.assign(record,old);
+ return;
+}
+
+render();
+alert("บันทึกผล TEST #"+id+" สำเร็จ: "+resultStatus);
  }));
  updateStats();
 }
