@@ -15,12 +15,12 @@ h1{font-size:18px;margin:0;letter-spacing:.4px}.sub{font-size:11px;color:var(--m
 main{padding:16px;max-width:720px;margin:auto;padding-bottom:90px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}.stat{background:var(--panel);border-radius:13px;padding:13px 10px}.stat b{font-size:23px;display:block}.stat span{font-size:11px;color:var(--muted)}
 .sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.sectionhead h2{font-size:16px;margin:0}.small{font-size:11px;color:var(--muted)}
-.filters{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap}.filters button,.nav button{border:1px solid var(--line);background:transparent;color:#dce5eb;border-radius:20px;padding:8px 13px;font-size:12px}.filters button.active{background:#24483f;border-color:#397b68;color:#b7f3d9}
 .card{background:var(--panel);border:1px solid #263945;border-radius:15px;padding:14px;margin:10px 0}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:8px}.tag{font-size:10px;color:#d3e0e7;background:#30414d;padding:5px 8px;border-radius:7px}.date,.league{font-size:11px;color:var(--muted)}.teams{font-size:17px;font-weight:700;line-height:1.5;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.value{font-size:14px;font-weight:650}.odds{font-size:20px;color:var(--green);font-weight:750}.missing{color:var(--gold);font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.value{font-size:14px;font-weight:650}.handicap{font-size:20px;color:var(--green);font-weight:750}.missing{color:var(--gold);font-size:13px}
 .detail{width:100%;margin-top:12px;border:1px solid var(--line);background:#14232d;color:#dce5eb;border-radius:9px;padding:9px}.extra{display:none;background:#14232d;padding:10px;border-radius:9px;margin-top:9px;font-size:12px;color:#c2cfd7}.extra.open{display:block}
 .notice{color:var(--muted);font-size:11px;line-height:1.6;margin-top:16px}.empty{color:var(--muted);text-align:center;padding:25px}
 .nav{position:fixed;bottom:0;left:0;right:0;background:#14232d;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:4}.nav button{border:0;border-radius:9px;padding:8px 10px}.nav button.active{color:var(--green);background:#203b39}
+.nav button{background:transparent;color:#dce5eb;font-size:12px}
 .page{display:none}.page.active{display:block}
 table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;border-bottom:1px solid var(--line)}td:last-child{text-align:right}
 .primary{width:100%;border:0;border-radius:11px;background:#28785e;color:#fff;font-weight:700;padding:13px;font-size:14px;margin:4px 0 12px}
@@ -38,13 +38,13 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
 <main>
 <section id="home" class="page active">
  <div class="stats">
-  <div class="stat"><b id="count">06</b><span>คู่ที่บันทึก</span></div>
-  <div class="stat"><b id="totalStake">฿600</b><span>เงินจำลองสะสม</span></div>
-  <div class="stat"><b id="goal">6/20</b><span>เป้าหมายทดสอบ</span></div>
+  <div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div>
+  <div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div>
+  <div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div>
  </div>
  <button class="primary" id="showAdd">＋ เพิ่มรายการทดสอบ</button>
  <section id="addPanel" class="card" hidden>
-  <div class="sectionhead"><h2>เพิ่มรายการทดสอบก่อนแข่ง</h2><span class="small">บันทึกในเครื่องนี้</span></div>
+  <div class="sectionhead"><h2>เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><span class="small">บันทึกในเครื่องนี้</span></div>
   <form id="addForm">
    <div class="formgrid">
     <div class="field"><label for="homeTeam">ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70" placeholder="เช่น Team A"></div>
@@ -52,19 +52,17 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
     <div class="field full"><label for="league">ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90" placeholder="เช่น Premier League"></div>
     <div class="field"><label for="matchDate">วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div>
     <div class="field"><label for="matchTime">เวลาแข่งขัน</label><input id="matchTime" placeholder="เช่น 20:00 หรือยังไม่ยืนยัน" maxlength="30"></div>
-    <div class="field full"><label for="market">ตลาด / ตัวเลือกที่วิเคราะห์ *</label><input id="market" required maxlength="100" placeholder="เช่น เจ้าบ้านชนะ (1X2)"></div>
-    <div class="field"><label for="odds">ราคาอ้างอิง (ไม่บังคับ)</label><input id="odds" type="number" min="1.01" max="1000" step="0.01" placeholder="เช่น 1.85"></div>
+    <div class="field full"><label for="selectedTeam">ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70" placeholder="ระบุชื่อทีมที่โมเดลเลือก"></div>
+    <div class="field"><label for="handicap">แฮนดิแคป (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="เช่น -0.5 หรือ -1"></div>
     <div class="field"><label for="prob">โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" step="1" required placeholder="เช่น 62"></div>
-    <div class="field"><label for="stake">เงินจำลอง (บาท) *</label><input id="stake" type="number" min="1" max="1000000" step="1" value="100" required></div>
-    <div class="field"><label for="prediction">สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="เช่น 2-1"></div>
+    <div class="field full"><label for="prediction">สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="เช่น 2-1"></div>
    </div>
    <div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div>
   </form>
  </section>
  <div class="sectionhead"><h2>รายการที่ติดตาม</h2><span class="small">บันทึกก่อนแข่ง</span></div>
- <div class="filters"><button class="active" data-filter="all">ทั้งหมด</button><button data-filter="priced">มีราคา</button><button data-filter="unpriced">ไม่มีราคา</button></div>
  <div id="matches"></div>
- <p class="notice">หมายเหตุ: ราคาเป็นราคาอ้างอิงที่บันทึกไว้ ไม่ใช่ราคาสด เวลาแข่งขันบางคู่ยังไม่มีข้อมูลยืนยัน และสถานะผลการแข่งขันยังรอตรวจสอบ ห้ามใช้ข้อมูลตัวอย่างนี้เป็นคำแนะนำการเดิมพันเงินจริง ข้อมูลที่เพิ่มใหม่จะจัดเก็บในพื้นที่ของเบราว์เซอร์บนอุปกรณ์นี้</p>
+ <p class="notice">Project Football Time ใช้บันทึกคำวิเคราะห์ก่อนแข่งขันและตรวจสอบผลจริง แฮนดิแคปจะแสดงเฉพาะตัวเลือกของทีมที่โมเดลเลือก ข้อมูลที่เพิ่มใหม่จัดเก็บในเบราว์เซอร์บนอุปกรณ์นี้</p>
 </section>
 <section id="fixtures" class="page">
  <div class="sectionhead"><h2>โปรแกรมแข่งขัน</h2><span class="small">รอเชื่อมข้อมูลสด</span></div>
@@ -72,17 +70,16 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
 </section>
 <section id="analysis" class="page">
  <div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div>
- <div class="card"><div class="value">หลักการของโมเดล</div><p class="small">แยกความน่าจะเป็นออกจากความคุ้มค่าของราคา · บันทึกก่อนแข่ง · ไม่แก้คำทำนายย้อนหลัง · เงินจำลองตามที่กำหนดในแต่ละคู่</p></div>
+ <div class="card"><div class="value">หลักการของโมเดล</div><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลการแข่งขันจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div>
 </section>
 <section id="stats" class="page">
  <div class="sectionhead"><h2>สถิติและประวัติ</h2></div>
  <div class="card"><table>
- <tr><td>คู่ที่บันทึก</td><td id="statCount">6 / 20</td></tr>
- <tr><td>เงินจำลองสะสม</td><td id="statStake">600 บาท</td></tr>
- <tr><td>คู่ที่มีราคาอ้างอิงในฐาน</td><td id="statPriced">2 คู่</td></tr>
- <tr><td>ROI</td><td>ยังคำนวณไม่ได้</td></tr>
+ <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr>
  <tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr>
  <tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr>
+ <tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr>
+ <tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr>
  <tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
  </table></div>
 </section>
@@ -96,18 +93,53 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
 <script>
 const STORAGE_KEY="pft_matches_v1";
 const starterMatches=[
-{id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"2026-11-10",time:"ยังไม่ยืนยัน",market:"เจ้าบ้านชนะ (1X2)",odds:"1.72",prob:"61%",stake:100,pred:"1-0"},
-{id:"005",home:"CSKA Sofia II",away:"Rilski Sportist",league:"ลีกบัลแกเรีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"เจ้าบ้านชนะ (1X2)",odds:"1.66",prob:"62%",stake:100,pred:"2-0"},
-{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Olympic -1.5",odds:null,prob:"58%",stake:100,pred:"1-2"},
-{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Shurtan -1.5",odds:null,prob:"72%",stake:100,pred:"2-0"},
-{id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Metallurg DNB (0)",odds:null,prob:"38%",stake:100,pred:"1-1"},
-{id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Iberia -1.25",odds:null,prob:"68%",stake:100,pred:"2-0"}
+{id:"007",home:"Vietnam U23",away:"Thailand U23",league:"ฟุตบอลทีมชาติ U23",date:"2026-11-10",time:"19:00",selectedTeam:"Thailand U23",handicap:"",prob:"32%",pred:"1-2"},
+{id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"2026-11-10",time:"ยังไม่ยืนยัน",selectedTeam:"CE Sabadell",handicap:"",prob:"61%",pred:"1-0"},
+{id:"005",home:"CSKA Sofia II",away:"Rilski Sportist",league:"ลีกบัลแกเรีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"CSKA Sofia II",handicap:"",prob:"62%",pred:"2-0"},
+{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Olympic MobiUz",handicap:"-1.5",prob:"58%",pred:"1-2"},
+{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Shurtan Guzor",handicap:"-1.5",prob:"72%",pred:"2-0"},
+{id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Metallurg Bekabad",handicap:"0",prob:"38%",pred:"1-1",finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
+{id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"FC Iberia 1999",handicap:"-1.25",prob:"68%",pred:"2-0"}
 ];
 const verifiedResults={
  "002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
  "003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
  "004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}
 };
+function inferSelection(m){
+ const old=String(m.market||"");
+ const teams=[m.home,m.away].filter(Boolean);
+ let selected=m.selectedTeam||"";
+ if(!selected){
+  selected=teams.find(t=>old.toLowerCase().includes(String(t).toLowerCase()))||"";
+  if(!selected&&/เจ้าบ้าน/.test(old))selected=m.home||"";
+  if(!selected&&/ทีมเยือน/.test(old))selected=m.away||"";
+  if(!selected&&/Thailand U23/.test(old))selected="Thailand U23";
+ }
+ let handicap=m.handicap??"";
+ if(!handicap){
+  const match=old.match(/([+-]?\d+(?:\.\d+)?)/);
+  if(match&&!/1X2/i.test(old))handicap=match[1];
+ }
+ return {selectedTeam:selected||"ไม่ระบุ",handicap:String(handicap||"")};
+}
+function migrateRecord(m){
+ const selection=inferSelection(m);
+ m.selectedTeam=selection.selectedTeam;
+ m.handicap=selection.handicap;
+ delete m.market;
+ delete m.odds;
+ delete m.stake;
+ delete m.stakeAmount;
+ delete m.return;
+ delete m.returns;
+ delete m.payout;
+ delete m.profit;
+ delete m.loss;
+ delete m.roi;
+ delete m.bookmakerOdds;
+ return m;
+}
 function loadMatches(){
  try{
   const saved=localStorage.getItem(STORAGE_KEY);
@@ -115,14 +147,20 @@ function loadMatches(){
    const parsed=JSON.parse(saved);
    if(Array.isArray(parsed)){
     let changed=false;
-    parsed.forEach(m=>{const result=verifiedResults[m.id];if(result&&!m.resultStatus){Object.assign(m,result);changed=true;}});
+    parsed.forEach(m=>{
+     const before=JSON.stringify(m);
+     migrateRecord(m);
+     const result=verifiedResults[m.id];
+     if(result&&!m.resultStatus)Object.assign(m,result);
+     if(before!==JSON.stringify(m))changed=true;
+    });
     if(changed)localStorage.setItem(STORAGE_KEY,JSON.stringify(parsed));
     return parsed;
    }
   }
   localStorage.setItem(STORAGE_KEY,JSON.stringify(starterMatches));
  }catch(e){console.warn("Local storage unavailable",e);}
- return starterMatches.slice();
+ return starterMatches.map(m=>({...m}));
 }
 let matches=loadMatches();
 function saveMatches(){
@@ -138,43 +176,42 @@ function formatDate(value){
  if(p.length!==3)return value;
  return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
 }
-function money(n){return "฿"+Number(n||0).toLocaleString("th-TH");}
 function updateStats(){
- const count=matches.length, total=matches.reduce((s,m)=>s+Number(m.stake||0),0);
- const priced=matches.filter(m=>m.odds!==null&&m.odds!==""&&m.odds!==undefined).length;
+ const count=matches.length;
  const checked=matches.filter(m=>m.resultStatus).length;
  const passed=matches.filter(m=>m.resultStatus==="ผ่าน").length;
+ const failed=matches.filter(m=>m.resultStatus==="ไม่ผ่าน").length;
+ const pushed=matches.filter(m=>m.resultStatus==="คืนทุน").length;
  document.getElementById("count").textContent=String(count).padStart(2,"0");
- document.getElementById("totalStake").textContent=money(total);
+ document.getElementById("checkedCount").textContent=checked;
  document.getElementById("goal").textContent=count+"/20";
  document.getElementById("statCount").textContent=count+" / 20";
- document.getElementById("statStake").textContent=total.toLocaleString("th-TH")+" บาท";
- document.getElementById("statPriced").textContent=priced+" คู่";
  document.getElementById("statChecked").textContent=checked+" คู่";
  document.getElementById("statPassed").textContent=passed+" คู่";
+ document.getElementById("statFailed").textContent=failed+" คู่";
+ document.getElementById("statPush").textContent=pushed+" คู่";
  document.getElementById("statAccuracy").textContent=checked?(passed/checked*100).toFixed(0)+"%":"—";
 }
-function render(filter="all"){
+function render(){
  const root=document.getElementById("matches");
  const sorted=[...matches].sort((a,b)=>Number(b.id)-Number(a.id));
- const list=sorted.filter(m=>filter==="all"||(filter==="priced"?(m.odds!==null&&m.odds!==""):(m.odds===null||m.odds==="")));
- root.innerHTML=list.map(m=>`<article class="card">
+ root.innerHTML=sorted.map(m=>`<article class="card">
  <div class="topline"><span class="tag">TEST #${escapeHTML(m.id)}</span><span class="date">${escapeHTML(formatDate(m.date))} · ${escapeHTML(m.time||"ยังไม่ยืนยัน")}</span></div>
  <div class="league">${escapeHTML(m.league)}</div><div class="teams">${escapeHTML(m.home)}<div class="vs">VS</div>${escapeHTML(m.away)}</div>
- <div class="grid"><div><span class="label">ตลาดที่เลือก</span><span class="value">${escapeHTML(m.market)}</span></div>
- <div><span class="label">ราคาอ้างอิง</span><span class="${m.odds?'odds':'missing'}">${m.odds?escapeHTML(m.odds):"ไม่มีข้อมูล"}</span></div>
- <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob)}</span></div>
- <div><span class="label">เงินจำลอง</span><span class="value">${escapeHTML(m.stake)} บาท</span></div></div>
- <div class="topline"><span class="small">ผลหลังแข่ง</span><span class="result-status ${m.resultStatus==='ผ่าน'?'pass':m.resultStatus==='ไม่ผ่าน'?'fail':m.resultStatus?'push':''}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
+ <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${escapeHTML(m.selectedTeam||"ไม่ระบุ")}</span></div>
+ <div><span class="label">แฮนดิแคปของทีมที่เลือก</span><span class="${m.handicap?'handicap':'missing'}">${m.handicap?escapeHTML(m.handicap):"ไม่ระบุ"}</span></div>
+ <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob||"—")}</span></div>
+ <div><span class="label">สกอร์คาดการณ์</span><span class="value">${escapeHTML(m.pred||"ยังไม่ระบุ")}</span></div></div>
+ <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status ${m.resultStatus==='ผ่าน'?'pass':m.resultStatus==='ไม่ผ่าน'?'fail':m.resultStatus?'push':''}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
  <button class="detail" aria-expanded="false">ดูรายละเอียด ＋</button>
  <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${escapeHTML(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${escapeHTML(m.finalScore)}</b><br>ผลทดสอบ: <b>${escapeHTML(m.resultStatus)}</b><br><span class="small">${escapeHTML(m.resultSource||"")}</span>`:"ยังไม่ได้บันทึกผลการแข่งขันจริง"}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
  <button class="result-button" data-result-id="${escapeHTML(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
  <form class="result-form" data-result-form="${escapeHTML(m.id)}">
   <div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="finalScore" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="เช่น 2-1" value="${escapeHTML(m.finalScore||"")}"></div>
-  <div class="field"><label>ผลการทดสอบตามตลาดที่เลือก</label><select name="resultStatus" required><option value="">เลือกผลการทดสอบ</option><option value="ผ่าน" ${m.resultStatus==="ผ่าน"?"selected":""}>ผ่าน</option><option value="ไม่ผ่าน" ${m.resultStatus==="ไม่ผ่าน"?"selected":""}>ไม่ผ่าน</option><option value="คืนทุน" ${m.resultStatus==="คืนทุน"?"selected":""}>คืนทุน / เสมอ</option></select></div>
+  <div class="field"><label>ผลการทดสอบ</label><select name="resultStatus" required><option value="">เลือกผลการทดสอบ</option><option value="ผ่าน" ${m.resultStatus==="ผ่าน"?"selected":""}>ผ่าน</option><option value="ไม่ผ่าน" ${m.resultStatus==="ไม่ผ่าน"?"selected":""}>ไม่ผ่าน</option><option value="คืนทุน" ${m.resultStatus==="คืนทุน"?"selected":""}>คืนทุน / เสมอ</option></select></div>
   <div class="form-actions"><button class="primary" type="submit">บันทึกผลจริง</button><button class="secondary" type="button" data-cancel-result="${escapeHTML(m.id)}">ยกเลิก</button></div>
  </form>
- </article>`).join("")||'<div class="empty">ไม่พบรายการ</div>';
+ </article>`).join("")||'<div class="empty">ยังไม่มีรายการ</div>';
  root.querySelectorAll(".detail").forEach(b=>b.addEventListener("click",()=>{const x=b.nextElementSibling;x.classList.toggle("open");b.textContent=x.classList.contains("open")?"ซ่อนรายละเอียด −":"ดูรายละเอียด ＋";}));
  root.querySelectorAll("[data-result-id]").forEach(b=>b.addEventListener("click",()=>{const f=root.querySelector(`[data-result-form="${b.dataset.resultId}"]`);f.classList.toggle("open");}));
  root.querySelectorAll("[data-cancel-result]").forEach(b=>b.addEventListener("click",()=>{root.querySelector(`[data-result-form="${b.dataset.cancelResult}"]`).classList.remove("open");}));
@@ -183,12 +220,11 @@ function render(filter="all"){
   const data=new FormData(form);const old={finalScore:record.finalScore,resultStatus:record.resultStatus,resultSource:record.resultSource};
   record.finalScore=String(data.get("finalScore")).trim();record.resultStatus=String(data.get("resultStatus"));record.resultSource="บันทึกผลในแอปโดยผู้ใช้";
   if(!saveMatches()){Object.assign(record,old);return;}
-  render(filter);alert("บันทึกผลหลังแข่ง TEST #"+id+" เรียบร้อยแล้ว");
+  render();alert("บันทึกผลหลังแข่ง TEST #"+id+" เรียบร้อยแล้ว");
  }));
  updateStats();
 }
 render();
-document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render(b.dataset.filter)}));
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-page]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");window.scrollTo(0,0)}));
 const addPanel=document.getElementById("addPanel");
 document.getElementById("showAdd").addEventListener("click",()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth",block:"start"});});
@@ -196,7 +232,6 @@ document.getElementById("cancelAdd").addEventListener("click",()=>{addPanel.hidd
 document.getElementById("addForm").addEventListener("submit",e=>{
  e.preventDefault();
  const nextId=String(Math.max(0,...matches.map(m=>Number(m.id)||0))+1).padStart(3,"0");
- const oddsValue=document.getElementById("odds").value.trim();
  const record={
   id:nextId,
   home:document.getElementById("homeTeam").value.trim(),
@@ -204,20 +239,16 @@ document.getElementById("addForm").addEventListener("submit",e=>{
   league:document.getElementById("league").value.trim(),
   date:document.getElementById("matchDate").value,
   time:document.getElementById("matchTime").value.trim()||"ยังไม่ยืนยัน",
-  market:document.getElementById("market").value.trim(),
-  odds:oddsValue?Number(oddsValue).toFixed(2):null,
+  selectedTeam:document.getElementById("selectedTeam").value.trim(),
+  handicap:document.getElementById("handicap").value.trim(),
   prob:document.getElementById("prob").value.trim()+"%",
-  stake:Number(document.getElementById("stake").value),
   pred:document.getElementById("prediction").value.trim()
  };
  matches.push(record);
  if(!saveMatches()){matches.pop();return;}
  render();
  document.getElementById("addForm").reset();
- document.getElementById("stake").value=100;
  addPanel.hidden=true;
- document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));
- document.querySelector('[data-filter="all"]').classList.add("active");
  alert("บันทึกรายการ TEST #"+nextId+" เรียบร้อยแล้ว");
  window.scrollTo(0,0);
 });
