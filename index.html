@@ -28,6 +28,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:var(--muted)}
 .field input{width:100%;min-width:0;background:#101c24;border:1px solid #405461;border-radius:9px;padding:11px;color:#fff;font:inherit}
 .form-actions{display:flex;gap:9px;margin-top:14px}.form-actions button{flex:1}
+.result-form{display:none;margin-top:10px;padding:11px;background:#101c24;border:1px solid var(--line);border-radius:10px}.result-form.open{display:block}.result-form .field{margin-bottom:9px}.result-form select,.result-form input{width:100%;background:#1b2934;border:1px solid #405461;border-radius:9px;padding:10px;color:#fff;font:inherit}.result-button{width:100%;margin-top:10px;border:1px solid #397b68;background:#193c37;color:#b7f3d9;border-radius:9px;padding:10px;font-weight:650}.result-status{font-size:11px;padding:4px 8px;border-radius:7px;background:#30414d;color:#d3e0e7}.result-status.pass{background:#174a38;color:#a8f0cc}.result-status.fail{background:#542d32;color:#ffc0c0}.result-status.push{background:#55452b;color:#ffe0a1}
 @media(max-width:380px){.stats{gap:6px}.stat{padding:10px 7px}.stat b{font-size:20px}.nav button{font-size:11px;padding:8px 7px}}
 @media(min-width:600px){.teams{font-size:19px}.card{padding:18px}}
 </style>
@@ -80,7 +81,9 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
  <tr><td>เงินจำลองสะสม</td><td id="statStake">600 บาท</td></tr>
  <tr><td>คู่ที่มีราคาอ้างอิงในฐาน</td><td id="statPriced">2 คู่</td></tr>
  <tr><td>ROI</td><td>ยังคำนวณไม่ได้</td></tr>
- <tr><td>ผลที่ยืนยันแล้ว</td><td>ยังไม่มีข้อมูลยืนยัน</td></tr>
+ <tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr>
+ <tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr>
+ <tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
  </table></div>
 </section>
 </main>
@@ -100,10 +103,23 @@ const starterMatches=[
 {id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Metallurg DNB (0)",odds:null,prob:"38%",stake:100,pred:"1-1"},
 {id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",market:"Iberia -1.25",odds:null,prob:"68%",stake:100,pred:"2-0"}
 ];
+const verifiedResults={
+ "002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
+ "003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
+ "004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}
+};
 function loadMatches(){
  try{
   const saved=localStorage.getItem(STORAGE_KEY);
-  if(saved){const parsed=JSON.parse(saved);if(Array.isArray(parsed))return parsed;}
+  if(saved){
+   const parsed=JSON.parse(saved);
+   if(Array.isArray(parsed)){
+    let changed=false;
+    parsed.forEach(m=>{const result=verifiedResults[m.id];if(result&&!m.resultStatus){Object.assign(m,result);changed=true;}});
+    if(changed)localStorage.setItem(STORAGE_KEY,JSON.stringify(parsed));
+    return parsed;
+   }
+  }
   localStorage.setItem(STORAGE_KEY,JSON.stringify(starterMatches));
  }catch(e){console.warn("Local storage unavailable",e);}
  return starterMatches.slice();
@@ -126,12 +142,17 @@ function money(n){return "฿"+Number(n||0).toLocaleString("th-TH");}
 function updateStats(){
  const count=matches.length, total=matches.reduce((s,m)=>s+Number(m.stake||0),0);
  const priced=matches.filter(m=>m.odds!==null&&m.odds!==""&&m.odds!==undefined).length;
+ const checked=matches.filter(m=>m.resultStatus).length;
+ const passed=matches.filter(m=>m.resultStatus==="ผ่าน").length;
  document.getElementById("count").textContent=String(count).padStart(2,"0");
  document.getElementById("totalStake").textContent=money(total);
  document.getElementById("goal").textContent=count+"/20";
  document.getElementById("statCount").textContent=count+" / 20";
  document.getElementById("statStake").textContent=total.toLocaleString("th-TH")+" บาท";
  document.getElementById("statPriced").textContent=priced+" คู่";
+ document.getElementById("statChecked").textContent=checked+" คู่";
+ document.getElementById("statPassed").textContent=passed+" คู่";
+ document.getElementById("statAccuracy").textContent=checked?(passed/checked*100).toFixed(0)+"%":"—";
 }
 function render(filter="all"){
  const root=document.getElementById("matches");
@@ -144,10 +165,26 @@ function render(filter="all"){
  <div><span class="label">ราคาอ้างอิง</span><span class="${m.odds?'odds':'missing'}">${m.odds?escapeHTML(m.odds):"ไม่มีข้อมูล"}</span></div>
  <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob)}</span></div>
  <div><span class="label">เงินจำลอง</span><span class="value">${escapeHTML(m.stake)} บาท</span></div></div>
+ <div class="topline"><span class="small">ผลหลังแข่ง</span><span class="result-status ${m.resultStatus==='ผ่าน'?'pass':m.resultStatus==='ไม่ผ่าน'?'fail':m.resultStatus?'push':''}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
  <button class="detail" aria-expanded="false">ดูรายละเอียด ＋</button>
- <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${escapeHTML(m.pred||"ยังไม่ระบุ")}</b><br>สถานะ: รอตรวจสอบผลจริง<br>ข้อมูลราคาและเวลาไม่ถูกเติมขึ้นเอง</div>
+ <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${escapeHTML(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${escapeHTML(m.finalScore)}</b><br>ผลทดสอบ: <b>${escapeHTML(m.resultStatus)}</b><br><span class="small">${escapeHTML(m.resultSource||"")}</span>`:"ยังไม่ได้บันทึกผลการแข่งขันจริง"}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
+ <button class="result-button" data-result-id="${escapeHTML(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
+ <form class="result-form" data-result-form="${escapeHTML(m.id)}">
+  <div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="finalScore" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="เช่น 2-1" value="${escapeHTML(m.finalScore||"")}"></div>
+  <div class="field"><label>ผลการทดสอบตามตลาดที่เลือก</label><select name="resultStatus" required><option value="">เลือกผลการทดสอบ</option><option value="ผ่าน" ${m.resultStatus==="ผ่าน"?"selected":""}>ผ่าน</option><option value="ไม่ผ่าน" ${m.resultStatus==="ไม่ผ่าน"?"selected":""}>ไม่ผ่าน</option><option value="คืนทุน" ${m.resultStatus==="คืนทุน"?"selected":""}>คืนทุน / เสมอ</option></select></div>
+  <div class="form-actions"><button class="primary" type="submit">บันทึกผลจริง</button><button class="secondary" type="button" data-cancel-result="${escapeHTML(m.id)}">ยกเลิก</button></div>
+ </form>
  </article>`).join("")||'<div class="empty">ไม่พบรายการ</div>';
  root.querySelectorAll(".detail").forEach(b=>b.addEventListener("click",()=>{const x=b.nextElementSibling;x.classList.toggle("open");b.textContent=x.classList.contains("open")?"ซ่อนรายละเอียด −":"ดูรายละเอียด ＋";}));
+ root.querySelectorAll("[data-result-id]").forEach(b=>b.addEventListener("click",()=>{const f=root.querySelector(`[data-result-form="${b.dataset.resultId}"]`);f.classList.toggle("open");}));
+ root.querySelectorAll("[data-cancel-result]").forEach(b=>b.addEventListener("click",()=>{root.querySelector(`[data-result-form="${b.dataset.cancelResult}"]`).classList.remove("open");}));
+ root.querySelectorAll("[data-result-form]").forEach(form=>form.addEventListener("submit",e=>{
+  e.preventDefault();const id=form.dataset.resultForm;const record=matches.find(x=>x.id===id);if(!record)return;
+  const data=new FormData(form);const old={finalScore:record.finalScore,resultStatus:record.resultStatus,resultSource:record.resultSource};
+  record.finalScore=String(data.get("finalScore")).trim();record.resultStatus=String(data.get("resultStatus"));record.resultSource="บันทึกผลในแอปโดยผู้ใช้";
+  if(!saveMatches()){Object.assign(record,old);return;}
+  render(filter);alert("บันทึกผลหลังแข่ง TEST #"+id+" เรียบร้อยแล้ว");
+ }));
  updateStats();
 }
 render();
