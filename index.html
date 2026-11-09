@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#101820">
+<title>Project Football Time</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f4f7f9;font:15px system-ui,-apple-system,"Noto Sans Thai",sans-serif}
+header{padding:22px 18px 14px;background:#14232d;position:sticky;top:0;z-index:3;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:#193c37;display:grid;place-items:center;font-size:22px}
+h1{font-size:18px;margin:0;letter-spacing:.4px}.sub{font-size:11px;color:var(--muted);margin-top:3px}
+main{padding:16px;max-width:720px;margin:auto;padding-bottom:90px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}.stat{background:var(--panel);border-radius:13px;padding:13px 10px}.stat b{font-size:23px;display:block}.stat span{font-size:11px;color:var(--muted)}
+.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.sectionhead h2{font-size:16px;margin:0}.small{font-size:11px;color:var(--muted)}
+.filters{display:flex;gap:7px;margin-bottom:12px}.filters button,.nav button{border:1px solid var(--line);background:transparent;color:#dce5eb;border-radius:20px;padding:8px 13px;font-size:12px}.filters button.active{background:#24483f;border-color:#397b68;color:#b7f3d9}
+.card{background:var(--panel);border:1px solid #263945;border-radius:15px;padding:14px;margin:10px 0}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.tag{font-size:10px;color:#d3e0e7;background:#30414d;padding:5px 8px;border-radius:7px}.date,.league{font-size:11px;color:var(--muted)}.teams{font-size:17px;font-weight:700;line-height:1.5;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.value{font-size:14px;font-weight:650}.odds{font-size:20px;color:var(--green);font-weight:750}.missing{color:var(--gold);font-size:13px}
+.detail{width:100%;margin-top:12px;border:1px solid var(--line);background:#14232d;color:#dce5eb;border-radius:9px;padding:9px}.extra{display:none;background:#14232d;padding:10px;border-radius:9px;margin-top:9px;font-size:12px;color:#c2cfd7}.extra.open{display:block}
+.notice{color:var(--muted);font-size:11px;line-height:1.6;margin-top:16px}.empty{color:var(--muted);text-align:center;padding:25px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#14232d;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:4}.nav button{border:0;border-radius:9px;padding:8px 10px}.nav button.active{color:var(--green);background:#203b39}
+.page{display:none}.page.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;border-bottom:1px solid var(--line)}td:last-child{text-align:right}
+@media(min-width:600px){.teams{font-size:19px}.card{padding:18px}}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · MODEL TRACKER</div></div></div></header>
+<main>
+<section id="home" class="page active">
+ <div class="stats">
+  <div class="stat"><b id="count">06</b><span>คู่ที่บันทึก</span></div>
+  <div class="stat"><b>฿600</b><span>เงินจำลองสะสม</span></div>
+  <div class="stat"><b>6/20</b><span>เป้าหมายทดสอบ</span></div>
+ </div>
+ <div class="sectionhead"><h2>รายการที่ติดตาม</h2><span class="small">บันทึกก่อนแข่ง</span></div>
+ <div class="filters"><button class="active" data-filter="all">ทั้งหมด</button><button data-filter="priced">มีราคา</button><button data-filter="unpriced">ไม่มีราคา</button></div>
+ <div id="matches"></div>
+ <p class="notice">หมายเหตุ: ราคาเป็นราคาอ้างอิงที่บันทึกไว้ ไม่ใช่ราคาสด เวลาแข่งขันบางคู่ยังไม่มีข้อมูลยืนยัน และสถานะผลการแข่งขันยังรอตรวจสอบ ห้ามใช้ข้อมูลตัวอย่างนี้เป็นคำแนะนำการเดิมพันเงินจริง</p>
+</section>
+<section id="fixtures" class="page">
+ <div class="sectionhead"><h2>โปรแกรมแข่งขัน</h2><span class="small">รอเชื่อมข้อมูลสด</span></div>
+ <div class="card"><div class="value">ยังไม่มีโปรแกรมสดที่เชื่อมต่อ</div><p class="small">ในรุ่นแรกจะแสดงเฉพาะข้อมูลที่บันทึกไว้และข้อมูลที่ยืนยันได้</p></div>
+</section>
+<section id="analysis" class="page">
+ <div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div>
+ <div class="card"><div class="value">หลักการของโมเดล</div><p class="small">แยกความน่าจะเป็นออกจากความคุ้มค่าของราคา · บันทึกก่อนแข่ง · ไม่แก้คำทำนายย้อนหลัง · เงินจำลอง 100 บาทต่อคู่</p></div>
+</section>
+<section id="stats" class="page">
+ <div class="sectionhead"><h2>สถิติและประวัติ</h2></div>
+ <div class="card"><table><tr><td>คู่ที่บันทึก</td><td>6 / 20</td></tr><tr><td>เงินจำลองสะสม</td><td>600 บาท</td></tr><tr><td>คู่ที่มีราคาอ้างอิงในฐาน</td><td>2 คู่</td></tr><tr><td>ROI</td><td>ยังคำนวณไม่ได้</td></tr><tr><td>ผลที่ยืนยันแล้ว</td><td>ยังไม่มีข้อมูลยืนยัน</td></tr></table></div>
+</section>
+</main>
+<nav class="nav">
+ <button class="active" data-page="home">⌂ หน้าหลัก</button>
+ <button data-page="fixtures">▤ โปรแกรม</button>
+ <button data-page="analysis">◎ วิเคราะห์</button>
+ <button data-page="stats">▥ สถิติ</button>
+</nav>
+<script>
+const matches=[
+{id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"10 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"เจ้าบ้านชนะ (1X2)",odds:"1.72",prob:"61%",stake:"100 บาท",pred:"1-0"},
+{id:"005",home:"CSKA Sofia II",away:"Rilski Sportist",league:"ลีกบัลแกเรีย",date:"9 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"เจ้าบ้านชนะ (1X2)",odds:"1.66",prob:"62%",stake:"100 บาท",pred:"2-0"},
+{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"9 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"Olympic -1.5",odds:null,prob:"58%",stake:"100 บาท",pred:"1-2"},
+{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"9 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"Shurtan -1.5",odds:null,prob:"72%",stake:"100 บาท",pred:"2-0"},
+{id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"9 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"Metallurg DNB (0)",odds:null,prob:"38%",stake:"100 บาท",pred:"1-1"},
+{id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"9 พ.ย. 2026",time:"ยังไม่ยืนยัน",market:"Iberia -1.25",odds:null,prob:"68%",stake:"100 บาท",pred:"2-0"}
+];
+function render(filter="all"){
+ const root=document.getElementById("matches");
+ const list=matches.filter(m=>filter==="all"||(filter==="priced"?!!m.odds:!m.odds));
+ root.innerHTML=list.map(m=>`<article class="card">
+ <div class="topline"><span class="tag">TEST #${m.id}</span><span class="date">${m.date} · ${m.time}</span></div>
+ <div class="league">${m.league}</div><div class="teams">${m.home}<div class="vs">VS</div>${m.away}</div>
+ <div class="grid"><div><span class="label">ตลาดที่เลือก</span><span class="value">${m.market}</span></div>
+ <div><span class="label">ราคาอ้างอิง</span><span class="${m.odds?'odds':'missing'}">${m.odds||'ไม่มีข้อมูล'}</span></div>
+ <div><span class="label">โอกาสตามโมเดล</span><span class="value">${m.prob}</span></div>
+ <div><span class="label">เงินจำลอง</span><span class="value">${m.stake}</span></div></div>
+ <button class="detail" aria-expanded="false">ดูรายละเอียด ＋</button>
+ <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${m.pred}</b><br>สถานะ: รอตรวจสอบผลจริง<br>ข้อมูลราคาและเวลาไม่ถูกเติมขึ้นเอง</div>
+ </article>`).join("")||'<div class="empty">ไม่พบรายการ</div>';
+ root.querySelectorAll(".detail").forEach(b=>b.addEventListener("click",()=>{const x=b.nextElementSibling;x.classList.toggle("open");b.textContent=x.classList.contains("open")?"ซ่อนรายละเอียด −":"ดูรายละเอียด ＋";}));
+}
+render();
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-filter]").forEach(x=>x.classList.remove("active"));b.classList.add("active");render(b.dataset.filter)}));
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-page]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");window.scrollTo(0,0)}));
+if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>

@@ -1,0 +1,9 @@
+{
+  "name": "Project Football Time",
+  "short_name": "Football Time",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#101820",
+  "theme_color": "#101820",
+  "description": "Personal football analysis tracker"
+}
