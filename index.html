@@ -43,6 +43,7 @@ table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;bor
   <div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div>
  </div>
  <button class="primary" id="showAdd">＋ เพิ่มรายการทดสอบ</button>
+ <button class="secondary" id="exportBackup" type="button">↓ สำรองข้อมูล (JSON)</button>
  <section id="addPanel" class="card" hidden>
   <div class="sectionhead"><h2>เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><span class="small">บันทึกในเครื่องนี้</span></div>
   <form id="addForm">
@@ -204,6 +205,38 @@ function updateStats(){
  document.getElementById("statFailed").textContent=failed+" คู่";
  document.getElementById("statPush").textContent=pushed+" คู่";
  document.getElementById("statAccuracy").textContent=checked?(passed/checked*100).toFixed(0)+"%":"—";
+}function exportBackup(){
+ try{
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(!raw){
+   alert("ไม่พบข้อมูลสำหรับสำรอง");
+   return;
+  }
+  const records=JSON.parse(raw);
+  if(!Array.isArray(records)){
+   alert("รูปแบบข้อมูลไม่ถูกต้อง ไม่สามารถสำรองได้");
+   return;
+  }
+  const backup={
+   app:"Project Football Time",
+   version:1,
+   exportedAt:new Date().toISOString(),
+   storageKey:STORAGE_KEY,
+   matches:records
+  };
+  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;
+  link.download="project-football-time-backup-"+new Date().toISOString().slice(0,10)+".json";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  alert("เริ่มดาวน์โหลดข้อมูลสำรองแล้ว จำนวน "+records.length+" รายการ");
+ }catch(error){
+  alert("สำรองข้อมูลไม่สำเร็จ: "+error.message);
+ }
 }
 function render(){
  const root=document.getElementById("matches");
@@ -238,6 +271,7 @@ function render(){
  updateStats();
 }
 render();
+ document.getElementById("exportBackup").addEventListener("click",exportBackup);
 document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-page]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");window.scrollTo(0,0)}));
 const addPanel=document.getElementById("addPanel");
 document.getElementById("showAdd").addEventListener("click",()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth",block:"start"});});
