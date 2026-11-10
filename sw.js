@@ -2,7 +2,8 @@ const CACHE = "football-time-v22";
 
 const ASSETS = [
   "./",
-  "./index.html",\n  "./css/ui-refresh.css",
+  "./index.html",
+  "./css/ui-refresh.css",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png",
