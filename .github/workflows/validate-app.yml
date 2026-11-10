@@ -18,7 +18,10 @@ on:
       - "scripts/build_probability_snapshots.py"
       - "scripts/match_player_sources.py"
       - "docs/phase-5.6-multi-source-foundation.md"
-      - "tests/test_probability_snapshots.py"\n      - "scripts/wyscout_event_pilot.py"\n      - "tests/test_wyscout_event_pilot.py"\n      - "docs/phase-5.6-wyscout-parser-pilot.md"
+      - "tests/test_probability_snapshots.py"
+      - "scripts/wyscout_event_pilot.py"
+      - "tests/test_wyscout_event_pilot.py"
+      - "docs/phase-5.6-wyscout-parser-pilot.md"
       - ".github/workflows/validate-app.yml"
       - ".github/workflows/update-football-database.yml"
   push:
@@ -89,7 +92,12 @@ jobs:
           python3 -m py_compile scripts/match_player_sources.py
           python3 scripts/match_player_sources.py --self-test
 
-      - name: Validate Wyscout local event parser pilot\n        run: |\n          python3 -m py_compile scripts/wyscout_event_pilot.py\n          python3 -m unittest tests/test_wyscout_event_pilot.py\n\n      - name: Validate probability snapshot builder
+      - name: Validate Wyscout local event parser pilot
+        run: |
+          python3 -m py_compile scripts/wyscout_event_pilot.py
+          python3 -m unittest tests/test_wyscout_event_pilot.py
+
+      - name: Validate probability snapshot builder
         run: |
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
