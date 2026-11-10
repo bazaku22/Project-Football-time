@@ -461,7 +461,10 @@ function teamSeasonMetrics(leagueId,season,teamId){
  return {games,home,away,formCount:form.length,formPPG:form.length?formPoints/form.length:0,formGFPG:form.length?formGF/form.length:0,formGAPG:form.length?formGA/form.length:0,standing,total};
 }
 function probabilitySnapshots(){
- try{const value=JSON.parse(localStorage.getItem(PROBABILITY_STORAGE_KEY)||"[]");return Array.isArray(value)?value.filter(x=>x&&typeof x.matchId==="string"&&x.probabilities&&Number.isFinite(x.probabilities.home)&&Number.isFinite(x.probabilities.draw)&&Number.isFinite(x.probabilities.away)):[];}catch(e){console.warn("Probability history could not be read",e);return [];}
+ let localRows=[];try{const value=JSON.parse(localStorage.getItem(PROBABILITY_STORAGE_KEY)||"[]");if(Array.isArray(value))localRows=value;}catch(e){console.warn("Local probability history could not be read",e);}
+ const serverRows=Array.isArray(footballDB?.probabilitySnapshots)?footballDB.probabilitySnapshots:[];
+ const merged=new Map();[...serverRows,...localRows].forEach(x=>{if(x&&typeof x.matchId==="string"&&x.probabilities&&Number.isFinite(x.probabilities.home)&&Number.isFinite(x.probabilities.draw)&&Number.isFinite(x.probabilities.away)&&!merged.has(x.matchId))merged.set(x.matchId,x);});
+ return [...merged.values()];
 }
 function saveProbabilitySnapshots(rows){
  try{localStorage.setItem(PROBABILITY_STORAGE_KEY,JSON.stringify(rows));return true;}catch(e){console.warn("Probability history could not be saved",e);return false;}
@@ -587,11 +590,11 @@ function renderProbabilityAnalysis(){
 function renderProbabilityAccuracy(){
  if(!footballDB)return;
  const snapshots=probabilitySnapshots(),byId=new Map((footballDB.matches||[]).map(m=>[String(m.providerMatchId),m]));
- const evaluated=snapshots.map(s=>({snapshot:s,match:byId.get(s.matchId)})).filter(x=>x.match&&x.match.status==="FINISHED"&&Number.isInteger(x.match.homeScore)&&Number.isInteger(x.match.awayScore)&&x.match.homeScore>=0&&x.match.awayScore>=0);
+ const evaluated=snapshots.map(s=>({snapshot:s,match:byId.get(s.matchId)})).map(x=>{if(x.snapshot.actualOutcome)return {...x,actualOutcome:x.snapshot.actualOutcome};const m=x.match;if(m&&m.status==="FINISHED"&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore)&&m.homeScore>=0&&m.awayScore>=0)return {...x,actualOutcome:m.homeScore>m.awayScore?"home":m.homeScore===m.awayScore?"draw":"away"};return null;}).filter(Boolean);
  let correct=0,brier=0,logLoss=0;
  const bins=[0,1,2,3,4,5,6,7,8,9].map(i=>({min:i/10,max:(i+1)/10,count:0,confidence:0,correct:0}));
- evaluated.forEach(({snapshot:s,match:m})=>{
-  const actual=m.homeScore>m.awayScore?"home":m.homeScore===m.awayScore?"draw":"away",pred=s.probabilities,chosen=["home","draw","away"].sort((a,b)=>pred[b]-pred[a])[0];
+ evaluated.forEach(({snapshot:s,match:m,actualOutcome})=>{
+  const actual=actualOutcome,pred=s.probabilities,chosen=["home","draw","away"].sort((a,b)=>pred[b]-pred[a])[0];
   if(chosen===actual)correct++;
   ["home","draw","away"].forEach(k=>{const target=k===actual?1:0;brier+=Math.pow(pred[k]/100-target,2);});
   logLoss-=Math.log(Math.max(0.0001,pred[actual]/100));
