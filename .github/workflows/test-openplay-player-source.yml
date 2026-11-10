@@ -36,8 +36,9 @@ jobs:
 
       - name: Compile and self-test
         run: |
-          python -m py_compile scripts/pilot_openplay_player_stats.py
+          python -m py_compile scripts/pilot_openplay_player_stats.py scripts/convert_openplay_to_player_database.py
           python scripts/pilot_openplay_player_stats.py --self-test
+          python scripts/convert_openplay_to_player_database.py --self-test
 
       - name: Run source coverage pilot
         if: github.event_name != 'pull_request'
