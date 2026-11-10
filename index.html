@@ -166,6 +166,18 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 </div>
 <div class="db-panel" id="dbtab-players">
  <div class="sectionhead"><h2>ฐานข้อมูลนักเตะและสถิติ</h2><span class="small">PHASE 5.6</span></div>
+ <div class="card" id="playerCloudAuth">
+  <div class="topline"><b>คลังนักเตะส่วนตัว (Private Cloud)</b><span class="tag">SUPABASE AUTH</span></div>
+  <div class="small" id="playerCloudStatus" role="status">ยังไม่ได้เข้าสู่ระบบ · ข้อมูลในคลาวด์จะแสดงเฉพาะบัญชีที่เข้าสู่ระบบ</div>
+  <div id="playerCloudLogin">
+   <div class="field"><label for="playerCloudEmail">อีเมลสำหรับเข้าสู่ระบบ</label><input id="playerCloudEmail" class="filter" type="email" autocomplete="email" placeholder="you@example.com"></div>
+   <button class="primary" id="playerCloudSendLink" type="button">ส่งลิงก์เข้าสู่ระบบทางอีเมล</button>
+  </div>
+  <div id="playerCloudSignedIn" hidden>
+   <div class="small" id="playerCloudUser"></div>
+   <div class="form-actions"><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div>
+  </div>
+ </div>
  <div class="card"><div class="small" id="playerDbStatus">กำลังโหลดฐานข้อมูลนักเตะ…</div>
   <div class="form-controls">
    <div class="field"><label for="playerLeagueFilter">ลีก</label><select id="playerLeagueFilter" class="filter"><option value="ALL">ทุกลีก</option></select></div>
@@ -735,4 +747,5 @@ loadFootballDatabase();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
 <script src="./js/player-database.js"></script>
+<script type="module" src="./js/player-cloud.js"></script>
 </body></html>
