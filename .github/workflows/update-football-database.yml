@@ -39,7 +39,6 @@ jobs:
           mkdir -p "$RUNNER_TEMP/football-data"
 
           codes=("PL" "PD" "BL1" "SA" "FL1")
-          failed=0
 
           for code in "${codes[@]}"; do
             echo "Fetching $code"
@@ -62,13 +61,13 @@ jobs:
 
               case "$endpoint" in
                 teams)
-                  jq -e '.teams | type == "array"' "$output" >/dev/null
+                  jq -e '.teams | type == "array" and length > 0' "$output" >/dev/null
                   ;;
                 matches)
                   jq -e '.matches | type == "array"' "$output" >/dev/null
                   ;;
                 standings)
-                  jq -e '.standings | type == "array"' "$output" >/dev/null
+                  jq -e '.standings | type == "array" and length > 0' "$output" >/dev/null
                   ;;
               esac
 
@@ -103,15 +102,19 @@ jobs:
               with open(path, encoding="utf-8") as file:
                   return json.load(file)
 
+          sync_time = datetime.now(timezone.utc).isoformat()
+
           for league in leagues:
               code = league["id"]
+
               team_data = read_json(code, "teams")
               match_data = read_json(code, "matches")
               standing_data = read_json(code, "standings")
 
               season_info = (
                   team_data.get("season")
-                  or match_data.get("filters", {})
+                  or (team_data.get("competition") or {}).get("currentSeason")
+                  or {}
               )
 
               start = season_info.get("startDate")
@@ -120,7 +123,7 @@ jobs:
               if start and end:
                   season = start[:4] + "-" + end[:4]
               else:
-                  season = "unknown"
+                  raise ValueError(f"Season dates missing for {code}")
 
               competition = team_data.get("competition") or {}
               competition_id = competition.get("id")
@@ -152,11 +155,16 @@ jobs:
                       "seasonEnd": end
                   })
 
-              for group in standing_data.get("standings", []):
-    if group.get("type") != "TOTAL":
-        continue
+              total_groups = [
+                  group for group in standing_data.get("standings", [])
+                  if group.get("type") == "TOTAL"
+              ]
 
-    for row in group.get("table", []):
+              if not total_groups:
+                  raise ValueError(f"TOTAL standings missing for {code}")
+
+              for group in total_groups:
+                  for row in group.get("table", []):
                       provider_id = (row.get("team") or {}).get("id")
                       if provider_id is None:
                           continue
@@ -174,7 +182,7 @@ jobs:
                           "goalsAgainst": row.get("goalsAgainst"),
                           "goalDifference": row.get("goalDifference"),
                           "points": row.get("points"),
-                          "updatedAt": datetime.now(timezone.utc).isoformat()
+                          "updatedAt": sync_time
                       })
 
               for match in match_data.get("matches", []):
@@ -203,14 +211,16 @@ jobs:
                       "awayScore": full_time.get("away")
                   })
 
+              print(f"{code}: teams={len(team_data.get('teams', []))}, standings={sum(len(g.get('table', [])) for g in total_groups)}, matches={len(match_data.get('matches', []))}")
+
           database = {
               "schemaVersion": "1.0.0",
-              "generatedAt": datetime.now(timezone.utc).isoformat(),
+              "generatedAt": sync_time,
               "source": {
                   "provider": "football-data.org",
                   "apiVersion": "v4",
                   "attribution": "Data provided by football-data.org",
-                  "lastSuccessfulSync": datetime.now(timezone.utc).isoformat()
+                  "lastSuccessfulSync": sync_time
               },
               "leagues": leagues,
               "teams": list(teams.values()),
@@ -218,6 +228,12 @@ jobs:
               "standings": standings,
               "matches": matches
           }
+
+          if len({league["id"] for league in leagues}) != 5:
+              raise ValueError("Expected five leagues.")
+
+          if not teams or not standings or not matches:
+              raise ValueError("Database is missing required data.")
 
           os.makedirs("data", exist_ok=True)
 
@@ -229,10 +245,6 @@ jobs:
           print("Team seasons:", len(team_seasons))
           print("Standings:", len(standings))
           print("Matches:", len(matches))
-
-          if not teams or not matches:
-              raise SystemExit("Database validation failed: missing teams or matches.")
-
           PY
 
       - name: Validate database JSON
@@ -250,11 +262,17 @@ jobs:
 
           assert actual == expected, "League list is incomplete."
           assert db["teams"], "No teams found."
+          assert db["standings"], "No standings found."
           assert db["matches"], "No matches found."
+
+          for league_id in expected:
+              assert any(s["leagueId"] == league_id for s in db["standings"]), f"Missing standings: {league_id}"
+              assert any(m["leagueId"] == league_id for m in db["matches"]), f"Missing matches: {league_id}"
 
           print("JSON validation: PASSED")
           print("League count:", len(actual))
           print("Team count:", len(db["teams"]))
+          print("Standings count:", len(db["standings"]))
           print("Match count:", len(db["matches"]))
           PY
 
