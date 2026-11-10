@@ -3,17 +3,6 @@ name: Test StrikerAPI Key (Safe)
 on:
   workflow_dispatch:
     inputs:
-      league:
-        description: "League"
-        required: true
-        type: choice
-        options:
-          - epl
-          - laliga
-          - bundesliga
-          - seriea
-          - ligue1
-        default: epl
       team:
         description: "Club abbreviation (one club only; default ARS)"
         required: true
@@ -39,11 +28,17 @@ jobs:
       - name: Make one read-only squad request (2 credits)
         env:
           STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
-          LEAGUE: ${{ inputs.league }}
           TEAM: ${{ inputs.team }}
         run: |
           set +e
-          HTTP_CODE=$(curl --silent --show-error             --output response.json             --write-out "%{http_code}"             --max-time 45             --request POST "https://mcp.strikerapi.com/v1/get_squad"             --header "Content-Type: application/json"             --header "x-api-key: $STRIKERAPI_API_KEY"             --data "$(jq -n --arg league "$LEAGUE" --arg team "$TEAM" '{league:$league,team:$team}')")
+          HTTP_CODE=$(curl --silent --show-error \
+            --output response.json \
+            --write-out "%{http_code}" \
+            --max-time 45 \
+            --request POST "https://mcp.strikerapi.com/v1/get_squad" \
+            --header "Content-Type: application/json" \
+            --header "x-api-key: $STRIKERAPI_API_KEY" \
+            --data "$(jq -n --arg team "$TEAM" '{team:$team}')")
           CURL_STATUS=$?
           set -e
           if [ "$CURL_STATUS" -ne 0 ]; then
