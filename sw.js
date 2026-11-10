@@ -1,5 +1,5 @@
 
-const CACHE = "football-time-v13";
+const CACHE = "football-time-v14";
 
 const ASSETS = [
   "./",
@@ -7,7 +7,8 @@ const ASSETS = [
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png",
-  "./data/football-database.json"
+  "./data/football-database.json",
+  "./data/test-records.json"
 ];
 
 // Install service worker
