@@ -4,149 +4,152 @@ from pathlib import Path
 import requests
 
 ROOT=Path(__file__).resolve().parents[1]
-FDB=ROOT/"data/football-database.json"
 PDB=ROOT/"data/player-database.json"
-API="https://v3.football.api-sports.io"
-KEY=os.environ["API_KEY"]
-LEAGUES={"PL":39,"PD":140,"BL1":78,"SA":135,"FL1":61}
-API_SEASON=2024
-MAX_TEAMS=80
-MIN_REQUEST_INTERVAL=6.5
-LAST_REQUEST=0.0
+FDB=ROOT/"data/football-database.json"
+BASE="https://mcp.strikerapi.com/v1"
+KEY=os.environ["STRIKERAPI_API_KEY"]
+LEAGUES={
+ "PL":{"api":"soccer","name":"Premier League"},
+ "PD":{"api":"laliga","name":"La Liga"},
+ "BL1":{"api":"bundesliga","name":"Bundesliga"},
+ "SA":{"api":"seriea","name":"Serie A"},
+ "FL1":{"api":"ligue1","name":"Ligue 1"},
+}
+PROFILE_LIMIT=60
+MIN_INTERVAL=6.5
+last_call=0.0
 session=requests.Session()
-session.headers.update({"x-apisports-key":KEY})
+session.headers.update({"x-api-key":KEY,"Content-Type":"application/json"})
 
-def norm(s):
- s=unicodedata.normalize("NFKD",str(s or "")).encode("ascii","ignore").decode().lower()
- s=re.sub(r"\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\b"," ",s)
- return re.sub(r"[^a-z0-9]","",s)
+def norm(value):
+ value=unicodedata.normalize("NFKD",str(value or "")).encode("ascii","ignore").decode().lower()
+ value=re.sub(r"\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\b"," ",value)
+ return re.sub(r"[^a-z0-9]","",value)
 
-def get(path,params):
- global LAST_REQUEST
- for attempt in range(4):
-  wait=MIN_REQUEST_INTERVAL-(time.monotonic()-LAST_REQUEST)
-  if wait>0: time.sleep(wait)
-  r=session.get(API+path,params=params,timeout=45)
-  LAST_REQUEST=time.monotonic()
-  if r.status_code==429:
-   retry=r.headers.get("Retry-After")
-   try: delay=max(65,int(retry)) if retry else 65
-   except ValueError: delay=65
-   if attempt==3: r.raise_for_status()
-   print(f"Rate limited on {path}; waiting {delay}s before retry.",flush=True)
-   time.sleep(delay)
-   continue
-  r.raise_for_status()
-  d=r.json()
-  if d.get("errors"):
-   raise RuntimeError(f"API error {path} params={params}: {d['errors']}")
-  return d
- raise RuntimeError(f"API rate limit retries exhausted for {path}")
+def call(endpoint,payload):
+ global last_call
+ wait=MIN_INTERVAL-(time.monotonic()-last_call)
+ if wait>0: time.sleep(wait)
+ response=session.post(BASE+"/"+endpoint,json=payload,timeout=60)
+ last_call=time.monotonic()
+ if response.status_code==402:
+  raise RuntimeError("STRIKERAPI_CREDITS_EXHAUSTED")
+ if response.status_code==429:
+  raise RuntimeError("STRIKERAPI_RATE_LIMITED")
+ response.raise_for_status()
+ body=response.json()
+ if isinstance(body,dict) and body.get("error"):
+  message=str(body.get("message") or body["error"])
+  if "credit" in message.lower(): raise RuntimeError("STRIKERAPI_CREDITS_EXHAUSTED: "+message)
+  raise RuntimeError("StrikerAPI "+endpoint+" error: "+message)
+ return body.get("data",body) if isinstance(body,dict) else body
 
-def num(v):
- if v in (None,""): return None
- try: return float(v) if isinstance(v,str) and "." in v else int(v)
+def number(value):
+ if value in (None,""): return None
+ try: return float(value) if isinstance(value,float) else int(value)
  except (ValueError,TypeError): return None
 
 def main():
- status=get("/status",{})
- status_data=status.get("response") or {}
- requests_data=status_data.get("requests") or {}
- daily_limit=int(requests_data.get("limit_day") or 100)
- daily_used=int(requests_data.get("current") or 0)
- daily_remaining=max(0,daily_limit-daily_used)
- print(f"API quota before sync: {daily_used}/{daily_limit} used; {daily_remaining} remaining.",flush=True)
- if daily_remaining<6:
-  raise RuntimeError("Fewer than 6 daily API requests remain; sync safely skipped.")
- football=json.loads(FDB.read_text(encoding="utf-8"))
- try: old=json.loads(PDB.read_text(encoding="utf-8"))
- except (OSError,json.JSONDecodeError): old={"records":[],"nextTeamOffset":0}
- records={r["id"]:r for r in old.get("records",[]) if isinstance(r,dict) and r.get("id")}
- league_names={x["id"]:x.get("name",x["id"]) for x in football.get("leagues",[])}
- teams_by_id={t["id"]:t for t in football.get("teams",[])}
- memberships=football.get("teamSeasons",[])
- api_teams={}
- for lid,api_lid in LEAGUES.items():
-  payload=get("/teams",{"league":api_lid,"season":API_SEASON})
-  api_teams[lid]={}
-  for entry in payload.get("response",[]):
-   team=entry.get("team") or {}
-   key=norm(team.get("name"))
-   if key: api_teams[lid][key]=team
-  if not api_teams[lid]:
-   raise RuntimeError(f"No API-Football teams returned for {lid}, season {API_SEASON}")
- targets=[]
- for m in memberships:
-  lid=m.get("leagueId")
-  if lid not in LEAGUES: continue
-  team=teams_by_id.get(m.get("teamId"))
-  if not team: continue
-  candidates=[norm(team.get("name")),norm(team.get("shortName"))]
-  hits=[api_teams[lid][key] for key in candidates if key and key in api_teams[lid]]
-  # Only accept an unambiguous normalized exact-name match.
-  unique={x.get("id"):x for x in hits if x.get("id") is not None}
-  if len(unique)==1:
-   api_team=next(iter(unique.values()))
-   targets.append((lid,m,team,api_team))
- targets_by_id={x[2]["id"]:x for x in targets}
- targets=list(targets_by_id.values())
- targets.sort(key=lambda x:(x[0],x[2].get("name","")))
- if not targets:
-  raise RuntimeError("No unambiguous team-name matches in the free historical season 2024; database was not changed.")
- offset=int(old.get("nextTeamOffset",0))%len(targets)
- safe_team_budget=max(0,daily_remaining-5)
- batch_limit=min(MAX_TEAMS,len(targets),safe_team_budget)
- if batch_limit<1:
-  raise RuntimeError("Insufficient daily API quota for a safe player sync batch.")
- batch=(targets[offset:]+targets[:offset])[:batch_limit]
+ old=json.loads(PDB.read_text(encoding="utf-8")) if PDB.exists() else {"records":[]}
+ football=json.loads(FDB.read_text(encoding="utf-8")) if FDB.exists() else {}
+ old_records={r["id"]:r for r in old.get("records",[]) if isinstance(r,dict) and r.get("id")}
+ teams=football.get("teams",[])
+ team_lookup={}
+ for team in teams:
+  for name in (team.get("name"),team.get("shortName"),team.get("displayName")):
+   if norm(name): team_lookup[norm(name)]=team
+ records={}
  fetched=datetime.now(timezone.utc).isoformat()
- fetched_records=0
- for lid,m,team,api_team in batch:
-  payload=get("/players",{"team":api_team["id"],"league":LEAGUES[lid],"season":API_SEASON,"page":1})
-  for item in payload.get("response",[]):
-   p=item.get("player") or {}
-   if not p.get("id"): continue
-   for row in item.get("statistics") or []:
-    rt=row.get("team") or {}; rl=row.get("league") or {}
-    if rt.get("id") not in (None,api_team["id"]) or rl.get("id") not in (None,LEAGUES[lid]): continue
-    g=row.get("games") or {}; goals=row.get("goals") or {}; shots=row.get("shots") or {}; passes=row.get("passes") or {}
-    tackles=row.get("tackles") or {}; duels=row.get("duels") or {}; drib=row.get("dribbles") or {}; fouls=row.get("fouls") or {}; cards=row.get("cards") or {}; pen=row.get("penalty") or {}
-    pid="api-football:"+str(p["id"])
-    season=str(API_SEASON)
-    rid=f"{pid}:{m['teamId']}:{season}"
-    records[rid]={
-     "id":rid,"playerId":pid,"name":p.get("name") or "Unknown","age":num(p.get("age")),
-     "nationality":p.get("nationality"),"height":p.get("height"),"weight":p.get("weight"),
-     "photo":p.get("photo"),"number":num(p.get("number")),"position":g.get("position"),
-     "teamId":m["teamId"],"teamName":team.get("name"),"leagueId":lid,
-     "leagueName":league_names.get(lid,lid),"season":season,
-     "statistics":{
-      "appearances":num(g.get("appearences")),"lineups":num(g.get("lineups")),"minutes":num(g.get("minutes")),
-      "rating":num(g.get("rating")),"goals":num(goals.get("total")),"assists":num(goals.get("assists")),
-      "shotsTotal":num(shots.get("total")),"shotsOnTarget":num(shots.get("on")),
-      "passesTotal":num(passes.get("total")),"keyPasses":num(passes.get("key")),"passAccuracy":num(passes.get("accuracy")),
-      "tackles":num(tackles.get("total")),"blocks":num(tackles.get("blocks")),"interceptions":num(tackles.get("interceptions")),
-      "duelsTotal":num(duels.get("total")),"duelsWon":num(duels.get("won")),
-      "dribblesAttempts":num(drib.get("attempts")),"dribblesSuccess":num(drib.get("success")),
-      "foulsDrawn":num(fouls.get("drawn")),"foulsCommitted":num(fouls.get("committed")),
-      "yellowCards":num(cards.get("yellow")),"redCards":num(cards.get("red")),
-      "penaltiesScored":num(pen.get("scored")),"penaltiesMissed":num(pen.get("missed"))
-     },
-     "source":{"provider":"API-Football","providerPlayerId":p["id"],"providerTeamId":api_team["id"],
-      "providerLeagueId":LEAGUES[lid],"season":API_SEASON,"endpoint":"/players","fetchedAt":fetched}
-    }
-    fetched_records+=1
- if fetched_records==0:
-  raise RuntimeError("API calls succeeded but returned no player statistics; existing database was preserved.")
- next_offset=(offset+len(batch))%len(targets)
- output={"schemaVersion":1,"generatedAt":fetched,
-  "source":{"provider":"API-Football","status":"partial_historical_sync","season":API_SEASON,
-   "matchedTeams":len(targets),"processedTeams":len(batch),"recordsFetchedThisRun":fetched_records,
-   "requestsUsedApprox":6+len(batch),"dailyQuotaAtStart":{"used":daily_used,"limit":daily_limit,"remaining":daily_remaining},
-   "coverageNote":"Free plan currently permits seasons 2022-2024. This dataset is historical 2024 season data, not current 2026-27 squad data. Only page 1 per team is imported; remaining teams rotate across runs. Requests are spaced to stay below the 10-per-minute free-plan limit."},
-  "nextTeamOffset":next_offset,
-  "records":sorted(records.values(),key=lambda x:(x.get("leagueId",""),x.get("teamName",""),x.get("name",""),x.get("season","")))}
+ squad_counts={}
+ latest_seasons={}
+ # One whole-league squad call costs 10 credits; five calls cover all five leagues.
+ for league_id,config in LEAGUES.items():
+  data=call("get_squad",{"league":config["api"]})
+  season=data.get("season")
+  if season is not None: latest_seasons[league_id]=str(season)
+  players=data.get("players") or []
+  squad_counts[league_id]=len(players)
+  for player in players:
+   pid=str(player.get("player_id") or "")
+   name=player.get("name")
+   if not pid or not name: continue
+   external_team_id=str(player.get("team_id") or data.get("team_id") or "")
+   team_name=player.get("team_name") or player.get("team") or data.get("team_name") or "Unknown team"
+   mapped=team_lookup.get(norm(team_name))
+   pft_team_id=str(mapped.get("id")) if mapped and mapped.get("id") is not None else "strikerapi:"+external_team_id if external_team_id else "strikerapi:"+norm(team_name)
+   pft_team_name=mapped.get("name") if mapped else team_name
+   season_value=str(player.get("season") or season or "unknown")
+   player_key="strikerapi:"+pid
+   rid=f"{player_key}:{pft_team_id}:{season_value}"
+   previous=old_records.get(rid,{})
+   stats=dict(previous.get("statistics") or {})
+   stats.setdefault("appearances",number(player.get("appearances")))
+   stats.setdefault("lineups",None); stats.setdefault("minutes",None)
+   for key in ("rating","goals","assists","shotsTotal","shotsOnTarget","xg","yellowCards","redCards","saves","cleanSheets","goalsPer90","assistsPer90","xgPer90"):
+    stats.setdefault(key,None)
+   records[rid]={
+    "id":rid,"playerId":player_key,"name":name,"age":number(player.get("age")),
+    "nationality":player.get("citizenship"),"height":str(player.get("height_in"))+" in" if player.get("height_in") else None,
+    "weight":str(player.get("weight_lb"))+" lb" if player.get("weight_lb") else None,
+    "photo":None,"number":number(player.get("jersey")),"position":player.get("position"),
+    "teamId":pft_team_id,"teamName":pft_team_name,"leagueId":league_id,
+    "leagueName":config["name"],"season":season_value,"statistics":stats,
+    "profileStatus":previous.get("profileStatus","roster_only"),
+    "source":{"provider":"StrikerAPI","providerPlayerId":pid,"providerTeamId":external_team_id,
+     "league":config["api"],"season":season_value,"endpoint":"get_squad","fetchedAt":fetched}
+   }
+ if not records:
+  raise RuntimeError("StrikerAPI returned no squad records; existing player database was preserved.")
+ # Rotate through the full roster. get_player costs 5 credits; reserve credits for future runs.
+ roster=sorted(records.values(),key=lambda r:(r["leagueId"],r["teamName"],r["name"]))
+ offset=int(old.get("nextProfileOffset",0))%len(roster)
+ batch=roster[offset:offset+min(PROFILE_LIMIT,len(roster))]
+ profiles_done=0
+ profile_errors=[]
+ for record in batch:
+  try:
+   result=call("get_player",{"player_id":record["source"]["providerPlayerId"],"league":LEAGUES[record["leagueId"]]["api"]})
+  except RuntimeError as error:
+   message=str(error)
+   profile_errors.append(message)
+   print("Profile sync stopped:",message,flush=True)
+   break
+  player=result.get("player") or {}
+  seasons=result.get("seasons") or []
+  selected=next((s for s in seasons if str(s.get("season"))==record["season"] and (not s.get("team") or s.get("team")==player.get("team"))),None)
+  if selected is None and seasons: selected=seasons[0]
+  if selected:
+   mapping={
+    "appearances":"appearances","lineups":"starts","minutes":"minutes","goals":"goals",
+    "assists":"assists","shotsTotal":"shots","shotsOnTarget":"shots_on_target","xg":"xg",
+    "yellowCards":"yellow_cards","redCards":"red_cards","saves":"saves","cleanSheets":"clean_sheets",
+    "goalsPer90":"goals_per90","assistsPer90":"assists_per90","xgPer90":"xg_per90"
+   }
+   for target,source in mapping.items(): record["statistics"][target]=selected.get(source)
+   record["season"]=str(selected.get("season") or record["season"])
+  record["position"]=player.get("position") or record.get("position")
+  record["number"]=number(player.get("jersey")) if player.get("jersey") is not None else record.get("number")
+  record["profileStatus"]="profiled"
+  record["source"].update({"provider":"StrikerAPI","profileEndpoint":"get_player","profileFetchedAt":fetched})
+  record["recentGames"]=result.get("recent_games") or []
+  profiles_done+=1
+ next_offset=(offset+profiles_done)%len(roster)
+ # Merge roster with old data, retaining old records for players not in the current squad feed.
+ merged=dict(old_records)
+ merged.update(records)
+ output={
+  "schemaVersion":1,"generatedAt":fetched,
+  "source":{"provider":"StrikerAPI","status":"current_squads_with_rotating_profiles",
+   "leagues":{k:{"name":LEAGUES[k]["name"],"season":latest_seasons.get(k),"squadPlayers":squad_counts.get(k,0)} for k in LEAGUES},
+   "profilesFetchedThisRun":profiles_done,"profileBatchLimit":PROFILE_LIMIT,
+   "creditsPlanEstimate":"50 credits for five league squads + up to 300 credits for 60 player profiles; leaves an estimated 150-credit monthly buffer.",
+   "note":"Current squad lists are refreshed from StrikerAPI. Detailed player profiles rotate through the roster to stay within the free monthly credit allowance. Unprofiled players show roster data and null statistics; missing values are never inferred.",
+   "profileErrors":profile_errors},
+  "nextProfileOffset":next_offset,
+  "records":sorted(merged.values(),key=lambda r:(r.get("leagueId",""),r.get("teamName",""),r.get("name",""),r.get("season","")))
+ }
  PDB.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
- print(f"season={API_SEASON} matched={len(targets)} processed={len(batch)} fetched_this_run={fetched_records} total_records={len(records)} next_offset={next_offset}")
+ print("Squad records:",len(records),"profiles fetched:",profiles_done,"total stored:",len(merged),"next profile offset:",next_offset,flush=True)
 
-if __name__=="__main__": main()
+if __name__=="__main__":
+ main()

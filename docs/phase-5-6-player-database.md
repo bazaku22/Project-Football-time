@@ -1,35 +1,37 @@
 # Phase 5.6 — Player Database & Statistics
 
-## Scope
-- แยกข้อมูลนักเตะออกจากฐานข้อมูลการแข่งขันและรายการทดสอบ
-- เก็บรหัสนักเตะจากผู้ให้บริการ, ทีม, ลีก, ฤดูกาล, สถิติ, แหล่งข้อมูล และเวลาที่ดึงข้อมูล
-- ป้องกันข้อมูลซ้ำด้วยรหัสผู้ให้บริการ + ทีม + ฤดูกาล
-- มีตัวกรองลีก/ทีม, ค้นหาชื่อนักเตะ และนำเข้า/ส่งออก JSON
-- ข้อมูลที่นำเข้าบนอุปกรณ์เก็บใน Local Storage key `pft_players_v1` โดยไม่แตะ `pft_matches_v1` หรือ probability snapshots
+## Primary provider
+StrikerAPI is the primary provider for the five major leagues:
+- Premier League: `soccer`
+- La Liga: `laliga`
+- Bundesliga: `bundesliga`
+- Serie A: `seriea`
+- Ligue 1: `ligue1`
 
-## Provider and free-plan limits
-ใช้ API-Football เป็นแหล่งข้อมูลหลักสำหรับการทดลอง Free plan ระบุ 100 requests/day และ 10 requests/minute พร้อมจำกัดฤดูกาลที่เข้าถึงได้ ดู https://www.api-football.com/pricing และ https://www.api-football.com/news/post/how-to-optimize-api-sports-calls-and-quota-usage
+Official documentation: https://strikerapi.com/docs
 
-จากการทดสอบ API Key ของโปรเจกต์ ผู้ให้บริการตอบว่า Free plan เข้าถึงฤดูกาล 2022–2024 ได้ จึงกำหนดให้ importer ใช้ฤดูกาล 2024 (ข้อมูลย้อนหลัง) ไม่ใช่รายชื่อนักเตะปัจจุบันของฤดูกาล 2026–27
+The free tier currently lists 500 credits/month with no card. Endpoint costs used here:
+- `get_squad`: 10 credits per whole-league squad request; five leagues = 50 credits.
+- `get_player`: 5 credits per detailed player profile.
+- The importer profiles up to 60 players per run (300 credits) and reserves an estimated 150 credits for safety and other account use.
+- Detailed profiles rotate across the full roster using `nextProfileOffset`; the scheduled workflow runs monthly. Avoid manually rerunning repeatedly because each successful API call consumes credits.
+- Data refreshes daily at the provider, but this project syncs the player database monthly to respect the free credit limit. No live/in-play feed is used.
 
-## Sync strategy
-- ตรวจ daily quota ผ่าน endpoint `/status` ก่อนเริ่ม โดย endpoint นี้ไม่คิด quota ตามเอกสาร API
-- หน่วงคำขออย่างน้อย 6.5 วินาที เพื่อให้อยู่ต่ำกว่า 10 requests/minute
-- ใช้คำขอประมาณ 5 ครั้งเพื่ออ่านทีมทั้งห้าลีก และไม่เกิน 80 คำขอรายทีมต่อรอบ โดยกันโควตาไว้เป็น buffer
-- ใช้ exact normalized team-name matching เท่านั้น; ทีมที่จับคู่ไม่ได้หรือไม่ชัดเจนจะถูกข้าม ไม่เดา
-- ดึงหน้าแรกของ `/players` ต่อทีม และหมุนทีมที่เหลือในรอบถัดไป
-- Workflow ทำงานตามตารางรายวันหรือสั่งรันเองได้ และ commit เฉพาะเมื่อได้ข้อมูลนักเตะจริง
-- หาก API ผิดพลาดหรือไม่มีข้อมูล จะไม่เขียนทับฐานข้อมูลเดิม
+## Data model and safety
+- Current league squads are fetched for all five leagues; detailed profile statistics are filled progressively.
+- Each record uses a provider player ID + team ID + season. Players not yet profiled are marked `roster_only`; statistics not returned remain null.
+- Detailed profile includes appearances, starts, minutes, goals, assists, shots, shots on target, xG, cards, per-90 rates and recent match log when supplied.
+- Existing records are retained if a player is not present in the latest squad response.
+- API keys are only read from GitHub Actions Secret `STRIKERAPI_API_KEY`; never put a key in source, browser code, JSON, or chat.
+- API-Football remains a secondary/backup provider, but is not automatically called by this workflow. Its free-plan quota previously blocked the first import.
+- Existing `pft_matches_v1`, probability snapshots, historical tests #001 onward, and other project data are not modified.
 
-## Data quality
-- ค่าที่ไม่มีในแหล่งข้อมูลเก็บเป็น null/ไม่ทราบ ไม่เดาข้อมูล
-- สถิติผูกกับทีม ลีก และฤดูกาล การย้ายทีมจึงอาจมีหลาย record ต่อ player ID
-- ใช้ provider ID เป็นตัวระบุหลัก ไม่ใช้ชื่อเป็น ID ถาวร
-- แสดงแหล่งข้อมูลและเวลาที่อัปเดต
-- ห้ามเก็บ API key ใน browser, source code หรือ JSON
+## Workflow
+- GitHub Actions workflow: `.github/workflows/update-player-database.yml`
+- Monthly schedule: 1st day of each month at 20:00 UTC.
+- Manual run is available through Actions → Update Player Database → Run workflow.
+- The workflow validates JSON and unique IDs before committing.
+- If the API key is invalid, the provider rejects the request, or no squad records are returned, the existing database is not overwritten.
 
-## Setup
-เพิ่ม GitHub Actions secret ชื่อ `API_FOOTBALL_KEY` ใน Settings → Secrets and variables → Actions โดยสร้าง key จาก dashboard ของผู้ให้บริการและใส่ลง GitHub โดยตรง ห้ามส่ง key ผ่านแชต
-
-## Current state
-หน้าจอและ schema พร้อมแล้ว การ sync จริงอยู่ระหว่างทดสอบกับ Free plan โดยข้อมูลที่ได้ในระยะแรกจะเป็นสถิติย้อนหลังฤดูกาล 2024 เท่านั้น การครอบคลุมทีม/นักเตะขึ้นกับข้อมูลที่ API ให้บริการและข้อจำกัด pagination
+## UI
+The Player Database page reads `data/player-database.json`, merges local records from `pft_players_v1`, and shows provider and update metadata. The detailed stats may be incomplete until the player's profile is reached in the rotating batch.
