@@ -78,6 +78,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <button data-db-tab="probability">ความน่าจะเป็น</button>
  <button data-db-tab="accuracy">ความแม่นยำ</button>
  <button data-db-tab="advanced">วิเคราะห์เชิงลึก</button>
+ <button data-db-tab="players">ฐานข้อมูลนักเตะ</button>
 </div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
  <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">5 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
  <div class="pillrow" id="leaguePicker"></div>
@@ -162,6 +163,20 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>5.4 ความเสี่ยงและความไม่แน่นอน</b><span class="small">คะแนนความเสี่ยง</span></div><div id="p5Risk" class="empty">กำลังประเมิน…</div></div>
  <div class="card"><div class="topline"><b>5.5 เหตุผลการวิเคราะห์และคุณภาพข้อมูล</b><span class="small">ตรวจสอบย้อนกลับได้</span></div><div id="p5Explanation" class="empty">กำลังรวบรวมข้อมูล…</div></div>
  <p class="profile-note">คะแนนความแข็งแกร่งเป็นดัชนีเปรียบเทียบภายในลีกและฤดูกาลเดียวกัน ไม่ใช่ความน่าจะเป็นชนะ ส่วนความพร้อมผู้เล่นจะแสดงว่าไม่ทราบเมื่อไม่มี feed ที่เชื่อถือได้ และจะไม่เดาข้อมูลที่ขาดหาย</p>
+</div>
+<div class="db-panel" id="dbtab-players">
+ <div class="sectionhead"><h2>ฐานข้อมูลนักเตะและสถิติ</h2><span class="small">PHASE 5.6</span></div>
+ <div class="card"><div class="small" id="playerDbStatus">กำลังโหลดฐานข้อมูลนักเตะ…</div>
+  <div class="form-controls">
+   <div class="field"><label for="playerLeagueFilter">ลีก</label><select id="playerLeagueFilter" class="filter"><option value="ALL">ทุกลีก</option></select></div>
+   <div class="field"><label for="playerTeamFilter">ทีม</label><select id="playerTeamFilter" class="filter"><option value="ALL">ทุกทีม</option></select></div>
+   <div class="field full"><label for="playerSearch">ค้นหาชื่อนักเตะ</label><input id="playerSearch" class="filter" type="search" placeholder="พิมพ์ชื่อนักเตะ"></div>
+  </div>
+  <div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div>
+ </div>
+ <div class="card"><div class="db-kpis" id="playerDbSummary"></div></div>
+ <div id="playerList"><div class="empty">ยังไม่มีข้อมูลนักเตะ</div></div>
+ <p class="profile-note">ข้อมูลนักเตะแยกจากรายการทดสอบและฐานข้อมูลการแข่งขัน การนำเข้าในอุปกรณ์นี้เก็บใน Local Storage แยกต่างหาก ทุกชุดข้อมูลต้องมีแหล่งที่มาและฤดูกาลกำกับ หากไม่มีข้อมูลจะแสดงว่าไม่พบ ไม่เติมค่าคาดเดา</p>
 </div>
 <div class="db-panel" id="dbtab-accuracy">
  <div class="sectionhead"><h2>ติดตามความแม่นยำและ Calibration</h2><span class="small">PHASE 4.6</span></div>
@@ -719,4 +734,5 @@ loadCentralTestRecords();
 loadFootballDatabase();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
+<script src="./js/player-database.js"></script>
 </body></html>
