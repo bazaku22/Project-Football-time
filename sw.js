@@ -1,5 +1,4 @@
-
-const CACHE = "football-time-v16";
+const CACHE = "football-time-v17";
 
 const ASSETS = [
   "./",
@@ -43,50 +42,11 @@ self.addEventListener("activate", (event) => {
 // Fetch requests
 self.addEventListener("fetch", (event) => {
   const request = event.request;
-
   if (request.method !== "GET") return;
-
   const url = new URL(request.url);
 
-  // Always try to get the latest football database
-  if (url.pathname.endsWith("/data/football-database.json")) {
-    event.respondWith(
-      fetch(request, { cache: "no-store" })
-        .then((response) => {
-          if (response.ok) {
-            const copy = response.clone();
-
-            caches.open(CACHE).then((cache) => {
-              cache.put(request, copy);
-            });
-          }
-
-          return response;
-        })
-        .catch(async () => {
-          const cached = await caches.match(request);
-
-          if (cached) return cached;
-
-          return new Response(
-            JSON.stringify({
-              error: "Football database is unavailable"
-            }),
-            {
-              status: 503,
-              headers: {
-                "Content-Type": "application/json"
-              }
-            }
-          );
-        })
-    );
-
-    return;
-  }
-
-  // Network-first player data with an offline cache fallback.
-  if (url.pathname.endsWith("/data/player-database.json")) {
+  if (url.pathname.endsWith("/data/football-database.json") ||
+      url.pathname.endsWith("/data/player-database.json")) {
     event.respondWith(
       fetch(request, { cache: "no-store" })
         .then((response) => {
@@ -98,30 +58,17 @@ self.addEventListener("fetch", (event) => {
         })
         .catch(async () => {
           const cached = await caches.match(request);
-          return cached || new Response(JSON.stringify({ schemaVersion: 1, records: [] }), {
-            status: 503, headers: { "Content-Type": "application/json" }
+          if (cached) return cached;
+          return new Response(JSON.stringify({error:"Football database is unavailable"}), {
+            status:503,headers:{"Content-Type":"application/json"}
           });
         })
     );
     return;
   }
 
-  // Cache-first for other assets
+  if (url.origin !== self.location.origin) return;
   event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-
-      return fetch(request).then((response) => {
-        if (response.ok) {
-          const copy = response.clone();
-
-          caches.open(CACHE).then((cache) => {
-            cache.put(request, copy);
-          });
-        }
-
-        return response;
-      });
-    })
+    caches.match(request).then((cached) => cached || fetch(request))
   );
 });
