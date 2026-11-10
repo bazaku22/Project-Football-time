@@ -2,6 +2,13 @@ name: Test OpenPlay Player Source
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - experiment/openplay-player-stats-pilot
+    paths:
+      - "scripts/pilot_openplay_player_stats.py"
+      - ".github/workflows/test-openplay-player-source.yml"
+      - "docs/phase-5-6-openplay-pilot.md"
   pull_request:
     paths:
       - "scripts/pilot_openplay_player_stats.py"
