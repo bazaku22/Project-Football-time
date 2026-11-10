@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": null,
+  "source": {
+    "provider": "API-Football",
+    "status": "awaiting_api_key",
+    "note": "No player records have been imported yet."
+  },
+  "nextTeamOffset": 0,
+  "records": []
+}
