@@ -1,0 +1,69 @@
+
+name: API Smoke Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-football-data-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check API secret is configured
+        env:
+          API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: |
+          if [ -z "$API_KEY" ]; then
+            echo "::error::FOOTBALL_DATA_API_KEY is not configured."
+            exit 1
+          fi
+          echo "API secret is configured."
+
+      - name: Request Premier League standings
+        env:
+          API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: |
+          set -euo pipefail
+          HTTP_CODE=$(curl --silent --show-error \
+            --output "$RUNNER_TEMP/standings.json" \
+            --write-out "%{http_code}" \
+            --header "X-Auth-Token: $API_KEY" \
+            "https://api.football-data.org/v4/competitions/PL/standings")
+
+          echo "HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            echo "::error::API request failed. Check API access, plan limits, and secret."
+            exit 1
+          fi
+
+          node <<'NODE'
+          const fs = require("fs");
+          const data = JSON.parse(
+            fs.readFileSync(process.env.RUNNER_TEMP + "/standings.json", "utf8")
+          );
+
+          if (!data.competition || !Array.isArray(data.standings)) {
+            console.error("Unexpected API response.");
+            process.exit(1);
+          }
+
+          const totalTeams = data.standings.reduce(
+            (sum, group) => sum + (Array.isArray(group.table) ? group.table.length : 0),
+            0
+          );
+
+          console.log("API connection: OK");
+          console.log("Competition:", data.competition.name);
+          console.log("Competition code:", data.competition.code);
+          console.log("Season:", data.season?.startDate || "unknown",
+            "to", data.season?.endDate || "unknown");
+          console.log("Standings groups:", data.standings.length);
+          console.log("Teams in standings:", totalTeams);
+
+          if (totalTeams === 0) {
+            console.error("No teams returned.");
+            process.exit(1);
+          }
+          NODE
