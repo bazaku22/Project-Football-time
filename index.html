@@ -15,7 +15,23 @@ h1{font-size:18px;margin:0;letter-spacing:.4px}.sub{font-size:11px;color:var(--m
 main{padding:16px;max-width:720px;margin:auto;padding-bottom:90px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}.stat{background:var(--panel);border-radius:13px;padding:13px 10px}.stat b{font-size:23px;display:block}.stat span{font-size:11px;color:var(--muted)}
 .sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.sectionhead h2{font-size:16px;margin:0}.small{font-size:11px;color:var(--muted)}
-.card{background:var(--panel);border:1px solid #263945;border-radius:15px;padding:14px;margin:10px 0}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:8px}.tag{font-size:10px;color:#d3e0e7;background:#30414d;padding:5px 8px;border-radius:7px}.date,.league{font-size:11px;color:var(--muted)}.teams{font-size:17px;font-weight:700;line-height:1.5;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
+.card{background:var(--panel);border:1px solid #263945;border-radius:15px;padding:14px;margin:10px 0}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:8px}.tag{font-size:10px;color:#d3e0e7;background:#30414d;padding:5px 8px;border-radius:7px}.date,.league{font-size:11px;color:var(--muted)}
+.league-line{display:flex;align-items:center;gap:8px;margin:8px 0}
+.league-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
+.league-name{font-size:11px;color:var(--muted)} 
+.league-fallback{
+ width:28px;
+ height:28px;
+ align-items:center;
+ justify-content:center;
+ border-radius:6px;
+ background:#263945;
+ color:#fff;
+ font-size:10px;
+ font-weight:700;
+ flex-shrink:0;
+ }
+.teams{font-size:17px;font-weight:700;line-height:1.5;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.value{font-size:14px;font-weight:650}.handicap{font-size:20px;color:var(--green);font-weight:750}.missing{color:var(--gold);font-size:13px}
 .detail{width:100%;margin-top:12px;border:1px solid var(--line);background:#14232d;color:#dce5eb;border-radius:9px;padding:9px}.extra{display:none;background:#14232d;padding:10px;border-radius:9px;margin-top:9px;font-size:12px;color:#c2cfd7}.extra.open{display:block}
 .notice{color:var(--muted);font-size:11px;line-height:1.6;margin-top:16px}.empty{color:var(--muted);text-align:center;padding:25px}
@@ -192,6 +208,56 @@ function formatDate(value){
  if(p.length!==3)return value;
  return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
 }
+
+function getLeagueLogo(league){
+ const name = String(league || "").toLowerCase();
+
+ const logos = {
+  "premier-league": {
+   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg",
+   label: "PL"
+  },
+  "la-liga": {
+   src: "https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg",
+   label: "LL"
+  },
+  "bundesliga": {
+   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg",
+   label: "BL"
+  },
+  "serie-a": {
+   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg",
+   label: "SA"
+  },
+  "ligue-1": {
+   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg",
+   label: "L1"
+  }
+ };
+
+ if(name.includes("premier league")){
+  return logos["premier-league"];
+ }
+
+ if(name.includes("laliga") || name.includes("la liga")){
+  return logos["la-liga"];
+ }
+
+ if(name.includes("bundesliga")){
+  return logos["bundesliga"];
+ }
+
+ if(name.includes("serie a")){
+  return logos["serie-a"];
+ }
+
+ if(name.includes("ligue 1")){
+  return logos["ligue-1"];
+ }
+
+ return null;
+}
+
 function calculateHandicapResult(record,finalScore){
  const selected=String(record.selectedTeam||"").trim();
  const home=String(record.home||"").trim();
@@ -321,7 +387,18 @@ function render(){
  const sorted=[...matches].sort((a,b)=>Number(b.id)-Number(a.id));
  root.innerHTML=sorted.map(m=>`<article class="card">
  <div class="topline"><span class="tag">TEST #${escapeHTML(m.id)}</span><span class="date">${escapeHTML(formatDate(m.date))} · ${escapeHTML(m.time||"ยังไม่ยืนยัน")}</span></div>
- <div class="league">${escapeHTML(m.league)}</div><div class="teams">${escapeHTML(m.home)}<div class="vs">VS</div>${escapeHTML(m.away)}</div>
+<div class="league-line">
+  ${getLeagueLogo(m.league)?`
+    <img class="league-logo"
+      src="${getLeagueLogo(m.league).src}"
+      alt="${getLeagueLogo(m.league).label}"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+    <span class="league-fallback" style="display:none">
+      ${getLeagueLogo(m.league).label}
+    </span>
+  `:""}
+  <span class="league-name">${escapeHTML(m.league)}</span>
+</div><div class="teams">${escapeHTML(m.home)}<div class="vs">VS</div>${escapeHTML(m.away)}</div>
  <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${escapeHTML(m.selectedTeam||"ไม่ระบุ")}</span></div>
  <div><span class="label">แฮนดิแคปของทีมที่เลือก</span><span class="${m.handicap?'handicap':'missing'}">${m.handicap?escapeHTML(m.handicap):"ไม่ระบุ"}</span></div>
  <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob||"—")}</span></div>
