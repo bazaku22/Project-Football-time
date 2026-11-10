@@ -1,0 +1,25 @@
+name: Test StatsBomb Player Source
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/test_statsbomb_player_source.py"
+      - ".github/workflows/test-statsbomb-player-source.yml"
+permissions:
+  contents: read
+concurrency:
+  group: statsbomb-player-source-pilot
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Validate Python syntax
+        run: python -m py_compile scripts/test_statsbomb_player_source.py
+      - name: Evaluate sample player coverage
+        run: python scripts/test_statsbomb_player_source.py
