@@ -1,0 +1,47 @@
+
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": null,
+  "source": {
+    "provider": "football-data.org",
+    "apiVersion": "v4",
+    "attribution": "Data provided by football-data.org",
+    "lastSuccessfulSync": null
+  },
+  "leagues": [
+    {
+      "id": "PL",
+      "name": "Premier League",
+      "country": "England",
+      "providerCompetitionCode": "PL"
+    },
+    {
+      "id": "PD",
+      "name": "La Liga",
+      "country": "Spain",
+      "providerCompetitionCode": "PD"
+    },
+    {
+      "id": "BL1",
+      "name": "Bundesliga",
+      "country": "Germany",
+      "providerCompetitionCode": "BL1"
+    },
+    {
+      "id": "SA",
+      "name": "Serie A",
+      "country": "Italy",
+      "providerCompetitionCode": "SA"
+    },
+    {
+      "id": "FL1",
+      "name": "Ligue 1",
+      "country": "France",
+      "providerCompetitionCode": "FL1"
+    }
+  ],
+  "teams": [],
+  "teamSeasons": [],
+  "standings": [],
+  "matches": []
+}
