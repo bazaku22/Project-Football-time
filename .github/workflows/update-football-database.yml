@@ -47,38 +47,93 @@ jobs:
 
           codes=("PL" "PD" "BL1" "SA" "FL1")
 
+          fetch_endpoint() {
+            local code="$1"
+            local endpoint="$2"
+            local output="$3"
+            local headers_file
+            local status
+            local attempt=1
+            local retry_after
+            local wait_seconds
+
+            headers_file="$(mktemp)"
+
+            while (( attempt <= 6 )); do
+              : > "$headers_file"
+
+              status=$(curl --silent --show-error \
+                --output "$output" \
+                --dump-header "$headers_file" \
+                --write-out "%{http_code}" \
+                --header "X-Auth-Token: $API_KEY" \
+                "https://api.football-data.org/v4/competitions/$code/$endpoint") || status="000"
+
+              echo "$code $endpoint HTTP $status (attempt $attempt/6)"
+
+              if [ "$status" = "200" ]; then
+                case "$endpoint" in
+                  teams)
+                    jq -e '.teams | type == "array" and length > 0' "$output" >/dev/null
+                    ;;
+                  matches)
+                    jq -e '.matches | type == "array"' "$output" >/dev/null
+                    ;;
+                  standings)
+                    jq -e '.standings | type == "array" and length > 0' "$output" >/dev/null
+                    ;;
+                esac
+
+                rm -f "$headers_file"
+                sleep 10
+                return 0
+              fi
+
+              if [ "$status" = "429" ] || [[ "$status" =~ ^5[0-9][0-9]$ ]] || [ "$status" = "000" ]; then
+                if (( attempt == 6 )); then
+                  echo "::error::$code $endpoint failed after 6 attempts."
+                  rm -f "$headers_file"
+                  return 1
+                fi
+
+                retry_after=$(awk 'tolower($1) == "retry-after:" {
+                  gsub("\r", "", $2)
+                  value = $2
+                } END {
+                  print value
+                }' "$headers_file")
+
+                if [[ "$retry_after" =~ ^[0-9]+$ ]]; then
+                  wait_seconds="$retry_after"
+                else
+                  wait_seconds=$((30 * (2 ** (attempt - 1))))
+
+                  if (( wait_seconds > 300 )); then
+                    wait_seconds=300
+                  fi
+                fi
+
+                echo "::warning::Request failed. Retrying in $wait_seconds seconds."
+                sleep "$wait_seconds"
+              else
+                echo "::error::$code $endpoint returned HTTP $status."
+                rm -f "$headers_file"
+                return 1
+              fi
+
+              attempt=$((attempt + 1))
+            done
+
+            rm -f "$headers_file"
+            return 1
+          }
+
           for code in "${codes[@]}"; do
             echo "Fetching $code"
 
             for endpoint in teams matches standings; do
               output="$RUNNER_TEMP/football-data/${code}-${endpoint}.json"
-
-              status=$(curl --silent --show-error \
-                --output "$output" \
-                --write-out "%{http_code}" \
-                --header "X-Auth-Token: $API_KEY" \
-                "https://api.football-data.org/v4/competitions/$code/$endpoint") || status="000"
-
-              echo "$code $endpoint HTTP $status"
-
-              if [ "$status" != "200" ]; then
-                echo "::error::$code $endpoint request failed."
-                exit 1
-              fi
-
-              case "$endpoint" in
-                teams)
-                  jq -e '.teams | type == "array" and length > 0' "$output" >/dev/null
-                  ;;
-                matches)
-                  jq -e '.matches | type == "array"' "$output" >/dev/null
-                  ;;
-                standings)
-                  jq -e '.standings | type == "array" and length > 0' "$output" >/dev/null
-                  ;;
-              esac
-
-              sleep 7
+              fetch_endpoint "$code" "$endpoint" "$output"
             done
           done
 
