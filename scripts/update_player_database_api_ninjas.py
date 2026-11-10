@@ -22,7 +22,7 @@ session.headers.update({"X-Api-Key": KEY, "Accept": "application/json"})
 
 def norm(value):
     value = unicodedata.normalize("NFKD", str(value or "")).encode("ascii", "ignore").decode().lower()
-    value = re.sub(r"\\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\\b", " ", value)
+    value = re.sub(r"\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\b", " ", value)
     return re.sub(r"[^a-z0-9]", "", value)
 
 def get_page(league, offset):
@@ -150,7 +150,7 @@ def main():
         "nextProfileOffset": old.get("nextProfileOffset", 0),
         "records": sorted(merged.values(), key=lambda r: (r.get("leagueId", ""), r.get("teamName", ""), r.get("name", "")))
     }
-    PDB.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\\n", encoding="utf-8")
+    PDB.write_text(json.dumps(output, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("API Ninjas current squad import complete")
     print("Requests:", request_count)
     for league_id, count in league_counts.items():
