@@ -1,0 +1,73 @@
+name: Test StrikerAPI Five Major Leagues (Safe)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-five-leagues:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Validate secret exists
+        env:
+          STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
+        run: |
+          if [ -z "$STRIKERAPI_API_KEY" ]; then
+            echo "::error::STRIKERAPI_API_KEY is missing from GitHub Actions Secrets."
+            exit 1
+          fi
+
+      - name: Test one club in each major league (10 credits maximum)
+        env:
+          STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
+        run: |
+          set +e
+          failures=0
+
+          test_squad() {
+            league="$1"
+            team="$2"
+            label="$3"
+            echo "::group::Testing $label — $team"
+            HTTP_CODE=$(curl --silent --show-error \
+              --output response.json \
+              --write-out "%{http_code}" \
+              --max-time 45 \
+              --request POST "https://mcp.strikerapi.com/v1/get_squad" \
+              --header "Content-Type: application/json" \
+              --header "x-api-key: $STRIKERAPI_API_KEY" \
+              --data "$(jq -n --arg league "$league" --arg team "$team" '{league:$league,team:$team}')")
+            CURL_STATUS=$?
+
+            if [ "$CURL_STATUS" -ne 0 ]; then
+              echo "RESULT: FAIL — network/request error (curl $CURL_STATUS)"
+              failures=$((failures + 1))
+            elif [ "$HTTP_CODE" != "200" ]; then
+              ERROR=$(jq -r '.message // .error // "No provider error message returned"' response.json 2>/dev/null | head -c 250)
+              echo "RESULT: FAIL — HTTP $HTTP_CODE — $ERROR"
+              failures=$((failures + 1))
+            elif ! jq -e '(.data // .) as $d | ($d.players | type == "array")' response.json >/dev/null 2>&1; then
+              echo "RESULT: FAIL — HTTP 200 but unexpected response schema"
+              failures=$((failures + 1))
+            else
+              RESULT=$(jq -c '(.data // .) as $d | {team:($d.team_name // $d.team // "unknown"),season:($d.season // null),players_returned:($d.players|length)}' response.json)
+              echo "RESULT: PASS — HTTP 200 — $RESULT"
+            fi
+            echo "::endgroup::"
+          }
+
+          # One squad per league; 2 credits each, 10 credits maximum.
+          test_squad "soccer" "Arsenal" "Premier League"
+          test_squad "laliga" "Real Madrid" "La Liga"
+          test_squad "bundesliga" "Bayern Munich" "Bundesliga"
+          test_squad "seriea" "Inter" "Serie A"
+          test_squad "ligue1" "Paris Saint-Germain" "Ligue 1"
+
+          echo "Summary: $((5 - failures))/5 leagues passed."
+          echo "No player records were saved or sent to the app database."
+          if [ "$failures" -ne 0 ]; then
+            exit 1
+          fi
