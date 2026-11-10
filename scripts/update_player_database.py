@@ -78,7 +78,7 @@ def main():
    mapped=team_lookup.get(norm(team_name))
    pft_team_id=str(mapped.get("id")) if mapped and mapped.get("id") is not None else "strikerapi:"+external_team_id if external_team_id else "strikerapi:"+norm(team_name)
    pft_team_name=mapped.get("name") if mapped else team_name
-   season_value=str(player.get("season") or season or "2026")
+   season_value=str(player.get("season") or season or "unknown")
    player_key="strikerapi:"+pid
    rid=f"{player_key}:{pft_team_id}:{season_value}"
    previous=old_records.get(rid,{})
