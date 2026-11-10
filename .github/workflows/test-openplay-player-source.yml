@@ -40,5 +40,5 @@ jobs:
           python scripts/pilot_openplay_player_stats.py --self-test
 
       - name: Run source coverage pilot
-        if: github.event_name == 'workflow_dispatch'
+        if: github.event_name != 'pull_request'
         run: python scripts/pilot_openplay_player_stats.py
