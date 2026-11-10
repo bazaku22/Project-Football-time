@@ -43,6 +43,9 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 
 /* Phase 4.3: home and away comparison */
 .venue-columns{display:grid;grid-template-columns:1fr 1fr;gap:9px}.venue-panel{background:#14232d;border:1px solid var(--line);border-radius:11px;padding:11px;min-width:0}.venue-panel h3{font-size:13px;margin:0 0 10px}.venue-kpis{display:grid;grid-template-columns:1fr 1fr;gap:9px}.venue-kpis b{display:block;font-size:17px}.venue-kpis span{font-size:10px;color:var(--muted)}.venue-rate{height:7px;background:#30414d;border-radius:8px;overflow:hidden;margin-top:5px}.venue-rate span{display:block;height:100%;background:#16a36a}.venue-difference{font-size:11px;color:var(--muted);line-height:1.7;margin-top:12px}.venue-empty{font-size:11px;color:var(--muted);padding:8px 0}@media(max-width:380px){.venue-columns{gap:5px}.venue-panel{padding:8px}.venue-kpis{gap:6px}.venue-kpis b{font-size:15px}}
+
+/* Phase 4 unified database workspace */
+.db-subnav{display:flex;gap:7px;overflow-x:auto;padding:5px 0 10px;position:sticky;top:78px;background:var(--bg);z-index:2;scrollbar-width:thin}.db-subnav button{flex:0 0 auto;border:1px solid var(--line);border-radius:18px;background:#14232d;color:#dce5eb;padding:8px 12px;font-size:11px;white-space:nowrap}.db-subnav button.active{background:#1c4a3c;border-color:#397b68;color:#b7f3d9}.db-panel{display:none}.db-panel.active{display:block}.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}.prob-outcome{background:#14232d;border:1px solid var(--line);border-radius:11px;padding:12px 7px;text-align:center}.prob-outcome b{display:block;font-size:22px}.prob-outcome span{font-size:10px;color:var(--muted)}.prob-level{font-size:10px;color:var(--green);margin-top:5px}.prob-reasons{font-size:11px;line-height:1.7;color:var(--muted);padding-left:18px}.calibration-row{display:grid;grid-template-columns:1fr auto auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:11px}.calibration-row:last-child{border:0}.db-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.db-kpi{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.db-kpi b{display:block;font-size:19px}.db-kpi span{font-size:10px;color:var(--muted)}.quality-note{border-left:3px solid var(--gold);padding:8px 10px;background:#252b2d;border-radius:5px;font-size:10px;line-height:1.6;color:var(--muted);margin-top:10px}@media(max-width:380px){.db-subnav{top:72px}.prob-outcome{padding:10px 4px}.prob-outcome b{font-size:19px}}
 </style>
 </head>
 <body>
@@ -62,8 +65,16 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <p class="notice">แอปนี้ใช้บันทึกคำวิเคราะห์และตรวจสอบผลฟุตบอล ข้อมูลรายการทดสอบจัดเก็บในอุปกรณ์นี้แยกจากฐานข้อมูลฟุตบอล</p>
 </section>
 <section id="fixtures" class="page">
- <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div>
- <div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
+ <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div><div class="db-subnav" aria-label="หมวดหมู่ฐานข้อมูล">
+ <button class="active" data-db-tab="overview">ภาพรวมลีก</button>
+ <button data-db-tab="form">ฟอร์มทีม</button>
+ <button data-db-tab="profile">โปรไฟล์ทีม</button>
+ <button data-db-tab="homeaway">เหย้า/เยือน</button>
+ <button data-db-tab="h2h">พบกัน</button>
+ <button data-db-tab="league">สถิติลีก</button>
+ <button data-db-tab="probability">ความน่าจะเป็น</button>
+ <button data-db-tab="accuracy">ความแม่นยำ</button>
+</div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
  <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">5 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
  <div class="pillrow" id="leaguePicker"></div>
  <div class="sectionhead"><h2 id="selectedLeagueTitle">Premier League</h2><span class="small" id="selectedLeagueCountry"></span></div>
@@ -71,9 +82,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>ทีมในลีก</b><span class="small" id="teamCount">—</span></div><div id="teamList"></div></div>
  <div class="card"><div class="topline"><b>โปรแกรมและผลการแข่งขัน</b><span class="small" id="matchCount">—</span></div><div class="field"><label for="matchFilter">กรองการแข่งขัน</label><select id="matchFilter" class="filter"><option value="ALL">ทั้งหมด</option><option value="SCHEDULED">กำหนดแข่งขัน</option><option value="TIMED">มีเวลาแข่งขัน</option><option value="FINISHED">จบแล้ว</option></select></div><div id="databaseMatches"></div></div>
  <p class="notice">ข้อมูลฐานฟุตบอลเป็นข้อมูลอ้างอิงแบบอ่านอย่างเดียว ไม่แก้ไขรายการทดสอบที่คุณบันทึกไว้</p>
-</section>
-
-<section id="teamform" class="page">
+</div>
+<div class="db-panel" id="dbtab-form">
  <div class="sectionhead"><h2>ฟอร์มทีมย้อนหลัง</h2><span class="small">PHASE 4.1</span></div>
  <div class="card">
   <div class="form-controls">
@@ -85,8 +95,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  </div>
  <div class="card"><div class="topline"><b>ผลการแข่งขันย้อนหลัง</b><span class="small" id="teamFormCount">—</span></div><div id="teamFormMatches"><div class="empty">กำลังโหลด…</div></div></div>
  <p class="form-note">คำนวณจากการแข่งขันสถานะ FINISHED ที่มีสกอร์จริงในฐานข้อมูลลีกและฤดูกาลที่เลือกเท่านั้น หากข้อมูลไม่ครบ ระบบจะไม่คาดเดาผลการแข่งขัน</p>
-</section>
-<section id="homeaway" class="page">
+</div>
+<div class="db-panel" id="dbtab-homeaway">
  <div class="sectionhead"><h2>วิเคราะห์ผลงานเหย้า / เยือน</h2><span class="small">PHASE 4.3</span></div>
  <div class="card"><div class="form-controls">
   <div class="field"><label for="venueLeagueSelect">เลือกลีก</label><select id="venueLeagueSelect" class="filter"><option value="">กำลังโหลดลีก…</option></select></div>
@@ -96,8 +106,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>เปรียบเทียบผลงาน</b><span class="small" id="venueSeason">ฤดูกาล —</span></div><div id="venueComparison"><div class="empty">กำลังโหลด…</div></div></div>
  <div class="card"><div class="topline"><b>ผลการแข่งขันแยกตามสนาม</b><span class="small" id="venueMatchCount">—</span></div><div id="venueMatchList"><div class="empty">กำลังโหลด…</div></div></div>
  <p class="profile-note">คำนวณจากผลการแข่งขันสถานะ FINISHED ที่มีสกอร์จริง แยกเฉพาะเกมที่ทีมลงเล่นเป็นเจ้าบ้านหรือทีมเยือน ตัวเลขเป็นสถิติย้อนหลัง ไม่ใช่การรับประกันผลในอนาคต</p>
-</section>
-<section id="teamprofile" class="page">
+</div>
+<div class="db-panel" id="dbtab-profile">
  <div class="sectionhead"><h2>ภาพรวมข้อมูลทีม</h2><span class="small">PHASE 4.2</span></div>
  <div class="card">
   <div class="form-controls">
@@ -108,13 +118,45 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  </div>
  <div class="card"><div class="topline"><b>สถิติประจำฤดูกาล</b><span class="small" id="profileSeason">ฤดูกาล —</span></div><div id="teamProfileStats"><div class="empty">กำลังโหลด…</div></div></div>
  <p class="profile-note">ข้อมูลนี้คำนวณจากตารางคะแนนและผลการแข่งขันที่มีอยู่ในฐานข้อมูลเท่านั้น ไม่ใช่คะแนนความสามารถที่รับประกันผลการแข่งขัน และจะไม่เติมค่าที่ไม่มีในแหล่งข้อมูล</p>
+</div>
+<div class="db-panel" id="dbtab-h2h">
+ <div class="sectionhead"><h2>สถิติการพบกัน (Head-to-Head)</h2><span class="small">PHASE 4.4</span></div>
+ <div class="card"><div class="form-controls">
+  <div class="field"><label for="h2hLeagueSelect">ลีก</label><select id="h2hLeagueSelect" class="filter"></select></div>
+  <div class="field"><label for="h2hSeasonSelect">ฤดูกาล</label><select id="h2hSeasonSelect" class="filter"></select></div>
+  <div class="field"><label for="h2hTeamA">ทีมแรก</label><select id="h2hTeamA" class="filter"></select></div>
+  <div class="field"><label for="h2hTeamB">ทีมที่สอง</label><select id="h2hTeamB" class="filter"></select></div>
+ </div><div id="h2hSummary" class="empty">เลือกทีมเพื่อดูสถิติการพบกัน</div></div>
+ <div class="card"><div class="topline"><b>ประวัติการแข่งขัน</b><span class="small" id="h2hCount">—</span></div><div id="h2hMatches"></div></div>
+ <p class="profile-note">ใช้ผลการแข่งขันจริงของคู่ทีมในลีกและฤดูกาลที่เลือกเท่านั้น หากพบกันน้อยครั้ง ให้พิจารณาว่าข้อมูลมีข้อจำกัด</p>
+</div>
+<div class="db-panel" id="dbtab-league">
+ <div class="sectionhead"><h2>ภาพรวมสถิติลีก</h2><span class="small">PHASE 4.5</span></div>
+ <div class="card"><div class="field"><label for="leagueAnalyticsSelect">เลือกลีก</label><select id="leagueAnalyticsSelect" class="filter"></select></div><div id="leagueAnalyticsSummary" class="empty">กำลังคำนวณสถิติลีก…</div></div>
+ <div class="card"><div class="topline"><b>แนวโน้มประตูและผลการแข่งขัน</b><span class="small" id="leagueAnalyticsSeason">—</span></div><div id="leagueAnalyticsDetails"></div></div>
+ <p class="profile-note">คำนวณจากแมตช์ FINISHED ที่มีสกอร์ถูกต้องเท่านั้น ไม่รวมการแข่งขันที่ยังไม่จบหรือถูกยกเลิก</p>
+</div>
+<div class="db-panel" id="dbtab-probability">
+ <div class="sectionhead"><h2>วิเคราะห์ความน่าจะเป็นรายคู่</h2><span class="small">PHASE 4.7</span></div>
+ <div class="card"><div class="form-controls">
+  <div class="field"><label for="probLeagueSelect">เลือกลีก</label><select id="probLeagueSelect" class="filter"></select></div>
+  <div class="field"><label for="probMatchSelect">เลือกการแข่งขันที่ยังไม่เริ่ม</label><select id="probMatchSelect" class="filter"></select></div>
+ </div><div id="probabilityOutput" class="empty">กำลังเตรียมการวิเคราะห์…</div></div>
+ <p class="profile-note">ใช้แบบจำลอง Poisson จากประตูได้–เสีย เหย้า/เยือน ฟอร์ม 5 นัด คะแนนต่อเกม และสถิติ H2H เมื่อมีตัวอย่างเพียงพอ ความน่าจะเป็นเป็นค่าประเมินจากข้อมูล ไม่ใช่คำรับประกันผล และระดับความเชื่อมั่นของข้อมูลแยกจากเปอร์เซ็นต์ความน่าจะเป็น</p>
+</div>
+<div class="db-panel" id="dbtab-accuracy">
+ <div class="sectionhead"><h2>ติดตามความแม่นยำและ Calibration</h2><span class="small">PHASE 4.6</span></div>
+ <div id="probabilityAccuracySummary" class="empty">กำลังตรวจสอบคำทำนายที่บันทึกไว้…</div>
+ <div class="card"><div class="topline"><b>การสอบเทียบความน่าจะเป็น</b><span class="small">ค่าประเมินเทียบผลจริง</span></div><div id="probabilityCalibration"></div></div>
+ <p class="profile-note">ประเมินเฉพาะคำทำนายที่บันทึกไว้ก่อนเวลาแข่งขันและมีผลจริงในฐานข้อมูลบนอุปกรณ์นี้ คำทำนายเก่าที่ไม่มีเปอร์เซ็นต์ 1X2 แยกครบจะไม่นำมาปะปน</p>
+</div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
 <section id="stats" class="page"><div class="sectionhead"><h2>สถิติและประวัติ</h2></div><div class="card"><table>
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
-<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="teamform">◷ ฟอร์มทีม</button><button data-page="teamprofile">▣ โปรไฟล์ทีม</button><button data-page="homeaway">⇄ เหย้า/เยือน</button><button data-page="analysis">◎ วิเคราะห์</button><button data-page="stats">▥ สถิติ</button></nav>
+<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ หลักการ</button><button data-page="stats">▥ ผลทดสอบ</button></nav>
 <script>
 "use strict";
 const STORAGE_KEY="pft_matches_v1";
@@ -227,6 +269,12 @@ document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x===b));
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));window.scrollTo(0,0);
 });
+function switchDatabaseTab(tab){
+ document.querySelectorAll("[data-db-tab]").forEach(b=>b.classList.toggle("active",b.dataset.dbTab===tab));
+ document.querySelectorAll(".db-panel").forEach(p=>p.classList.toggle("active",p.id==="dbtab-"+tab));
+}
+document.querySelectorAll("[data-db-tab]").forEach(b=>b.onclick=()=>{switchDatabaseTab(b.dataset.dbTab);window.scrollTo(0,0);});
+
 const addPanel=document.getElementById("addPanel");
 document.getElementById("showAdd").onclick=()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth"});};
 document.getElementById("cancelAdd").onclick=()=>{addPanel.hidden=true;document.getElementById("addForm").reset();};
