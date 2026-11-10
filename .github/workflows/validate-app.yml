@@ -10,7 +10,7 @@ on:
       - ".github/workflows/validate-app.yml"
   push:
     branches:
-      - feature/phase-4-1-team-form
+      - feature/phase-4-2-team-profile
 
 permissions:
   contents: read
@@ -43,8 +43,11 @@ jobs:
           required = [
               'const STORAGE_KEY="pft_matches_v1"',
               'function renderTeamForm()',
+              'function renderTeamProfile()',
               'id="teamform"',
+              'id="teamprofile"',
               'data-page="teamform"',
+              'data-page="teamprofile"',
           ]
           missing = [item for item in required if item not in html]
           if missing:
