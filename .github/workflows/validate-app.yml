@@ -12,6 +12,8 @@ on:
       - "data/football-database.json"
       - "sw.js"
       - "scripts/build_probability_snapshots.py"
+      - "scripts/match_player_sources.py"
+      - "docs/phase-5.6-multi-source-foundation.md"
       - "tests/test_probability_snapshots.py"
       - ".github/workflows/validate-app.yml"
       - ".github/workflows/update-football-database.yml"
@@ -76,6 +78,11 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check js/player-database.js
+
+      - name: Validate multi-source player identity matcher
+        run: |
+          python3 -m py_compile scripts/match_player_sources.py
+          python3 scripts/match_player_sources.py --self-test
 
       - name: Validate probability snapshot builder
         run: |
