@@ -46,12 +46,18 @@ def main():
     now = datetime.now(timezone.utc)
     matches = database.get("matches", [])
     standings = database.get("standings", [])
-    snapshots = database.get("probabilitySnapshots", [])
-    if not isinstance(snapshots, list):
-        snapshots = []
-
-    known_ids = {str(row.get("matchId")) for row in snapshots
-                 if isinstance(row, dict) and row.get("matchId") is not None}
+    raw_snapshots = database.get("probabilitySnapshots", [])
+    snapshots = []
+    known_ids = set()
+    if isinstance(raw_snapshots, list):
+        for row in raw_snapshots:
+            if not isinstance(row, dict) or row.get("matchId") is None:
+                continue
+            match_id = str(row["matchId"])
+            if match_id in known_ids:
+                continue
+            snapshots.append(row)
+            known_ids.add(match_id)
     matches_by_id = {str(match.get("providerMatchId")): match for match in matches
                      if match.get("providerMatchId") is not None}
     for snapshot in snapshots:
