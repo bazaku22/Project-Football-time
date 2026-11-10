@@ -294,7 +294,7 @@ function renderLeagueSelector(){
  const leagues=footballDB.leagues||[];
  document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
  document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
- document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);});
+ document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);renderHomeAwayAnalysis(true);renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();});
  document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
 }
 /* Phase 4.1: calculate team form only from completed matches with valid scores. */
@@ -432,6 +432,174 @@ function renderDatabaseMatches(){
  if(list.length>80)document.getElementById("databaseMatches").insertAdjacentHTML("beforeend",`<div class="small" style="padding-top:10px">แสดง 80 จาก ${list.length} นัด</div>`);
 }
 document.getElementById("matchFilter").onchange=renderDatabaseMatches;
+
+/* Phase 4.4-4.7: analytics, immutable pre-match probabilities and calibration. */
+const PROBABILITY_STORAGE_KEY="pft_probability_predictions_v1";
+const PROBABILITY_MODEL_VERSION="pft-poisson-1.0";
+function validFinishedMatches(leagueId,season){
+ return (footballDB?.matches||[]).filter(m=>m.leagueId===leagueId&&m.season===season&&m.status==="FINISHED"&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore)&&m.homeScore>=0&&m.awayScore>=0);
+}
+function teamVenueStats(games,teamId,venue){
+ const rows=games.filter(m=>venue==="home"?m.homeTeamId===teamId:m.awayTeamId===teamId);
+ const s={played:rows.length,w:0,d:0,l:0,gf:0,ga:0,points:0};
+ rows.forEach(m=>{const gf=venue==="home"?m.homeScore:m.awayScore,ga=venue==="home"?m.awayScore:m.homeScore;s.gf+=gf;s.ga+=ga;if(gf>ga){s.w++;s.points+=3;}else if(gf===ga){s.d++;s.points++;}else s.l++;});
+ s.gfpg=s.played?s.gf/s.played:0;s.gapg=s.played?s.ga/s.played:0;s.ppg=s.played?s.points/s.played:0;
+ return s;
+}
+function teamSeasonMetrics(leagueId,season,teamId){
+ const games=validFinishedMatches(leagueId,season).filter(m=>m.homeTeamId===teamId||m.awayTeamId===teamId).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
+ const form=games.slice(0,5),home=teamVenueStats(games,teamId,"home"),away=teamVenueStats(games,teamId,"away");
+ let formPoints=0,formGF=0,formGA=0;
+ form.forEach(m=>{const isHome=m.homeTeamId===teamId,gf=isHome?m.homeScore:m.awayScore,ga=isHome?m.awayScore:m.homeScore;formGF+=gf;formGA+=ga;formPoints+=gf>ga?3:gf===ga?1:0;});
+ const standing=(footballDB.standings||[]).find(x=>x.leagueId===leagueId&&x.season===season&&x.teamId===teamId);
+ const all=teamVenueStats(games,teamId,"home");
+ const total={played:games.length,gf:games.reduce((n,m)=>n+(m.homeTeamId===teamId?m.homeScore:m.awayScore),0),ga:games.reduce((n,m)=>n+(m.homeTeamId===teamId?m.awayScore:m.homeScore),0)};
+ total.gfpg=total.played?total.gf/total.played:0;total.gapg=total.played?total.ga/total.played:0;total.ppg=total.played?((standing?.points??0)/Math.max(1,standing?.played??games.length)):0;
+ return {games,home,away,formCount:form.length,formPPG:form.length?formPoints/form.length:0,formGFPG:form.length?formGF/form.length:0,formGAPG:form.length?formGA/form.length:0,standing,total};
+}
+function probabilitySnapshots(){
+ try{const value=JSON.parse(localStorage.getItem(PROBABILITY_STORAGE_KEY)||"[]");return Array.isArray(value)?value.filter(x=>x&&typeof x.matchId==="string"&&x.probabilities&&Number.isFinite(x.probabilities.home)&&Number.isFinite(x.probabilities.draw)&&Number.isFinite(x.probabilities.away)):[];}catch(e){console.warn("Probability history could not be read",e);return [];}
+}
+function saveProbabilitySnapshots(rows){
+ try{localStorage.setItem(PROBABILITY_STORAGE_KEY,JSON.stringify(rows));return true;}catch(e){console.warn("Probability history could not be saved",e);return false;}
+}
+function clampNumber(n,min,max){return Math.max(min,Math.min(max,n));}
+function poissonSeries(lambda,maxGoals=10){
+ const values=[Math.exp(-lambda)];
+ for(let k=1;k<=maxGoals;k++)values[k]=values[k-1]*lambda/k;
+ return values;
+}
+function computeMatchProbability(match){
+ if(!footballDB||!match)return null;
+ const leagueId=match.leagueId,season=match.season,games=validFinishedMatches(leagueId,season);
+ if(!games.length)return null;
+ const home=teamSeasonMetrics(leagueId,season,match.homeTeamId),away=teamSeasonMetrics(leagueId,season,match.awayTeamId);
+ if(!home.total.played||!away.total.played)return null;
+ const leagueHomeGoals=games.reduce((n,m)=>n+m.homeScore,0)/games.length;
+ const leagueAwayGoals=games.reduce((n,m)=>n+m.awayScore,0)/games.length;
+ const mean=(values,fallback)=>values.filter(x=>Number.isFinite(x)&&x>0).length?Math.pow(values.filter(x=>Number.isFinite(x)&&x>0).reduce((a,b)=>a*b,1),1/values.filter(x=>Number.isFinite(x)&&x>0).length):fallback;
+ let lambdaHome=mean([home.home.played?home.home.gfpg:null,away.away.played?away.away.gapg:null,leagueHomeGoals],leagueHomeGoals||1.4);
+ let lambdaAway=mean([away.away.played?away.away.gfpg:null,home.home.played?home.home.gapg:null,leagueAwayGoals],leagueAwayGoals||1.1);
+ const leagueStandings=(footballDB.standings||[]).filter(x=>x.leagueId===leagueId&&x.season===season);
+ const leaguePPG=leagueStandings.length?leagueStandings.reduce((n,x)=>n+x.points/Math.max(1,x.played),0)/leagueStandings.length:1.35;
+ const homeFormFactor=clampNumber(1+(home.formPPG-1.35)*0.035,0.88,1.12);
+ const awayFormFactor=clampNumber(1+(away.formPPG-1.35)*0.035,0.88,1.12);
+ const homeTableFactor=home.standing?clampNumber(1+((home.standing.points/Math.max(1,home.standing.played))-leaguePPG)*0.025,0.92,1.08):1;
+ const awayTableFactor=away.standing?clampNumber(1+((away.standing.points/Math.max(1,away.standing.played))-leaguePPG)*0.025,0.92,1.08):1;
+ lambdaHome*=homeFormFactor*homeTableFactor;lambdaAway*=awayFormFactor*awayTableFactor;
+ const h2h=games.filter(m=>(m.homeTeamId===match.homeTeamId&&m.awayTeamId===match.awayTeamId)||(m.homeTeamId===match.awayTeamId&&m.awayTeamId===match.homeTeamId)).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
+ let h2hHomeGoals=0,h2hAwayGoals=0;
+ h2h.forEach(m=>{h2hHomeGoals+=m.homeTeamId===match.homeTeamId?m.homeScore:m.awayScore;h2hAwayGoals+=m.homeTeamId===match.homeTeamId?m.awayScore:m.homeScore;});
+ if(h2h.length>=3){lambdaHome=lambdaHome*0.85+(h2hHomeGoals/h2h.length)*0.15;lambdaAway=lambdaAway*0.85+(h2hAwayGoals/h2h.length)*0.15;}
+ lambdaHome=clampNumber(lambdaHome,0.2,3.5);lambdaAway=clampNumber(lambdaAway,0.2,3.5);
+ const ph=poissonSeries(lambdaHome),pa=poissonSeries(lambdaAway);let homeWin=0,draw=0,awayWin=0;
+ for(let i=0;i<ph.length;i++)for(let j=0;j<pa.length;j++){const p=ph[i]*pa[j];if(i>j)homeWin+=p;else if(i===j)draw+=p;else awayWin+=p;}
+ const sum=homeWin+draw+awayWin;const raw={home:homeWin/sum*100,draw:draw/sum*100,away:awayWin/sum*100};
+ const rounded={home:Number(raw.home.toFixed(1)),draw:Number(raw.draw.toFixed(1)),away:Number(raw.away.toFixed(1))};
+ rounded.away=Number((100-rounded.home-rounded.draw).toFixed(1));
+ const venueSample=Math.min(home.home.played,away.away.played),formSample=Math.min(home.formCount,away.formCount);
+ const confidenceScore=Math.round((0.60*Math.min(1,venueSample/8)+0.25*Math.min(1,formSample/5)+0.15*(home.standing&&away.standing?1:0))*100);
+ const confidence=confidenceScore>=75?"สูง":confidenceScore>=45?"กลาง":"ต่ำ";
+ const topProbability=Math.max(rounded.home,rounded.draw,rounded.away);
+ const probabilityLevel=topProbability>=65?"สูง":topProbability>=45?"กลาง":"ต่ำ";
+ const homeName=match.homeTeamName||"เจ้าบ้าน",awayName=match.awayTeamName||"ทีมเยือน";
+ const reasons=[
+  "ฟอร์ม 5 นัด: "+homeName+" "+home.formPPG.toFixed(2)+" คะแนน/นัด · "+awayName+" "+away.formPPG.toFixed(2)+" คะแนน/นัด",
+  "เกมเหย้า "+home.home.played+" นัด: ยิงเฉลี่ย "+home.home.gfpg.toFixed(2)+" · เสียเฉลี่ย "+home.home.gapg.toFixed(2),
+  "เกมเยือน "+away.away.played+" นัด: ยิงเฉลี่ย "+away.away.gfpg.toFixed(2)+" · เสียเฉลี่ย "+away.away.gapg.toFixed(2),
+  "ค่าเฉลี่ยประตูลีก: เหย้า "+leagueHomeGoals.toFixed(2)+" · เยือน "+leagueAwayGoals.toFixed(2),
+  h2h.length>=3?"H2H "+h2h.length+" นัด: "+(h2hHomeGoals/h2h.length).toFixed(2)+"-"+(h2hAwayGoals/h2h.length).toFixed(2)+" ประตูเฉลี่ย เมื่อมองจาก "+homeName+" เทียบ "+awayName:"H2H มี "+h2h.length+" นัด จึงไม่นำมาปรับโมเดล (ต้องมีอย่างน้อย 3 นัด)",
+  "อันดับ/คะแนนต่อเกม: "+(home.standing?"อันดับ "+home.standing.position+" · "+(home.standing.points/Math.max(1,home.standing.played)).toFixed(2)+" แต้ม/นัด":"ไม่มีข้อมูล")+" เทียบ "+(away.standing?"อันดับ "+away.standing.position+" · "+(away.standing.points/Math.max(1,away.standing.played)).toFixed(2)+" แต้ม/นัด":"ไม่มีข้อมูล")
+ ];
+ return {probabilities:rounded,expectedGoals:{home:Number(lambdaHome.toFixed(2)),away:Number(lambdaAway.toFixed(2))},confidenceScore,confidence,probabilityLevel,topProbability:Number(topProbability.toFixed(1)),sample:{homeVenue:home.home.played,awayVenue:away.away.played,homeForm:home.formCount,awayForm:away.formCount,h2h:h2h.length},reasons};
+}
+function recordUpcomingProbabilities(){
+ if(!footballDB)return;
+ const rows=probabilitySnapshots(),known=new Set(rows.map(x=>x.matchId)),now=Date.now();
+ (footballDB.matches||[]).filter(m=>(m.status==="SCHEDULED"||m.status==="TIMED")&&m.utcDate&&new Date(m.utcDate).getTime()>now&&m.providerMatchId!==undefined).forEach(m=>{
+  const id=String(m.providerMatchId);if(known.has(id))return;
+  const result=computeMatchProbability(m);if(!result)return;
+  rows.push({matchId:id,leagueId:m.leagueId,season:m.season,utcDate:m.utcDate,homeTeamName:m.homeTeamName,awayTeamName:m.awayTeamName,probabilities:result.probabilities,expectedGoals:result.expectedGoals,confidenceScore:result.confidenceScore,confidence:result.confidence,modelVersion:PROBABILITY_MODEL_VERSION,createdAt:new Date().toISOString()});
+  known.add(id);
+ });
+ if(rows.length>2500)rows.splice(0,rows.length-2500);
+ saveProbabilitySnapshots(rows);
+}
+function renderHeadToHead(resetTeams=false){
+ if(!footballDB)return;
+ const leagueSelect=document.getElementById("h2hLeagueSelect"),seasonSelect=document.getElementById("h2hSeasonSelect"),aSelect=document.getElementById("h2hTeamA"),bSelect=document.getElementById("h2hTeamB");
+ if(!leagueSelect||!seasonSelect||!aSelect||!bSelect)return;
+ const leagues=footballDB.leagues||[],leagueId=leagues.some(x=>x.id===leagueSelect.value)?leagueSelect.value:selectedLeagueId;
+ leagueSelect.innerHTML=leagues.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.name)+'</option>').join("");leagueSelect.value=leagueId;
+ const seasons=[...new Set((footballDB.matches||[]).filter(m=>m.leagueId===leagueId).map(m=>m.season).filter(Boolean))].sort().reverse();
+ const season=seasons.includes(seasonSelect.value)?seasonSelect.value:(formSeasonForLeague(leagueId)||seasons[0]||"");
+ seasonSelect.innerHTML=seasons.map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");seasonSelect.value=season;
+ const teams=(footballDB.teamSeasons||[]).filter(x=>x.leagueId===leagueId&&x.season===season).map(x=>footballDB.teams.find(t=>t.id===x.teamId)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+ const oldA=resetTeams?"":aSelect.value,oldB=resetTeams?"":bSelect.value;
+ aSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join("");bSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join("");
+ aSelect.value=teams.some(t=>t.id===oldA)?oldA:(teams[0]?.id||"");
+ bSelect.value=teams.some(t=>t.id===oldB&&t.id!==aSelect.value)?oldB:(teams.find(t=>t.id!==aSelect.value)?.id||"");
+ leagueSelect.onchange=()=>renderHeadToHead(true);seasonSelect.onchange=()=>renderHeadToHead(true);aSelect.onchange=()=>renderHeadToHead(false);bSelect.onchange=()=>renderHeadToHead(false);
+ const summary=document.getElementById("h2hSummary"),list=document.getElementById("h2hMatches");
+ const games=validFinishedMatches(leagueId,season).filter(m=>(m.homeTeamId===aSelect.value&&m.awayTeamId===bSelect.value)||(m.homeTeamId===bSelect.value&&m.awayTeamId===aSelect.value)).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
+ let wins=0,draws=0,losses=0,gf=0,ga=0;
+ games.forEach(m=>{const isHome=m.homeTeamId===aSelect.value,x=isHome?m.homeScore:m.awayScore,y=isHome?m.awayScore:m.homeScore;gf+=x;ga+=y;if(x>y)wins++;else if(x===y)draws++;else losses++;});
+ const teamA=teams.find(t=>t.id===aSelect.value),teamB=teams.find(t=>t.id===bSelect.value);
+ if(!teamA||!teamB||teamA.id===teamB.id){summary.innerHTML='<div class="empty">เลือกทีมสองทีมที่แตกต่างกัน</div>';list.innerHTML="";return;}
+ summary.innerHTML='<div class="profile-hero">'+(teamA.crest?'<img class="team-crest" src="'+esc(teamA.crest)+'" alt="">':"")+'<b>'+esc(teamA.name)+'</b><span>เทียบ</span>'+(teamB.crest?'<img class="team-crest" src="'+esc(teamB.crest)+'" alt="">':"")+'<b>'+esc(teamB.name)+'</b></div><div class="form-summary"><div class="form-stat"><b>'+wins+'</b><span>ทีมแรกชนะ</span></div><div class="form-stat"><b>'+draws+'</b><span>เสมอ</span></div><div class="form-stat"><b>'+losses+'</b><span>ทีมแรกแพ้</span></div></div><div class="small">ประตูรวมของทีมแรก '+gf+' · ทีมที่สอง '+ga+' · พบกัน '+games.length+' นัด</div>'+(games.length<3?'<div class="quality-note">จำนวนเกมพบกันน้อยกว่า 3 นัด สถิตินี้มีข้อจำกัดและไม่ควรให้น้ำหนักมาก</div>':"");
+ document.getElementById("h2hCount").textContent=games.length+" นัด";
+ list.innerHTML=games.map(m=>{const isHome=m.homeTeamId===teamA.id,score=isHome?m.homeScore+" - "+m.awayScore:m.awayScore+" - "+m.homeScore;return '<div class="form-match"><div class="form-match-main"><b>'+esc(m.homeTeamName)+' vs '+esc(m.awayTeamName)+'</b><small>'+dateTime(m.utcDate)+'</small></div><div class="form-match-score">'+score+'</div></div>';}).join("")||'<div class="empty">ไม่พบประวัติการพบกันในฤดูกาลนี้</div>';
+}
+function renderLeagueAnalytics(){
+ if(!footballDB)return;
+ const select=document.getElementById("leagueAnalyticsSelect");if(!select)return;
+ const leagues=footballDB.leagues||[],leagueId=leagues.some(x=>x.id===select.value)?select.value:selectedLeagueId;
+ select.innerHTML=leagues.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.name)+'</option>').join("");select.value=leagueId;select.onchange=renderLeagueAnalytics;
+ const season=formSeasonForLeague(leagueId),games=validFinishedMatches(leagueId,season),n=games.length;
+ let homeWins=0,draws=0,awayWins=0,goals=0,homeGoals=0,awayGoals=0,cleanSheets=0,btts=0,low=0,medium=0,high=0;
+ games.forEach(m=>{homeGoals+=m.homeScore;awayGoals+=m.awayScore;goals+=m.homeScore+m.awayScore;if(m.homeScore>m.awayScore)homeWins++;else if(m.homeScore===m.awayScore)draws++;else awayWins++;if(m.homeScore===0||m.awayScore===0)cleanSheets++;if(m.homeScore>0&&m.awayScore>0)btts++;const total=m.homeScore+m.awayScore;if(total<=1)low++;else if(total<=3)medium++;else high++;});
+ const pct=x=>n?(x/n*100).toFixed(1)+"%":"—",avg=x=>n?(x/n).toFixed(2):"—";
+ document.getElementById("leagueAnalyticsSeason").textContent="ฤดูกาล "+(season||"—")+" · "+n+" นัด";
+ document.getElementById("leagueAnalyticsSummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+n+'</b><span>การแข่งขันที่จบแล้ว</span></div><div class="db-kpi"><b>'+avg(goals)+'</b><span>ประตูรวมเฉลี่ย / นัด</span></div><div class="db-kpi"><b>'+avg(homeGoals)+'</b><span>ประตูเจ้าบ้านเฉลี่ย / นัด</span></div><div class="db-kpi"><b>'+avg(awayGoals)+'</b><span>ประตูทีมเยือนเฉลี่ย / นัด</span></div></div>';
+ document.getElementById("leagueAnalyticsDetails").innerHTML=n?'<div class="calibration-row"><span>เจ้าบ้านชนะ</span><b>'+homeWins+'</b><span>'+pct(homeWins)+'</span></div><div class="calibration-row"><span>เสมอ</span><b>'+draws+'</b><span>'+pct(draws)+'</span></div><div class="calibration-row"><span>ทีมเยือนชนะ</span><b>'+awayWins+'</b><span>'+pct(awayWins)+'</span></div><div class="calibration-row"><span>มีทีมคลีนชีต</span><b>'+cleanSheets+'</b><span>'+pct(cleanSheets)+'</span></div><div class="calibration-row"><span>ทั้งสองทีมทำประตู</span><b>'+btts+'</b><span>'+pct(btts)+'</span></div><div class="calibration-row"><span>รวม 0–1 ประตู</span><b>'+low+'</b><span>'+pct(low)+'</span></div><div class="calibration-row"><span>รวม 2–3 ประตู</span><b>'+medium+'</b><span>'+pct(medium)+'</span></div><div class="calibration-row"><span>รวม 4 ประตูขึ้นไป</span><b>'+high+'</b><span>'+pct(high)+'</span></div>':'<div class="empty">ยังไม่มีผลการแข่งขันที่สมบูรณ์สำหรับลีกนี้</div>';
+}
+function renderProbabilityAnalysis(){
+ if(!footballDB)return;
+ const leagueSelect=document.getElementById("probLeagueSelect"),matchSelect=document.getElementById("probMatchSelect");if(!leagueSelect||!matchSelect)return;
+ const leagues=footballDB.leagues||[],leagueId=leagues.some(x=>x.id===leagueSelect.value)?leagueSelect.value:selectedLeagueId;
+ leagueSelect.innerHTML=leagues.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.name)+'</option>').join("");leagueSelect.value=leagueId;
+ const fixtures=(footballDB.matches||[]).filter(m=>m.leagueId===leagueId&&(m.status==="TIMED"||m.status==="SCHEDULED")&&m.utcDate&&new Date(m.utcDate).getTime()>Date.now()).sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
+ const previous=matchSelect.value;
+ matchSelect.innerHTML=fixtures.map(m=>'<option value="'+esc(String(m.providerMatchId))+'">'+esc(dateTime(m.utcDate)+' · '+m.homeTeamName+' vs '+m.awayTeamName)+'</option>').join("");
+ if(fixtures.some(m=>String(m.providerMatchId)===previous))matchSelect.value=previous;
+ leagueSelect.onchange=()=>renderProbabilityAnalysis();matchSelect.onchange=()=>renderProbabilityAnalysis();
+ const match=fixtures.find(m=>String(m.providerMatchId)===matchSelect.value)||fixtures[0],output=document.getElementById("probabilityOutput");
+ if(!match){output.innerHTML='<div class="empty">ไม่มีโปรแกรมแข่งขันที่ยังไม่เริ่มในลีกนี้</div>';return;}
+ const result=computeMatchProbability(match);
+ if(!result){output.innerHTML='<div class="empty">ข้อมูลผลการแข่งขันย้อนหลังยังไม่เพียงพอสำหรับคำนวณ</div>';return;}
+ const p=result.probabilities;
+ const outcome=(label,value)=>'<div class="prob-outcome"><span>'+label+'</span><b>'+value.toFixed(1)+'%</b><div class="prob-level">ระดับ '+(value>=65?"สูง":value>=45?"กลาง":"ต่ำ")+'</div></div>';
+ output.innerHTML='<div class="league-line"><div><b>'+esc(match.homeTeamName)+' vs '+esc(match.awayTeamName)+'</b><div class="small">'+dateTime(match.utcDate)+' · '+esc(match.season)+'</div></div></div><div class="prob-grid">'+outcome("เจ้าบ้านชนะ",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือนชนะ",p.away)+'</div><div class="db-kpis"><div class="db-kpi"><b>'+result.expectedGoals.home.toFixed(2)+'</b><span>ประตูคาดหมายเจ้าบ้าน</span></div><div class="db-kpi"><b>'+result.expectedGoals.away.toFixed(2)+'</b><span>ประตูคาดหมายทีมเยือน</span></div><div class="db-kpi"><b>'+result.probabilityLevel+'</b><span>ระดับของผลลัพธ์ที่มี % สูงสุด ('+result.topProbability.toFixed(1)+'%)</span></div><div class="db-kpi"><b>'+result.confidenceScore+' / 100</b><span>ความเชื่อมั่นด้านคุณภาพข้อมูล · '+result.confidence+'</span></div></div><div class="quality-note">ความน่าจะเป็นและความเชื่อมั่นเป็นคนละค่า · ตัวอย่างข้อมูล: เหย้า '+result.sample.homeVenue+' นัด / เยือน '+result.sample.awayVenue+' นัด / ฟอร์ม '+result.sample.homeForm+' และ '+result.sample.awayForm+' นัด / H2H '+result.sample.h2h+' นัด</div><h3 style="font-size:13px;margin:14px 0 5px">ปัจจัยที่ใช้คำนวณ</h3><ul class="prob-reasons">'+result.reasons.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><div class="small">โมเดล '+PROBABILITY_MODEL_VERSION+' · คำทำนายก่อนแข่งจะถูกบันทึกครั้งแรกและไม่เขียนทับย้อนหลัง</div>';
+}
+function renderProbabilityAccuracy(){
+ if(!footballDB)return;
+ const snapshots=probabilitySnapshots(),byId=new Map((footballDB.matches||[]).map(m=>[String(m.providerMatchId),m]));
+ const evaluated=snapshots.map(s=>({snapshot:s,match:byId.get(s.matchId)})).filter(x=>x.match&&x.match.status==="FINISHED"&&Number.isInteger(x.match.homeScore)&&Number.isInteger(x.match.awayScore)&&x.match.homeScore>=0&&x.match.awayScore>=0);
+ let correct=0,brier=0,logLoss=0;
+ const bins=[0,1,2,3,4,5,6,7,8,9].map(i=>({min:i/10,max:(i+1)/10,count:0,confidence:0,correct:0}));
+ evaluated.forEach(({snapshot:s,match:m})=>{
+  const actual=m.homeScore>m.awayScore?"home":m.homeScore===m.awayScore?"draw":"away",pred=s.probabilities,chosen=["home","draw","away"].sort((a,b)=>pred[b]-pred[a])[0];
+  if(chosen===actual)correct++;
+  ["home","draw","away"].forEach(k=>{const target=k===actual?1:0;brier+=Math.pow(pred[k]/100-target,2);});
+  logLoss-=Math.log(Math.max(0.0001,pred[actual]/100));
+  const max=Math.max(pred.home,pred.draw,pred.away)/100,index=Math.min(9,Math.floor(max*10)),bin=bins[index];bin.count++;bin.confidence+=max;bin.correct+=chosen===actual?1:0;
+ });
+ const n=evaluated.length,fmt=x=>x.toFixed(3),accuracy=n?(correct/n*100).toFixed(1)+"%":"—";
+ document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+snapshots.length+'</b><span>คำทำนายที่บันทึกไว้</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่มีผลจริงสำหรับประเมิน</span></div><div class="db-kpi"><b>'+accuracy+'</b><span>ทายผล 1X2 ถูก (เลือกค่าที่สูงสุด)</span></div><div class="db-kpi"><b>'+(n?fmt(brier/(n*3)):"—")+'</b><span>Brier score เฉลี่ย (ยิ่งต่ำยิ่งดี)</span></div><div class="db-kpi"><b>'+(n?fmt(logLoss/n):"—")+'</b><span>Log loss เฉลี่ย (ยิ่งต่ำยิ่งดี)</span></div><div class="db-kpi"><b>'+Math.max(0,snapshots.length-n)+'</b><span>ยังรอผลหรือยังไม่สามารถประเมิน</span></div></div><div class="quality-note">ใช้เฉพาะคำทำนายที่บันทึกก่อนเวลาแข่งขันบนอุปกรณ์นี้เท่านั้น จำนวนตัวอย่างยังน้อยอาจทำให้ค่าความแม่นยำผันผวน และไม่ควรสรุปคุณภาพโมเดลจากตัวอย่างจำนวนน้อย</div>';
+ const rows=bins.filter(b=>b.count>0).map(b=>'<div class="calibration-row"><span>'+(b.min*100).toFixed(0)+'–'+(b.max*100).toFixed(0)+'% · '+b.count+' คู่</span><b>คาดเฉลี่ย '+(b.confidence/b.count*100).toFixed(1)+'%</b><span>ถูก '+(b.correct/b.count*100).toFixed(1)+'%</span></div>');
+ document.getElementById("probabilityCalibration").innerHTML=rows.join("")||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงเพียงพอสำหรับ Calibration</div>';
+}
+
 async function loadFootballDatabase(){
  const status=document.getElementById("dbStatus");
  try{
@@ -443,7 +611,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent="เชื่อมต่อสำเร็จ";
-  renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();
+  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
