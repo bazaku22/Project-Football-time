@@ -1,0 +1,62 @@
+name: Test StrikerAPI Key (Safe)
+
+on:
+  workflow_dispatch:
+    inputs:
+      league:
+        description: "League"
+        required: true
+        type: choice
+        options:
+          - epl
+          - laliga
+          - bundesliga
+          - seriea
+          - ligue1
+        default: epl
+      team:
+        description: "Club abbreviation (one club only; default ARS)"
+        required: true
+        type: string
+        default: ARS
+
+permissions:
+  contents: read
+
+jobs:
+  test-key:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Validate secret exists
+        env:
+          STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
+        run: |
+          if [ -z "$STRIKERAPI_API_KEY" ]; then
+            echo "::error::STRIKERAPI_API_KEY is missing from GitHub Actions Secrets."
+            exit 1
+          fi
+      - name: Make one read-only squad request (2 credits)
+        env:
+          STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
+          LEAGUE: ${{ inputs.league }}
+          TEAM: ${{ inputs.team }}
+        run: |
+          set +e
+          HTTP_CODE=$(curl --silent --show-error             --output response.json             --write-out "%{http_code}"             --max-time 45             --request POST "https://mcp.strikerapi.com/v1/get_squad"             --header "Content-Type: application/json"             --header "x-api-key: $STRIKERAPI_API_KEY"             --data "$(jq -n --arg league "$LEAGUE" --arg team "$TEAM" '{league:$league,team:$team}')")
+          CURL_STATUS=$?
+          set -e
+          if [ "$CURL_STATUS" -ne 0 ]; then
+            echo "::error::Network/request failure (curl exit $CURL_STATUS)."
+            exit 1
+          fi
+          echo "HTTP status: $HTTP_CODE"
+          if [ "$HTTP_CODE" != "200" ]; then
+            ERROR=$(jq -r '.message // .error // "No provider error message returned"' response.json 2>/dev/null | head -c 300)
+            echo "::error::StrikerAPI request failed: HTTP $HTTP_CODE — $ERROR"
+            exit 1
+          fi
+          jq -e '(.data // .) as $d | ($d.players | type == "array")' response.json >/dev/null
+          RESULT=$(jq -c '(.data // .) as $d | {team:($d.team_name // $d.team // "unknown"),season:($d.season // null),players_returned:($d.players|length)}' response.json)
+          echo "Safe result summary: $RESULT"
+          echo "No player records were saved. One club request only; expected cost: 2 credits."
