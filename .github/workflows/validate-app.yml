@@ -50,17 +50,17 @@ jobs:
               'function computeMatchProbability(',
               'function renderProbabilityAccuracy(',
               'const PROBABILITY_STORAGE_KEY=',
-              'id="teamform"',
-              'id="teamprofile"',
-              'data-page="teamform"',
-              'data-page="teamprofile"',
+              'id="dbtab-form"',
+              'id="dbtab-profile"',
+              'data-db-tab="form"',
+              'data-db-tab="profile"',
               'id="dbtab-h2h"',
               'id="dbtab-league"',
               'id="dbtab-probability"',
               'id="dbtab-accuracy"',
               'data-db-tab="accuracy"',
-              'id="homeaway"',
-              'data-page="homeaway"',
+              'id="dbtab-homeaway"',
+              'data-db-tab="homeaway"',
           ]
           missing = [item for item in required if item not in html]
           if missing:
