@@ -1,5 +1,5 @@
 
-const CACHE = "football-time-v15";
+const CACHE = "football-time-v16";
 
 const ASSETS = [
   "./",
@@ -8,7 +8,9 @@ const ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./data/football-database.json",
-  "./data/test-records.json"
+  "./data/test-records.json",
+  "./data/player-database.json",
+  "./js/player-database.js"
 ];
 
 // Install service worker
@@ -80,6 +82,27 @@ self.addEventListener("fetch", (event) => {
         })
     );
 
+    return;
+  }
+
+  // Network-first player data with an offline cache fallback.
+  if (url.pathname.endsWith("/data/player-database.json")) {
+    event.respondWith(
+      fetch(request, { cache: "no-store" })
+        .then((response) => {
+          if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE).then((cache) => cache.put(request, copy));
+          }
+          return response;
+        })
+        .catch(async () => {
+          const cached = await caches.match(request);
+          return cached || new Response(JSON.stringify({ schemaVersion: 1, records: [] }), {
+            status: 503, headers: { "Content-Type": "application/json" }
+          });
+        })
+    );
     return;
   }
 
