@@ -43,7 +43,7 @@ jobs:
           required = [
               'const STORAGE_KEY="pft_matches_v1"',
               'function renderTeamForm()',
-              'function renderTeamProfile()',
+              'function renderTeamProfile(',
               'id="teamform"',
               'id="teamprofile"',
               'data-page="teamform"',
@@ -52,7 +52,7 @@ jobs:
           missing = [item for item in required if item not in html]
           if missing:
               raise SystemExit("Missing required app features: " + ", ".join(missing))
-          print("Application structure and Phase 4.1 feature markers are present.")
+          print("Application structure and Phase 4.2 feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
 
