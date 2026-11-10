@@ -9,108 +9,68 @@
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f4f7f9;font:15px system-ui,-apple-system,"Noto Sans Thai",sans-serif}
-header{padding:22px 18px 14px;background:#14232d;position:sticky;top:0;z-index:3;border-bottom:1px solid var(--line)}
+header{padding:18px;background:#14232d;position:sticky;top:0;z-index:3;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:#193c37;display:grid;place-items:center;font-size:22px}
-h1{font-size:18px;margin:0;letter-spacing:.4px}.sub{font-size:11px;color:var(--muted);margin-top:3px}
-main{padding:16px;max-width:720px;margin:auto;padding-bottom:90px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:20px}.stat{background:var(--panel);border-radius:13px;padding:13px 10px}.stat b{font-size:23px;display:block}.stat span{font-size:11px;color:var(--muted)}
-.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.sectionhead h2{font-size:16px;margin:0}.small{font-size:11px;color:var(--muted)}
-.card{background:var(--panel);border:1px solid #263945;border-radius:15px;padding:14px;margin:10px 0}.topline{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;gap:8px}.tag{font-size:10px;color:#d3e0e7;background:#30414d;padding:5px 8px;border-radius:7px}.date,.league{font-size:11px;color:var(--muted)}
-.league-line{display:flex;align-items:center;gap:8px;margin:8px 0}
-.league-logo{width:28px;height:28px;object-fit:contain;flex-shrink:0}
-.league-name{font-size:11px;color:var(--muted)} 
-.league-fallback{
- width:28px;
- height:28px;
- align-items:center;
- justify-content:center;
- border-radius:6px;
- background:#263945;
- color:#fff;
- font-size:10px;
- font-weight:700;
- flex-shrink:0;
- }
-.teams{font-size:17px;font-weight:700;line-height:1.5;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{font-size:10px;color:var(--muted);display:block;margin-bottom:4px}.value{font-size:14px;font-weight:650}.handicap{font-size:20px;color:var(--green);font-weight:750}.missing{color:var(--gold);font-size:13px}
-.detail{width:100%;margin-top:12px;border:1px solid var(--line);background:#14232d;color:#dce5eb;border-radius:9px;padding:9px}.extra{display:none;background:#14232d;padding:10px;border-radius:9px;margin-top:9px;font-size:12px;color:#c2cfd7}.extra.open{display:block}
-.notice{color:var(--muted);font-size:11px;line-height:1.6;margin-top:16px}.empty{color:var(--muted);text-align:center;padding:25px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#14232d;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:10px 5px calc(10px + env(safe-area-inset-bottom));z-index:4}.nav button{border:0;border-radius:9px;padding:8px 10px}.nav button.active{color:var(--green);background:#203b39}
-.nav button{background:transparent;color:#dce5eb;font-size:12px}
-.page{display:none}.page.active{display:block}
-table{width:100%;border-collapse:collapse;font-size:12px}td{padding:10px 5px;border-bottom:1px solid var(--line)}td:last-child{text-align:right}
-.primary{width:100%;border:0;border-radius:11px;background:#28785e;color:#fff;font-weight:700;padding:13px;font-size:14px;margin:4px 0 12px}
-.secondary{border:1px solid var(--line);border-radius:9px;background:#14232d;color:#dce5eb;padding:10px}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.field{display:flex;flex-direction:column;gap:5px}.field.full{grid-column:1/-1}.field label{font-size:11px;color:var(--muted)}
-.field input{width:100%;min-width:0;background:#101c24;border:1px solid #405461;border-radius:9px;padding:11px;color:#fff;font:inherit}
-.form-actions{display:flex;gap:9px;margin-top:14px}.form-actions button{flex:1}
-.result-form{display:none;margin-top:10px;padding:11px;background:#101c24;border:1px solid var(--line);border-radius:10px}.result-form.open{display:block}.result-form .field{margin-bottom:9px}.result-form select,.result-form input{width:100%;background:#1b2934;border:1px solid #405461;border-radius:9px;padding:10px;color:#fff;font:inherit}.result-button{width:100%;margin-top:10px;border:1px solid #397b68;background:#193c37;color:#b7f3d9;border-radius:9px;padding:10px;font-weight:650}.result-status{font-size:11px;padding:4px 8px;border-radius:7px;background:#30414d;color:#d3e0e7}.result-status.pass{background:#174a38;color:#a8f0cc}.result-status.fail{background:#542d32;color:#ffc0c0}.result-status.push{background:#55452b;color:#ffe0a1}
-@media(max-width:380px){.stats{gap:6px}.stat{padding:10px 7px}.stat b{font-size:20px}.nav button{font-size:11px;padding:8px 7px}}
-@media(min-width:600px){.teams{font-size:19px}.card{padding:18px}}
+h1{font-size:18px;margin:0}.sub,.small,.notice{font-size:11px;color:var(--muted)}.sub{margin-top:3px}
+main{padding:15px;max-width:760px;margin:auto;padding-bottom:90px}.page{display:none}.page.active{display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:15px}.stat,.card{background:var(--panel);border:1px solid #263945;border-radius:14px;padding:13px;margin:10px 0}.stat b{font-size:22px;display:block}.stat span{font-size:11px;color:var(--muted)}
+.sectionhead,.topline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:16px 0 9px}.sectionhead h2{font-size:16px;margin:0}
+button,select,input{font:inherit}.primary,.secondary,.detail,.result-button{border-radius:10px;padding:11px;border:1px solid var(--line);background:#14232d;color:#e8f0f4}
+.primary{width:100%;border:0;background:#28785e;color:white;font-weight:700;margin:4px 0 10px}.secondary{margin:3px 5px 3px 0}
+.tag,.result-status{font-size:10px;background:#30414d;color:#d3e0e7;padding:5px 8px;border-radius:7px}
+.league-line{display:flex;align-items:center;gap:9px}.league-logo,.team-crest{width:30px;height:30px;object-fit:contain;flex-shrink:0}.league-name{font-size:12px;color:var(--muted)}
+.teams{font-size:17px;font-weight:700;margin:9px 0}.vs{font-size:10px;color:var(--muted);font-weight:500;margin:0 5px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px;margin-top:12px}.label{display:block;font-size:10px;color:var(--muted);margin-bottom:4px}.value{font-size:14px;font-weight:650}.handicap{font-size:19px;color:var(--green);font-weight:750}.missing{color:var(--gold)}
+.detail,.result-button{width:100%;margin-top:10px}.extra,.result-form{display:none;background:#14232d;padding:11px;border-radius:9px;margin-top:9px;font-size:12px}.extra.open,.result-form.open{display:block}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#14232d;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px 4px calc(9px + env(safe-area-inset-bottom));z-index:4}
+.nav button{border:0;background:transparent;color:#dce5eb;font-size:12px;padding:8px}.nav button.active{color:var(--green);background:#203b39;border-radius:9px}
+table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,th{padding:9px 6px;border-bottom:1px solid var(--line);text-align:right}td:first-child,th:first-child{text-align:left}th{color:var(--muted);font-weight:600}
+.field{display:flex;flex-direction:column;gap:5px;margin:9px 0}.field label{font-size:11px;color:var(--muted)}.field input,.field select,.filter{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:10px;color:#fff}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.full{grid-column:1/-1}.form-actions{display:flex;gap:8px}.form-actions>*{flex:1}
+.pillrow{display:flex;gap:7px;overflow:auto;padding:4px 0 9px}.pill{flex:0 0 auto;border:1px solid var(--line);border-radius:20px;background:#14232d;color:#dce5eb;padding:8px 12px;font-size:12px}.pill.active{background:#1c4a3c;border-color:#397b68;color:#b7f3d9}
+.league-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.league-card{background:#14232d;border:1px solid var(--line);border-radius:12px;padding:11px;display:flex;gap:9px;align-items:center;min-width:0}.league-card b{font-size:12px}.league-card small{display:block;color:var(--muted);font-size:10px}
+.match-row{padding:10px 0;border-bottom:1px solid var(--line)}.match-row:last-child{border:0}.match-teams{font-weight:650;font-size:13px}.match-meta{font-size:10px;color:var(--muted);margin-top:4px}
+.empty{text-align:center;color:var(--muted);padding:22px}.notice{line-height:1.7;margin-top:15px}
+@media(max-width:380px){.stats{gap:5px}.stat{padding:9px 6px}.stat b{font-size:19px}.nav button{font-size:10px;padding:8px 6px}.league-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · MODEL TRACKER</div></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div></div></div></header>
 <main>
 <section id="home" class="page active">
- <div class="stats">
-  <div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div>
-  <div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div>
-  <div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div>
- </div>
+ <div class="stats"><div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div><div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div></div>
  <button class="primary" id="showAdd">＋ เพิ่มรายการทดสอบ</button>
- <button class="secondary" id="exportBackup" type="button">↓ สำรองข้อมูล (JSON)</button>
- <button class="secondary" id="importBackup" type="button">↑ นำเข้าข้อมูล (JSON)</button>
-<input id="importFile" type="file" accept=".json,application/json" hidden>
- <section id="addPanel" class="card" hidden>
-  <div class="sectionhead"><h2>เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><span class="small">บันทึกในเครื่องนี้</span></div>
-  <form id="addForm">
-   <div class="formgrid">
-    <div class="field"><label for="homeTeam">ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70" placeholder="เช่น Team A"></div>
-    <div class="field"><label for="awayTeam">ทีมเยือน *</label><input id="awayTeam" required maxlength="70" placeholder="เช่น Team B"></div>
-    <div class="field full"><label for="league">ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90" placeholder="เช่น Premier League"></div>
-    <div class="field"><label for="matchDate">วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div>
-    <div class="field"><label for="matchTime">เวลาแข่งขัน</label><input id="matchTime" placeholder="เช่น 20:00 หรือยังไม่ยืนยัน" maxlength="30"></div>
-    <div class="field full"><label for="selectedTeam">ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70" placeholder="ระบุชื่อทีมที่โมเดลเลือก"></div>
-    <div class="field"><label for="handicap">แฮนดิแคป (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="เช่น -0.5 หรือ -1"></div>
-    <div class="field"><label for="prob">โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" step="1" required placeholder="เช่น 62"></div>
-    <div class="field full"><label for="prediction">สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="เช่น 2-1"></div>
-   </div>
-   <div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div>
-  </form>
- </section>
- <div class="sectionhead"><h2>รายการที่ติดตาม</h2><span class="small">บันทึกก่อนแข่ง</span></div>
- <div id="matches"></div>
- <p class="notice">Project Football Time ใช้บันทึกคำวิเคราะห์ก่อนแข่งขันและตรวจสอบผลจริง แฮนดิแคปจะแสดงเฉพาะตัวเลือกของทีมที่โมเดลเลือก ข้อมูลที่เพิ่มใหม่จัดเก็บในเบราว์เซอร์บนอุปกรณ์นี้</p>
+ <button class="secondary" id="exportBackup">↓ สำรองข้อมูล JSON</button><button class="secondary" id="importBackup">↑ นำเข้าข้อมูล JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
+ <section id="addPanel" class="card" hidden><h2 style="font-size:16px">เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><form id="addForm"><div class="formgrid">
+ <div class="field"><label>ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70"></div><div class="field"><label>ทีมเยือน *</label><input id="awayTeam" required maxlength="70"></div>
+ <div class="field full"><label>ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90"></div>
+ <div class="field"><label>วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div><div class="field"><label>เวลาแข่งขัน</label><input id="matchTime" maxlength="30" placeholder="20:00"></div>
+ <div class="field full"><label>ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70"></div><div class="field"><label>Handicap (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="-0.5"></div><div class="field"><label>โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" required></div>
+ <div class="field full"><label>สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="2-1"></div></div><div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div></form></section>
+ <div class="sectionhead"><h2>รายการที่ติดตาม</h2><span class="small">บันทึกก่อนแข่ง</span></div><div id="matches"></div>
+ <p class="notice">แอปนี้ใช้บันทึกคำวิเคราะห์และตรวจสอบผลฟุตบอล ข้อมูลรายการทดสอบจัดเก็บในอุปกรณ์นี้แยกจากฐานข้อมูลฟุตบอล</p>
 </section>
 <section id="fixtures" class="page">
- <div class="sectionhead"><h2>โปรแกรมแข่งขัน</h2><span class="small">รอเชื่อมข้อมูลสด</span></div>
- <div class="card"><div class="value">ยังไม่มีโปรแกรมสดที่เชื่อมต่อ</div><p class="small">ในรุ่นแรกจะแสดงเฉพาะข้อมูลที่บันทึกไว้และข้อมูลที่ยืนยันได้</p></div>
+ <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div>
+ <div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
+ <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">5 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
+ <div class="pillrow" id="leaguePicker"></div>
+ <div class="sectionhead"><h2 id="selectedLeagueTitle">Premier League</h2><span class="small" id="selectedLeagueCountry"></span></div>
+ <div class="card"><div class="topline"><b>ตารางคะแนน</b><span class="small" id="tableSeason">ฤดูกาล —</span></div><div style="overflow-x:auto"><table><thead><tr><th>#</th><th>ทีม</th><th>แข่ง</th><th>ชนะ</th><th>เสมอ</th><th>แพ้</th><th>ได้/เสีย</th><th>ต่าง</th><th>แต้ม</th></tr></thead><tbody id="standingsBody"><tr><td colspan="9">กำลังโหลด…</td></tr></tbody></table></div></div>
+ <div class="card"><div class="topline"><b>ทีมในลีก</b><span class="small" id="teamCount">—</span></div><div id="teamList"></div></div>
+ <div class="card"><div class="topline"><b>โปรแกรมและผลการแข่งขัน</b><span class="small" id="matchCount">—</span></div><div class="field"><label for="matchFilter">กรองการแข่งขัน</label><select id="matchFilter" class="filter"><option value="ALL">ทั้งหมด</option><option value="SCHEDULED">กำหนดแข่งขัน</option><option value="TIMED">มีเวลาแข่งขัน</option><option value="FINISHED">จบแล้ว</option></select></div><div id="databaseMatches"></div></div>
+ <p class="notice">ข้อมูลฐานฟุตบอลเป็นข้อมูลอ้างอิงแบบอ่านอย่างเดียว ไม่แก้ไขรายการทดสอบที่คุณบันทึกไว้</p>
 </section>
-<section id="analysis" class="page">
- <div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div>
- <div class="card"><div class="value">หลักการของโมเดล</div><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลการแข่งขันจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div>
-</section>
-<section id="stats" class="page">
- <div class="sectionhead"><h2>สถิติและประวัติ</h2></div>
- <div class="card"><table>
- <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr>
- <tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr>
- <tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr>
- <tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr>
- <tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr>
- <tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
- </table></div>
-</section>
+<section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
+<section id="stats" class="page"><div class="sectionhead"><h2>สถิติและประวัติ</h2></div><div class="card"><table>
+<tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
+</table></div></section>
 </main>
-<nav class="nav">
- <button class="active" data-page="home">⌂ หน้าหลัก</button>
- <button data-page="fixtures">▤ โปรแกรม</button>
- <button data-page="analysis">◎ วิเคราะห์</button>
- <button data-page="stats">▥ สถิติ</button>
-</nav>
+<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ วิเคราะห์</button><button data-page="stats">▥ สถิติ</button></nav>
 <script>
+"use strict";
 const STORAGE_KEY="pft_matches_v1";
+const DB_URL="./data/football-database.json";
 const starterMatches=[
 {id:"007",home:"Vietnam U23",away:"Thailand U23",league:"ฟุตบอลทีมชาติ U23",date:"2026-11-10",time:"19:00",selectedTeam:"Thailand U23",handicap:"",prob:"32%",pred:"1-2"},
 {id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"2026-11-10",time:"ยังไม่ยืนยัน",selectedTeam:"CE Sabadell",handicap:"",prob:"61%",pred:"1-0"},
@@ -120,372 +80,176 @@ const starterMatches=[
 {id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Metallurg Bekabad",handicap:"0",prob:"38%",pred:"1-1",finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
 {id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"FC Iberia 1999",handicap:"-1.25",prob:"68%",pred:"2-0"}
 ];
-const verifiedResults={
- "002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
- "003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
- "004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}
-};
-function inferSelection(m){
- const known={
-  "001":{selectedTeam:"FC Iberia 1999",handicap:"-1.25"},
-  "002":{selectedTeam:"Metallurg Bekabad",handicap:"0"},
-  "003":{selectedTeam:"Shurtan Guzor",handicap:"-1.5"},
-  "004":{selectedTeam:"Olympic MobiUz",handicap:"-1.5"},
-  "005":{selectedTeam:"CSKA Sofia II",handicap:""},
-  "006":{selectedTeam:"CE Sabadell",handicap:""},
-  "007":{selectedTeam:"Thailand U23",handicap:""}
- };
- const saved=known[String(m.id)];
- if(saved){
-  return {selectedTeam:saved.selectedTeam,handicap:saved.handicap};
- }
- const old=String(m.market||"");
- const teams=[m.home,m.away].filter(Boolean);
- let selected=m.selectedTeam||"";
- if(!selected||selected==="ไม่ระบุ"){
-  selected=teams.find(t=>old.toLowerCase().includes(String(t).toLowerCase()))||"";
-  if(!selected&&/เจ้าบ้าน/.test(old))selected=m.home||"";
-  if(!selected&&/ทีมเยือน/.test(old))selected=m.away||"";
-  if(!selected&&/Thailand U23/.test(old))selected="Thailand U23";
- }
- let handicap=m.handicap??"";
- if(!handicap){
-  const match=old.match(/([+-]?\d+(?:\.\d+)?)/);
-  if(match&&!/1X2/i.test(old))handicap=match[1];
- }
- return {selectedTeam:selected||"ไม่ระบุ",handicap:String(handicap||"")};
-}
-function migrateRecord(m){
- const selection=inferSelection(m);
- m.selectedTeam=selection.selectedTeam;
- m.handicap=selection.handicap;
- delete m.market;
- delete m.odds;
- delete m.stake;
- delete m.stakeAmount;
- delete m.return;
- delete m.returns;
- delete m.payout;
- delete m.profit;
- delete m.loss;
- delete m.roi;
- delete m.bookmakerOdds;
- return m;
-}
+const verifiedResults={"002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}};
 function loadMatches(){
  try{
-  const saved=localStorage.getItem(STORAGE_KEY);
-  if(saved){
-   const parsed=JSON.parse(saved);
-   if(Array.isArray(parsed)){
-    let changed=false;
-    parsed.forEach(m=>{
-     const before=JSON.stringify(m);
-     migrateRecord(m);
-     const result=verifiedResults[m.id];
-     if(result&&!m.resultStatus)Object.assign(m,result);
-     if(before!==JSON.stringify(m))changed=true;
-    });
-    if(changed)localStorage.setItem(STORAGE_KEY,JSON.stringify(parsed));
-    return parsed;
-   }
-  }
+  const raw=localStorage.getItem(STORAGE_KEY);
+  if(raw!==null){const data=JSON.parse(raw);if(Array.isArray(data))return data;}
   localStorage.setItem(STORAGE_KEY,JSON.stringify(starterMatches));
  }catch(e){console.warn("Local storage unavailable",e);}
- return starterMatches.map(m=>({...m}));
+ return starterMatches.map(x=>({...x}));
 }
 let matches=loadMatches();
-function saveMatches(){
- try{localStorage.setItem(STORAGE_KEY,JSON.stringify(matches));return true;}
- catch(e){alert("บันทึกไม่สำเร็จ พื้นที่จัดเก็บอาจไม่เพียงพอ");return false;}
-}
-function escapeHTML(value){
- return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-}
-function formatDate(value){
- if(!value)return "ไม่ระบุวันที่";
- const p=value.split("-");
- if(p.length!==3)return value;
- return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
-}
-
+function saveMatches(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(matches));return true;}catch(e){alert("บันทึกไม่สำเร็จ พื้นที่จัดเก็บอาจไม่เพียงพอ");return false;}}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function formatDate(v){if(!v)return"ไม่ระบุวันที่";const p=v.split("-");return p.length===3?new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"}):v;}
 function getLeagueLogo(league){
- const name = String(league || "").toLowerCase();
-
- const logos = {
-  "premier-league": {
-   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg",
-   label: "PL"
-  },
-  "la-liga": {
-   src: "https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg",
-   label: "LL"
-  },
-  "bundesliga": {
-   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg",
-   label: "BL"
-  },
-  "serie-a": {
-   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg",
-   label: "SA"
-  },
-  "ligue-1": {
-   src: "https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg",
-   label: "L1"
-  }
- };
-
- if(name.includes("premier league")){
-  return logos["premier-league"];
- }
-
- if(name.includes("laliga") || name.includes("la liga")){
-  return logos["la-liga"];
- }
-
- if(name.includes("bundesliga")){
-  return logos["bundesliga"];
- }
-
- if(name.includes("serie a")){
-  return logos["serie-a"];
- }
-
- if(name.includes("ligue 1")){
-  return logos["ligue-1"];
- }
-
- return null;
+ const n=String(league||"").toLowerCase();
+ const items=[
+ ["premier league","https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg","PL"],
+ ["la liga","https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg","LL"],
+ ["laliga","https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg","LL"],
+ ["bundesliga","https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg","BL"],
+ ["serie a","https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg","SA"],
+ ["ligue 1","https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg","L1"]];
+ const x=items.find(a=>n.includes(a[0]));return x?{src:x[1],label:x[2]}:null;
 }
-
 function calculateHandicapResult(record,finalScore){
- const selected=String(record.selectedTeam||"").trim();
- const home=String(record.home||"").trim();
- const away=String(record.away||"").trim();
- const handicap=String(record.handicap??"").trim();
- const score=String(finalScore||"").trim();
-
- if(!selected||!handicap||!score)return null;
- if(selected!==home&&selected!==away)return null;
-
- const parsed=score.match(/^(\d{1,2})-(\d{1,2})$/);
- if(!parsed)return null;
-
- const h=Number(handicap);
- if(!Number.isFinite(h)||Math.abs(h*4-Math.round(h*4))>0.000001)return null;
-
- const homeGoals=Number(parsed[1]);
- const awayGoals=Number(parsed[2]);
- const goalDiff=selected===home
-  ?homeGoals-awayGoals
-  :awayGoals-homeGoals;
-
- const quarter=Math.abs(Math.round(h*4))%2===1;
- const lines=quarter?[h-0.25,h+0.25]:[h];
-
- const outcomes=lines.map(line=>{
-  const total=goalDiff+line;
-  return total>0?"win":total<0?"loss":"push";
- });
-
- if(outcomes.every(x=>x==="win"))return "ชนะเต็ม";
- if(outcomes.every(x=>x==="loss"))return "แพ้เต็ม";
- if(outcomes.every(x=>x==="push"))return "คืนทุน";
- if(outcomes.includes("win")&&outcomes.includes("push"))return "ชนะครึ่ง";
- if(outcomes.includes("loss")&&outcomes.includes("push"))return "แพ้ครึ่ง";
-
- return null;
+ const selected=String(record.selectedTeam||"").trim(),home=String(record.home||"").trim(),away=String(record.away||"").trim(),handicap=String(record.handicap??"").trim();
+ if(!selected||!handicap||!finalScore||(selected!==home&&selected!==away))return null;
+ const m=String(finalScore).match(/^(\d{1,2})-(\d{1,2})$/);if(!m)return null;
+ const h=Number(handicap);if(!Number.isFinite(h)||Math.abs(h*4-Math.round(h*4))>1e-6)return null;
+ const diff=selected===home?Number(m[1])-Number(m[2]):Number(m[2])-Number(m[1]);
+ const lines=Math.abs(Math.round(h*4))%2===1?[h-.25,h+.25]:[h];
+ const outcomes=lines.map(line=>diff+line>0?"win":diff+line<0?"loss":"push");
+ if(outcomes.every(x=>x==="win"))return"ชนะเต็ม";if(outcomes.every(x=>x==="loss"))return"แพ้เต็ม";if(outcomes.every(x=>x==="push"))return"คืนทุน";
+ if(outcomes.includes("win")&&outcomes.includes("push"))return"ชนะครึ่ง";if(outcomes.includes("loss")&&outcomes.includes("push"))return"แพ้ครึ่ง";return null;
 }
- function updateStats(){
- const count=matches.length;
- const validStatuses=["ผ่าน","ไม่ผ่าน","คืนทุน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"];
- const checked=matches.filter(m=>validStatuses.includes(m.resultStatus)).length;
+function updateStats(){
+ const checked=matches.filter(m=>["ผ่าน","ไม่ผ่าน","คืนทุน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"].includes(m.resultStatus)).length;
  const passed=matches.filter(m=>["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus)).length;
  const failed=matches.filter(m=>["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus)).length;
  const pushed=matches.filter(m=>m.resultStatus==="คืนทุน").length;
-
- document.getElementById("count").textContent=String(count).padStart(2,"0");
- document.getElementById("checkedCount").textContent=checked;
- document.getElementById("goal").textContent=count+"/20";
- document.getElementById("statCount").textContent=count+" / 20";
- document.getElementById("statChecked").textContent=checked+" คู่";
- document.getElementById("statPassed").textContent=passed+" คู่";
- document.getElementById("statFailed").textContent=failed+" คู่";
- document.getElementById("statPush").textContent=pushed+" คู่";
-
- const accuracyTotal=matches.filter(m=>["ผ่าน","ไม่ผ่าน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"].includes(m.resultStatus));
- const accuracyScore=accuracyTotal.reduce((sum,m)=>sum+(["ผ่าน","ชนะเต็ม"].includes(m.resultStatus)?1:m.resultStatus==="ชนะครึ่ง"?0.5:0),0);
-
- document.getElementById("statAccuracy").textContent=accuracyTotal.length?(accuracyScore/accuracyTotal.length*100).toFixed(0)+"%":"—";
-}function exportBackup(){
- try{
-  const raw=localStorage.getItem(STORAGE_KEY);
-  if(!raw){
-   alert("ไม่พบข้อมูลสำหรับสำรอง");
-   return;
-  }
-  const records=JSON.parse(raw);
-  if(!Array.isArray(records)){
-   alert("รูปแบบข้อมูลไม่ถูกต้อง ไม่สามารถสำรองได้");
-   return;
-  }
-  const backup={
-   app:"Project Football Time",
-   version:1,
-   exportedAt:new Date().toISOString(),
-   storageKey:STORAGE_KEY,
-   matches:records
-  };
-  const blob=new Blob([JSON.stringify(backup,null,2)],{type:"application/json"});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement("a");
-  link.href=url;
-  link.download="project-football-time-backup-"+new Date().toISOString().slice(0,10)+".json";
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-  alert("เริ่มดาวน์โหลดข้อมูลสำรองแล้ว จำนวน "+records.length+" รายการ");
- }catch(error){
-  alert("สำรองข้อมูลไม่สำเร็จ: "+error.message);
- }
-}function importBackup(event){
- const file=event.target.files[0];
- if(!file)return;
- const reader=new FileReader();
- reader.onload=()=>{
-  try{
-   const backup=JSON.parse(reader.result);
-   if(!backup||backup.app!=="Project Football Time"||backup.version!==1||backup.storageKey!==STORAGE_KEY||!Array.isArray(backup.matches)){
-    throw new Error("ไฟล์สำรองไม่ถูกต้องหรือไม่รองรับ");
-   }
-   const imported=backup.matches;
-   const valid=imported.every(m=>m&&typeof m==="object"&&!Array.isArray(m)&&["id","home","away","league","date"].every(k=>typeof m[k]==="string"));
-   if(!valid)throw new Error("ข้อมูลการแข่งขันในไฟล์ไม่ครบหรือไม่ถูกต้อง");
-   const ids=imported.map(m=>m.id);
-   if(new Set(ids).size!==ids.length)throw new Error("พบรหัสการแข่งขันซ้ำในไฟล์");
-   if(!confirm("พบข้อมูล "+imported.length+" รายการ ข้อมูลปัจจุบัน "+matches.length+" รายการ\nการนำเข้าจะเขียนทับข้อมูลปัจจุบัน ต้องการดำเนินการหรือไม่?"))return;
-   const previous=matches;
-   matches=imported.map(m=>migrateRecord({...m}));
-   if(!saveMatches()){
-    matches=previous;
-    return;
-   }
-   render();
-   alert("นำเข้าข้อมูลสำเร็จ "+matches.length+" รายการ");
-  }catch(error){
-   alert("นำเข้าข้อมูลไม่สำเร็จ: "+error.message);
-  }finally{
-   event.target.value="";
-  }
- };
- reader.onerror=()=>alert("ไม่สามารถอ่านไฟล์ได้");
- reader.readAsText(file);
-  }
-function render(){
+ const ids=["count","checkedCount","goal","statCount","statChecked","statPassed","statFailed","statPush","statAccuracy"];
+ document.getElementById("count").textContent=String(matches.length).padStart(2,"0");
+ document.getElementById("checkedCount").textContent=checked;document.getElementById("goal").textContent=matches.length+"/20";
+ document.getElementById("statCount").textContent=matches.length+" / 20";document.getElementById("statChecked").textContent=checked+" คู่";
+ document.getElementById("statPassed").textContent=passed+" คู่";document.getElementById("statFailed").textContent=failed+" คู่";document.getElementById("statPush").textContent=pushed+" คู่";
+ const total=matches.filter(m=>["ผ่าน","ไม่ผ่าน","ชนะเต็ม","ชนะครึ่ง","แพ้ครึ่ง","แพ้เต็ม"].includes(m.resultStatus));
+ const score=total.reduce((s,m)=>s+(["ผ่าน","ชนะเต็ม"].includes(m.resultStatus)?1:m.resultStatus==="ชนะครึ่ง"?.5:0),0);
+ document.getElementById("statAccuracy").textContent=total.length?(score/total.length*100).toFixed(0)+"%":"—";
+}
+function renderMatches(){
  const root=document.getElementById("matches");
- const sorted=[...matches].sort((a,b)=>Number(b.id)-Number(a.id));
- root.innerHTML=sorted.map(m=>`<article class="card">
- <div class="topline"><span class="tag">TEST #${escapeHTML(m.id)}</span><span class="date">${escapeHTML(formatDate(m.date))} · ${escapeHTML(m.time||"ยังไม่ยืนยัน")}</span></div>
-<div class="league-line">
-  ${getLeagueLogo(m.league)?`
-    <img class="league-logo"
-      src="${getLeagueLogo(m.league).src}"
-      alt="${getLeagueLogo(m.league).label}"
-      onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
-    <span class="league-fallback" style="display:none">
-      ${getLeagueLogo(m.league).label}
-    </span>
-  `:""}
-  <span class="league-name">${escapeHTML(m.league)}</span>
-</div><div class="teams">${escapeHTML(m.home)}<div class="vs">VS</div>${escapeHTML(m.away)}</div>
- <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${escapeHTML(m.selectedTeam||"ไม่ระบุ")}</span></div>
- <div><span class="label">แฮนดิแคปของทีมที่เลือก</span><span class="${m.handicap?'handicap':'missing'}">${m.handicap?escapeHTML(m.handicap):"ไม่ระบุ"}</span></div>
- <div><span class="label">โอกาสตามโมเดล</span><span class="value">${escapeHTML(m.prob||"—")}</span></div>
- <div><span class="label">สกอร์คาดการณ์</span><span class="value">${escapeHTML(m.pred||"ยังไม่ระบุ")}</span></div></div>
- <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status ${["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus)?"pass":["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus)?"fail":m.resultStatus==="คืนทุน"?"push":""}">${m.resultStatus?escapeHTML(m.resultStatus):"รอตรวจสอบ"}</span></div>
- <button class="detail" aria-expanded="false">ดูรายละเอียด ＋</button>
- <div class="extra">สกอร์คาดการณ์ก่อนแข่ง: <b>${escapeHTML(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${escapeHTML(m.finalScore)}</b><br>ผลทดสอบ: <b>${escapeHTML(m.resultStatus)}</b><br><span class="small">${escapeHTML(m.resultSource||"")}</span>`:"ยังไม่ได้บันทึกผลการแข่งขันจริง"}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
- <button class="result-button" data-result-id="${escapeHTML(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
- <form class="result-form" data-result-form="${escapeHTML(m.id)}">
-  <div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="finalScore" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="เช่น 2-1" value="${escapeHTML(m.finalScore||"")}"></div>
-  <div class="field">
- <label>ผลการทดสอบอัตโนมัติ</label>
- <div class="result-status">ระบบจะคำนวณจากสกอร์จริงและ Handicap</div>
-</div>
-  <div class="form-actions"><button class="primary" type="submit">บันทึกผลจริง</button><button class="secondary" type="button" data-cancel-result="${escapeHTML(m.id)}">ยกเลิก</button></div>
- </form>
- </article>`).join("")||'<div class="empty">ยังไม่มีรายการ</div>';
- root.querySelectorAll(".detail").forEach(b=>b.addEventListener("click",()=>{const x=b.nextElementSibling;x.classList.toggle("open");b.textContent=x.classList.contains("open")?"ซ่อนรายละเอียด −":"ดูรายละเอียด ＋";}));
- root.querySelectorAll("[data-result-id]").forEach(b=>b.addEventListener("click",()=>{const f=root.querySelector(`[data-result-form="${b.dataset.resultId}"]`);f.classList.toggle("open");}));
- root.querySelectorAll("[data-cancel-result]").forEach(b=>b.addEventListener("click",()=>{root.querySelector(`[data-result-form="${b.dataset.cancelResult}"]`).classList.remove("open");}));
- root.querySelectorAll("[data-result-form]").forEach(form=>form.addEventListener("submit",e=>{
-  e.preventDefault();const id=form.dataset.resultForm;const record=matches.find(x=>x.id===id);if(!record)return;
-  const data=new FormData(form);
-const finalScore=String(data.get("finalScore")).trim();
-const handicap=String(record.handicap??"").trim();
-const resultStatus=handicap
- ?calculateHandicapResult(record,finalScore)
- :"ไม่มี Handicap";
-
-if(handicap&&!resultStatus){
- alert("คำนวณผลไม่ได้ กรุณาตรวจสอบทีมที่เลือก สกอร์จริง และค่า Handicap");
- return;
-}
-
-const old={
- finalScore:record.finalScore,
- resultStatus:record.resultStatus,
- resultSource:record.resultSource
-};
-
-record.finalScore=finalScore;
-record.resultStatus=resultStatus;
-record.resultSource=handicap
- ?"คำนวณอัตโนมัติจากสกอร์จริงและ Handicap"
- :"บันทึกสกอร์จริง (ไม่มี Handicap สำหรับคำนวณ)";
-
-if(!saveMatches()){
- Object.assign(record,old);
- return;
-}
-
-render();
-alert("บันทึกผล TEST #"+id+" สำเร็จ: "+resultStatus);
- }));
+ root.innerHTML=[...matches].sort((a,b)=>(Number(b.id)||0)-(Number(a.id)||0)).map(m=>{
+  const lg=getLeagueLogo(m.league),pass=["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus),fail=["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus);
+  return `<article class="card"><div class="topline"><span class="tag">TEST #${esc(m.id)}</span><span class="small">${esc(formatDate(m.date))} · ${esc(m.time||"ยังไม่ยืนยัน")}</span></div>
+  <div class="league-line">${lg?`<img class="league-logo" src="${lg.src}" alt="${lg.label}" onerror="this.style.display='none'">`:""}<span class="league-name">${esc(m.league)}</span></div>
+  <div class="teams">${esc(m.home)} <span class="vs">VS</span> ${esc(m.away)}</div>
+  <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${esc(m.selectedTeam||"ไม่ระบุ")}</span></div><div><span class="label">Handicap</span><span class="${m.handicap?"handicap":"missing"}">${esc(m.handicap||"ไม่ระบุ")}</span></div><div><span class="label">โอกาสตามโมเดล</span><span class="value">${esc(m.prob||"—")}</span></div><div><span class="label">สกอร์คาดการณ์</span><span class="value">${esc(m.pred||"ยังไม่ระบุ")}</span></div></div>
+  <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status" style="${pass?"color:#a8f0cc":fail?"color:#ffc0c0":""}">${esc(m.resultStatus||"รอตรวจสอบ")}</span></div>
+  <button class="detail" data-detail="${esc(m.id)}">ดูรายละเอียด ＋</button><div class="extra" id="extra-${esc(m.id)}">สกอร์คาดการณ์ก่อนแข่ง: <b>${esc(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${esc(m.finalScore)}</b><br>ผลทดสอบ: <b>${esc(m.resultStatus||"—")}</b><br>${esc(m.resultSource||"")}`:"ยังไม่ได้บันทึกผลจริง"}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
+  <button class="result-button" data-result="${esc(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
+  <form class="result-form" data-form="${esc(m.id)}"><div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="score" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="2-1" value="${esc(m.finalScore||"")}"></div><div class="small">ระบบจะคำนวณจาก Handicap ของรายการนี้</div><div class="form-actions"><button class="primary">บันทึกผลจริง</button><button type="button" class="secondary" data-cancel="${esc(m.id)}">ยกเลิก</button></div></form></article>`;
+ }).join("")||'<div class="empty">ยังไม่มีรายการ</div>';
+ root.querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>document.getElementById("extra-"+b.dataset.detail).classList.toggle("open"));
+ root.querySelectorAll("[data-result]").forEach(b=>b.onclick=()=>root.querySelector(`[data-form="${b.dataset.result}"]`).classList.toggle("open"));
+ root.querySelectorAll("[data-cancel]").forEach(b=>b.onclick=()=>root.querySelector(`[data-form="${b.dataset.cancel}"]`).classList.remove("open"));
+ root.querySelectorAll("[data-form]").forEach(f=>f.onsubmit=e=>{
+  e.preventDefault();const m=matches.find(x=>String(x.id)===f.dataset.form);if(!m)return;
+  const score=new FormData(f).get("score").trim();const status=m.handicap?calculateHandicapResult(m,score):"ไม่มี Handicap";
+  if(m.handicap&&!status){alert("คำนวณผลไม่ได้ กรุณาตรวจสอบทีมที่เลือก สกอร์จริง และ Handicap");return;}
+  const old={finalScore:m.finalScore,resultStatus:m.resultStatus,resultSource:m.resultSource};
+  Object.assign(m,{finalScore:score,resultStatus:status,resultSource:m.handicap?"คำนวณอัตโนมัติจากสกอร์จริงและ Handicap":"บันทึกสกอร์จริง (ไม่มี Handicap สำหรับคำนวณ)"});
+  if(!saveMatches()){Object.assign(m,old);return;}render();alert("บันทึกผล TEST #"+m.id+" สำเร็จ: "+status);
+ });
  updateStats();
 }
-render();
- document.getElementById("exportBackup").addEventListener("click",exportBackup);
- document.getElementById("importBackup").addEventListener("click",()=>document.getElementById("importFile").click());
-document.getElementById("importFile").addEventListener("change",importBackup);
-document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("[data-page]").forEach(x=>x.classList.remove("active"));b.classList.add("active");document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(b.dataset.page).classList.add("active");window.scrollTo(0,0)}));
-const addPanel=document.getElementById("addPanel");
-document.getElementById("showAdd").addEventListener("click",()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth",block:"start"});});
-document.getElementById("cancelAdd").addEventListener("click",()=>{addPanel.hidden=true;document.getElementById("addForm").reset();});
-document.getElementById("addForm").addEventListener("submit",e=>{
- e.preventDefault();
- const nextId=String(Math.max(0,...matches.map(m=>Number(m.id)||0))+1).padStart(3,"0");
- const record={
-  id:nextId,
-  home:document.getElementById("homeTeam").value.trim(),
-  away:document.getElementById("awayTeam").value.trim(),
-  league:document.getElementById("league").value.trim(),
-  date:document.getElementById("matchDate").value,
-  time:document.getElementById("matchTime").value.trim()||"ยังไม่ยืนยัน",
-  selectedTeam:document.getElementById("selectedTeam").value.trim(),
-  handicap:document.getElementById("handicap").value.trim(),
-  prob:document.getElementById("prob").value.trim()+"%",
-  pred:document.getElementById("prediction").value.trim()
- };
- matches.push(record);
- if(!saveMatches()){matches.pop();return;}
- render();
- document.getElementById("addForm").reset();
- addPanel.hidden=true;
- alert("บันทึกรายการ TEST #"+nextId+" เรียบร้อยแล้ว");
- window.scrollTo(0,0);
+function render(){renderMatches();}
+function exportBackup(){
+ try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw){alert("ไม่พบข้อมูลสำรอง");return;}const data=JSON.parse(raw);if(!Array.isArray(data))throw Error("รูปแบบข้อมูลไม่ถูกต้อง");
+ const blob=new Blob([JSON.stringify({app:"Project Football Time",version:1,exportedAt:new Date().toISOString(),storageKey:STORAGE_KEY,matches:data},null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="project-football-time-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ }catch(e){alert("สำรองข้อมูลไม่สำเร็จ: "+e.message);}
+}
+function importBackup(event){
+ const file=event.target.files[0];if(!file)return;const reader=new FileReader();
+ reader.onload=()=>{try{const b=JSON.parse(reader.result);if(!b||b.app!=="Project Football Time"||b.version!==1||b.storageKey!==STORAGE_KEY||!Array.isArray(b.matches))throw Error("ไฟล์สำรองไม่ถูกต้อง");
+ const valid=b.matches.every(m=>m&&typeof m==="object"&&!Array.isArray(m)&&["id","home","away","league","date"].every(k=>typeof m[k]==="string"));
+ if(!valid||new Set(b.matches.map(m=>m.id)).size!==b.matches.length)throw Error("ข้อมูลไม่ครบหรือมีรหัสซ้ำ");
+ if(!confirm("นำเข้าข้อมูล "+b.matches.length+" รายการและแทนที่ข้อมูลปัจจุบันหรือไม่?"))return;
+ const old=matches;matches=b.matches;if(!saveMatches()){matches=old;return;}render();alert("นำเข้าสำเร็จ "+matches.length+" รายการ");
+ }catch(e){alert("นำเข้าไม่สำเร็จ: "+e.message);}finally{event.target.value="";}};
+ reader.onerror=()=>alert("อ่านไฟล์ไม่ได้");reader.readAsText(file);
+}
+document.getElementById("exportBackup").onclick=exportBackup;
+document.getElementById("importBackup").onclick=()=>document.getElementById("importFile").click();
+document.getElementById("importFile").onchange=importBackup;
+document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x===b));
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));window.scrollTo(0,0);
 });
-if("serviceWorker" in navigator && location.protocol.startsWith("http")) navigator.serviceWorker.register("./sw.js").catch(()=>{});
+const addPanel=document.getElementById("addPanel");
+document.getElementById("showAdd").onclick=()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth"});};
+document.getElementById("cancelAdd").onclick=()=>{addPanel.hidden=true;document.getElementById("addForm").reset();};
+document.getElementById("addForm").onsubmit=e=>{
+ e.preventDefault();const id=String(Math.max(0,...matches.map(m=>Number(m.id)||0))+1).padStart(3,"0");
+ const val=id=>document.getElementById(id).value.trim();
+ const m={id,home:val("homeTeam"),away:val("awayTeam"),league:val("league"),date:val("matchDate"),time:val("matchTime")||"ยังไม่ยืนยัน",selectedTeam:val("selectedTeam"),handicap:val("handicap"),prob:val("prob")+"%",pred:val("prediction")};
+ matches.push(m);if(!saveMatches()){matches.pop();return;}render();e.target.reset();addPanel.hidden=true;alert("บันทึก TEST #"+id+" เรียบร้อย");
+};
+
+/* Football database: read-only; never writes to the test-record storage key. */
+let footballDB=null,selectedLeagueId="PL";
+const leagueLogoById={PL:"https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg",PD:"https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg",BL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg",SA:"https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg",FL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg"};
+function dateTime(v){if(!v)return"—";const d=new Date(v);return Number.isNaN(d.getTime())?v:d.toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});}
+function selectedLeague(){return footballDB?.leagues?.find(x=>x.id===selectedLeagueId);}
+function renderLeagueSelector(){
+ const leagues=footballDB.leagues||[];
+ document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
+ document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
+ document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();});
+ document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
+}
+function renderLeagueData(){
+ const league=selectedLeague();if(!league)return;
+ const season=(footballDB.standings||[]).find(x=>x.leagueId===league.id)?.season||(footballDB.matches||[]).find(x=>x.leagueId===league.id)?.season||"—";
+ document.getElementById("selectedLeagueTitle").textContent=league.name;
+ document.getElementById("selectedLeagueCountry").textContent=league.country;
+ document.getElementById("tableSeason").textContent="ฤดูกาล "+season;
+ const standings=(footballDB.standings||[]).filter(x=>x.leagueId===league.id&&x.season===season).sort((a,b)=>a.position-b.position);
+ document.getElementById("standingsBody").innerHTML=standings.map(s=>{
+  const team=footballDB.teams.find(t=>t.id===s.teamId);
+  return `<tr><td>${s.position}</td><td style="text-align:left"><span style="display:flex;align-items:center;gap:6px">${team?.crest?`<img class="team-crest" src="${esc(team.crest)}" alt="" onerror="this.style.display='none'">`:""}${esc(team?.shortName||team?.name||s.teamId)}</span></td><td>${s.played}</td><td>${s.won}</td><td>${s.draw}</td><td>${s.lost}</td><td>${s.goalsFor}-${s.goalsAgainst}</td><td>${s.goalDifference>0?"+":""}${s.goalDifference}</td><td><b>${s.points}</b></td></tr>`;
+ }).join("")||'<tr><td colspan="9">ยังไม่มีข้อมูลตารางคะแนนของลีกนี้</td></tr>';
+ const memberships=(footballDB.teamSeasons||[]).filter(x=>x.leagueId===league.id&&x.season===season);
+ const teams=memberships.map(x=>footballDB.teams.find(t=>t.id===x.teamId)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+ document.getElementById("teamCount").textContent=teams.length+" ทีม";
+ document.getElementById("teamList").innerHTML=teams.map(t=>`<div class="match-row" style="display:flex;align-items:center;gap:9px">${t.crest?`<img class="team-crest" src="${esc(t.crest)}" alt="" onerror="this.style.display='none'">`:""}<div><b style="font-size:12px">${esc(t.name)}</b><div class="small">${esc(t.country||"")}</div></div></div>`).join("")||'<div class="empty">ไม่พบรายชื่อทีม</div>';
+ renderDatabaseMatches();
+}
+function renderDatabaseMatches(){
+ const filter=document.getElementById("matchFilter").value;
+ const list=(footballDB.matches||[]).filter(m=>m.leagueId===selectedLeagueId&&(filter==="ALL"||m.status===filter)).sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
+ document.getElementById("matchCount").textContent=list.length+" นัด";
+ document.getElementById("databaseMatches").innerHTML=list.slice(0,80).map(m=>{
+  const finished=m.status==="FINISHED",score=finished&&m.homeScore!==null&&m.awayScore!==null?`${m.homeScore} - ${m.awayScore}`:"vs";
+  return `<div class="match-row"><div class="match-teams">${esc(m.homeTeamName)} <span style="color:var(--green)">${score}</span> ${esc(m.awayTeamName)}</div><div class="match-meta">${dateTime(m.utcDate)} · ${esc(m.status)}</div></div>`;
+ }).join("")||'<div class="empty">ไม่พบการแข่งขันในตัวกรองนี้</div>';
+ if(list.length>80)document.getElementById("databaseMatches").insertAdjacentHTML("beforeend",`<div class="small" style="padding-top:10px">แสดง 80 จาก ${list.length} นัด</div>`);
+}
+document.getElementById("matchFilter").onchange=renderDatabaseMatches;
+async function loadFootballDatabase(){
+ const status=document.getElementById("dbStatus");
+ try{
+  const response=await fetch(DB_URL+"?v="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const data=await response.json();
+  if(!data||!Array.isArray(data.leagues)||!Array.isArray(data.teams)||!Array.isArray(data.standings)||!Array.isArray(data.matches)||!Array.isArray(data.teamSeasons))throw Error("รูปแบบฐานข้อมูลไม่ถูกต้อง");
+  footballDB=data;
+  document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
+  document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
+  status.textContent="เชื่อมต่อสำเร็จ";
+  renderLeagueSelector();renderLeagueData();
+ }catch(error){
+  status.textContent="โหลดข้อมูลไม่สำเร็จ";
+  document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
+  document.getElementById("databaseMatches").innerHTML='<div class="empty">ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือไฟล์ data/football-database.json</div>';
+  console.error("Football database load failed",error);
+ }
+}
+render();
+loadFootballDatabase();
+if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
 </body></html>
