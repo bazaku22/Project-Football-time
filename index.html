@@ -232,7 +232,7 @@ function renderLeagueSelector(){
  const leagues=footballDB.leagues||[];
  document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
  document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
- document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderTeamProfile(true);});
+ document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);});
  document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
 }
 /* Phase 4.1: calculate team form only from completed matches with valid scores. */
@@ -350,7 +350,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent="เชื่อมต่อสำเร็จ";
-  renderLeagueSelector();renderLeagueData();renderTeamForm();
+  renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
