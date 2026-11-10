@@ -15,6 +15,8 @@ on:
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
       - "sw.js"
+      - "js/probability-metrics.js"
+      - "tests/test_probability_metrics.js"
       - "scripts/build_probability_snapshots.py"
       - "scripts/match_player_sources.py"
       - "docs/phase-5.6-multi-source-foundation.md"
@@ -96,6 +98,11 @@ jobs:
         run: |
           python3 -m py_compile scripts/wyscout_event_pilot.py
           python3 -m unittest tests/test_wyscout_event_pilot.py
+
+      - name: Validate probability metrics and calibration
+        run: |
+          node --check js/probability-metrics.js
+          node tests/test_probability_metrics.js
 
       - name: Validate probability snapshot builder
         run: |

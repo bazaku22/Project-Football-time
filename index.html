@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time</title>
+<title>Project Football Time V5.6.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -49,11 +49,12 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 
 /* Phase 5: advanced analysis */
 .p5-score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.p5-metric{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.p5-metric b{display:block;font-size:20px}.p5-metric span{font-size:10px;color:var(--muted)}.p5-bar{height:7px;background:#344653;border-radius:8px;overflow:hidden;margin-top:7px}.p5-bar i{display:block;height:100%;background:var(--green)}.p5-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.p5-row:last-child{border:0}.p5-note{padding:10px;border-left:3px solid var(--gold);background:#252b2d;border-radius:5px;color:var(--muted);font-size:11px;line-height:1.65;margin:9px 0}.p5-good{color:var(--green)}.p5-warn{color:var(--gold)}.p5-bad{color:#f39b8f}@media(max-width:380px){.p5-score{grid-template-columns:1fr 1fr}}
+ .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="stats"><div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div><div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div></div>
@@ -215,6 +216,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 </table></div></section>
 </main>
 <nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ หลักการ</button><button data-page="stats">▥ ผลทดสอบ</button></nav>
+<script src="./js/probability-metrics.js"></script>
 <script>
 "use strict";
 const STORAGE_KEY="pft_matches_v1";
@@ -598,6 +600,7 @@ function computeMatchProbability(match){
  let lambdaAway=mean([away.away.played?away.away.gfpg:null,home.home.played?home.home.gapg:null,leagueAwayGoals],leagueAwayGoals||1.1);
  const leagueStandings=(footballDB.standings||[]).filter(x=>x.leagueId===leagueId&&x.season===season);
  const leaguePPG=leagueStandings.length?leagueStandings.reduce((n,x)=>n+x.points/Math.max(1,x.played),0)/leagueStandings.length:1.35;
+ const baselineLambdaHome=lambdaHome,baselineLambdaAway=lambdaAway;
  const homeFormFactor=clampNumber(1+(home.formPPG-1.35)*0.035,0.88,1.12);
  const awayFormFactor=clampNumber(1+(away.formPPG-1.35)*0.035,0.88,1.12);
  const homeTableFactor=home.standing?clampNumber(1+((home.standing.points/Math.max(1,home.standing.played))-leaguePPG)*0.025,0.92,1.08):1;
@@ -627,7 +630,7 @@ function computeMatchProbability(match){
   h2h.length>=3?"H2H "+h2h.length+" นัด: "+(h2hHomeGoals/h2h.length).toFixed(2)+"-"+(h2hAwayGoals/h2h.length).toFixed(2)+" ประตูเฉลี่ย เมื่อมองจาก "+homeName+" เทียบ "+awayName:"H2H มี "+h2h.length+" นัด จึงไม่นำมาปรับโมเดล (ต้องมีอย่างน้อย 3 นัด)",
   "อันดับ/คะแนนต่อเกม: "+(home.standing?"อันดับ "+home.standing.position+" · "+(home.standing.points/Math.max(1,home.standing.played)).toFixed(2)+" แต้ม/นัด":"ไม่มีข้อมูล")+" เทียบ "+(away.standing?"อันดับ "+away.standing.position+" · "+(away.standing.points/Math.max(1,away.standing.played)).toFixed(2)+" แต้ม/นัด":"ไม่มีข้อมูล")
  ];
- return {probabilities:rounded,expectedGoals:{home:Number(lambdaHome.toFixed(2)),away:Number(lambdaAway.toFixed(2))},confidenceScore,confidence,probabilityLevel,topProbability:Number(topProbability.toFixed(1)),sample:{homeVenue:home.home.played,awayVenue:away.away.played,homeForm:home.formCount,awayForm:away.formCount,h2h:h2h.length},reasons};
+ return {probabilities:rounded,expectedGoals:{home:Number(lambdaHome.toFixed(2)),away:Number(lambdaAway.toFixed(2))},breakdown:{baseline:{home:Number(baselineLambdaHome.toFixed(2)),away:Number(baselineLambdaAway.toFixed(2))},multipliers:{homeForm:Number(homeFormFactor.toFixed(3)),awayForm:Number(awayFormFactor.toFixed(3)),homeStandings:Number(homeTableFactor.toFixed(3)),awayStandings:Number(awayTableFactor.toFixed(3))},h2h:{applied:h2h.length>=3,count:h2h.length,homeGoals:h2h.length?Number((h2hHomeGoals/h2h.length).toFixed(2)):null,awayGoals:h2h.length?Number((h2hAwayGoals/h2h.length).toFixed(2)):null}},confidenceScore,confidence,probabilityLevel,topProbability:Number(topProbability.toFixed(1)),sample:{homeVenue:home.home.played,awayVenue:away.away.played,homeForm:home.formCount,awayForm:away.formCount,h2h:h2h.length},reasons};
 }
 function recordUpcomingProbabilities(){
  if(!footballDB)return;
@@ -696,7 +699,7 @@ function renderProbabilityAnalysis(){
  if(!result){output.innerHTML='<div class="empty">ข้อมูลผลการแข่งขันย้อนหลังยังไม่เพียงพอสำหรับคำนวณ</div>';return;}
  const p=result.probabilities;
  const outcome=(label,value)=>'<div class="prob-outcome"><span>'+label+'</span><b>'+value.toFixed(1)+'%</b><div class="prob-level">ระดับ '+(value>=65?"สูง":value>=45?"กลาง":"ต่ำ")+'</div></div>';
- output.innerHTML='<div class="league-line"><div><b>'+esc(match.homeTeamName)+' vs '+esc(match.awayTeamName)+'</b><div class="small">'+dateTime(match.utcDate)+' · '+esc(match.season)+'</div></div></div><div class="prob-grid">'+outcome("เจ้าบ้านชนะ",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือนชนะ",p.away)+'</div><div class="db-kpis"><div class="db-kpi"><b>'+result.expectedGoals.home.toFixed(2)+'</b><span>ประตูคาดหมายเจ้าบ้าน</span></div><div class="db-kpi"><b>'+result.expectedGoals.away.toFixed(2)+'</b><span>ประตูคาดหมายทีมเยือน</span></div><div class="db-kpi"><b>'+result.probabilityLevel+'</b><span>ระดับของผลลัพธ์ที่มี % สูงสุด ('+result.topProbability.toFixed(1)+'%)</span></div><div class="db-kpi"><b>'+result.confidenceScore+' / 100</b><span>ความเชื่อมั่นด้านคุณภาพข้อมูล · '+result.confidence+'</span></div></div><div class="quality-note">ความน่าจะเป็นและความเชื่อมั่นเป็นคนละค่า · ตัวอย่างข้อมูล: เหย้า '+result.sample.homeVenue+' นัด / เยือน '+result.sample.awayVenue+' นัด / ฟอร์ม '+result.sample.homeForm+' และ '+result.sample.awayForm+' นัด / H2H '+result.sample.h2h+' นัด</div><h3 style="font-size:13px;margin:14px 0 5px">ปัจจัยที่ใช้คำนวณ</h3><ul class="prob-reasons">'+result.reasons.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><div class="small">โมเดล '+PROBABILITY_MODEL_VERSION+' · คำทำนายก่อนแข่งจะถูกบันทึกครั้งแรกและไม่เขียนทับย้อนหลัง</div>';
+ output.innerHTML='<div class="league-line"><div><b>'+esc(match.homeTeamName)+' vs '+esc(match.awayTeamName)+'</b><div class="small">'+dateTime(match.utcDate)+' · '+esc(match.season)+'</div></div></div><div class="prob-grid">'+outcome("เจ้าบ้านชนะ",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือนชนะ",p.away)+'</div><div class="db-kpis"><div class="db-kpi"><b>'+result.expectedGoals.home.toFixed(2)+'</b><span>ประตูคาดหมายเจ้าบ้าน</span></div><div class="db-kpi"><b>'+result.expectedGoals.away.toFixed(2)+'</b><span>ประตูคาดหมายทีมเยือน</span></div><div class="db-kpi"><b>'+result.probabilityLevel+'</b><span>ระดับของผลลัพธ์ที่มี % สูงสุด ('+result.topProbability.toFixed(1)+'%)</span></div><div class="db-kpi"><b>'+result.confidenceScore+' / 100</b><span>ความเชื่อมั่นด้านคุณภาพข้อมูล · '+result.confidence+'</span></div></div><div class="quality-note">ความน่าจะเป็นและความเชื่อมั่นเป็นคนละค่า · ตัวอย่างข้อมูล: เหย้า '+result.sample.homeVenue+' นัด / เยือน '+result.sample.awayVenue+' นัด / ฟอร์ม '+result.sample.homeForm+' และ '+result.sample.awayForm+' นัด / H2H '+result.sample.h2h+' นัด</div><div class="quality-note">แยกที่มาของค่า xG: ฐานเหย้า/เยือน '+result.breakdown.baseline.home.toFixed(2)+' / '+result.breakdown.baseline.away.toFixed(2)+' · ตัวคูณฟอร์ม '+result.breakdown.multipliers.homeForm.toFixed(3)+' / '+result.breakdown.multipliers.awayForm.toFixed(3)+' · ตัวคูณอันดับ '+result.breakdown.multipliers.homeStandings.toFixed(3)+' / '+result.breakdown.multipliers.awayStandings.toFixed(3)+' · H2H '+(result.breakdown.h2h.applied?'ปรับ 15% จาก '+result.breakdown.h2h.count+' นัด':'ไม่ใช้ (ตัวอย่างไม่ถึง 3 นัด)')+'</div><h3 style="font-size:13px;margin:14px 0 5px">ปัจจัยที่ใช้คำนวณ</h3>'<ul class="prob-reasons">'+result.reasons.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><div class="small">โมเดล '+PROBABILITY_MODEL_VERSION+' · คำทำนายก่อนแข่งจะถูกบันทึกครั้งแรกและไม่เขียนทับย้อนหลัง</div>';
 }
 
 /* Phase 5 — explainable team strength, attacking/defensive profile, uncertainty and data quality. */
@@ -745,22 +748,17 @@ function p5Render(resetTeam=false){
 }
 
 function renderProbabilityAccuracy(){
- if(!footballDB)return;
- const snapshots=probabilitySnapshots(),byId=new Map((footballDB.matches||[]).map(m=>[String(m.providerMatchId),m]));
- const evaluated=snapshots.map(s=>({snapshot:s,match:byId.get(s.matchId)})).map(x=>{if(x.snapshot.actualOutcome)return {...x,actualOutcome:x.snapshot.actualOutcome};const m=x.match;if(m&&m.status==="FINISHED"&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore)&&m.homeScore>=0&&m.awayScore>=0)return {...x,actualOutcome:m.homeScore>m.awayScore?"home":m.homeScore===m.awayScore?"draw":"away"};return null;}).filter(Boolean);
- let correct=0,brier=0,logLoss=0;
- const bins=[0,1,2,3,4,5,6,7,8,9].map(i=>({min:i/10,max:(i+1)/10,count:0,confidence:0,correct:0}));
- evaluated.forEach(({snapshot:s,match:m,actualOutcome})=>{
-  const actual=actualOutcome,pred=s.probabilities,chosen=["home","draw","away"].sort((a,b)=>pred[b]-pred[a])[0];
-  if(chosen===actual)correct++;
-  ["home","draw","away"].forEach(k=>{const target=k===actual?1:0;brier+=Math.pow(pred[k]/100-target,2);});
-  logLoss-=Math.log(Math.max(0.0001,pred[actual]/100));
-  const max=Math.max(pred.home,pred.draw,pred.away)/100,index=Math.min(9,Math.floor(max*10)),bin=bins[index];bin.count++;bin.confidence+=max;bin.correct+=chosen===actual?1:0;
- });
- const n=evaluated.length,fmt=x=>x.toFixed(3),accuracy=n?(correct/n*100).toFixed(1)+"%":"—";
- document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+snapshots.length+'</b><span>คำทำนายที่บันทึกไว้</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่มีผลจริงสำหรับประเมิน</span></div><div class="db-kpi"><b>'+accuracy+'</b><span>ทายผล 1X2 ถูก (เลือกค่าที่สูงสุด)</span></div><div class="db-kpi"><b>'+(n?fmt(brier/(n*3)):"—")+'</b><span>Brier score เฉลี่ย (ยิ่งต่ำยิ่งดี)</span></div><div class="db-kpi"><b>'+(n?fmt(logLoss/n):"—")+'</b><span>Log loss เฉลี่ย (ยิ่งต่ำยิ่งดี)</span></div><div class="db-kpi"><b>'+Math.max(0,snapshots.length-n)+'</b><span>ยังรอผลหรือยังไม่สามารถประเมิน</span></div></div><div class="quality-note">ใช้เฉพาะคำทำนายที่บันทึกก่อนเวลาแข่งขันบนอุปกรณ์นี้เท่านั้น จำนวนตัวอย่างยังน้อยอาจทำให้ค่าความแม่นยำผันผวน และไม่ควรสรุปคุณภาพโมเดลจากตัวอย่างจำนวนน้อย</div>';
- const rows=bins.filter(b=>b.count>0).map(b=>'<div class="calibration-row"><span>'+(b.min*100).toFixed(0)+'–'+(b.max*100).toFixed(0)+'% · '+b.count+' คู่</span><b>คาดเฉลี่ย '+(b.confidence/b.count*100).toFixed(1)+'%</b><span>ถูก '+(b.correct/b.count*100).toFixed(1)+'%</span></div>');
- document.getElementById("probabilityCalibration").innerHTML=rows.join("")||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงเพียงพอสำหรับ Calibration</div>';
+ if(!footballDB||!window.FootballTimeMetrics)return;
+ const metrics=window.FootballTimeMetrics.calculateProbabilityMetrics(probabilitySnapshots(),footballDB.matches||[],footballDB.leagues||[]);
+ const fmt=value=>Number.isFinite(value)?value.toFixed(3):"—";
+ const pct=value=>Number.isFinite(value)?(value*100).toFixed(1)+"%":"—";
+ const n=metrics.evaluated,overall=metrics.overall;
+ const sampleNote=n<30?"ตัวอย่างน้อยกว่า 30 คู่: ผลประเมินผันผวนสูง ยังสรุปคุณภาพโมเดลไม่ได้":n<100?"ตัวอย่าง 30–99 คู่: เป็นผลเบื้องต้น ควรติดตามเพิ่ม":"ตัวอย่างตั้งแต่ 100 คู่ขึ้นไป: ยังเป็นการประเมินเชิงสังเกต ไม่ใช่หลักฐานยืนยันความสามารถทำนาย";
+ const leagueRows=metrics.byLeague.map(row=>'<div class="calibration-row"><span>'+esc(row.name)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
+ const modelRows=metrics.byModel.map(row=>'<div class="calibration-row"><span>'+esc(row.version)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
+ document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด (ไม่ลบย้อนหลัง)</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>Snapshot ที่ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่มีผลจริงสำหรับประเมิน</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>ทายผล 1X2 ถูก (ตัวเลือกที่มี % สูงสุด)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Brier score เฉลี่ยต่อผลลัพธ์ (ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log loss เฉลี่ย (ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.ece)+'</b><span>Calibration error (ECE · ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง · คัดออก '+metrics.excluded+' รายการ</span></div></div><div class="quality-note">'+sampleNote+' · ใช้เฉพาะ 1X2 ครบ 100% และบันทึกก่อนเวลาแข่งขัน</div><div class="card"><b>แยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>แยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
+ const bins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+(bin.min*100).toFixed(0)+'–'+(bin.max*100).toFixed(0)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
+ document.getElementById("probabilityCalibration").innerHTML=bins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>';
 }
 
 async function loadFootballDatabase(){
