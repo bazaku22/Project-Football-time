@@ -1,5 +1,5 @@
 
-const CACHE = "football-time-v10";
+const CACHE = "football-time-v11";
 
 const ASSETS = [
   "./",
