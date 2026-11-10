@@ -1,6 +1,10 @@
 name: Test StatsBomb Player Source
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/test_statsbomb_player_source.py"
+      - ".github/workflows/test-statsbomb-player-source.yml"
   push:
     branches: [main]
     paths:
