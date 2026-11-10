@@ -176,7 +176,12 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   </div>
   <div id="playerCloudSignedIn" hidden>
    <div class="small" id="playerCloudUser"></div>
-   <div class="form-actions"><button class="primary" id="playerCloudSync" type="button">ซิงก์รายชื่อนักเตะจาก API Ninjas</button><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div>
+   <div class="form-actions"><button class="primary" id="playerCloudPreview" type="button">1. ดึงตัวอย่างจาก StrikerAPI (สูงสุด 10 credits)</button><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div>
+   <div id="playerCloudPreviewPanel" class="p5-note" hidden>
+    <b>ตัวอย่างข้อมูลพร้อมตรวจสอบ</b><div id="playerCloudPreviewSummary" class="small"></div>
+    <button class="primary" id="playerCloudSavePreview" type="button">2. ยืนยันบันทึกข้อมูลชุดนี้</button>
+    <button class="secondary" id="playerCloudCancelPreview" type="button">ยกเลิก Preview</button>
+   </div>
   </div>
  </div>
  <div class="card"><div class="small" id="playerDbStatus">กำลังโหลดฐานข้อมูลนักเตะ…</div>
