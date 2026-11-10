@@ -1,8 +1,8 @@
-const CACHE = "football-time-v21";
+const CACHE = "football-time-v22";
 
 const ASSETS = [
   "./",
-  "./index.html",
+  "./index.html",\n  "./css/ui-refresh.css",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png",
