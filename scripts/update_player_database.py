@@ -23,7 +23,7 @@ session.headers.update({"x-api-key":KEY,"Content-Type":"application/json"})
 
 def norm(value):
  value=unicodedata.normalize("NFKD",str(value or "")).encode("ascii","ignore").decode().lower()
- value=re.sub(r"\\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\\b"," ",value)
+ value=re.sub(r"\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\b"," ",value)
  return re.sub(r"[^a-z0-9]","",value)
 
 def call(endpoint,payload):
@@ -150,7 +150,7 @@ def main():
   "nextProfileOffset":next_offset,
   "records":sorted(merged.values(),key=lambda r:(r.get("leagueId",""),r.get("teamName",""),r.get("name",""),r.get("season","")))
  }
- PDB.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+ PDB.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
  print("Squad records:",len(records),"profiles fetched:",profiles_done,"total stored:",len(merged),"next profile offset:",next_offset,flush=True)
 
 if __name__=="__main__":
