@@ -10,7 +10,7 @@ on:
       - ".github/workflows/validate-app.yml"
   push:
     branches:
-      - feature/phase-4-2-team-profile
+      - main
 
 permissions:
   contents: read
@@ -44,15 +44,18 @@ jobs:
               'const STORAGE_KEY="pft_matches_v1"',
               'function renderTeamForm()',
               'function renderTeamProfile(',
+              'function renderHomeAwayAnalysis(',
               'id="teamform"',
               'id="teamprofile"',
               'data-page="teamform"',
               'data-page="teamprofile"',
+              'id="homeaway"',
+              'data-page="homeaway"',
           ]
           missing = [item for item in required if item not in html]
           if missing:
               raise SystemExit("Missing required app features: " + ", ".join(missing))
-          print("Application structure and Phase 4.2 feature markers are present.")
+          print("Application structure and Phase 4.3 feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
 
