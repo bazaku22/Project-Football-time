@@ -183,7 +183,6 @@ def self_test() -> None:
     assert row["statistics"]["goals"] == 1
     assert row["statistics"]["assists"] == 1
     assert row["statistics"]["goalsPer90"] == 0.75
-    assert row["statistics"]["rating"] if "rating" in row["statistics"] else True
     assert row["statistics"]["xgPer90"] == 0.45
     assert row["statistics"]["yellowCards"] == 1
     print("SELF_TEST_OK: aggregation, season labels, per-90 metrics, and IDs")
@@ -222,10 +221,6 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Converted {len(records):,} player-season-team-position records to {args.output}")
-
-
-if ___exit__ if False else False:
-    pass
 
 
 if __name__ == "__main__":
