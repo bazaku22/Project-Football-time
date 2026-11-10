@@ -248,7 +248,7 @@ function renderMatches(){
 function render(){renderMatches();}
 function exportBackup(){
  try{const raw=localStorage.getItem(STORAGE_KEY);if(!raw){alert("ไม่พบข้อมูลสำรอง");return;}const data=JSON.parse(raw);if(!Array.isArray(data))throw Error("รูปแบบข้อมูลไม่ถูกต้อง");
- const blob=new Blob([JSON.stringify({app:"Project Football Time",version:1,exportedAt:new Date().toISOString(),storageKey:STORAGE_KEY,matches:data},null,2)],{type:"application/json"});
+ const probabilityData=localStorage.getItem(PROBABILITY_STORAGE_KEY);const probabilityPredictions=probabilityData?JSON.parse(probabilityData):[];const blob=new Blob([JSON.stringify({app:"Project Football Time",version:1,exportedAt:new Date().toISOString(),storageKey:STORAGE_KEY,matches:data,probabilityPredictions:Array.isArray(probabilityPredictions)?probabilityPredictions:[]},null,2)],{type:"application/json"});
  const url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="project-football-time-backup-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  }catch(e){alert("สำรองข้อมูลไม่สำเร็จ: "+e.message);}
 }
@@ -257,8 +257,11 @@ function importBackup(event){
  reader.onload=()=>{try{const b=JSON.parse(reader.result);if(!b||b.app!=="Project Football Time"||b.version!==1||b.storageKey!==STORAGE_KEY||!Array.isArray(b.matches))throw Error("ไฟล์สำรองไม่ถูกต้อง");
  const valid=b.matches.every(m=>m&&typeof m==="object"&&!Array.isArray(m)&&["id","home","away","league","date"].every(k=>typeof m[k]==="string"));
  if(!valid||new Set(b.matches.map(m=>m.id)).size!==b.matches.length)throw Error("ข้อมูลไม่ครบหรือมีรหัสซ้ำ");
- if(!confirm("นำเข้าข้อมูล "+b.matches.length+" รายการและแทนที่ข้อมูลปัจจุบันหรือไม่?"))return;
- const old=matches;matches=b.matches;if(!saveMatches()){matches=old;return;}render();alert("นำเข้าสำเร็จ "+matches.length+" รายการ");
+ if(b.probabilityPredictions!==undefined&&(!Array.isArray(b.probabilityPredictions)||!b.probabilityPredictions.every(x=>x&&typeof x.matchId==="string"&&x.probabilities&&["home","draw","away"].every(k=>Number.isFinite(x.probabilities[k])))))throw Error("ประวัติความน่าจะเป็นในไฟล์ไม่ถูกต้อง");
+ if(!confirm("นำเข้าข้อมูล "+b.matches.length+" รายการและแทนที่ข้อมูลปัจจุบันหรือไม่?"+(Array.isArray(b.probabilityPredictions)?" รวมคำทำนายโมเดล "+b.probabilityPredictions.length+" รายการ":"")))return;
+ const old=matches,oldProb=localStorage.getItem(PROBABILITY_STORAGE_KEY);matches=b.matches;if(!saveMatches()){matches=old;return;}
+ if(Array.isArray(b.probabilityPredictions)){try{localStorage.setItem(PROBABILITY_STORAGE_KEY,JSON.stringify(b.probabilityPredictions));}catch(storageError){matches=old;saveMatches();if(oldProb===null)localStorage.removeItem(PROBABILITY_STORAGE_KEY);else localStorage.setItem(PROBABILITY_STORAGE_KEY,oldProb);throw storageError;}}
+ render();alert("นำเข้าสำเร็จ "+matches.length+" รายการ");
  }catch(e){alert("นำเข้าไม่สำเร็จ: "+e.message);}finally{event.target.value="";}};
  reader.onerror=()=>alert("อ่านไฟล์ไม่ได้");reader.readAsText(file);
 }
