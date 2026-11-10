@@ -1,0 +1,37 @@
+name: Test OpenPlay Player Source
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "scripts/pilot_openplay_player_stats.py"
+      - ".github/workflows/test-openplay-player-source.yml"
+      - "docs/phase-5-6-openplay-pilot.md"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install data reader
+        run: python -m pip install --disable-pip-version-check pandas pyarrow
+
+      - name: Compile and self-test
+        run: |
+          python -m py_compile scripts/pilot_openplay_player_stats.py
+          python scripts/pilot_openplay_player_stats.py --self-test
+
+      - name: Run source coverage pilot
+        if: github.event_name == 'workflow_dispatch'
+        run: python scripts/pilot_openplay_player_stats.py
