@@ -129,3 +129,27 @@ th{color:#9eb4c7}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+/* Team selectors — searchable club rows with crests */
+.team-picker-native{display:none!important}
+.team-picker{position:relative;width:100%;margin-top:0}
+.team-picker-trigger{width:100%;min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 12px;border:1px solid #3b5870;border-radius:13px;background:linear-gradient(145deg,#1b3047,#122338);color:#f3f8fc;text-align:left;cursor:pointer}
+.team-picker-current{display:flex;align-items:center;gap:11px;min-width:0}
+.team-picker-name{font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.team-picker-crest,.team-picker-fallback{width:34px;height:34px;flex:0 0 34px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,.055);padding:4px}
+.team-picker-fallback{display:grid;place-items:center;font-size:20px}
+.team-picker-chevron{font-size:20px;color:#8fa9bd;transition:transform .18s ease}
+.team-picker.open .team-picker-chevron{transform:rotate(180deg)}
+.team-picker-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:20;padding:10px;border:1px solid #38536b;border-radius:15px;background:#101f30;box-shadow:0 18px 42px rgba(0,0,0,.48)}
+.team-picker.open .team-picker-menu{display:block;animation:team-picker-in .16s ease-out}
+@keyframes team-picker-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.team-picker-search{width:100%;min-height:42px;margin-bottom:8px;padding:9px 12px;border:1px solid #354f66;border-radius:10px;background:#0b1826;color:#f3f8fc;font:inherit}
+.team-picker-options{display:grid;gap:4px;max-height:min(42vh,310px);overflow-y:auto;overscroll-behavior:contain}
+.team-picker-option{width:100%;display:flex;align-items:center;gap:11px;min-height:48px;padding:7px 9px;border:1px solid transparent;border-radius:10px;background:transparent;color:#dce8f2;text-align:left;font:inherit;font-size:13px;cursor:pointer}
+.team-picker-option[hidden]{display:none}
+.team-picker-option .team-picker-crest,.team-picker-option .team-picker-fallback{width:30px;height:30px;flex-basis:30px}
+.team-picker-option.selected{background:rgba(38,145,122,.18);border-color:rgba(104,224,189,.35);color:#a9f1dc}
+.team-picker-option span:nth-child(2){flex:1;min-width:0}
+.team-picker-check{color:#7ce3bf;font-weight:800}
+.team-picker-option:active{background:#1d3a4e}
+@media(max-width:380px){.team-picker-trigger{min-height:51px}.team-picker-menu{padding:8px}.team-picker-options{max-height:38vh}}

@@ -375,6 +375,31 @@ function formSeasonForLeague(leagueId){
  const row=(footballDB.standings||[]).find(x=>x.leagueId===leagueId);
  return row?.season||(footballDB.teamSeasons||[]).find(x=>x.leagueId===leagueId)?.season||"";
 }
+/* Branded team picker: the native select remains the single source of truth. */
+function enhanceTeamPicker(select,teams){
+ if(!select)return;
+ let picker=select.nextElementSibling;
+ if(!picker||!picker.classList.contains("team-picker")){
+  picker=document.createElement("div");picker.className="team-picker";
+  select.insertAdjacentElement("afterend",picker);select.classList.add("team-picker-native");
+  picker.addEventListener("click",event=>{
+   const trigger=event.target.closest(".team-picker-trigger");
+   if(trigger){event.stopPropagation();const open=picker.classList.toggle("open");trigger.setAttribute("aria-expanded",String(open));if(open)picker.querySelector(".team-picker-search")?.focus();return;}
+   const option=event.target.closest("[data-team-option]");
+   if(option){select.value=option.dataset.teamOption;select.dispatchEvent(new Event("change",{bubbles:true}));}
+  });
+  picker.addEventListener("input",event=>{
+   if(!event.target.matches(".team-picker-search"))return;
+   const query=event.target.value.trim().toLocaleLowerCase();
+   picker.querySelectorAll("[data-team-option]").forEach(button=>{button.hidden=!button.dataset.search.includes(query);});
+  });
+  document.addEventListener("click",event=>{if(!picker.contains(event.target)){picker.classList.remove("open");picker.querySelector(".team-picker-trigger")?.setAttribute("aria-expanded","false");}});
+ }
+ const current=teams.find(team=>team.id===select.value);
+ const crest=team=>team?.crest?'<img class="team-picker-crest" src="'+esc(team.crest)+'" alt="" onerror="this.style.visibility=\'hidden\'">':'<span class="team-picker-fallback" aria-hidden="true">⚽</span>';
+ const label=current?.name||select.selectedOptions?.[0]?.textContent||"เลือกทีม";
+ picker.innerHTML='<button type="button" class="team-picker-trigger" aria-expanded="false"><span class="team-picker-current">'+crest(current)+'<span class="team-picker-name">'+esc(label)+'</span></span><span class="team-picker-chevron" aria-hidden="true">⌄</span></button><div class="team-picker-menu"><input class="team-picker-search" type="search" placeholder="ค้นหาชื่อทีม…" aria-label="ค้นหาทีม"><div class="team-picker-options">'+teams.map(team=>'<button type="button" class="team-picker-option '+(team.id===select.value?"selected":"")+'" data-team-option="'+esc(team.id)+'" data-search="'+esc((team.name+" "+(team.shortName||"")).toLocaleLowerCase())+'">'+crest(team)+'<span>'+esc(team.name)+'</span>'+(team.id===select.value?'<span class="team-picker-check">✓</span>':"")+'</button>').join("")+'</div></div>';
+}
 function renderTeamForm(){
  if(!footballDB)return;
  const leagueSelect=document.getElementById("formLeagueSelect"),teamSelect=document.getElementById("formTeamSelect"),limitSelect=document.getElementById("formMatchLimit");
@@ -387,6 +412,7 @@ function renderTeamForm(){
  const teams=memberships.map(x=>footballDB.teams.find(t=>t.id===x.teamId)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
  const currentTeam=teams.some(t=>t.id===teamSelect.value)?teamSelect.value:(teams[0]?.id||"");
  teamSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.shortName||t.name)+'</option>').join("");teamSelect.value=currentTeam;
+ enhanceTeamPicker(teamSelect,teams);
  leagueSelect.onchange=()=>renderTeamForm();teamSelect.onchange=()=>renderTeamForm();limitSelect.onchange=()=>renderTeamForm();
  const team=teams.find(t=>t.id===currentTeam),requested=Number(limitSelect.value)||5;
  const completed=(footballDB.matches||[]).filter(m=>m.leagueId===activeLeague&&m.season===season&&m.status==="FINISHED"&&(m.homeTeamId===currentTeam||m.awayTeamId===currentTeam)&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore)&&m.homeScore>=0&&m.awayScore>=0).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
@@ -422,6 +448,7 @@ function renderHomeAwayAnalysis(resetTeam=false){
  const teams=memberships.map(x=>footballDB.teams.find(t=>t.id===x.teamId)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
  const previous=resetTeam?"":teamSelect.value,activeTeam=teams.some(t=>t.id===previous)?previous:(teams[0]?.id||"");
  teamSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.shortName||t.name)+'</option>').join("");teamSelect.value=activeTeam;
+ enhanceTeamPicker(teamSelect,teams);
  leagueSelect.onchange=()=>renderHomeAwayAnalysis(true);teamSelect.onchange=()=>renderHomeAwayAnalysis(false);limitSelect.onchange=()=>renderHomeAwayAnalysis(false);
  document.getElementById("venueSeason").textContent="ฤดูกาล "+(season||"—");
  const summary=document.getElementById("venueAnalysisSummary"),comparison=document.getElementById("venueComparison"),list=document.getElementById("venueMatchList");
@@ -455,6 +482,7 @@ function renderTeamProfile(resetTeam=false){
  teamSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join("");
  const activeTeam=teams.some(t=>t.id===previousTeam)?previousTeam:(teams[0]?.id||"");
  teamSelect.value=activeTeam;
+  enhanceTeamPicker(teamSelect,teams);
  leagueSelect.onchange=()=>renderTeamProfile(true);
  teamSelect.onchange=()=>renderTeamProfile(false);
  const summary=document.getElementById("teamProfileSummary"),stats=document.getElementById("teamProfileStats");
@@ -616,6 +644,7 @@ function renderHeadToHead(resetTeams=false){
  aSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join("");bSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.name)+'</option>').join("");
  aSelect.value=teams.some(t=>t.id===oldA)?oldA:(teams[0]?.id||"");
  bSelect.value=teams.some(t=>t.id===oldB&&t.id!==aSelect.value)?oldB:(teams.find(t=>t.id!==aSelect.value)?.id||"");
+  enhanceTeamPicker(aSelect,teams);enhanceTeamPicker(bSelect,teams);
  leagueSelect.onchange=()=>renderHeadToHead(true);seasonSelect.onchange=()=>renderHeadToHead(true);aSelect.onchange=()=>renderHeadToHead(false);bSelect.onchange=()=>renderHeadToHead(false);
  const summary=document.getElementById("h2hSummary"),list=document.getElementById("h2hMatches");
  const games=validFinishedMatches(leagueId,season).filter(m=>(m.homeTeamId===aSelect.value&&m.awayTeamId===bSelect.value)||(m.homeTeamId===bSelect.value&&m.awayTeamId===aSelect.value)).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
