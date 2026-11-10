@@ -1,6 +1,11 @@
 name: Update Current Player Squads
 on:
   workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/update_player_database_api_ninjas.py'
+      - 'tests/test_api_ninjas_player_importer.py'
+      - '.github/workflows/update-current-player-squads.yml'
   schedule:
     - cron: "0 21 * * 0"
   push:
@@ -30,8 +35,9 @@ jobs:
           fi
       - name: Validate and install
         run: |
-          python -m py_compile scripts/update_player_database_api_ninjas.py
+          python -m py_compile scripts/update_player_database_api_ninjas.py tests/test_api_ninjas_player_importer.py
           python -m pip install requests
+          python -m unittest discover -s tests -p 'test_api_ninjas_player_importer.py'
       - name: Import current squads
         env:
           API_NINJAS_API_KEY: ${{ secrets.API_NINJAS_API_KEY }}
