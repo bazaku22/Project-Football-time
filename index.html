@@ -32,6 +32,10 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 .match-row{padding:10px 0;border-bottom:1px solid var(--line)}.match-row:last-child{border:0}.match-teams{font-weight:650;font-size:13px}.match-meta{font-size:10px;color:var(--muted);margin-top:4px}
 .empty{text-align:center;color:var(--muted);padding:22px}.notice{line-height:1.7;margin-top:15px}
 @media(max-width:380px){.stats{gap:5px}.stat{padding:9px 6px}.stat b{font-size:19px}.nav button{font-size:10px;padding:8px 6px}.league-grid{grid-template-columns:1fr}}
+
+/* Phase 4.1: team form */
+.form-controls{display:grid;grid-template-columns:1fr 1fr;gap:9px}.form-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.form-stat{background:#14232d;border:1px solid var(--line);border-radius:11px;padding:11px 8px;text-align:center}.form-stat b{display:block;font-size:20px}.form-stat span{font-size:10px;color:var(--muted)}.form-result{display:inline-grid;place-items:center;min-width:25px;padding:4px 7px;border-radius:6px;font-size:10px;font-weight:750}.form-result.win{background:#174b38;color:#a8f0cc}.form-result.draw{background:#554523;color:#f4d58e}.form-result.loss{background:#542e35;color:#ffc0c0}.form-bar{display:flex;gap:5px;height:9px;border-radius:9px;overflow:hidden;background:#30414d}.form-bar span{display:block;height:100%}.form-match{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.form-match:last-child{border:0}.form-match-main{min-width:0}.form-match-main b{font-size:12px}.form-match-main small{display:block;font-size:10px;color:var(--muted);margin-top:3px}.form-match-score{display:flex;align-items:center;gap:8px;white-space:nowrap;font-weight:750}.form-note{font-size:10px;color:var(--muted);line-height:1.6}
+@media(max-width:380px){.form-controls{grid-template-columns:1fr}.form-summary{gap:5px}.form-stat{padding:9px 4px}.form-stat b{font-size:18px}}
 </style>
 </head>
 <body>
@@ -61,12 +65,26 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>โปรแกรมและผลการแข่งขัน</b><span class="small" id="matchCount">—</span></div><div class="field"><label for="matchFilter">กรองการแข่งขัน</label><select id="matchFilter" class="filter"><option value="ALL">ทั้งหมด</option><option value="SCHEDULED">กำหนดแข่งขัน</option><option value="TIMED">มีเวลาแข่งขัน</option><option value="FINISHED">จบแล้ว</option></select></div><div id="databaseMatches"></div></div>
  <p class="notice">ข้อมูลฐานฟุตบอลเป็นข้อมูลอ้างอิงแบบอ่านอย่างเดียว ไม่แก้ไขรายการทดสอบที่คุณบันทึกไว้</p>
 </section>
+
+<section id="teamform" class="page">
+ <div class="sectionhead"><h2>ฟอร์มทีมย้อนหลัง</h2><span class="small">PHASE 4.1</span></div>
+ <div class="card">
+  <div class="form-controls">
+   <div class="field"><label for="formLeagueSelect">เลือกลีก</label><select id="formLeagueSelect" class="filter"><option value="">กำลังโหลดลีก…</option></select></div>
+   <div class="field"><label for="formTeamSelect">เลือกทีม</label><select id="formTeamSelect" class="filter"><option value="">กำลังโหลดทีม…</option></select></div>
+   <div class="field full"><label for="formMatchLimit">จำนวนการแข่งขันย้อนหลัง</label><select id="formMatchLimit" class="filter"><option value="5">5 นัดล่าสุด</option><option value="10">10 นัดล่าสุด</option></select></div>
+  </div>
+  <div id="teamFormSummary" class="empty">กำลังเตรียมข้อมูลฟอร์มทีม…</div>
+ </div>
+ <div class="card"><div class="topline"><b>ผลการแข่งขันย้อนหลัง</b><span class="small" id="teamFormCount">—</span></div><div id="teamFormMatches"><div class="empty">กำลังโหลด…</div></div></div>
+ <p class="form-note">คำนวณจากการแข่งขันสถานะ FINISHED ที่มีสกอร์จริงในฐานข้อมูลลีกและฤดูกาลที่เลือกเท่านั้น หากข้อมูลไม่ครบ ระบบจะไม่คาดเดาผลการแข่งขัน</p>
+</section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
 <section id="stats" class="page"><div class="sectionhead"><h2>สถิติและประวัติ</h2></div><div class="card"><table>
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
-<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ วิเคราะห์</button><button data-page="stats">▥ สถิติ</button></nav>
+<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="teamform">◷ ฟอร์มทีม</button><button data-page="analysis">◎ วิเคราะห์</button><button data-page="stats">▥ สถิติ</button></nav>
 <script>
 "use strict";
 const STORAGE_KEY="pft_matches_v1";
@@ -198,8 +216,46 @@ function renderLeagueSelector(){
  const leagues=footballDB.leagues||[];
  document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
  document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
- document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();});
+ document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();});
  document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
+}
+/* Phase 4.1: calculate team form only from completed matches with valid scores. */
+function formSeasonForLeague(leagueId){
+ const row=(footballDB.standings||[]).find(x=>x.leagueId===leagueId);
+ return row?.season||(footballDB.teamSeasons||[]).find(x=>x.leagueId===leagueId)?.season||"";
+}
+function renderTeamForm(){
+ if(!footballDB)return;
+ const leagueSelect=document.getElementById("formLeagueSelect"),teamSelect=document.getElementById("formTeamSelect"),limitSelect=document.getElementById("formMatchLimit");
+ if(!leagueSelect||!teamSelect||!limitSelect)return;
+ const leagues=footballDB.leagues||[];
+ const activeLeague=leagues.some(x=>x.id===leagueSelect.value)?leagueSelect.value:(leagues.some(x=>x.id===selectedLeagueId)?selectedLeagueId:(leagues[0]?.id||""));
+ leagueSelect.innerHTML=leagues.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.name)+'</option>').join("");leagueSelect.value=activeLeague;
+ const season=formSeasonForLeague(activeLeague);
+ const memberships=(footballDB.teamSeasons||[]).filter(x=>x.leagueId===activeLeague&&x.season===season);
+ const teams=memberships.map(x=>footballDB.teams.find(t=>t.id===x.teamId)).filter(Boolean).sort((a,b)=>a.name.localeCompare(b.name));
+ const currentTeam=teams.some(t=>t.id===teamSelect.value)?teamSelect.value:(teams[0]?.id||"");
+ teamSelect.innerHTML=teams.map(t=>'<option value="'+esc(t.id)+'">'+esc(t.shortName||t.name)+'</option>').join("");teamSelect.value=currentTeam;
+ leagueSelect.onchange=()=>renderTeamForm();teamSelect.onchange=()=>renderTeamForm();limitSelect.onchange=()=>renderTeamForm();
+ const team=teams.find(t=>t.id===currentTeam),requested=Number(limitSelect.value)||5;
+ const completed=(footballDB.matches||[]).filter(m=>m.leagueId===activeLeague&&m.season===season&&m.status==="FINISHED"&&(m.homeTeamId===currentTeam||m.awayTeamId===currentTeam)&&Number.isInteger(m.homeScore)&&Number.isInteger(m.awayScore)&&m.homeScore>=0&&m.awayScore>=0).sort((a,b)=>new Date(b.utcDate)-new Date(a.utcDate));
+ const recent=completed.slice(0,requested),summary=document.getElementById("teamFormSummary");
+ document.getElementById("teamFormCount").textContent=recent.length+" / "+requested+" นัด";
+ if(!team||!recent.length){summary.innerHTML='<div class="empty">ยังไม่มีผลการแข่งขันที่สมบูรณ์เพียงพอสำหรับทีมนี้</div>';document.getElementById("teamFormMatches").innerHTML='<div class="empty">ไม่พบผลการแข่งขันย้อนหลัง</div>';return;}
+ let wins=0,draws=0,losses=0,goalsFor=0,goalsAgainst=0,cleanSheets=0,homePlayed=0,homeWins=0,awayPlayed=0,awayWins=0;
+ const rows=recent.map(m=>{
+  const isHome=m.homeTeamId===currentTeam,gf=isHome?m.homeScore:m.awayScore,ga=isHome?m.awayScore:m.homeScore,outcome=gf>ga?"W":gf===ga?"D":"L";
+  if(outcome==="W")wins++;else if(outcome==="D")draws++;else losses++;goalsFor+=gf;goalsAgainst+=ga;if(ga===0)cleanSheets++;
+  if(isHome){homePlayed++;if(outcome==="W")homeWins++;}else{awayPlayed++;if(outcome==="W")awayWins++;}
+  const opponent=isHome?m.awayTeamName:m.homeTeamName,date=dateTime(m.utcDate),score=isHome?(m.homeScore+" - "+m.awayScore):(m.awayScore+" - "+m.homeScore),label=outcome==="W"?"ชนะ":outcome==="D"?"เสมอ":"แพ้";
+  return '<div class="form-match"><div class="form-match-main"><b>'+esc(opponent||"คู่แข่งขันไม่ระบุ")+'</b><small>'+date+' · '+(isHome?"เหย้า":"เยือน")+' · '+label+'</small></div><div class="form-match-score"><span>'+score+'</span><span class="form-result '+(outcome==="W"?"win":outcome==="D"?"draw":"loss")+'">'+outcome+'</span></div></div>';
+ });
+ const total=recent.length,winPct=Math.round(wins/total*100),drawPct=Math.round(draws/total*100),lossPct=Math.round(losses/total*100),crest=team.crest?'<img class="team-crest" src="'+esc(team.crest)+'" alt="" onerror="this.style.display=\'none\'">':"";
+ summary.innerHTML='<div class="league-line">'+crest+'<div><b>'+esc(team.name)+'</b><div class="small">'+esc(selectedLeague()?.name||activeLeague)+' · ฤดูกาล '+esc(season)+'</div></div></div>'+
+  '<div class="form-summary"><div class="form-stat"><b style="color:#a8f0cc">'+wins+'</b><span>ชนะ</span></div><div class="form-stat"><b style="color:#f4d58e">'+draws+'</b><span>เสมอ</span></div><div class="form-stat"><b style="color:#ffc0c0">'+losses+'</b><span>แพ้</span></div><div class="form-stat"><b>'+goalsFor+'</b><span>ยิงได้</span></div><div class="form-stat"><b>'+goalsAgainst+'</b><span>เสีย</span></div><div class="form-stat"><b>'+cleanSheets+'</b><span>คลีนชีต</span></div></div>'+
+  '<div class="small" style="margin:9px 0 6px">สัดส่วนผลการแข่งขัน · ชนะ '+winPct+'% · เสมอ '+drawPct+'% · แพ้ '+lossPct+'%</div><div class="form-bar"><span style="width:'+winPct+'%;background:#16a36a"></span><span style="width:'+drawPct+'%;background:#d69e36"></span><span style="width:'+lossPct+'%;background:#c65b65"></span></div>'+
+  '<div class="grid"><div><span class="label">ยิงเฉลี่ย / นัด</span><span class="value">'+(goalsFor/total).toFixed(2)+'</span></div><div><span class="label">เสียเฉลี่ย / นัด</span><span class="value">'+(goalsAgainst/total).toFixed(2)+'</span></div><div><span class="label">ชนะในบ้าน</span><span class="value">'+homeWins+' / '+homePlayed+'</span></div><div><span class="label">ชนะนอกบ้าน</span><span class="value">'+awayWins+' / '+awayPlayed+'</span></div></div><div class="small" style="margin-top:10px">แสดงข้อมูลจริง '+total+' นัดล่าสุดจากทั้งหมด '+completed.length+' นัดที่จบแล้วในฤดูกาลนี้</div>';
+ document.getElementById("teamFormMatches").innerHTML=rows.join("");
 }
 function renderLeagueData(){
  const league=selectedLeague();if(!league)return;
