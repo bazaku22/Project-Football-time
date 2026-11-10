@@ -4,6 +4,7 @@ const cors = {
   "Access-Control-Allow-Origin": "https://bazaku22.github.io",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Expose-Headers": "X-Reep-Release-Stamp, X-Reep-SHA256",
   "Vary": "Origin"
 };
 const reply = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
