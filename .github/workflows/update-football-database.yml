@@ -293,8 +293,20 @@ jobs:
                   f"matches={len(match_data.get('matches', []))}"
               )
 
+          previous_probability_snapshots = []
+          previous_database_path = os.path.join("data", "football-database.json")
+          if os.path.exists(previous_database_path):
+              try:
+                  with open(previous_database_path, encoding="utf-8") as previous_file:
+                      previous_database = json.load(previous_file)
+                  previous_probability_snapshots = previous_database.get("probabilitySnapshots", [])
+                  if not isinstance(previous_probability_snapshots, list):
+                      previous_probability_snapshots = []
+              except (OSError, json.JSONDecodeError):
+                  previous_probability_snapshots = []
+
           database = {
-              "schemaVersion": "1.0.0",
+              "schemaVersion": "1.1.0",
               "generatedAt": sync_time,
               "source": {
                   "provider": "football-data.org",
@@ -306,7 +318,8 @@ jobs:
               "teams": list(teams.values()),
               "teamSeasons": team_seasons,
               "standings": standings,
-              "matches": matches
+              "matches": matches,
+              "probabilitySnapshots": previous_probability_snapshots
           }
 
           os.makedirs("data", exist_ok=True)
@@ -353,9 +366,11 @@ jobs:
               assert set(probabilities) == {"home", "draw", "away"}, "Invalid 1X2 probability fields."
               assert all(isinstance(v, (int, float)) and 0 <= v <= 100 for v in probabilities.values()), "Invalid probability value."
               assert abs(sum(probabilities.values()) - 100) <= 0.11, "1X2 probabilities must total 100%."
-              match_date = datetime.fromisoformat(matches_by_id[snapshot["matchId"]]["utcDate"].replace("Z", "+00:00"))
+              match_date = datetime.fromisoformat(snapshot["utcDate"].replace("Z", "+00:00"))
               created_at = datetime.fromisoformat(snapshot["createdAt"].replace("Z", "+00:00"))
               assert created_at < match_date, "Prediction snapshot must be recorded before kickoff."
+              if snapshot.get("actualOutcome") is not None:
+                  assert snapshot["actualOutcome"] in {"home", "draw", "away"}, "Invalid evaluated outcome."
 
           actual = {league["id"] for league in leagues}
 
