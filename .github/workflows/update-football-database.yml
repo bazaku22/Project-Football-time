@@ -293,8 +293,20 @@ jobs:
                   f"matches={len(match_data.get('matches', []))}"
               )
 
+          previous_probability_snapshots = []
+          previous_database_path = os.path.join("data", "football-database.json")
+          if os.path.exists(previous_database_path):
+              try:
+                  with open(previous_database_path, encoding="utf-8") as previous_file:
+                      previous_database = json.load(previous_file)
+                  previous_probability_snapshots = previous_database.get("probabilitySnapshots", [])
+                  if not isinstance(previous_probability_snapshots, list):
+                      previous_probability_snapshots = []
+              except (OSError, json.JSONDecodeError):
+                  previous_probability_snapshots = []
+
           database = {
-              "schemaVersion": "1.0.0",
+              "schemaVersion": "1.1.0",
               "generatedAt": sync_time,
               "source": {
                   "provider": "football-data.org",
@@ -306,7 +318,8 @@ jobs:
               "teams": list(teams.values()),
               "teamSeasons": team_seasons,
               "standings": standings,
-              "matches": matches
+              "matches": matches,
+              "probabilitySnapshots": previous_probability_snapshots
           }
 
           os.makedirs("data", exist_ok=True)
@@ -321,12 +334,17 @@ jobs:
           print("Matches:", len(matches))
           PY
 
+      - name: Build immutable pre-match probability snapshots
+        run: |
+          python3 scripts/build_probability_snapshots.py
+
       - name: Validate database JSON
         run: |
           python3 -m json.tool data/football-database.json >/dev/null
 
           python3 <<'PY'
           import json
+          from datetime import datetime
 
           with open("data/football-database.json", encoding="utf-8") as file:
               db = json.load(file)
@@ -337,6 +355,22 @@ jobs:
           team_seasons = db["teamSeasons"]
           standings = db["standings"]
           matches = db["matches"]
+          probability_snapshots = db.get("probabilitySnapshots", [])
+          assert isinstance(probability_snapshots, list), "Invalid probability snapshots."
+          snapshot_ids = [str(row["matchId"]) for row in probability_snapshots]
+          assert len(snapshot_ids) == len(set(snapshot_ids)), "Duplicate probability snapshots."
+          matches_by_id = {str(match["providerMatchId"]): match for match in matches}
+          for snapshot in probability_snapshots:
+              assert snapshot["matchId"] in matches_by_id, "Snapshot references an unknown match."
+              probabilities = snapshot["probabilities"]
+              assert set(probabilities) == {"home", "draw", "away"}, "Invalid 1X2 probability fields."
+              assert all(isinstance(v, (int, float)) and 0 <= v <= 100 for v in probabilities.values()), "Invalid probability value."
+              assert abs(sum(probabilities.values()) - 100) <= 0.11, "1X2 probabilities must total 100%."
+              match_date = datetime.fromisoformat(snapshot["utcDate"].replace("Z", "+00:00"))
+              created_at = datetime.fromisoformat(snapshot["createdAt"].replace("Z", "+00:00"))
+              assert created_at < match_date, "Prediction snapshot must be recorded before kickoff."
+              if snapshot.get("actualOutcome") is not None:
+                  assert snapshot["actualOutcome"] in {"home", "draw", "away"}, "Invalid evaluated outcome."
 
           actual = {league["id"] for league in leagues}
 

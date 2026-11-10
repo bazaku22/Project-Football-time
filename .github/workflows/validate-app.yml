@@ -7,7 +7,10 @@ on:
       - "index.html"
       - "data/football-database.json"
       - "sw.js"
+      - "scripts/build_probability_snapshots.py"
+      - "tests/test_probability_snapshots.py"
       - ".github/workflows/validate-app.yml"
+      - ".github/workflows/update-football-database.yml"
   push:
     branches:
       - main
@@ -68,6 +71,11 @@ jobs:
           print("Application structure and Phase 4.7 analytics feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
+
+      - name: Validate probability snapshot builder
+        run: |
+          python3 -m py_compile scripts/build_probability_snapshots.py
+          python3 tests/test_probability_snapshots.py
 
       - name: Validate football database JSON
         run: |

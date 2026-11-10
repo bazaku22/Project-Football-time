@@ -1,6 +1,6 @@
 
 # Project Football Time
-# Football Database Schema v1.0
+# Football Database Schema v1.1
 
 ## 1. Purpose
 
@@ -178,3 +178,29 @@ Project Football Time
 Football Statistics & News
 
 Deep Data. Simple Football.
+
+## 13. Pre-match Probability Snapshots (schema v1.1)
+
+The optional `probabilitySnapshots` array stores immutable pre-match 1X2 estimates.
+
+Each snapshot includes:
+
+- matchId (provider match ID as a string)
+- leagueId, season, utcDate
+- homeTeamName, awayTeamName
+- probabilities: home, draw, away (percentages totaling 100)
+- expectedGoals: home, away
+- probabilityLevel
+- confidenceScore and confidence
+- sample counts used by the model
+- modelVersion and createdAt
+- actualOutcome, actualScore, evaluatedAt after a valid finished result is available
+
+Rules:
+
+- Snapshots are created only while kickoff is still in the future.
+- A snapshot for an existing match ID must never be overwritten by a later forecast.
+- When a match finishes, its stored snapshot is annotated with the actual outcome; the original probabilities and creation timestamp remain unchanged.
+- Historical snapshots are retained across daily database refreshes, including when older fixtures are no longer returned by the provider.
+- The database updater validates that every probability vector totals 100% and that each snapshot was created before kickoff.
+- The client may keep a local copy for offline continuity, but server-generated snapshots are the durable reference for calibration.
