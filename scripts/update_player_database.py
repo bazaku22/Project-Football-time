@@ -9,19 +9,22 @@ PDB=ROOT/"data/player-database.json"
 API="https://v3.football.api-sports.io"
 KEY=os.environ["API_KEY"]
 LEAGUES={"PL":39,"PD":140,"BL1":78,"SA":135,"FL1":61}
+API_SEASON=2024
 MAX_TEAMS=90
 session=requests.Session()
 session.headers.update({"x-apisports-key":KEY})
 
 def norm(s):
- s=unicodedata.normalize("NFKD",str(s or "")).encode("ascii","ignore").decode()
- return re.sub(r"[^a-z0-9]","",s.lower())
+ s=unicodedata.normalize("NFKD",str(s or "")).encode("ascii","ignore").decode().lower()
+ s=re.sub(r"\b(fc|cf|afc|sc|sv|ac|as|ss|calcio|club|de|the)\b"," ",s)
+ return re.sub(r"[^a-z0-9]","",s)
 
 def get(path,params):
  r=session.get(API+path,params=params,timeout=35)
  r.raise_for_status()
  d=r.json()
- if d.get("errors"): raise RuntimeError(f"API error {path}: {d['errors']}")
+ if d.get("errors"):
+  raise RuntimeError(f"API error {path} params={params}: {d['errors']}")
  return d
 
 def num(v):
@@ -35,34 +38,43 @@ def main():
  except (OSError,json.JSONDecodeError): old={"records":[],"nextTeamOffset":0}
  records={r["id"]:r for r in old.get("records",[]) if isinstance(r,dict) and r.get("id")}
  league_names={x["id"]:x.get("name",x["id"]) for x in football.get("leagues",[])}
- api_teams={}; season_info={}
+ teams_by_id={t["id"]:t for t in football.get("teams",[])}
+ memberships=football.get("teamSeasons",[])
+ api_teams={}
  for lid,api_lid in LEAGUES.items():
-  memberships=[x for x in football.get("teamSeasons",[]) if x.get("leagueId")==lid]
-  season=max((x.get("season","") for x in memberships),default="")
-  year=int(season[:4]) if season[:4].isdigit() else datetime.now(timezone.utc).year
-  season_info[lid]=(season,year)
-  payload=get("/teams",{"league":api_lid,"season":year})
-  api_teams[lid]={norm((x.get("team") or {}).get("name")):x for x in payload.get("response",[])}
+  payload=get("/teams",{"league":api_lid,"season":API_SEASON})
+  api_teams[lid]={}
+  for entry in payload.get("response",[]):
+   team=entry.get("team") or {}
+   key=norm(team.get("name"))
+   if key: api_teams[lid][key]=team
+  if not api_teams[lid]:
+   raise RuntimeError(f"No API-Football teams returned for {lid}, season {API_SEASON}")
   time.sleep(1)
  targets=[]
- teams_by_id={t["id"]:t for t in football.get("teams",[])}
- for m in football.get("teamSeasons",[]):
+ for m in memberships:
   lid=m.get("leagueId")
   if lid not in LEAGUES: continue
   team=teams_by_id.get(m.get("teamId"))
   if not team: continue
-  hit=api_teams[lid].get(norm(team.get("name"))) or api_teams[lid].get(norm(team.get("shortName")))
-  api_team=(hit or {}).get("team") or {}
-  if api_team.get("id") is not None:
-   season,year=season_info[lid]
-   targets.append((lid,season,year,m,team,api_team))
- targets.sort(key=lambda x:(x[0],x[4].get("name","")))
- if not targets: raise RuntimeError("No exact team-name matches; existing player database was not changed.")
+  candidates=[norm(team.get("name")),norm(team.get("shortName"))]
+  hits=[api_teams[lid][key] for key in candidates if key and key in api_teams[lid]]
+  # Only accept an unambiguous normalized exact-name match.
+  unique={x.get("id"):x for x in hits if x.get("id") is not None}
+  if len(unique)==1:
+   api_team=next(iter(unique.values()))
+   targets.append((lid,m,team,api_team))
+ targets_by_id={x[2]["id"]:x for x in targets}
+ targets=list(targets_by_id.values())
+ targets.sort(key=lambda x:(x[0],x[2].get("name","")))
+ if not targets:
+  raise RuntimeError("No unambiguous team-name matches in the free historical season 2024; database was not changed.")
  offset=int(old.get("nextTeamOffset",0))%len(targets)
- batch=(targets[offset:]+targets[:offset])[:MAX_TEAMS]
+ batch=(targets[offset:]+targets[:offset])[:min(MAX_TEAMS,len(targets))]
  fetched=datetime.now(timezone.utc).isoformat()
- for lid,season,year,m,team,api_team in batch:
-  payload=get("/players",{"team":api_team["id"],"league":LEAGUES[lid],"season":year,"page":1})
+ fetched_records=0
+ for lid,m,team,api_team in batch:
+  payload=get("/players",{"team":api_team["id"],"league":LEAGUES[lid],"season":API_SEASON,"page":1})
   for item in payload.get("response",[]):
    p=item.get("player") or {}
    if not p.get("id"): continue
@@ -72,6 +84,7 @@ def main():
     g=row.get("games") or {}; goals=row.get("goals") or {}; shots=row.get("shots") or {}; passes=row.get("passes") or {}
     tackles=row.get("tackles") or {}; duels=row.get("duels") or {}; drib=row.get("dribbles") or {}; fouls=row.get("fouls") or {}; cards=row.get("cards") or {}; pen=row.get("penalty") or {}
     pid="api-football:"+str(p["id"])
+    season=str(API_SEASON)
     rid=f"{pid}:{m['teamId']}:{season}"
     records[rid]={
      "id":rid,"playerId":pid,"name":p.get("name") or "Unknown","age":num(p.get("age")),
@@ -92,16 +105,21 @@ def main():
       "penaltiesScored":num(pen.get("scored")),"penaltiesMissed":num(pen.get("missed"))
      },
      "source":{"provider":"API-Football","providerPlayerId":p["id"],"providerTeamId":api_team["id"],
-      "providerLeagueId":LEAGUES[lid],"season":year,"endpoint":"/players","fetchedAt":fetched}
+      "providerLeagueId":LEAGUES[lid],"season":API_SEASON,"endpoint":"/players","fetchedAt":fetched}
     }
+    fetched_records+=1
   time.sleep(1)
+ if fetched_records==0:
+  raise RuntimeError("API calls succeeded but returned no player statistics; existing database was preserved.")
  next_offset=(offset+len(batch))%len(targets)
  output={"schemaVersion":1,"generatedAt":fetched,
-  "source":{"provider":"API-Football","status":"synced","matchedTeams":len(targets),
-   "processedTeams":len(batch),"requestsUsedApprox":5+len(batch),"freePlanNote":"Imports page 1 only per team; API free-plan pagination is limited."},
+  "source":{"provider":"API-Football","status":"partial_historical_sync","season":API_SEASON,
+   "matchedTeams":len(targets),"processedTeams":len(batch),"recordsFetchedThisRun":fetched_records,
+   "requestsUsedApprox":5+len(batch),
+   "coverageNote":"Free plan currently permits seasons 2022-2024. This dataset is historical 2024 season data, not current 2026-27 squad data. Only page 1 per team is imported; remaining teams rotate across runs."},
   "nextTeamOffset":next_offset,
-  "records":sorted(records.values(),key=lambda x:(x.get("leagueId",""),x.get("teamName",""),x.get("name","")))}
+  "records":sorted(records.values(),key=lambda x:(x.get("leagueId",""),x.get("teamName",""),x.get("name",""),x.get("season","")))}
  PDB.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
- print(f"matched={len(targets)} processed={len(batch)} records={len(records)} next_offset={next_offset}")
+ print(f"season={API_SEASON} matched={len(targets)} processed={len(batch)} fetched_this_run={fetched_records} total_records={len(records)} next_offset={next_offset}")
 
 if __name__=="__main__": main()
