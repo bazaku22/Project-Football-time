@@ -26,6 +26,7 @@ jobs:
         with:
           ref: main
       - name: Check API key
+        if: github.event_name != 'pull_request'
         env:
           API_NINJAS_API_KEY: ${{ secrets.API_NINJAS_API_KEY }}
         run: |
@@ -39,10 +40,12 @@ jobs:
           python -m pip install requests
           python -m unittest discover -s tests -p 'test_api_ninjas_player_importer.py'
       - name: Import current squads
+        if: github.event_name != 'pull_request'
         env:
           API_NINJAS_API_KEY: ${{ secrets.API_NINJAS_API_KEY }}
         run: python scripts/update_player_database_api_ninjas.py
       - name: Validate database
+        if: github.event_name != 'pull_request'
         run: |
           python - <<'PY'
           import json
@@ -56,6 +59,7 @@ jobs:
           print("Current roster records:",sum(r.get("profileStatus")=="current_roster" for r in d["records"]))
           PY
       - name: Commit database
+        if: github.event_name != 'pull_request'
         run: |
           if git diff --quiet -- data/player-database.json; then echo "No player database changes."; exit 0; fi
           git config user.name "github-actions[bot]"
