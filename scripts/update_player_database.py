@@ -103,9 +103,7 @@ def main():
  # Rotate through the full roster. get_player costs 5 credits; reserve credits for future runs.
  roster=sorted(records.values(),key=lambda r:(r["leagueId"],r["teamName"],r["name"]))
  offset=int(old.get("nextProfileOffset",0))%len(roster)
- batch=roster[offset:offset+PROFILE_LIMIT]
- if len(batch)<PROFILE_LIMIT:
-  batch+=roster[:PROFILE_LIMIT-len(batch)]
+ batch=roster[offset:offset+min(PROFILE_LIMIT,len(roster))]
  profiles_done=0
  profile_errors=[]
  for record in batch:
