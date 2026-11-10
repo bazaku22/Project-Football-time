@@ -6,6 +6,10 @@ on:
     paths:
       - "index.html"
       - "js/player-database.js"
+      - "js/reep-alias-pilot.js"
+      - "js/player-cloud.js"
+      - "supabase/functions/reep-aliases/index.ts"
+      - "docs/phase-5.6-reep-private-alias-pilot.md"
       - "data/player-database.json"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
@@ -78,6 +82,7 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check js/player-database.js
+          node --input-type=module --check < js/reep-alias-pilot.js
 
       - name: Validate multi-source player identity matcher
         run: |
