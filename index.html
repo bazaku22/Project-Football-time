@@ -196,6 +196,15 @@ function formatDate(value){
  if(p.length!==3)return value;
  return new Date(Number(p[0]),Number(p[1])-1,Number(p[2])).toLocaleDateString("th-TH",{day:"numeric",month:"short",year:"numeric"});
 }
+function getLeagueLogo(league){
+ const name=String(league||"").toLowerCase();
+ if(name.includes("premier league"))return "premier-league";
+ if(name.includes("laliga")||name.includes("la liga"))return "la-liga";
+ if(name.includes("bundesliga"))return "bundesliga";
+ if(name.includes("serie a"))return "serie-a";
+ if(name.includes("ligue 1"))return "ligue-1";
+ return "";
+}
 function calculateHandicapResult(record,finalScore){
  const selected=String(record.selectedTeam||"").trim();
  const home=String(record.home||"").trim();
