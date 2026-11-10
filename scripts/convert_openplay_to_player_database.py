@@ -46,7 +46,10 @@ def clean(value):
 
 
 def season_label(value: object) -> str:
-    raw = str(value).strip()
+    if isinstance(value, (int, float)) and float(value).is_integer():
+        raw = str(int(value))
+    else:
+        raw = str(value).strip()
     digits = re.sub(r"\D", "", raw)
     if len(digits) == 4:
         return f"20{digits[:2]}/20{digits[2:]}"
