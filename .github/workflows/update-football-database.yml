@@ -153,7 +153,10 @@ jobs:
                   })
 
               for group in standing_data.get("standings", []):
-                  for row in group.get("table", []):
+    if group.get("type") != "TOTAL":
+        continue
+
+    for row in group.get("table", []):
                       provider_id = (row.get("team") or {}).get("id")
                       if provider_id is None:
                           continue
