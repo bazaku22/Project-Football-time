@@ -1,7 +1,7 @@
 "use strict";
 (() => {
  const DB_URL="./data/player-database.json", STORAGE_KEY="pft_players_v1";
- let central=[],local=[],all=[];
+ let central=[],local=[],all=[],meta={};
  const $=id=>document.getElementById(id);
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const valid=r=>r&&typeof r==="object"&&["id","playerId","name","teamId","leagueId","season"].every(k=>typeof r[k]==="string")&&r.statistics&&typeof r.statistics==="object";
@@ -15,7 +15,7 @@
   tf.innerHTML='<option value="ALL">ทุกทีม</option>'+teams.map(([id,n])=>'<option value="'+esc(id)+'">'+esc(n)+'</option>').join("");tf.value=teams.some(x=>x[0]===oldT)?oldT:"ALL";
   const team=tf.value,rows=all.filter(r=>(league==="ALL"||r.leagueId===league)&&(team==="ALL"||r.teamId===team)&&(!q||r.name.toLocaleLowerCase().includes(q))).sort((a,b)=>a.name.localeCompare(b.name));
   $("playerDbSummary").innerHTML='<div class="db-kpi"><b>'+new Set(all.map(r=>r.playerId)).size+'</b><span>รหัสนักเตะไม่ซ้ำ</span></div><div class="db-kpi"><b>'+all.length+'</b><span>รายการนักเตะ / ทีม / ฤดูกาล</span></div>';
-  $("playerDbStatus").textContent="ข้อมูลส่วนกลาง "+central.length+" รายการ · ในอุปกรณ์ "+local.length+" รายการ · แสดง "+rows.length+" รายการ";
+  $("playerDbStatus").textContent="ข้อมูลส่วนกลาง "+central.length+" รายการ · ฤดูกาลข้อมูล "+(meta.season||"ยังไม่ระบุ")+" · ในอุปกรณ์ "+local.length+" รายการ · แสดง "+rows.length+" รายการ";
   $("playerList").innerHTML=rows.length?rows.map(r=>{
    const s=r.statistics||{},src=r.source||{},metrics=[["ลงสนาม",s.appearances],["ตัวจริง",s.lineups],["นาที",s.minutes],["ประตู",s.goals],["แอสซิสต์",s.assists],["เรตติ้ง",s.rating],["ยิงเข้ากรอบ",s.shotsOnTarget],["คีย์พาส",s.keyPasses],["ผ่านบอลสำเร็จ",s.passAccuracy===null||s.passAccuracy===undefined?null:s.passAccuracy+"%"],["เข้าสกัด",s.tackles],["ใบเหลือง",s.yellowCards],["ใบแดง",s.redCards]];
    return '<article class="card"><div class="profile-hero">'+(r.photo?'<img class="team-crest" src="'+esc(r.photo)+'" alt="" loading="lazy" onerror="this.hidden=true">':"")+'<div><b>'+esc(r.name)+'</b><div class="small">'+esc(r.teamName||"ไม่ระบุทีม")+' · '+esc(r.leagueName||r.leagueId)+' · '+esc(r.season)+'</div><div class="small">'+esc(r.position||"ไม่ระบุตำแหน่ง")+' · เบอร์ '+fmt(r.number)+' · อายุ '+fmt(r.age)+'</div></div></div><div class="p5-score">'+metrics.map(([k,v])=>'<div class="p5-metric"><b>'+fmt(v)+'</b><span>'+k+'</span></div>').join("")+'</div><div class="small">แหล่งข้อมูล: '+esc(src.provider||"ผู้ใช้นำเข้า")+' · ตรวจข้อมูล: '+esc(src.fetchedAt||"ไม่ระบุวันที่")+'</div></article>';
@@ -23,7 +23,7 @@
  }
  function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(local));return true}catch(e){alert("บันทึกข้อมูลไม่สำเร็จ: "+e.message);return false}}
  async function load(){
-  try{const r=await fetch(DB_URL+"?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);const d=await r.json();if(d.schemaVersion!==1||!Array.isArray(d.records))throw Error("schema ไม่ถูกต้อง");central=d.records.filter(valid)}
+  try{const r=await fetch(DB_URL+"?v="+Date.now(),{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);const d=await r.json();if(d.schemaVersion!==1||!Array.isArray(d.records))throw Error("schema ไม่ถูกต้อง");meta=d.source||{};central=d.records.filter(valid)}
   catch(e){central=[];$("playerDbStatus").textContent="ยังโหลดข้อมูลส่วนกลางไม่ได้: "+e.message}
   try{const d=JSON.parse(localStorage.getItem(STORAGE_KEY)||"[]");local=Array.isArray(d)?d.filter(valid):[]}catch(e){local=[]}
   merge();render();
