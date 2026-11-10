@@ -335,6 +335,7 @@ function render(){
  root.innerHTML=sorted.map(m=>`<article class="card">
  <div class="topline"><span class="tag">TEST #${escapeHTML(m.id)}</span><span class="date">${escapeHTML(formatDate(m.date))} · ${escapeHTML(m.time||"ยังไม่ยืนยัน")}</span></div>
 <div class="league-line">
+  ${getLeagueLogo(m.league)?`<span class="league-logo">${getLeagueLogo(m.league).replace(/-/g," ")}</span>`:""}
   <span class="league-name">${escapeHTML(m.league)}</span>
 </div><div class="teams">${escapeHTML(m.home)}<div class="vs">VS</div>${escapeHTML(m.away)}</div>
  <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${escapeHTML(m.selectedTeam||"ไม่ระบุ")}</span></div>
