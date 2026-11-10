@@ -59,3 +59,17 @@ Use separate providers for separate purposes:
 2. Historical match-level player performance through 2025/26: OpenPlay candidate, pending pilot results and upstream-rights review.
 3. StatsBomb Open Data: retain as a research-only event-data source with its selected competition/season limitations.
 4. Do not treat the non-commercial open-matchday compilation as a production player-statistics source; it provides match-level rather than individual player performance.
+
+
+## Pilot results (2026-11-10)
+
+GitHub Actions full-data run: https://github.com/bazaku22/Project-Football-time/actions/runs/42819259138
+
+- Player-match rows in the complete source table: **775,994**
+- Player-season-team-position rows in the five target leagues: **90,723**
+- Unique provider player IDs in the five target leagues: **9,536**
+- Season coverage: **12 seasons, 2014/15 through 2025/26, in each of the five target leagues**
+- Reported field completeness in the source table: **100%** for minutes, goals, assists, xG, xA, shots, key passes, tackles, and interceptions
+- Full source download, Parquet read, aggregation, and coverage report completed successfully in GitHub Actions.
+
+These are source-level coverage counts, not a count of currently registered players in 2026/27. The 90,723 rows are grouped by player, season, team, and position, so transfers and position changes can create multiple rows for the same player in a season.
