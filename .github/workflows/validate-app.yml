@@ -1,0 +1,70 @@
+name: Validate Football Time App
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "data/football-database.json"
+      - "sw.js"
+      - ".github/workflows/validate-app.yml"
+  push:
+    branches:
+      - feature/phase-4-1-team-form
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Extract and validate application JavaScript
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = re.findall(r"<script>(.*?)</script>", html, flags=re.S)
+          if len(scripts) != 1:
+              raise SystemExit(f"Expected one inline application script, found {len(scripts)}")
+          Path("/tmp/football-time-app.js").write_text(scripts[0], encoding="utf-8")
+
+          required = [
+              'const STORAGE_KEY="pft_matches_v1"',
+              'function renderTeamForm()',
+              'id="teamform"',
+              'data-page="teamform"',
+          ]
+          missing = [item for item in required if item not in html]
+          if missing:
+              raise SystemExit("Missing required app features: " + ", ".join(missing))
+          print("Application structure and Phase 4.1 feature markers are present.")
+          PY
+          node --check /tmp/football-time-app.js
+
+      - name: Validate football database JSON
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("data/football-database.json").read_text(encoding="utf-8"))
+          required = ["leagues", "teams", "teamSeasons", "standings", "matches"]
+          for key in required:
+              if not isinstance(data.get(key), list):
+                  raise SystemExit(f"Invalid or missing database array: {key}")
+          if len(data["leagues"]) != 5:
+              raise SystemExit("Expected exactly five supported leagues")
+          print("Football database JSON is valid.")
+          PY
