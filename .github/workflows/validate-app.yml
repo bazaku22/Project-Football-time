@@ -5,6 +5,10 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "js/player-database.js"
+      - "data/player-database.json"
+      - "scripts/update_player_database.py"
+      - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
       - "sw.js"
       - "scripts/build_probability_snapshots.py"
@@ -71,11 +75,27 @@ jobs:
           print("Application structure and Phase 4.7 analytics feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
+          node --check js/player-database.js
 
       - name: Validate probability snapshot builder
         run: |
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
+
+      - name: Validate player importer and database JSON
+        run: |
+          python3 -m py_compile scripts/update_player_database.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("data/player-database.json").read_text(encoding="utf-8"))
+          if data.get("schemaVersion") != 1 or not isinstance(data.get("records"), list):
+              raise SystemExit("Invalid player database schema")
+          ids=[x.get("id") for x in data["records"]]
+          if len(ids) != len(set(ids)):
+              raise SystemExit("Duplicate player record IDs")
+          print("Player database schema and IDs are valid.")
+          PY
 
       - name: Validate football database JSON
         run: |
