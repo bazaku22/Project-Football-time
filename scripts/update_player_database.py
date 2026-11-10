@@ -10,7 +10,9 @@ API="https://v3.football.api-sports.io"
 KEY=os.environ["API_KEY"]
 LEAGUES={"PL":39,"PD":140,"BL1":78,"SA":135,"FL1":61}
 API_SEASON=2024
-MAX_TEAMS=90
+MAX_TEAMS=80
+MIN_REQUEST_INTERVAL=6.5
+LAST_REQUEST=0.0
 session=requests.Session()
 session.headers.update({"x-apisports-key":KEY})
 
@@ -20,12 +22,26 @@ def norm(s):
  return re.sub(r"[^a-z0-9]","",s)
 
 def get(path,params):
- r=session.get(API+path,params=params,timeout=35)
- r.raise_for_status()
- d=r.json()
- if d.get("errors"):
-  raise RuntimeError(f"API error {path} params={params}: {d['errors']}")
- return d
+ global LAST_REQUEST
+ for attempt in range(4):
+  wait=MIN_REQUEST_INTERVAL-(time.monotonic()-LAST_REQUEST)
+  if wait>0: time.sleep(wait)
+  r=session.get(API+path,params=params,timeout=45)
+  LAST_REQUEST=time.monotonic()
+  if r.status_code==429:
+   retry=r.headers.get("Retry-After")
+   try: delay=max(65,int(retry)) if retry else 65
+   except ValueError: delay=65
+   if attempt==3: r.raise_for_status()
+   print(f"Rate limited on {path}; waiting {delay}s before retry.",flush=True)
+   time.sleep(delay)
+   continue
+  r.raise_for_status()
+  d=r.json()
+  if d.get("errors"):
+   raise RuntimeError(f"API error {path} params={params}: {d['errors']}")
+  return d
+ raise RuntimeError(f"API rate limit retries exhausted for {path}")
 
 def num(v):
  if v in (None,""): return None
@@ -33,6 +49,15 @@ def num(v):
  except (ValueError,TypeError): return None
 
 def main():
+ status=get("/status",{})
+ status_data=status.get("response") or {}
+ requests_data=status_data.get("requests") or {}
+ daily_limit=int(requests_data.get("limit_day") or 100)
+ daily_used=int(requests_data.get("current") or 0)
+ daily_remaining=max(0,daily_limit-daily_used)
+ print(f"API quota before sync: {daily_used}/{daily_limit} used; {daily_remaining} remaining.",flush=True)
+ if daily_remaining<6:
+  raise RuntimeError("Fewer than 6 daily API requests remain; sync safely skipped.")
  football=json.loads(FDB.read_text(encoding="utf-8"))
  try: old=json.loads(PDB.read_text(encoding="utf-8"))
  except (OSError,json.JSONDecodeError): old={"records":[],"nextTeamOffset":0}
@@ -50,7 +75,6 @@ def main():
    if key: api_teams[lid][key]=team
   if not api_teams[lid]:
    raise RuntimeError(f"No API-Football teams returned for {lid}, season {API_SEASON}")
-  time.sleep(1)
  targets=[]
  for m in memberships:
   lid=m.get("leagueId")
@@ -70,7 +94,11 @@ def main():
  if not targets:
   raise RuntimeError("No unambiguous team-name matches in the free historical season 2024; database was not changed.")
  offset=int(old.get("nextTeamOffset",0))%len(targets)
- batch=(targets[offset:]+targets[:offset])[:min(MAX_TEAMS,len(targets))]
+ safe_team_budget=max(0,daily_remaining-5)
+ batch_limit=min(MAX_TEAMS,len(targets),safe_team_budget)
+ if batch_limit<1:
+  raise RuntimeError("Insufficient daily API quota for a safe player sync batch.")
+ batch=(targets[offset:]+targets[:offset])[:batch_limit]
  fetched=datetime.now(timezone.utc).isoformat()
  fetched_records=0
  for lid,m,team,api_team in batch:
@@ -108,15 +136,14 @@ def main():
       "providerLeagueId":LEAGUES[lid],"season":API_SEASON,"endpoint":"/players","fetchedAt":fetched}
     }
     fetched_records+=1
-  time.sleep(1)
  if fetched_records==0:
   raise RuntimeError("API calls succeeded but returned no player statistics; existing database was preserved.")
  next_offset=(offset+len(batch))%len(targets)
  output={"schemaVersion":1,"generatedAt":fetched,
   "source":{"provider":"API-Football","status":"partial_historical_sync","season":API_SEASON,
    "matchedTeams":len(targets),"processedTeams":len(batch),"recordsFetchedThisRun":fetched_records,
-   "requestsUsedApprox":5+len(batch),
-   "coverageNote":"Free plan currently permits seasons 2022-2024. This dataset is historical 2024 season data, not current 2026-27 squad data. Only page 1 per team is imported; remaining teams rotate across runs."},
+   "requestsUsedApprox":6+len(batch),"dailyQuotaAtStart":{"used":daily_used,"limit":daily_limit,"remaining":daily_remaining},
+   "coverageNote":"Free plan currently permits seasons 2022-2024. This dataset is historical 2024 season data, not current 2026-27 squad data. Only page 1 per team is imported; remaining teams rotate across runs. Requests are spaced to stay below the 10-per-minute free-plan limit."},
   "nextTeamOffset":next_offset,
   "records":sorted(records.values(),key=lambda x:(x.get("leagueId",""),x.get("teamName",""),x.get("name",""),x.get("season","")))}
  PDB.write_text(json.dumps(output,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
