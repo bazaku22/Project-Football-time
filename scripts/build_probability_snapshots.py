@@ -52,6 +52,23 @@ def main():
 
     known_ids = {str(row.get("matchId")) for row in snapshots
                  if isinstance(row, dict) and row.get("matchId") is not None}
+    matches_by_id = {str(match.get("providerMatchId")): match for match in matches
+                     if match.get("providerMatchId") is not None}
+    for snapshot in snapshots:
+        match = matches_by_id.get(str(snapshot.get("matchId")))
+        if (match and match.get("status") == "FINISHED"
+                and isinstance(match.get("homeScore"), int)
+                and isinstance(match.get("awayScore"), int)
+                and match["homeScore"] >= 0 and match["awayScore"] >= 0
+                and not snapshot.get("actualOutcome")):
+            if match["homeScore"] > match["awayScore"]:
+                snapshot["actualOutcome"] = "home"
+            elif match["homeScore"] == match["awayScore"]:
+                snapshot["actualOutcome"] = "draw"
+            else:
+                snapshot["actualOutcome"] = "away"
+            snapshot["actualScore"] = f'{match["homeScore"]}-{match["awayScore"]}'
+            snapshot["evaluatedAt"] = now.isoformat()
 
     finished_by_league = {}
     for match in matches:
