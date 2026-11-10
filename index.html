@@ -177,10 +177,16 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div id="playerCloudSignedIn" hidden>
    <div class="small" id="playerCloudUser"></div>
    <div class="form-actions"><button class="primary" id="playerCloudPreview" type="button">1. ดึงตัวอย่างจาก StrikerAPI (สูงสุด 10 credits)</button><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div>
+   <button class="secondary" id="playerCloudReepPilot" type="button">ทดสอบจับคู่ชื่อกับ Reep (ไม่ใช้ StrikerAPI)</button>
    <div id="playerCloudPreviewPanel" class="p5-note" hidden>
     <b>ตัวอย่างข้อมูลพร้อมตรวจสอบ</b><div id="playerCloudPreviewSummary" class="small"></div>
     <button class="primary" id="playerCloudSavePreview" type="button">2. ยืนยันบันทึกข้อมูลชุดนี้</button>
     <button class="secondary" id="playerCloudCancelPreview" type="button">ยกเลิก Preview</button>
+   </div>
+   <div id="playerCloudReepPanel" class="p5-note" hidden>
+    <b>ผลการทดสอบชื่อแฝงจาก Reep</b>
+    <div id="playerCloudReepSummary" class="small"></div>
+    <div id="playerCloudReepResults" class="small"></div>
    </div>
   </div>
  </div>
