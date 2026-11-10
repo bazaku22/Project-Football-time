@@ -1,5 +1,5 @@
 
-name: API Smoke Test
+name: Football API - Five Leagues Test
 
 on:
   workflow_dispatch:
@@ -11,62 +11,78 @@ permissions:
   contents: read
 
 jobs:
-  test-football-data-api:
+  test-five-leagues:
     runs-on: ubuntu-latest
     steps:
-      - name: Check API secret is configured
+      - name: Check API secret
         env:
           API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: |
           if [ -z "$API_KEY" ]; then
-            echo "::error::FOOTBALL_DATA_API_KEY is not configured."
+            echo "::error::API secret is missing."
             exit 1
           fi
           echo "API secret is configured."
 
-      - name: Request Premier League standings
+      - name: Test all five leagues
         env:
           API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
         run: |
-          set -euo pipefail
-          HTTP_CODE=$(curl --silent --show-error \
-            --output "$RUNNER_TEMP/standings.json" \
-            --write-out "%{http_code}" \
-            --header "X-Auth-Token: $API_KEY" \
-            "https://api.football-data.org/v4/competitions/PL/standings")
+          set -u
 
-          echo "HTTP status: $HTTP_CODE"
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "::error::API request failed. Check API access, plan limits, and secret."
+          codes=("PL" "PD" "BL1" "SA" "FL1")
+          names=("Premier League" "La Liga" "Bundesliga" "Serie A" "Ligue 1")
+          failed=0
+
+          for i in "${!codes[@]}"; do
+            code="${codes[$i]}"
+            name="${names[$i]}"
+            file="$RUNNER_TEMP/$code.json"
+
+            echo ""
+            echo "Testing: $name ($code)"
+
+            status=$(curl --silent --show-error \
+              --output "$file" \
+              --write-out "%{http_code}" \
+              --header "X-Auth-Token: $API_KEY" \
+              "https://api.football-data.org/v4/competitions/$code/standings") || status="000"
+
+            echo "HTTP status: $status"
+
+            if [ "$status" != "200" ]; then
+              echo "Result: FAILED"
+              failed=$((failed + 1))
+              continue
+            fi
+
+            if ! jq -e '.competition and (.standings | type == "array")' "$file" >/dev/null; then
+              echo "Result: INVALID DATA"
+              failed=$((failed + 1))
+              continue
+            fi
+
+            jq -r '
+              "Competition: \(.competition.name)",
+              "Season: \(.season.startDate // "unknown") to \(.season.endDate // "unknown")",
+              "Standings groups: \(.standings | length)",
+              "Teams: \([.standings[].table[]?] | length)"
+            ' "$file"
+
+            teams=$(jq '[.standings[].table[]?] | length' "$file")
+
+            if [ "$teams" -gt 0 ]; then
+              echo "Result: PASSED"
+            else
+              echo "Result: NO TEAM DATA"
+              failed=$((failed + 1))
+            fi
+          done
+
+          echo ""
+          echo "Five-league test completed."
+          echo "Failed leagues: $failed"
+
+          if [ "$failed" -gt 0 ]; then
             exit 1
           fi
-
-          node <<'NODE'
-          const fs = require("fs");
-          const data = JSON.parse(
-            fs.readFileSync(process.env.RUNNER_TEMP + "/standings.json", "utf8")
-          );
-
-          if (!data.competition || !Array.isArray(data.standings)) {
-            console.error("Unexpected API response.");
-            process.exit(1);
-          }
-
-          const totalTeams = data.standings.reduce(
-            (sum, group) => sum + (Array.isArray(group.table) ? group.table.length : 0),
-            0
-          );
-
-          console.log("API connection: OK");
-          console.log("Competition:", data.competition.name);
-          console.log("Competition code:", data.competition.code);
-          console.log("Season:", data.season?.startDate || "unknown",
-            "to", data.season?.endDate || "unknown");
-          console.log("Standings groups:", data.standings.length);
-          console.log("Teams in standings:", totalTeams);
-
-          if (totalTeams === 0) {
-            console.error("No teams returned.");
-            process.exit(1);
-          }
-          NODE
