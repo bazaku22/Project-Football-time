@@ -39,18 +39,40 @@ async function loadPrivateData(session) {
 }
 
 $("playerCloudSendLink").addEventListener("click", async () => {
+  const button = $("playerCloudSendLink");
   const email = $("playerCloudEmail").value.trim();
   if (!email) { status("กรุณากรอกอีเมลก่อน"); return; }
+  button.disabled = true;
   status("กำลังส่งลิงก์เข้าสู่ระบบ…");
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: { emailRedirectTo: SITE_URL, shouldCreateUser: true }
-  });
-  status(error
-    ? "ส่งลิงก์ไม่สำเร็จ: " + error.message
-    : "ส่งลิงก์เข้าสู่ระบบแล้ว · กรุณาเปิดอีเมลบนอุปกรณ์นี้และกดลิงก์");
+  try {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: SITE_URL, shouldCreateUser: true }
+    });
+    if (error) throw error;
+    status("ส่งคำขอลิงก์แล้ว · กรุณาตรวจสอบกล่องจดหมายและ Spam");
+  } catch (error) {
+    status("ส่งลิงก์ไม่สำเร็จ: " + (error instanceof Error ? error.message : "เกิดข้อผิดพลาด"));
+  } finally {
+    button.disabled = false;
+  }
 });
-$("playerCloudSync").addEventListener("click", async () => {\n  $("playerCloudSync").disabled = true;\n  status("กำลังดึงรายชื่อนักเตะจาก API Ninjas…");\n  try {\n    const { data, error } = await supabase.functions.invoke("player-data", { body: { action: "sync" } });\n    if (error || data?.error) throw new Error(data?.error || error.message);\n    publishData(Array.isArray(data?.records) ? data.records : [], data?.latestSync || null);\n    status("ซิงก์ข้อมูลสำเร็จ · " + (data?.records?.length || 0) + " รายการ");\n  } catch (error) {\n    status("ซิงก์ไม่สำเร็จ: " + (error instanceof Error ? error.message : "เกิดข้อผิดพลาด"));\n  } finally { $("playerCloudSync").disabled = false; }\n});\n$("playerCloudRefresh").addEventListener("click", async () => {
+$("playerCloudSync").addEventListener("click", async () => {
+  const button = $("playerCloudSync");
+  button.disabled = true;
+  status("กำลังดึงรายชื่อนักเตะจาก API Ninjas…");
+  try {
+    const { data, error } = await supabase.functions.invoke("player-data", { body: { action: "sync" } });
+    if (error || data?.error) throw new Error(data?.error || error.message);
+    publishData(Array.isArray(data?.records) ? data.records : [], data?.latestSync || null);
+    status("ซิงก์ข้อมูลสำเร็จ · " + (data?.records?.length || 0) + " รายการ");
+  } catch (error) {
+    status("ซิงก์ไม่สำเร็จ: " + (error instanceof Error ? error.message : "เกิดข้อผิดพลาด"));
+  } finally {
+    button.disabled = false;
+  }
+});
+$("playerCloudRefresh").addEventListener("click", async () => {
   const { data } = await supabase.auth.getSession();
   await loadPrivateData(data.session);
 });
