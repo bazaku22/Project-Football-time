@@ -56,6 +56,12 @@ def build_report(left: list[dict], right: list[dict]) -> dict:
             continue
         index[key].append(row)
 
+    left_key_counts: dict[tuple[str, str, str, str], int] = defaultdict(int)
+    for row in left:
+        key = identity_key(row)
+        if key is not None:
+            left_key_counts[key] += 1
+
     matches, ambiguous, unmatched, skipped_left = [], [], [], 0
     used_right: set[int] = set()
     for row in left:
@@ -73,7 +79,14 @@ def build_report(left: list[dict], right: list[dict]) -> dict:
             "matchMethod": "exact_normalized_name_league_season_team",
             "autoLink": False,
         }
-        if len(candidates) == 1:
+        if left_key_counts[key] > 1 or len(candidates) > 1:
+            item.update({
+                "candidatePlayerIds": [x["playerId"] for x in candidates],
+                "status": "ambiguous",
+                "ambiguityReason": "duplicate_left_identity_key" if left_key_counts[key] > 1 else "duplicate_right_identity_key",
+            })
+            ambiguous.append(item)
+        elif len(candidates) == 1:
             candidate = candidates[0]
             item.update({
                 "rightPlayerId": candidate["playerId"],
@@ -82,12 +95,6 @@ def build_report(left: list[dict], right: list[dict]) -> dict:
             })
             matches.append(item)
             used_right.add(id(candidate))
-        elif len(candidates) > 1:
-            item.update({
-                "candidatePlayerIds": [x["playerId"] for x in candidates],
-                "status": "ambiguous",
-            })
-            ambiguous.append(item)
         else:
             item["status"] = "unmatched"
             unmatched.append(item)
@@ -132,8 +139,12 @@ def self_test() -> None:
     assert report["summary"]["ambiguous"] == 1
     assert report["summary"]["unmatched"] == 1
     assert report["summary"]["leftSkippedMissingTeamOrIdentity"] == 1
+    duplicate_left = [left[0], left[0]]
+    duplicate_report = build_report(duplicate_left, [right[0]])
+    assert duplicate_report["summary"]["candidateMatches"] == 0
+    assert duplicate_report["summary"]["ambiguous"] == 2
     assert report["autoLinksCreated"] == 0
-    print("SELF_TEST_OK: conservative match, ambiguous duplicate, transfer mismatch, missing team")
+    print("SELF_TEST_OK: conservative match, ambiguous duplicate left/right identities, transfer mismatch, missing team")
 
 
 def main() -> None:
