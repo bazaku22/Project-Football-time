@@ -50,7 +50,7 @@ $("playerCloudSendLink").addEventListener("click", async () => {
     ? "ส่งลิงก์ไม่สำเร็จ: " + error.message
     : "ส่งลิงก์เข้าสู่ระบบแล้ว · กรุณาเปิดอีเมลบนอุปกรณ์นี้และกดลิงก์");
 });
-$("playerCloudRefresh").addEventListener("click", async () => {
+$("playerCloudSync").addEventListener("click", async () => {\n  $("playerCloudSync").disabled = true;\n  status("กำลังดึงรายชื่อนักเตะจาก API Ninjas…");\n  try {\n    const { data, error } = await supabase.functions.invoke("player-data", { body: { action: "sync" } });\n    if (error || data?.error) throw new Error(data?.error || error.message);\n    publishData(Array.isArray(data?.records) ? data.records : [], data?.latestSync || null);\n    status("ซิงก์ข้อมูลสำเร็จ · " + (data?.records?.length || 0) + " รายการ");\n  } catch (error) {\n    status("ซิงก์ไม่สำเร็จ: " + (error instanceof Error ? error.message : "เกิดข้อผิดพลาด"));\n  } finally { $("playerCloudSync").disabled = false; }\n});\n$("playerCloudRefresh").addEventListener("click", async () => {
   const { data } = await supabase.auth.getSession();
   await loadPrivateData(data.session);
 });
