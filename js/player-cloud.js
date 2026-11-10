@@ -12,7 +12,7 @@ let currentSession=null;
 let privateRecords=[];
 function clearPreview(){$("playerCloudPreviewPanel").hidden=true;$("playerCloudPreviewSummary").textContent="";previewId=null;}
 async function loadPrivateData(session){
- currentSession=session||null;
+ currentSession=session||null;privateRecords=[];
  if(!session?.access_token){privateRecords=[];publishData([],null);$("playerCloudLogin").hidden=false;$("playerCloudSignedIn").hidden=true;clearPreview();status("ยังไม่ได้เข้าสู่ระบบ · ข้อมูล Cloud ส่วนตัวถูกซ่อนไว้");return;}
  $("playerCloudLogin").hidden=true;$("playerCloudSignedIn").hidden=false;$("playerCloudUser").textContent="บัญชี: "+(session.user?.email||"เข้าสู่ระบบแล้ว");status("กำลังโหลดข้อมูลส่วนตัวจาก Cloud…");
  const {data,error}=await supabase.functions.invoke("player-data",{body:{}});
