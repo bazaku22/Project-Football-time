@@ -45,17 +45,27 @@ jobs:
               'function renderTeamForm()',
               'function renderTeamProfile(',
               'function renderHomeAwayAnalysis(',
+              'function renderHeadToHead(',
+              'function renderLeagueAnalytics(',
+              'function computeMatchProbability(',
+              'function renderProbabilityAccuracy(',
+              'const PROBABILITY_STORAGE_KEY=',
               'id="teamform"',
               'id="teamprofile"',
               'data-page="teamform"',
               'data-page="teamprofile"',
+              'id="dbtab-h2h"',
+              'id="dbtab-league"',
+              'id="dbtab-probability"',
+              'id="dbtab-accuracy"',
+              'data-db-tab="accuracy"',
               'id="homeaway"',
               'data-page="homeaway"',
           ]
           missing = [item for item in required if item not in html]
           if missing:
               raise SystemExit("Missing required app features: " + ", ".join(missing))
-          print("Application structure and Phase 4.3 feature markers are present.")
+          print("Application structure and Phase 4.7 analytics feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
 
