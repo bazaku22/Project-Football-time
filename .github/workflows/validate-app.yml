@@ -55,7 +55,7 @@ jobs:
           missing = [item for item in required if item not in html]
           if missing:
               raise SystemExit("Missing required app features: " + ", ".join(missing))
-          print("Application structure and Phase 4.2 feature markers are present.")
+          print("Application structure and Phase 4.3 feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
 
