@@ -3,6 +3,9 @@ name: API Smoke Test
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/phase-3-api-smoke-test
 
 permissions:
   contents: read
