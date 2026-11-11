@@ -100,7 +100,9 @@
     const date = matchDate(match);
     const time = formatThaiTime(match.utcDate);
     const providerMatchId = match.providerMatchId == null ? "" : String(match.providerMatchId);
-    const canOpenAnalysis = kind === "upcoming" && Number.isFinite(new Date(match.utcDate).getTime()) &&
+    const analysisStatus = ["SCHEDULED","TIMED"].includes(String(match.status || "").toUpperCase());
+    const canOpenAnalysis = kind === "upcoming" && analysisStatus &&
+      Number.isFinite(new Date(match.utcDate).getTime()) &&
       new Date(match.utcDate).getTime() > Date.now() && providerMatchId !== "";
     const actionLabel = canOpenAnalysis ? "วิเคราะห์คู่นี้" : "ดูรายละเอียดข้อมูล";
     return '<article class="mc-match-card">' +
