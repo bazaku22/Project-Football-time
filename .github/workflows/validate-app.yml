@@ -187,8 +187,10 @@ jobs:
           print("Player database schema and IDs are valid.")
           PY
 
-      - name: Validate Phase 6 league catalogue
-        run: python3 -m unittest tests/test_phase6_league_catalog.py
+      - name: Validate Phase 6 league catalogue and database scripts
+        run: |
+          python3 -m py_compile scripts/build_football_database.py scripts/validate_football_database.py scripts/phase6_league_catalog.py
+          python3 -m unittest tests/test_phase6_league_catalog.py
 
       - name: Validate football database JSON
         run: |
