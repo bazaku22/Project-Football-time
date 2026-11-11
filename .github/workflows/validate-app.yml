@@ -31,6 +31,8 @@ on:
       - "tests/test_experiment_fixture_contract.py"
       - "tests/test_probability_metrics.js"
       - "scripts/build_probability_snapshots.py"
+      - "scripts/phase6_league_catalog.py"
+      - "tests/test_phase6_league_catalog.py"
       - "scripts/match_player_sources.py"
       - "docs/phase-5.6-multi-source-foundation.md"
       - "tests/test_probability_snapshots.py"
@@ -185,6 +187,11 @@ jobs:
           print("Player database schema and IDs are valid.")
           PY
 
+      - name: Validate Phase 6 league catalogue and database scripts
+        run: |
+          python3 -m py_compile scripts/build_football_database.py scripts/validate_football_database.py scripts/phase6_league_catalog.py
+          python3 -m unittest tests/test_phase6_league_catalog.py
+
       - name: Validate football database JSON
         run: |
           python3 - <<'PY'
@@ -196,8 +203,8 @@ jobs:
           for key in required:
               if not isinstance(data.get(key), list):
                   raise SystemExit(f"Invalid or missing database array: {key}")
-          if len(data["leagues"]) != 5:
-              raise SystemExit("Expected exactly five supported leagues")
+          if len(data["leagues"]) not in (5, 8):
+              raise SystemExit("Expected the legacy five-league dataset or the eight-league Phase 6 dataset")
           print("Football database JSON is valid.")
           PY
 

@@ -2,15 +2,11 @@ import json
 import os
 from datetime import datetime, timezone
 
+from phase6_league_catalog import LEAGUE_CATALOG, PROVIDER_LEAGUES
+
 base = os.path.join(os.environ["RUNNER_TEMP"], "football-data")
 
-leagues = [
-    {"id": "PL", "name": "Premier League", "country": "England", "providerCompetitionCode": "PL"},
-    {"id": "PD", "name": "La Liga", "country": "Spain", "providerCompetitionCode": "PD"},
-    {"id": "BL1", "name": "Bundesliga", "country": "Germany", "providerCompetitionCode": "BL1"},
-    {"id": "SA", "name": "Serie A", "country": "Italy", "providerCompetitionCode": "SA"},
-    {"id": "FL1", "name": "Ligue 1", "country": "France", "providerCompetitionCode": "FL1"}
-]
+leagues = LEAGUE_CATALOG
 
 teams = {}
 team_seasons = []
@@ -24,7 +20,7 @@ def read_json(code, endpoint):
 
 sync_time = datetime.now(timezone.utc).isoformat()
 
-for league in leagues:
+for league in PROVIDER_LEAGUES:
     code = league["id"]
 
     team_data = read_json(code, "teams")
@@ -163,7 +159,7 @@ if os.path.exists(previous_database_path):
         previous_probability_snapshots = []
 
 database = {
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "generatedAt": sync_time,
     "source": {
         "provider": "football-data.org",
