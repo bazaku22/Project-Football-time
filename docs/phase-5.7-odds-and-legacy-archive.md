@@ -42,3 +42,11 @@ Date: 2026-11-11
 - Verify daily workflow only, five calls maximum, no push trigger, no retries, and quota guard.
 - Verify an empty or stale odds feed produces no guessed handicap line.
 - After merge and Pages deployment, user verifies the app on Android, especially Archive navigation and a match with/without returned handicap data.
+
+## V5.7.1 UI refinements
+
+- Move the November experiment summary and per-model metrics from Home into a dedicated **สรุปผล** navigation page. Match fixtures and per-match result entry remain on Home.
+- Remove the manually selectable handicap line from experimental fixture cards. Those cards now match the existing local The Odds API data by supported league, normalized home/away team names, and kickoff within six hours.
+- Show the API reference line and source bookmaker points automatically when a match is found. Show an explicit unavailable message when the competition is outside the five supported leagues or no matching market is returned.
+- Calculate settlement probabilities only when the bookmaker data is no older than 24 hours and the model has expected goals. No fallback line is invented.
+- The browser reads the already-published JSON file only; no additional provider calls, API frequency, or quota use are introduced by this UI change.
