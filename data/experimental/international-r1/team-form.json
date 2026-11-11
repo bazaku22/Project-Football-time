@@ -583,7 +583,7 @@
       "excluded_match_ids": [
         "INT-HIST-20261001-argentina-bolivia"
       ],
-      "readiness": "provisional_5_match",
+      "readiness": "limited_5_to_9",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
       "feature_cutoff_exclusive": "2026-11-12",
       "team_id": "ARG"
