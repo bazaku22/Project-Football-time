@@ -307,15 +307,15 @@ function updateStats(){
 function renderMatches(){
  const root=document.getElementById("matches");
  root.innerHTML=[...matches].sort((a,b)=>(Number(b.id)||0)-(Number(a.id)||0)).map(m=>{
-  const lg=getLeagueLogo(m.league),pass=["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus),fail=["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus);
-  return `<article class="card"><div class="topline"><span class="tag">TEST #${esc(m.id)}</span><span class="small">${esc(formatDate(m.date))} · ${esc(m.time||"ยังไม่ยืนยัน")}</span></div>
+  const legacy=Number(m.id)<=11,lg=getLeagueLogo(m.league),pass=["ผ่าน","ชนะเต็ม","ชนะครึ่ง"].includes(m.resultStatus),fail=["ไม่ผ่าน","แพ้เต็ม","แพ้ครึ่ง"].includes(m.resultStatus);
+  return `<article class="card"><div class="topline"><span class="tag">${legacy?"LEGACY":"TEST"} #${esc(m.id)}</span><span class="small">${esc(formatDate(m.date))} · ${esc(m.time||"ยังไม่ยืนยัน")}</span></div>
   <div class="league-line">${lg?`<img class="league-logo" src="${lg.src}" alt="${lg.label}" onerror="this.style.display='none'">`:""}<span class="league-name">${esc(m.league)}</span></div>
   <div class="teams">${esc(m.home)} <span class="vs">VS</span> ${esc(m.away)}</div>
   <div class="grid"><div><span class="label">ทีมที่โมเดลเลือก</span><span class="value">${esc(m.selectedTeam||"ไม่ระบุ")}</span></div><div><span class="label">Handicap</span><span class="${m.handicap?"handicap":"missing"}">${esc(m.handicap||"ไม่ระบุ")}</span></div><div><span class="label">${m.recordOrigin==="central"?"ความน่าจะเป็นเบื้องต้น (เหย้า/เสมอ/เยือน)":"โอกาสตามโมเดล"}</span><span class="value">${esc(m.prob||"—")}</span></div><div><span class="label">สกอร์คาดการณ์</span><span class="value">${esc(m.pred||"ยังไม่ระบุ")}</span></div></div>
   <div class="topline" style="margin-top:12px"><span class="small">ผลหลังแข่ง</span><span class="result-status" style="${pass?"color:#a8f0cc":fail?"color:#ffc0c0":""}">${esc(m.resultStatus||"รอตรวจสอบ")}</span></div>
   <button class="detail" data-detail="${esc(m.id)}">ดูรายละเอียด ＋</button><div class="extra" id="extra-${esc(m.id)}">สกอร์คาดการณ์ก่อนแข่ง: <b>${esc(m.pred||"ยังไม่ระบุ")}</b><br>${m.finalScore?`สกอร์จริง: <b>${esc(m.finalScore)}</b><br>ผลทดสอบ: <b>${esc(m.resultStatus||"—")}</b><br>${esc(m.resultSource||"")}`:"ยังไม่ได้บันทึกผลจริง"}${m.dataConfidence?`<br>ความเชื่อมั่นข้อมูล: <b>${esc(m.dataConfidence)}</b>`:""}${m.analysisNote?`<br>หมายเหตุ: ${esc(m.analysisNote)}`:""}<br>คำทำนายก่อนแข่งจะไม่ถูกแก้ไขย้อนหลัง</div>
-  <button class="result-button" data-result="${esc(m.id)}">${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
-  <form class="result-form" data-form="${esc(m.id)}"><div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="score" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="2-1" value="${esc(m.finalScore||"")}"></div><div class="small">ระบบจะคำนวณจาก Handicap ของรายการนี้</div><div class="form-actions"><button class="primary">บันทึกผลจริง</button><button type="button" class="secondary" data-cancel="${esc(m.id)}">ยกเลิก</button></div></form></article>`;
+  <button class="result-button" data-result="${esc(m.id)}" ${legacy?"hidden":""}>${m.resultStatus?"แก้ไขผลหลังแข่ง":"＋ บันทึกผลหลังแข่ง"}</button>
+  <form class="result-form" data-form="${esc(m.id)}" ${legacy?"hidden":""}><div class="field"><label>สกอร์จริง (เจ้าบ้าน-ทีมเยือน)</label><input name="score" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="2-1" value="${esc(m.finalScore||"")}"></div><div class="small">ระบบจะคำนวณจาก Handicap ของรายการนี้</div><div class="form-actions"><button class="primary">บันทึกผลจริง</button><button type="button" class="secondary" data-cancel="${esc(m.id)}">ยกเลิก</button></div></form></article>`;
  }).join("")||'<div class="empty">ยังไม่มีรายการ</div>';
  root.querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>document.getElementById("extra-"+b.dataset.detail).classList.toggle("open"));
  root.querySelectorAll("[data-result]").forEach(b=>b.onclick=()=>root.querySelector(`[data-form="${b.dataset.result}"]`).classList.toggle("open"));
@@ -382,7 +382,7 @@ function renderLeagueSelector(){
  const leagues=footballDB.leagues||[];
  document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
  document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
- document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);renderHomeAwayAnalysis(true);renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);});
+ document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);renderHomeAwayAnalysis(true);renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();});
  document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
 }
 /* Phase 4.1: calculate team form only from completed matches with valid scores. */
@@ -779,9 +779,10 @@ function renderTestFixtures(){
    const thaiDate=d.toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
    const thaiTime=d.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Bangkok"});
    const shifted=thaiDate!==new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
-   return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่ง '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams">'+esc(m.home)+' <span class="vs">VS</span> '+esc(m.away)+'</div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div></article>';
+   return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่ง '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams">'+esc(m.home)+' <span class="vs">VS</span> '+esc(m.away)+'</div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div><div class="experiment-panel" data-experiment-id="'+esc(m.id)+'"></div></article>';
   }).join("");
  }).join("");
+ if(window.renderTestExperimentPanels)window.renderTestExperimentPanels(rows);
 }
 async function loadTestFixtures(){
  const root=document.getElementById("testFixturesList");
@@ -812,6 +813,7 @@ async function loadFootballDatabase(){
   console.error("Football database load failed",error);
  }
 }
+window.FootballTimeAppContext={getDatabase:()=>footballDB,computeMatchProbability,getSeason:formSeasonForLeague,escapeHtml:esc,getFixtures:()=>testFixturesData?.fixtures||[],rerender:renderTestFixtures};
 render();
 loadCentralTestRecords();
 loadFootballDatabase();
