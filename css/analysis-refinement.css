@@ -24,3 +24,10 @@ header{background:linear-gradient(115deg,rgba(13,31,48,.98),rgba(17,47,61,.94));
 #matchAnalysis .db-panel,#analysisHistory .db-panel{display:block}
 @media(max-width:390px){.handicap-summary{gap:5px}.handicap-cover{padding:8px 5px}.handicap-cover b{font-size:17px}.handicap-result-grid{gap:3px}.handicap-result-grid>div{padding:8px 2px}.handicap-result-grid b{font-size:11px}.handicap-result-grid span{font-size:8px}}
 @media(min-width:600px){.analysis-insight{padding:17px}.handicap-cover{padding:12px}}
+
+.margin-probability{margin:12px 0;padding:12px;border:1px solid rgba(145,178,204,.16);border-radius:13px;background:rgba(8,22,36,.42)}
+.margin-probability> b{font-size:12px}
+.margin-probability-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-top:9px}
+.margin-probability-grid span{display:flex;flex-direction:column;gap:4px;text-align:center;color:#a9bdce;font-size:9px;line-height:1.45}
+.margin-probability-grid b{font-size:12px;color:#f3f8fc;font-variant-numeric:tabular-nums}
+@media(max-width:390px){.margin-probability{padding:9px 6px}.margin-probability-grid{gap:2px}.margin-probability-grid span{font-size:8px}.margin-probability-grid b{font-size:10px}}
