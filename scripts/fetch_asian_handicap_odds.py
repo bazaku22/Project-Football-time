@@ -104,7 +104,7 @@ def main() -> int:
         print("THE_ODDS_API_KEY is missing; refusing to run.", file=sys.stderr)
         return 2
     now = datetime.now(timezone.utc)
-    end = now + timedelta(days=7)
+    end = now + timedelta(days=14)
     events, quotas = [], []
     for index, (league_id, (sport_key, league_name)) in enumerate(LEAGUES.items()):
         try:
@@ -142,7 +142,7 @@ def main() -> int:
         "market": MARKET,
         "region": REGION,
         "fetchedAt": now.isoformat().replace("+00:00", "Z"),
-        "windowDays": 7,
+        "windowDays": 14,
         "quota": {
             "remaining": min(remaining_values) if remaining_values else None,
             "used": max(used_values) if used_values else None,
