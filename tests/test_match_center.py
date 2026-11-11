@@ -62,7 +62,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v42", WORKER)
+        self.assertIn("football-time-v43", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
