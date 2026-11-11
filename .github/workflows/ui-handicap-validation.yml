@@ -17,6 +17,7 @@ on:
       - "index.html"
       - "js/asian-handicap.js"
       - "js/primary-navigation.js"
+      - "js/match-center.js"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
       - ".github/workflows/ui-handicap-validation.yml"
@@ -37,6 +38,7 @@ jobs:
           node --check js/asian-handicap.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
+          node --check sw.js
           python - <<'PY'
           import re
           from pathlib import Path
