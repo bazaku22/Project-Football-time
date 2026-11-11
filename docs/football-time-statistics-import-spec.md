@@ -70,11 +70,11 @@ Use `scripts/preview_player_stats_import.py` to create a local preview without c
 python scripts/preview_player_stats_import.py input-stats.csv player-id-mapping.csv
 ```
 
-The mapping file links `(provider, provider_player_id)` to a Football Time `canonical_player_key`. Optional `team_code` and `season` columns are checked against the statistics row. Duplicate source-ID mappings fail closed. Player names are never used as an automatic identity match. The tool writes a JSON manifest and a review CSV; output paths must be separate from both input files. The manifest contains SHA-256 checksums of both inputs.
+The mapping file links `(provider, provider_player_id)` to a Football Time `canonical_player_key`. Optional `team_code` and `season` columns are checked against the statistics row. Duplicate source-ID mappings fail closed. A `canonical_player_key` typed into the statistics CSV is not trusted by itself: it must agree with the exact provider-ID mapping. Player names are never used as an automatic identity match. The tool writes a JSON manifest and a review CSV; output paths must be separate from both input files. The manifest contains SHA-256 checksums of both inputs.
 
 Preview statuses:
 - `structurally_valid_pending_human_review`: format and identity checks passed; rights evidence and data accuracy still require human approval.
-- `needs_identity_review`: no exact provider ID mapping exists.
+- `needs_identity_review`: no exact provider ID mapping exists, or the row's manually supplied canonical key has not been verified by the mapping file.
 - `rejected_or_needs_review`: one or more structural, rights-status, or mapping-scope checks failed.
 
 A successful preview is not an import. No Supabase writes occur.
@@ -120,4 +120,4 @@ The validator uses only the Python standard library. Run its regression tests fr
 python -m unittest discover -s tests -v
 ```
 
-The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, non-finite numeric values, exact provider-ID matching, unresolved identities, name-only non-matching, duplicate mapping keys, and mismatched team scope.
+The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, non-finite numeric values, exact provider-ID matching, unresolved identities, name-only non-matching, unverified canonical keys, duplicate mapping keys, and mismatched team scope.
