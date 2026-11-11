@@ -116,6 +116,39 @@ def main():
             "Historical snapshots were pruned; all records must be retained."
         )
 
+        # An unreadable existing database must fail closed rather than silently
+        # replacing the historical snapshot archive with an empty list.
+        db_path.write_text('{"probabilitySnapshots": [', encoding="utf-8")
+        corrupt_content = db_path.read_text(encoding="utf-8")
+        failed = subprocess.run(
+            [sys.executable, str(SCRIPT)],
+            cwd=directory,
+            capture_output=True,
+            text=True,
+        )
+        assert failed.returncode != 0, "Corrupt database must stop the rebuild."
+        assert db_path.read_text(encoding="utf-8") == corrupt_content, (
+            "Failed rebuild must not overwrite the corrupt source database."
+        )
+
+        # A structurally invalid history field must also stop the rebuild.
+        invalid_database = dict(fourth)
+        invalid_database["probabilitySnapshots"] = {"unexpected": "object"}
+        db_path.write_text(json.dumps(invalid_database), encoding="utf-8")
+        invalid_content = db_path.read_text(encoding="utf-8")
+        failed = subprocess.run(
+            [sys.executable, str(SCRIPT)],
+            cwd=directory,
+            capture_output=True,
+            text=True,
+        )
+        assert failed.returncode != 0, (
+            "Invalid probabilitySnapshots must stop the rebuild."
+        )
+        assert db_path.read_text(encoding="utf-8") == invalid_content, (
+            "Invalid history must never be silently discarded."
+        )
+
     print("Probability snapshot integration tests: PASSED")
 
 
