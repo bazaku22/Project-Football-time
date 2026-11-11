@@ -72,7 +72,7 @@ A blank cell means unknown. Values must be non-negative. `shots_on_target` must 
 6. Produce a reviewed import manifest with file checksum, row counts, reviewer, and timestamp.
 7. Only a later, separately reviewed implementation may write approved rows into Supabase.
 
-The validator in `scripts/validate_player_stats_csv.py` is offline and read-only. It does not contact any network, call an API, modify the CSV, or connect to Supabase.
+The validator in `scripts/validate_player_stats_csv.py` is offline and read-only. It does not contact any network, call an API, modify the CSV, or connect to Supabase. Run it with `python scripts/validate_player_stats_csv.py path/to/file.csv`. A passing result is only a structural preflight; it does not independently prove that a source licence or permission is legally sufficient. A human must verify the permission reference before setting `rights_status=approved`.
 
 ## Duplicate key
 
