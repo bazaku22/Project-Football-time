@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "provider": "The Odds API",
+  "market": "spreads",
+  "region": "eu",
+  "fetchedAt": null,
+  "windowDays": 7,
+  "quota": {
+    "remaining": null,
+    "used": null,
+    "last": null,
+    "requestsPerRun": 5
+  },
+  "events": []
+}

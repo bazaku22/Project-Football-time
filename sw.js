@@ -1,4 +1,4 @@
-const CACHE = "football-time-v29";
+const CACHE = "football-time-v30";
 
 const ASSETS = [
   "./",
@@ -12,6 +12,7 @@ const ASSETS = [
   "./data/test-fixtures-2026-11.json",
   "./data/national-team-research-2026-11.json",
   "./data/player-database.json",
+  "./data/asian-handicap-odds.json",
   "./js/player-database.js",
   "./js/player-cloud.js",
   "./js/reep-alias-pilot.js",
@@ -55,7 +56,8 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (url.pathname.endsWith("/data/football-database.json") ||
-      url.pathname.endsWith("/data/player-database.json")) {
+      url.pathname.endsWith("/data/player-database.json") ||
+      url.pathname.endsWith("/data/asian-handicap-odds.json")) {
     event.respondWith(
       fetch(request, { cache: "no-store" })
         .then((response) => {

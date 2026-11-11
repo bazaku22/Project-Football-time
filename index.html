@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time V5.6.3</title>
+<title>Project Football Time V5.7.0</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -55,20 +55,10 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.3</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.7.0</span></div></div></header>
 <main>
 <section id="home" class="page active">
- <div class="stats"><div class="stat"><b id="count">00</b><span>รายการ Legacy</span></div><div class="stat"><b id="checkedCount">0</b><span>Legacy ที่ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมาย Legacy เดิม</span></div></div>
- <button class="primary" id="showAdd" hidden>＋ เพิ่มรายการทดสอบเดิม</button>
- <button class="secondary" id="exportBackup">↓ สำรองข้อมูล JSON</button><button class="secondary" id="importBackup" hidden>↑ นำเข้าข้อมูล JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
- <section id="addPanel" class="card" hidden><h2 style="font-size:16px">เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><form id="addForm"><div class="formgrid">
- <div class="field"><label>ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70"></div><div class="field"><label>ทีมเยือน *</label><input id="awayTeam" required maxlength="70"></div>
- <div class="field full"><label>ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90"></div>
- <div class="field"><label>วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div><div class="field"><label>เวลาแข่งขัน</label><input id="matchTime" maxlength="30" placeholder="20:00"></div>
- <div class="field full"><label>ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70"></div><div class="field"><label>Handicap (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="-0.5"></div><div class="field"><label>โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" required></div>
- <div class="field full"><label>สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="2-1"></div></div><div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div></form></section>
- <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div><div class="sectionhead"><h2>ประวัติการทดสอบเดิม (Legacy)</h2><span class="small">#001–#011 · อ่านอย่างเดียว</span></div><div id="matches"></div>
- <p class="notice">รายการทดสอบส่วนกลางโหลดจากเว็บไซต์ และรวมกับรายการที่บันทึกในอุปกรณ์นี้ · ผลหลังแข่งและรายการที่เพิ่มจากอุปกรณ์ยังจัดเก็บในเครื่องนี้</p><div class="small" id="centralRecordStatus" role="status">กำลังตรวจสอบรายการทดสอบส่วนกลาง…</div>
+ <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div>
 </section>
 <section id="fixtures" class="page">
  <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div><div class="db-subnav" aria-label="หมวดหมู่ฐานข้อมูล">
@@ -151,6 +141,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div class="field"><label for="probLeagueSelect">เลือกลีก</label><select id="probLeagueSelect" class="filter"></select></div>
   <div class="field"><label for="probMatchSelect">เลือกการแข่งขันที่ยังไม่เริ่ม</label><select id="probMatchSelect" class="filter"></select></div>
  </div><div id="probabilityOutput" class="empty">กำลังเตรียมการวิเคราะห์…</div></div>
+ <div class="card"><div class="topline"><b>Asian Handicap อัตโนมัติ</b><span class="small">แหล่งข้อมูล: The Odds API</span></div><div id="automaticHandicapOdds" class="empty">กำลังตรวจสอบข้อมูล Handicap…</div></div>
  <p class="profile-note">ใช้แบบจำลอง Poisson จากประตูได้–เสีย เหย้า/เยือน ฟอร์ม 5 นัด คะแนนต่อเกม และสถิติ H2H เมื่อมีตัวอย่างเพียงพอ ความน่าจะเป็นเป็นค่าประเมินจากข้อมูล ไม่ใช่คำรับประกันผล และระดับความเชื่อมั่นของข้อมูลแยกจากเปอร์เซ็นต์ความน่าจะเป็น</p>
 </div>
 
@@ -213,11 +204,23 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
-<section id="stats" class="page"><div class="sectionhead"><h2>สถิติ Legacy และประวัติเดิม</h2></div><p class="notice">ตัวเลขในหน้านี้อ้างอิงเฉพาะประวัติรุ่นเก่า #001–#011 ไม่ใช่ผลประเมินโมเดลทดลองใหม่</p><div class="card"><table>
+<section id="archive" class="page"><div class="sectionhead"><h2>คลังประวัติการทดสอบเดิม (Legacy Archive)</h2><span class="small">#001–#011 · อ่านอย่างเดียว</span></div><p class="notice">หน้านี้แยกประวัติรุ่นเก่าออกจากหน้าหลัก ข้อมูลต้นฉบับยังอยู่ใน Local Storage key pft_matches_v1 และไม่มีการลบหรือย้ายข้อมูล</p>
+<div class="stats"><div class="stat"><b id="count">00</b><span>รายการ Legacy</span></div><div class="stat"><b id="checkedCount">0</b><span>Legacy ที่ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมาย Legacy เดิม</span></div></div>
+<button class="primary" id="showAdd" hidden>＋ เพิ่มรายการทดสอบเดิม</button><button class="secondary" id="exportBackup">↓ สำรองข้อมูล JSON</button><button class="secondary" id="importBackup" hidden>↑ นำเข้าข้อมูล JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
+ <section id="addPanel" class="card" hidden><h2 style="font-size:16px">เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><form id="addForm"><div class="formgrid">
+ <div class="field"><label>ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70"></div><div class="field"><label>ทีมเยือน *</label><input id="awayTeam" required maxlength="70"></div>
+ <div class="field full"><label>ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90"></div>
+ <div class="field"><label>วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div><div class="field"><label>เวลาแข่งขัน</label><input id="matchTime" maxlength="30" placeholder="20:00"></div>
+ <div class="field full"><label>ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70"></div><div class="field"><label>Handicap (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="-0.5"></div><div class="field"><label>โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" required></div>
+ <div class="field full"><label>สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="2-1"></div></div><div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div></form></section>
+
+<div class="sectionhead"><h2>รายการเดิมทั้งหมด</h2><span class="small">รวมข้อมูลในเครื่องและรายการส่วนกลาง</span></div><div id="matches"></div>
+<div class="small" id="centralRecordStatus" role="status">กำลังตรวจสอบรายการทดสอบส่วนกลาง…</div>
+<p class="notice">ตัวเลขในตารางอ้างอิงเฉพาะประวัติรุ่นเก่า #001–#011 ไม่ใช่ผลประเมินโมเดลทดลองใหม่</p><div class="card"><table>
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
-<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ หลักการ</button><button data-page="stats">▥ ผลทดสอบ</button></nav>
+<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ หลักการ</button><button data-page="archive">▣ คลัง Legacy</button></nav>
 <script src="./js/probability-metrics.js"></script>
 <script>
 "use strict";
@@ -355,7 +358,7 @@ document.getElementById("importBackup").onclick=()=>document.getElementById("imp
 document.getElementById("importFile").onchange=importBackup;
 document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x===b));
- document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));window.scrollTo(0,0);
+ document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));if(b.dataset.page==="archive")render();window.scrollTo(0,0);
 });
 function switchDatabaseTab(tab){
  document.querySelectorAll("[data-db-tab]").forEach(b=>b.classList.toggle("active",b.dataset.dbTab===tab));
@@ -685,6 +688,51 @@ function renderLeagueAnalytics(){
  document.getElementById("leagueAnalyticsSummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+n+'</b><span>การแข่งขันที่จบแล้ว</span></div><div class="db-kpi"><b>'+avg(goals)+'</b><span>ประตูรวมเฉลี่ย / นัด</span></div><div class="db-kpi"><b>'+avg(homeGoals)+'</b><span>ประตูเจ้าบ้านเฉลี่ย / นัด</span></div><div class="db-kpi"><b>'+avg(awayGoals)+'</b><span>ประตูทีมเยือนเฉลี่ย / นัด</span></div></div>';
  document.getElementById("leagueAnalyticsDetails").innerHTML=n?'<div class="calibration-row"><span>เจ้าบ้านชนะ</span><b>'+homeWins+'</b><span>'+pct(homeWins)+'</span></div><div class="calibration-row"><span>เสมอ</span><b>'+draws+'</b><span>'+pct(draws)+'</span></div><div class="calibration-row"><span>ทีมเยือนชนะ</span><b>'+awayWins+'</b><span>'+pct(awayWins)+'</span></div><div class="calibration-row"><span>มีทีมคลีนชีต</span><b>'+cleanSheets+'</b><span>'+pct(cleanSheets)+'</span></div><div class="calibration-row"><span>ทั้งสองทีมทำประตู</span><b>'+btts+'</b><span>'+pct(btts)+'</span></div><div class="calibration-row"><span>รวม 0–1 ประตู</span><b>'+low+'</b><span>'+pct(low)+'</span></div><div class="calibration-row"><span>รวม 2–3 ประตู</span><b>'+medium+'</b><span>'+pct(medium)+'</span></div><div class="calibration-row"><span>รวม 4 ประตูขึ้นไป</span><b>'+high+'</b><span>'+pct(high)+'</span></div>':'<div class="empty">ยังไม่มีผลการแข่งขันที่สมบูรณ์สำหรับลีกนี้</div>';
 }
+let asianHandicapOddsData=null;
+async function loadAsianHandicapOdds(){
+ const target=document.getElementById("automaticHandicapOdds");
+ try{
+  const response=await fetch("./data/asian-handicap-odds.json?v="+Date.now(),{cache:"no-store"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const data=await response.json();
+  if(data.schemaVersion!==1||!Array.isArray(data.events))throw Error("รูปแบบข้อมูลไม่ถูกต้อง");
+  asianHandicapOddsData=data;
+  if(target)target.innerHTML='<div class="small">อัปเดตชุดข้อมูลล่าสุด '+dateTime(data.fetchedAt)+' · ใช้โควตา '+esc(String(data.quota?.used??"ไม่ทราบ"))+' · คงเหลือ '+esc(String(data.quota?.remaining??"ไม่ทราบ"))+'</div><div class="quality-note">แสดงเฉพาะเส้น Handicap ที่ผู้ให้บริการส่งกลับมาจริง ไม่พบข้อมูลจะไม่เติมค่าคาดเดา</div>';
+  if(footballDB)renderProbabilityAnalysis();
+ }catch(error){
+  asianHandicapOddsData=null;
+  if(target)target.innerHTML='<div class="empty">ยังไม่มีข้อมูล Handicap จากผู้ให้บริการ · '+esc(error.message)+' · ระบบจะไม่คาดเดาเส้นราคา</div>';
+ }
+}
+function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function findAutomaticHandicap(match){
+ const events=asianHandicapOddsData?.events||[];
+ const home=normalizeOddsTeam(match.homeTeamName),away=normalizeOddsTeam(match.awayTeamName),kickoff=new Date(match.utcDate).getTime();
+ return events.find(event=>{
+  if(normalizeOddsTeam(event.homeTeam)!==home||normalizeOddsTeam(event.awayTeam)!==away)return false;
+  return Math.abs(new Date(event.commenceTime).getTime()-kickoff)<=6*60*60*1000;
+ })||null;
+}
+function renderAutomaticHandicap(match,result){
+ const target=document.getElementById("automaticHandicapOdds");if(!target)return;
+ const event=findAutomaticHandicap(match);
+ if(!event||!Array.isArray(event.bookmakers)||!event.bookmakers.length){
+  target.innerHTML='<div class="empty">ไม่มีเส้น Asian Handicap ที่ผู้ให้บริการส่งกลับมาสำหรับคู่นี้ในขณะนี้</div>';return;
+ }
+ const rows=event.bookmakers.filter(b=>Number.isFinite(b.homeLine));
+ if(!rows.length){target.innerHTML='<div class="empty">พบข้อมูลการแข่งขัน แต่ไม่มีค่า Handicap ที่ใช้งานได้</div>';return;}
+ const updates=rows.map(x=>new Date(x.lastUpdate).getTime()).filter(Number.isFinite),latest=updates.length?Math.max(...updates):0;
+ const fresh=latest>0&&Date.now()-latest<=24*60*60*1000;
+ const lines=rows.map(x=>x.homeLine).sort((a,b)=>a-b),mid=Math.floor(lines.length/2),reference=lines.length%2?lines[mid]:(lines[mid-1]+lines[mid])/2;
+ const fmt=n=>(n>0?"+":"")+Number(n).toFixed(2);
+ const details=rows.map(x=>'<div class="p5-row"><span>'+esc(x.bookmaker)+'</span><b>'+fmt(x.homeLine)+' / '+fmt(-x.homeLine)+'</b></div>').join("");
+ let calc='<div class="quality-note">ข้อมูลเส้นอ้างอิง '+(fresh?'อัปเดตภายใน 24 ชั่วโมง':'เก่ากว่า 24 ชั่วโมงหรือไม่ทราบเวลา')+' · ค่ากลางจาก '+rows.length+' แหล่ง · เจ้าบ้าน '+fmt(reference)+' · ทีมเยือน '+fmt(-reference)+'</div>';
+ if(fresh&&result&&window.FootballTimeAsianHandicap){
+  const p=window.FootballTimeAsianHandicap.calculate(result.expectedGoals,reference);
+  calc+='<div class="db-kpis"><div class="db-kpi"><b>'+p.fullWin.toFixed(1)+'%</b><span>เจ้าบ้านชนะเต็มตามเส้นอ้างอิง</span></div><div class="db-kpi"><b>'+p.halfWin.toFixed(1)+'%</b><span>เจ้าบ้านชนะครึ่ง</span></div><div class="db-kpi"><b>'+p.push.toFixed(1)+'%</b><span>คืนทุน</span></div><div class="db-kpi"><b>'+p.halfLoss.toFixed(1)+'%</b><span>เจ้าบ้านแพ้ครึ่ง</span></div><div class="db-kpi"><b>'+p.fullLoss.toFixed(1)+'%</b><span>เจ้าบ้านแพ้เต็ม</span></div></div><div class="small">คำนวณจาก Expected Goals ของโมเดล Poisson และเส้นค่ากลางจากผู้ให้บริการ ไม่ใช่ราคาต่อรองหรือคำแนะนำการเดิมพัน</div>';
+ }else calc+='<div class="quality-note">ไม่คำนวณความน่าจะเป็นจากเส้นนี้ เพราะข้อมูลไม่สดพอหรือไม่มีผล xG ของคู่นี้</div>';
+ target.innerHTML=calc+'<details><summary class="small">ดูเส้นแยกตามแหล่งข้อมูล ('+rows.length+')</summary>'+details+'</details><div class="small">ข้อมูลจาก '+esc(event.provider)+' · เริ่มแข่ง '+dateTime(event.commenceTime)+' · ตรวจสอบเวลาอัปเดตแยกตามเจ้ามือ</div>';
+}
 function renderProbabilityAnalysis(){
  if(!footballDB)return;
  const leagueSelect=document.getElementById("probLeagueSelect"),matchSelect=document.getElementById("probMatchSelect");if(!leagueSelect||!matchSelect)return;
@@ -698,6 +746,7 @@ function renderProbabilityAnalysis(){
  const match=fixtures.find(m=>String(m.providerMatchId)===matchSelect.value)||fixtures[0],output=document.getElementById("probabilityOutput");
  if(!match){output.innerHTML='<div class="empty">ไม่มีโปรแกรมแข่งขันที่ยังไม่เริ่มในลีกนี้</div>';return;}
  const result=computeMatchProbability(match);
+ renderAutomaticHandicap(match,result);
  if(!result){output.innerHTML='<div class="empty">ข้อมูลผลการแข่งขันย้อนหลังยังไม่เพียงพอสำหรับคำนวณ</div>';return;}
  const p=result.probabilities;
  const outcome=(label,value)=>'<div class="prob-outcome"><span>'+label+'</span><b>'+value.toFixed(1)+'%</b><div class="prob-level">ระดับ '+(value>=65?"สูง":value>=45?"กลาง":"ต่ำ")+'</div></div>';
@@ -832,6 +881,7 @@ render();
 loadCentralTestRecords();
 loadFootballDatabase();
 loadTestFixtures();
+loadAsianHandicapOdds();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
 <script src="./js/test-experiment.js"></script>
