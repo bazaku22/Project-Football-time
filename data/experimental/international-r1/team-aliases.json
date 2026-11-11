@@ -1,0 +1,128 @@
+{
+  "dataset_id": "international-r1-2026",
+  "canonical_teams": [
+    {
+      "team_id": "TUR",
+      "canonical_name": "Türkiye"
+    },
+    {
+      "team_id": "BEL",
+      "canonical_name": "Belgium"
+    },
+    {
+      "team_id": "ITA",
+      "canonical_name": "Italy"
+    },
+    {
+      "team_id": "FRA",
+      "canonical_name": "France"
+    },
+    {
+      "team_id": "CZE",
+      "canonical_name": "Czechia"
+    },
+    {
+      "team_id": "ESP",
+      "canonical_name": "Spain"
+    },
+    {
+      "team_id": "ENG",
+      "canonical_name": "England"
+    },
+    {
+      "team_id": "CRO",
+      "canonical_name": "Croatia"
+    },
+    {
+      "team_id": "NED",
+      "canonical_name": "Netherlands"
+    },
+    {
+      "team_id": "GRE",
+      "canonical_name": "Greece"
+    },
+    {
+      "team_id": "SRB",
+      "canonical_name": "Serbia"
+    },
+    {
+      "team_id": "GER",
+      "canonical_name": "Germany"
+    },
+    {
+      "team_id": "NOR",
+      "canonical_name": "Norway"
+    },
+    {
+      "team_id": "WAL",
+      "canonical_name": "Wales"
+    },
+    {
+      "team_id": "POR",
+      "canonical_name": "Portugal"
+    },
+    {
+      "team_id": "DEN",
+      "canonical_name": "Denmark"
+    },
+    {
+      "team_id": "ARG",
+      "canonical_name": "Argentina"
+    },
+    {
+      "team_id": "URU",
+      "canonical_name": "Uruguay"
+    },
+    {
+      "team_id": "KSA",
+      "canonical_name": "Saudi Arabia"
+    },
+    {
+      "team_id": "KOR",
+      "canonical_name": "South Korea"
+    },
+    {
+      "team_id": "QAT",
+      "canonical_name": "Qatar"
+    },
+    {
+      "team_id": "AUS",
+      "canonical_name": "Australia"
+    },
+    {
+      "team_id": "JPN",
+      "canonical_name": "Japan"
+    },
+    {
+      "team_id": "BRA",
+      "canonical_name": "Brazil"
+    },
+    {
+      "team_id": "SGP",
+      "canonical_name": "Singapore"
+    }
+  ],
+  "aliases": [
+    {
+      "source_name": "Turkey",
+      "canonical_name": "Türkiye",
+      "canonical_team_id": "TUR"
+    },
+    {
+      "source_name": "Czech Republic",
+      "canonical_name": "Czechia",
+      "canonical_team_id": "CZE"
+    },
+    {
+      "source_name": "Korea Republic",
+      "canonical_name": "South Korea",
+      "canonical_team_id": "KOR"
+    },
+    {
+      "source_name": "Korea South",
+      "canonical_name": "South Korea",
+      "canonical_team_id": "KOR"
+    }
+  ],
+  "rule": "Preserve original source names; normalize only through this explicit mapping. Do not fuzzy-match unknown names."
+}

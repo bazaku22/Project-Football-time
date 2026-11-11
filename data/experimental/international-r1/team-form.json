@@ -1,0 +1,874 @@
+{
+  "dataset_id": "international-r1-2026",
+  "schema_version": "1.0.0",
+  "feature_cutoff_exclusive": "2026-11-12",
+  "source_cutoff": "2026-10-06",
+  "team_count": 25,
+  "teams": [
+    {
+      "team": "Türkiye",
+      "source_aliases": [
+        "Turkey"
+      ],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-05",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 2.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.2,
+        "goals_against_per_match": 1.7
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261005-italy-turkey",
+        "INT-HIST-20261002-belgium-turkey",
+        "INT-HIST-20260928-turkey-italy",
+        "INT-HIST-20260925-turkey-france",
+        "INT-HIST-20260625-united-states-turkey",
+        "INT-HIST-20260619-turkey-paraguay",
+        "INT-HIST-20260613-australia-turkey",
+        "INT-HIST-20260606-venezuela-turkey",
+        "INT-HIST-20260601-turkey-north-macedonia",
+        "INT-HIST-20260331-kosovo-turkey"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "TUR"
+    },
+    {
+      "team": "Belgium",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-05",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.4,
+        "goals_against_per_match": 1.4
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2,
+        "goals_against_per_match": 1.2
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261005-france-belgium",
+        "INT-HIST-20261002-belgium-turkey",
+        "INT-HIST-20260928-belgium-france",
+        "INT-HIST-20260925-italy-belgium",
+        "INT-HIST-20260710-spain-belgium",
+        "INT-HIST-20260706-united-states-belgium",
+        "INT-HIST-20260701-belgium-senegal",
+        "INT-HIST-20260626-new-zealand-belgium",
+        "INT-HIST-20260621-belgium-iran",
+        "INT-HIST-20260615-belgium-egypt"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "BEL"
+    },
+    {
+      "team": "Italy",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-05",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.8,
+        "goals_against_per_match": 1
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.6,
+        "goals_against_per_match": 1
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261005-italy-turkey",
+        "INT-HIST-20261002-france-italy",
+        "INT-HIST-20260928-turkey-italy",
+        "INT-HIST-20260925-italy-belgium",
+        "INT-HIST-20260607-greece-italy",
+        "INT-HIST-20260603-luxembourg-italy",
+        "INT-HIST-20260331-bosnia-and-herzegovina-italy",
+        "INT-HIST-20260326-italy-northern-ireland",
+        "INT-HIST-20251116-italy-norway",
+        "INT-HIST-20251113-moldova-italy"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ITA"
+    },
+    {
+      "team": "France",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-05",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 2.2,
+        "goals_against_per_match": 1.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2.1,
+        "goals_against_per_match": 1.1
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261005-france-belgium",
+        "INT-HIST-20261002-france-italy",
+        "INT-HIST-20260928-belgium-france",
+        "INT-HIST-20260925-turkey-france",
+        "INT-HIST-20260718-france-england",
+        "INT-HIST-20260714-france-spain",
+        "INT-HIST-20260709-france-morocco",
+        "INT-HIST-20260704-paraguay-france",
+        "INT-HIST-20260630-france-sweden",
+        "INT-HIST-20260626-norway-france"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "FRA"
+    },
+    {
+      "team": "Czechia",
+      "source_aliases": [
+        "Czech Republic"
+      ],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.4,
+        "goals_against_per_match": 2.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.3,
+        "goals_against_per_match": 2
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-england-czech-republic",
+        "INT-HIST-20261003-spain-czech-republic",
+        "INT-HIST-20260929-czech-republic-england",
+        "INT-HIST-20260926-czech-republic-croatia",
+        "INT-HIST-20260624-mexico-czech-republic",
+        "INT-HIST-20260618-czech-republic-south-africa",
+        "INT-HIST-20260611-south-korea-czech-republic",
+        "INT-HIST-20260604-guatemala-czech-republic",
+        "INT-HIST-20260531-czech-republic-kosovo",
+        "INT-HIST-20260331-czech-republic-denmark"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "CZE"
+    },
+    {
+      "team": "Spain",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 2.6,
+        "goals_against_per_match": 1
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2.2,
+        "goals_against_per_match": 0.6
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-croatia-spain",
+        "INT-HIST-20261003-spain-czech-republic",
+        "INT-HIST-20260929-spain-croatia",
+        "INT-HIST-20260926-england-spain",
+        "INT-HIST-20260719-spain-argentina",
+        "INT-HIST-20260714-france-spain",
+        "INT-HIST-20260710-spain-belgium",
+        "INT-HIST-20260706-portugal-spain",
+        "INT-HIST-20260702-spain-austria",
+        "INT-HIST-20260626-uruguay-spain"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ESP"
+    },
+    {
+      "team": "England",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 4,
+        "goals_against_per_match": 1.4
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 3,
+        "goals_against_per_match": 1.3
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-england-czech-republic",
+        "INT-HIST-20261003-croatia-england",
+        "INT-HIST-20260929-czech-republic-england",
+        "INT-HIST-20260926-england-spain",
+        "INT-HIST-20260718-france-england",
+        "INT-HIST-20260715-england-argentina",
+        "INT-HIST-20260711-norway-england",
+        "INT-HIST-20260705-mexico-england",
+        "INT-HIST-20260701-england-dr-congo",
+        "INT-HIST-20260627-panama-england"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ENG"
+    },
+    {
+      "team": "Croatia",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 3.2
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.2,
+        "goals_against_per_match": 2.4
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-croatia-spain",
+        "INT-HIST-20261003-croatia-england",
+        "INT-HIST-20260929-spain-croatia",
+        "INT-HIST-20260926-czech-republic-croatia",
+        "INT-HIST-20260702-portugal-croatia",
+        "INT-HIST-20260627-croatia-ghana",
+        "INT-HIST-20260623-panama-croatia",
+        "INT-HIST-20260617-england-croatia",
+        "INT-HIST-20260607-croatia-slovenia",
+        "INT-HIST-20260602-croatia-belgium"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "CRO"
+    },
+    {
+      "team": "Netherlands",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.6,
+        "goals_against_per_match": 1.2
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2,
+        "goals_against_per_match": 1.2
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-netherlands-serbia",
+        "INT-HIST-20261001-greece-netherlands",
+        "INT-HIST-20260927-serbia-netherlands",
+        "INT-HIST-20260924-netherlands-germany",
+        "INT-HIST-20260629-netherlands-morocco",
+        "INT-HIST-20260625-tunisia-netherlands",
+        "INT-HIST-20260620-netherlands-sweden",
+        "INT-HIST-20260614-netherlands-japan",
+        "INT-HIST-20260608-netherlands-uzbekistan",
+        "INT-HIST-20260603-netherlands-algeria"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "NED"
+    },
+    {
+      "team": "Greece",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 0.8
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 0.9
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-greece-germany",
+        "INT-HIST-20261001-greece-netherlands",
+        "INT-HIST-20260927-germany-greece",
+        "INT-HIST-20260924-serbia-greece",
+        "INT-HIST-20260607-greece-italy",
+        "INT-HIST-20260604-sweden-greece",
+        "INT-HIST-20260331-hungary-greece",
+        "INT-HIST-20260327-greece-paraguay",
+        "INT-HIST-20251118-belarus-greece",
+        "INT-HIST-20251115-greece-scotland"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "GRE"
+    },
+    {
+      "team": "Serbia",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.8,
+        "goals_against_per_match": 2.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 0.8,
+        "goals_against_per_match": 2.3
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-netherlands-serbia",
+        "INT-HIST-20261001-germany-serbia",
+        "INT-HIST-20260927-serbia-netherlands",
+        "INT-HIST-20260924-serbia-greece",
+        "INT-HIST-20260604-mexico-serbia",
+        "INT-HIST-20260531-cape-verde-serbia",
+        "INT-HIST-20260331-serbia-saudi-arabia",
+        "INT-HIST-20260327-spain-serbia",
+        "INT-HIST-20251116-serbia-latvia",
+        "INT-HIST-20251113-england-serbia"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "SRB"
+    },
+    {
+      "team": "Germany",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.8,
+        "goals_against_per_match": 0.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2,
+        "goals_against_per_match": 0.8
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-greece-germany",
+        "INT-HIST-20261001-germany-serbia",
+        "INT-HIST-20260927-germany-greece",
+        "INT-HIST-20260924-netherlands-germany",
+        "INT-HIST-20260629-germany-paraguay",
+        "INT-HIST-20260625-ecuador-germany",
+        "INT-HIST-20260620-germany-ivory-coast",
+        "INT-HIST-20260614-germany-cura-ao",
+        "INT-HIST-20260606-united-states-germany",
+        "INT-HIST-20260531-germany-finland"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "GER"
+    },
+    {
+      "team": "Norway",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.4,
+        "goals_against_per_match": 2
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.9,
+        "goals_against_per_match": 1.9
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-portugal-norway",
+        "INT-HIST-20261001-wales-norway",
+        "INT-HIST-20260927-norway-portugal",
+        "INT-HIST-20260924-norway-denmark",
+        "INT-HIST-20260711-norway-england",
+        "INT-HIST-20260705-brazil-norway",
+        "INT-HIST-20260630-ivory-coast-norway",
+        "INT-HIST-20260626-norway-france",
+        "INT-HIST-20260622-norway-senegal",
+        "INT-HIST-20260616-iraq-norway"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "NOR"
+    },
+    {
+      "team": "Wales",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.6,
+        "goals_against_per_match": 1.4
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.4,
+        "goals_against_per_match": 1.1
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-wales-denmark",
+        "INT-HIST-20261001-wales-norway",
+        "INT-HIST-20260927-denmark-wales",
+        "INT-HIST-20260924-portugal-wales",
+        "INT-HIST-20260606-romania-wales",
+        "INT-HIST-20260602-wales-ghana",
+        "INT-HIST-20260331-wales-northern-ireland",
+        "INT-HIST-20260326-wales-bosnia-and-herzegovina",
+        "INT-HIST-20251118-wales-north-macedonia",
+        "INT-HIST-20251115-liechtenstein-wales"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "WAL"
+    },
+    {
+      "team": "Portugal",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.8,
+        "goals_against_per_match": 1
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.9,
+        "goals_against_per_match": 0.8
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-portugal-norway",
+        "INT-HIST-20261001-denmark-portugal",
+        "INT-HIST-20260927-norway-portugal",
+        "INT-HIST-20260924-portugal-wales",
+        "INT-HIST-20260706-portugal-spain",
+        "INT-HIST-20260702-portugal-croatia",
+        "INT-HIST-20260627-colombia-portugal",
+        "INT-HIST-20260623-portugal-uzbekistan",
+        "INT-HIST-20260617-portugal-dr-congo",
+        "INT-HIST-20260610-portugal-nigeria"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "POR"
+    },
+    {
+      "team": "Denmark",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-04",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.8,
+        "goals_against_per_match": 1.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.9,
+        "goals_against_per_match": 1.6
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261004-wales-denmark",
+        "INT-HIST-20261001-denmark-portugal",
+        "INT-HIST-20260927-denmark-wales",
+        "INT-HIST-20260924-norway-denmark",
+        "INT-HIST-20260607-denmark-ukraine",
+        "INT-HIST-20260603-dr-congo-denmark",
+        "INT-HIST-20260331-czech-republic-denmark",
+        "INT-HIST-20260326-denmark-north-macedonia",
+        "INT-HIST-20251118-scotland-denmark",
+        "INT-HIST-20251115-denmark-belarus"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "DEN"
+    },
+    {
+      "team": "Argentina",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 1,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 3.2,
+        "goals_against_per_match": 0.4
+      },
+      "latest_10": {
+        "sample_count": 9,
+        "goals_for_per_match": 3.111,
+        "goals_against_per_match": 0.889
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-argentina-benin",
+        "INT-HIST-20261003-argentina-burkina-faso",
+        "INT-HIST-20260930-argentina-bolivia",
+        "INT-HIST-20260719-spain-argentina",
+        "INT-HIST-20260715-england-argentina",
+        "INT-HIST-20260711-argentina-switzerland",
+        "INT-HIST-20260707-argentina-egypt",
+        "INT-HIST-20260703-argentina-cape-verde",
+        "INT-HIST-20260627-jordan-argentina"
+      ],
+      "excluded_match_ids": [
+        "INT-HIST-20261001-argentina-bolivia"
+      ],
+      "readiness": "limited_5_to_9",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ARG"
+    },
+    {
+      "team": "Uruguay",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 2.6,
+        "goals_against_per_match": 1.2
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.7,
+        "goals_against_per_match": 1.3
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-india-uruguay",
+        "INT-HIST-20260928-south-korea-uruguay",
+        "INT-HIST-20260626-uruguay-spain",
+        "INT-HIST-20260621-uruguay-cape-verde",
+        "INT-HIST-20260615-saudi-arabia-uruguay",
+        "INT-HIST-20260331-algeria-uruguay",
+        "INT-HIST-20260327-england-uruguay",
+        "INT-HIST-20251118-united-states-uruguay",
+        "INT-HIST-20251115-mexico-uruguay",
+        "INT-HIST-20251013-uzbekistan-uruguay"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "URU"
+    },
+    {
+      "team": "Saudi Arabia",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.6,
+        "goals_against_per_match": 0
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.2,
+        "goals_against_per_match": 0.5
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-saudi-arabia-united-arab-emirates",
+        "INT-HIST-20261003-saudi-arabia-qatar",
+        "INT-HIST-20260929-saudi-arabia-iraq",
+        "INT-HIST-20260926-saudi-arabia-oman",
+        "INT-HIST-20260923-saudi-arabia-kuwait",
+        "INT-HIST-20260626-cape-verde-saudi-arabia",
+        "INT-HIST-20260621-spain-saudi-arabia",
+        "INT-HIST-20260615-saudi-arabia-uruguay",
+        "INT-HIST-20260609-saudi-arabia-senegal",
+        "INT-HIST-20260605-puerto-rico-saudi-arabia"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "KSA"
+    },
+    {
+      "team": "South Korea",
+      "source_aliases": [
+        "Korea Republic",
+        "Korea South"
+      ],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-06",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.2,
+        "goals_against_per_match": 1
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.4,
+        "goals_against_per_match": 0.8
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261006-south-korea-uzbekistan",
+        "INT-HIST-20261002-south-korea-venezuela",
+        "INT-HIST-20260928-south-korea-uruguay",
+        "INT-HIST-20260924-south-korea-ecuador",
+        "INT-HIST-20260624-south-africa-south-korea",
+        "INT-HIST-20260618-mexico-south-korea",
+        "INT-HIST-20260611-south-korea-czech-republic",
+        "INT-HIST-20260603-south-korea-el-salvador",
+        "INT-HIST-20260530-south-korea-trinidad-and-tobago",
+        "INT-HIST-20260331-austria-south-korea"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "KOR"
+    },
+    {
+      "team": "Qatar",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-03",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 0.8
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 0.6,
+        "goals_against_per_match": 1.5
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261003-saudi-arabia-qatar",
+        "INT-HIST-20260930-united-arab-emirates-qatar",
+        "INT-HIST-20260927-yemen-qatar",
+        "INT-HIST-20260924-qatar-bahrain",
+        "INT-HIST-20260624-bosnia-and-herzegovina-qatar",
+        "INT-HIST-20260618-canada-qatar",
+        "INT-HIST-20260613-qatar-switzerland",
+        "INT-HIST-20260606-qatar-el-salvador",
+        "INT-HIST-20260528-republic-of-ireland-qatar",
+        "INT-HIST-20251207-qatar-tunisia"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "QAT"
+    },
+    {
+      "team": "Australia",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-09-29",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.8,
+        "goals_against_per_match": 1.6
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.3,
+        "goals_against_per_match": 1.1
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20260929-australia-brazil",
+        "INT-HIST-20260925-australia-brazil",
+        "INT-HIST-20260703-australia-egypt",
+        "INT-HIST-20260625-paraguay-australia",
+        "INT-HIST-20260619-united-states-australia",
+        "INT-HIST-20260613-australia-turkey",
+        "INT-HIST-20260606-australia-switzerland",
+        "INT-HIST-20260530-mexico-australia",
+        "INT-HIST-20260331-australia-cura-ao",
+        "INT-HIST-20260327-australia-cameroon"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "AUS"
+    },
+    {
+      "team": "Japan",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-05",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 1.2,
+        "goals_against_per_match": 1
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1.5,
+        "goals_against_per_match": 0.7
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261005-japan-new-zealand",
+        "INT-HIST-20261001-japan-ecuador",
+        "INT-HIST-20260928-japan-venezuela",
+        "INT-HIST-20260629-brazil-japan",
+        "INT-HIST-20260625-japan-sweden",
+        "INT-HIST-20260620-tunisia-japan",
+        "INT-HIST-20260614-netherlands-japan",
+        "INT-HIST-20260531-japan-iceland",
+        "INT-HIST-20260331-england-japan",
+        "INT-HIST-20260328-scotland-japan"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "JPN"
+    },
+    {
+      "team": "Brazil",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-03",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 2.4,
+        "goals_against_per_match": 1.2
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 2.7,
+        "goals_against_per_match": 1
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261003-india-brazil",
+        "INT-HIST-20260929-australia-brazil",
+        "INT-HIST-20260925-australia-brazil",
+        "INT-HIST-20260705-brazil-norway",
+        "INT-HIST-20260629-brazil-japan",
+        "INT-HIST-20260624-scotland-brazil",
+        "INT-HIST-20260619-brazil-haiti",
+        "INT-HIST-20260613-brazil-morocco",
+        "INT-HIST-20260606-brazil-egypt",
+        "INT-HIST-20260531-brazil-panama"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "BRA"
+    },
+    {
+      "team": "Singapore",
+      "source_aliases": [],
+      "raw_window_count": 10,
+      "excluded_duplicate_count": 0,
+      "latest_result_date": "2026-10-01",
+      "latest_5": {
+        "sample_count": 5,
+        "goals_for_per_match": 0.8,
+        "goals_against_per_match": 2.4
+      },
+      "latest_10": {
+        "sample_count": 10,
+        "goals_for_per_match": 1,
+        "goals_against_per_match": 1.6
+      },
+      "eligible_match_ids": [
+        "INT-HIST-20261001-malaysia-singapore",
+        "INT-HIST-20260928-singapore-bangladesh",
+        "INT-HIST-20260925-indonesia-singapore",
+        "INT-HIST-20260818-thailand-singapore",
+        "INT-HIST-20260815-singapore-thailand",
+        "INT-HIST-20260807-singapore-indonesia",
+        "INT-HIST-20260731-vietnam-singapore",
+        "INT-HIST-20260727-singapore-timor-leste",
+        "INT-HIST-20260724-cambodia-singapore",
+        "INT-HIST-20260605-singapore-china"
+      ],
+      "excluded_match_ids": [],
+      "readiness": "provisional_10_match",
+      "source_quality": "CC0 multi-source compilation; not federation-verified",
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "SGP"
+    }
+  ],
+  "limitations": [
+    "Source ends 2026-10-06; later pre-kickoff matches are not represented.",
+    "CC0 dataset is multi-source, not an official federation feed.",
+    "Argentina's latest-10 raw window contains a duplicate candidate; only 9 are eligible and it is not backfilled with an older match.",
+    "Scores include extra time and exclude penalty shootouts; do not treat knockout outcomes as regulation-time without separate validation.",
+    "Venue and neutral status inherit source quality and should not be used if ambiguous."
+  ]
+}
