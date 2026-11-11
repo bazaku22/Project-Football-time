@@ -100,3 +100,13 @@ Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_pre
 - Verified existing row counts unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`.
 - No player data was imported, no API was called, no provider quota was consumed, and no scheduled workflow was added.
 - pgTAP was not executed; only GitHub offline Python tests and static schema checks were green. Functional two-user RLS isolation and an end-to-end transaction test are still required before any production import is enabled.
+
+
+## 9. Transactional verification (2026-11-11)
+
+- Executed `supabase/tests/player_statistics_two_user_import_transaction.test.sql` against the production database in one explicit transaction ending in `ROLLBACK`. Two synthetic auth identities were created only inside that transaction; no real accounts were created.
+- The test passed for owner-only SELECT isolation across all seven tables, denied cross-owner INSERT, no-op cross-owner UPDATE, denied ownership transfer, no authenticated DELETE, append-only source/history privileges, and rejection of current statistics derived from a `manual_review` source.
+- The same transaction exercised the complete database write sequence for a synthetic approved import: canonical player, provider ID mapping, import batch, immutable source observation, current-stat row, and change-history row.
+- After rollback, row counts remained unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`, and all seven `ft_*` tables remained empty.
+- Added a repeatable local SQL test and a Python end-to-end preflight/preview test to the repository. The Python test validates the CSV, performs exact provider-ID mapping, quarantines an unmatched identity, preserves blank statistics as unknown, and verifies preview hashes/reports. CI is configured to run it.
+- Important limitation: the two identities are simulated by setting authenticated JWT claims in a transaction, not by creating and signing into real Auth sessions through the HTTP API. Application-level authenticated API tests remain a separate future check.
