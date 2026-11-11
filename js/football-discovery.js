@@ -127,7 +127,8 @@
     }
     if (entity.type === "team") {
       const data = db();
-      const membership = (data?.teamSeasons || []).find((x) => x.teamId === entity.id);
+      const memberships = (data?.teamSeasons || []).filter((x) => x.teamId === entity.id);
+      const membership = memberships.find((x) => (data?.standings || []).some((s) => s.teamId === entity.id && s.leagueId === x.leagueId && s.season === x.season)) || memberships[0];
       openDatabaseTab("profile");
       const leagueSelect = $("profileLeagueSelect"), teamSelect = $("profileTeamSelect");
       if (membership && leagueSelect && teamSelect) {
