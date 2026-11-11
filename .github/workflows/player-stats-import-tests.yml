@@ -37,6 +37,7 @@ jobs:
           assert len(re.findall(r"^create table public\.ft_", migration, re.M | re.I)) == 7
           assert len(re.findall(r"^alter table public\.ft_.* enable row level security;", migration, re.M | re.I)) == 7
           assert not re.search(r"\b(drop table|truncate|delete from)\b", migration, re.I)
+          assert "unique (user_id, id)" in migration[migration.index("create table public.ft_player_stat_source_records"):migration.index("create table public.ft_player_memberships")], "source record composite FK target must be unique"
           plan = int(re.search(r"select plan\((\d+)\)", test_sql, re.I).group(1))
           checks = len(re.findall(r"^select ok\(", test_sql, re.M | re.I))
           assert plan == checks, f"pgTAP plan {plan} does not match {checks} assertions"
