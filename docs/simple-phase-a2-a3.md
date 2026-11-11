@@ -7,10 +7,10 @@ Status: implementation prepared for user review; no production data writes or ne
 - Expose the existing expected-goal stages: venue/league baseline, recent-form multiplier, standings multiplier, and H2H blend.
 - Evaluate only complete 1X2 vectors summing to 100% (±1.1 points), with valid kickoff timestamps and creation timestamps strictly before kickoff.
 - Preserve every snapshot. Invalid or non-pre-match records are excluded from evaluation, never deleted or rewritten.
-- Report top-choice accuracy, multiclass Brier score (mean squared error across three outcomes), log loss, and expected calibration error (ECE).
+- Report top-choice accuracy, standard multiclass Brier score (sum of squared errors across the three outcomes per match, averaged across matches; range 0–2), log loss, and expected calibration error (ECE).
 - Break down results by league and model version; reliability bins compare mean predicted top-outcome probability with observed hit rate.
 - Label sample sizes: under 30 is very limited; 30–99 is preliminary; 100+ remains observational, not proof of predictive skill.
-- Add offline tests for outcomes, invalid vectors, post-kickoff timestamps, pending fixtures, and empty history.
+- Add offline tests for outcomes, invalid vectors, post-kickoff timestamps, pending fixtures, empty history, and the standard Brier-score calculation.
 
 ## A3 — Mobile and maintenance
 - Display Football Time V5.6.1 in the existing header without redesigning navigation.
