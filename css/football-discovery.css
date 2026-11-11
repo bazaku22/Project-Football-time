@@ -31,3 +31,22 @@ header .discovery-search{position:relative;max-width:780px;margin:13px auto 0;pa
 @media(min-width:600px){.db-subnav{top:150px}header .discovery-search{padding:0 2px}.discovery-date-controls{grid-template-columns:1fr 1fr 1.2fr}.discovery-date-league{grid-column:auto}}
 @media(max-width:380px){.db-subnav{top:138px}}
 @media(prefers-reduced-motion:reduce){.discovery-search-results{scroll-behavior:auto}}
+/* Phase A: club crests in search and fixture rows */
+.discovery-result-open.has-team-visual{flex-direction:row;align-items:center;gap:10px}
+.discovery-team-crest{display:block;width:34px;height:34px;flex:0 0 34px;object-fit:contain}
+.discovery-match-crests{display:flex;align-items:center;gap:5px;flex:0 0 auto}
+.discovery-match-vs{font-size:8px;font-weight:800;color:#8ea4b8}
+.discovery-team-fallback,.team-crest-fallback{display:inline-grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border:1px solid #3b5367;border-radius:50%;background:#172b40;color:#c5d6e3;font-size:9px;font-weight:800;letter-spacing:-.03em}
+.discovery-result-copy{flex:1;min-width:0}
+.discovery-result-copy b{line-height:1.4}
+.discovery-date-row .discovery-result-open.has-team-visual{flex-direction:row;align-items:center;gap:8px}
+.discovery-date-row .discovery-team-crest,.discovery-date-row .discovery-team-fallback{width:27px;height:27px;flex-basis:27px}
+.fixture-match-teams{display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap}
+.fixture-team{display:inline-flex;align-items:center;gap:6px;min-width:0;flex:1}
+.fixture-team>span:last-child,.fixture-team-name{min-width:0;overflow-wrap:anywhere;font-size:12px}
+.fixture-team .team-crest,.fixture-team .team-crest-fallback{width:28px;height:28px;flex:0 0 28px}
+.fixture-score{flex:0 0 auto;color:var(--green);font-size:12px;font-weight:800;white-space:nowrap}
+.fixture-team-line{display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:13px}
+.fixture-team-line .fixture-team-name{flex:1}
+.fixture-team-line .vs{flex:0 0 auto;margin:0 2px}
+@media(max-width:380px){.discovery-team-crest{width:30px;height:30px;flex-basis:30px}.fixture-match-teams{gap:5px}.fixture-team{gap:4px}.fixture-team>span:last-child{font-size:11px}}
