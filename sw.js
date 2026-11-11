@@ -1,4 +1,4 @@
-const CACHE = "football-time-v48";
+const CACHE = "football-time-v49";
 
 const ASSETS = [
   "./",
@@ -30,6 +30,7 @@ const ASSETS = [
   "./js/test-experiment.js",
   "./js/asian-handicap.js",
   "./js/handicap-history.js",
+  "./js/handicap-reference.js",
   "./js/test-experiment-enhancements.js"
 ];
 
