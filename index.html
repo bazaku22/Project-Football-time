@@ -590,7 +590,7 @@ function renderLeagueData(){
  renderDatabaseMatches();
 }
 function findFootballTeamByName(name){
- const normalize=value=>String(value||"").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+ const normalize=value=>String(value||"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
  const target=normalize(name);if(!target)return null;
  const teams=footballDB?.teams||[];
  return teams.find(team=>normalize(team.name)===target)||teams.find(team=>[team.shortName,team.tla].some(value=>value&&normalize(value)===target))||null;
