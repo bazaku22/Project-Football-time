@@ -97,6 +97,25 @@ def main():
         assert len(third["probabilitySnapshots"]) == 1, "Historical snapshot was not preserved."
         assert third["probabilitySnapshots"][0]["actualOutcome"] == "home"
 
+        # Retention must not silently prune immutable history at an arbitrary cap.
+        archived = third["probabilitySnapshots"] + [
+            {
+                "matchId": f"archived-{index}",
+                "leagueId": "PL",
+                "season": "2025-2026",
+                "utcDate": past.isoformat(),
+                "createdAt": past.isoformat(),
+                "probabilities": {"home": 40.0, "draw": 30.0, "away": 30.0},
+            }
+            for index in range(2501)
+        ]
+        third["probabilitySnapshots"] = archived
+        db_path.write_text(json.dumps(third), encoding="utf-8")
+        fourth = run_builder(directory)
+        assert len(fourth["probabilitySnapshots"]) == 2502, (
+            "Historical snapshots were pruned; all records must be retained."
+        )
+
     print("Probability snapshot integration tests: PASSED")
 
 
