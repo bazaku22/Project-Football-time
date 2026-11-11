@@ -33,21 +33,24 @@ Kickoff times are shown in the source timezone when available. UEFA times are CE
 | INT-R1-008 | UEFA Nations League | 2026-11-14 | Portugal vs Denmark | 20:45 CET / 02:45 ICT on Nov 15 | Official UEFA fixture |
 | INT-R1-009 | UEFA Nations League | 2026-11-15 | Belgium vs Italy | 20:45 CET / 02:45 ICT on Nov 16 | Official UEFA fixture |
 | INT-R1-010 | UEFA Nations League | 2026-11-15 | Spain vs England | 20:45 CET / 02:45 ICT on Nov 16 | Official UEFA fixture |
-| INT-R1-011 | International friendly | 2026-11-13 | Argentina vs Uruguay | Kickoff/venue pending verification | AFA official match ticket notice |
-| INT-R1-012 | International friendly | 2026-11-13 | Saudi Arabia vs South Korea | Kickoff/venue pending verification | SAFF official training-camp notice |
-| INT-R1-013 | International friendly | 2026-11-13 | Qatar vs Australia | 17:45 Qatar local; Jassim bin Hamad Stadium, Doha | Football Australia official notice |
-| INT-R1-014 | International friendly | 2026-11-14 | Brazil vs Japan | 07:15 Brasília; National Stadium, Singapore | CBF official notice |
-| INT-R1-015 | International friendly | 2026-11-17 | Singapore vs Brazil | 07:00 Brasília; National Stadium, Singapore | CBF official notice |
+| INT-R1-011 | International friendly | 2026-11-13 | Argentina vs Uruguay | Estadio Boca Juniors; kickoff time not published in notice | AFA official match ticket notice |
+| INT-R1-012 | International friendly | 2026-11-13 | Saudi Arabia vs South Korea | 17:30 Doha; Jassim Bin Hamad Stadium | SAFF official senior-team fixture list |
+| INT-R1-013 | International friendly | 2026-11-13 | Qatar vs Australia | 17:45 Doha; Abdullah bin Khalifa Stadium, Doha | QFA official notice |
+| INT-R1-014 | International friendly | 2026-11-14 | Japan vs Brazil | 18:15 Singapore (19:15 Japan / 07:15 Brasília); National Stadium, Singapore | JFA and CBF official notices; neutral venue |
+| INT-R1-015 | International friendly | 2026-11-17 | Singapore vs Brazil | 18:00 Singapore (07:00 Brasília); National Stadium, Singapore | CBF official notice; neutral venue |
 
 ### Fixture sources
 
 - UEFA 2026/27 Nations League fixtures/results by team: https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/
 - AFA Argentina–Uruguay, 13 Nov 2026: https://www.afa.com.ar/es/posts/venta-de-entradas-para-el-encuentro-entre-argentina-y-uruguay
-- SAFF November senior-team camp; South Korea on 13 Nov and Uzbekistan on 17 Nov: https://www.saff.com.sa/en/news.php?id=4448
-- Football Australia: Qatar v Australia on 13 Nov and Jordan v Australia on 17 Nov: https://footballaustralia.com.au/news/commbank-socceroos-face-qatar-and-jordan-ahead-afc-asian-cup-2027tm
-- CBF Brazil v Japan (14 Nov) and Singapore v Brazil (17 Nov): https://www.cbf.com.br/selecao-brasileira/noticias/noticias/a/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura
+- SAFF senior-team fixtures (Saudi Arabia vs Korea Republic, 13 Nov at 17:30, Jassim Bin Hamad Stadium): https://www.saff.com.sa/en/nationalteams.php?id=1&type=2
+- Qatar Football Association: Qatar vs Australia, 13 Nov at 17:45, Abdullah Bin Khalifa Stadium; Qatar vs Korea Republic, 17 Nov: https://www.qfa.qa/news/%D9%85%D9%86%D8%AA%D8%AE%D8%A8%D9%86%D8%A7-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A-%D9%8A%D8%B9%D8%B2%D8%B2-%D8%AA%D8%AD%D8%B6%D9%8A%D8%B1%D8%A7%D8%AA%D9%87-%D9%84%D9%84%D9%83%D8%A3%D8%B3-%D8%A7%D9%84%D8%A7%D8%B3%D9%8A%D9%88%D9%8A%D8%A9-%D8%A8%D8%AB%D9%84%D8%A7%D8%AB-%D9%85%D8%A8%D8%A7%D8%B1%D9%8A%D8%A7%D8%AA-%D9%88%D8%AF%D9%8A%D8%A9
+- Football Australia fixture/results page (Qatar v Australia is displayed as 14 Nov in AEDT, equivalent to 13 Nov in Doha): https://socceroos.com.au/fixtures
+- CBF Brazil v Japan (14 Nov, 07:15 Brasília) and Singapore v Brazil (17 Nov, 07:00 Brasília): https://www.cbf.com.br/selecao-brasileira/noticias/selecao-brasileira/noticias/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura
+- JFA Japan national team fixture/results page (Japan v Brazil, 14 Nov, 19:15 Japan time; National Stadium, Singapore): https://jfa.jp/samuraiblue/
+- AFA Argentina v Uruguay ticket notice (13 Nov, Estadio Boca Juniors): https://www.afa.com.ar/es/posts/venta-de-entradas-para-el-encuentro-entre-argentina-y-uruguay
 
-**Correction to earlier candidate notes:** Australia’s official November opponents are Qatar (13 Nov) and Jordan (17 Nov), not Qatar on 14 Nov as previously noted. CBF confirms Brazil–Japan on 14 Nov and Singapore–Brazil on 17 Nov. Saudi Arabia’s official notice confirms South Korea on 13 Nov and Uzbekistan on 17 Nov. The Round 1 selection includes only the five listed friendly fixtures; the additional matches are not part of the 15-fixture sample.
+**Correction to earlier candidate notes:** QFA confirms Qatar–Australia on 13 Nov at Abdullah Bin Khalifa Stadium (not Jassim Bin Hamad). SAFF independently confirms Saudi Arabia–Korea Republic on 13 Nov at Jassim Bin Hamad Stadium. The JFA lists Japan–Brazil on 14 Nov at 19:15 Japan time (18:15 Singapore), while CBF confirms Singapore–Brazil on 17 Nov at 18:00 Singapore. Australia’s official fixture page displays Qatar–Australia as 14 Nov in AEDT; that is still 13 Nov in Doha. The 15-fixture sample uses the local date at the venue.
 
 ## 3. UEFA team data sheet — corrected from the official UEFA match list
 
@@ -124,23 +127,52 @@ The matchday results are repeated under both participating teams for team-level 
 
 **Important audit correction:** The prior draft contained several incorrect team/opponent/score pairings. This section supersedes that earlier table and is transcribed from UEFA's matchday list, not inferred from standings or secondary summaries.
 
-## 4. Non-UEFA team data sheet — source audit status
+## 4. Non-UEFA team data sheet — verified records and remaining gaps
 
-The following nine teams form the five selected friendlies. At this document revision, their recent historical results have **not** been accepted into the dataset because a source-by-source result audit with clear match date, senior-team status, score, and permitted reuse basis has not yet been completed.
+Only results with a clear senior men's match, date, and score are listed below. The official federation/association pages are preferred. The records are manual research references for this small internal pilot; before any bulk import or redistribution, review each source's terms and permission basis. Do not scrape or automate extraction.
 
-| Team | Candidate fixture | Historical result records accepted | Status |
+### Accepted as official-source manual references
+
+| Team | Date | Match | Score | Source |
+|---|---:|---|---:|---|
+| Saudi Arabia | 23/09/2026 | Saudi Arabia vs Kuwait | 1–0 | SAFF |
+| Saudi Arabia | 26/09/2026 | Oman vs Saudi Arabia | 0–3 | SAFF |
+| Saudi Arabia | 29/09/2026 | Saudi Arabia vs Iraq | 2–0 | SAFF |
+| Saudi Arabia | 03/10/2026 | Saudi Arabia vs Qatar | 0–0 (won 3–2 pens) | SAFF |
+| Saudi Arabia | 06/10/2026 | Saudi Arabia vs UAE | 2–0 | SAFF |
+| Australia | 25/09/2026 | Australia vs Brazil | 1–1 | Football Australia |
+| Australia | 29/09/2026 | Australia vs Brazil | 2–4 | Football Australia |
+| Japan | 24/09/2026 | Japan vs Uruguay | 3–1 | JFA |
+| Japan | 28/09/2026 | Japan vs Venezuela | 2–1 | JFA |
+| Japan | 01/10/2026 | Japan vs Ecuador | 0–0 (won 5–4 pens) | JFA |
+| Japan | 05/10/2026 | Japan vs New Zealand | 2–1 | JFA |
+| Uruguay | 24/09/2026 | Japan vs Uruguay | 3–1 | AUF |
+| Uruguay | 28/09/2026 | Korea Republic vs Uruguay | 1–4 | AUF |
+| Brazil | 25/09/2026 | Australia vs Brazil | 1–1 | CBF / Football Australia |
+| Brazil | 29/09/2026 | Australia vs Brazil | 2–4 | CBF |
+| Brazil | 03/10/2026 | Brazil vs India | 4–0 | CBF |
+
+Official result pages:
+- SAFF senior national team match list: https://www.saff.com.sa/en/nationalteams.php?id=1&type=2
+- Football Australia match centre, Australia 1–1 Brazil: https://socceroos.com.au/match/australia-v-brazil-friendlies-26-09-2026/22278825
+- Football Australia match centre, Australia 2–4 Brazil: https://socceroos.com.au/match/australia-v-brazil-friendlies-29-09-2026/22278826
+- JFA SAMURAI BLUE fixtures and results: https://jfa.jp/samuraiblue/
+- AUF September–October 2026 senior team results: https://www.auf.org.uy/buscar/Fecha%2BFIFA/pag/2/
+- CBF Brazil 2–4 Australia report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos/jogos-selecao-masculina/brasil-vence-a-australia-por-4-a-2
+- CBF Brazil 4–0 India report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos-selecao-masculina/a/brasil-goleia-a-india-em-em-calcuta
+
+### Pending official-result verification
+
+| Team | Candidate fixture | Official historical result records accepted | Status |
 |---|---|---:|---|
-| Saudi Arabia | vs South Korea | 0 | Pending official historical-results audit |
-| South Korea | vs Saudi Arabia | 0 | Pending official historical-results audit |
-| Qatar | vs Australia | 0 | Pending official historical-results audit |
-| Australia | vs Qatar | 0 | Pending official historical-results audit |
-| Argentina | vs Uruguay | 0 | Pending official historical-results audit |
-| Uruguay | vs Argentina | 0 | Pending official historical-results audit |
-| Japan | vs Brazil | 0 | Pending official historical-results audit |
-| Brazil | vs Japan; Singapore | 0 | Pending official historical-results audit |
-| Singapore | vs Brazil | 0 | Pending official historical-results audit |
+| South Korea | vs Saudi Arabia | 0 | KFA historical result page not yet verified; secondary result listings found but not promoted to accepted records |
+| Qatar | vs Australia | 0 | QFA fixture notice verified; recent historical score list not yet verified |
+| Argentina | vs Uruguay | 0 | AFA upcoming fixture notice verified; recent historical score list not yet verified |
+| Singapore | vs Brazil | 0 | Secondary result listings found; official FAS result source not yet verified |
 
-This is intentional. Do not carry forward unsourced score examples from earlier chat summaries. The previous informal list included results that were not adequately verified against the original sources and is superseded by this audit status.
+The official-source count is intentionally uneven: Saudi Arabia 5, Japan 4, Brazil 3 unique matches, Australia 2, Uruguay 2; four teams remain at 0 accepted results. Brazil and Australia share the same two Australia–Brazil matches; those are two match records, not four independent matches. The Brazil–India match is a third distinct record.
+
+Secondary references were located for South Korea, Argentina, and Singapore, but are not accepted into the official-source sheet in this revision. If used later, retain a separate provenance class and permission review rather than silently merging them with official-source records.
 
 ## 5. Fields to collect when evidence is available
 
