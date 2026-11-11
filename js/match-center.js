@@ -271,6 +271,7 @@
     databaseError = String(event.detail?.message || "ไม่ทราบสาเหตุ");
     render();
   });
+  window.addEventListener("pft-handicap-reference-ready",render);
   window.addEventListener("pft-football-database-ready",() => {
     setDatabase(window.FootballTimeAppContext?.getDatabase?.() || null);
   });
