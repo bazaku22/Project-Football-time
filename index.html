@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time V5.7.0</title>
+<title>Project Football Time V5.7.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -55,10 +55,15 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.7.0</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.7.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
- <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div>
+ <div class="sectionhead"><h2>โปรแกรมแข่งขัน 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย ส่วนสรุปผลและการประเมินโมเดลอยู่ในหมวด “สรุปผล”</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div>
+</section>
+<section id="summary" class="page">
+ <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">สโมสร · ทีมชาติ</span></div>
+ <p class="profile-note">รวมจำนวนคำทำนาย ผลจริง และตัวชี้วัดการประเมินของแต่ละโมเดลแยกจากหน้ารายการแข่งขัน โดยไม่ปะปนกับ Legacy #001–#011 หรือ Calibration ของ 5 ลีกหลัก</p>
+ <div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมสรุปผลชุดทดลอง…</div></div>
 </section>
 <section id="fixtures" class="page">
  <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div><div class="db-subnav" aria-label="หมวดหมู่ฐานข้อมูล">
@@ -220,7 +225,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
-<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="analysis">◎ หลักการ</button><button data-page="archive">▣ คลัง Legacy</button></nav>
+<nav class="nav"><button class="active" data-page="home">⌂ หน้าหลัก</button><button data-page="fixtures">▤ ฐานข้อมูล</button><button data-page="summary">▥ สรุปผล</button><button data-page="analysis">◎ หลักการ</button><button data-page="archive">▣ คลัง Legacy</button></nav>
 <script src="./js/probability-metrics.js"></script>
 <script>
 "use strict";
