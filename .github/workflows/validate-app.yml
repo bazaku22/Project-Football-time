@@ -17,6 +17,8 @@ on:
       - "data/test-fixtures-2026-11.json"
       - "data/national-team-research-2026-11.json"
       - "js/asian-handicap.js"
+      - "js/handicap-history.js"
+      - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
       - "css/analysis-refinement.css"
@@ -104,6 +106,8 @@ jobs:
               'scoreDistribution',
               'Analysis Insight',
               'id="probabilityHistoryList"',
+              'id="handicapHistoryList"',
+              'pft_handicap_snapshots_v1',
               'id="archive"',
               'id="summary"',
               'id="automaticHandicapOdds"',
@@ -121,6 +125,8 @@ jobs:
           node --check js/football-discovery.js
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
+          node --check js/handicap-history.js
+          node tests/test_handicap_history.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check js/test-experiment-enhancements.js
