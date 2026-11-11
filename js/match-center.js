@@ -106,7 +106,7 @@
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + crest(away) + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
       '</div><div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' + esc(statusLabel(match)) + '</span>' +
-      '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(date) + '" data-match-league="' + esc(match.leagueId) + '">ดูรายละเอียดข้อมูล</button></div></article>';
+      '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) + '" data-match-league="' + esc(match.leagueId) + '">ดูรายละเอียดข้อมูล</button></div></article>';
   }
   function render() {
     const root = $("matchCenterMatches");
