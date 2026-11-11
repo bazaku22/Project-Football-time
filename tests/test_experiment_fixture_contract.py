@@ -60,7 +60,7 @@ class NovemberExperimentContractTests(unittest.TestCase):
         summary = html[html.index('<section id="summary"'):html.index('</section>', html.index('<section id="summary"'))]
         self.assertNotIn('testExperimentSummary', home)
         self.assertIn('id="testExperimentSummary"', summary)
-        self.assertIn('data-page="summary"', html)
+        self.assertIn('<section id="summary" class="page">', html)
 
 
 if __name__ == "__main__":
