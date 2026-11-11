@@ -28,6 +28,7 @@ class OddsParserTests(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(result["referenceHomeLine"], -0.75)
         self.assertEqual(result["referenceAwayLine"], 0.75)
+        self.assertIn(result["referenceAwayLine"], [0.75])
         self.assertEqual(result["bookmakers"][0]["bookmaker"], "Example Book")
 
 

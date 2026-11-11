@@ -70,7 +70,7 @@ def parse_event(event: dict, league_id: str, league_name: str) -> dict | None:
         "provider": PROVIDER,
         "bookmakers": bookmakers,
         "referenceHomeLine": float(statistics.median_low(lines)),
-        "referenceAwayLine": float(-statistics.median(lines)),
+        "referenceAwayLine": float(-statistics.median_low(lines)),
     }
 
 
