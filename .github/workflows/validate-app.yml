@@ -17,6 +17,12 @@ on:
       - "data/test-fixtures-2026-11.json"
       - "data/national-team-research-2026-11.json"
       - "js/asian-handicap.js"
+      - "js/primary-navigation.js"
+      - "js/match-center.js"
+      - "css/analysis-refinement.css"
+      - "manifest.webmanifest"
+      - "tests/test_primary_navigation.py"
+      - "tests/test_player_statistics_import_ui.py"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
       - ".github/workflows/update-asian-handicap-odds.yml"
@@ -88,15 +94,16 @@ jobs:
               'const PROBABILITY_STORAGE_KEY=',
               'id="dbtab-form"',
               'id="dbtab-profile"',
-              'data-db-tab="form"',
-              'data-db-tab="profile"',
               'id="dbtab-h2h"',
               'id="dbtab-league"',
               'id="dbtab-probability"',
               'id="dbtab-accuracy"',
-              'data-db-tab="accuracy"',
               'id="dbtab-homeaway"',
-              'data-db-tab="homeaway"',
+              'data-db-tab="team"',
+              'data-db-tab="matchStats"',
+              'scoreDistribution',
+              'Analysis Insight',
+              'id="probabilityHistoryList"',
               'id="archive"',
               'id="summary"',
               'id="automaticHandicapOdds"',
@@ -110,10 +117,12 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check sw.js
-          python3 -m unittest tests/test_match_center.py
+          python3 -m unittest tests/test_match_center.py tests/test_primary_navigation.py
           node --check js/football-discovery.js
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
+          node --check js/primary-navigation.js
+          node --check js/match-center.js
           node --check js/test-experiment-enhancements.js
           python3 - <<'PY'
           from pathlib import Path
