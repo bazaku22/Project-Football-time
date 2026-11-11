@@ -164,9 +164,9 @@
     }
   }
   function teamLogo(team, className = "discovery-team-crest") {
-    if (team?.crest) return '<img class="'+className+'" src="'+esc(team.crest)+'" alt="" loading="lazy" decoding="async" onerror="this.hidden=true">';
-    const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3);
-    return '<span class="'+className+' discovery-team-fallback" aria-hidden="true">'+esc(initials || "⚽")+'</span>';
+    const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3) || "⚽";
+    if (team?.crest) return '<span class="discovery-crest-wrap"><img class="'+className+'" src="'+esc(team.crest)+'" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden class="'+className+' discovery-team-fallback" aria-hidden="true">'+esc(initials)+'</span></span>';
+    return '<span class="'+className+' discovery-team-fallback" aria-hidden="true">'+esc(initials)+'</span>';
   }
   function matchTeamVisual(homeTeam, awayTeam) {
     return '<span class="discovery-match-crests">'+teamLogo(homeTeam)+'<span class="discovery-match-vs">VS</span>'+teamLogo(awayTeam)+'</span>';
