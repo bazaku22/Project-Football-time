@@ -17,6 +17,8 @@ on:
       - "data/test-fixtures-2026-11.json"
       - "sw.js"
       - "js/probability-metrics.js"
+      - "js/test-experiment.js"
+      - "tests/test_experiment_fixture_contract.py"
       - "tests/test_probability_metrics.js"
       - "scripts/build_probability_snapshots.py"
       - "scripts/match_player_sources.py"
@@ -87,6 +89,7 @@ jobs:
           print("Application structure and Phase 4.7 analytics feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
+          node --check js/test-experiment.js
           node --check js/player-database.js
           node --input-type=module --check < js/reep-alias-pilot.js
 
@@ -104,6 +107,9 @@ jobs:
         run: |
           node --check js/probability-metrics.js
           node tests/test_probability_metrics.js
+
+      - name: Validate isolated November experiment history
+        run: python3 -m unittest tests/test_experiment_fixture_contract.py
 
       - name: Validate probability snapshot builder
         run: |
