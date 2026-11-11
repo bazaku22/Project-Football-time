@@ -1,6 +1,6 @@
 # Project Football Time — Personal Roadmap (Simple Mode)
 
-Date: 2026-11-10
+Date: 2026-11-11
 Status: Adopted direction — Option A (simplest personal-use app)
 
 ## Product direction
@@ -96,6 +96,16 @@ Do not continue building multi-provider identity bridges, canonical-player cross
 - Add/maintain a visible version label in the app header, matching the actual deployed build.
 - Fix only reproducible bugs and usability issues.
 - Acceptance: test on the user's Android phone and verify all existing core features and records.
+
+## Phase 6 — Multi-League Expansion & Model Development
+
+The planned catalogue is PL, PD, BL1, SA, FL1, ELC (EFL Championship), J1 and J2. The existing football-data.org provider free tier supports Championship but does not include Japan's J.League competitions in its free-tier list. Therefore only ELC is enabled for new ingestion; J1/J2 remain planned and visibly unavailable until a verified no-cost source is approved.
+
+- Keep the current daily workflow cadence. Nominal requests rise from 15 to 18 per successful run (six leagues × teams/matches/standings); no extra polling or provider is added.
+- Keep The Odds API limited to the original five leagues.
+- Use one shared model engine with league/season-isolated inputs and per-league evaluation. Do not tune separate parameters without enough real outcomes and out-of-sample evaluation.
+- Preserve all existing player data, test records, snapshots, calibration history, and Local Storage.
+- Phase 6 implementation and acceptance details: `docs/phase-6-multi-league-expansion.md`.
 
 ## Explicit non-goals
 
