@@ -97,7 +97,6 @@ jobs:
               'data-db-tab="homeaway"',
               'id="archive"',
               'id="summary"',
-              'data-page="summary"',
               'id="automaticHandicapOdds"',
               'function loadAsianHandicapOdds()',
               'function renderAutomaticHandicap(',
