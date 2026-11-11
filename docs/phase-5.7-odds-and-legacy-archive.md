@@ -23,7 +23,7 @@ Date: 2026-11-11
 ## Data and calculation rules
 
 - `data/asian-handicap-odds.json` contains line points, bookmaker names, market timestamps, provider name, and quota metadata. It does not contain odds prices or bookmaker/betslip URLs.
-- The home-team line is taken from the home outcome's point; the away line is its inverse. A median of available bookmaker line points is the reference line.
+- The home-team line is taken from the home outcome's point; the away line is its inverse. The lower median of available bookmaker line points is the reference line; it always selects a line actually offered by a bookmaker rather than averaging two different quarter lines.
 - Match association requires exact normalized home/away team names and kickoff times within six hours.
 - A line older than 24 hours is displayed as stale and is not used for probability calculation.
 - The existing Poisson expected-goals output and Asian Handicap settlement module are reused. No historical prediction snapshots are rewritten.
