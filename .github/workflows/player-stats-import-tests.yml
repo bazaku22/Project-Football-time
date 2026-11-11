@@ -7,6 +7,8 @@ on:
       - "scripts/preview_player_stats_import.py"
       - "tests/test_validate_player_stats_csv.py"
       - "tests/test_preview_player_stats_import.py"
+      - "supabase/migrations/**/*.sql"
+      - "supabase/tests/**/*.sql"
       - ".github/workflows/player-stats-import-tests.yml"
   workflow_dispatch:
 
