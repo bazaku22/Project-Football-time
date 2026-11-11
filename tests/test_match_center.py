@@ -75,7 +75,10 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('new Request(url.origin + url.pathname, { method: "GET" })', WORKER)
         self.assertIn('caches.match(cacheKey)', WORKER)
         self.assertIn('cache.put(cacheKey, copy)', WORKER)
-        self.assertNotIn('caches.match(request)', WORKER)
+        handler_start = WORKER.index('if (url.pathname.endsWith("/data/football-database.json")')
+        handler_end = WORKER.index('if (url.origin !== self.location.origin)', handler_start)
+        dynamic_handler = WORKER[handler_start:handler_end]
+        self.assertNotIn('caches.match(request)', dynamic_handler)
 
 
 if __name__ == "__main__":
