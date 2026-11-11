@@ -46,10 +46,21 @@ class NovemberExperimentContractTests(unittest.TestCase):
 
     def test_handicap_is_additive_and_separate_from_legacy(self):
         script = (ROOT / "js/test-experiment-enhancements.js").read_text(encoding="utf-8")
-        self.assertIn('data-ah-line', script)
+        self.assertNotIn('data-ah-line', script)
+        self.assertIn('function renderApiHandicap(', script)
+        self.assertIn('data-api-ah-panel', script)
+        self.assertIn('data/asian-handicap-odds.json', script)
         self.assertIn('pft-national-poisson-0.1', script)
         self.assertIn('pft_experiment_snapshots_v1', script)
         self.assertIn('js/asian-handicap.js', (ROOT / "index.html").read_text(encoding="utf-8"))
+
+    def test_experiment_summary_has_own_navigation_page(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        home = html[html.index('<section id="home"'):html.index('</section>', html.index('<section id="home"'))]
+        summary = html[html.index('<section id="summary"'):html.index('</section>', html.index('<section id="summary"'))]
+        self.assertNotIn('testExperimentSummary', home)
+        self.assertIn('id="testExperimentSummary"', summary)
+        self.assertIn('data-page="summary"', html)
 
 
 if __name__ == "__main__":
