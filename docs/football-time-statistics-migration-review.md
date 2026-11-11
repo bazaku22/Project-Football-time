@@ -67,6 +67,7 @@ The migration does not automatically write change-history rows. A future applica
 ## 6. Validation status
 
 - Existing PR #53 offline Python CI: passed, 11/11 tests.
+- GitHub Actions static schema checks: passed; confirmed seven additive tables, RLS enablement statements, no destructive DDL, and pgTAP plan/assertion count 32/32.
 - Migration SQL: reviewed against the live schema metadata and current Supabase RLS guidance; not executed.
 - pgTAP schema test: added but not run because the Supabase CLI / local Postgres test environment is not available in this execution environment.
 - Live Supabase: no DDL, grants, policies, inserts, updates, or deletes were executed.
