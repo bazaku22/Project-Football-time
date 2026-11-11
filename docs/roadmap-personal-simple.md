@@ -1,131 +1,171 @@
-# Project Football Time — Personal Roadmap (Simple Mode)
+# Project Football Time — Main Roadmap (Simple but Complete)
 
-Date: 2026-11-11
-Status: Adopted direction — Option A (simplest personal-use app)
+Date: 2026-11-11  
+Status: Adopted as the active project roadmap  
+Product direction: Simple but Complete — a personal football app for one user
 
-## Product direction
+## 1. Product goal
 
-Project Football Time is a private, personal football statistics and match-analysis app for one user. Optimize for dependable data, understandable analysis, mobile usability, and low maintenance. Do not build a commercial multi-provider data platform.
+Project Football Time is a personal football statistics and match-analysis app. It should be easy to understand and convenient to use every day while still providing enough reliable information to make sense of each match.
 
-## Stable baseline to preserve
+The product is not intended to become a commercial data platform or a professional analytics console. Keep advanced calculations in the background; show the useful conclusion first and let the user open supporting detail when wanted.
 
-The following are existing project assets and must remain intact:
+Core experience:
 
-- Completed and user-tested Phase 1–5.6 functionality, including team/league analytics, Team Strength, Poisson match probabilities, probability calibration, Brier score, log loss, and reliability reporting.
-- Five-league scope: Premier League (PL), La Liga (PD), Bundesliga (BL1), Serie A (SA), Ligue 1 (FL1).
-- Private Supabase player database: 156 existing StrikerAPI player records. Keep the current rows and owner-scoped access; no bulk refresh or re-import.
-- Local Storage key `pft_matches_v1`; do not rename, clear, overwrite, or auto-migrate it.
+**Open the app → find a match → review team statistics → read a clear analysis → save it → check the actual result later.**
+
+Product decisions must prioritize:
+1. Ease of everyday use.
+2. Reliable and clearly sourced football data.
+3. Complete but relevant team and match information.
+4. Understandable analysis with visible reasons and limitations.
+5. Low maintenance and zero recurring cost.
+
+## 2. Current stable baseline — preserve it
+
+Do not rebuild or remove existing working features simply to make the roadmap look cleaner. Review each feature before changing its placement or implementation.
+
+Preserve:
+- Existing completed and user-tested functionality from prior phases, including match records, league/team data, team form, home/away analysis, head-to-head, league analytics, match probabilities, and evaluation history.
+- The five core leagues: Premier League (PL), La Liga (PD), Bundesliga (BL1), Serie A (SA), and Ligue 1 (FL1).
+- Any already-enabled additional competition only while its existing data feed remains reliable and within the approved free usage. Do not expand competition coverage as a priority.
+- The existing private player database and its 156 StrikerAPI records. Keep current rows and owner-scoped access; no bulk refresh, re-import, or provider expansion.
+- Local Storage key `pft_matches_v1` and existing prediction storage keys, including `pft_probability_predictions_v1`. Do not rename, clear, overwrite, or automatically migrate them.
 - Original test records #001–#007 and central records #008–#011.
-- Immutable pre-match prediction snapshots and existing calibration history.
-- Current mobile UI and service-worker behavior.
+- Immutable pre-match prediction snapshots and existing calibration/evaluation history.
+- Existing service-worker behavior and working mobile functionality.
 
-No phase is considered complete solely because CI or deployment passed; user verification remains the acceptance check for user-facing changes.
+No feature is considered accepted solely because CI or deployment passed. User verification on the Android device remains the acceptance check for user-facing changes.
 
-## Simplified scope
+## 3. Main roadmap
 
-### Keep and maintain
+### Step 1 — App usability review and simplification
+**Current step. Read-only review first; no UI or code changes until the proposed screen map is agreed.**
 
-1. Match data for the five leagues: fixtures, results, scores, and standings using the existing configured data pipeline.
-2. Team form and home/away performance using match data already available in the app.
-3. Existing team, league, head-to-head, and advanced team analytics.
-4. Match probability estimates and transparent explanations of the factors used.
-5. Accuracy tracking after matches finish, including calibration, Brier score, and log loss.
-6. Clear mobile-first navigation and a visible app version label in the header on future releases.
+- Review every current screen, navigation item, and user-facing feature.
+- Identify duplicated information, overly technical labels, rarely used tools, and workflows requiring too many taps.
+- Decide what belongs on the main screen, what belongs in match/team details, and what should be secondary or hidden from everyday use.
+- Check that the home screen serves as a practical match center using the normal football database, and distinguish it from test/experiment fixtures.
+- Propose a simple navigation structure and a keep / simplify / move to details / pause inventory.
+- Preserve all records and working functionality while reviewing.
 
-### Player data — maintenance only
+Proposed information architecture (subject to the read-only audit):
+1. **หน้าหลัก / Match Center** — today's and upcoming fixtures, live or completed status, quick league filters.
+2. **ลีกและทีม** — standings, fixtures/results, team profile, form, home/away, and head-to-head.
+3. **วิเคราะห์** — select a match, see the main conclusion and probabilities, then expand the reasons and supporting statistics.
+4. **ประวัติ** — saved analyses, actual results, and a simple accuracy summary.
+
+Player reference data, legacy records, backups, model diagnostics, and experimental tools should remain accessible where needed but should not dominate the main navigation.
+
+Acceptance:
+- A user can find a match, inspect the relevant team data, and read the analysis without navigating through a long list of technical tabs.
+- The user reviews and approves the proposed screen map before implementation.
+
+### Step 2 — Dependable football data
+- Maintain fixtures, results, scores, and standings for the five core leagues using the existing approved data pipeline.
+- Show data freshness and unavailable/stale status clearly; never silently substitute invented or stale values.
+- Check duplicate fixtures, missing scores, postponed matches, season/league mapping, and team identity consistency when a concrete issue is found.
+- Keep the current provider and request cadence. Do not add providers, increase polling, or incur costs without explicit approval.
+- Do not make user-verified data a recurring blocker; investigate again only when new evidence indicates a problem.
+
+Acceptance:
+- The core leagues remain usable; historical data is not lost or duplicated; unavailable data is clearly identified.
+
+### Step 3 — Useful team and match statistics
+Keep the statistics that directly help a user understand a match:
+- Recent form over the last 5–10 completed matches.
+- Home and away performance.
+- Goals scored and conceded.
+- League position and points per match.
+- Head-to-head history, with sample-size limitations clearly shown.
+
+Prefer a concise summary first. Detailed tables and longer history can be opened on demand. Do not add metrics for which there is no reliable source.
+
+Acceptance:
+- The user can understand why a team appears stronger or weaker without needing to interpret a large analytics dashboard.
+
+### Step 4 — Clear, explainable match analysis
+- Retain the existing probability model and its historical outputs unless evidence demonstrates a real defect.
+- Show the estimated 1X2 probabilities in a clear, readable format.
+- Explain the main contributing factors in ordinary language: recent form, home/away performance, league baseline, standings, and head-to-head when the sample is sufficient.
+- Keep probability separate from confidence/data readiness.
+- Clearly disclose missing information and small samples; never imply certainty or guarantee an outcome.
+- Keep advanced model details, coefficients, calibration diagnostics, Brier score, log loss, and ECE in a secondary technical view or internal evaluation layer.
+- Do not change model coefficients merely to improve displayed numbers. Require sufficient out-of-sample evidence before claiming better predictive performance.
+- Any reference handicap data remains statistical context only. Show provider and update time; mark missing or stale data and do not infer values.
+
+Acceptance:
+- The user can understand the conclusion and the reasons supporting it at a glance, with further detail available when requested.
+
+### Step 5 — Simple history and accuracy tracking
+- Preserve immutable pre-match snapshots.
+- Record actual match results after completion.
+- Show a simple summary of evaluated, correct, incorrect, and pending analyses, with a clearly defined accuracy denominator.
+- Keep league/model breakdowns and calibration metrics available as secondary detail.
+- Preserve legacy records and central records separately where their definitions differ; do not combine incompatible result types.
+
+Acceptance:
+- The user can review what was predicted, what actually happened, and how the app has performed over time.
+
+## 4. Player data — maintenance only
 
 - Keep the existing 156-player private database as-is.
-- Do not add new player-stat providers or attempt full historical player-stat coverage.
-- Do not run a bulk StrikerAPI refresh or spend additional API credits without a separate explicit approval.
-- Player information may remain available as a reference feature, but it is not a blocker for the core app.
+- Player information is a secondary reference feature, not a blocker for the core app.
+- Do not add new player-stat providers, attempt full historical player-stat coverage, run bulk StrikerAPI refreshes, or spend additional API credits without separate explicit approval.
+- Do not continue multi-provider identity bridges, canonical-player crosswalks, source-specific player-stat adapters, or automated player-stat import previews unless the user explicitly reopens that scope.
+- Keep Wyscout, Impect, Reep, OpenPlay, StatsBomb, and API Ninjas experiments as archived research only. Do not connect, import, transform, persist, or schedule their data in production.
 
-### Pause as research-only
+## 5. Cost, API, and product boundaries
 
-Do not connect, import, transform, persist, or schedule data from these experimental sources for now:
-
-- Wyscout
-- Impect
-- Reep
-- OpenPlay
-- StatsBomb
-- API Ninjas
-
-Keep the existing pilot scripts and documentation as archived research material. Do not delete them merely because the direction changed. PR #35's local Wyscout parser remains offline/read-only and is not part of production data ingestion.
-
-Do not continue building multi-provider identity bridges, canonical-player crosswalks, source-specific player-stat adapters, or automated player-stat import previews unless the user explicitly reopens that scope.
-
-## Cost and API policy
-
-- Target ongoing cost: 0 THB/month.
+- Target ongoing cost: **0 THB/month**.
 - No paid API, subscription, plan upgrade, or paid data source without explicit user approval.
-- Keep API credentials in GitHub Secrets or the existing secure server-side configuration; never expose them in client code or repository data.
-- Reuse the existing football match-data workflow and its current provider limits. Do not increase polling frequency or add providers/API calls, except for the explicitly approved optional The Odds API reference-handicap integration recorded in Phase 5.7 below.
-- If the existing free-tier quota or provider access is exhausted, show the data as unavailable/stale rather than silently switching to a paid source or making extra requests.
+- Keep API credentials in GitHub Secrets or existing secure server-side configuration; never expose them in client code or repository data.
+- Reuse the existing football match-data workflow and provider limits. Do not increase polling or add providers/API calls without approval.
+- If a free-tier quota or provider access is exhausted, show data as unavailable/stale rather than switching to a paid source or making extra requests.
 
-### Explicitly approved exception — Phase 5.7 (2026-11-11)
+### Existing approved exception — The Odds API reference handicap
+The user previously approved The Odds API as the sole external source for reference Asian Handicap lines. Preserve the existing approved limits; do not expand them:
+- Free plan only; no billing, upgrade, or charges. API key remains in GitHub Actions Secrets as `THE_ODDS_API_KEY`.
+- One `spreads` market, one `eu` region, for each of the five core leagues once daily (up to five credits per scheduled run, approximately 150 credits per 30-day month if all requests return data).
+- One initial refresh after an approved PR merge, then daily scheduled runs; manual run only when explicitly needed. No push-triggered runs, retries, or extra polling.
+- Stop before remaining requests if quota is insufficient to complete the five-league run. Preserve the last successful data; mark old lines stale and do not calculate from stale lines.
+- If a league or match has no supported market, display “ไม่มีข้อมูล”; never infer a line.
+- Store reference line points, provider/bookmaker names, market update timestamps, and quota metadata only. Do not store odds prices, bookmaker links, or betslip links.
+- This is statistical reference data only and must not add betting functionality.
 
-- The user approved adding The Odds API as the sole external source for reference Asian Handicap lines.
-- Use only the configured free plan; do not enable billing, upgrade, or incur charges. The API key must remain in GitHub Actions Secrets as `THE_ODDS_API_KEY`.
-- Fetch one market (`spreads`) from one region (`eu`) for each of the five supported leagues once daily. This is five credits per scheduled run at the provider's documented one-credit-per-region-per-market rate, or about 150 credits per 30-day month if every request returns data.
-- The workflow performs one initial refresh after an approved PR merge, then runs daily; it may also be run manually. It never runs on code pushes. Do not add retries or extra polling.
-- Stop before making remaining requests if the returned quota is insufficient to complete the five-league run. Preserve the last successfully fetched data; the app must mark old lines stale and must not calculate from stale lines.
-- Soccer handicap coverage is not guaranteed by the provider. If a league/match has no supported market, display “ไม่มีข้อมูล” and do not infer a line.
-- Store only reference line points, provider/bookmaker names, market update timestamps, and quota metadata; do not store odds prices, bookmaker links, or betslip links.
-- This integration is for statistical analysis only and does not add betting functionality.
-
-## Prioritized next phases
-
-### Simple Phase A1 — Match-data reliability
-
-- Review the existing fixtures/results/standings pipeline without changing its request frequency or provider.
-- Check data freshness, duplicate fixtures, missing scores, postponed matches, and season/league mapping.
-- Make only small, isolated fixes with tests.
-- Acceptance: no loss or duplication of historical data; all five leagues remain usable; user verifies the deployed app.
-
-### Simple Phase A2 — Analysis quality
-
-- Improve the clarity and reliability of existing team-form, home/away, head-to-head, and Poisson inputs.
-- Keep predicted probability distinct from confidence/readiness labels.
-- Continue recording immutable pre-match snapshots and evaluate them against actual results.
-- Do not claim model improvement without measured evidence on a sufficient sample.
-- Acceptance: explainable inputs, no mutation of historical snapshots, and calibration metrics continue to work.
-
-### Simple Phase A3 — Mobile usability and maintenance
-
-- Keep the current visual design; avoid cosmetic redesigns.
-- Add/maintain a visible version label in the app header, matching the actual deployed build.
-- Fix only reproducible bugs and usability issues.
-- Acceptance: test on the user's Android phone and verify all existing core features and records.
-
-## Phase 6 — Multi-League Expansion & Model Development
-
-The planned catalogue is PL, PD, BL1, SA, FL1, ELC (EFL Championship), J1 and J2. The existing football-data.org provider free tier supports Championship but does not include Japan's J.League competitions in its free-tier list. Therefore only ELC is enabled for new ingestion; J1/J2 remain planned and visibly unavailable until a verified no-cost source is approved.
-
-- Keep the current daily workflow cadence. Nominal requests rise from 15 to 18 per successful run (six leagues × teams/matches/standings); no extra polling or provider is added.
-- Keep The Odds API limited to the original five leagues.
-- Use one shared model engine with league/season-isolated inputs and per-league evaluation. Do not tune separate parameters without enough real outcomes and out-of-sample evaluation.
-- Preserve all existing player data, test records, snapshots, calibration history, and Local Storage.
-- Phase 6 implementation and acceptance details: `docs/phase-6-multi-league-expansion.md`.
-
-## Explicit non-goals
-
+### Explicit non-goals
 - No betting placement, deposits, withdrawals, payouts, gambling promotions, or links encouraging gambling.
 - No paid data feeds or new recurring costs.
-- No multi-provider player-statistics platform.
-- No broad player-statistics backfill.
+- No commercial multi-provider data platform or broad player-statistics backfill.
 - No destructive schema migrations or replacement of existing test/history records.
 - No unrelated redesign or feature expansion.
 
-## Change and verification rules
+## 6. Development and release rules
 
-1. Prefer small, reversible changes.
-2. Inspect the existing implementation before changing it; do not assume the roadmap requires new infrastructure.
-3. Keep production data read-only unless a change is essential and explicitly authorized.
-4. Never clear or overwrite user records, the 156-player database, prediction snapshots, or calibration history.
-5. Run relevant CI/tests and inspect deployment status, but do not equate those with user acceptance.
-6. After user-facing changes, ask the user to test the app on Android and record the outcome.
-7. If a task would incur a cost, increase API usage, change data retention, or alter the stable baseline, stop and ask first.
+1. Inspect the existing implementation before changing it; do not build a duplicate feature.
+2. Start with read-only review and a short, concrete proposal.
+3. Prefer small, reversible changes on a separate branch.
+4. Run relevant tests and inspect CI/deployment results.
+5. Do not write to production data or change production configuration unless essential and explicitly authorized.
+6. Do not merge to `main` or change production deployment without the user's review and approval.
+7. After user-facing changes, ask the user to test on Android and record the outcome.
+8. Preserve existing records, player data, snapshots, calibration history, Local Storage keys, and backup formats.
+9. If a task would incur cost, increase API usage, change data retention, or alter the stable baseline, stop and ask first.
+
+## 7. Superseded and paused work
+
+- This document is the **single active project roadmap**.
+- The former Simple Phase A1/A2/A3 sequence is no longer the active delivery plan. Its completed work remains part of the stable baseline; unfinished tasks are reconsidered only when they serve this roadmap.
+- `docs/simple-phase-a2-a3.md` is retained as historical implementation notes, not a competing active roadmap.
+- Phase 6 multi-league expansion beyond the current approved coverage is paused. Do not start J1/J2 or other new league ingestion until a verified no-cost source and a clear user need are approved.
+- Supabase security audit work is paused as previously agreed. Preserve its findings and evidence; do not start production writes or migrations from that audit unless the user explicitly reopens it.
 
 ## Immediate next action
 
-Start with a read-only health review of the existing match-data pipeline and its latest GitHub Actions run. Do not trigger a manual sync or add API calls. Report what is healthy, stale, failing, or unclear before proposing any code changes.
+Complete **Step 1 — App usability review** as a read-only audit of the current `main` build. Produce:
+- a screen/navigation inventory,
+- a keep / simplify / move to details / pause recommendation for each feature,
+- a proposed simple navigation map,
+- any obvious usability inconsistencies to verify on Android.
+
+Do not modify application code during this review. Present the findings and obtain the user's approval before implementation.
