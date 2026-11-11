@@ -79,18 +79,21 @@ def build_preview(source: Path, mapping_path: Path):
             row = {k: (v or "").strip() for k, v in raw.items() if k}
             row["_source_line"] = line
             original_key = row.get("canonical_player_key", "")
-            if not original_key:
-                provider_key = (row.get("provider", "").casefold(), row.get("provider_player_id", ""))
-                mapped = mapping.get(provider_key)
-                if mapped:
-                    row["canonical_player_key"] = mapped["canonical_player_key"]
-                    if mapped["team_code"] and mapped["team_code"] != row.get("team_code", ""):
-                        row["_mapping_issue"] = "mapping team_code does not match source row"
-                    if mapped["season"] and mapped["season"] != row.get("season", ""):
-                        row["_mapping_issue"] = "mapping season does not match source row"
+            provider_key = (row.get("provider", "").casefold(), row.get("provider_player_id", ""))
+            mapped = mapping.get(provider_key)
+            if mapped:
+                mapped_key = mapped["canonical_player_key"]
+                if original_key and original_key != mapped_key:
+                    row["_mapping_issue"] = "source canonical_player_key conflicts with exact provider ID mapping"
+                else:
+                    row["canonical_player_key"] = mapped_key
+                if mapped["team_code"] and mapped["team_code"] != row.get("team_code", ""):
+                    row["_mapping_issue"] = "mapping team_code does not match source row"
+                if mapped["season"] and mapped["season"] != row.get("season", ""):
+                    row["_mapping_issue"] = "mapping season does not match source row"
             row["_identity_resolution"] = (
-                "provided_in_source" if original_key else
-                "exact_provider_id_match" if row["canonical_player_key"] else
+                "exact_provider_id_match" if mapped and not row.get("_mapping_issue") else
+                "unverified_canonical_key" if original_key else
                 "unresolved"
             )
             source_rows.append(row)
@@ -114,7 +117,7 @@ def build_preview(source: Path, mapping_path: Path):
     for row in source_rows:
         line = row["_source_line"]
         issues = list(global_issues) + by_line.get(line, [])
-        if row["_identity_resolution"] == "unresolved":
+        if row["_identity_resolution"] in {"unresolved", "unverified_canonical_key"}:
             status = "needs_identity_review"
         elif row.get("_mapping_issue"):
             issues.append(row["_mapping_issue"])
