@@ -26,4 +26,4 @@ jobs:
       - name: Compile scripts and tests
         run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py
       - name: Run offline test suite
-        run: python -m unittest discover -s tests -v
+        run: python -m unittest discover -s tests -p 'test_*player_stats*.py' -v
