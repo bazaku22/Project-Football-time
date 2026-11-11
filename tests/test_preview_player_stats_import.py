@@ -95,6 +95,15 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
         self.assertTrue(any("team_code" in issue for issue in manifest["rows"][0]["issues"]))
 
+
+    def test_source_canonical_key_without_provider_mapping_is_unverified(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="ft-ars-001")], [],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["identity_resolution"], "unverified_canonical_key")
+        self.assertEqual(manifest["rows"][0]["status"], "needs_identity_review")
+
     def test_duplicate_mapping_key_fails_closed(self):
         duplicate = [
             {"provider": "source_a", "provider_player_id": "p-100", "canonical_player_key": "a"},
