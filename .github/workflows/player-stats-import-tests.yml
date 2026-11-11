@@ -3,6 +3,10 @@ name: Player statistics import tests
 on:
   pull_request:
     paths:
+      - "js/player-stats-import.js"
+      - "index.html"
+      - "sw.js"
+      - "tests/test_player_stats_import_ui.py"
       - "scripts/validate_player_stats_csv.py"
       - "scripts/preview_player_stats_import.py"
       - "tests/test_validate_player_stats_csv.py"
@@ -29,7 +33,11 @@ jobs:
         with:
           python-version: "3.x"
       - name: Compile scripts and tests
-        run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py tests/test_player_stats_import_e2e.py
+        run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py tests/test_player_stats_import_e2e.py tests/test_player_statistics_import_ui.py
+      - name: Validate browser CSV preview module
+        run: |
+          node --check js/player-stats-import.js
+          python -m unittest tests/test_player_statistics_import_ui.py -v
       - name: Check additive schema draft and pgTAP plan
         run: |
           python - <<'PY'
