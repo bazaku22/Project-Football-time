@@ -64,5 +64,15 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("football-time-v39", WORKER)
 
 
+    def test_phase_a_broken_crest_urls_fall_back_to_initials(self):
+        self.assertIn("this.nextElementSibling.hidden=false", DISCOVERY)
+        self.assertIn("this.nextElementSibling.hidden=false", HTML)
+        self.assertIn("discovery-crest-wrap", DISCOVERY)
+        self.assertIn("team-crest-wrap", HTML)
+
+    def test_service_worker_and_html_have_no_literal_newline_escape_corruption(self):
+        self.assertNotIn("\\n", WORKER)
+        self.assertNotIn("\\n", HTML)
+
 if __name__ == "__main__":
     unittest.main()
