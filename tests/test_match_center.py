@@ -67,9 +67,15 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v43", WORKER)
+        self.assertIn("football-time-v44", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
+
+    def test_dynamic_data_cache_ignores_cache_busting_query_strings(self):
+        self.assertIn('new Request(url.origin + url.pathname, { method: "GET" })', WORKER)
+        self.assertIn('caches.match(cacheKey)', WORKER)
+        self.assertIn('cache.put(cacheKey, copy)', WORKER)
+        self.assertNotIn('caches.match(request)', WORKER)
 
 
 if __name__ == "__main__":
