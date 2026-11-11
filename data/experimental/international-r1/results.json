@@ -10,7 +10,8 @@
     "csv_blob_sha": "9999a4b380b16189825884a8dab4dc869c847f72",
     "license": "CC0-1.0 (repository-declared)",
     "total_source_rows": 49940,
-    "method": "Fetched pinned CSV blob once through GitHub; parsed locally; selected up to 10 latest source rows per target team before cutoff; stored each shared match once."
+    "method": "Fetched pinned CSV blob once through GitHub; parsed locally; selected up to 10 latest source rows per target team before cutoff; stored each shared match once.",
+    "retrieved_at": "2026-11-12"
   },
   "teams": [
     "Türkiye",
