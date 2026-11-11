@@ -49,9 +49,9 @@ Kickoff times are shown in the source timezone when available. UEFA times are CE
 
 **Correction to earlier candidate notes:** Australia’s official November opponents are Qatar (13 Nov) and Jordan (17 Nov), not Qatar on 14 Nov as previously noted. CBF confirms Brazil–Japan on 14 Nov and Singapore–Brazil on 17 Nov. Saudi Arabia’s official notice confirms South Korea on 13 Nov and Uzbekistan on 17 Nov. The Round 1 selection includes only the five listed friendly fixtures; the additional matches are not part of the 15-fixture sample.
 
-## 3. UEFA team data sheet — verified recent Nations League results
+## 3. UEFA team data sheet — corrected from the official UEFA match list
 
-Source: UEFA team-by-team fixture/results page linked above, last updated 11 November 2026. Scores are full-time match scores as displayed by UEFA. Dates use day/month.
+Source: UEFA's official 2026/27 Nations League league-phase fixtures and results, last updated 11 November 2026 (URL below). The following are each selected UEFA team's four completed Nations League matches from Matchdays 1–4. Dates use day/month; scores are full-time scores shown by UEFA.
 
 | Team | Date | Match | Score |
 |---|---:|---|---:|
@@ -120,7 +120,9 @@ Source: UEFA team-by-team fixture/results page linked above, last updated 11 Nov
 | Denmark | 01/10 | Denmark vs Portugal | 2–4 |
 | Denmark | 04/10 | Wales vs Denmark | 0–1 |
 
-The same match appears in both teams' sheets by design; it is one match record, not two independent observations. A future normalized match table must deduplicate by match ID.
+The matchday results are repeated under both participating teams for team-level lookup. A normalized match dataset must store each match once and link both team records to the same match ID.
+
+**Important audit correction:** The prior draft contained several incorrect team/opponent/score pairings. This section supersedes that earlier table and is transcribed from UEFA's matchday list, not inferred from standings or secondary summaries.
 
 ## 4. Non-UEFA team data sheet — source audit status
 
