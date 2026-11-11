@@ -3,7 +3,7 @@ const assert=require("node:assert/strict");
 const reference=require("../js/handicap-reference.js");
 const {findEvent,selectReference}=reference;
 const kickoff="2026-11-20T19:30:00Z";
-const match={leagueId:"BL1",homeTeamName:"Bayern Munich",awayTeamName:"1. FC Köln",utcDate:kickoff};
+const match={leagueId:"BL1",homeTeamName:"Bayern Munich",awayTeamName:"1. FC Koln",utcDate:kickoff};
 const event={leagueId:"BL1",homeTeam:"Bayern Munich",awayTeam:"1. FC Köln",commenceTime:kickoff,provider:"The Odds API",bookmakers:[
  {bookmaker:"Source A",homeLine:-2.5,lastUpdate:"2026-11-11T15:00:00Z"},
  {bookmaker:"Source B",homeLine:-2.75,lastUpdate:"2026-11-11T16:00:00Z"},
