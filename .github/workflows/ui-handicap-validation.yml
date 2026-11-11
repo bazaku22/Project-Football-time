@@ -39,9 +39,9 @@ jobs:
           import re
           from pathlib import Path
           html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>', html, flags=re.I)
-          if len(scripts) != 1 or not scripts[0].strip():
-              raise SystemExit(f"Expected one inline application script, found {len(scripts)}")
+          scripts = [s for s in re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>', html, flags=re.I) if s.strip()]
+          if len(scripts) != 1:
+              raise SystemExit(f"Expected one non-empty inline application script, found {len(scripts)}")
           Path("/tmp/football-time-inline.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/football-time-inline.js
