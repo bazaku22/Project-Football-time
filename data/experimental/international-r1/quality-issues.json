@@ -1,0 +1,43 @@
+{
+  "dataset_id": "international-r1-2026",
+  "issues": [
+    {
+      "id": "DQ-ARG-001",
+      "severity": "medium",
+      "status": "excluded_from_features_pending_resolution",
+      "teams": [
+        "Argentina",
+        "Bolivia"
+      ],
+      "records": [
+        "INT-HIST-20260930-argentina-bolivia",
+        "INT-HIST-20261001-argentina-bolivia"
+      ],
+      "description": "Same 4-0 Argentina–Bolivia friendly appears twice in pinned source extract with dates 2026-09-30 and 2026-10-01, same city, score and competition. Retain both source rows as evidence; the 2026-10-01 candidate is excluded from team-form windows. AFA independently reports the match on 30 Sep. Do not count both."
+    },
+    {
+      "id": "DQ-CUTOFF-001",
+      "severity": "medium",
+      "status": "known_limitation",
+      "description": "Pinned CC0 CSV latest match date is 2026-10-06. Later matches before November pilot kickoffs may be missing. Do not assume completeness; disclose stale form or add only individually verified and permitted records in a later revision."
+    },
+    {
+      "id": "DQ-SOURCE-001",
+      "severity": "medium",
+      "status": "known_limitation",
+      "description": "Historical dataset is a maintainer-declared CC0 multi-source compilation, not a federation feed. It requires provenance and anomaly checks; no official-source status is implied."
+    },
+    {
+      "id": "DQ-SCORE-001",
+      "severity": "medium",
+      "status": "known_limitation",
+      "description": "Source scores include extra time and exclude penalty shootouts. They are not automatically regulation-time scores for model outcome evaluation."
+    },
+    {
+      "id": "DQ-ALIAS-001",
+      "severity": "low",
+      "status": "mapped_explicitly",
+      "description": "Turkey→Türkiye, Czech Republic→Czechia, Korea Republic/Korea South→South Korea. Original source team names remain preserved; unknown names must not be fuzzy-matched."
+    }
+  ]
+}
