@@ -855,18 +855,20 @@ function recordHandicapSnapshot(match,event,option,probabilities){
  catch(error){console.warn("Handicap history could not be saved; existing snapshots remain unchanged",error);return false;}
 }
 function getMatchCardAnalysis(match,resultOverride){
- const result=resultOverride||computeMatchProbability(match);
- if(!result)return {status:"unavailable",probabilities:null,handicap:{status:"unavailable"}};
  const reference=selectAutomaticHandicapReference(match);
- if(reference.status!=="ready")return {status:"ready",probabilities:result.probabilities,handicap:{status:reference.status}};
- const line=reference.selected.line;
- const probabilities=window.FootballTimeAsianHandicap?.calculateFromDistribution?.(result.scoreDistribution,line);
- if(!probabilities)return {status:"ready",probabilities:result.probabilities,handicap:{status:"unavailable",line}};
+ const result=resultOverride||computeMatchProbability(match);
+ let handicap={status:reference.status};
+ if(reference.status==="ready"){
+  handicap={status:"ready",line:reference.selected.line,freshSourceCount:reference.freshSourceCount,latest:reference.selected.latest,provider:reference.event.provider||"The Odds API"};
+ }
+ if(!result)return {status:"unavailable",probabilities:null,handicap};
+ if(reference.status!=="ready")return {status:"ready",probabilities:result.probabilities,handicap};
+ const probabilities=window.FootballTimeAsianHandicap?.calculateFromDistribution?.(result.scoreDistribution,reference.selected.line);
+ if(!probabilities)return {status:"ready",probabilities:result.probabilities,handicap:{...handicap,status:"unavailable"}};
  recordHandicapSnapshot(match,reference.event,reference.selected,probabilities);
  return {status:"ready",probabilities:result.probabilities,handicap:{
-  status:"ready",line,probabilities,winSide:Number((probabilities.fullWin+probabilities.halfWin).toFixed(4)),
-  push:Number(probabilities.push.toFixed(4)),freshSourceCount:reference.freshSourceCount,
-  latest:reference.selected.latest,provider:reference.event.provider||"The Odds API"
+  ...handicap,probabilities,winSide:Number((probabilities.fullWin+probabilities.halfWin).toFixed(4)),
+  push:Number(probabilities.push.toFixed(4))
  }};
 }
 function renderAutomaticHandicap(match,result){
