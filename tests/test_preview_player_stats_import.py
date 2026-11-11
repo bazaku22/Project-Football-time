@@ -83,6 +83,18 @@ class PreviewTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual(manifest["rows"][0]["status"], "needs_identity_review")
 
+
+    def test_mapping_with_different_team_is_rejected_for_review(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001", "team_code": "CHE",
+              "season": "2026/27"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("team_code" in issue for issue in manifest["rows"][0]["issues"]))
+
     def test_duplicate_mapping_key_fails_closed(self):
         duplicate = [
             {"provider": "source_a", "provider_player_id": "p-100", "canonical_player_key": "a"},
