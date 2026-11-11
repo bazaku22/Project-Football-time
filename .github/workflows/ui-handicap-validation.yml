@@ -19,6 +19,7 @@ on:
       - ".github/workflows/ui-handicap-validation.yml"
   push:
     branches:
+      - "main"
       - "feature/match-card-intelligence-v6-2"
     paths:
       - "index.html"
