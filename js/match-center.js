@@ -99,6 +99,12 @@
     const league = (database?.leagues || []).find((item) => item.id === match.leagueId);
     const date = matchDate(match);
     const time = formatThaiTime(match.utcDate);
+    const providerMatchId = match.providerMatchId == null ? "" : String(match.providerMatchId);
+    const analysisStatus = ["SCHEDULED","TIMED"].includes(String(match.status || "").toUpperCase());
+    const canOpenAnalysis = kind === "upcoming" && analysisStatus &&
+      Number.isFinite(new Date(match.utcDate).getTime()) &&
+      new Date(match.utcDate).getTime() > Date.now() && providerMatchId !== "";
+    const actionLabel = canOpenAnalysis ? "วิเคราะห์คู่นี้" : "ดูรายละเอียดข้อมูล";
     return '<article class="mc-match-card">' +
       '<div class="mc-match-top"><span class="mc-league-name">' + esc(league?.name || match.leagueId) + '</span>' +
       '<span class="mc-status mc-status-' + kind + '">' + esc(statusLabel(match)) + '</span></div>' +
@@ -107,7 +113,7 @@
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + crest(away) + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
       '</div><div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' + esc(statusLabel(match)) + '</span>' +
-      '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) + '" data-match-league="' + esc(match.leagueId) + '">ดูรายละเอียดข้อมูล</button></div></article>';
+      '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) + '" data-match-league="' + esc(match.leagueId) + '" data-provider-match-id="' + esc(providerMatchId) + '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button></div></article>';
   }
   function render() {
     const root = $("matchCenterMatches");
@@ -164,6 +170,23 @@
   function openInDatabase(button) {
     const page = document.querySelector('[data-page="fixtures"]');
     page?.click();
+    const providerMatchId = button.dataset.providerMatchId || "";
+    if (button.dataset.matchAction === "analysis" && providerMatchId) {
+      document.querySelector('[data-db-tab="probability"]')?.click();
+      const leagueSelect = $("probLeagueSelect");
+      const matchSelect = $("probMatchSelect");
+      if (leagueSelect && matchSelect) {
+        leagueSelect.value = button.dataset.matchLeague || "";
+        leagueSelect.dispatchEvent(new Event("change",{bubbles:true}));
+        const hasMatch = [...matchSelect.options].some((option) => option.value === providerMatchId);
+        if (hasMatch) {
+          matchSelect.value = providerMatchId;
+          matchSelect.dispatchEvent(new Event("change",{bubbles:true}));
+          $("probabilityOutput")?.scrollIntoView({behavior:"smooth",block:"start"});
+          return;
+        }
+      }
+    }
     document.querySelector('[data-db-tab="overview"]')?.click();
     const from = $("discoveryDateFrom"), to = $("discoveryDateTo"), league = $("discoveryDateLeague");
     if (from) { from.value = button.dataset.matchDate || ""; from.dispatchEvent(new Event("input",{bubbles:true})); }

@@ -41,6 +41,26 @@ class MatchCenterTests(unittest.TestCase):
             self.assertIn(marker, MODULE)
         self.assertIn("mc-crest-wrap", CSS)
 
+    def test_upcoming_match_handoff_opens_its_existing_probability_analysis(self):
+        self.assertIn('data-provider-match-id=', MODULE)
+        self.assertIn('data-match-action=', MODULE)
+        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
+        self.assertIn('data-db-tab="probability"', MODULE)
+        self.assertIn('probLeagueSelect', MODULE)
+        self.assertIn('probMatchSelect', MODULE)
+        self.assertIn('providerMatchId', MODULE)
+        self.assertIn('วิเคราะห์คู่นี้', MODULE)
+
+    def test_non_upcoming_matches_keep_database_context_fallback(self):
+        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
+        self.assertIn('data-db-tab="overview"', MODULE)
+        self.assertIn('discoveryDateFrom', MODULE)
+
+    def test_analysis_handoff_matches_the_existing_analysis_status_contract(self):
+        self.assertIn('["SCHEDULED","TIMED"]', MODULE)
+        self.assertIn('analysisStatus', MODULE)
+        self.assertIn('providerMatchId !== ""', MODULE)
+
     def test_offline_asset_and_cache_are_versioned(self):
         self.assertIn("football-time-v42", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
