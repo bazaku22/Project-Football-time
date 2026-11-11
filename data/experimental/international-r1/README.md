@@ -5,43 +5,34 @@
 **Source manifest:** `docs/international-match-experimental-lab-round-1-manifest.md`
 
 ## Files
+- `fixtures.json`: 15 normalized fixture records with stable namespaced IDs.
+- `results.json`: 196 recent historical source rows across the 25 pilot teams, stored once per source match record.
+- `team-form.json`: per-team latest-10 source-row windows and provisional 5/10-match goal features.
+- `team-aliases.json`: explicit canonical team IDs and reviewed aliases.
+- `quality-issues.json`: duplicate candidate, source cutoff, source quality, score semantics, and alias notes.
 
-- `fixtures.json`: normalized fixture records, one row per match, with stable namespaced IDs.
-- `results.json` (planned): normalized historical results, one row per match, shared by both participating teams.
-- `team-aliases.json` (planned): reviewed source-name to canonical-team mapping.
-- `quality-issues.json` (planned): duplicate candidates, unresolved dates/scores, source conflicts, and exclusions.
+## Current audit
+- Pinned source: `martj42/international_results`, commit `b0948cb558c927c357db4067eac5b37b96d0e4bb`, CSV blob `9999a4b380b16189825884a8dab4dc869c847f72`.
+- 49,940 source match rows; source latest date 2026-10-06.
+- All 25 target teams have at least 5 eligible recent records; 24 have 10 eligible records. Argentina has 9 eligible records in its latest-10 raw window because one duplicate candidate is excluded and is not backfilled.
+- 196 source rows selected across the team windows; shared matches are represented once in `results.json`.
+- All 196 records have unique IDs; every team-form reference resolves; all pilot-team appearances have canonical IDs.
+- The 2026-10-01 Argentina–Bolivia row is retained as an excluded quality record; the 2026-09-30 row is used. Do not count both.
 
 ## Data rules
-
-- This dataset is separate from `data/football-database.json`, club prediction snapshots, and club evaluation history.
-- No application import, production database write, Local Storage change, Supabase write, API integration, workflow, polling, or scheduled job is part of this dataset.
-- Store one match once; never duplicate a shared match under both teams.
-- Preserve source name, source URL, retrieval time, timezone, usage basis, and data-quality status.
-- Unknown values stay `null`; do not infer kickoff, venue, neutral status, lineups, or scores.
-- Only use senior men's internationals. Keep Nations League and friendlies distinguishable.
-- Enforce strict pre-kickoff feature cutoffs. A match result after the target fixture kickoff must never enter its features.
-- Keep regulation score, extra-time score, and penalty shootout result separate when those values are available. The pinned CC0 source scores include extra time and exclude shootouts.
-- The Argentina 4–0 Bolivia duplicate-date candidate remains unresolved; do not count it twice.
-- The pinned CC0 source is a multi-source compilation, not an official federation feed. Preserve that provenance and validate anomalies.
-
-## Fixture schema
-
-Each fixture includes:
-- `id`, `competition`, `match_type`, `local_date`
-- `home_team`, `away_team`
-- `kickoff_local`, `kickoff_utc`, `source_timezone`
-- `venue`, `neutral_venue`
-- `match_status`, `score`
-- `source_names`, `source_urls`, `retrieved_at`
-- `usage_basis`, `data_status`
+- Separate from `data/football-database.json`, club prediction snapshots, and club evaluation history.
+- No application import, production database write, Local Storage change, Supabase write, API integration, workflow, polling, or scheduled job.
+- Preserve original source team names and normalize only through the explicit alias file; no fuzzy matching.
+- Unknown fields stay `null`; do not infer kickoff, venue, neutral status, lineups, or scores.
+- Strict pre-kickoff feature cutoff: records must be dated before 2026-11-12 for this pilot baseline. No target fixture or post-kickoff result is included.
+- CC0 source scores include extra time and exclude penalty shootouts; verify regulation-time outcomes separately before evaluation.
+- The source is a multi-source compilation, not an official federation feed. Do not claim federation verification.
 
 ## Known limitations
-
-- Argentina–Uruguay kickoff time was not published in the official notice reviewed; the timestamp fields remain null.
-- Historical-results raw extract has not yet been materialized into this repository. Coverage figures and pinned source hashes are documented in the source manifest, but they are not a substitute for the actual normalized rows.
-- Before model evaluation, validate the historical raw extract, resolve aliases and duplicates, add source URLs/provenance per record, and run a temporal-integrity check.
-- This 15-match sample is exploratory and cannot establish model superiority or robust calibration.
+- Source ends 2026-10-06; possible Oct 7–fixture-kickoff results are not represented.
+- Argentina's sample is limited to 9 in the latest-10 raw window because of the duplicate candidate.
+- Recent form mixes competitions and venue types; GF/GA are descriptive, not calibrated strength ratings.
+- The data is suitable for an isolated exploratory baseline only. It does not establish model calibration or superiority.
 
 ## Explicit exclusions
-
-No odds, bookmaker data, betting recommendations, staking, or gambling workflows. No changes to production app, club database/model/history, providers, API quota, workflows, schedules, or recurring costs.
+No production app, club database/model/history, Local Storage, Supabase, API/provider, quota, workflow, schedule, polling, or recurring-cost changes. No import into production. No odds, bookmaker data, betting recommendations, or gambling workflows.
