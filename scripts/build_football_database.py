@@ -1,200 +1,107 @@
 import json
 import os
 from datetime import datetime, timezone
-
 from phase6_league_catalog import LEAGUE_CATALOG, PROVIDER_LEAGUES
 
 base = os.path.join(os.environ["RUNNER_TEMP"], "football-data")
+os.makedirs("data", exist_ok=True)
+db_path = "data/football-database.json"
+previous = None
+snapshots = []
+if os.path.exists(db_path):
+    try:
+        with open(db_path, encoding="utf-8") as f: previous = json.load(f)
+    except (OSError, json.JSONDecodeError) as e:
+        raise RuntimeError("Refusing to rebuild: existing database is unreadable.") from e
+    if not isinstance(previous, dict): raise ValueError("Existing database root must be an object.")
+    snapshots = previous.get("probabilitySnapshots", [])
+    if not isinstance(snapshots, list): raise ValueError("probabilitySnapshots is not a list.")
 
-leagues = LEAGUE_CATALOG
+def read(code, endpoint):
+    with open(os.path.join(base, f"{code}-{endpoint}.json"), encoding="utf-8") as f: return json.load(f)
 
-teams = {}
-team_seasons = []
-standings = []
-matches = []
+def optional_elc():
+    paths = [os.path.join(base, f"ELC-{e}.json") for e in ("teams","matches","standings")]
+    if not all(os.path.isfile(p) for p in paths): return None
+    try:
+        payload = [read("ELC", e) for e in ("teams","matches","standings")]
+        if not isinstance(payload[0].get("teams"), list) or not payload[0]["teams"]: return None
+        if not isinstance(payload[1].get("matches"), list): return None
+        groups = payload[2].get("standings")
+        if not isinstance(groups, list) or not any(g.get("type")=="TOTAL" and isinstance(g.get("table"),list) and g["table"] for g in groups): return None
+        return payload
+    except (OSError, ValueError, TypeError, AttributeError, json.JSONDecodeError): return None
 
-def read_json(code, endpoint):
-    path = os.path.join(base, f"{code}-{endpoint}.json")
-    with open(path, encoding="utf-8") as file:
-        return json.load(file)
+teams, team_seasons, standings, matches = {}, [], [], []
+now = datetime.now(timezone.utc).isoformat()
+league_sync = {}
+elc = optional_elc()
 
-sync_time = datetime.now(timezone.utc).isoformat()
+def process(code, td, md, sd):
+    season_info = td.get("season") or (td.get("competition") or {}).get("currentSeason") or {}
+    start, end = season_info.get("startDate"), season_info.get("endDate")
+    if not start or not end: raise ValueError(f"Season dates missing for {code}")
+    season = start[:4] + "-" + end[:4]
+    comp_id = (td.get("competition") or {}).get("id")
+    for team in td.get("teams", []):
+        pid = team.get("id")
+        if pid is None: raise ValueError(f"Team ID missing in {code}")
+        tid = f"football-data:{pid}"
+        teams[tid] = {"id":tid,"provider":"football-data.org","providerTeamId":pid,
+          "name":team.get("name"),"shortName":team.get("shortName"),"tla":team.get("tla"),
+          "crest":team.get("crest"),"country":(team.get("area") or {}).get("name")}
+        team_seasons.append({"teamId":tid,"leagueId":code,"season":season,
+          "providerCompetitionId":comp_id,"seasonStart":start,"seasonEnd":end})
+    total = [g for g in sd.get("standings",[]) if g.get("type")=="TOTAL"]
+    if not total: raise ValueError(f"TOTAL standings missing for {code}")
+    for group in total:
+      for row in group.get("table",[]):
+        pid=(row.get("team") or {}).get("id")
+        if pid is None: raise ValueError(f"Standing team ID missing in {code}")
+        standings.append({"leagueId":code,"season":season,"teamId":f"football-data:{pid}",
+          "position":row.get("position"),"played":row.get("playedGames"),"won":row.get("won"),
+          "draw":row.get("draw"),"lost":row.get("lost"),"goalsFor":row.get("goalsFor"),
+          "goalsAgainst":row.get("goalsAgainst"),"goalDifference":row.get("goalDifference"),
+          "points":row.get("points"),"updatedAt":now})
+    for m in md.get("matches",[]):
+      home,away=m.get("homeTeam") or {},m.get("awayTeam") or {}
+      ft=(m.get("score") or {}).get("fullTime") or {}
+      cancelled=m.get("status")=="CANCELLED"
+      matches.append({"providerMatchId":m.get("id"),"leagueId":code,"season":season,
+        "utcDate":m.get("utcDate"),"status":m.get("status"),
+        "homeTeamId":f"football-data:{home['id']}" if home.get("id") is not None else None,
+        "awayTeamId":f"football-data:{away['id']}" if away.get("id") is not None else None,
+        "homeTeamName":home.get("name"),"awayTeamName":away.get("name"),
+        "homeScore":None if cancelled else ft.get("home"),"awayScore":None if cancelled else ft.get("away")})
+    print(f"{code}: teams={len(td.get('teams',[]))}, matches={len(md.get('matches',[]))}")
 
 for league in PROVIDER_LEAGUES:
-    code = league["id"]
+    code=league["id"]
+    if code=="ELC" and elc is None:
+        old=previous or {}
+        old_ts=[x for x in old.get("teamSeasons",[]) if x.get("leagueId")=="ELC"]
+        old_st=[x for x in old.get("standings",[]) if x.get("leagueId")=="ELC"]
+        old_ms=[x for x in old.get("matches",[]) if x.get("leagueId")=="ELC"]
+        if not old_ts or not old_st or not old_ms:
+            raise RuntimeError("ELC unavailable and no complete previous ELC data; refusing incomplete publication.")
+        refs={x.get("teamId") for x in old_ts+old_st}
+        for m in old_ms: refs.update(x for x in (m.get("homeTeamId"),m.get("awayTeamId")) if x)
+        for t in old.get("teams",[]):
+            if t.get("id") in refs: teams.setdefault(t["id"],t)
+        team_seasons.extend(old_ts); standings.extend(old_st); matches.extend(old_ms)
+        src=old.get("source") or {}; old_sync=(src.get("leagueSync") or {}).get("ELC") or {}
+        last=old_sync.get("lastSuccessfulSync") or src.get("lastSuccessfulSync") or old.get("generatedAt")
+        league_sync["ELC"]={"status":"stale","lastSuccessfulSync":last}
+        print("ELC unavailable/incomplete: previous ELC rows preserved atomically.")
+        continue
+    payload=elc if code=="ELC" else tuple(read(code,e) for e in ("teams","matches","standings"))
+    process(code,*payload)
+    league_sync[code]={"status":"fresh","lastSuccessfulSync":now}
 
-    team_data = read_json(code, "teams")
-    match_data = read_json(code, "matches")
-    standing_data = read_json(code, "standings")
-
-    season_info = (
-        team_data.get("season")
-        or (team_data.get("competition") or {}).get("currentSeason")
-        or {}
-    )
-
-    start = season_info.get("startDate")
-    end = season_info.get("endDate")
-
-    if not start or not end:
-        raise ValueError(f"Season dates missing for {code}")
-
-    season = start[:4] + "-" + end[:4]
-
-    competition = team_data.get("competition") or {}
-    competition_id = competition.get("id")
-
-    for team in team_data.get("teams", []):
-        provider_id = team.get("id")
-
-        if provider_id is None:
-            raise ValueError(f"Team ID missing in {code}")
-
-        team_id = f"football-data:{provider_id}"
-
-        teams[team_id] = {
-            "id": team_id,
-            "provider": "football-data.org",
-            "providerTeamId": provider_id,
-            "name": team.get("name"),
-            "shortName": team.get("shortName"),
-            "tla": team.get("tla"),
-            "crest": team.get("crest"),
-            "country": (team.get("area") or {}).get("name")
-        }
-
-        team_seasons.append({
-            "teamId": team_id,
-            "leagueId": code,
-            "season": season,
-            "providerCompetitionId": competition_id,
-            "seasonStart": start,
-            "seasonEnd": end
-        })
-
-    total_groups = [
-        group for group in standing_data.get("standings", [])
-        if group.get("type") == "TOTAL"
-    ]
-
-    if not total_groups:
-        raise ValueError(f"TOTAL standings missing for {code}")
-
-    for group in total_groups:
-        for row in group.get("table", []):
-            provider_id = (row.get("team") or {}).get("id")
-
-            if provider_id is None:
-                raise ValueError(f"Standing team ID missing in {code}")
-
-            standings.append({
-                "leagueId": code,
-                "season": season,
-                "teamId": f"football-data:{provider_id}",
-                "position": row.get("position"),
-                "played": row.get("playedGames"),
-                "won": row.get("won"),
-                "draw": row.get("draw"),
-                "lost": row.get("lost"),
-                "goalsFor": row.get("goalsFor"),
-                "goalsAgainst": row.get("goalsAgainst"),
-                "goalDifference": row.get("goalDifference"),
-                "points": row.get("points"),
-                "updatedAt": sync_time
-            })
-
-    for match in match_data.get("matches", []):
-        home = match.get("homeTeam") or {}
-        away = match.get("awayTeam") or {}
-        score = match.get("score") or {}
-        full_time = score.get("fullTime") or {}
-
-        status = match.get("status")
-
-        # Cancelled matches must never be treated as real 0-0 results.
-        if status == "CANCELLED":
-            home_score = None
-            away_score = None
-        else:
-            home_score = full_time.get("home")
-            away_score = full_time.get("away")
-
-        matches.append({
-            "providerMatchId": match.get("id"),
-            "leagueId": code,
-            "season": season,
-            "utcDate": match.get("utcDate"),
-            "status": status,
-            "homeTeamId": (
-                f"football-data:{home['id']}"
-                if home.get("id") is not None else None
-            ),
-            "awayTeamId": (
-                f"football-data:{away['id']}"
-                if away.get("id") is not None else None
-            ),
-            "homeTeamName": home.get("name"),
-            "awayTeamName": away.get("name"),
-            "homeScore": home_score,
-            "awayScore": away_score
-        })
-
-    print(
-        f"{code}: "
-        f"teams={len(team_data.get('teams', []))}, "
-        f"standings={sum(len(g.get('table', [])) for g in total_groups)}, "
-        f"matches={len(match_data.get('matches', []))}"
-    )
-
-previous_probability_snapshots = []
-previous_database_path = os.path.join("data", "football-database.json")
-if os.path.exists(previous_database_path):
-    try:
-        with open(previous_database_path, encoding="utf-8") as previous_file:
-            previous_database = json.load(previous_file)
-    except (OSError, json.JSONDecodeError) as error:
-        raise RuntimeError(
-            "Refusing to rebuild the database because the existing database "
-            "cannot be read safely; probability history may be lost."
-        ) from error
-
-    if not isinstance(previous_database, dict):
-        raise ValueError(
-            "Refusing to rebuild the database because the existing database "
-            "root is not an object."
-        )
-
-    previous_probability_snapshots = previous_database.get("probabilitySnapshots", [])
-    if not isinstance(previous_probability_snapshots, list):
-        raise ValueError(
-            "Refusing to rebuild the database because probabilitySnapshots "
-            "is not a list; historical records must not be discarded."
-        )
-
-database = {
-    "schemaVersion": "1.2.0",
-    "generatedAt": sync_time,
-    "source": {
-        "provider": "football-data.org",
-        "apiVersion": "v4",
-        "attribution": "Data provided by football-data.org",
-        "lastSuccessfulSync": sync_time
-    },
-    "leagues": leagues,
-    "teams": list(teams.values()),
-    "teamSeasons": team_seasons,
-    "standings": standings,
-    "matches": matches,
-    "probabilitySnapshots": previous_probability_snapshots
-}
-
-os.makedirs("data", exist_ok=True)
-
-with open("data/football-database.json", "w", encoding="utf-8") as file:
-    json.dump(database, file, ensure_ascii=False, indent=2)
-
-print("Database generated.")
-print("Teams:", len(teams))
-print("Team seasons:", len(team_seasons))
-print("Standings:", len(standings))
-print("Matches:", len(matches))
+database={"schemaVersion":"1.3.0","generatedAt":now,
+ "source":{"provider":"football-data.org","apiVersion":"v4",
+ "attribution":"Data provided by football-data.org","lastSuccessfulSync":now,"leagueSync":league_sync},
+ "leagues":LEAGUE_CATALOG,"teams":list(teams.values()),"teamSeasons":team_seasons,
+ "standings":standings,"matches":matches,"probabilitySnapshots":snapshots}
+with open(db_path,"w",encoding="utf-8") as f: json.dump(database,f,ensure_ascii=False,indent=2)
+print("Database generated; immutable snapshots retained:",len(snapshots))

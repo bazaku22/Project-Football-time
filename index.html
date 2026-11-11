@@ -273,6 +273,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script>
 "use strict";
 const STORAGE_KEY="pft_matches_v1";
+let footballDBDelivery="unknown";
 const DB_URL="./data/football-database.json";
 const TEST_RECORDS_URL="./data/test-records.json";
 const starterMatches=[
@@ -953,9 +954,10 @@ async function loadFootballDatabase(){
   const data=await response.json();
   if(!data||!Array.isArray(data.leagues)||!Array.isArray(data.teams)||!Array.isArray(data.standings)||!Array.isArray(data.matches)||!Array.isArray(data.teamSeasons))throw Error("รูปแบบฐานข้อมูลไม่ถูกต้อง");
   footballDB=applyPhase6LeagueCatalog(data);
+  footballDBDelivery=response.headers.get("X-PFT-Data-Source")||"unknown";
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
-  status.textContent="เชื่อมต่อสำเร็จ";
+  status.textContent=footballDBDelivery==="cache"?"ใช้ข้อมูลจากแคช (อาจไม่ใช่ข้อมูลล่าสุด)":footballDBDelivery==="network"?"รับข้อมูลจากเครือข่าย":"โหลดข้อมูลสำเร็จ (ไม่ทราบแหล่ง)";
   recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready"));
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
@@ -965,7 +967,7 @@ async function loadFootballDatabase(){
   console.error("Football database load failed",error);
  }
 }
-window.FootballTimeAppContext={getDatabase:()=>footballDB,computeMatchProbability,getSeason:formSeasonForLeague,escapeHtml:esc,getFixtures:()=>testFixturesData?.fixtures||[],rerender:renderTestFixtures};
+window.FootballTimeAppContext={getDatabase:()=>footballDB,getDataDelivery:()=>footballDBDelivery,computeMatchProbability,getSeason:formSeasonForLeague,escapeHtml:esc,getFixtures:()=>testFixturesData?.fixtures||[],rerender:renderTestFixtures};
 render();
 loadCentralTestRecords();
 loadFootballDatabase();

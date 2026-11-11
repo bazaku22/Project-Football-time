@@ -67,9 +67,16 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v44", WORKER)
+        self.assertIn("football-time-v45", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
+
+    def test_network_and_cache_delivery_are_distinguished(self):
+        self.assertIn('headers.set("X-PFT-Data-Source", "network")', WORKER)
+        self.assertIn('headers.set("X-PFT-Data-Source", "cache")', WORKER)
+        self.assertIn('response.headers.get("X-PFT-Data-Source")', HTML)
+        self.assertIn('getDataDelivery:()=>footballDBDelivery', HTML)
+        self.assertIn("ความสดรายลีก", MODULE)
 
     def test_dynamic_data_cache_ignores_cache_busting_query_strings(self):
         self.assertIn('new Request(url.origin + url.pathname, { method: "GET" })', WORKER)
