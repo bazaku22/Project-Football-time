@@ -21,7 +21,7 @@ Define a provider-neutral CSV format and a local validation step so Football Tim
 
 ## CSV contract
 
-The canonical template is `data/import-templates/player-statistics-template.csv`.
+The canonical templates are `data/import-templates/player-statistics-template.csv` and `data/import-templates/player-id-mapping-template.csv`.
 
 ### Identity and scope columns
 
@@ -61,6 +61,23 @@ Supported optional numeric fields:
 - `saves`, `clean_sheets`
 
 A blank cell means unknown. Values must be non-negative. `shots_on_target` must not exceed `shots` when both are supplied; `starts` must not exceed `appearances` when both are supplied.
+
+## Identity mapping and preview
+
+Use `scripts/preview_player_stats_import.py` to create a local preview without changing the source CSV or contacting a service:
+
+```bash
+python scripts/preview_player_stats_import.py input-stats.csv player-id-mapping.csv
+```
+
+The mapping file links `(provider, provider_player_id)` to a Football Time `canonical_player_key`. Optional `team_code` and `season` columns are checked against the statistics row. Duplicate source-ID mappings fail closed. Player names are never used as an automatic identity match. The tool writes a JSON manifest and a review CSV; output paths must be separate from both input files. The manifest contains SHA-256 checksums of both inputs.
+
+Preview statuses:
+- `structurally_valid_pending_human_review`: format and identity checks passed; rights evidence and data accuracy still require human approval.
+- `needs_identity_review`: no exact provider ID mapping exists.
+- `rejected_or_needs_review`: one or more structural, rights-status, or mapping-scope checks failed.
+
+A successful preview is not an import. No Supabase writes occur.
 
 ## Validation and import lifecycle
 
@@ -103,4 +120,4 @@ The validator uses only the Python standard library. Run its regression tests fr
 python -m unittest discover -s tests -v
 ```
 
-The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, and non-finite numeric values.
+The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, non-finite numeric values, exact provider-ID matching, unresolved identities, name-only non-matching, duplicate mapping keys, and mismatched team scope.
