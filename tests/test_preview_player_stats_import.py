@@ -35,7 +35,7 @@ def stat_row(**overrides):
 
 
 class PreviewTests(unittest.TestCase):
-    def run_preview(self, source_rows, mapping_rows):
+    def run_preview(self, source_rows, mapping_rows, source_extra_values=False, empty_source=False):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             source, mapping = root / "stats.csv", root / "mapping.csv"
@@ -43,7 +43,12 @@ class PreviewTests(unittest.TestCase):
             with source.open("w", newline="", encoding="utf-8") as handle:
                 writer = csv.DictWriter(handle, fieldnames=FIELDS)
                 writer.writeheader()
-                writer.writerows(source_rows)
+                if not empty_source:
+                    writer.writerows(source_rows)
+            if source_extra_values and source_rows:
+                content = source.read_text(encoding="utf-8").splitlines()
+                content[-1] += ",EXTRA"
+                source.write_text("\n".join(content) + "\n", encoding="utf-8")
             with mapping.open("w", newline="", encoding="utf-8") as handle:
                 writer = csv.DictWriter(handle, fieldnames=[
                     "provider", "provider_player_id", "canonical_player_key",
@@ -112,6 +117,73 @@ class PreviewTests(unittest.TestCase):
         result, manifest = self.run_preview([stat_row(canonical_player_key="")], duplicate)
         self.assertEqual(result.returncode, 2)
         self.assertIsNone(manifest)
+
+
+    def test_provider_matching_is_case_insensitive_but_id_is_exact(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="")],
+            [{"provider": "SOURCE_A", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["identity_resolution"], "exact_provider_id_match")
+
+    def test_conflicting_source_canonical_key_is_quarantined(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="ft-other-player")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("conflicts" in issue for issue in manifest["rows"][0]["issues"]))
+
+    def test_mapping_season_mismatch_is_quarantined(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001", "season": "2025/26"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("season" in issue for issue in manifest["rows"][0]["issues"]))
+
+    def test_manual_review_rights_status_is_quarantined(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="", rights_status="manual_review")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("not approved" in issue for issue in manifest["rows"][0]["issues"]))
+
+    def test_invalid_metric_is_quarantined(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="", goals="-2")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001"}],
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("goals must be" in issue for issue in manifest["rows"][0]["issues"]))
+
+    def test_extra_source_values_are_quarantined_not_dropped(self):
+        result, manifest = self.run_preview(
+            [stat_row(canonical_player_key="")],
+            [{"provider": "source_a", "provider_player_id": "p-100",
+              "canonical_player_key": "ft-ars-001"}],
+            source_extra_values=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertEqual(manifest["rows"][0]["status"], "rejected_or_needs_review")
+        self.assertTrue(any("more values than the header" in issue for issue in manifest["rows"][0]["issues"]))
+
+    def test_empty_source_csv_fails_closed(self):
+        result, manifest = self.run_preview([], [], empty_source=True)
+        self.assertEqual(result.returncode, 2)
+        self.assertIsNone(manifest)
+        self.assertIn("no data rows", result.stderr)
 
 
 if __name__ == "__main__":

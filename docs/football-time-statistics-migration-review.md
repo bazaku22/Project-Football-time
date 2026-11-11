@@ -111,3 +111,13 @@ Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_pre
 - After rollback, row counts remained unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`, and all seven `ft_*` tables remained empty.
 - Added a repeatable local SQL test and a Python end-to-end preflight/preview test to the repository. The Python test validates the CSV, performs exact provider-ID mapping, quarantines an unmatched identity, preserves blank statistics as unknown, and verifies preview hashes/reports. CI is configured to run it.
 - The pgTAP test was also run with a transaction-scoped extension install; verification confirmed the extension was not left installed after rollback. The two identities were simulated by setting authenticated JWT claims, not by creating and signing into real Auth sessions through the HTTP API. Application-level authenticated API tests remain a separate future check.
+
+
+## 10. Expanded automated regression checks (PR #57, 2026-11-11)
+
+- Offline Python CI passed **25/25 tests** after expanding CSV validator and preview edge cases.
+- A separate disposable PostgreSQL 16 CI service successfully applied both player-statistics migrations and executed `supabase/tests/player_statistics_two_user_import_transaction.test.sql`; the transaction completed with `ROLLBACK`.
+- This CI job runs on relevant pull requests and does not connect to the production Supabase project.
+- Preview parsing now fails closed for duplicate headers, extra values in a source row, and header-only source CSV files. Extra CSV values are retained as a row-level rejection reason rather than silently discarded.
+- PR #57 is open and both CI jobs are green; it has not been merged.
+- The web UI is not yet connected to the CSV import flow or `ft_*` tables. The current Cloud Preview panel remains the legacy squad preview flow.

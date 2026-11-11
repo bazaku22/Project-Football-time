@@ -39,11 +39,16 @@ def read_mapping(path: Path):
     duplicate_keys = set()
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
-        headers = set(reader.fieldnames or [])
+        fieldnames = reader.fieldnames or []
+        if len(fieldnames) != len(set(fieldnames)):
+            raise ValueError("Mapping CSV contains duplicate column names")
+        headers = set(fieldnames)
         missing = sorted(MAPPING_REQUIRED - headers)
         if missing:
             raise ValueError("Mapping CSV missing columns: " + ", ".join(missing))
         for line, raw in enumerate(reader, start=2):
+            if None in raw:
+                raise ValueError(f"Mapping row {line}: contains more values than the header")
             row = {k: (v or "").strip() for k, v in raw.items() if k}
             provider, provider_id, canonical = (
                 row.get("provider", ""), row.get("provider_player_id", ""),
@@ -71,12 +76,16 @@ def build_preview(source: Path, mapping_path: Path):
     with source.open("r", encoding="utf-8-sig", newline="") as handle:
         reader = csv.DictReader(handle)
         fields = reader.fieldnames or []
+        if len(fields) != len(set(fields)):
+            raise ValueError("Statistics CSV contains duplicate column names")
         missing = sorted(STAT_REQUIRED - set(fields))
         if missing:
             raise ValueError("Statistics CSV missing columns: " + ", ".join(missing))
         source_rows = []
         for line, raw in enumerate(reader, start=2):
             row = {k: (v or "").strip() for k, v in raw.items() if k}
+            if None in raw:
+                row["_row_issue"] = "row contains more values than the header"
             row["_source_line"] = line
             original_key = row.get("canonical_player_key", "")
             provider_key = (row.get("provider", "").casefold(), row.get("provider_player_id", ""))
@@ -101,6 +110,8 @@ def build_preview(source: Path, mapping_path: Path):
     # Validate a resolved temporary copy. Original CSV remains untouched.
     validation_rows = [{k: v for k, v in row.items() if not k.startswith("_")} for row in source_rows]
     errors, rows_seen, _eligible = validate_rows_in_memory(fields, validation_rows)
+    if rows_seen == 0:
+        raise ValueError("Statistics CSV contains a header but no data rows")
     by_line = {}
     global_issues = []
     for error in errors:
@@ -117,8 +128,12 @@ def build_preview(source: Path, mapping_path: Path):
     for row in source_rows:
         line = row["_source_line"]
         issues = list(global_issues) + by_line.get(line, [])
+        if row.get("_row_issue"):
+            issues.append(row["_row_issue"])
         if row.get("_mapping_issue"):
             issues.append(row["_mapping_issue"])
+            status = "rejected_or_needs_review"
+        elif row.get("_row_issue"):
             status = "rejected_or_needs_review"
         elif row["_identity_resolution"] in {"unresolved", "unverified_canonical_key"}:
             status = "needs_identity_review"

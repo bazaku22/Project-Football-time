@@ -10,6 +10,8 @@ on:
       - "tests/test_player_stats_import_e2e.py"
       - "supabase/migrations/**/*.sql"
       - "supabase/tests/**/*.sql"
+      - "docs/football-time-statistics-import-spec.md"
+      - "docs/football-time-statistics-migration-review.md"
       - ".github/workflows/player-stats-import-tests.yml"
   workflow_dispatch:
 
@@ -52,3 +54,61 @@ jobs:
           PY
       - name: Run offline test suite
         run: python -m unittest discover -s tests -p 'test_*player_stats*.py' -v
+
+  postgres-rls-transaction:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: football_time_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d football_time_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: football_time_test
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+      - name: Bootstrap minimal Supabase Auth roles for isolated PostgreSQL tests
+        run: |
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          create role anon nologin;
+          create role authenticated nologin;
+          create role service_role nologin bypassrls;
+          create schema auth;
+          create table auth.users (
+            id uuid primary key,
+            aud text,
+            role text,
+            email text unique
+          );
+          create function auth.uid()
+          returns uuid
+          language sql stable
+          as $$
+            select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid
+          $$;
+          grant usage on schema auth to anon, authenticated, service_role;
+          grant execute on function auth.uid() to authenticated, service_role;
+          SQL
+      - name: Apply player statistics schema to disposable PostgreSQL
+        run: |
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261111063000_create_player_statistics_foundation.sql
+          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261111064223_restrict_player_statistics_service_role_grants.sql
+      - name: Execute two-user RLS isolation and transactional import test
+        run: |
+          psql -v ON_ERROR_STOP=1 -f supabase/tests/player_statistics_two_user_import_transaction.test.sql
