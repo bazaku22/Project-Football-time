@@ -201,9 +201,13 @@ For each team-match pre-match feature:
 
 ## 6. Readiness policy
 
-- **Ready for basic form features:** at least one verified prior senior international result, with sample size displayed.
-- **Limited:** sparse results, uncertain venue classification, or missing context. Use only supported features.
-- **Insufficient:** no verified prior results or material source conflict. Do not generate a model prediction.
+- **Provisional form-ready:** at least 5 prior senior men's results are present in the pinned CC0 dataset, the team identity is normalized, and the sample is filtered strictly before kickoff. Show the actual sample count and label the data as multi-source / not federation-verified.
+- **Limited:** fewer than 10 distinct recent results, no independent federation confirmation, uncertain venue classification, mixed competition context, or unresolved data-quality flags. Use only supported features and lower the data-readiness label.
+- **Insufficient:** no usable prior results, unresolved team identity, or a material score/date conflict affecting the available sample. Exclude the affected record or team feature rather than guessing.
+- Argentina is limited to 9 distinct recent results until the duplicate-date 4–0 Bolivia entry is resolved. Do not count both dates.
+- Qatar and Singapore have no accepted manually verified federation historical-result rows in Section 4. Their provisional recent-form rows may come only from the pinned CC0 dataset; do not promote secondary score listings into the official-source sheet. If the CC0 row itself is missing or ambiguous, omit that feature.
+- South Korea has one independently confirmed recent result in Section 4; other recent-form rows remain CC0 multi-source records unless independently confirmed.
+- **Cut-off limitation:** the pinned CSV's latest match date is 2026-10-06. No later results are assumed. Any match between 2026-10-07 and each Round 1 kickoff must be checked separately; if it cannot be confirmed from a permitted source, leave it out and disclose that the form sample may be stale.
 - Readiness is separate from probability confidence.
 - Fifteen fixtures are a pilot sample, not enough to claim model superiority. Report Brier score, log loss, calibration, sample count, and uncertainty separately.
 - Separate Nations League and friendly evaluations where sample size allows.
@@ -271,3 +275,14 @@ GF/GA are descriptive averages from each team's latest available distinct match 
 8. **Source quality:** this is a CC0 multi-source compilation, not an official federation feed. Use it for exploratory form/history only; cross-check the most recent and anomalous matches against federation/competition sources before presenting match-specific explanations or making model claims.
 
 **Audit conclusion:** the source-data coverage gate is passed for a 5-match experimental form baseline across all 25 teams. It is conditionally passed for 10-match form for 24 teams; Argentina remains limited to 9 distinct matches until the duplicate-date issue is resolved. This does not authorize ingestion into production or establish that the experimental model is ready/calibrated.
+
+
+### Explicit exclusions and accepted fallback
+
+- Exclude secondary-only historical result listings that could not be independently validated or whose reuse permission was not established. They are not part of the accepted results sheet and must not be merged into the CC0 extract.
+- Do not claim that the CC0 compilation is an official federation source. Its CC0 licence is the dataset maintainer's declared reuse basis; provenance and record-level uncertainty remain.
+- Keep the 15 fixtures because their fixture notices are supported by official competition/federation sources. Do not remove Qatar or Singapore from the fixture list solely because an official historical-results page was not found; instead, use only eligible CC0 records provisionally and exclude any row that fails identity/date/score checks.
+- If a team's usable sample falls below 5 after row-level exclusions, omit that team's model prediction for the affected fixture rather than forcing a prediction.
+- No manual completion of missing dates, scores, venue, neutral status, lineups, or rankings. Unknown stays null.
+
+**Operational decision:** retain all 25 teams for the isolated pilot data sheet, use 5-match form provisionally where at least 5 eligible CC0 rows remain, use 10-match form only where 10 distinct eligible rows remain, and exclude unresolved records. Current audit baseline: 25 teams have at least 5 eligible historical rows; 24 have 10 distinct recent rows; Argentina has 9 pending resolution. The dataset cut-off is 2026-10-06, so later pre-kickoff matches are not represented and must not be invented.
