@@ -60,6 +60,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/match-center.css?v=1">
 <link rel="stylesheet" href="./css/primary-navigation.css?v=1">
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
+<script src="./js/asian-handicap.js"></script>
 </head>
 <body>
 <header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.1.0-beta.1</span></div></div></header>
@@ -847,10 +848,10 @@ function renderAutomaticHandicap(match,result){
   return '<div class="handicap-summary"><div class="handicap-cover"><span>โอกาสฝั่งชนะ (ชนะเต็ม + ครึ่ง)</span><b>'+cover.toFixed(1)+'%</b><em class="prob-level '+bandClass(cover)+'">'+probabilityBand(cover)+'</em></div><div class="handicap-cover"><span>โอกาสฝั่งแพ้ (แพ้เต็ม + ครึ่ง)</span><b>'+loss.toFixed(1)+'%</b><em class="prob-level '+bandClass(loss)+'">'+probabilityBand(loss)+'</em></div><div class="handicap-cover"><span>คืนทุน</span><b>'+p.push.toFixed(1)+'%</b></div></div><div class="handicap-result-grid"><div><b>'+p.fullWin.toFixed(1)+'%</b><span>ชนะเต็ม</span></div><div><b>'+p.halfWin.toFixed(1)+'%</b><span>ชนะครึ่ง</span></div><div><b>'+p.push.toFixed(1)+'%</b><span>คืนทุน</span></div><div><b>'+p.halfLoss.toFixed(1)+'%</b><span>แพ้ครึ่ง</span></div><div><b>'+p.fullLoss.toFixed(1)+'%</b><span>แพ้เต็ม</span></div></div><div class="analysis-insight compact"><b>สรุป Handicap</b><p>จากเส้น '+fmt(line)+' เจ้าบ้านมีโอกาสได้ผลฝั่งชนะ '+cover.toFixed(1)+'% ('+probabilityBand(cover)+') และมีโอกาสคืนทุน '+p.push.toFixed(1)+'% ทั้งนี้เป็นการประเมินจากการกระจายสกอร์ ไม่ใช่คำรับประกันผล</p></div>';
  };
  const options=lineOptions.map(option=>'<option value="'+option.line.toFixed(2)+'">'+fmt(option.line)+' · '+option.items.map(x=>esc(x.bookmaker)).join(", ")+'</option>').join("");
- const selectedTime=new Date(selected.latest).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});
- target.innerHTML='<div class="field handicap-line-field"><label for="handicapLineSelect">เลือกเส้น Handicap จากแหล่งข้อมูลที่อัปเดตล่าสุด</label><select id="handicapLineSelect" class="filter">'+options+'</select></div><div class="quality-note">เลือกจาก '+freshRows.length+' แหล่งที่อัปเดตภายใน 24 ชั่วโมง · เส้นเริ่มต้น '+fmt(selected.line)+' · อัปเดตล่าสุด '+selectedTime+' · ไม่รวมแหล่งที่เก่าหรือไม่ทราบเวลา</div><div id="handicapProbabilityResult">'+renderResult(selected.line)+'</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event.commenceTime)+' · แสดงเฉพาะเส้นอ้างอิง ไม่แสดงราคาหรือคำแนะนำเดิมพัน</div>';
+ const lineMeta=option=>"เส้น "+fmt(option.line)+" · แหล่ง "+option.items.map(x=>esc(x.bookmaker)).join(", ")+" · อัปเดต "+new Date(option.latest).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});
+ target.innerHTML='<div class="field handicap-line-field"><label for="handicapLineSelect">เลือกเส้น Handicap จากแหล่งข้อมูลที่อัปเดตล่าสุด</label><select id="handicapLineSelect" class="filter">'+options+'</select></div><div class="quality-note">เลือกจาก '+freshRows.length+' แหล่งที่อัปเดตภายใน 24 ชั่วโมง · <span id="handicapLineMeta">'+lineMeta(selected)+'</span> · ไม่รวมแหล่งที่เก่าหรือไม่ทราบเวลา</div><div id="handicapProbabilityResult">'+renderResult(selected.line)+'</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event.commenceTime)+' · แสดงเฉพาะเส้นอ้างอิง ไม่แสดงราคาหรือคำแนะนำเดิมพัน</div>';
  const selector=target.querySelector("#handicapLineSelect");
- selector?.addEventListener("change",()=>{const output=target.querySelector("#handicapProbabilityResult");if(output)output.innerHTML=renderResult(Number(selector.value));});
+ selector?.addEventListener("change",()=>{const output=target.querySelector("#handicapProbabilityResult");if(output)output.innerHTML=renderResult(Number(selector.value));const option=lineOptions.find(x=>x.line===Number(selector.value));const meta=target.querySelector("#handicapLineMeta");if(option&&meta)meta.textContent=lineMeta(option);});
 }
 function renderProbabilityAnalysis(){
  if(!footballDB)return;
@@ -932,7 +933,7 @@ function renderProbabilityHistory(){
   const actual=snapshot.actualOutcome||((match?.status==="FINISHED"&&Number.isInteger(match.homeScore)&&Number.isInteger(match.awayScore))?(match.homeScore>match.awayScore?"home":match.homeScore===match.awayScore?"draw":"away"):null);
   const finished=match?.status==="FINISHED";
   const status=actual?(predicted===actual?"ประเมินแล้ว · ผลตรง":"ประเมินแล้ว · ผลไม่ตรง"):(finished?"จบแล้ว · รอข้อมูลสกอร์":"รอผลการแข่งขัน");
-  const score=snapshot.actualScore||(finished&&Number.isInteger(match.homeScore)&&Number.isInteger(match.awayScore)?match.homeScore+" - "+match.awayScore:"ยังไม่มีผลจริง");
+  const storedScore=snapshot.actualScore;const score=typeof storedScore==="string"?storedScore:(storedScore&&typeof storedScore==="object"&&Number.isInteger(storedScore.home)&&Number.isInteger(storedScore.away)?storedScore.home+" - "+storedScore.away:(finished&&Number.isInteger(match.homeScore)&&Number.isInteger(match.awayScore)?match.homeScore+" - "+match.awayScore:"ยังไม่มีผลจริง"));
   const dateValue=snapshot.utcDate||match?.utcDate||snapshot.createdAt;
   const date=Number.isFinite(Date.parse(dateValue||""))?new Date(dateValue).toLocaleString("th-TH",{timeZone:"Asia/Bangkok",dateStyle:"medium",timeStyle:"short"}):"ไม่ระบุเวลา";
   const probability=key=>Number.isFinite(p[key])?p[key].toFixed(1)+"%":"—";
@@ -1031,7 +1032,7 @@ loadAsianHandicapOdds();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
 <script src="./js/test-experiment.js"></script>
-<script src="./js/asian-handicap.js"></script>
+
 <script src="./js/test-experiment-enhancements.js"></script>
 <script src="./js/player-database.js"></script>
 <script src="./js/football-discovery.js"></script>
