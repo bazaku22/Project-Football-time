@@ -31,7 +31,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('const clubMatches = (database?.matches || []).filter', MODULE)
         self.assertIn('return [...clubMatches,...internationalFixtures]', MODULE)
         self.assertIn('leagueId:"INTL"', MODULE)
-        self.assertIn('value="INTL"', MODULE)
+        self.assertIn('return ["INTL","COMP:" + String(match.competitionName || "")]', MODULE)
 
     def test_flags_are_local_unicode_and_accessible(self):
         self.assertIn("function countryFlag(code)", MODULE)
@@ -74,14 +74,14 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v51", WORKER)
+        self.assertIn("football-time-v52", WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
     def test_app_version_and_copy_are_updated(self):
-        self.assertIn('<title>Project Football Time V6.4.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.4.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.4.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.5.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.5.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.5.0-beta.1</span>', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", HTML)
 
 
