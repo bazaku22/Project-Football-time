@@ -20,7 +20,7 @@
  function selectReference(event,nowValue){
   if(!event||!Array.isArray(event.bookmakers)||!event.bookmakers.length)return {status:"missing",event:event||null,rows:[],freshRows:[],selected:null};
   const now=nowValue instanceof Date?nowValue.getTime():Number(nowValue??Date.now());
-  const rows=event.bookmakers.filter(row=>row&&Number.isFinite(Number(row.homeLine))).map(row=>({...row,updatedAt:Date.parse(row.lastUpdate||"")}));
+  const rows=event.bookmakers.filter(row=>row&&typeof row.homeLine==="number"&&Number.isFinite(row.homeLine)).map(row=>({...row,updatedAt:Date.parse(row.lastUpdate||"")}));
   const freshRows=rows.filter(row=>Number.isFinite(row.updatedAt)&&row.updatedAt<=now&&now-row.updatedAt<=MAX_AGE_MS);
   if(!freshRows.length)return {status:"stale",event,rows,freshRows,selected:null};
   const offered=[...new Set(freshRows.map(row=>Number(row.homeLine)))].sort((a,b)=>a-b);
