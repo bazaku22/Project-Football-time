@@ -117,11 +117,11 @@ def build_preview(source: Path, mapping_path: Path):
     for row in source_rows:
         line = row["_source_line"]
         issues = list(global_issues) + by_line.get(line, [])
-        if row["_identity_resolution"] in {"unresolved", "unverified_canonical_key"}:
-            status = "needs_identity_review"
-        elif row.get("_mapping_issue"):
+        if row.get("_mapping_issue"):
             issues.append(row["_mapping_issue"])
             status = "rejected_or_needs_review"
+        elif row["_identity_resolution"] in {"unresolved", "unverified_canonical_key"}:
+            status = "needs_identity_review"
         elif issues:
             status = "rejected_or_needs_review"
         else:
