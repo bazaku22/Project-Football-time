@@ -95,6 +95,33 @@
       return aTime-bTime;
     });
   }
+  function probabilityBand(value) {
+    return value >= 65 ? "สูง" : value >= 40 ? "กลาง" : "ต่ำ";
+  }
+  function renderAnalysisSummary(match,analysis) {
+    if (!analysis) return "";
+    if (!analysis.probabilities) {
+      const line = analysis.handicap?.status === "ready"
+        ? '<div class="mc-analysis-handicap">เส้นอ้างอิงเจ้าบ้าน <b>' + esc(String(Number(analysis.handicap.line))) + '</b> · ยังไม่มีข้อมูลสถิติพอคำนวณเปอร์เซ็นต์</div>'
+        : '<div class="mc-analysis-handicap">ยังไม่มีข้อมูลสถิติพอคำนวณความน่าจะเป็น</div>';
+      return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div>' + line + '</section>';
+    }
+    const p=analysis.probabilities;
+    const outcome=(label,value)=>'<div class="mc-analysis-outcome"><span>'+label+'</span><b>'+Number(value).toFixed(1)+'%</b><small>'+probabilityBand(Number(value))+'</small></div>';
+    const h=analysis.handicap||{};
+    let handicapMarkup="";
+    if(h.status==="ready"&&Number.isFinite(Number(h.winSide))){
+      const line=Number(h.line),lineLabel=(line>0?"+":"")+String(Number(line.toFixed(2)));
+      handicapMarkup='<div class="mc-analysis-handicap"><div><span>Asian Handicap · เจ้าบ้าน</span><b>'+esc(lineLabel)+'</b></div><div class="mc-analysis-cover"><b>'+Number(h.winSide).toFixed(1)+'%</b><small>'+probabilityBand(Number(h.winSide))+' · โอกาสฝั่งเจ้าบ้านผ่าน</small></div><span class="mc-analysis-push">คืนทุน '+Number(h.push||0).toFixed(1)+'%</span></div>';
+    }else if(h.status==="stale"){
+      handicapMarkup='<div class="mc-analysis-handicap mc-analysis-muted">ข้อมูล Handicap เกิน 24 ชม. · งดคำนวณ</div>';
+    }else if(h.status==="missing"){
+      handicapMarkup='<div class="mc-analysis-handicap mc-analysis-muted">ยังไม่มีเส้น Handicap อ้างอิงจาก API</div>';
+    }else{
+      handicapMarkup='<div class="mc-analysis-handicap mc-analysis-muted">เส้น Handicap ยังไม่พร้อมคำนวณ</div>';
+    }
+    return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
+  }
   function renderCard(match) {
     const home = teamFor(match.homeTeamId), away = teamFor(match.awayTeamId);
     const kind = statusKind(match);
@@ -111,6 +138,7 @@
       Number.isFinite(new Date(match.utcDate).getTime()) &&
       new Date(match.utcDate).getTime() > Date.now() && providerMatchId !== "";
     const actionLabel = canOpenAnalysis ? "วิเคราะห์คู่นี้" : "ดูรายละเอียดข้อมูล";
+    const cardAnalysis = canOpenAnalysis ? window.FootballTimeAppContext?.getMatchCardAnalysis?.(match) : null;
     return '<article class="mc-match-card">' +
       '<div class="mc-match-top"><span class="mc-league-name">' + esc(league?.name || match.leagueId) + '</span>' +
       '<span class="mc-status mc-status-' + kind + '">' + esc(statusLabel(match)) + '</span></div>' +
@@ -118,7 +146,7 @@
       '<div class="mc-team">' + crest(home) + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + crest(away) + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
-      '</div><div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' + esc(statusLabel(match)) + '</span>' +
+      '</div>' + renderAnalysisSummary(match,cardAnalysis) + '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' + esc(statusLabel(match)) + '</span>' +
       '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) + '" data-match-league="' + esc(match.leagueId) + '" data-provider-match-id="' + esc(providerMatchId) + '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button></div></article>';
   }
   function render() {
@@ -243,6 +271,7 @@
     databaseError = String(event.detail?.message || "ไม่ทราบสาเหตุ");
     render();
   });
+  window.addEventListener("pft-handicap-reference-ready",render);
   window.addEventListener("pft-football-database-ready",() => {
     setDatabase(window.FootballTimeAppContext?.getDatabase?.() || null);
   });

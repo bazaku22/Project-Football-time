@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.1.0-beta.2">
-<title>Project Football Time V6.1.0-beta.2</title>
+<meta name="application-version" content="6.2.0-beta.1">
+<title>Project Football Time V6.2.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -62,9 +62,10 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
+<script src="./js/handicap-reference.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.1.0-beta.2</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.2.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -813,19 +814,19 @@ async function loadAsianHandicapOdds(){
   asianHandicapOddsData=data;
   if(target)target.innerHTML='<div class="small">อัปเดตชุดข้อมูลล่าสุด '+dateTime(data.fetchedAt)+' · ใช้โควตา '+esc(String(data.quota?.used??"ไม่ทราบ"))+' · คงเหลือ '+esc(String(data.quota?.remaining??"ไม่ทราบ"))+'</div><div class="quality-note">แสดงเฉพาะเส้น Handicap ที่ผู้ให้บริการส่งกลับมาจริง ไม่พบข้อมูลจะไม่เติมค่าคาดเดา</div>';
   if(footballDB)renderProbabilityAnalysis();
+  window.dispatchEvent(new Event("pft-handicap-reference-ready"));
  }catch(error){
   asianHandicapOddsData=null;
   if(target)target.innerHTML='<div class="empty">ยังไม่มีข้อมูล Handicap จากผู้ให้บริการ · '+esc(error.message)+' · ระบบจะไม่คาดเดาเส้นราคา</div>';
+  window.dispatchEvent(new Event("pft-handicap-reference-ready"));
  }
 }
-function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
 function findAutomaticHandicap(match){
- const events=asianHandicapOddsData?.events||[];
- const home=normalizeOddsTeam(match.homeTeamName),away=normalizeOddsTeam(match.awayTeamName),kickoff=new Date(match.utcDate).getTime();
- return events.find(event=>{
-  if(normalizeOddsTeam(event.homeTeam)!==home||normalizeOddsTeam(event.awayTeam)!==away)return false;
-  return Math.abs(new Date(event.commenceTime).getTime()-kickoff)<=6*60*60*1000;
- })||null;
+ return window.FootballTimeHandicapReference?.findEvent(match,asianHandicapOddsData?.events||[])||null;
+}
+function selectAutomaticHandicapReference(match){
+ const event=findAutomaticHandicap(match);
+ return window.FootballTimeHandicapReference?.selectReference(event,Date.now())||{status:"missing",event,rows:[],freshRows:[],selected:null};
 }
 function probabilityBand(value){return value>=65?"สูง":value>=40?"กลาง":"ต่ำ";}
 function bandClass(value){return value>=65?"high":value>=40?"medium":"low";}
@@ -855,33 +856,45 @@ function recordHandicapSnapshot(match,event,option,probabilities){
  try{localStorage.setItem(HANDICAP_HISTORY_STORAGE_KEY,JSON.stringify(rows));return true;}
  catch(error){console.warn("Handicap history could not be saved; existing snapshots remain unchanged",error);return false;}
 }
+function getMatchCardAnalysis(match,resultOverride){
+ const reference=selectAutomaticHandicapReference(match);
+ const result=resultOverride||computeMatchProbability(match);
+ let handicap={status:reference.status};
+ if(reference.status==="ready"){
+  handicap={status:"ready",line:reference.selected.line,freshSourceCount:reference.freshSourceCount,latest:reference.selected.latest,provider:reference.event.provider||"The Odds API"};
+ }
+ if(!result)return {status:"unavailable",probabilities:null,handicap};
+ if(reference.status!=="ready")return {status:"ready",probabilities:result.probabilities,handicap};
+ const probabilities=window.FootballTimeAsianHandicap?.calculateFromDistribution?.(result.scoreDistribution,reference.selected.line);
+ if(!probabilities)return {status:"ready",probabilities:result.probabilities,handicap:{...handicap,status:"unavailable"}};
+ recordHandicapSnapshot(match,reference.event,reference.selected,probabilities);
+ return {status:"ready",probabilities:result.probabilities,handicap:{
+  ...handicap,probabilities,winSide:Number((probabilities.fullWin+probabilities.halfWin).toFixed(4)),
+  push:Number(probabilities.push.toFixed(4))
+ }};
+}
 function renderAutomaticHandicap(match,result){
  const target=document.getElementById("automaticHandicapOdds");if(!target)return;
- const event=findAutomaticHandicap(match);
- if(!event||!Array.isArray(event.bookmakers)||!event.bookmakers.length){target.innerHTML='<div class="empty">ไม่มีเส้น Asian Handicap ที่แหล่งข้อมูลส่งกลับมาสำหรับคู่นี้ในขณะนี้</div>';return;}
- const now=Date.now();
- const rows=event.bookmakers.filter(b=>Number.isFinite(b.homeLine)).map(b=>({...b,updatedAt:Date.parse(b.lastUpdate||"")}));
- if(!rows.length){target.innerHTML='<div class="empty">พบข้อมูลการแข่งขัน แต่ไม่มีค่า Handicap ที่ใช้งานได้</div>';return;}
- const freshRows=rows.filter(row=>Number.isFinite(row.updatedAt)&&row.updatedAt<=now&&now-row.updatedAt<=24*60*60*1000);
+ const reference=selectAutomaticHandicapReference(match),event=reference.event;
+ if(reference.status==="missing"){
+  target.innerHTML='<div class="empty">ไม่มีเส้น Asian Handicap ที่แหล่งข้อมูลส่งกลับมาสำหรับคู่นี้ในขณะนี้</div>';return;
+ }
  const fmt=n=>(n>0?"+":"")+Number(n).toFixed(2);
+ const rows=reference.rows||[];
+ const freshRows=reference.freshRows||[];
  const rowDetails=rows.slice().sort((a,b)=>(b.updatedAt||0)-(a.updatedAt||0)).map(x=>'<div class="p5-row"><span>'+esc(x.bookmaker)+' · '+(freshRows.includes(x)?'ข้อมูลสด':'ข้อมูลเก่า/ไม่ทราบเวลา')+'</span><b>'+fmt(x.homeLine)+' / '+fmt(-x.homeLine)+'</b></div>').join("");
- if(!freshRows.length){target.innerHTML='<div class="quality-note">พบเส้น Handicap แต่ไม่มีแหล่งใดอัปเดตภายใน 24 ชั่วโมง จึงงดคำนวณและไม่ใช้เส้นเก่าแทน</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event.commenceTime)+'</div>';return;}
- const lineMap=new Map();
- freshRows.forEach(row=>{const key=Number(row.homeLine).toFixed(2);if(!lineMap.has(key))lineMap.set(key,[]);lineMap.get(key).push(row);});
- const lineOptions=[...lineMap.entries()].map(([line,items])=>({line:Number(line),items,latest:Math.max(...items.map(x=>x.updatedAt))})).sort((a,b)=>b.latest-a.latest);
- const selected=lineOptions[0];
- const renderResult=line=>{
-  if(!result||!Array.isArray(result.scoreDistribution)||!window.FootballTimeAsianHandicap?.calculateFromDistribution)return '<div class="quality-note">ยังไม่มี Score Distribution ที่พร้อมใช้งาน จึงไม่คำนวณ Handicap</div>';
-  const p=window.FootballTimeAsianHandicap.calculateFromDistribution(result.scoreDistribution,line);
-  const selectedOption=lineOptions.find(option=>option.line===Number(line));if(selectedOption)recordHandicapSnapshot(match,event,selectedOption,p);
-  const cover=p.fullWin+p.halfWin,loss=p.halfLoss+p.fullLoss;
-  return '<div class="handicap-summary"><div class="handicap-cover"><span>โอกาสฝั่งชนะ (ชนะเต็ม + ครึ่ง)</span><b>'+cover.toFixed(1)+'%</b><em class="prob-level '+bandClass(cover)+'">'+probabilityBand(cover)+'</em></div><div class="handicap-cover"><span>โอกาสฝั่งแพ้ (แพ้เต็ม + ครึ่ง)</span><b>'+loss.toFixed(1)+'%</b><em class="prob-level '+bandClass(loss)+'">'+probabilityBand(loss)+'</em></div><div class="handicap-cover"><span>คืนทุน</span><b>'+p.push.toFixed(1)+'%</b></div></div><div class="handicap-result-grid"><div><b>'+p.fullWin.toFixed(1)+'%</b><span>ชนะเต็ม</span></div><div><b>'+p.halfWin.toFixed(1)+'%</b><span>ชนะครึ่ง</span></div><div><b>'+p.push.toFixed(1)+'%</b><span>คืนทุน</span></div><div><b>'+p.halfLoss.toFixed(1)+'%</b><span>แพ้ครึ่ง</span></div><div><b>'+p.fullLoss.toFixed(1)+'%</b><span>แพ้เต็ม</span></div></div><div class="analysis-insight compact"><b>สรุป Handicap</b><p>จากเส้น '+fmt(line)+' เจ้าบ้านมีโอกาสได้ผลฝั่งชนะ '+cover.toFixed(1)+'% ('+probabilityBand(cover)+') และมีโอกาสคืนทุน '+p.push.toFixed(1)+'% ทั้งนี้เป็นการประเมินจากการกระจายสกอร์ ไม่ใช่คำรับประกันผล</p></div>';
- };
- const options=lineOptions.map(option=>'<option value="'+option.line.toFixed(2)+'">'+fmt(option.line)+' · '+option.items.map(x=>esc(x.bookmaker)).join(", ")+'</option>').join("");
- const lineMeta=option=>"เส้น "+fmt(option.line)+" · แหล่ง "+option.items.map(x=>esc(x.bookmaker)).join(", ")+" · อัปเดต "+new Date(option.latest).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});
- target.innerHTML='<div class="field handicap-line-field"><label for="handicapLineSelect">เลือกเส้น Handicap จากแหล่งข้อมูลที่อัปเดตล่าสุด</label><select id="handicapLineSelect" class="filter">'+options+'</select></div><div class="quality-note">เลือกจาก '+freshRows.length+' แหล่งที่อัปเดตภายใน 24 ชั่วโมง · <span id="handicapLineMeta">'+lineMeta(selected)+'</span> · ไม่รวมแหล่งที่เก่าหรือไม่ทราบเวลา</div><div id="handicapProbabilityResult">'+renderResult(selected.line)+'</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event.commenceTime)+' · แสดงเฉพาะเส้นอ้างอิง ไม่แสดงราคาหรือคำแนะนำเดิมพัน</div>';
- const selector=target.querySelector("#handicapLineSelect");
- selector?.addEventListener("change",()=>{const output=target.querySelector("#handicapProbabilityResult");if(output)output.innerHTML=renderResult(Number(selector.value));const option=lineOptions.find(x=>x.line===Number(selector.value));const meta=target.querySelector("#handicapLineMeta");if(option&&meta)meta.textContent=lineMeta(option);});
+ if(reference.status==="stale"){
+  target.innerHTML='<div class="quality-note">พบเส้น Handicap แต่ไม่มีแหล่งใดอัปเดตภายใน 24 ชั่วโมง จึงงดคำนวณและไม่ใช้เส้นเก่าแทน</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event?.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event?.commenceTime)+'</div>';return;
+ }
+ const selected=reference.selected,line=selected.line;
+ const lineMeta="เส้นเจ้าบ้าน "+fmt(line)+" / ทีมเยือน "+fmt(-line)+" · แหล่งที่มีข้อมูลสด "+reference.freshSourceCount+" · อัปเดตล่าสุด "+new Date(selected.latest).toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});
+ if(!result||!Array.isArray(result.scoreDistribution)||!window.FootballTimeAsianHandicap?.calculateFromDistribution){
+  target.innerHTML='<div class="quality-note">'+esc(lineMeta)+' · ยังไม่มี Score Distribution ที่พร้อมใช้งาน จึงไม่คำนวณ Handicap</div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details>';return;
+ }
+ const p=window.FootballTimeAsianHandicap.calculateFromDistribution(result.scoreDistribution,line);
+ recordHandicapSnapshot(match,event,selected,p);
+ const cover=p.fullWin+p.halfWin,loss=p.halfLoss+p.fullLoss;
+ target.innerHTML='<div class="quality-note">'+esc(lineMeta)+' · เลือกเส้นอัตโนมัติจากค่ากลางของเส้นที่มีผู้ให้ข้อมูลจริงและยังสด โดยไม่ให้ผู้ใช้เลือกหรือสร้างเส้นเอง</div><div class="handicap-summary"><div class="handicap-cover"><span>โอกาสฝั่งเจ้าบ้านตามเส้นผ่าน (ชนะเต็ม + ครึ่ง)</span><b>'+cover.toFixed(1)+'%</b><em class="prob-level '+bandClass(cover)+'">'+probabilityBand(cover)+'</em></div><div class="handicap-cover"><span>โอกาสฝั่งเจ้าบ้านตามเส้นไม่ผ่าน (แพ้เต็ม + ครึ่ง)</span><b>'+loss.toFixed(1)+'%</b><em class="prob-level '+bandClass(loss)+'">'+probabilityBand(loss)+'</em></div><div class="handicap-cover"><span>คืนทุน</span><b>'+p.push.toFixed(1)+'%</b></div></div><div class="handicap-result-grid"><div><b>'+p.fullWin.toFixed(1)+'%</b><span>ชนะเต็ม</span></div><div><b>'+p.halfWin.toFixed(1)+'%</b><span>ชนะครึ่ง</span></div><div><b>'+p.push.toFixed(1)+'%</b><span>คืนทุน</span></div><div><b>'+p.halfLoss.toFixed(1)+'%</b><span>แพ้ครึ่ง</span></div><div><b>'+p.fullLoss.toFixed(1)+'%</b><span>แพ้เต็ม</span></div></div><div class="analysis-insight compact"><b>สรุป Handicap</b><p>จากเส้นเจ้าบ้าน '+fmt(line)+' โอกาสฝั่งเจ้าบ้านตามเส้นผ่าน '+cover.toFixed(1)+'% ('+probabilityBand(cover)+') และโอกาสคืนทุน '+p.push.toFixed(1)+'% ทั้งนี้เป็นการประเมินจากการกระจายสกอร์ ไม่ใช่คำรับประกันผล</p></div><details><summary class="small">ดูข้อมูลแยกตามแหล่ง ('+rows.length+')</summary>'+rowDetails+'</details><div class="small">แหล่งข้อมูล '+esc(event?.provider||"The Odds API")+' · เวลาแข่งขัน '+dateTime(event?.commenceTime)+' · ใช้เส้นอ้างอิงอัตโนมัติ ไม่แสดงราคาหรือคำแนะนำเดิมพัน</div>';
 }
 function renderProbabilityAnalysis(){
  if(!footballDB)return;
@@ -1080,7 +1093,7 @@ async function loadFootballDatabase(){
   console.error("Football database load failed",error);
  }
 }
-window.FootballTimeAppContext={getDatabase:()=>footballDB,getDataDelivery:()=>footballDBDelivery,computeMatchProbability,getSeason:formSeasonForLeague,escapeHtml:esc,getFixtures:()=>testFixturesData?.fixtures||[],rerender:renderTestFixtures};
+window.FootballTimeAppContext={getDatabase:()=>footballDB,getDataDelivery:()=>footballDBDelivery,computeMatchProbability,getMatchCardAnalysis,getSeason:formSeasonForLeague,escapeHtml:esc,getFixtures:()=>testFixturesData?.fixtures||[],rerender:renderTestFixtures};
 render();
 loadCentralTestRecords();
 loadFootballDatabase();

@@ -18,6 +18,9 @@ on:
       - "data/national-team-research-2026-11.json"
       - "js/asian-handicap.js"
       - "js/handicap-history.js"
+      - "js/handicap-reference.js"
+      - "tests/test_handicap_reference.js"
+      - "css/match-center.css"
       - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
@@ -126,7 +129,9 @@ jobs:
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
           node --check js/handicap-history.js
+          node --check js/handicap-reference.js
           node tests/test_handicap_history.js
+          node tests/test_handicap_reference.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check js/test-experiment-enhancements.js

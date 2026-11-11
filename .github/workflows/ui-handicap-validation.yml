@@ -6,6 +6,9 @@ on:
       - "index.html"
       - "js/asian-handicap.js"
       - "js/handicap-history.js"
+      - "js/handicap-reference.js"
+      - "tests/test_handicap_reference.js"
+      - "css/match-center.css"
       - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
@@ -14,7 +17,7 @@ on:
       - ".github/workflows/ui-handicap-validation.yml"
   push:
     branches:
-      - "feature/ui-handicap-analysis-v6-1"
+      - "feature/match-card-intelligence-v6-2"
     paths:
       - "index.html"
       - "js/asian-handicap.js"
@@ -39,6 +42,7 @@ jobs:
         run: |
           node --check js/asian-handicap.js
           node --check js/handicap-history.js
+          node --check js/handicap-reference.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check sw.js
@@ -56,9 +60,11 @@ jobs:
         run: node tests/test_asian_handicap.js
       - name: Test immutable Handicap history and independent metrics
         run: node tests/test_handicap_history.js
+      - name: Test automatic fresh Handicap reference selection
+        run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.1.0-beta.2"' index.html
-          grep -q 'football-time-v48' sw.js
+          grep -q 'application-version" content="6.2.0-beta.1"' index.html
+          grep -q 'football-time-v49' sw.js
           grep -q 'analysis-refinement.css' sw.js
           ! grep -q 'rows.length>2500' index.html
