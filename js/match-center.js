@@ -6,6 +6,7 @@
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[c]));
   let database = null;
+  let databaseError = "";
   let activeFilter = "upcoming";
   let activeLeague = "ALL";
 
@@ -115,8 +116,10 @@
     if (!root || !count || !state) return;
     if (!database) {
       count.textContent = "—";
-      state.textContent = "กำลังรอฐานข้อมูลฟุตบอล";
-      root.innerHTML = '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขันจากฐานข้อมูลหลัก…</div>';
+      state.textContent = databaseError || "กำลังรอฐานข้อมูลฟุตบอล";
+      root.innerHTML = databaseError
+        ? '<div class="mc-empty"><b>ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้</b><span>' + esc(databaseError) + ' · ตรวจสอบการเชื่อมต่อแล้วลองใหม่ภายหลัง</span></div>'
+        : '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขันจากฐานข้อมูลหลัก…</div>';
       return;
     }
     const rows = filteredMatches();
@@ -186,9 +189,15 @@
   }
   function setDatabase(data) {
     database = data && Array.isArray(data.matches) ? data : null;
+    databaseError = "";
     renderLeagues();
     render();
   }
+  window.addEventListener("pft-football-database-error",(event) => {
+    database = null;
+    databaseError = String(event.detail?.message || "ไม่ทราบสาเหตุ");
+    render();
+  });
   window.addEventListener("pft-football-database-ready",() => {
     setDatabase(window.FootballTimeAppContext?.getDatabase?.() || null);
   });
