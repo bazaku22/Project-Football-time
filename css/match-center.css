@@ -120,3 +120,5 @@
 .mc-filter-caption{margin:0 0 6px;color:var(--ft-text-muted,#a9bacb);font-size:.68rem}
 .mc-league-filter-wrap{display:grid;gap:2px;min-width:0}
 @media(max-width:380px){.mc-calendar{padding:9px}.mc-calendar-heading{gap:5px}.mc-calendar-picker{gap:4px;font-size:.65rem}.mc-calendar-picker input{max-width:125px}.mc-date-strip{gap:4px}.mc-date-chip{min-height:70px}.mc-date-chip>small{font-size:.51rem}.mc-category,.mc-league-chip{min-height:38px;padding:7px 10px;font-size:.7rem}}
+
+/* Phase 6.5 calendar controls remain touch-friendly on narrow Android screens. */
