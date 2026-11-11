@@ -99,6 +99,7 @@ def build_preview(source: Path, mapping_path: Path):
     validation_rows = [{k: v for k, v in row.items() if not k.startswith("_")} for row in source_rows]
     errors, rows_seen, _eligible = validate_rows_in_memory(fields, validation_rows)
     by_line = {}
+    global_issues = []
     for error in errors:
         if error.startswith("Row "):
             try:
@@ -106,11 +107,13 @@ def build_preview(source: Path, mapping_path: Path):
                 by_line.setdefault(line, []).append(error.split(": ", 1)[1])
             except (ValueError, IndexError):
                 pass
+        else:
+            global_issues.append(error)
 
     results = []
     for row in source_rows:
         line = row["_source_line"]
-        issues = by_line.get(line, [])
+        issues = list(global_issues) + by_line.get(line, [])
         if row["_identity_resolution"] == "unresolved":
             status = "needs_identity_review"
         elif row.get("_mapping_issue"):
@@ -148,6 +151,7 @@ def build_preview(source: Path, mapping_path: Path):
         "mapping_sha256": sha256(mapping_path),
         "rows_seen": rows_seen,
         "summary": dict(counts),
+        "global_issues": global_issues,
         "rows": results,
         "notice": "Preview only. No database writes. Human identity and data-rights review remains mandatory.",
     }
