@@ -22,6 +22,11 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('id="testFixtureDays"', HTML)
         self.assertIn('โปรแกรมทดลอง', HTML)
 
+    def test_database_failure_has_a_visible_error_state(self):
+        self.assertIn('pft-football-database-error', HTML)
+        self.assertIn('pft-football-database-error', MODULE)
+        self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
+
     def test_no_fallback_to_test_fixtures(self):
         self.assertIn('ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง', MODULE)
         self.assertNotIn('getFixtures?.()', MODULE)
