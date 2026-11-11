@@ -55,7 +55,11 @@ def read_mapping(path: Path):
             if key in mapping:
                 duplicate_keys.add(key)
             else:
-                mapping[key] = canonical
+                mapping[key] = {
+                    "canonical_player_key": canonical,
+                    "team_code": row.get("team_code", ""),
+                    "season": row.get("season", ""),
+                }
     if duplicate_keys:
         raise ValueError("Mapping contains duplicate provider/player IDs: " +
                          ", ".join(f"{p}:{i}" for p, i in sorted(duplicate_keys)))
@@ -77,7 +81,13 @@ def build_preview(source: Path, mapping_path: Path):
             original_key = row.get("canonical_player_key", "")
             if not original_key:
                 provider_key = (row.get("provider", "").casefold(), row.get("provider_player_id", ""))
-                row["canonical_player_key"] = mapping.get(provider_key, "")
+                mapped = mapping.get(provider_key)
+                if mapped:
+                    row["canonical_player_key"] = mapped["canonical_player_key"]
+                    if mapped["team_code"] and mapped["team_code"] != row.get("team_code", ""):
+                        row["_mapping_issue"] = "mapping team_code does not match source row"
+                    if mapped["season"] and mapped["season"] != row.get("season", ""):
+                        row["_mapping_issue"] = "mapping season does not match source row"
             row["_identity_resolution"] = (
                 "provided_in_source" if original_key else
                 "exact_provider_id_match" if row["canonical_player_key"] else
@@ -103,6 +113,9 @@ def build_preview(source: Path, mapping_path: Path):
         issues = by_line.get(line, [])
         if row["_identity_resolution"] == "unresolved":
             status = "needs_identity_review"
+        elif row.get("_mapping_issue"):
+            issues.append(row["_mapping_issue"])
+            status = "rejected_or_needs_review"
         elif issues:
             status = "rejected_or_needs_review"
         else:
@@ -163,6 +176,10 @@ def main() -> int:
     parser.add_argument("--csv-out", type=Path, default=Path("player-statistics-preview.csv"))
     args = parser.parse_args()
     try:
+        input_paths = {args.statistics_csv.resolve(), args.player_mapping_csv.resolve()}
+        output_paths = {args.out.resolve(), args.csv_out.resolve()}
+        if len(output_paths) != 2 or output_paths & input_paths:
+            raise ValueError("Output paths must be distinct and must not overwrite either input file")
         manifest = build_preview(args.statistics_csv, args.player_mapping_csv)
         args.out.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         columns = [
