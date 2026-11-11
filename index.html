@@ -49,13 +49,13 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 
 /* Phase 5: advanced analysis */
 .p5-score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.p5-metric{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.p5-metric b{display:block;font-size:20px}.p5-metric span{font-size:10px;color:var(--muted)}.p5-bar{height:7px;background:#344653;border-radius:8px;overflow:hidden;margin-top:7px}.p5-bar i{display:block;height:100%;background:var(--green)}.p5-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.p5-row:last-child{border:0}.p5-note{padding:10px;border-left:3px solid var(--gold);background:#252b2d;border-radius:5px;color:var(--muted);font-size:11px;line-height:1.65;margin:9px 0}.p5-good{color:var(--green)}.p5-warn{color:var(--gold)}.p5-bad{color:#f39b8f}@media(max-width:380px){.p5-score{grid-template-columns:1fr 1fr}}
- .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}
+ .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}.league-status{display:block;margin-top:4px;color:var(--muted);font-size:9px}.league-data-status{margin:9px 0;padding:9px 11px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:11px;line-height:1.6;background:#14232d}
 .experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}.result-button[hidden],.result-form[hidden]{display:none!important}#showAdd[hidden],#importBackup[hidden]{display:none!important}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.7.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.0.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>โปรแกรมแข่งขัน 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย ส่วนสรุปผลและการประเมินโมเดลอยู่ในหมวด “สรุปผล”</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div>
@@ -79,7 +79,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <button data-db-tab="players">ฐานข้อมูลนักเตะ</button>
 
 </div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
- <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">5 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
+ <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">8 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
  <div class="pillrow" id="leaguePicker"></div>
  <div class="sectionhead"><h2 id="selectedLeagueTitle">Premier League</h2><span class="small" id="selectedLeagueCountry"></span></div>
  <div class="card"><div class="topline"><b>ตารางคะแนน</b><span class="small" id="tableSeason">ฤดูกาล —</span></div><div style="overflow-x:auto"><table><thead><tr><th>#</th><th>ทีม</th><th>แข่ง</th><th>ชนะ</th><th>เสมอ</th><th>แพ้</th><th>ได้/เสีย</th><th>ต่าง</th><th>แต้ม</th></tr></thead><tbody id="standingsBody"><tr><td colspan="9">กำลังโหลด…</td></tr></tbody></table></div></div>
@@ -383,13 +383,33 @@ document.getElementById("addForm").onsubmit=e=>{
 
 /* Football database: read-only; never writes to the test-record storage key. */
 let footballDB=null,selectedLeagueId="PL";
-const leagueLogoById={PL:"https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg",PD:"https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg",BL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg",SA:"https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg",FL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg"};
+const PHASE6_LEAGUE_CATALOG=[
+ {id:"PL",name:"Premier League",country:"England",dataStatus:"available",seasonFormat:"cross_year"},
+ {id:"PD",name:"La Liga",country:"Spain",dataStatus:"available",seasonFormat:"cross_year"},
+ {id:"BL1",name:"Bundesliga",country:"Germany",dataStatus:"available",seasonFormat:"cross_year"},
+ {id:"SA",name:"Serie A",country:"Italy",dataStatus:"available",seasonFormat:"cross_year"},
+ {id:"FL1",name:"Ligue 1",country:"France",dataStatus:"available",seasonFormat:"cross_year"},
+ {id:"ELC",name:"EFL Championship",country:"England",providerCompetitionCode:"ELC",dataStatus:"awaiting_first_sync",seasonFormat:"cross_year"},
+ {id:"J1",name:"J1 League",country:"Japan",dataStatus:"not_available_on_current_free_tier",seasonFormat:"calendar_year"},
+ {id:"J2",name:"J2 League",country:"Japan",dataStatus:"not_available_on_current_free_tier",seasonFormat:"calendar_year"}
+];
+const leagueLogoById={PL:"https://commons.wikimedia.org/wiki/Special:FilePath/Premier_League.svg",PD:"https://commons.wikimedia.org/wiki/Special:FilePath/LaLiga_2023_Horizontal_Logo.svg",BL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Bundesliga_logo.svg",SA:"https://commons.wikimedia.org/wiki/Special:FilePath/Serie_A_logo_2022.svg",FL1:"https://commons.wikimedia.org/wiki/Special:FilePath/Ligue_1_McDonald%27s_logo.svg",ELC:"https://crests.football-data.org/ELC.png"};
+function applyPhase6LeagueCatalog(data){
+ const existing=Array.isArray(data.leagues)?data.leagues:[];
+ data.leagues=PHASE6_LEAGUE_CATALOG.map(item=>({...item,...(existing.find(row=>row.id===item.id)||{})}));
+ return data;
+}
+function leagueStatusText(league){
+ if(league?.dataStatus==="not_available_on_current_free_tier")return"รอแหล่งข้อมูลที่ไม่มีค่าใช้จ่าย";
+ if(league?.dataStatus==="awaiting_first_sync")return"เพิ่มในระบบแล้ว · รอซิงก์ข้อมูลครั้งแรก";
+ return"มีข้อมูลจากแหล่งข้อมูลหลัก";
+}
 function dateTime(v){if(!v)return"—";const d=new Date(v);return Number.isNaN(d.getTime())?v:d.toLocaleString("th-TH",{dateStyle:"medium",timeStyle:"short"});}
 function selectedLeague(){return footballDB?.leagues?.find(x=>x.id===selectedLeagueId);}
 function renderLeagueSelector(){
  const leagues=footballDB.leagues||[];
- document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small></div></div>`).join("");
- document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}">${esc(l.name)}</button>`).join("");
+ document.getElementById("leagueCards").innerHTML=leagues.map(l=>`<div class="league-card"><img class="league-logo" src="${leagueLogoById[l.id]||""}" alt="" onerror="this.style.visibility='hidden'"><div><b>${esc(l.name)}</b><small>${esc(l.country)}</small><small class="league-status">${esc(leagueStatusText(l))}</small></div></div>`).join("");
+ document.getElementById("leaguePicker").innerHTML=leagues.map(l=>`<button class="pill ${l.id===selectedLeagueId?"active":""}" data-league="${esc(l.id)}" title="${esc(leagueStatusText(l))}">${esc(l.name)}</button>`).join("");
  document.querySelectorAll("[data-league]").forEach(b=>b.onclick=()=>{selectedLeagueId=b.dataset.league;renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile(true);renderHomeAwayAnalysis(true);renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();});
  document.getElementById("leagueCount").textContent=leagues.length+" ลีก";
 }
@@ -531,6 +551,13 @@ function renderTeamProfile(resetTeam=false){
 function renderLeagueData(){
  const league=selectedLeague();if(!league)return;
  const season=(footballDB.standings||[]).find(x=>x.leagueId===league.id)?.season||(footballDB.matches||[]).find(x=>x.leagueId===league.id)?.season||"—";
+ const hasData=(footballDB.matches||[]).some(x=>x.leagueId===league.id)||(footballDB.teamSeasons||[]).some(x=>x.leagueId===league.id);
+ const status=document.getElementById("leagueDataStatus");
+ if(status){
+  if(league.dataStatus==="not_available_on_current_free_tier")status.textContent="ลีกนี้อยู่ในขอบเขตที่วางแผนไว้ แต่ผู้ให้บริการ API ฟรีที่ใช้อยู่ยังไม่รองรับข้อมูล J1/J2 จึงยังไม่มีข้อมูลสำหรับวิเคราะห์ และไม่มีการเรียก API เพิ่มหรือสร้างข้อมูลทดแทน";
+  else if(!hasData)status.textContent="เพิ่มลีกนี้ในระบบแล้ว แต่ยังไม่มีข้อมูลฤดูกาลปัจจุบันที่ซิงก์สำเร็จ จึงยังไม่สามารถคำนวณสถิติหรือความน่าจะเป็นได้";
+  else status.textContent="ข้อมูลลีกพร้อมใช้งาน · ฤดูกาล "+season+" · ใช้ข้อมูลจากแหล่งข้อมูลหลัก";
+ }
  document.getElementById("selectedLeagueTitle").textContent=league.name;
  document.getElementById("selectedLeagueCountry").textContent=league.country;
  document.getElementById("tableSeason").textContent="ฤดูกาล "+season;
@@ -869,7 +896,7 @@ async function loadFootballDatabase(){
   if(!response.ok)throw Error("HTTP "+response.status);
   const data=await response.json();
   if(!data||!Array.isArray(data.leagues)||!Array.isArray(data.teams)||!Array.isArray(data.standings)||!Array.isArray(data.matches)||!Array.isArray(data.teamSeasons))throw Error("รูปแบบฐานข้อมูลไม่ถูกต้อง");
-  footballDB=data;
+  footballDB=applyPhase6LeagueCatalog(data);
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent="เชื่อมต่อสำเร็จ";
