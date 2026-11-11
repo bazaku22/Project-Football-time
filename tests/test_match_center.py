@@ -44,7 +44,7 @@ class MatchCenterTests(unittest.TestCase):
     def test_upcoming_match_handoff_opens_its_existing_probability_analysis(self):
         self.assertIn('data-provider-match-id=', MODULE)
         self.assertIn('data-match-action=', MODULE)
-        self.assertIn('data-match-action="analysis"', MODULE)
+        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
         self.assertIn('data-db-tab="probability"', MODULE)
         self.assertIn('probLeagueSelect', MODULE)
         self.assertIn('probMatchSelect', MODULE)
@@ -52,7 +52,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('วิเคราะห์คู่นี้', MODULE)
 
     def test_non_upcoming_matches_keep_database_context_fallback(self):
-        self.assertIn('data-match-action="overview"', MODULE)
+        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
         self.assertIn('data-db-tab="overview"', MODULE)
         self.assertIn('discoveryDateFrom', MODULE)
 
