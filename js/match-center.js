@@ -190,32 +190,59 @@
     }
     return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
   }
+  function renderInternationalDetails(match) {
+    const sources = (match.sourceUrls || []).map((url,index) =>
+      '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' +
+      esc((match.sourceNames || [])[index] || "แหล่งข้อมูลทางการ") + '</a>'
+    ).join(" · ");
+    const venue = match.neutralVenue === true ? "สนามกลาง" :
+      match.neutralVenue === false ? "ระบุเจ้าบ้านตามประกาศ" : "ยังไม่ยืนยันสนาม";
+    const timeNote = match.utcDate ? "เวลาไทย " + formatThaiTime(match.utcDate) :
+      "ยังไม่ประกาศเวลาแข่งขัน · แสดงวันที่ตามประกาศต้นทาง";
+    return '<details class="mc-intl-details"><summary>รายละเอียดโปรแกรมทีมชาติ</summary>' +
+      '<div>รายการ: ' + esc(match.competitionName) + '</div><div>' + esc(venue) + '</div>' +
+      '<div>' + esc(timeNote) + '</div><div class="mc-intl-source">แหล่งข้อมูล: ' + (sources || "ไม่ระบุ") + '</div>' +
+      '<p>ชุดข้อมูลทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · ยังไม่แสดงผลวิเคราะห์ทีมชาติ</p></details>';
+  }
   function renderCard(match) {
-    const home = teamFor(match.homeTeamId), away = teamFor(match.awayTeamId);
+    const isInternational = match.isInternational === true;
+    const home = isInternational ? null : teamFor(match.homeTeamId);
+    const away = isInternational ? null : teamFor(match.awayTeamId);
     const kind = statusKind(match);
     const scoreReady = match.homeScore !== null && match.homeScore !== undefined &&
       match.awayScore !== null && match.awayScore !== undefined &&
       (kind === "finished" || kind === "live");
     const score = scoreReady ? esc(match.homeScore) + " - " + esc(match.awayScore) : "VS";
     const league = (database?.leagues || []).find((item) => item.id === match.leagueId);
-    const date = matchDate(match);
-    const time = formatThaiTime(match.utcDate);
+    const time = match.utcDate ? formatThaiTime(match.utcDate) : "ไม่ประกาศเวลา";
     const providerMatchId = match.providerMatchId == null ? "" : String(match.providerMatchId);
     const analysisStatus = ["SCHEDULED","TIMED"].includes(String(match.status || "").toUpperCase());
-    const canOpenAnalysis = kind === "upcoming" && analysisStatus &&
+    const canOpenAnalysis = !isInternational && kind === "upcoming" && analysisStatus &&
       Number.isFinite(new Date(match.utcDate).getTime()) &&
       new Date(match.utcDate).getTime() > Date.now() && providerMatchId !== "";
     const actionLabel = canOpenAnalysis ? "วิเคราะห์คู่นี้" : "ดูรายละเอียดข้อมูล";
     const cardAnalysis = canOpenAnalysis ? window.FootballTimeAppContext?.getMatchCardAnalysis?.(match) : null;
-    return '<article class="mc-match-card">' +
-      '<div class="mc-match-top"><span class="mc-league-name">' + esc(league?.name || match.leagueId) + '</span>' +
+    const homeMark = isInternational ? crest(null,match.homeCountryCode,match.homeTeamName) : crest(home);
+    const awayMark = isInternational ? crest(null,match.awayCountryCode,match.awayTeamName) : crest(away);
+    const topLabel = isInternational ? match.competitionName : (league?.name || match.leagueId);
+    const bottom = isInternational
+      ? '<span class="mc-intl-tag">ทีมชาติ · ชุดทดลอง</span>' + renderInternationalDetails(match)
+      : '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) +
+        '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) +
+        '" data-match-league="' + esc(match.leagueId) +
+        '" data-provider-match-id="' + esc(providerMatchId) +
+        '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button>';
+    return '<article class="mc-match-card' + (isInternational ? ' mc-match-card-international' : '') + '">' +
+      '<div class="mc-match-top"><span class="mc-league-name">' + esc(topLabel) + '</span>' +
       '<span class="mc-status mc-status-' + kind + '">' + esc(statusLabel(match)) + '</span></div>' +
       '<div class="mc-match-main">' +
-      '<div class="mc-team">' + crest(home) + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
+      '<div class="mc-team">' + homeMark + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
       '<div class="mc-score">' + score + '</div>' +
-      '<div class="mc-team mc-team-away">' + crest(away) + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
-      '</div>' + renderAnalysisSummary(match,cardAnalysis) + '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' + esc(statusLabel(match)) + '</span>' +
-      '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) + '" data-match-league="' + esc(match.leagueId) + '" data-provider-match-id="' + esc(providerMatchId) + '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button></div></article>';
+      '<div class="mc-team mc-team-away">' + awayMark + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
+      '</div>' + (isInternational ? '' : renderAnalysisSummary(match,cardAnalysis)) +
+      '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' +
+      (isInternational && match.neutralVenue === true ? 'สนามกลาง' : esc(statusLabel(match))) +
+      '</span>' + bottom + '</div></article>';
   }
   function render() {
     const root = $("matchCenterMatches");
@@ -242,9 +269,10 @@
     const delivery = window.FootballTimeAppContext?.getDataDelivery?.();
     const deliveryLabel = delivery === "cache" ? "แหล่งส่งข้อมูล: แคช" :
       delivery === "network" ? "แหล่งส่งข้อมูล: เครือข่าย" : "แหล่งส่งข้อมูล: ไม่ทราบ";
-    state.textContent = "แหล่งข้อมูล: " + (database.source?.provider || "ไม่ระบุ") +
-      " · ซิงก์ฐานข้อมูลล่าสุด " + formatUpdated(sourceTime) +
-      " · " + deliveryLabel + " · ความสดรายลีก " + freshness;
+    state.textContent = "แหล่งข้อมูลสโมสร: " + (database.source?.provider || "ไม่ระบุ") +
+      " · ซิงก์ล่าสุด " + formatUpdated(sourceTime) +
+      " · " + deliveryLabel + " · ความสดรายลีก " + freshness +
+      " · " + internationalLoadState + " (แยกจากฐานข้อมูลสโมสร)";
     if (!rows.length) {
       root.innerHTML = '<div class="mc-empty"><b>ไม่พบการแข่งขันในตัวกรองนี้</b><span>ไม่มีข้อมูลที่ตรงกับช่วงเวลา ลีก หรือสถานะที่เลือก · ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง</span></div>';
       return;
@@ -265,9 +293,11 @@
     const select = $("matchCenterLeague");
     if (!select || !database) return;
     const leagues = (database.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
-    select.innerHTML = '<option value="ALL">ทุกลีกหลัก</option>' + leagues.map((league) =>
-      '<option value="' + esc(league.id) + '">' + esc(league.name) + '</option>'
-    ).join("");
+    select.innerHTML = '<option value="ALL">สโมสรและทีมชาติ</option>' +
+      '<option value="INTL">ทีมชาติ · Nations League / กระชับมิตร</option>' +
+      leagues.map((league) =>
+        '<option value="' + esc(league.id) + '">' + esc(league.name) + '</option>'
+      ).join("");
     select.value = activeLeague;
   }
   function setFilter(filter) {
@@ -327,6 +357,7 @@
     const existing = window.FootballTimeAppContext?.getDatabase?.();
     if (existing) setDatabase(existing);
     else render();
+    loadInternationalFixtures();
   }
   function setDatabase(data) {
     database = data && Array.isArray(data.matches) ? data : null;
