@@ -1,4 +1,4 @@
-const CACHE = "football-time-v50";
+const CACHE = "football-time-v51";
 
 const ASSETS = [
   "./",
@@ -15,6 +15,7 @@ const ASSETS = [
   "./icon-512.png",
   "./data/football-database.json",
   "./data/international-match-fixtures-r1.json",
+  "./data/international-handicap-snapshots-r1.json",
   "./data/test-records.json",
   "./data/test-fixtures-2026-11.json",
   "./data/national-team-research-2026-11.json",

@@ -74,3 +74,25 @@
 .mc-intl-details p{margin:6px 0 0;color:#91a8bb;font-size:.63rem}
 .mc-intl-source{display:flex;flex-wrap:wrap;gap:4px}
 @media(max-width:380px){.mc-flag{flex-basis:33px;width:33px;min-width:33px;height:33px}.mc-flag>span{font-size:1.2rem}.mc-intl-details{font-size:.66rem}}
+
+/* International experimental model summary on Match Center cards */
+.mc-intl-analysis{display:grid;gap:8px;margin:0 0 12px;padding:11px;border:1px solid rgba(102,217,166,.22);border-radius:13px;background:rgba(8,25,38,.55)}
+.mc-intl-analysis-title{font-size:.74rem;font-weight:750;color:#d9f5eb}
+.mc-intl-1x2{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.mc-intl-kpi{display:grid;gap:2px;padding:7px 4px;text-align:center;border:1px solid rgba(145,178,204,.12);border-radius:9px;background:rgba(5,19,32,.42)}
+.mc-intl-kpi span,.mc-intl-kpi small{font-size:.61rem;color:#a9bdce}
+.mc-intl-kpi b{font-size:.98rem;font-variant-numeric:tabular-nums}
+.mc-intl-handicap{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;padding-top:8px;border-top:1px solid rgba(145,178,204,.14);font-size:.7rem}
+.mc-intl-handicap strong{color:#9cebd4}
+.mc-intl-outcome-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:4px;margin-top:7px}
+.mc-intl-outcome{display:grid;gap:2px;min-width:0;padding:6px 2px;text-align:center;border-radius:7px;background:rgba(5,19,32,.42)}
+.mc-intl-outcome span{font-size:.54rem;color:#a9bdce;overflow-wrap:anywhere}
+.mc-intl-outcome b{font-size:.68rem;font-variant-numeric:tabular-nums}
+.mc-intl-model-details{border-top:1px solid rgba(145,178,204,.14);padding-top:7px}
+.mc-intl-model-details summary{cursor:pointer;min-height:34px;display:flex;align-items:center;color:#9cebd4;font-size:.68rem;font-weight:700}
+.mc-intl-line-table{width:100%;border-collapse:collapse;font-size:.58rem;white-space:nowrap}
+.mc-intl-line-table th,.mc-intl-line-table td{padding:5px 3px;text-align:right;border-bottom:1px solid rgba(145,178,204,.1)}
+.mc-intl-line-table th:first-child,.mc-intl-line-table td:first-child{text-align:left}
+.mc-intl-disclaimer{font-size:.59rem;line-height:1.5;color:#91a8bb}
+.mc-intl-no-model{padding:8px;border:1px dashed rgba(231,189,114,.28);border-radius:9px;color:#e5c98c;font-size:.68rem}
+@media(max-width:380px){.mc-intl-analysis{padding:9px}.mc-intl-outcome-grid{gap:2px}.mc-intl-outcome b{font-size:.62rem}.mc-intl-line-table{font-size:.53rem}}

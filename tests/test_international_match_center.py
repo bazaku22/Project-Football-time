@@ -41,10 +41,31 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn(".mc-flag", CSS)
         self.assertNotIn("flagcdn", MODULE.lower())
 
-    def test_international_fixtures_do_not_show_model_percentages_or_open_club_analysis(self):
-        self.assertIn("(isInternational ? '' : renderAnalysisSummary(match,cardAnalysis))", MODULE)
-        self.assertIn("!isInternational && kind === \"upcoming\"", MODULE)
-        self.assertIn("ยังไม่แสดงผลวิเคราะห์ทีมชาติ", MODULE)
+    def test_international_match_cards_show_only_valid_pre_match_model_snapshots(self):
+        self.assertIn('fetch("./data/international-handicap-snapshots-r1.json")', MODULE)
+        self.assertIn('snapshot.captured_before_kickoff === true', MODULE)
+        self.assertIn('captured < kickoff', MODULE)
+        self.assertIn('renderInternationalAnalysisSummary(match)', MODULE)
+        self.assertIn('probabilities_1x2', MODULE)
+        for outcome in ("full_win","half_win","push","half_loss","full_loss"):
+            self.assertIn(outcome, MODULE)
+        self.assertIn('เส้นจำลอง ไม่ใช่เส้นตลาด', MODULE)
+        self.assertIn('!isInternational && kind === "upcoming"', MODULE)
+
+    def test_international_handicap_snapshot_file_is_isolated_and_pre_match(self):
+        snapshots = json.loads((ROOT / "data" / "international-handicap-snapshots-r1.json").read_text(encoding="utf-8"))
+        self.assertEqual(snapshots["dataset_status"], "experimental_isolated_pre_match_handicap_snapshots")
+        self.assertEqual(snapshots["snapshot_count"], len(snapshots["snapshots"]))
+        self.assertEqual(snapshots["snapshot_count"], 14)
+        self.assertEqual(snapshots["default_home_line"], -1)
+        for row in snapshots["snapshots"]:
+            self.assertTrue(row["captured_before_kickoff"])
+            self.assertLess(row["captured_at"], row["kickoff_utc"])
+            self.assertEqual(row["model_version"], "intl-r1-handicap-0.1.0")
+            self.assertEqual(len(row["handicap_lines"]), len(snapshots["scenario_lines"]))
+            for line in row["handicap_lines"]:
+                self.assertAlmostEqual(sum(line["probabilities"].values()), 1.0, places=7)
+        self.assertEqual(snapshots["excluded_fixtures"][0]["fixture_id"], "INT-R1-011")
 
     def test_unknown_kickoff_is_not_guessed(self):
         unknown = [row for row in DATA["fixtures"] if not row["kickoff_utc"]]
@@ -53,13 +74,14 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v50", WORKER)
+        self.assertIn("football-time-v51", WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
+        self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
     def test_app_version_and_copy_are_updated(self):
-        self.assertIn('<title>Project Football Time V6.3.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.3.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.3.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.4.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.4.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.4.0-beta.1</span>', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", HTML)
 
 

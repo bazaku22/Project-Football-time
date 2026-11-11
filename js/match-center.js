@@ -13,6 +13,9 @@
   let internationalFixtures = [];
   let internationalLoadState = "กำลังโหลดโปรแกรมทีมชาติชุดทดลอง";
   let internationalLoadError = "";
+  let internationalHandicapSnapshots = new Map();
+  let internationalHandicapLoadState = "กำลังโหลดผลวิเคราะห์ทีมชาติ";
+  let internationalHandicapLoadError = "";
   const COUNTRY_NAMES = {
     "Türkiye":"ตุรกี","Belgium":"เบลเยียม","Italy":"อิตาลี","France":"ฝรั่งเศส","Czechia":"เช็กเกีย",
     "Spain":"สเปน","England":"อังกฤษ","Croatia":"โครเอเชีย","Netherlands":"เนเธอร์แลนด์","Greece":"กรีซ",
@@ -66,6 +69,29 @@
     render();
   }
 
+
+  async function loadInternationalHandicapSnapshots() {
+    try {
+      const response = await fetch("./data/international-handicap-snapshots-r1.json");
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const payload = await response.json();
+      if (payload.dataset_status !== "experimental_isolated_pre_match_handicap_snapshots" ||
+          !Array.isArray(payload.snapshots)) throw new Error("รูปแบบ Snapshot Handicap ทีมชาติไม่ถูกต้อง");
+      internationalHandicapSnapshots = new Map(payload.snapshots.filter((snapshot) => {
+        const kickoff = Date.parse(snapshot.kickoff_utc || "");
+        const captured = Date.parse(snapshot.captured_at || "");
+        return snapshot.fixture_id && snapshot.captured_before_kickoff === true &&
+          snapshot.model_version === "intl-r1-handicap-0.1.0" &&
+          Number.isFinite(kickoff) && Number.isFinite(captured) && captured < kickoff;
+      }).map((snapshot) => [String(snapshot.fixture_id),snapshot]));
+      internationalHandicapLoadState = "Snapshot วิเคราะห์ทีมชาติ " + internationalHandicapSnapshots.size + " นัด";
+    } catch (error) {
+      internationalHandicapSnapshots = new Map();
+      internationalHandicapLoadState = "ยังโหลด Snapshot วิเคราะห์ทีมชาติไม่ได้";
+      internationalHandicapLoadError = String(error?.message || error);
+    }
+    render();
+  }
 
   function bangkokDate(value = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -189,6 +215,39 @@
     }
     return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
   }
+  function renderInternationalAnalysisSummary(match) {
+    const snapshot = internationalHandicapSnapshots.get(String(match.id || ""));
+    if (!snapshot) {
+      return '<section class="mc-intl-analysis"><div class="mc-intl-analysis-title">International Match Analysis</div>' +
+        '<div class="mc-intl-no-model">ยังไม่มี Snapshot ก่อนแข่งขันที่ตรวจสอบเวลาได้ · จึงไม่แสดงเปอร์เซ็นต์ย้อนหลัง</div>' +
+        '<div class="mc-intl-disclaimer">ข้อมูลทีมชาติทดลองแยกจากโมเดลสโมสร · ไม่สร้างเส้น Handicap หรือผลคาดการณ์ขึ้นเอง</div></section>';
+    }
+    const p = snapshot.probabilities_1x2 || {};
+    const pct = (value) => (Number(value) * 100).toFixed(1) + "%";
+    const kpi = (label,value) => '<div class="mc-intl-kpi"><span>' + label + '</span><b>' + pct(value) + '</b></div>';
+    const line = (snapshot.handicap_lines || []).find((row) => Number(row.home_line) === Number(snapshot.default_home_line));
+    if (!line) return '<section class="mc-intl-analysis"><div class="mc-intl-no-model">Snapshot Handicap ไม่ครบถ้วน · งดแสดงผล</div></section>';
+    const hp = line.probabilities || {};
+    const outcomeLabels = [["full_win","เต็มชนะ"],["half_win","ครึ่งชนะ"],["push","คืนทุน"],["half_loss","ครึ่งแพ้"],["full_loss","แพ้เต็ม"]];
+    const outcomeMarkup = outcomeLabels.map(([key,label]) =>
+      '<div class="mc-intl-outcome"><span>' + label + '</span><b>' + pct(hp[key]) + '</b></div>'
+    ).join("");
+    const lineLabel = (value) => (Number(value) > 0 ? "+" : "") + Number(value).toFixed(2);
+    const rows = (snapshot.handicap_lines || []).map((row) => {
+      const values = row.probabilities || {};
+      return '<tr><td>' + lineLabel(row.home_line) + '</td>' +
+        outcomeLabels.map(([key]) => '<td>' + pct(values[key]) + '</td>').join("") + '</tr>';
+    }).join("");
+    return '<section class="mc-intl-analysis"><div class="mc-intl-analysis-title">International Match Analysis · โมเดลทดลอง</div>' +
+      '<div class="mc-intl-1x2">' + kpi("เจ้าบ้าน",p.home_win) + kpi("เสมอ",p.draw) + kpi("ทีมเยือน",p.away_win) + '</div>' +
+      '<div class="mc-intl-handicap"><span>Handicap จำลอง · เจ้าบ้าน <strong>' + lineLabel(snapshot.default_home_line) + '</strong></span>' +
+      '<span>ฝั่งชนะรวม <strong>' + pct(Number(hp.full_win || 0) + Number(hp.half_win || 0)) + '</strong> · คืนทุน <strong>' + pct(hp.push) + '</strong></span></div>' +
+      '<div class="mc-intl-outcome-grid">' + outcomeMarkup + '</div>' +
+      '<details class="mc-intl-model-details"><summary>ดูความน่าจะเป็น Handicap ทุกเส้นทดลอง</summary>' +
+      '<div style="overflow-x:auto"><table class="mc-intl-line-table"><thead><tr><th>เส้นเจ้าบ้าน</th><th>เต็มชนะ</th><th>ครึ่งชนะ</th><th>คืนทุน</th><th>ครึ่งแพ้</th><th>แพ้เต็ม</th></tr></thead><tbody>' + rows + '</tbody></table></div></details>' +
+      '<div class="mc-intl-disclaimer">คำนวณจาก Score Matrix · เส้นจำลอง ไม่ใช่เส้นตลาดหรือราคาเดิมพัน · ข้อมูลย้อนหลังถึง 6 ต.ค. 2026 · แยกจากฐานข้อมูลและโมเดลสโมสร</div></section>';
+  }
+
   function renderInternationalDetails(match) {
     const sources = (match.sourceUrls || []).map((url,index) =>
       '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' +
@@ -201,7 +260,7 @@
     return '<details class="mc-intl-details"><summary>รายละเอียดโปรแกรมทีมชาติ</summary>' +
       '<div>รายการ: ' + esc(match.competitionName) + '</div><div>' + esc(venue) + '</div>' +
       '<div>' + esc(timeNote) + '</div><div class="mc-intl-source">แหล่งข้อมูล: ' + (sources || "ไม่ระบุ") + '</div>' +
-      '<p>ชุดข้อมูลทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · ยังไม่แสดงผลวิเคราะห์ทีมชาติ · สิทธิ์เผยแพร่ต่อยังไม่ได้รับการยืนยัน</p></details>';
+      '<p>โปรแกรมและการวิเคราะห์ทีมชาติเป็นชุดทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · สิทธิ์เผยแพร่ต่อของข้อมูลต้นทางยังไม่ได้รับการยืนยัน</p></details>';
   }
   function renderCard(match) {
     const isInternational = match.isInternational === true;
@@ -238,7 +297,7 @@
       '<div class="mc-team">' + homeMark + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + awayMark + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
-      '</div>' + (isInternational ? '' : renderAnalysisSummary(match,cardAnalysis)) +
+      '</div>' + (isInternational ? renderInternationalAnalysisSummary(match) : renderAnalysisSummary(match,cardAnalysis)) +
       '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' +
       (isInternational && match.neutralVenue === true ? 'สนามกลาง' : esc(statusLabel(match))) +
       '</span>' + bottom + '</div></article>';
@@ -363,6 +422,7 @@
     if (existing) setDatabase(existing);
     else render();
     loadInternationalFixtures();
+    loadInternationalHandicapSnapshots();
   }
   function setDatabase(data) {
     database = data && Array.isArray(data.matches) ? data : null;
