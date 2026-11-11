@@ -27,7 +27,7 @@
   return {probabilities:probs,expectedGoals:{home:eh,away:ea},confidenceScore:Math.min(42,30+Math.min(h.matches.length,a.matches.length)*3),confidence:"ต่ำ",probabilityLevel:Math.max(probs.home,probs.draw,probs.away)>=55?"สูง":Math.max(probs.home,probs.draw,probs.away)>=45?"กลาง":"ต่ำ",sample:{homeMatches:h.matches.length,awayMatches:a.matches.length,homeForm:h.matches.length,awayForm:a.matches.length,homeVenue:0,awayVenue:0,homeRecent:recent(h.matches),awayRecent:recent(a.matches)},reasons:[detail.note||"คำนวณจากผลทีมชาติชุดใหญ่ย้อนหลัง",fixture.home+" ยิงเฉลี่ย "+hs.gf.toFixed(2)+" เสีย "+hs.ga.toFixed(2)+" ประตู จาก "+h.matches.length+" นัด",fixture.away+" ยิงเฉลี่ย "+as.gf.toFixed(2)+" เสีย "+as.ga.toFixed(2)+" ประตู จาก "+a.matches.length+" นัด","ตัวอย่างเพียง 3–4 นัด; ยังไม่รวมการปรับความแข็งแกร่งคู่แข่งและการยืนยันตัวจริง/ผู้เล่นบาดเจ็บครบทุกทีม","ยังไม่นำฐานผู้เล่น 156 รายการมาปรับเปอร์เซ็นต์ เพราะเป็นข้อมูลตัวตน/สโมสร ไม่ใช่สถิติผลงานรายบุคคลหรือรายชื่อทีมชาติที่ยืนยันครบ"],sources:Array.from(new Set([h.source,a.source].concat(detail.sources||[])))};
  }
 
- function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+ function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
  function oddsTeamKeys(value){return Array.from(new Set([value].concat(ODDS_ALIASES[value]||[]).map(normalizeOddsTeam)));}
  function findOddsEvent(fixture){
   if(!oddsData||!Array.isArray(oddsData.events))return null;
