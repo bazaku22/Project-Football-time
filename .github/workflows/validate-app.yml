@@ -15,6 +15,10 @@ on:
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
       - "data/test-fixtures-2026-11.json"
+      - "data/national-team-research-2026-11.json"
+      - "js/asian-handicap.js"
+      - "js/test-experiment-enhancements.js"
+      - "tests/test_asian_handicap.js"
       - "sw.js"
       - "js/probability-metrics.js"
       - "js/test-experiment.js"
@@ -90,6 +94,8 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check js/test-experiment.js
+          node --check js/asian-handicap.js
+          node --check js/test-experiment-enhancements.js
           node --check js/player-database.js
           node --input-type=module --check < js/reep-alias-pilot.js
 
@@ -110,6 +116,9 @@ jobs:
 
       - name: Validate isolated November experiment history
         run: python3 -m unittest tests/test_experiment_fixture_contract.py
+
+      - name: Validate Asian Handicap settlement math
+        run: node tests/test_asian_handicap.js
 
       - name: Validate probability snapshot builder
         run: |

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time V5.6.2</title>
+<title>Project Football Time V5.6.3</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -55,7 +55,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.2</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.3</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="stats"><div class="stat"><b id="count">00</b><span>รายการ Legacy</span></div><div class="stat"><b id="checkedCount">0</b><span>Legacy ที่ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมาย Legacy เดิม</span></div></div>
@@ -67,7 +67,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="field"><label>วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div><div class="field"><label>เวลาแข่งขัน</label><input id="matchTime" maxlength="30" placeholder="20:00"></div>
  <div class="field full"><label>ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70"></div><div class="field"><label>Handicap (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="-0.5"></div><div class="field"><label>โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" required></div>
  <div class="field full"><label>สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="2-1"></div></div><div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div></form></section>
- <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div><div class="sectionhead"><h2>ประวัติการทดสอบเดิม (Legacy)</h2><span class="small">#001–#011 · อ่านอย่างเดียว</span></div><div id="matches"></div>
+ <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div><div class="sectionhead"><h2>ประวัติการทดสอบเดิม (Legacy)</h2><span class="small">#001–#011 · อ่านอย่างเดียว</span></div><div id="matches"></div>
  <p class="notice">รายการทดสอบส่วนกลางโหลดจากเว็บไซต์ และรวมกับรายการที่บันทึกในอุปกรณ์นี้ · ผลหลังแข่งและรายการที่เพิ่มจากอุปกรณ์ยังจัดเก็บในเครื่องนี้</p><div class="small" id="centralRecordStatus" role="status">กำลังตรวจสอบรายการทดสอบส่วนกลาง…</div>
 </section>
 <section id="fixtures" class="page">
@@ -764,23 +764,37 @@ function renderProbabilityAccuracy(){
 }
 
 let testFixturesData=null;
+let selectedTestFixtureDate=null;
 function renderTestFixtures(){
- const root=document.getElementById("testFixturesList"),count=document.getElementById("testFixturesCount");
- if(!root||!count)return;
+ const root=document.getElementById("testFixturesList"),count=document.getElementById("testFixturesCount"),tabs=document.getElementById("testFixtureDays");
+ if(!root||!count||!tabs)return;
  const rows=testFixturesData?.fixtures||[];
  count.textContent=rows.length+" คู่";
- if(!rows.length){root.innerHTML='<div class="empty">ยังไม่มีโปรแกรมทดสอบ</div>';return;}
+ if(!rows.length){tabs.innerHTML="";root.innerHTML='<div class="empty">ยังไม่มีโปรแกรมทดสอบ</div>';return;}
  const groups={};
  rows.slice().sort((a,b)=>a.date.localeCompare(b.date)||a.kickoffUtc.localeCompare(b.kickoffUtc)).forEach(m=>(groups[m.date]??=[]).push(m));
- root.innerHTML=Object.entries(groups).map(([date,matches])=>{
-  const day=new Date(date+"T12:00:00Z").toLocaleDateString("th-TH",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Bangkok"});
-  return '<div class="sectionhead"><h2>'+esc(day)+'</h2><span class="small">'+matches.length+' คู่</span></div>'+matches.map(m=>{
-   const d=new Date(m.kickoffUtc);
-   const thaiDate=d.toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
-   const thaiTime=d.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Bangkok"});
-   const shifted=thaiDate!==new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
-   return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่ง '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams">'+esc(m.home)+' <span class="vs">VS</span> '+esc(m.away)+'</div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div><div class="experiment-panel" data-experiment-id="'+esc(m.id)+'"></div></article>';
-  }).join("");
+ const dates=Object.keys(groups).sort();
+ if(!selectedTestFixtureDate||!groups[selectedTestFixtureDate])selectedTestFixtureDate=dates[0];
+ tabs.innerHTML=dates.map(date=>{
+  const day=new Date(date+"T12:00:00Z");
+  const label=day.toLocaleDateString("th-TH",{weekday:"short",day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
+  const active=date===selectedTestFixtureDate;
+  return '<button type="button" class="fixture-day-button'+(active?' active':'')+'" data-fixture-day="'+esc(date)+'" aria-pressed="'+(active?'true':'false')+'"><b>'+esc(label)+'</b><span>'+groups[date].length+' คู่</span></button>';
+ }).join("");
+ tabs.onclick=function(event){
+  const button=event.target.closest("[data-fixture-day]");
+  if(!button)return;
+  selectedTestFixtureDate=button.dataset.fixtureDay;
+  renderTestFixtures();
+ };
+ const matches=groups[selectedTestFixtureDate]||[];
+ const day=new Date(selectedTestFixtureDate+"T12:00:00Z").toLocaleDateString("th-TH",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"Asia/Bangkok"});
+ root.innerHTML='<div class="sectionhead"><h2>'+esc(day)+'</h2><span class="small">'+matches.length+' คู่ในวันที่เลือก</span></div>'+matches.map(m=>{
+  const d=new Date(m.kickoffUtc);
+  const thaiDate=d.toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
+  const thaiTime=d.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Bangkok"});
+  const shifted=thaiDate!==new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
+  return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่งขัน '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams">'+esc(m.home)+' <span class="vs">VS</span> '+esc(m.away)+'</div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div><div class="experiment-panel" data-experiment-id="'+esc(m.id)+'"></div></article>';
  }).join("");
  if(window.renderTestExperimentPanels)window.renderTestExperimentPanels(rows);
 }
@@ -821,6 +835,8 @@ loadTestFixtures();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
 <script src="./js/test-experiment.js"></script>
+<script src="./js/asian-handicap.js"></script>
+<script src="./js/test-experiment-enhancements.js"></script>
 <script src="./js/player-database.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
