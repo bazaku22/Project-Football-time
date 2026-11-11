@@ -21,6 +21,8 @@ on:
       - "tests/test_asian_handicap_odds.py"
       - ".github/workflows/update-asian-handicap-odds.yml"
       - "data/asian-handicap-odds.json"
+      - "docs/phase-5.7-odds-and-legacy-archive.md"
+      - "docs/roadmap-personal-simple.md"
       - "js/test-experiment-enhancements.js"
       - "tests/test_asian_handicap.js"
       - "sw.js"
@@ -90,6 +92,10 @@ jobs:
               'data-db-tab="accuracy"',
               'id="dbtab-homeaway"',
               'data-db-tab="homeaway"',
+              'id="archive"',
+              'id="automaticHandicapOdds"',
+              'function loadAsianHandicapOdds()',
+              'function renderAutomaticHandicap(',
           ]
           missing = [item for item in required if item not in html]
           if missing:
@@ -121,8 +127,21 @@ jobs:
       - name: Validate isolated November experiment history
         run: python3 -m unittest tests/test_experiment_fixture_contract.py
 
-      - name: Validate Asian Handicap settlement math
-        run: node tests/test_asian_handicap.js
+      - name: Validate Asian Handicap settlement and odds feed
+        run: |
+          node tests/test_asian_handicap.js
+          python3 -m py_compile scripts/fetch_asian_handicap_odds.py
+          python3 -m unittest tests/test_asian_handicap_odds.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path("data/asian-handicap-odds.json").read_text(encoding="utf-8"))
+          if data.get("schemaVersion") != 1 or not isinstance(data.get("events"), list):
+              raise SystemExit("Invalid Asian Handicap odds data schema")
+          if "apiKey" in json.dumps(data):
+              raise SystemExit("API key must never be present in odds data")
+          print("Asian Handicap odds JSON is valid and contains no API key.")
+          PY
 
       - name: Validate probability snapshot builder
         run: |
