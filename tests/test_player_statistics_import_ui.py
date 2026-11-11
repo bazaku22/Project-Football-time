@@ -39,8 +39,9 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v40", WORKER)
+        self.assertIn("football-time-v41", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
+        self.assertIn('"./css/design-system.css?v=1"', WORKER)
         self.assertIn('"./css/ui-refresh-v2.css"', WORKER)
         self.assertIn('"./js/football-discovery.js"', WORKER)
         self.assertIn('"./js/player-stats-import.js"', WORKER)
@@ -61,7 +62,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("renderTeamCrest(homeTeam)", HTML)
         self.assertIn("renderTeamCrest(awayTeam)", HTML)
         self.assertIn("fixture-match-teams", HTML)
-        self.assertIn("football-time-v40", WORKER)
+        self.assertIn("football-time-v41", WORKER)
 
 
     def test_phase_a_broken_crest_urls_fall_back_to_initials(self):
