@@ -1,4 +1,4 @@
-const CACHE = "football-time-v25";
+const CACHE = "football-time-v26";
 
 const ASSETS = [
   "./",
@@ -12,7 +12,8 @@ const ASSETS = [
   "./data/player-database.json",
   "./js/player-database.js",
   "./js/player-cloud.js",
-  "./js/reep-alias-pilot.js"
+  "./js/reep-alias-pilot.js",
+  "./js/probability-metrics.js"
 ];
 
 // Install service worker
