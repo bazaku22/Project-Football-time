@@ -13,6 +13,8 @@ assert.equal(settleMatch(0,0,-0.75),"fullLoss");
 const kickoff="2026-11-12T18:00:00Z";
 const base={matchId:"m1",leagueId:"PL",season:"2026",utcDate:kickoff,createdAt:"2026-11-12T17:00:00Z",homeTeamName:"Home",awayTeamName:"Away",homeLine:-0.5,source:"The Odds API",sources:[{bookmaker:"Source A",homeLine:-0.5,updatedAt:"2026-11-12T16:30:00Z"}],modelVersion:"pft-poisson-1.0",probabilities:{fullWin:45,halfWin:0,push:0,halfLoss:0,fullLoss:55}};
 assert.equal(isValidSnapshot(base),true);
+assert.equal(isValidSnapshot({...base,homeLine:null}),false);
+assert.equal(isValidSnapshot({...base,source:"   "}),false);
 assert.equal(fingerprint(base),fingerprint({...base,createdAt:"2026-11-12T17:30:00Z"}));
 const snapshots=[
  {...base,matchId:"m1",homeLine:-0.5,probabilities:{fullWin:45,halfWin:0,push:0,halfLoss:0,fullLoss:55}},
