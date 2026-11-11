@@ -960,6 +960,7 @@ async function loadFootballDatabase(){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
   document.getElementById("databaseMatches").innerHTML='<div class="empty">ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือไฟล์ data/football-database.json</div>';
+  window.dispatchEvent(new CustomEvent("pft-football-database-error",{detail:{message:error.message||"ไม่ทราบสาเหตุ"}}));
   console.error("Football database load failed",error);
  }
 }
