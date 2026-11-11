@@ -1,4 +1,4 @@
-# Football Time V6.1.0-beta.1 — UI and unified handicap analysis
+# Football Time V6.1.0-beta.2 — UI and unified handicap analysis
 
 ## User-facing changes
 - Refine the existing Dark Navy + Mint UI with a restrained premium football visual layer and Android-sized touch targets.
@@ -18,11 +18,16 @@
 - No new provider, endpoint, polling schedule, API quota, billing, or database write.
 - No Local Storage key renames, destructive migrations, or overwriting of existing snapshots.
 - No betting placement, odds prices, bookmaker links, staking, or betting recommendations.
-- Handicap-specific historical calibration is not included in this UI/calculation change: it requires an immutable line-and-source snapshot record. Do not derive historical handicap accuracy from current lines or current model outputs.
+- Add an independent local Handicap history store (`pft_handicap_snapshots_v1`) without changing the existing 1X2 snapshot key or records.
+- Automatically save a deduplicated, immutable pre-match Handicap snapshot for each eligible selected line, including the line, provider, individual source names and update times, five settlement probabilities, model version, match ID, and capture time.
+- Evaluate saved Handicap snapshots only against finished match scores and only when captured before kickoff. Derive full win, half win, push, half loss, and full loss without mutating the stored snapshot.
+- Show Handicap win-side rate (full + half wins) separately from 1X2, with all five outcome counts/rates, evaluated/pending/excluded counts, Brier score, and log loss. Push is not counted as a win and remains in the denominator.
+- Handicap snapshots are stored locally on this device; no cloud/database writes or cross-device sync are added.
 
 ## Version and cache
-- App version: V6.1.0-beta.1
-- Service worker cache: football-time-v47
+- App version: V6.1.0-beta.2
+- Service worker cache: football-time-v48
+- New independent history module: `js/handicap-history.js` (included in offline cache)
 - New refinement stylesheet is included in the offline asset list.
 
 ## Verification
