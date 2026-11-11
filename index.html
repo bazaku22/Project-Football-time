@@ -589,13 +589,25 @@ function renderLeagueData(){
  document.getElementById("teamList").innerHTML=teams.map(t=>`<div class="match-row" style="display:flex;align-items:center;gap:9px">${t.crest?`<img class="team-crest" src="${esc(t.crest)}" alt="" onerror="this.style.display='none'">`:""}<div><b style="font-size:12px">${esc(t.name)}</b><div class="small">${esc(t.country||"")}</div></div></div>`).join("")||'<div class="empty">ไม่พบรายชื่อทีม</div>';
  renderDatabaseMatches();
 }
+function findFootballTeamByName(name){
+ const normalize=value=>String(value||"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+ const target=normalize(name);if(!target)return null;
+ const teams=footballDB?.teams||[];
+ return teams.find(team=>normalize(team.name)===target)||teams.find(team=>[team.shortName,team.tla].some(value=>value&&normalize(value)===target))||null;
+}
+function renderTeamCrest(team,className="team-crest"){
+ if(team?.crest)return '<img class="'+className+'" src="'+esc(team.crest)+'" alt="" loading="lazy" decoding="async" onerror="this.hidden=true">';
+ const initials=String(team?.shortName||team?.tla||team?.name||"⚽").trim().slice(0,3);
+ return '<span class="'+className+' team-crest-fallback" aria-hidden="true">'+esc(initials||"⚽")+'</span>';
+}
 function renderDatabaseMatches(){
  const filter=document.getElementById("matchFilter").value;
  const list=(footballDB.matches||[]).filter(m=>m.leagueId===selectedLeagueId&&(filter==="ALL"||m.status===filter)).sort((a,b)=>new Date(a.utcDate)-new Date(b.utcDate));
  document.getElementById("matchCount").textContent=list.length+" นัด";
  document.getElementById("databaseMatches").innerHTML=list.slice(0,80).map(m=>{
   const finished=m.status==="FINISHED",score=finished&&m.homeScore!==null&&m.awayScore!==null?`${m.homeScore} - ${m.awayScore}`:"vs";
-  return `<div class="match-row"><div class="match-teams">${esc(m.homeTeamName)} <span style="color:var(--green)">${score}</span> ${esc(m.awayTeamName)}</div><div class="match-meta">${dateTime(m.utcDate)} · ${esc(m.status)}</div></div>`;
+  const homeTeam=footballDB.teams.find(team=>team.id===m.homeTeamId),awayTeam=footballDB.teams.find(team=>team.id===m.awayTeamId);
+  return `<div class="match-row"><div class="match-teams fixture-match-teams"><span class="fixture-team">${renderTeamCrest(homeTeam)}<span>${esc(m.homeTeamName)}</span></span><span class="fixture-score">${score}</span><span class="fixture-team">${renderTeamCrest(awayTeam)}<span>${esc(m.awayTeamName)}</span></span></div><div class="match-meta">${dateTime(m.utcDate)} · ${esc(m.status)}</div></div>`;
  }).join("")||'<div class="empty">ไม่พบการแข่งขันในตัวกรองนี้</div>';
  if(list.length>80)document.getElementById("databaseMatches").insertAdjacentHTML("beforeend",`<div class="small" style="padding-top:10px">แสดง 80 จาก ${list.length} นัด</div>`);
 }
@@ -892,7 +904,8 @@ function renderTestFixtures(){
   const thaiDate=d.toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
   const thaiTime=d.toLocaleTimeString("th-TH",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"Asia/Bangkok"});
   const shifted=thaiDate!==new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"});
-  return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่งขัน '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams">'+esc(m.home)+' <span class="vs">VS</span> '+esc(m.away)+'</div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div><div class="experiment-panel" data-experiment-id="'+esc(m.id)+'"></div></article>';
+  const homeTeam=findFootballTeamByName(m.home),awayTeam=findFootballTeamByName(m.away);
+  return '<article class="card"><div class="topline"><span class="tag">'+esc(m.competition)+'</span><span class="small">วันแข่งขัน '+esc(new Date(m.date+"T12:00:00Z").toLocaleDateString("th-TH",{day:"numeric",month:"short",timeZone:"Asia/Bangkok"}))+'</span></div><div class="teams fixture-team-line"><span class="fixture-team">'+renderTeamCrest(homeTeam)+'</span><span class="fixture-team-name">'+esc(m.home)+'</span><span class="vs">VS</span><span class="fixture-team">'+renderTeamCrest(awayTeam)+'</span><span class="fixture-team-name">'+esc(m.away)+'</span></div><div class="grid"><div><span class="label">เวลาไทย (ICT)</span><span class="value">'+esc(thaiTime)+' น. · '+esc(thaiDate)+(shifted?' (วันถัดไป)':'')+'</span></div><div><span class="label">เวลาในแหล่งอ้างอิง</span><span class="value">'+esc(m.localKickoff)+'</span></div></div><div class="small" style="margin-top:9px">เขตเวลาอ้างอิง: '+esc(m.timezone)+' · สถานะ: '+(m.status==="scheduled"?"กำหนดแข่งขัน":"รอยืนยัน")+'</div><div class="small" style="margin-top:5px">แหล่งเวลา: <a href="'+esc(m.sourceUrl)+'" target="_blank" rel="noopener noreferrer">'+esc(m.sourceName)+'</a></div><div class="experiment-panel" data-experiment-id="'+esc(m.id)+'"></div></article>';
  }).join("");
  if(window.renderTestExperimentPanels)window.renderTestExperimentPanels(rows);
 }

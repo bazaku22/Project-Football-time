@@ -61,7 +61,7 @@
           type:"team",id:String(team.id),label:team.name,
           meta:leagueNames.join(" · ") || team.country || "ทีมฟุตบอล",
           search:[team.name,team.shortName,team.tla,team.country,leagueNames.join(" ")].filter(Boolean).join(" "),
-          leagueId:memberships[0]?.leagueId || ""
+          leagueId:memberships[0]?.leagueId || "",team
         });
       });
       (data.matches || []).forEach((match) => {
@@ -72,7 +72,9 @@
           type:"match",id,label:(match.homeTeamName || "ทีมเจ้าบ้าน") + " vs " + (match.awayTeamName || "ทีมเยือน"),
           meta:[league?.name,date,match.status].filter(Boolean).join(" · "),
           search:[match.homeTeamName,match.awayTeamName,league?.name,date,match.status].filter(Boolean).join(" "),
-          leagueId:match.leagueId,date,match
+          leagueId:match.leagueId,date,match,
+          homeTeam:(data.teams || []).find((team) => team.id === match.homeTeamId) || null,
+          awayTeam:(data.teams || []).find((team) => team.id === match.awayTeamId) || null
         });
       });
     }
@@ -161,6 +163,19 @@
       document.querySelector('[data-fixture-day="'+CSS.escape(entity.date || "")+'"]')?.click();
     }
   }
+  function teamLogo(team, className = "discovery-team-crest") {
+    if (team?.crest) return '<img class="'+className+'" src="'+esc(team.crest)+'" alt="" loading="lazy" decoding="async" onerror="this.hidden=true">';
+    const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3);
+    return '<span class="'+className+' discovery-team-fallback" aria-hidden="true">'+esc(initials || "⚽")+'</span>';
+  }
+  function matchTeamVisual(homeTeam, awayTeam) {
+    return '<span class="discovery-match-crests">'+teamLogo(homeTeam)+'<span class="discovery-match-vs">VS</span>'+teamLogo(awayTeam)+'</span>';
+  }
+  function resultVisual(entity) {
+    if (entity.type === "team") return teamLogo(entity.team);
+    if (entity.type === "match") return matchTeamVisual(entity.homeTeam, entity.awayTeam);
+    return "";
+  }
   function renderSearch() {
     const input = $("discoverySearchInput"), root = $("discoverySearchResults");
     if (!input || !root) return;
@@ -171,7 +186,7 @@
       return {...entity,score:entity.label.toLocaleLowerCase() === query ? 0 : entity.label.toLocaleLowerCase().startsWith(query) ? 1 : text.includes(query) ? 2 : 9};
     }).filter((x) => x.score < 9).sort((a,b) => a.score-b.score || a.label.localeCompare(b.label)).slice(0,12);
     root.innerHTML = results.length ? results.map((entity) =>
-      '<div class="discovery-result"><button type="button" class="discovery-result-open" data-open-type="'+esc(entity.type)+'" data-open-id="'+esc(entity.id)+'"><span class="discovery-kind">'+esc({league:"ลีก",team:"ทีม",match:"แมตช์",player:"นักเตะ",testmatch:"โปรแกรม"}[entity.type] || "ข้อมูล")+'</span><span class="discovery-result-copy"><b>'+esc(entity.label)+'</b><small>'+esc(entity.meta || "")+'</small></span></button>'+favoriteButton(entity)+'</div>'
+      '<div class="discovery-result"><button type="button" class="discovery-result-open '+(entity.type==="team"||entity.type==="match"?'has-team-visual':'')+'" data-open-type="'+esc(entity.type)+'" data-open-id="'+esc(entity.id)+'">'+resultVisual(entity)+'<span class="discovery-result-copy"><span class="discovery-kind">'+esc({league:"ลีก",team:"ทีม",match:"แมตช์",player:"นักเตะ",testmatch:"โปรแกรม"}[entity.type] || "ข้อมูล")+'</span><b>'+esc(entity.label)+'</b><small>'+esc(entity.meta || "")+'</small></span></button>'+favoriteButton(entity)+'</div>'
     ).join("") : '<div class="discovery-empty">ไม่พบข้อมูลที่ตรงกับคำค้น</div>';
     root.hidden = false;
     input.setAttribute("aria-expanded","true");
@@ -212,7 +227,9 @@
       const entity = index.find((x) => x.type === "match" && x.match === match);
       if (!entity) return "";
       const score = match.status === "FINISHED" && match.homeScore !== null && match.awayScore !== null ? match.homeScore + " - " + match.awayScore : "vs";
-      return '<div class="discovery-date-row"><button type="button" class="discovery-result-open" data-open-type="match" data-open-id="'+esc(entity.id)+'"><b>'+esc(match.homeTeamName)+' <span>'+esc(score)+'</span> '+esc(match.awayTeamName)+'</b><small>'+esc(dateTimeSafe(match.utcDate))+' · '+esc(match.status)+'</small></button>'+favoriteButton(entity)+'</div>';
+      const homeTeam = (data?.teams || []).find((team) => team.id === match.homeTeamId) || null;
+      const awayTeam = (data?.teams || []).find((team) => team.id === match.awayTeamId) || null;
+      return '<div class="discovery-date-row"><button type="button" class="discovery-result-open has-team-visual" data-open-type="match" data-open-id="'+esc(entity.id)+'">'+matchTeamVisual(homeTeam,awayTeam)+'<span class="discovery-result-copy"><b>'+esc(match.homeTeamName)+' <span>'+esc(score)+'</span> '+esc(match.awayTeamName)+'</b><small>'+esc(dateTimeSafe(match.utcDate))+' · '+esc(match.status)+'</small></span></button>'+favoriteButton(entity)+'</div>';
     }).join("");
     root.innerHTML = '<div class="discovery-count">พบ '+matches.length+' นัด'+(matches.length>50?' · แสดง 50 นัดแรก':'')+'</div>'+(list || '<div class="discovery-empty">ไม่พบการแข่งขันในช่วงวันที่เลือก</div>');
   }
