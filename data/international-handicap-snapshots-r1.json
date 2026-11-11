@@ -52,7 +52,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 2.88657986403e-15,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -243,7 +243,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": -2.22044604925e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -434,7 +434,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 1.29340982369e-13,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -625,7 +625,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 2.84939849493e-11,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -816,7 +816,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 1.11022302463e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1007,7 +1007,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 3.21964677141e-15,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1198,7 +1198,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 6.66133814775e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1389,7 +1389,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 4.4408920985e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1580,7 +1580,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 1.11022302463e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1771,7 +1771,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 2.55351295664e-14,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -1962,7 +1962,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 1.11022302463e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -2153,7 +2153,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 1.11022302463e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -2344,7 +2344,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 4.4408920985e-16,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -2535,7 +2535,7 @@
       "score_matrix": {
         "distribution": "independent_poisson",
         "max_goals_per_team": 20,
-        "omitted_tail_mass": 0,
+        "omitted_tail_mass": 7.03881397612e-14,
         "tail_threshold": 0.001
       },
       "probabilities_1x2": {
@@ -2708,5 +2708,6 @@
       "outcome": null,
       "evaluation_status": "pending"
     }
-  ]
+  ],
+  "score_matrix_tail_policy": "Tail mass measured from the 0..20 Poisson truncation; probabilities normalized only when omitted mass is at or below 0.1%."
 }
