@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time V5.6.1</title>
+<title>Project Football Time V5.6.2</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -55,7 +55,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.2</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="stats"><div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div><div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div></div>
@@ -805,7 +805,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent="เชื่อมต่อสำเร็จ";
-  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);
+  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
