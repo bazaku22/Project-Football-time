@@ -93,6 +93,8 @@ jobs:
               'id="dbtab-homeaway"',
               'data-db-tab="homeaway"',
               'id="archive"',
+              'id="summary"',
+              'data-page="summary"',
               'id="automaticHandicapOdds"',
               'function loadAsianHandicapOdds()',
               'function renderAutomaticHandicap(',
@@ -106,6 +108,26 @@ jobs:
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
           node --check js/test-experiment-enhancements.js
+          python3 - <<'PY'
+          from pathlib import Path
+
+          html = Path("index.html").read_text(encoding="utf-8")
+          enhancements = Path("js/test-experiment-enhancements.js").read_text(encoding="utf-8")
+          home_start = html.index('<section id="home"')
+          home_end = html.index('</section>', home_start)
+          summary_start = html.index('<section id="summary"')
+          summary_end = html.index('</section>', summary_start)
+          if "testExperimentSummary" in html[home_start:home_end]:
+              raise SystemExit("Experiment summary must stay off the home page.")
+          if 'id="testExperimentSummary"' not in html[summary_start:summary_end]:
+              raise SystemExit("Experiment summary page is missing its summary panel.")
+          if "data-ah-line" in enhancements or "handicapMarkup" in enhancements:
+              raise SystemExit("Manual Asian Handicap line selector must not be present in experiment fixtures.")
+          for marker in ("function renderApiHandicap(", "data-api-ah-panel", 'data/asian-handicap-odds.json'):
+              if marker not in enhancements:
+                  raise SystemExit("Missing automatic API handicap UI marker: " + marker)
+          print("Experiment summary tab and automatic API handicap UI markers are valid.")
+          PY
           node --check js/player-database.js
           node --input-type=module --check < js/reep-alias-pilot.js
 
