@@ -25,28 +25,6 @@ $("playerCloudSendLink").addEventListener("click",async()=>{
  try{const {error}=await supabase.auth.signInWithOtp({email,options:{emailRedirectTo:SITE_URL,shouldCreateUser:true}});if(error)throw error;status("ส่งคำขอลิงก์แล้ว · กรุณาตรวจสอบกล่องจดหมายและ Spam");}
  catch(error){status("ส่งลิงก์ไม่สำเร็จ: "+(error instanceof Error?error.message:"เกิดข้อผิดพลาด"));}finally{button.disabled=false;}
 });
-$("playerCloudPreview").addEventListener("click",async()=>{
- const button=$("playerCloudPreview");button.disabled=true;clearPreview();status("กำลังเรียก StrikerAPI เพื่อสร้าง Preview 5 ลีก · สูงสุด 10 credits…");
- try{
-  const {data,error}=await supabase.functions.invoke("player-data",{body:{action:"preview"}});
-  if(error||data?.error)throw new Error(data?.error||error.message);
-  previewId=data.previewId;const summary=data.summary||{},counts=summary.leagueCounts||{};
-  $("playerCloudPreviewSummary").textContent="พบ "+(summary.records||0)+" รายการ · "+Object.entries(counts).map(([k,v])=>k+": "+v).join(" · ")+(summary.failures?.length?" · ข้อผิดพลาด: "+summary.failures.join("; "):"")+" · Preview หมดอายุ "+new Date(data.expiresAt).toLocaleTimeString("th-TH");
-  $("playerCloudPreviewPanel").hidden=false;status("สร้าง Preview แล้ว · ยังไม่มีการบันทึกข้อมูลนักเตะ");
- }catch(error){status("สร้าง Preview ไม่สำเร็จ: "+(error instanceof Error?error.message:"เกิดข้อผิดพลาด"));}
- finally{button.disabled=false;}
-});
-$("playerCloudPreviewManU").addEventListener("click",async()=>{
- const button=$("playerCloudPreviewManU");button.disabled=true;clearPreview();status("กำลังดึงรายชื่อ Manchester United จาก StrikerAPI · ไม่เกิน 2 credits · ไม่เรียก Player Profile…");
- try{
-  const {data,error}=await supabase.functions.invoke("player-data",{body:{action:"preview_manutd"}});
-  if(error||data?.error)throw new Error(data?.error||error.message);
-  previewId=data.previewId;const summary=data.summary||{};
-  $("playerCloudPreviewSummary").textContent="Manchester United · พบ "+(summary.records||0)+" รายชื่อ · ฤดูกาล 2026/27 · ใช้ StrikerAPI get_squad เท่านั้น · ประมาณ 2 credits · ไม่มี Player Profile calls · สถิติยังว่าง · Preview หมดอายุ "+new Date(data.expiresAt).toLocaleTimeString("th-TH");
-  $("playerCloudPreviewPanel").hidden=false;status("สร้าง Preview Manchester United แล้ว · ยังไม่มีการบันทึกข้อมูลนักเตะ");
- }catch(error){status("สร้าง Preview Manchester United ไม่สำเร็จ: "+(error instanceof Error?error.message:"เกิดข้อผิดพลาด"));}
- finally{button.disabled=false;}
-});
 $("playerCloudSavePreview").addEventListener("click",async()=>{
  if(!previewId)return;if(!confirm("ยืนยันบันทึกข้อมูลนักเตะจาก Preview นี้ลงคลังส่วนตัวหรือไม่?"))return;
  const button=$("playerCloudSavePreview");button.disabled=true;status("กำลังตรวจสอบและบันทึกข้อมูล Preview…");
