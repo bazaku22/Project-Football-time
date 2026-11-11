@@ -151,13 +151,17 @@ Only results with a clear senior men's match, date, and score are listed below. 
 | Brazil | 25/09/2026 | Australia vs Brazil | 1–1 | CBF / Football Australia |
 | Brazil | 29/09/2026 | Australia vs Brazil | 2–4 | CBF |
 | Brazil | 03/10/2026 | Brazil vs India | 4–0 | CBF |
+| South Korea | 28/09/2026 | Korea Republic vs Uruguay | 1–4 | AUF match centre |
+| Argentina | 30/09/2026 | Argentina vs Bolivia | 4–0 | AFA official match report |
 
 Official result pages:
 - SAFF senior national team match list: https://www.saff.com.sa/en/nationalteams.php?id=1&type=2
 - Football Australia match centre, Australia 1–1 Brazil: https://socceroos.com.au/match/australia-v-brazil-friendlies-26-09-2026/22278825
 - Football Australia match centre, Australia 2–4 Brazil: https://socceroos.com.au/match/australia-v-brazil-friendlies-29-09-2026/22278826
 - JFA SAMURAI BLUE fixtures and results: https://jfa.jp/samuraiblue/
-- AUF September–October 2026 senior team results: https://www.auf.org.uy/buscar/Fecha%2BFIFA/pag/2/
+- AUF September–October 2026 senior team results (Japan 3–1 Uruguay; Korea Republic 1–4 Uruguay): https://www.auf.org.uy/buscar/Fecha%2BFIFA/pag/2/
+- AUF Korea Republic 1–4 Uruguay match centre: https://www.auf.org.uy/amistosocorea-del-sur-vs-uruguay523430/
+- AFA Argentina 4–0 Bolivia match report: https://www.afa.com.ar/es/posts/la-seleccion-argentina-se-mide-ante-bolivia-en-cordoba
 - CBF Brazil 2–4 Australia report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos/jogos-selecao-masculina/brasil-vence-a-australia-por-4-a-2
 - CBF Brazil 4–0 India report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos-selecao-masculina/a/brasil-goleia-a-india-em-em-calcuta
 
@@ -165,12 +169,12 @@ Official result pages:
 
 | Team | Candidate fixture | Official historical result records accepted | Status |
 |---|---|---:|---|
-| South Korea | vs Saudi Arabia | 0 | KFA historical result page not yet verified; secondary result listings found but not promoted to accepted records |
+| South Korea | vs Saudi Arabia | 1 | One result (1–4 vs Uruguay, 28 Sep) confirmed by AUF; other recent results await KFA/official-source confirmation |
 | Qatar | vs Australia | 0 | QFA fixture notice verified; recent historical score list not yet verified |
-| Argentina | vs Uruguay | 0 | AFA upcoming fixture notice verified; recent historical score list not yet verified |
+| Argentina | vs Uruguay | 1 | One result (4–0 vs Bolivia, 30 Sep) confirmed by AFA; Burkina Faso and Benin results still await direct official match reports |
 | Singapore | vs Brazil | 0 | Secondary result listings found; official FAS result source not yet verified |
 
-The official-source count is intentionally uneven: Saudi Arabia 5, Japan 4, Brazil 3 unique matches, Australia 2, Uruguay 2; four teams remain at 0 accepted results. Brazil and Australia share the same two Australia–Brazil matches; those are two match records, not four independent matches. The Brazil–India match is a third distinct record.
+The official-source count is intentionally uneven: Saudi Arabia 5, Japan 4, Brazil 3 unique matches, Australia 2, Uruguay 2, South Korea 1, Argentina 1; Qatar and Singapore remain at 0 accepted results. Brazil and Australia share the same two Australia–Brazil matches; those are two match records, not four independent matches. Uruguay and South Korea share the Korea Republic–Uruguay match; it is also one match record. The Brazil–India and Argentina–Bolivia matches are distinct records.
 
 Secondary references were located for South Korea, Argentina, and Singapore, but are not accepted into the official-source sheet in this revision. If used later, retain a separate provenance class and permission review rather than silently merging them with official-source records.
 
