@@ -2,7 +2,7 @@ PROJECT FOOTBALL TIME — Personal Football Analytics
 
 สถานะ:
 - แอป PWA สำหรับใช้งานส่วนตัว เน้นสถิติฟุตบอลและการวิเคราะห์การแข่งขัน
-- ครอบคลุม 5 ลีก: Premier League, La Liga, Bundesliga, Serie A และ Ligue 1
+- ขอบเขต Phase 6 วางแผน 8 ลีก: 5 ลีกเดิม + EFL Championship + J1 + J2\n- แหล่งข้อมูลปัจจุบันรองรับ 6 ลีกผ่าน free tier (รวม Championship); J1/J2 แสดงเป็นลีกที่รอแหล่งข้อมูลฟรีและยังไม่มีข้อมูลสด
 - มีข้อมูลโปรแกรม/ผลการแข่งขัน/ตารางคะแนน และเครื่องมือวิเคราะห์ทีม
 - มี Team Strength, Poisson Match Probability, การประเมินความแม่นยำ และ Probability Calibration
 - มีฐานข้อมูลนักเตะส่วนตัว 156 รายการใน Supabase (ข้อมูลเดิมต้องคงอยู่)
