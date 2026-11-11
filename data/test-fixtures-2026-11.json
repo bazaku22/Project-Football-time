@@ -162,14 +162,14 @@
     {
       "id": "fr-jpn-bra",
       "date": "2026-11-14",
-      "kickoffUtc": "2026-11-14T11:15:00Z",
+      "kickoffUtc": "2026-11-14T10:15:00Z",
       "home": "Japan",
       "away": "Brazil",
       "competition": "International Friendly",
-      "localKickoff": "19:15 SGT",
+      "localKickoff": "18:15 SGT",
       "timezone": "Asia/Singapore",
-      "sourceUrl": "https://www.jleague.jp/match/friendly/2026/111414/",
-      "sourceName": "J.League",
+      "sourceUrl": "https://www.jfa.jp/eng/national_team/mens_all_2026/news/00036974/",
+      "sourceName": "Japan Football Association",
       "status": "scheduled",
       "timeZoneLabel": "เวลาสนาม"
     },
