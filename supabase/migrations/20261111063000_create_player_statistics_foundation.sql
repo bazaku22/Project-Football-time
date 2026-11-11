@@ -1,6 +1,6 @@
 -- Football Time: provider-neutral player statistics foundation.
 -- Additive only: does not alter legacy player_records or sync tables.
--- DRAFT FOR REVIEW. This file has NOT been applied to the live Supabase project.
+-- Production migration applied 2026-11-11. See docs/football-time-statistics-migration-review.md.
 
 create table public.ft_players (
   id uuid primary key default gen_random_uuid(),
