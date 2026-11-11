@@ -5,6 +5,8 @@ on:
     paths:
       - "index.html"
       - "js/asian-handicap.js"
+      - "js/handicap-history.js"
+      - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
       - "css/analysis-refinement.css"
@@ -36,6 +38,7 @@ jobs:
       - name: Check JavaScript syntax
         run: |
           node --check js/asian-handicap.js
+          node --check js/handicap-history.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check sw.js
@@ -51,9 +54,11 @@ jobs:
           node --check /tmp/football-time-inline.js
       - name: Test shared score distribution and handicap settlement
         run: node tests/test_asian_handicap.js
+      - name: Test immutable Handicap history and independent metrics
+        run: node tests/test_handicap_history.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.1.0-beta.1"' index.html
-          grep -q 'football-time-v47' sw.js
+          grep -q 'application-version" content="6.1.0-beta.2"' index.html
+          grep -q 'football-time-v48' sw.js
           grep -q 'analysis-refinement.css' sw.js
           ! grep -q 'rows.length>2500' index.html
