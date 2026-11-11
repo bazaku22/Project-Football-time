@@ -59,11 +59,16 @@ def main():
             raise ValueError(f"Duplicate historical snapshot for match {match_id}; refusing to discard history.")
         snapshots.append(row)
         known_ids.add(match_id)
+    league_sync = database.get("source", {}).get("leagueSync", {})
+    freshness_is_authoritative = bool(league_sync)
+    fresh_leagues = {league_id for league_id, state in league_sync.items()
+                     if state.get("status") == "fresh"}
     matches_by_id = {str(match.get("providerMatchId")): match for match in matches
                      if match.get("providerMatchId") is not None}
     for snapshot in snapshots:
         match = matches_by_id.get(str(snapshot.get("matchId")))
-        if (match and match.get("status") == "FINISHED"
+        if (match and (not freshness_is_authoritative or match.get("leagueId") in fresh_leagues)
+                and match.get("status") == "FINISHED"
                 and isinstance(match.get("homeScore"), int)
                 and isinstance(match.get("awayScore"), int)
                 and match["homeScore"] >= 0 and match["awayScore"] >= 0
@@ -142,6 +147,8 @@ def main():
 
     added = 0
     for match in matches:
+        if freshness_is_authoritative and match.get("leagueId") not in fresh_leagues:
+            continue
         if match.get("status") not in ("SCHEDULED", "TIMED"):
             continue
         match_id = match.get("providerMatchId")
