@@ -128,8 +128,12 @@
   (fixtures||[]).forEach(f=>{
    const panel=document.querySelector('[data-experiment-id="'+f.id.replace(/"/g,"")+'"]');if(!panel)return;
    const snapshot=all.find(r=>r.fixtureId===f.id);
-   if(f.competition==="UEFA Nations League"||f.competition==="International Friendly"){if(snapshot)renderNational(f,panel,snapshot);return;}
-   if(snapshot&&snapshot.expectedGoals)renderApiHandicap(panel,f,snapshot.expectedGoals);
+   if(f.competition==="UEFA Nations League"||f.competition==="International Friendly"){
+    if(snapshot)renderNational(f,panel,snapshot);
+    else renderApiHandicap(panel,f,null);
+    return;
+   }
+   renderApiHandicap(panel,f,snapshot&&snapshot.expectedGoals?snapshot.expectedGoals:null);
   });
   return changed;
  }
