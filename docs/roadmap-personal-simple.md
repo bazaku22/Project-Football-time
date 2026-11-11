@@ -67,7 +67,7 @@ Do not continue building multi-provider identity bridges, canonical-player cross
 - The user approved adding The Odds API as the sole external source for reference Asian Handicap lines.
 - Use only the configured free plan; do not enable billing, upgrade, or incur charges. The API key must remain in GitHub Actions Secrets as `THE_ODDS_API_KEY`.
 - Fetch one market (`spreads`) from one region (`eu`) for each of the five supported leagues once daily. This is five credits per scheduled run at the provider's documented one-credit-per-region-per-market rate, or about 150 credits per 30-day month if every request returns data.
-- The workflow may also be run manually, but never runs on code pushes. Do not add retries or extra polling.
+- The workflow performs one initial refresh after an approved PR merge, then runs daily; it may also be run manually. It never runs on code pushes. Do not add retries or extra polling.
 - Stop before making remaining requests if the returned quota is insufficient to complete the five-league run. Preserve the last successfully fetched data; the app must mark old lines stale and must not calculate from stale lines.
 - Soccer handicap coverage is not guaranteed by the provider. If a league/match has no supported market, display “ไม่มีข้อมูล” and do not infer a line.
 - Store only reference line points, provider/bookmaker names, market update timestamps, and quota metadata; do not store odds prices, bookmaker links, or betslip links.
