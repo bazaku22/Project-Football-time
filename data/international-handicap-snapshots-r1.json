@@ -1,0 +1,2712 @@
+{
+  "dataset_id": "international-r1-2026",
+  "schema_version": "1.0.0",
+  "dataset_status": "experimental_isolated_pre_match_handicap_snapshots",
+  "model_version": "intl-r1-handicap-0.1.0",
+  "captured_at": "2026-11-12T02:00:55+07:00",
+  "source_cutoff": "2026-10-06",
+  "capture_timezone": "Asia/Bangkok",
+  "line_convention": "home_line; negative values handicap home team, positive values handicap away side by equivalent home-perspective settlement",
+  "scenario_lines": [
+    -2.5,
+    -2,
+    -1.5,
+    -1,
+    -0.75,
+    -0.5,
+    -0.25,
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1,
+    1.5,
+    2,
+    2.5
+  ],
+  "default_home_line": -1,
+  "snapshot_count": 14,
+  "excluded_count": 1,
+  "excluded_fixtures": [
+    {
+      "fixture_id": "INT-R1-011",
+      "reason": "kickoff time unpublished; no valid pre-kickoff snapshot"
+    }
+  ],
+  "snapshots": [
+    {
+      "snapshot_id": "INT-R1-001-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-001",
+      "competition": "UEFA Nations League",
+      "home_team": "Türkiye",
+      "away_team": "Belgium",
+      "kickoff_utc": "2026-11-12T17:00:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-001-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.2,
+        "away": 1.925
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.23580296,
+        "draw": 0.22147439,
+        "away_win": 0.54272265
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.02943852,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.97056148
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.02943852,
+            "half_win": 0,
+            "push": 0.06422143,
+            "half_loss": 0,
+            "full_loss": 0.90634005
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.09365995,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.90634005
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.09365995,
+            "half_win": 0,
+            "push": 0.14214301,
+            "half_loss": 0,
+            "full_loss": 0.76419704
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.09365995,
+            "half_win": 0.14214301,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.76419704
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.23580296,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.76419704
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.23580296,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.22147439,
+            "full_loss": 0.54272265
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.23580296,
+            "half_win": 0,
+            "push": 0.22147439,
+            "half_loss": 0,
+            "full_loss": 0.54272265
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.23580296,
+            "half_win": 0.22147439,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.54272265
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.45727735,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.54272265
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.45727735,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.22802108,
+            "full_loss": 0.31470157
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.45727735,
+            "half_win": 0,
+            "push": 0.22802108,
+            "half_loss": 0,
+            "full_loss": 0.31470157
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.68529843,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.31470157
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.68529843,
+            "half_win": 0,
+            "push": 0.16526426,
+            "half_loss": 0,
+            "full_loss": 0.14943731
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.85056269,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.14943731
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-002-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-002",
+      "competition": "UEFA Nations League",
+      "home_team": "Italy",
+      "away_team": "France",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-002-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.525,
+        "away": 1.575
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.36994889,
+        "draw": 0.23843404,
+        "away_win": 0.39161706
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.06909702,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.93090298
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.06909702,
+            "half_win": 0,
+            "push": 0.1091479,
+            "half_loss": 0,
+            "full_loss": 0.82175508
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.17824492,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.82175508
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.17824492,
+            "half_win": 0,
+            "push": 0.19170397,
+            "half_loss": 0,
+            "full_loss": 0.63005111
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.17824492,
+            "half_win": 0.19170397,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.63005111
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.36994889,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.63005111
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.36994889,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.23843404,
+            "full_loss": 0.39161706
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.36994889,
+            "half_win": 0,
+            "push": 0.23843404,
+            "half_loss": 0,
+            "full_loss": 0.39161706
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.36994889,
+            "half_win": 0.23843404,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.39161706
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.60838294,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.39161706
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.60838294,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.19798935,
+            "full_loss": 0.19362771
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.60838294,
+            "half_win": 0,
+            "push": 0.19798935,
+            "half_loss": 0,
+            "full_loss": 0.19362771
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.80637229,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.19362771
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.80637229,
+            "half_win": 0,
+            "push": 0.11642247,
+            "half_loss": 0,
+            "full_loss": 0.07720524
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.92279476,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.07720524
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-003-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-003",
+      "competition": "UEFA Nations League",
+      "home_team": "Czechia",
+      "away_team": "Spain",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-003-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 0.825,
+        "away": 2.35
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.11418657,
+        "draw": 0.17166507,
+        "away_win": 0.71414836
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.0076018,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.9923982
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.0076018,
+            "half_win": 0,
+            "push": 0.02595475,
+            "half_loss": 0,
+            "full_loss": 0.96644345
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.03355655,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.96644345
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.03355655,
+            "half_win": 0,
+            "push": 0.08063001,
+            "half_loss": 0,
+            "full_loss": 0.88581343
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.03355655,
+            "half_win": 0.08063001,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.88581343
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.11418657,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.88581343
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.11418657,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.17166507,
+            "full_loss": 0.71414836
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.11418657,
+            "half_win": 0,
+            "push": 0.17166507,
+            "half_loss": 0,
+            "full_loss": 0.71414836
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.11418657,
+            "half_win": 0.17166507,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.71414836
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.28585164,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.71414836
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.28585164,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.22967337,
+            "full_loss": 0.48447499
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.28585164,
+            "half_win": 0,
+            "push": 0.22967337,
+            "half_loss": 0,
+            "full_loss": 0.48447499
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.51552501,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.48447499
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.51552501,
+            "half_win": 0,
+            "push": 0.21059339,
+            "half_loss": 0,
+            "full_loss": 0.2738816
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.7261184,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.2738816
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-004-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-004",
+      "competition": "UEFA Nations League",
+      "home_team": "England",
+      "away_team": "Croatia",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-004-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 3.15,
+        "away": 1.225
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.7526903,
+        "draw": 0.13379284,
+        "away_win": 0.11351685
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.37473349,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.62526651
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.37473349,
+            "half_win": 0,
+            "push": 0.19329169,
+            "half_loss": 0,
+            "full_loss": 0.43197482
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.56802518,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.43197482
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.56802518,
+            "half_win": 0,
+            "push": 0.18466513,
+            "half_loss": 0,
+            "full_loss": 0.2473097
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.56802518,
+            "half_win": 0.18466513,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.2473097
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.7526903,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.2473097
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.7526903,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.13379284,
+            "full_loss": 0.11351685
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.7526903,
+            "half_win": 0,
+            "push": 0.13379284,
+            "half_loss": 0,
+            "full_loss": 0.11351685
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.7526903,
+            "half_win": 0.13379284,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.11351685
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.88648315,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.11351685
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.88648315,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.07181422,
+            "full_loss": 0.04170264
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.88648315,
+            "half_win": 0,
+            "push": 0.07181422,
+            "half_loss": 0,
+            "full_loss": 0.04170264
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.95829736,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.04170264
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.95829736,
+            "half_win": 0,
+            "push": 0.02923239,
+            "half_loss": 0,
+            "full_loss": 0.01247025
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.98752975,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.01247025
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-005-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-005",
+      "competition": "UEFA Nations League",
+      "home_team": "Netherlands",
+      "away_team": "Greece",
+      "kickoff_utc": "2026-11-13T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-005-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.325,
+        "away": 1.1
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.41782541,
+        "draw": 0.27276847,
+        "away_win": 0.30940613
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.06870573,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.93129427
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.06870573,
+            "half_win": 0,
+            "push": 0.12298533,
+            "half_loss": 0,
+            "full_loss": 0.80830894
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.19169106,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.80830894
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.19169106,
+            "half_win": 0,
+            "push": 0.22613435,
+            "half_loss": 0,
+            "full_loss": 0.58217459
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.19169106,
+            "half_win": 0.22613435,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.58217459
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.41782541,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.58217459
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.41782541,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.27276847,
+            "full_loss": 0.30940613
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.41782541,
+            "half_win": 0,
+            "push": 0.27276847,
+            "half_loss": 0,
+            "full_loss": 0.30940613
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.41782541,
+            "half_win": 0.27276847,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.30940613
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.69059387,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.30940613
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.69059387,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.18773418,
+            "full_loss": 0.12167195
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.69059387,
+            "half_win": 0,
+            "push": 0.18773418,
+            "half_loss": 0,
+            "full_loss": 0.12167195
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.87832805,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.12167195
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.87832805,
+            "half_win": 0,
+            "push": 0.08476312,
+            "half_loss": 0,
+            "full_loss": 0.03690883
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.96309117,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.03690883
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-006-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-006",
+      "competition": "UEFA Nations League",
+      "home_team": "Serbia",
+      "away_team": "Germany",
+      "kickoff_utc": "2026-11-13T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-006-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 0.75,
+        "away": 1.925
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.13795559,
+        "draw": 0.21060985,
+        "away_win": 0.65143456
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.00826808,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.99173192
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.00826808,
+            "half_win": 0,
+            "push": 0.03056203,
+            "half_loss": 0,
+            "full_loss": 0.9611699
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.0388301,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.9611699
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.0388301,
+            "half_win": 0,
+            "push": 0.09912549,
+            "half_loss": 0,
+            "full_loss": 0.86204441
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.0388301,
+            "half_win": 0.09912549,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.86204441
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.13795559,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.86204441
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.13795559,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.21060985,
+            "full_loss": 0.65143456
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.13795559,
+            "half_win": 0,
+            "push": 0.21060985,
+            "half_loss": 0,
+            "full_loss": 0.65143456
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.13795559,
+            "half_win": 0.21060985,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65143456
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.34856544,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65143456
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.34856544,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.25442209,
+            "full_loss": 0.39701247
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.34856544,
+            "half_win": 0,
+            "push": 0.25442209,
+            "half_loss": 0,
+            "full_loss": 0.39701247
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.60298753,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.39701247
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.60298753,
+            "half_win": 0,
+            "push": 0.20133583,
+            "half_loss": 0,
+            "full_loss": 0.19567664
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.80432336,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.19567664
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-007-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-007",
+      "competition": "UEFA Nations League",
+      "home_team": "Norway",
+      "away_team": "Wales",
+      "kickoff_utc": "2026-11-14T17:00:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-007-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.45,
+        "away": 1.475
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.37118018,
+        "draw": 0.2465192,
+        "away_win": 0.38230062
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.06553321,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.93446679
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.06553321,
+            "half_win": 0,
+            "push": 0.10906502,
+            "half_loss": 0,
+            "full_loss": 0.82540177
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.17459823,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.82540177
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.17459823,
+            "half_win": 0,
+            "push": 0.19658194,
+            "half_loss": 0,
+            "full_loss": 0.62881982
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.17459823,
+            "half_win": 0.19658194,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.62881982
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.37118018,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.62881982
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.37118018,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.2465192,
+            "full_loss": 0.38230062
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.37118018,
+            "half_win": 0,
+            "push": 0.2465192,
+            "half_loss": 0,
+            "full_loss": 0.38230062
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.37118018,
+            "half_win": 0.2465192,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.38230062
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.61769938,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.38230062
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.61769938,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.19997128,
+            "full_loss": 0.18232934
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.61769938,
+            "half_win": 0,
+            "push": 0.19997128,
+            "half_loss": 0,
+            "full_loss": 0.18232934
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.81767066,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.18232934
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.81767066,
+            "half_win": 0,
+            "push": 0.1128583,
+            "half_loss": 0,
+            "full_loss": 0.06947103
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.93052897,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.06947103
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-008-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-008",
+      "competition": "UEFA Nations League",
+      "home_team": "Portugal",
+      "away_team": "Denmark",
+      "kickoff_utc": "2026-11-14T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-008-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.725,
+        "away": 1.375
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.45815039,
+        "draw": 0.23468388,
+        "away_win": 0.30716573
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.10524872,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.89475128
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.10524872,
+            "half_win": 0,
+            "push": 0.1384747,
+            "half_loss": 0,
+            "full_loss": 0.75627658
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.24372342,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.75627658
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.24372342,
+            "half_win": 0,
+            "push": 0.21442698,
+            "half_loss": 0,
+            "full_loss": 0.54184961
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.24372342,
+            "half_win": 0.21442698,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.54184961
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.45815039,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.54184961
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.45815039,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.23468388,
+            "full_loss": 0.30716573
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.45815039,
+            "half_win": 0,
+            "push": 0.23468388,
+            "half_loss": 0,
+            "full_loss": 0.30716573
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.45815039,
+            "half_win": 0.23468388,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.30716573
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.69283427,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.30716573
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.69283427,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.17092005,
+            "full_loss": 0.13624567
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.69283427,
+            "half_win": 0,
+            "push": 0.17092005,
+            "half_loss": 0,
+            "full_loss": 0.13624567
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.86375433,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.13624567
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.86375433,
+            "half_win": 0,
+            "push": 0.08798277,
+            "half_loss": 0,
+            "full_loss": 0.04826291
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.95173709,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.04826291
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-009-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-009",
+      "competition": "UEFA Nations League",
+      "home_team": "Belgium",
+      "away_team": "Italy",
+      "kickoff_utc": "2026-11-15T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-009-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.35,
+        "away": 1.5
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.34155348,
+        "draw": 0.24945437,
+        "away_win": 0.40899216
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.0541006,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.9458994
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.0541006,
+            "half_win": 0,
+            "push": 0.09862103,
+            "half_loss": 0,
+            "full_loss": 0.84727838
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.15272162,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.84727838
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.15272162,
+            "half_win": 0,
+            "push": 0.18883185,
+            "half_loss": 0,
+            "full_loss": 0.65844652
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.15272162,
+            "half_win": 0.18883185,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65844652
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.34155348,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65844652
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.34155348,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.24945437,
+            "full_loss": 0.40899216
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.34155348,
+            "half_win": 0,
+            "push": 0.24945437,
+            "half_loss": 0,
+            "full_loss": 0.40899216
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.34155348,
+            "half_win": 0.24945437,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.40899216
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.59100784,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.40899216
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.59100784,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.20981317,
+            "full_loss": 0.19917899
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.59100784,
+            "half_win": 0,
+            "push": 0.20981317,
+            "half_loss": 0,
+            "full_loss": 0.19917899
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.80082101,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.19917899
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.80082101,
+            "half_win": 0,
+            "push": 0.12175436,
+            "half_loss": 0,
+            "full_loss": 0.07742464
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.92257536,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.07742464
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-010-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-010",
+      "competition": "UEFA Nations League",
+      "home_team": "Spain",
+      "away_team": "England",
+      "kickoff_utc": "2026-11-15T19:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-010-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.875,
+        "away": 2.15
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.34492465,
+        "draw": 0.20462909,
+        "away_win": 0.45044625
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.07814439,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.92185561
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.07814439,
+            "half_win": 0,
+            "push": 0.10165155,
+            "half_loss": 0,
+            "full_loss": 0.82020406
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.17979594,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.82020406
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.17979594,
+            "half_win": 0,
+            "push": 0.16512871,
+            "half_loss": 0,
+            "full_loss": 0.65507535
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.17979594,
+            "half_win": 0.16512871,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65507535
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.34492465,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65507535
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.34492465,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.20462909,
+            "full_loss": 0.45044625
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.34492465,
+            "half_win": 0,
+            "push": 0.20462909,
+            "half_loss": 0,
+            "full_loss": 0.45044625
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.34492465,
+            "half_win": 0.20462909,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.45044625
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.54955375,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.45044625
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.54955375,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.18934759,
+            "full_loss": 0.26109866
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.54955375,
+            "half_win": 0,
+            "push": 0.18934759,
+            "half_loss": 0,
+            "full_loss": 0.26109866
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.73890134,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.26109866
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.73890134,
+            "half_win": 0,
+            "push": 0.13365597,
+            "half_loss": 0,
+            "full_loss": 0.12744269
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.87255731,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.12744269
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-012-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-012",
+      "competition": "International friendly",
+      "home_team": "Saudi Arabia",
+      "away_team": "South Korea",
+      "kickoff_utc": "2026-11-13T14:30:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-012-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.15,
+        "away": 0.775
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.44511117,
+        "draw": 0.30789007,
+        "away_win": 0.24699876
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.06212362,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.93787638
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.06212362,
+            "half_win": 0,
+            "push": 0.12850656,
+            "half_loss": 0,
+            "full_loss": 0.80936982
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.19063018,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.80936982
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.19063018,
+            "half_win": 0,
+            "push": 0.25448099,
+            "half_loss": 0,
+            "full_loss": 0.55488883
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.19063018,
+            "half_win": 0.25448099,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.55488883
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.44511117,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.55488883
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.44511117,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.30789007,
+            "full_loss": 0.24699876
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.44511117,
+            "half_win": 0,
+            "push": 0.30789007,
+            "half_loss": 0,
+            "full_loss": 0.24699876
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.44511117,
+            "half_win": 0.30789007,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.24699876
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.75300124,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.24699876
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.75300124,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.17149806,
+            "full_loss": 0.0755007
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.75300124,
+            "half_win": 0,
+            "push": 0.17149806,
+            "half_loss": 0,
+            "full_loss": 0.0755007
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.9244993,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.0755007
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.9244993,
+            "half_win": 0,
+            "push": 0.05836239,
+            "half_loss": 0,
+            "full_loss": 0.01713832
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.98286168,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.01713832
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-013-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-013",
+      "competition": "International friendly",
+      "home_team": "Qatar",
+      "away_team": "Australia",
+      "kickoff_utc": "2026-11-13T14:45:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-013-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.075,
+        "away": 1.1
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.34703373,
+        "draw": 0.29328712,
+        "away_win": 0.35967914
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.04131612,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.95868388
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.04131612,
+            "half_win": 0,
+            "push": 0.09566046,
+            "half_loss": 0,
+            "full_loss": 0.86302342
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.13697658,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.86302342
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.13697658,
+            "half_win": 0,
+            "push": 0.21005715,
+            "half_loss": 0,
+            "full_loss": 0.65296627
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.13697658,
+            "half_win": 0.21005715,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65296627
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.34703373,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.65296627
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.34703373,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.29328712,
+            "full_loss": 0.35967914
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.34703373,
+            "half_win": 0,
+            "push": 0.29328712,
+            "half_loss": 0,
+            "full_loss": 0.35967914
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.34703373,
+            "half_win": 0.29328712,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.35967914
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.64032086,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.35967914
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.64032086,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.2149422,
+            "full_loss": 0.14473694
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.64032086,
+            "half_win": 0,
+            "push": 0.2149422,
+            "half_loss": 0,
+            "full_loss": 0.14473694
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.85526306,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.14473694
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.85526306,
+            "half_win": 0,
+            "push": 0.10016152,
+            "half_loss": 0,
+            "full_loss": 0.04457542
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.95542458,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.04457542
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-014-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-014",
+      "competition": "International friendly",
+      "home_team": "Japan",
+      "away_team": "Brazil",
+      "kickoff_utc": "2026-11-14T10:15:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-014-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1.225,
+        "away": 1.7
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.27580443,
+        "draw": 0.23897481,
+        "away_win": 0.48522076
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.03667701,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.96332299
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.03667701,
+            "half_win": 0,
+            "push": 0.0765953,
+            "half_loss": 0,
+            "full_loss": 0.88672769
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.11327231,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.88672769
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.11327231,
+            "half_win": 0,
+            "push": 0.16253212,
+            "half_loss": 0,
+            "full_loss": 0.72419557
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.11327231,
+            "half_win": 0.16253212,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.72419557
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.27580443,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.72419557
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.27580443,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.23897481,
+            "full_loss": 0.48522076
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.27580443,
+            "half_win": 0,
+            "push": 0.23897481,
+            "half_loss": 0,
+            "full_loss": 0.48522076
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.27580443,
+            "half_win": 0.23897481,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.48522076
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.51477924,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.48522076
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.51477924,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.22555478,
+            "full_loss": 0.25966598
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.51477924,
+            "half_win": 0,
+            "push": 0.22555478,
+            "half_loss": 0,
+            "full_loss": 0.25966598
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.74033402,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.25966598
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.74033402,
+            "half_win": 0,
+            "push": 0.14751215,
+            "half_loss": 0,
+            "full_loss": 0.11215383
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.88784617,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.11215383
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    },
+    {
+      "snapshot_id": "INT-R1-015-intl-r1-handicap-0.1.0",
+      "fixture_id": "INT-R1-015",
+      "competition": "International friendly",
+      "home_team": "Singapore",
+      "away_team": "Brazil",
+      "kickoff_utc": "2026-11-17T10:00:00Z",
+      "captured_at": "2026-11-12T02:00:55+07:00",
+      "captured_before_kickoff": true,
+      "model_version": "intl-r1-handicap-0.1.0",
+      "source_1x2_snapshot_id": "INT-R1-015-intl-r1-baseline-0.1.0",
+      "expected_goals": {
+        "home": 1,
+        "away": 2.275
+      },
+      "score_matrix": {
+        "distribution": "independent_poisson",
+        "max_goals_per_team": 20,
+        "omitted_tail_mass": 0,
+        "tail_threshold": 0.001
+      },
+      "probabilities_1x2": {
+        "home_win": 0.15242111,
+        "draw": 0.18707985,
+        "away_win": 0.66049904
+      },
+      "default_home_line": -1,
+      "handicap_lines": [
+        {
+          "home_line": -2.5,
+          "probabilities": {
+            "full_win": 0.01379893,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.98620107
+          }
+        },
+        {
+          "home_line": -2,
+          "probabilities": {
+            "full_win": 0.01379893,
+            "half_win": 0,
+            "push": 0.03800601,
+            "half_loss": 0,
+            "full_loss": 0.94819506
+          }
+        },
+        {
+          "home_line": -1.5,
+          "probabilities": {
+            "full_win": 0.05180494,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.94819506
+          }
+        },
+        {
+          "home_line": -1,
+          "probabilities": {
+            "full_win": 0.05180494,
+            "half_win": 0,
+            "push": 0.10061617,
+            "half_loss": 0,
+            "full_loss": 0.84757889
+          }
+        },
+        {
+          "home_line": -0.75,
+          "probabilities": {
+            "full_win": 0.05180494,
+            "half_win": 0.10061617,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.84757889
+          }
+        },
+        {
+          "home_line": -0.5,
+          "probabilities": {
+            "full_win": 0.15242111,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.84757889
+          }
+        },
+        {
+          "home_line": -0.25,
+          "probabilities": {
+            "full_win": 0.15242111,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.18707985,
+            "full_loss": 0.66049904
+          }
+        },
+        {
+          "home_line": 0,
+          "probabilities": {
+            "full_win": 0.15242111,
+            "half_win": 0,
+            "push": 0.18707985,
+            "half_loss": 0,
+            "full_loss": 0.66049904
+          }
+        },
+        {
+          "home_line": 0.25,
+          "probabilities": {
+            "full_win": 0.15242111,
+            "half_win": 0.18707985,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.66049904
+          }
+        },
+        {
+          "home_line": 0.5,
+          "probabilities": {
+            "full_win": 0.33950096,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.66049904
+          }
+        },
+        {
+          "home_line": 0.75,
+          "probabilities": {
+            "full_win": 0.33950096,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0.22890178,
+            "full_loss": 0.43159726
+          }
+        },
+        {
+          "home_line": 1,
+          "probabilities": {
+            "full_win": 0.33950096,
+            "half_win": 0,
+            "push": 0.22890178,
+            "half_loss": 0,
+            "full_loss": 0.43159726
+          }
+        },
+        {
+          "home_line": 1.5,
+          "probabilities": {
+            "full_win": 0.56840274,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.43159726
+          }
+        },
+        {
+          "home_line": 2,
+          "probabilities": {
+            "full_win": 0.56840274,
+            "half_win": 0,
+            "push": 0.19670488,
+            "half_loss": 0,
+            "full_loss": 0.23489238
+          }
+        },
+        {
+          "home_line": 2.5,
+          "probabilities": {
+            "full_win": 0.76510762,
+            "half_win": 0,
+            "push": 0,
+            "half_loss": 0,
+            "full_loss": 0.23489238
+          }
+        }
+      ],
+      "source_cutoff": "2026-10-06",
+      "limitations": [
+        "Experimental international model; derived from the preserved pre-match 1X2 expected-goal inputs",
+        "Synthetic model scenario lines only; not market lines or odds-provider data",
+        "CC0 multi-source historical compilation; not federation-verified",
+        "Source data latest date 2026-10-06; later results may be missing",
+        "No fitted home advantage, opponent-strength, ranking, or competition adjustment",
+        "Historical scores include extra time and exclude penalty shootouts; outcome evaluation requires compatible score semantics"
+      ],
+      "outcome": null,
+      "evaluation_status": "pending"
+    }
+  ]
+}
