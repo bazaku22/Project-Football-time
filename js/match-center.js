@@ -131,8 +131,18 @@
     const rows = filteredMatches();
     count.textContent = rows.length + " นัด";
     const sourceTime = database.source?.lastSuccessfulSync || database.generatedAt;
+    const leagueSync = database.source?.leagueSync || {};
+    const freshness = ["PL","PD","BL1","SA","FL1","ELC"].map((code) => {
+      const row = leagueSync[code];
+      const label = row?.status === "fresh" ? "ใหม่" : row?.status === "stale" ? "ข้อมูลเดิม" : "ไม่ทราบ";
+      return code + ": " + label;
+    }).join(" · ");
+    const delivery = window.FootballTimeAppContext?.getDataDelivery?.();
+    const deliveryLabel = delivery === "cache" ? "แหล่งส่งข้อมูล: แคช" :
+      delivery === "network" ? "แหล่งส่งข้อมูล: เครือข่าย" : "แหล่งส่งข้อมูล: ไม่ทราบ";
     state.textContent = "แหล่งข้อมูล: " + (database.source?.provider || "ไม่ระบุ") +
-      " · อัปเดตล่าสุด " + formatUpdated(sourceTime);
+      " · ซิงก์ฐานข้อมูลล่าสุด " + formatUpdated(sourceTime) +
+      " · " + deliveryLabel + " · ความสดรายลีก " + freshness;
     if (!rows.length) {
       root.innerHTML = '<div class="mc-empty"><b>ไม่พบการแข่งขันในตัวกรองนี้</b><span>ไม่มีข้อมูลที่ตรงกับช่วงเวลา ลีก หรือสถานะที่เลือก · ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง</span></div>';
       return;
