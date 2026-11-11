@@ -212,3 +212,62 @@ For each team-match pre-match feature:
 ## 7. Explicitly out of scope
 
 No app code, production database, Local Storage, Supabase, existing club model, existing club snapshots, API provider, API quota, scheduled workflow, polling, scraping, data ingestion, or new recurring cost is changed or authorized by this document.
+
+
+## 8. Historical-results coverage audit — pinned CC0 dataset
+
+**Audit date:** 2026-11-12 (Asia/Bangkok)  
+**Dataset:** [martj42/international_results](https://github.com/martj42/international_results) — `results.csv`  
+**Pinned repository commit:** `b0948cb558c927c357db4067eac5b37b96d0e4bb` (2026-10-31)  
+**Pinned CSV blob SHA:** `9999a4b380b16189825884a8dab4dc869c847f72`  
+**Licence:** CC0 1.0, as declared by the repository.  
+**File audit:** 49,940 completed match rows; latest match date 2026-10-06. The file was fetched once and analysed locally; no scraping, scheduled access, or API integration was used.
+
+The dataset README describes senior men's full internationals and excludes youth, women's, Olympic, B-team and league-select matches. It aggregates historical results from multiple sources (including Wikipedia, RSSSF and national associations), so CC0 covers the dataset contribution but does not remove the need to validate individual records or retain provenance. Scores include extra time but exclude penalty shoot-outs; the separate shootouts file must be consulted if shoot-out winners are needed. Use the `neutral` field for venue context, but treat missing or contradictory venue data as unknown.
+
+### Coverage of the 25 Round 1 teams
+
+All 25 selected teams have at least 10 raw completed result rows in this pinned snapshot. After a conservative duplicate-candidate check in each team's recent window, 24 teams have 10 distinct recent matches; Argentina has 9 distinct recent matches because the same Argentina 4–0 Bolivia friendly appears on both 2026-09-30 and 2026-10-01. Do not count both rows as separate matches until the date discrepancy is resolved against AFA. The 5-match window remains available for Argentina.
+
+| Team | Recent distinct matches | Latest result date | GF / match (up to 10) | GA / match (up to 10) | Audit note |
+|---|---:|---:|---:|---:|---|
+| Türkiye | 10 | 2026-10-05 | 1.20 | 1.70 | Dataset alias: Turkey |
+| Belgium | 10 | 2026-10-05 | 2.00 | 1.20 | — |
+| Italy | 10 | 2026-10-05 | 1.60 | 1.00 | — |
+| France | 10 | 2026-10-05 | 2.10 | 1.10 | — |
+| Czechia | 10 | 2026-10-06 | 1.30 | 2.00 | Dataset alias: Czech Republic |
+| Spain | 10 | 2026-10-06 | 2.20 | 0.60 | — |
+| England | 10 | 2026-10-06 | 3.00 | 1.30 | — |
+| Croatia | 10 | 2026-10-06 | 1.20 | 2.40 | — |
+| Netherlands | 10 | 2026-10-04 | 2.00 | 1.20 | — |
+| Greece | 10 | 2026-10-04 | 1.00 | 0.90 | — |
+| Serbia | 10 | 2026-10-04 | 0.80 | 2.30 | — |
+| Germany | 10 | 2026-10-04 | 2.00 | 0.80 | — |
+| Norway | 10 | 2026-10-04 | 1.90 | 1.90 | — |
+| Wales | 10 | 2026-10-04 | 1.40 | 1.10 | — |
+| Portugal | 10 | 2026-10-04 | 1.90 | 0.80 | — |
+| Denmark | 10 | 2026-10-04 | 1.90 | 1.60 | — |
+| Argentina | 9 | 2026-10-06 | 3.20 | 0.80 | Duplicate candidate: Argentina 4–0 Bolivia on Sep 30 and Oct 1 |
+| Uruguay | 10 | 2026-10-06 | 1.70 | 1.30 | — |
+| Saudi Arabia | 10 | 2026-10-06 | 1.20 | 0.50 | — |
+| South Korea | 10 | 2026-10-06 | 1.40 | 0.80 | Dataset alias: South Korea |
+| Qatar | 10 | 2026-10-03 | 0.60 | 1.50 | — |
+| Australia | 10 | 2026-09-29 | 1.30 | 1.10 | — |
+| Japan | 10 | 2026-10-05 | 1.50 | 0.70 | — |
+| Brazil | 10 | 2026-10-03 | 2.70 | 1.00 | — |
+| Singapore | 10 | 2026-10-01 | 1.00 | 1.60 | — |
+
+GF/GA are descriptive averages from each team's latest available distinct match rows, not model-adjusted strengths. They mix competitions and venue types; do not treat them as a direct prediction or as a like-for-like comparison between teams. Team aliases must be normalized to the Round 1 canonical names before joining.
+
+### Data-quality and modelling decisions
+
+1. **Coverage outcome:** sufficient for a 5-match form feature for all 25 teams. A 10-match feature is available for 24 teams; Argentina's 10th distinct match is not yet confirmed. Display actual sample counts and do not silently backfill.
+2. **Argentina duplicate:** keep both source rows in the immutable raw copy with an issue flag; exclude one from distinct-match form pending AFA confirmation. Do not delete or overwrite source evidence.
+3. **Team naming:** normalize `Turkey` → `Türkiye` and `Czech Republic` → `Czechia`; keep source_name alongside canonical_team_id. Keep Korea naming explicit and do not merge aliases without a reviewed crosswalk.
+4. **Competition mix:** recent form includes Nations League, friendlies, qualifiers, regional competitions and the 2026 FIFA World Cup. Store competition type and allow model weighting to be separately specified and evaluated; do not assume every competition has equal predictive value.
+5. **Venue:** retain home/away/neutral separately. World Cup neutral flags and host-country matches require careful interpretation; do not infer home advantage from team order alone.
+6. **Temporal integrity:** for every Round 1 prediction, filter strictly to matches whose date is earlier than the fixture's local kickoff date/time. Never include the fixture itself, future matches, or post-kickoff information.
+7. **Score semantics:** scores in this file include extra time and exclude shoot-outs. For regulation-time model evaluation, verify knockout matches separately and do not treat shoot-out winners as 90-minute outcomes.
+8. **Source quality:** this is a CC0 multi-source compilation, not an official federation feed. Use it for exploratory form/history only; cross-check the most recent and anomalous matches against federation/competition sources before presenting match-specific explanations or making model claims.
+
+**Audit conclusion:** the source-data coverage gate is passed for a 5-match experimental form baseline across all 25 teams. It is conditionally passed for 10-match form for 24 teams; Argentina remains limited to 9 distinct matches until the duplicate-date issue is resolved. This does not authorize ingestion into production or establish that the experimental model is ready/calibrated.
