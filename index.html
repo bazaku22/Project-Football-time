@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.1.0-beta.1">
-<title>Project Football Time V6.1.0-beta.1</title>
+<meta name="application-version" content="6.1.0-beta.2">
+<title>Project Football Time V6.1.0-beta.2</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -61,9 +61,10 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/primary-navigation.css?v=1">
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <script src="./js/asian-handicap.js"></script>
+<script src="./js/handicap-history.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.1.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.1.0-beta.2</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -248,7 +249,9 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="sectionhead"><h2>ติดตามความแม่นยำและ Calibration</h2><span class="small">PHASE 4.6</span></div>
  <div id="probabilityAccuracySummary" class="empty">กำลังตรวจสอบคำทำนายที่บันทึกไว้…</div>
  <div class="card"><div class="topline"><b>การสอบเทียบความน่าจะเป็น</b><span class="small">ค่าประเมินเทียบผลจริง</span></div><div id="probabilityCalibration"></div></div>
- <div class="card"><div class="topline"><b>รายการวิเคราะห์ย้อนหลัง</b><span class="small">Snapshot เดิม · ใหม่ไปเก่า</span></div><div id="probabilityHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ…</div></div></div>
+ <div class="card"><div class="topline"><b>สถิติ Handicap (แยกจาก 1X2)</b><span class="small">ประเมินจากเส้นและเปอร์เซ็นต์ที่บันทึกก่อนแข่ง</span></div><div id="handicapAccuracySummary"><div class="empty">กำลังตรวจสอบประวัติ Handicap…</div></div></div>
+ <div class="card"><div class="topline"><b>รายการวิเคราะห์ Handicap ย้อนหลัง</b><span class="small">Snapshot ไม่แก้ไขย้อนหลัง</span></div><div id="handicapHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ Handicap…</div></div></div>
+ <div class="card"><div class="topline"><b>รายการวิเคราะห์ 1X2 ย้อนหลัง</b><span class="small">Snapshot เดิม · ใหม่ไปเก่า</span></div><div id="probabilityHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ…</div></div></div>
  <p class="profile-note">ประเมินเฉพาะคำทำนายที่บันทึกไว้ก่อนเวลาแข่งขันและมีผลจริงในฐานข้อมูลบนอุปกรณ์นี้ คำทำนายเก่าที่ไม่มีเปอร์เซ็นต์ 1X2 แยกครบจะไม่นำมาปะปน</p>
 </div>
 </section>
@@ -826,6 +829,32 @@ function findAutomaticHandicap(match){
 }
 function probabilityBand(value){return value>=65?"สูง":value>=40?"กลาง":"ต่ำ";}
 function bandClass(value){return value>=65?"high":value>=40?"medium":"low";}
+const HANDICAP_HISTORY_STORAGE_KEY="pft_handicap_snapshots_v1";
+function readHandicapSnapshots(){
+ try{const raw=localStorage.getItem(HANDICAP_HISTORY_STORAGE_KEY);if(raw===null)return [];const rows=JSON.parse(raw);return Array.isArray(rows)?rows:null;}
+ catch(error){console.warn("Handicap history could not be read; existing data will not be overwritten",error);return null;}
+}
+function recordHandicapSnapshot(match,event,option,probabilities){
+ const history=window.FootballTimeHandicapHistory;
+ if(!history||!match||match.providerMatchId===undefined||!event||!option||!Array.isArray(option.items)||!probabilities)return false;
+ const createdAt=new Date().toISOString(),kickoff=Date.parse(match.utcDate||"");
+ if(!Number.isFinite(kickoff)||Date.parse(createdAt)>=kickoff)return false;
+ const rows=readHandicapSnapshots();if(!rows)return false;
+ const snapshot={
+  matchId:String(match.providerMatchId),leagueId:match.leagueId||"",season:match.season||"",
+  utcDate:match.utcDate,homeTeamName:match.homeTeamName||"",awayTeamName:match.awayTeamName||"",
+  homeLine:Number(option.line),source:String(event.provider||"The Odds API"),
+  sources:option.items.map(item=>({bookmaker:String(item.bookmaker||"ไม่ระบุแหล่ง"),homeLine:Number(item.homeLine),updatedAt:new Date(item.updatedAt).toISOString()})),
+  probabilities:{fullWin:Number(probabilities.fullWin),halfWin:Number(probabilities.halfWin),push:Number(probabilities.push),halfLoss:Number(probabilities.halfLoss),fullLoss:Number(probabilities.fullLoss)},
+  modelVersion:PROBABILITY_MODEL_VERSION,createdAt
+ };
+ if(!history.isValidSnapshot(snapshot))return false;
+ const key=history.fingerprint(snapshot);
+ if(rows.some(row=>history.fingerprint(row)===key))return false;
+ rows.push(snapshot);
+ try{localStorage.setItem(HANDICAP_HISTORY_STORAGE_KEY,JSON.stringify(rows));return true;}
+ catch(error){console.warn("Handicap history could not be saved; existing snapshots remain unchanged",error);return false;}
+}
 function renderAutomaticHandicap(match,result){
  const target=document.getElementById("automaticHandicapOdds");if(!target)return;
  const event=findAutomaticHandicap(match);
@@ -844,6 +873,7 @@ function renderAutomaticHandicap(match,result){
  const renderResult=line=>{
   if(!result||!Array.isArray(result.scoreDistribution)||!window.FootballTimeAsianHandicap?.calculateFromDistribution)return '<div class="quality-note">ยังไม่มี Score Distribution ที่พร้อมใช้งาน จึงไม่คำนวณ Handicap</div>';
   const p=window.FootballTimeAsianHandicap.calculateFromDistribution(result.scoreDistribution,line);
+  const selectedOption=lineOptions.find(option=>option.line===Number(line));if(selectedOption)recordHandicapSnapshot(match,event,selectedOption,p);
   const cover=p.fullWin+p.halfWin,loss=p.halfLoss+p.fullLoss;
   return '<div class="handicap-summary"><div class="handicap-cover"><span>โอกาสฝั่งชนะ (ชนะเต็ม + ครึ่ง)</span><b>'+cover.toFixed(1)+'%</b><em class="prob-level '+bandClass(cover)+'">'+probabilityBand(cover)+'</em></div><div class="handicap-cover"><span>โอกาสฝั่งแพ้ (แพ้เต็ม + ครึ่ง)</span><b>'+loss.toFixed(1)+'%</b><em class="prob-level '+bandClass(loss)+'">'+probabilityBand(loss)+'</em></div><div class="handicap-cover"><span>คืนทุน</span><b>'+p.push.toFixed(1)+'%</b></div></div><div class="handicap-result-grid"><div><b>'+p.fullWin.toFixed(1)+'%</b><span>ชนะเต็ม</span></div><div><b>'+p.halfWin.toFixed(1)+'%</b><span>ชนะครึ่ง</span></div><div><b>'+p.push.toFixed(1)+'%</b><span>คืนทุน</span></div><div><b>'+p.halfLoss.toFixed(1)+'%</b><span>แพ้ครึ่ง</span></div><div><b>'+p.fullLoss.toFixed(1)+'%</b><span>แพ้เต็ม</span></div></div><div class="analysis-insight compact"><b>สรุป Handicap</b><p>จากเส้น '+fmt(line)+' เจ้าบ้านมีโอกาสได้ผลฝั่งชนะ '+cover.toFixed(1)+'% ('+probabilityBand(cover)+') และมีโอกาสคืนทุน '+p.push.toFixed(1)+'% ทั้งนี้เป็นการประเมินจากการกระจายสกอร์ ไม่ใช่คำรับประกันผล</p></div>';
  };
@@ -941,6 +971,31 @@ function renderProbabilityHistory(){
  }).join("");
  target.innerHTML='<div class="small">ทั้งหมด '+snapshots.length+' Snapshot · ค่าความน่าจะเป็นแสดงตามที่บันทึกไว้ ไม่คำนวณย้อนหลังทับค่าเดิม</div>'+rows;
 }
+function renderHandicapHistory(){
+ const summary=document.getElementById("handicapAccuracySummary"),list=document.getElementById("handicapHistoryList");
+ if(!summary||!list||!footballDB||!window.FootballTimeHandicapHistory)return;
+ const snapshots=readHandicapSnapshots();if(!snapshots){summary.innerHTML='<div class="quality-note">อ่านประวัติ Handicap ไม่สำเร็จ ระบบจะไม่เขียนทับข้อมูลเดิม</div>';list.innerHTML='<div class="empty">ไม่สามารถอ่านรายการย้อนหลังได้</div>';return;}
+ const metrics=window.FootballTimeHandicapHistory.calculateHandicapMetrics(snapshots,footballDB.matches||[]);
+ const pct=value=>Number.isFinite(value)?(value*100).toFixed(1)+"%":"—";
+ const fmt=value=>Number.isFinite(value)?value.toFixed(3):"—";
+ const n=metrics.evaluated,overall=metrics.overall;
+ const sampleNote=n<30?"ตัวอย่างน้อยกว่า 30 คู่: ผลประเมินยังผันผวนสูง":n<100?"ตัวอย่าง 30–99 คู่: เป็นผลเบื้องต้น ควรติดตามเพิ่ม":"ตัวอย่างตั้งแต่ 100 คู่ขึ้นไป: ยังต้องติดตามความเสถียรแยกตามลีกและรุ่นโมเดล";
+ const labels={fullWin:"ชนะเต็ม",halfWin:"ชนะครึ่ง",push:"คืนทุน",halfLoss:"แพ้ครึ่ง",fullLoss:"แพ้เต็ม"};
+ const breakdown=Object.keys(labels).map(key=>'<div class="calibration-row"><span>'+labels[key]+'</span><b>'+overall.counts[key]+' คู่</b><span>'+pct(overall.rates[key])+'</span></div>').join("");
+ summary.innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>Snapshot ก่อนเริ่มแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่ประเมินผลแล้ว</span></div><div class="db-kpi"><b>'+pct(overall.winRate)+'</b><span>อัตราฝั่งชนะ · ชนะเต็ม + ครึ่ง</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลการแข่งขัน</span></div><div class="db-kpi"><b>'+metrics.excluded+'</b><span>คัดออกจากการประเมิน</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Brier Score · ช่วง 0–2 ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log Loss · ต่ำดีกว่า</span></div></div><div class="quality-note">'+sampleNote+' · คืนทุนไม่ถือเป็นชนะ แต่ยังอยู่ในตัวหารอัตราชนะ · ประเมินจาก Snapshot ก่อนแข่งเท่านั้น</div><div class="card"><b>แจกแจงผล Handicap</b>'+breakdown+'</div>';
+ const matchMap=new Map((footballDB.matches||[]).filter(m=>m.providerMatchId!==undefined).map(m=>[String(m.providerMatchId),m]));
+ const evaluationMap=new Map(metrics.evaluatedRows.map(row=>[row.snapshot.matchId+"|"+row.snapshot.homeLine+"|"+row.snapshot.createdAt,row.actualOutcome]));
+ const rows=snapshots.slice().sort((a,b)=>Date.parse(b.createdAt||0)-Date.parse(a.createdAt||0)).map(snapshot=>{
+  const match=matchMap.get(String(snapshot.matchId)),key=snapshot.matchId+"|"+snapshot.homeLine+"|"+snapshot.createdAt;
+  const outcome=evaluationMap.get(key),valid=window.FootballTimeHandicapHistory.isValidSnapshot(snapshot)&&Date.parse(snapshot.createdAt)<Date.parse(snapshot.utcDate);
+  const status=outcome?labels[outcome]:(valid?(match?.status==="FINISHED"?"จบแล้ว · รอข้อมูลสกอร์ที่ถูกต้อง":"รอผลการแข่งขัน"):"ไม่นำมาประเมิน · ข้อมูลไม่ครบหรือบันทึกหลังเริ่มแข่ง");
+  const sources=Array.isArray(snapshot.sources)?snapshot.sources.map(x=>String(x.bookmaker||"ไม่ระบุแหล่ง")+" ("+String(x.homeLine)+") · "+(Number.isFinite(Date.parse(x.updatedAt||""))?new Date(x.updatedAt).toLocaleString("th-TH",{timeZone:"Asia/Bangkok",dateStyle:"short",timeStyle:"short"}):"ไม่ทราบเวลา")).join(" / "):"ไม่ระบุ";
+  const p=snapshot.probabilities||{},prob=k=>Number.isFinite(p[k])?p[k].toFixed(1)+"%":"—";
+  const date=Number.isFinite(Date.parse(snapshot.createdAt||""))?new Date(snapshot.createdAt).toLocaleString("th-TH",{timeZone:"Asia/Bangkok",dateStyle:"medium",timeStyle:"short"}):"ไม่ระบุเวลา";
+  return '<details class="probability-history-item"><summary><span><b>'+esc(snapshot.homeTeamName||"เจ้าบ้าน")+' vs '+esc(snapshot.awayTeamName||"ทีมเยือน")+'</b><small>'+esc(date)+' · '+esc(status)+'</small></span><strong>'+esc(String(snapshot.homeLine))+'</strong></summary><div class="probability-history-detail"><div>เส้นเจ้าบ้าน: '+esc(String(snapshot.homeLine))+' · '+esc(snapshot.source||"ไม่ระบุแหล่ง")+'</div><div>แหล่ง/เวลาอัปเดต: '+esc(sources)+'</div><div>ชนะเต็ม '+prob("fullWin")+' · ชนะครึ่ง '+prob("halfWin")+' · คืนทุน '+prob("push")+' · แพ้ครึ่ง '+prob("halfLoss")+' · แพ้เต็ม '+prob("fullLoss")+'</div><div>ผลจริง: '+esc(match&&match.status==="FINISHED"&&Number.isInteger(match.homeScore)&&Number.isInteger(match.awayScore)?match.homeScore+" - "+match.awayScore:"ยังไม่มีผลจริง")+'</div><div>รุ่นโมเดล: '+esc(snapshot.modelVersion||"ไม่ระบุ")+' · บันทึก: '+esc(date)+'</div></div></details>';
+ }).join("");
+ list.innerHTML=rows||'<div class="empty">ยังไม่มี Handicap Snapshot ที่บันทึกไว้ · จะเริ่มบันทึกเมื่อมีเส้นจากแหล่งข้อมูลที่สดและผ่านเงื่อนไข</div>';
+}
 function renderProbabilityAccuracy(){
  if(!footballDB||!window.FootballTimeMetrics)return;
  const metrics=window.FootballTimeMetrics.calculateProbabilityMetrics(probabilitySnapshots(),footballDB.matches||[],footballDB.leagues||[]);
@@ -954,6 +1009,7 @@ function renderProbabilityAccuracy(){
  const bins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+(bin.min*100).toFixed(0)+'–'+(bin.max*100).toFixed(0)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
  document.getElementById("probabilityCalibration").innerHTML=bins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>';
  renderProbabilityHistory();
+ renderHandicapHistory();
 }
 
 let testFixturesData=null;
