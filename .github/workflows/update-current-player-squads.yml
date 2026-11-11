@@ -1,18 +1,12 @@
 name: Update Current Player Squads
 on:
+  # Keep PR validation and manual runs; scheduled and push-triggered API calls are paused.
   workflow_dispatch:
   pull_request:
     paths:
       - 'scripts/update_player_database_api_ninjas.py'
       - 'tests/test_api_ninjas_player_importer.py'
       - '.github/workflows/update-current-player-squads.yml'
-  schedule:
-    - cron: "0 21 * * 0"
-  push:
-    branches: [main]
-    paths:
-      - "scripts/update_player_database_api_ninjas.py"
-      - ".github/workflows/update-current-player-squads.yml"
 permissions:
   contents: write
 concurrency:

@@ -1,13 +1,7 @@
 name: Update Player Database
 on:
+  # API-consuming runs are intentionally manual-only to protect provider quota.
   workflow_dispatch:
-  schedule:
-    - cron: "0 20 1 * *"
-  push:
-    branches: [main]
-    paths:
-      - "scripts/update_player_database.py"
-      - ".github/workflows/update-player-database.yml"
 permissions:
   contents: write
 concurrency:
