@@ -89,6 +89,8 @@ create table public.ft_player_stat_source_records (
   import_batch_id uuid not null,
   content_hash text not null check (content_hash ~ '^[0-9a-f]{64}$'),
   created_at timestamptz not null default now(),
+  constraint ft_player_stat_source_records_user_id_id_key
+    unique (user_id, id),
   constraint ft_player_stat_source_records_user_id_id_player_key
     unique (user_id, id, player_id),
   constraint ft_player_stat_source_records_player_fk
