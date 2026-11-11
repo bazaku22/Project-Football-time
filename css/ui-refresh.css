@@ -153,3 +153,14 @@ th{color:#9eb4c7}
 .team-picker-check{color:#7ce3bf;font-weight:800}
 .team-picker-option:active{background:#1d3a4e}
 @media(max-width:380px){.team-picker-trigger{min-height:51px}.team-picker-menu{padding:8px}.team-picker-options{max-height:38vh}}
+
+/* Compact date selector and handicap result layout */
+.fixture-day-tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 1px 10px;margin:0 0 8px;scrollbar-width:thin;scroll-snap-type:x proximity}
+.fixture-day-button{flex:0 0 auto;min-width:76px;display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 12px;border:1px solid rgba(132,169,198,.2);border-radius:12px;background:#172b40;color:#d8e7f2;scroll-snap-align:start}
+.fixture-day-button b{font-size:12px;white-space:nowrap}.fixture-day-button span{font-size:10px;color:#9fb3c5}
+.fixture-day-button.active{border-color:#55bda7;background:rgba(34,137,119,.22);color:#a9f2dc}
+.handicap-panel{margin-top:13px;padding:12px;border:1px solid rgba(132,169,198,.16);border-radius:13px;background:#102237}
+.handicap-result-row{display:grid;grid-template-columns:1fr repeat(5,minmax(42px,1fr));gap:5px;align-items:center;padding:8px 0;border-top:1px solid rgba(132,169,198,.12)}
+.handicap-result-row>b{font-size:11px;color:#dbeaf5}.handicap-result-row span{display:flex;flex-direction:column;align-items:center;gap:2px}
+.handicap-result-row strong{font-size:11px;color:#f3fbff;font-variant-numeric:tabular-nums}.handicap-result-row small{font-size:9px;color:#9fb3c5;text-align:center}
+@media(max-width:390px){.handicap-result-row{grid-template-columns:72px repeat(5,minmax(38px,1fr));gap:3px}.handicap-result-row strong{font-size:10px}.handicap-result-row small{font-size:8px}}
