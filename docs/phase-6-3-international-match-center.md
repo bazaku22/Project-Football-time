@@ -13,6 +13,7 @@
 - The international dataset is fetched by the Match Center module and cached as a static asset by service worker V50.
 - The club database schema, sync workflow, API providers, quotas, schedules, polling, Local Storage, Supabase, and club model/history are unchanged.
 - International probabilities and handicap outputs are intentionally hidden. International match details are experimental and read-only.
+- Source URLs and factual fixture details are retained for provenance; no separate data-reuse licence or contractual permission is certified. Review applicable source terms before wider redistribution or commercial reuse.
 - No third-party flag images are hotlinked; no scraping or automated extraction is introduced.
 
 ## Validation
