@@ -38,7 +38,9 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v36", WORKER)
+        self.assertIn("football-time-v37", WORKER)
+        self.assertIn('"./css/football-discovery.css"', WORKER)
+        self.assertIn('"./js/football-discovery.js"', WORKER)
         self.assertIn('"./js/player-stats-import.js"', WORKER)
         self.assertIn('"./js/player-cloud.js"', WORKER)
 
