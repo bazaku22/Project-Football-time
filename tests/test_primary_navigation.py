@@ -30,7 +30,7 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_four_primary_items_replace_legacy_bottom_nav(self):
         html = (ROOT / "index.html").read_text()
         self.assertNotIn('data-page="summary"', html[html.index('<nav class="nav"'):html.index('</nav>')])
-        self.assertNotIn('data-page="archive"', html[html.index('<nav class="nav">'):html.index('</nav>')])
+        self.assertNotIn('data-page="archive"', html[html.index('<nav class="nav"'):html.index('</nav>')])
 
 if __name__ == "__main__":
     unittest.main()
