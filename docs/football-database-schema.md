@@ -1,11 +1,10 @@
 
 # Project Football Time
-# Football Database Schema v1.1
+# Football Database Schema v1.2
 
 ## 1. Purpose
 
-This document defines the data structure and identity rules
-for the five supported European football leagues.
+This document defines the data structure and identity rules for the eight-league catalogue. Six leagues currently use the configured free provider; J1/J2 are planned entries without live data until an approved free source is available.
 
 The database must preserve historical accuracy,
 support future seasons, and prevent duplicate team records.
@@ -18,9 +17,9 @@ support future seasons, and prevent duplicate team records.
 | PD | La Liga | Spain |
 | BL1 | Bundesliga | Germany |
 | SA | Serie A | Italy |
-| FL1 | Ligue 1 | France |
+| FL1 | Ligue 1 | France |\n| ELC | EFL Championship | England |\n| J1 | J1 League | Japan |\n| J2 | J2 League | Japan |
 
-League IDs must remain stable.
+League IDs must remain stable. Provider competition codes are separate from internal IDs. ELC uses provider code ELC. J1/J2 currently have no enabled provider code and must not trigger requests or contain synthetic data. European seasons use cross-year labels; J.League seasons use calendar-year labels.
 
 ## 3. Team Identity
 
@@ -158,7 +157,7 @@ Rules:
 4. Build team-season membership records.
 5. Generate standings JSON.
 6. Generate fixtures and results JSON.
-7. Validate all five leagues.
+7. Validate all six provider-backed leagues and the full eight-league catalogue.
 8. Connect the database to the application.
 9. Test on a feature branch.
 10. Merge only after user approval.
@@ -204,3 +203,4 @@ Rules:
 - Historical snapshots are retained across daily database refreshes, including when older fixtures are no longer returned by the provider.
 - The database updater validates that every probability vector totals 100% and that each snapshot was created before kickoff.
 - The client may keep a local copy for offline continuity, but server-generated snapshots are the durable reference for calibration.
+\n\n## 14. Phase 6 data availability\n\n- The league catalogue may contain planned leagues with no match data.\n- `dataStatus` distinguishes `available`, `awaiting_first_sync`, and `not_available_on_current_free_tier`.\n- Only provider-backed leagues may contain team-season memberships, standings, or matches.\n- A missing league dataset is unavailable, not a zero-valued dataset.\n- The shared analysis engine must filter by both `leagueId` and `season`.\n
