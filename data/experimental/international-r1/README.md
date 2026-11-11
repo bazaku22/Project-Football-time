@@ -11,6 +11,7 @@
 - `team-aliases.json`: explicit canonical team IDs and reviewed aliases.
 - `quality-issues.json`: duplicate candidate, source cutoff, source quality, score semantics, and alias notes.
 - `model-baseline-spec.md`: pre-registered, experimental 1X2 baseline method and capture/evaluation rules.
+- `prediction-snapshots.json`: immutable pre-kickoff 1X2 baseline snapshots and explicit non-eligible fixture records.
 
 ## Current audit
 - Pinned source: `martj42/international_results`, commit `b0948cb558c927c357db4067eac5b37b96d0e4bb`, CSV blob `9999a4b380b16189825884a8dab4dc869c847f72`.
