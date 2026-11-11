@@ -4,7 +4,7 @@
  const MAX_AGE_MS=24*60*60*1000;
  const MATCH_WINDOW_MS=6*60*60*1000;
  function normalizeTeam(value){
-  return String(value||"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
  }
  function findEvent(match,events){
   if(!match||!Array.isArray(events))return null;
