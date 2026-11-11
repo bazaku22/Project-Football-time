@@ -1,0 +1,44 @@
+name: Diagnose ELC Data (ELC only)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: diagnose-elc-data
+  cancel-in-progress: false
+jobs:
+  diagnose-elc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check API secret
+        env:
+          API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: |
+          if [ -z "$API_KEY" ]; then echo "::error::FOOTBALL_DATA_API_KEY is not configured."; exit 1; fi
+      - name: Fetch and validate ELC only
+        env:
+          API_KEY: ${{ secrets.FOOTBALL_DATA_API_KEY }}
+        run: |
+          set -euo pipefail
+          mkdir -p elc-diagnostic
+          for endpoint in teams matches standings; do
+            output="elc-diagnostic/ELC-$endpoint.json"
+            status=$(curl --silent --show-error --output "$output" --write-out "%{http_code}" --header "X-Auth-Token: $API_KEY" "https://api.football-data.org/v4/competitions/ELC/$endpoint") || status="000"
+            echo "ELC $endpoint HTTP $status (one request; no retry)"
+            if [ "$status" != "200" ]; then echo "::error::ELC $endpoint returned HTTP $status."; exit 1; fi
+            case "$endpoint" in
+              teams) jq -e '.teams | type == "array" and length > 0' "$output" >/dev/null ;;
+              matches) jq -e '.matches | type == "array"' "$output" >/dev/null ;;
+              standings) jq -e '.standings | type == "array" and any(.[]; .type == "TOTAL" and (.table | type == "array" and length > 0))' "$output" >/dev/null ;;
+            esac
+          done
+          jq -n --arg checkedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" --arg teams "$(jq '.teams|length' elc-diagnostic/ELC-teams.json)" --arg matches "$(jq '.matches|length' elc-diagnostic/ELC-matches.json)" --arg standings "$(jq '[.standings[]|select(.type=="TOTAL")|.table|length]|add' elc-diagnostic/ELC-standings.json)" '{competition:"ELC",checkedAt:$checkedAt,teams:($teams|tonumber),matches:($matches|tonumber),standingRows:($standings|tonumber),published:false}' > elc-diagnostic/summary.json
+          cat elc-diagnostic/summary.json
+      - name: Upload diagnostic artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: elc-diagnostic-${{ github.run_id }}
+          path: elc-diagnostic/
+          if-no-files-found: warn
+          retention-days: 7
