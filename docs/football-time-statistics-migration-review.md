@@ -119,5 +119,5 @@ Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_pre
 - A separate disposable PostgreSQL 16 CI service successfully applied both player-statistics migrations and executed `supabase/tests/player_statistics_two_user_import_transaction.test.sql`; the transaction completed with `ROLLBACK`.
 - This CI job runs on relevant pull requests and does not connect to the production Supabase project.
 - Preview parsing now fails closed for duplicate headers, extra values in a source row, and header-only source CSV files. Extra CSV values are retained as a row-level rejection reason rather than silently discarded.
-- PR #57 is open and both CI jobs are green; it has not been merged.
+- PR #57 merged to main on 2026-11-11 (squash commit `14610ed708c66d2728193db3d3e49be8a7be8c4d`); both offline and disposable PostgreSQL CI jobs passed.
 - The web UI is not yet connected to the CSV import flow or `ft_*` tables. The current Cloud Preview panel remains the legacy squad preview flow.
