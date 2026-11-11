@@ -121,3 +121,16 @@ python -m unittest discover -s tests -v
 ```
 
 The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, non-finite numeric values, exact provider-ID matching, unresolved identities, name-only non-matching, unverified canonical keys, duplicate mapping keys, and mismatched team scope.
+
+
+## Football Time app integration status (2026-11-11)
+
+The provider-neutral CSV validator and preview currently run as local command-line tools. They are **not yet connected to the live Football Time web interface or the new `ft_*` tables**.
+
+Verified implementation boundary:
+- `js/player-cloud.js` contains no references to the new `ft_*` tables. It still loads private player records through the existing `player-data` Edge Function.
+- The existing `playerCloudPreviewPanel` is the earlier squad-data preview flow. Its confirmation calls `player-data` with `action: "save_preview"`; it is not the CSV statistics preview/import.
+- `index.html` contains no CSV statistics upload or `ft_*` import controls.
+- The new CLI preview writes local JSON/CSV review reports only. It makes no network requests and no database writes.
+
+Do not describe the existing squad preview/save button as a statistics CSV import. A future UI integration needs a separate file-selection and preview screen, exact provider-ID mapping review, row-level quarantine reasons, permission-evidence review, and an explicit final confirmation. The server-side write path must enforce authenticated ownership and write source observations, current stats, and change history atomically. That UI/write path is not part of this test-only step.
