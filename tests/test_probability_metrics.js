@@ -2,7 +2,11 @@
 const assert=require("node:assert/strict"),fs=require("node:fs"),vm=require("node:vm");
 const context={};vm.runInNewContext(fs.readFileSync("js/probability-metrics.js","utf8"),context);
 const calculate=context.FootballTimeMetrics.calculateProbabilityMetrics,kickoff="2026-11-10T18:00:00Z";
-const matches=[{providerMatchId:"1",leagueId:"PL",status:"FINISHED",homeScore:2,awayScore:1},{providerMatchId:"2",leagueId:"PD",status:"FINISHED",homeScore:0,awayScore:0},{providerMatchId:"3",leagueId:"PL",status:"SCHEDULED"}];
+const matches=[
+{providerMatchId:"1",leagueId:"PL",status:"FINISHED",homeScore:2,awayScore:1,homeTeamName:"Home FC",awayTeamName:"Away FC"},
+{providerMatchId:"2",leagueId:"PD",status:"FINISHED",homeScore:0,awayScore:0,homeTeamName:"Alpha",awayTeamName:"Beta"},
+{providerMatchId:"3",leagueId:"PL",status:"SCHEDULED",homeTeamName:"Pending Home",awayTeamName:"Pending Away"}
+];
 const snapshots=[
 {matchId:"1",leagueId:"PL",modelVersion:"pft-poisson-1.0",utcDate:kickoff,createdAt:"2026-11-10T17:00:00Z",probabilities:{home:60,draw:25,away:15}},
 {matchId:"2",leagueId:"PD",modelVersion:"pft-poisson-1.0",utcDate:kickoff,createdAt:"2026-11-10T17:00:00Z",probabilities:{home:20,draw:15,away:65}},
@@ -12,7 +16,17 @@ const snapshots=[
 ];
 const result=calculate(snapshots,matches,[{id:"PL",name:"Premier League"},{id:"PD",name:"La Liga"}]);
 assert.equal(result.totalSnapshots,5);assert.equal(result.validPreMatch,3);assert.equal(result.evaluated,2);assert.equal(result.pending,1);assert.equal(result.excluded,2);assert.equal(result.overall.accuracy,.5);assert.equal(result.overall.count,2);
+assert.equal(result.history.length,3);
+assert.equal(result.history.find(x=>x.matchId==="1").status,"evaluated");
+assert.equal(result.history.find(x=>x.matchId==="1").actualOutcome,"home");
+assert.equal(result.history.find(x=>x.matchId==="1").actualScore,"2-1");
+assert.equal(result.history.find(x=>x.matchId==="1").predictedOutcome,"home");
+assert.equal(result.history.find(x=>x.matchId==="1").homeTeamName,"Home FC");
+assert.equal(result.history.find(x=>x.matchId==="2").actualOutcome,"draw");
+assert.equal(result.history.find(x=>x.matchId==="2").predictedOutcome,"away");
+assert.equal(result.history.find(x=>x.matchId==="3").status,"pending");
+assert.equal(result.history.find(x=>x.matchId==="3").actualScore,null);
 // Conventional multiclass Brier: (0.245 + 1.185) / 2 = 0.715, with a 0–2 range.
 assert.ok(Math.abs(result.overall.brier-0.715)<1e-12);assert.ok(result.overall.brier>=0&&result.overall.brier<=2);assert.ok(result.overall.logLoss>0);assert.ok(result.overall.ece>=0&&result.overall.ece<=1);
-const empty=calculate([],[],[]);assert.equal(empty.overall.accuracy,null);assert.equal(empty.overall.brier,null);
-console.log("Probability metrics tests: PASSED");
+const empty=calculate([],[],[]);assert.equal(empty.overall.accuracy,null);assert.equal(empty.overall.brier,null);assert.equal(empty.history.length,0);
+console.log("Probability metrics and automatic result history tests: PASSED");
