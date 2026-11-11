@@ -1,4 +1,4 @@
-const CACHE = "football-time-v44";
+const CACHE = "football-time-v45";
 
 const ASSETS = [
   "./",
@@ -76,12 +76,19 @@ self.addEventListener("fetch", (event) => {
           if (response.ok) {
             const copy = response.clone();
             caches.open(CACHE).then((cache) => cache.put(cacheKey, copy));
+            const headers = new Headers(response.headers);
+            headers.set("X-PFT-Data-Source", "network");
+            return new Response(response.body, {status: response.status, statusText: response.statusText, headers});
           }
           return response;
         })
         .catch(async () => {
           const cached = await caches.match(cacheKey);
-          if (cached) return cached;
+          if (cached) {
+            const headers = new Headers(cached.headers);
+            headers.set("X-PFT-Data-Source", "cache");
+            return new Response(cached.body, {status: cached.status, statusText: cached.statusText, headers});
+          }
           return new Response(JSON.stringify({error:"Football database is unavailable"}), {
             status:503,headers:{"Content-Type":"application/json"}
           });
