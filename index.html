@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<title>Project Football Time V5.6.1</title>
+<title>Project Football Time V5.6.2</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -54,7 +54,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.2</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="stats"><div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div><div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div></div>
@@ -207,7 +207,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="sectionhead"><h2>ติดตามความแม่นยำและ Calibration</h2><span class="small">PHASE 4.6</span></div>
  <div id="probabilityAccuracySummary" class="empty">กำลังตรวจสอบคำทำนายที่บันทึกไว้…</div>
  <div class="card"><div class="topline"><b>การสอบเทียบความน่าจะเป็น</b><span class="small">ค่าประเมินเทียบผลจริง</span></div><div id="probabilityCalibration"></div></div>
- <p class="profile-note">ประเมินเฉพาะคำทำนายที่บันทึกไว้ก่อนเวลาแข่งขันและมีผลจริงในฐานข้อมูลบนอุปกรณ์นี้ คำทำนายเก่าที่ไม่มีเปอร์เซ็นต์ 1X2 แยกครบจะไม่นำมาปะปน</p>
+ <div class="card"><div class="topline"><b>ประวัติคำทำนายจาก Football Time</b><span class="small">บันทึกผลอัตโนมัติ</span></div><div id="probabilityResultHistory"><div class="empty">กำลังโหลดประวัติ…</div></div></div>
+ <p class="profile-note">แสดงเฉพาะคู่ที่มี Prediction Snapshot จากโมเดลและบันทึกก่อนเวลาแข่งขัน ผลจริงดึงจากฐานข้อมูลการแข่งขันที่ซิงก์ล่าสุด ไม่รวมรายการทดสอบที่กรอกเอง และไม่แก้ไขคำทำนายย้อนหลัง</p>
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
@@ -759,6 +760,14 @@ function renderProbabilityAccuracy(){
  document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด (ไม่ลบย้อนหลัง)</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>Snapshot ที่ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่มีผลจริงสำหรับประเมิน</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>ทายผล 1X2 ถูก (ตัวเลือกที่มี % สูงสุด)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Brier score มาตรฐาน (ช่วง 0–2 · ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log loss เฉลี่ย (ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.ece)+'</b><span>Calibration error (ECE · ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง · คัดออก '+metrics.excluded+' รายการ</span></div></div><div class="quality-note">'+sampleNote+' · ใช้เฉพาะ 1X2 ครบ 100% และบันทึกก่อนเวลาแข่งขัน</div><div class="card"><b>แยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>แยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
  const bins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+(bin.min*100).toFixed(0)+'–'+(bin.max*100).toFixed(0)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
  document.getElementById("probabilityCalibration").innerHTML=bins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>';
+ const outcomeLabel={home:"เจ้าบ้านชนะ",draw:"เสมอ",away:"ทีมเยือนชนะ"};
+ const historyRows=metrics.history.slice(0,20).map(row=>{
+  const p=row.probabilities,probText='เหย้า '+p.home.toFixed(1)+'% · เสมอ '+p.draw.toFixed(1)+'% · เยือน '+p.away.toFixed(1)+'%';
+  const resultText=row.status==="pending"?"รอผลจริง":(row.predictedOutcome===row.actualOutcome?"ทายผลถูก":"ทายผลไม่ถูก");
+  const scoreText=row.actualScore?"สกอร์จริง "+row.actualScore:"ยังไม่มีสกอร์ยืนยัน";
+  return '<div class="calibration-row" style="grid-template-columns:1fr auto;gap:4px 10px"><span><b>'+esc(row.homeTeamName)+' vs '+esc(row.awayTeamName)+'</b><br><span class="small">'+esc(row.leagueName)+' · '+dateTime(row.utcDate)+'</span></span><b>'+resultText+'</b><span class="small">'+probText+'<br>โมเดลเลือก: '+outcomeLabel[row.predictedOutcome]+'</span><span class="small" style="text-align:right">'+scoreText+(row.actualOutcome?'<br>ผลจริง: '+outcomeLabel[row.actualOutcome]:'')+'</span></div>';
+ }).join("");
+ document.getElementById("probabilityResultHistory").innerHTML=historyRows||'<div class="empty">ยังไม่มีคู่แข่งขันที่มี Prediction Snapshot จาก Football Time</div>';
 }
 
 async function loadFootballDatabase(){
