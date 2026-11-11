@@ -51,6 +51,11 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId', MODULE)
         self.assertIn('วิเคราะห์คู่นี้', MODULE)
 
+    def test_match_center_handoff_uses_the_four_primary_navigation_routes(self):
+        self.assertIn('const route = button.dataset.matchAction === "analysis" ? "analyze" : "leagues"', MODULE)
+        self.assertIn("data-primary-route=\"' + route + '\"", MODULE)
+        self.assertIn("else document.querySelector('[data-page=\"fixtures\"]')?.click()", MODULE)
+
     def test_non_upcoming_matches_keep_database_context_fallback(self):
         self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
         self.assertIn('data-db-tab="overview"', MODULE)
