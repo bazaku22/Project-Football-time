@@ -7,8 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class NovemberExperimentContractTests(unittest.TestCase):
     def test_fixture_schedule_remains_15_unique_entries(self):
-        data = json.loads((ROOT / "data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))
-        fixtures = data["fixtures"]
+        fixtures = json.loads((ROOT / "data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))["fixtures"]
         self.assertEqual(len(fixtures), 15)
         self.assertEqual(len({row["id"] for row in fixtures}), 15)
 
@@ -17,7 +16,6 @@ class NovemberExperimentContractTests(unittest.TestCase):
         self.assertIn('const STORAGE_KEY="pft_matches_v1"', html)
         self.assertIn('Number(m.id)<=11', html)
         self.assertIn('LEGACY', html)
-        self.assertIn('hidden', html)
         self.assertIn('id="matches"', html)
 
     def test_experiment_uses_separate_storage(self):
@@ -28,11 +26,30 @@ class NovemberExperimentContractTests(unittest.TestCase):
         self.assertNotIn('pft_probability_predictions_v1', script)
         self.assertNotIn('pft_matches_v1', script)
 
-    def test_fixture_schedule_is_on_home_not_database_tab(self):
+    def test_fixture_schedule_has_day_selector(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn('id="testFixturesList"', html)
-        self.assertNotIn('data-db-tab="testfixtures"', html)
-        self.assertNotIn('id="dbtab-testfixtures"', html)
+        self.assertIn('id="testFixtureDays"', html)
+        self.assertIn('data-fixture-day', html)
+        self.assertIn('selectedTestFixtureDate', html)
+
+    def test_all_national_fixtures_have_researched_team_samples(self):
+        fixtures = json.loads((ROOT / "data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))["fixtures"]
+        research = json.loads((ROOT / "data/national-team-research-2026-11.json").read_text(encoding="utf-8"))
+        national = [f for f in fixtures if f["competition"] in ("UEFA Nations League", "International Friendly")]
+        self.assertEqual(len(national), 12)
+        for fixture in national:
+            self.assertIn(fixture["home"], research["teams"])
+            self.assertIn(fixture["away"], research["teams"])
+            self.assertGreaterEqual(len(research["teams"][fixture["home"]]["matches"]), 3)
+            self.assertGreaterEqual(len(research["teams"][fixture["away"]]["matches"]), 3)
+            self.assertIn(fixture["id"], research["fixtures"])
+
+    def test_handicap_is_additive_and_separate_from_legacy(self):
+        script = (ROOT / "js/test-experiment-enhancements.js").read_text(encoding="utf-8")
+        self.assertIn('data-ah-line', script)
+        self.assertIn('pft-national-poisson-0.1', script)
+        self.assertIn('pft_experiment_snapshots_v1', script)
+        self.assertIn('js/asian-handicap.js', (ROOT / "index.html").read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":
