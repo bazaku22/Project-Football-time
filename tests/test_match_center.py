@@ -27,9 +27,10 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('pft-football-database-error', MODULE)
         self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
 
-    def test_no_fallback_to_test_fixtures(self):
-        self.assertIn('ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง', MODULE)
-        self.assertNotIn('getFixtures?.()', MODULE)
+    def test_international_fixtures_are_separate_from_club_database(self):
+        self.assertIn("internationalFixtures", MODULE)
+        self.assertIn("แยกจากฐานข้อมูลสโมสร", MODULE)
+        self.assertNotIn("getFixtures?.()", MODULE)
 
     def test_filters_and_time_are_bangkok_local(self):
         for key in ("today","upcoming","live","finished","all"):
