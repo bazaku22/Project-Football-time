@@ -59,3 +59,18 @@
 .mc-analysis-muted{color:#e5c98c}
 .mc-analysis-source{font-size:.59rem;color:#91a8bb;line-height:1.45}
 @media(max-width:380px){.mc-analysis-summary{padding:9px}.mc-analysis-outcome{padding:6px 3px}.mc-analysis-outcome b{font-size:.9rem}.mc-analysis-handicap{gap:6px}}
+
+
+/* International fixtures: isolated read-only presentation */
+.mc-flag{display:inline-flex;flex:0 0 38px;width:38px;min-width:38px;height:36px;align-items:center;justify-content:center;gap:1px;flex-direction:column;border-radius:10px;background:rgba(145,178,204,.08);border:1px solid rgba(145,178,204,.12)}
+.mc-flag>span{font-size:1.35rem;line-height:1.15}
+.mc-flag small{font-size:.48rem;line-height:1;color:#a9bdce;letter-spacing:.04em}
+.mc-match-card-international{border-color:rgba(102,217,166,.28);background:linear-gradient(145deg,rgba(22,55,58,.48),var(--ft-surface,#12243a) 52%)}
+.mc-intl-tag{display:inline-flex;align-items:center;padding:5px 8px;border:1px solid rgba(102,217,166,.24);border-radius:999px;color:#9cebd4;font-size:.65rem;white-space:nowrap}
+.mc-intl-details{flex:1 1 100%;margin-top:5px;padding-top:7px;border-top:1px solid rgba(145,178,204,.14);font-size:.7rem;line-height:1.65;color:#b6c8d8}
+.mc-intl-details summary{cursor:pointer;color:#9cebd4;font-weight:650;min-height:34px;display:flex;align-items:center}
+.mc-intl-details>div{margin-top:3px;overflow-wrap:anywhere}
+.mc-intl-details a{color:#9cebd4;text-decoration:underline;text-underline-offset:2px}
+.mc-intl-details p{margin:6px 0 0;color:#91a8bb;font-size:.63rem}
+.mc-intl-source{display:flex;flex-wrap:wrap;gap:4px}
+@media(max-width:380px){.mc-flag{flex-basis:33px;width:33px;min-width:33px;height:33px}.mc-flag>span{font-size:1.2rem}.mc-intl-details{font-size:.66rem}}
