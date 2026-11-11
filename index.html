@@ -50,7 +50,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 /* Phase 5: advanced analysis */
 .p5-score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.p5-metric{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.p5-metric b{display:block;font-size:20px}.p5-metric span{font-size:10px;color:var(--muted)}.p5-bar{height:7px;background:#344653;border-radius:8px;overflow:hidden;margin-top:7px}.p5-bar i{display:block;height:100%;background:var(--green)}.p5-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.p5-row:last-child{border:0}.p5-note{padding:10px;border-left:3px solid var(--gold);background:#252b2d;border-radius:5px;color:var(--muted);font-size:11px;line-height:1.65;margin:9px 0}.p5-good{color:var(--green)}.p5-warn{color:var(--gold)}.p5-bad{color:#f39b8f}@media(max-width:380px){.p5-score{grid-template-columns:1fr 1fr}}
  .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}
-.experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}.result-button[hidden],.result-form[hidden]{display:none!important}
+.experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}.result-button[hidden],.result-form[hidden]{display:none!important}#showAdd[hidden],#importBackup[hidden]{display:none!important}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
@@ -58,9 +58,9 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V5.6.2</span></div></div></header>
 <main>
 <section id="home" class="page active">
- <div class="stats"><div class="stat"><b id="count">00</b><span>คู่ที่บันทึก</span></div><div class="stat"><b id="checkedCount">0</b><span>ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมายทดสอบ</span></div></div>
- <button class="primary" id="showAdd">＋ เพิ่มรายการทดสอบ</button>
- <button class="secondary" id="exportBackup">↓ สำรองข้อมูล JSON</button><button class="secondary" id="importBackup">↑ นำเข้าข้อมูล JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
+ <div class="stats"><div class="stat"><b id="count">00</b><span>รายการ Legacy</span></div><div class="stat"><b id="checkedCount">0</b><span>Legacy ที่ตรวจผลแล้ว</span></div><div class="stat"><b id="goal">0/20</b><span>เป้าหมาย Legacy เดิม</span></div></div>
+ <button class="primary" id="showAdd" hidden>＋ เพิ่มรายการทดสอบเดิม</button>
+ <button class="secondary" id="exportBackup">↓ สำรองข้อมูล JSON</button><button class="secondary" id="importBackup" hidden>↑ นำเข้าข้อมูล JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
  <section id="addPanel" class="card" hidden><h2 style="font-size:16px">เพิ่มรายการวิเคราะห์ก่อนแข่ง</h2><form id="addForm"><div class="formgrid">
  <div class="field"><label>ทีมเจ้าบ้าน *</label><input id="homeTeam" required maxlength="70"></div><div class="field"><label>ทีมเยือน *</label><input id="awayTeam" required maxlength="70"></div>
  <div class="field full"><label>ลีก / รายการแข่งขัน *</label><input id="league" required maxlength="90"></div>
@@ -213,7 +213,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
-<section id="stats" class="page"><div class="sectionhead"><h2>สถิติและประวัติ</h2></div><div class="card"><table>
+<section id="stats" class="page"><div class="sectionhead"><h2>สถิติ Legacy และประวัติเดิม</h2></div><p class="notice">ตัวเลขในหน้านี้อ้างอิงเฉพาะประวัติรุ่นเก่า #001–#011 ไม่ใช่ผลประเมินโมเดลทดลองใหม่</p><div class="card"><table>
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
