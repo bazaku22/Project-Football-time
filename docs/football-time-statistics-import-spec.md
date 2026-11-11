@@ -93,3 +93,14 @@ If the same key occurs more than once, validation fails and requires human recon
 ## Next implementation gate
 
 After the CSV format and validator are reviewed, the next safe step is a non-destructive Supabase migration design for source records, canonical statistics, import batches, and change history, with RLS and rollback notes. No migration should be applied until the SQL and access model have been reviewed.
+
+
+## Local test command
+
+The validator uses only the Python standard library. Run its regression tests from the repository root:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+The tests cover valid rows with unknown/blank statistics, rights and timestamp rejection, independent source observations, duplicate same-provider rows, and non-finite numeric values.
