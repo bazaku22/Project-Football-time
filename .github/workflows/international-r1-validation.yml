@@ -1,0 +1,25 @@
+name: International Round 1 Dataset Validation
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/experimental/international-r1/**"
+      - "tests/test_international_r1_dataset.py"
+      - ".github/workflows/international-r1-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate isolated Round 1 dataset
+        run: python -m unittest tests.test_international_r1_dataset -v
