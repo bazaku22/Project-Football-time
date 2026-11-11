@@ -28,7 +28,7 @@ All three existing tables already have RLS enabled and owner-scoped policies. Th
 | `ft_player_stats_current` | Reviewed current statistics read model, linked to one exact source observation | Owner select/insert/update |
 | `ft_player_stat_change_history` | Append-only record of changes to reviewed statistics | Owner select/insert only |
 
-All rows carry `user_id`. Composite foreign keys include `user_id` so a row cannot reference another user's canonical player, import batch, source observation, or current-stat row. User deletion cascades only that user's private records; player/source/history relationships use restrictive deletes to protect provenance.
+All rows carry `user_id`. Composite foreign keys include `user_id` so a row cannot reference another user's canonical player, import batch, source observation, or current-stat row. Source observations have an explicit unique `(user_id, id)` key to support the change-history foreign key. User deletion cascades only that user's private records; player/source/history relationships use restrictive deletes to protect provenance.
 
 ## 3. CSV-to-database mapping
 
@@ -72,7 +72,7 @@ The migration does not automatically write change-history rows. A future applica
 - pgTAP schema test: added but not run because the Supabase CLI / local Postgres test environment is not available in this execution environment.
 - Live Supabase: no DDL, grants, policies, inserts, updates, or deletes were executed.
 
-The PR must not be merged as a live database deployment signal. Review the SQL and tests first; then validate against a local disposable Supabase database before separately authorizing any live migration.
+Local disposable Supabase validation is not available in this execution environment, and creating a hosted Supabase branch may incur charges, so no branch was created. The user has explicitly approved the complete deployment sequence. Proceed only after the final GitHub CI run is green; the pgTAP assertions remain unexecuted and this limitation must be retained in the deployment record.
 
 ## 7. Rollback plan
 
