@@ -152,11 +152,24 @@ if os.path.exists(previous_database_path):
     try:
         with open(previous_database_path, encoding="utf-8") as previous_file:
             previous_database = json.load(previous_file)
-        previous_probability_snapshots = previous_database.get("probabilitySnapshots", [])
-        if not isinstance(previous_probability_snapshots, list):
-            previous_probability_snapshots = []
-    except (OSError, json.JSONDecodeError):
-        previous_probability_snapshots = []
+    except (OSError, json.JSONDecodeError) as error:
+        raise RuntimeError(
+            "Refusing to rebuild the database because the existing database "
+            "cannot be read safely; probability history may be lost."
+        ) from error
+
+    if not isinstance(previous_database, dict):
+        raise ValueError(
+            "Refusing to rebuild the database because the existing database "
+            "root is not an object."
+        )
+
+    previous_probability_snapshots = previous_database.get("probabilitySnapshots", [])
+    if not isinstance(previous_probability_snapshots, list):
+        raise ValueError(
+            "Refusing to rebuild the database because probabilitySnapshots "
+            "is not a list; historical records must not be discarded."
+        )
 
 database = {
     "schemaVersion": "1.2.0",
