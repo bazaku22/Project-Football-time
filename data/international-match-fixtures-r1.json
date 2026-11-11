@@ -1,0 +1,349 @@
+{
+  "dataset_id": "international-r1-2026",
+  "schema_version": "1.0.0",
+  "dataset_status": "experimental_fixture_reference",
+  "timezone": "Asia/Bangkok",
+  "retrieved_at": "2026-11-12T01:13:00+07:00",
+  "source_note": "Manually researched fixture notices from the competition/federation sources listed per fixture. No scraping, automated extraction, API integration, or scheduled refresh. This read-only presentation dataset is separate from the club football database. The source links and factual fixture details are retained for provenance; no separate data-reuse licence or contractual permission is certified by this file. Review applicable source terms before wider redistribution or commercial reuse.",
+  "display_policy": {
+    "club_database_unchanged": true,
+    "experimental_predictions_hidden": true,
+    "fixtures_without_verified_kickoff": "display_date_with_time_unannounced",
+    "flags": "Unicode country flags from ISO/UK subdivision codes; no third-party image hotlinks"
+  },
+  "fixtures": [
+    {
+      "id": "INT-R1-001",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-12",
+      "home_team": "Türkiye",
+      "home_country_code": "TR",
+      "away_team": "Belgium",
+      "away_country_code": "BE",
+      "kickoff_utc": "2026-11-12T17:00:00Z",
+      "kickoff_local": "2026-11-12T18:00:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-002",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-12",
+      "home_team": "Italy",
+      "home_country_code": "IT",
+      "away_team": "France",
+      "away_country_code": "FR",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "kickoff_local": "2026-11-12T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-003",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-12",
+      "home_team": "Czechia",
+      "home_country_code": "CZ",
+      "away_team": "Spain",
+      "away_country_code": "ES",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "kickoff_local": "2026-11-12T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-004",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-12",
+      "home_team": "England",
+      "home_country_code": "GB-ENG",
+      "away_team": "Croatia",
+      "away_country_code": "HR",
+      "kickoff_utc": "2026-11-12T19:45:00Z",
+      "kickoff_local": "2026-11-12T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-005",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-13",
+      "home_team": "Netherlands",
+      "home_country_code": "NL",
+      "away_team": "Greece",
+      "away_country_code": "GR",
+      "kickoff_utc": "2026-11-13T19:45:00Z",
+      "kickoff_local": "2026-11-13T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-006",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-13",
+      "home_team": "Serbia",
+      "home_country_code": "RS",
+      "away_team": "Germany",
+      "away_country_code": "DE",
+      "kickoff_utc": "2026-11-13T19:45:00Z",
+      "kickoff_local": "2026-11-13T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-007",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-14",
+      "home_team": "Norway",
+      "home_country_code": "NO",
+      "away_team": "Wales",
+      "away_country_code": "GB-WLS",
+      "kickoff_utc": "2026-11-14T17:00:00Z",
+      "kickoff_local": "2026-11-14T18:00:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-008",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-14",
+      "home_team": "Portugal",
+      "home_country_code": "PT",
+      "away_team": "Denmark",
+      "away_country_code": "DK",
+      "kickoff_utc": "2026-11-14T19:45:00Z",
+      "kickoff_local": "2026-11-14T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-009",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-15",
+      "home_team": "Belgium",
+      "home_country_code": "BE",
+      "away_team": "Italy",
+      "away_country_code": "IT",
+      "kickoff_utc": "2026-11-15T19:45:00Z",
+      "kickoff_local": "2026-11-15T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-010",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-15",
+      "home_team": "Spain",
+      "home_country_code": "ES",
+      "away_team": "England",
+      "away_country_code": "GB-ENG",
+      "kickoff_utc": "2026-11-15T19:45:00Z",
+      "kickoff_local": "2026-11-15T20:45:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea7079900a-801b2c5f6c9e-1000--2026-uefa-nations-league-league-phase-fixtures-and-resul/"
+      ]
+    },
+    {
+      "id": "INT-R1-011",
+      "competition": "International friendly",
+      "match_type": "friendly",
+      "local_date": "2026-11-13",
+      "home_team": "Argentina",
+      "home_country_code": "AR",
+      "away_team": "Uruguay",
+      "away_country_code": "UY",
+      "kickoff_utc": null,
+      "kickoff_local": null,
+      "source_timezone": null,
+      "neutral_venue": null,
+      "match_status": "scheduled",
+      "data_status": "kickoff_time_unpublished",
+      "source_names": [
+        "AFA"
+      ],
+      "source_urls": [
+        "https://www.afa.com.ar/es/posts/venta-de-entradas-para-el-encuentro-entre-argentina-y-uruguay"
+      ]
+    },
+    {
+      "id": "INT-R1-012",
+      "competition": "International friendly",
+      "match_type": "friendly",
+      "local_date": "2026-11-13",
+      "home_team": "Saudi Arabia",
+      "home_country_code": "SA",
+      "away_team": "South Korea",
+      "away_country_code": "KR",
+      "kickoff_utc": "2026-11-13T14:30:00Z",
+      "kickoff_local": "2026-11-13T17:30:00+03:00",
+      "source_timezone": "Asia/Qatar",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "SAFF"
+      ],
+      "source_urls": [
+        "https://www.saff.com.sa/en/nationalteams.php?id=1&type=2"
+      ]
+    },
+    {
+      "id": "INT-R1-013",
+      "competition": "International friendly",
+      "match_type": "friendly",
+      "local_date": "2026-11-13",
+      "home_team": "Qatar",
+      "home_country_code": "QA",
+      "away_team": "Australia",
+      "away_country_code": "AU",
+      "kickoff_utc": "2026-11-13T14:45:00Z",
+      "kickoff_local": "2026-11-13T17:45:00+03:00",
+      "source_timezone": "Asia/Qatar",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "QFA"
+      ],
+      "source_urls": [
+        "https://www.qfa.qa/news/%D9%85%D9%86%D8%AA%D8%AE%D8%A8%D9%86%D8%A7-%D8%A7%D9%84%D9%88%D8%B7%D9%86%D9%8A-%D9%8A%D8%B9%D8%B2%D8%B2-%D8%AA%D8%AD%D8%B6%D9%8A%D8%B1%D8%A7%D8%AA%D9%87-%D9%84%D9%84%D9%83%D8%A3%D8%B3-%D8%A7%D9%84%D8%A2%D8%B3%D9%8A%D9%88%D9%8A%D8%A9-%D8%A8%D8%AB%D9%84%D8%A7%D8%AB-%D9%85%D8%A8%D8%A7%D8%B1%D9%8A%D8%A7%D8%AA-%D9%88%D8%AF%D9%8A%D8%A9"
+      ]
+    },
+    {
+      "id": "INT-R1-014",
+      "competition": "International friendly",
+      "match_type": "friendly",
+      "local_date": "2026-11-14",
+      "home_team": "Japan",
+      "home_country_code": "JP",
+      "away_team": "Brazil",
+      "away_country_code": "BR",
+      "kickoff_utc": "2026-11-14T10:15:00Z",
+      "kickoff_local": "2026-11-14T18:15:00+08:00",
+      "source_timezone": "Asia/Singapore",
+      "neutral_venue": true,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "JFA",
+        "CBF"
+      ],
+      "source_urls": [
+        "https://jfa.jp/samuraiblue/",
+        "https://www.cbf.com.br/selecao-brasileira/noticias/selecao-brasileira/noticias/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura"
+      ]
+    },
+    {
+      "id": "INT-R1-015",
+      "competition": "International friendly",
+      "match_type": "friendly",
+      "local_date": "2026-11-17",
+      "home_team": "Singapore",
+      "home_country_code": "SG",
+      "away_team": "Brazil",
+      "away_country_code": "BR",
+      "kickoff_utc": "2026-11-17T10:00:00Z",
+      "kickoff_local": "2026-11-17T18:00:00+08:00",
+      "source_timezone": "Asia/Singapore",
+      "neutral_venue": true,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "CBF"
+      ],
+      "source_urls": [
+        "https://www.cbf.com.br/selecao-brasileira/noticias/selecao-brasileira/noticias/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura"
+      ]
+    }
+  ],
+  "rights_status": "source_terms_not_independently_cleared"
+}

@@ -27,9 +27,10 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('pft-football-database-error', MODULE)
         self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
 
-    def test_no_fallback_to_test_fixtures(self):
-        self.assertIn('ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง', MODULE)
-        self.assertNotIn('getFixtures?.()', MODULE)
+    def test_international_fixtures_are_separate_from_club_database(self):
+        self.assertIn("internationalFixtures", MODULE)
+        self.assertIn("แยกจากฐานข้อมูลสโมสร", MODULE)
+        self.assertNotIn("getFixtures?.()", MODULE)
 
     def test_filters_and_time_are_bangkok_local(self):
         for key in ("today","upcoming","live","finished","all"):
@@ -67,15 +68,15 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v49", WORKER)
+        self.assertIn("football-time-v50", WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.2.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.2.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.2.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.3.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.3.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.3.0-beta.1</span>', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
