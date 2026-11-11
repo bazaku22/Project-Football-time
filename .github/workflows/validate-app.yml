@@ -14,6 +14,7 @@ on:
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
+      - "data/test-fixtures-2026-11.json"
       - "sw.js"
       - "js/probability-metrics.js"
       - "tests/test_probability_metrics.js"
@@ -138,4 +139,38 @@ jobs:
           if len(data["leagues"]) != 5:
               raise SystemExit("Expected exactly five supported leagues")
           print("Football database JSON is valid.")
+          PY
+
+      - name: Validate November test fixtures
+        run: |
+          python3 - <<'PY'
+          import json
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from zoneinfo import ZoneInfo
+
+          data = json.loads(Path("data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))
+          fixtures = data.get("fixtures")
+          if not isinstance(fixtures, list) or len(fixtures) != 15:
+              raise SystemExit("Expected exactly 15 November test fixtures.")
+
+          ids = [row.get("id") for row in fixtures]
+          if None in ids or len(ids) != len(set(ids)):
+              raise SystemExit("Fixture IDs must be present and unique.")
+
+          required = ("date", "kickoffUtc", "home", "away", "competition",
+                      "localKickoff", "timezone", "sourceUrl", "sourceName", "status")
+          bangkok = ZoneInfo("Asia/Bangkok")
+          for row in fixtures:
+              missing = [key for key in required if not row.get(key)]
+              if missing:
+                  raise SystemExit(f"Fixture {row.get('id')} is missing: {missing}")
+              if not row["sourceUrl"].startswith("https://"):
+                  raise SystemExit(f"Fixture {row['id']} has an invalid source URL.")
+              kickoff = datetime.fromisoformat(row["kickoffUtc"].replace("Z", "+00:00"))
+              if kickoff.utcoffset() != timezone.utc.utcoffset(kickoff):
+                  raise SystemExit(f"Fixture {row['id']} kickoffUtc must be UTC.")
+              kickoff.astimezone(bangkok)
+
+          print("November test fixtures: 15 records, unique IDs, required fields and UTC timestamps are valid.")
           PY
