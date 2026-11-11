@@ -272,7 +272,7 @@
         '<div class="experiment-kpi"><b>' + p.draw.toFixed(1) + '%</b><span>เสมอ</span></div>' +
         '<div class="experiment-kpi"><b>' + p.away.toFixed(1) + '%</b><span>ทีมเยือนชนะ</span></div>' +
       '</div>' +
-      '<div class="experiment-status">ความเชื่อมั่นด้านข้อมูล ' + escapeHtml(snapshot.confidence) + ' (' + snapshot.confidenceScore + '/100) · ตัวอย่างเหย้า ' +
+      '<div class="experiment-status">ระดับความน่าจะเป็นสูงสุด ' + escapeHtml(snapshot.probabilityLevel) + ' · ความเชื่อมั่นด้านข้อมูล ' + escapeHtml(snapshot.confidence) + ' (' + snapshot.confidenceScore + '/100) · ตัวอย่างเหย้า ' +
       snapshot.sample.homeVenue + ' / เยือน ' + snapshot.sample.awayVenue + ' / ฟอร์ม ' + snapshot.sample.homeForm + ' และ ' +
       snapshot.sample.awayForm + ' นัด · บันทึก ' + escapeHtml(savedAt) + '</div>' +
       '<details><summary class="small">ดูเหตุผลและปัจจัยที่ใช้คำนวณ</summary><ul class="experiment-reasons">' +
