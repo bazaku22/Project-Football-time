@@ -38,7 +38,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "TUR"
     },
     {
       "team": "Belgium",
@@ -71,7 +72,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "BEL"
     },
     {
       "team": "Italy",
@@ -104,7 +106,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ITA"
     },
     {
       "team": "France",
@@ -137,7 +140,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "FRA"
     },
     {
       "team": "Czechia",
@@ -172,7 +176,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "CZE"
     },
     {
       "team": "Spain",
@@ -205,7 +210,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ESP"
     },
     {
       "team": "England",
@@ -238,7 +244,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ENG"
     },
     {
       "team": "Croatia",
@@ -271,7 +278,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "CRO"
     },
     {
       "team": "Netherlands",
@@ -304,7 +312,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "NED"
     },
     {
       "team": "Greece",
@@ -337,7 +346,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "GRE"
     },
     {
       "team": "Serbia",
@@ -370,7 +380,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "SRB"
     },
     {
       "team": "Germany",
@@ -403,7 +414,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "GER"
     },
     {
       "team": "Norway",
@@ -436,7 +448,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "NOR"
     },
     {
       "team": "Wales",
@@ -469,7 +482,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "WAL"
     },
     {
       "team": "Portugal",
@@ -502,7 +516,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "POR"
     },
     {
       "team": "Denmark",
@@ -535,7 +550,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "DEN"
     },
     {
       "team": "Argentina",
@@ -569,7 +585,8 @@
       ],
       "readiness": "provisional_5_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "ARG"
     },
     {
       "team": "Uruguay",
@@ -602,7 +619,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "URU"
     },
     {
       "team": "Saudi Arabia",
@@ -635,7 +653,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "KSA"
     },
     {
       "team": "South Korea",
@@ -671,7 +690,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "KOR"
     },
     {
       "team": "Qatar",
@@ -704,7 +724,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "QAT"
     },
     {
       "team": "Australia",
@@ -737,7 +758,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "AUS"
     },
     {
       "team": "Japan",
@@ -770,7 +792,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "JPN"
     },
     {
       "team": "Brazil",
@@ -803,7 +826,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "BRA"
     },
     {
       "team": "Singapore",
@@ -836,7 +860,8 @@
       "excluded_match_ids": [],
       "readiness": "provisional_10_match",
       "source_quality": "CC0 multi-source compilation; not federation-verified",
-      "feature_cutoff_exclusive": "2026-11-12"
+      "feature_cutoff_exclusive": "2026-11-12",
+      "team_id": "SGP"
     }
   ],
   "limitations": [
