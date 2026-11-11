@@ -21,7 +21,7 @@
   const probs={home:home,draw:Math.round((100-home-away)*10)/10,away:away};
   const detail=research.fixtures[fixture.id]||{};
   const recent=rows=>rows.map(r=>r[2]+"-"+r[3]).join(", ");
-  return {probabilities:probs,expectedGoals:{home:eh,away:ea},confidenceScore:Math.min(42,30+Math.min(h.matches.length,a.matches.length)*3),confidence:"ต่ำ",probabilityLevel:Math.max(probs.home,probs.draw,probs.away)>=55?"สูง":Math.max(probs.home,probs.draw,probs.away)>=45?"กลาง":"ต่ำ",sample:{homeMatches:h.matches.length,awayMatches:a.matches.length,homeForm:h.matches.length,awayForm:a.matches.length,homeVenue:0,awayVenue:0,homeRecent:recent(h.matches),awayRecent:recent(a.matches)},reasons:[detail.note||"คำนวณจากผลทีมชาติชุดใหญ่ย้อนหลัง",fixture.home+" ยิงเฉลี่ย "+hs.gf.toFixed(2)+" เสีย "+hs.ga.toFixed(2)+" ประตู จาก "+h.matches.length+" นัด",fixture.away+" ยิงเฉลี่ย "+as.gf.toFixed(2)+" เสีย "+as.ga.toFixed(2)+" ประตู จาก "+a.matches.length+" นัด","ตัวอย่างเพียง 3–4 นัด; ยังไม่รวมการปรับความแข็งแกร่งคู่แข่งและการยืนยันตัวจริง/ผู้เล่นบาดเจ็บครบทุกทีม"],sources:Array.from(new Set([h.source,a.source].concat(detail.sources||[])))};
+  return {probabilities:probs,expectedGoals:{home:eh,away:ea},confidenceScore:Math.min(42,30+Math.min(h.matches.length,a.matches.length)*3),confidence:"ต่ำ",probabilityLevel:Math.max(probs.home,probs.draw,probs.away)>=55?"สูง":Math.max(probs.home,probs.draw,probs.away)>=45?"กลาง":"ต่ำ",sample:{homeMatches:h.matches.length,awayMatches:a.matches.length,homeForm:h.matches.length,awayForm:a.matches.length,homeVenue:0,awayVenue:0,homeRecent:recent(h.matches),awayRecent:recent(a.matches)},reasons:[detail.note||"คำนวณจากผลทีมชาติชุดใหญ่ย้อนหลัง",fixture.home+" ยิงเฉลี่ย "+hs.gf.toFixed(2)+" เสีย "+hs.ga.toFixed(2)+" ประตู จาก "+h.matches.length+" นัด",fixture.away+" ยิงเฉลี่ย "+as.gf.toFixed(2)+" เสีย "+as.ga.toFixed(2)+" ประตู จาก "+a.matches.length+" นัด","ตัวอย่างเพียง 3–4 นัด; ยังไม่รวมการปรับความแข็งแกร่งคู่แข่งและการยืนยันตัวจริง/ผู้เล่นบาดเจ็บครบทุกทีม","ยังไม่นำฐานผู้เล่น 156 รายการมาปรับเปอร์เซ็นต์ เพราะเป็นข้อมูลตัวตน/สโมสร ไม่ใช่สถิติผลงานรายบุคคลหรือรายชื่อทีมชาติที่ยืนยันครบ"],sources:Array.from(new Set([h.source,a.source].concat(detail.sources||[])))};
  }
  function handicapMarkup(id,expected){
   const options=lines.map(v=>'<option value="'+v+'"'+(v==="-0.5"?" selected":"")+'>'+((Number(v)>0)?"+":"")+v+'</option>').join("");
@@ -54,6 +54,20 @@
    if(!save(rows)){alert("บันทึกไม่สำเร็จ กรุณาส่งออกข้อมูลสำรองก่อน");return;}window.renderTestExperimentPanels(window.FootballTimeAppContext.getFixtures());
   };
  }
+ function modelMetrics(rows){
+  const done=rows.filter(r=>r.actualOutcome&&r.probabilities);if(!done.length)return {count:0,accuracy:null,brier:null,logLoss:null};
+  let correct=0,brier=0,logLoss=0;
+  done.forEach(r=>{const p=r.probabilities,actual=r.actualOutcome;const pick=["home","draw","away"].reduce((best,k)=>p[k]>p[best]?k:best,"home");if(pick===actual)correct++;["home","draw","away"].forEach(k=>{brier+=Math.pow(p[k]/100-(k===actual?1:0),2);});logLoss-=Math.log(Math.max(1e-15,p[actual]/100));});
+  return {count:done.length,accuracy:correct/done.length,brier:brier/done.length,logLoss:logLoss/done.length};
+ }
+ function renderModelBreakdown(){
+  const root=document.getElementById("testExperimentSummary");if(!root)return;
+  const rows=read(),models=[["pft-poisson-1.0","โมเดลสโมสร Poisson"],["pft-national-poisson-0.1","โมเดลทีมชาติทดลอง"]];
+  const old=document.getElementById("experimentModelBreakdown");if(old)old.remove();
+  const pct=v=>v==null?"—":(v*100).toFixed(1)+"%",num=v=>v==null?"—":v.toFixed(3);
+  const cards=models.map(([key,label])=>{const subset=rows.filter(r=>r.modelVersion===key),m=modelMetrics(subset);return '<div class="card"><b>'+label+'</b><div class="small">'+subset.length+' Snapshot · ประเมินแล้ว '+m.count+' · รอผล '+Math.max(0,subset.length-m.count)+'</div><div class="experiment-kpis"><div class="experiment-kpi"><b>'+pct(m.accuracy)+'</b><span>1X2 Accuracy</span></div><div class="experiment-kpi"><b>'+num(m.brier)+'</b><span>Brier</span></div><div class="experiment-kpi"><b>'+num(m.logLoss)+'</b><span>Log Loss</span></div></div></div>';}).join("");
+  root.insertAdjacentHTML("beforeend",'<div id="experimentModelBreakdown"><div class="quality-note">ตัวเลขภาพรวมด้านบนรวมทุกเวอร์ชันเพื่อสรุปจำนวนรายการเท่านั้น การประเมินคุณภาพให้ดูแยกตามโมเดลด้านล่างเพื่อไม่ให้ผลสโมสรและทีมชาติปะปนกัน</div>'+cards+'</div>');
+ }
  function enhance(fixtures){
   const rows=read();let changed=false;
   (fixtures||[]).forEach(f=>{
@@ -73,8 +87,15 @@
     const ah=panel.querySelector("[data-ah-panel]");if(!ah){panel.insertAdjacentHTML("beforeend",handicapMarkup(f.id,snapshot.expectedGoals));paintHandicap(panel,snapshot.expectedGoals);}
    }
   });
+  return changed;
  }
  const original=window.renderTestExperimentPanels;
- if(typeof original==="function")window.renderTestExperimentPanels=function(fixtures){original(fixtures);enhance(fixtures);};
+ if(typeof original==="function")window.renderTestExperimentPanels=function(fixtures){
+  original(fixtures);
+  const changed=enhance(fixtures);
+  if(changed)original(fixtures);
+  enhance(fixtures);
+  renderModelBreakdown();
+ };
  fetch("./data/national-team-research-2026-11.json?v=1",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(data=>{research=data;const app=window.FootballTimeAppContext;if(app&&app.getFixtures)window.renderTestExperimentPanels(app.getFixtures());}).catch(error=>console.error("National research unavailable",error));
 })();
