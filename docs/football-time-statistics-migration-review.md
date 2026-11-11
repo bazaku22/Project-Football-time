@@ -62,17 +62,18 @@ The migration does not automatically write change-history rows. A future applica
 3. Statistics remain in a JSONB object for provider-neutral extensibility. The importer must validate the known metric vocabulary and units before writing; it must not infer absent metrics or turn blanks into zero.
 4. Rights status is provenance, not legal certification. A human must verify the permission reference. Current statistics can only select a source observation whose rights status is `approved`.
 5. `updated_at` values are expected to be maintained by the future write path; this migration intentionally adds no timestamp triggers.
-6. The pgTAP file currently checks table existence, RLS, owner SELECT/INSERT policies, absence of anonymous SELECT and authenticated DELETE, and append-only policy shape. Functional two-user isolation tests and an end-to-end import transaction test remain required before enabling production writes.
+6. The pgTAP file checks table existence, RLS, owner SELECT/INSERT policies, absence of anonymous SELECT and authenticated DELETE, and append-only policy shape. The two-user transactional isolation test and synthetic import lifecycle test have now passed. Application-level tests using real Auth sessions over the HTTP API remain a separate future check.
 
 ## 6. Validation status
 
-- Existing PR #53 offline Python CI: passed, 11/11 tests.
-- GitHub Actions static schema checks: passed; confirmed seven additive tables, RLS enablement statements, no destructive DDL, and pgTAP plan/assertion count 32/32.
-- Migration SQL: reviewed against the live schema metadata and current Supabase RLS guidance; not executed.
-- pgTAP schema test: added but not run because the Supabase CLI / local Postgres test environment is not available in this execution environment.
-- Live Supabase: both additive migrations applied successfully. Seven new tables are present with RLS enabled; all seven are empty. `anon` has no SELECT/INSERT privileges, `authenticated` has no DELETE privilege, and `service_role` grants are limited to the documented operations after the follow-up hardening migration. The existing tables remain unchanged: `player_records` 189 rows, `player_sync_runs` 3 rows, `player_sync_previews` 3 rows.
+- PR #55 offline Python CI: passed, 12/12 tests, including the new CSV validation-to-preview integration test.
+- GitHub Actions static schema checks: passed; confirmed seven additive tables, RLS enablement statements, no destructive DDL, pgTAP plan/assertion count 32/32, and the rollback-only two-user SQL test structure.
+- Production transaction test: passed. Two synthetic authenticated identities could each read only their own rows across all seven tables; cross-owner insert/updates and ownership transfer were denied; no authenticated DELETE or append-only UPDATE was available.
+- Database import lifecycle: passed inside the same rollback-only transaction for a synthetic approved record from canonical player/provider ID through import batch, source observation, current statistics and change history. A `manual_review` source was rejected from current statistics.
+- pgTAP schema test: executed successfully in a transaction; all 32 assertions passed. The `pgtap` extension was created only within that transaction and was not persisted after rollback.
+- Live Supabase: both additive migrations applied successfully. Seven new tables are present with RLS enabled; all seven are empty. `anon` has no SELECT/INSERT privileges, `authenticated` has no DELETE privilege, and `service_role` grants are limited to the documented operations after the follow-up hardening migration. Existing tables remain unchanged: `player_records` 189 rows, `player_sync_runs` 3 rows, `player_sync_previews` 3 rows.
 
-Local disposable Supabase validation was not available in this execution environment; no hosted Supabase branch was created to avoid potential charges. The user explicitly approved the complete deployment sequence. GitHub CI passed the offline tests and static schema checks before merge. The pgTAP assertions remain unexecuted; this limitation must be retained in the deployment record.
+A separate local Supabase instance or hosted development branch was not created, avoiding potential compute charges. The SQL tests were run in explicit rollback-only transactions against the live project. The simulated identities do not replace application-level HTTP tests using real Auth sessions.
 
 ## 7. Rollback plan
 
@@ -99,7 +100,7 @@ Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_pre
 - Verified in production: all seven new tables exist, RLS is enabled, all seven have zero rows, `anon` has no SELECT/INSERT, authenticated has no DELETE, and service_role has no DELETE. Append-only tables deny UPDATE to both authenticated and service_role.
 - Verified existing row counts unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`.
 - No player data was imported, no API was called, no provider quota was consumed, and no scheduled workflow was added.
-- pgTAP was not executed; only GitHub offline Python tests and static schema checks were green. Functional two-user RLS isolation and an end-to-end transaction test are still required before any production import is enabled.
+- pgTAP was executed in a rollback-only transaction: 32/32 assertions passed. Two-user RLS isolation and the synthetic import transaction also passed. Real Auth HTTP-session tests remain outstanding before enabling production imports.
 
 
 ## 9. Transactional verification (2026-11-11)
@@ -109,4 +110,4 @@ Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_pre
 - The same transaction exercised the complete database write sequence for a synthetic approved import: canonical player, provider ID mapping, import batch, immutable source observation, current-stat row, and change-history row.
 - After rollback, row counts remained unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`, and all seven `ft_*` tables remained empty.
 - Added a repeatable local SQL test and a Python end-to-end preflight/preview test to the repository. The Python test validates the CSV, performs exact provider-ID mapping, quarantines an unmatched identity, preserves blank statistics as unknown, and verifies preview hashes/reports. CI is configured to run it.
-- Important limitation: the two identities are simulated by setting authenticated JWT claims in a transaction, not by creating and signing into real Auth sessions through the HTTP API. Application-level authenticated API tests remain a separate future check.
+- The pgTAP test was also run with a transaction-scoped extension install; verification confirmed the extension was not left installed after rollback. The two identities were simulated by setting authenticated JWT claims, not by creating and signing into real Auth sessions through the HTTP API. Application-level authenticated API tests remain a separate future check.
