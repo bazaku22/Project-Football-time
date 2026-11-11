@@ -83,5 +83,62 @@ class CsvValidatorTests(unittest.TestCase):
         self.assertIn("finite non-negative number", result.stdout)
 
 
+    def test_match_scope_requires_valid_match_identity_and_date(self):
+        result = self.run_csv([make_row(
+            statistics_scope="match", match_id="", stat_date="2026-02-30",
+        )])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("match_id is required", result.stdout)
+        self.assertIn("not a valid calendar date", result.stdout)
+
+    def test_non_match_scope_rejects_match_only_fields(self):
+        result = self.run_csv([make_row(match_id="match-001", stat_date="2026-11-11")])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("must be blank unless scope=match", result.stdout)
+
+    def test_statistical_relationships_and_integer_counts_are_enforced(self):
+        result = self.run_csv([make_row(
+            appearances="2", starts="3", shots="4",
+            shots_on_target="5", minutes="90.5",
+        )])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("starts cannot exceed appearances", result.stdout)
+        self.assertIn("shots_on_target cannot exceed shots", result.stdout)
+        self.assertIn("minutes must be a finite non-negative integer", result.stdout)
+
+    def test_negative_and_infinite_metrics_fail(self):
+        result = self.run_csv([make_row(goals="-1", xg="inf")])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("goals must be a finite non-negative integer", result.stdout)
+        self.assertIn("xg must be a finite non-negative number", result.stdout)
+
+    def test_extra_csv_values_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "extra.csv"
+            with path.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=FIELDS)
+                writer.writeheader()
+                writer.writerow(make_row())
+                handle.write("," + "unexpected-extra-cell" + "\\n")
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), str(path)],
+                capture_output=True, text=True, check=False,
+            )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("more values than the header", result.stdout)
+
+    def test_header_only_csv_is_not_ready(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "empty.csv"
+            with path.open("w", newline="", encoding="utf-8") as handle:
+                csv.writer(handle).writerow(FIELDS)
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), str(path)],
+                capture_output=True, text=True, check=False,
+            )
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("no data rows", result.stdout)
+
+
 if __name__ == "__main__":
     unittest.main()
