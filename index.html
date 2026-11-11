@@ -56,12 +56,35 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/football-discovery.css?v=1">
 <link rel="stylesheet" href="./css/ui-refresh-v2.css?v=1">
 <link rel="stylesheet" href="./css/design-system.css?v=1">
+<link rel="stylesheet" href="./css/match-center.css?v=1">
 </head>
 <body>
 <header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.0.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
- <div class="sectionhead"><h2>โปรแกรมแข่งขัน 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย ส่วนสรุปผลและการประเมินโมเดลอยู่ในหมวด “สรุปผล”</div><div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div>
+ <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
+ <p class="profile-note">โปรแกรมและผลการแข่งขันจริงจากฐานข้อมูลฟุตบอล 5 ลีกหลัก · เวลาแสดงเป็นเวลาไทย</p>
+ <div id="matchCenterApp">
+  <div class="mc-toolbar">
+   <div class="field"><label for="matchCenterLeague">เลือกลีก</label><select id="matchCenterLeague" class="filter"><option value="ALL">ทุกลีกหลัก</option></select></div>
+  </div>
+  <div class="mc-filters" role="group" aria-label="กรองการแข่งขัน">
+   <button type="button" class="mc-filter" data-match-filter="today" aria-pressed="false">วันนี้</button>
+   <button type="button" class="mc-filter active" data-match-filter="upcoming" aria-pressed="true">กำลังจะมาถึง</button>
+   <button type="button" class="mc-filter" data-match-filter="live" aria-pressed="false">กำลังแข่งขัน</button>
+   <button type="button" class="mc-filter" data-match-filter="finished" aria-pressed="false">จบแล้ว</button>
+   <button type="button" class="mc-filter" data-match-filter="all" aria-pressed="false">ทั้งหมด</button>
+  </div>
+  <div class="mc-data-line"><span id="matchCenterDataState">กำลังรอฐานข้อมูลฟุตบอล</span></div>
+  <div id="matchCenterMatches" aria-live="polite"><div class="mc-empty">กำลังโหลดข้อมูลการแข่งขันจากฐานข้อมูลหลัก…</div></div>
+ </div>
+ <details class="mc-experiment">
+  <summary>เครื่องมือรอง · โปรแกรมทดลอง (แยกจากการแข่งขันจริง)</summary>
+  <div class="quality-note">ข้อมูลด้านล่างเป็นชุดโปรแกรมทดลองเพื่อทดสอบระบบ ไม่ใช่โปรแกรมแข่งขันจริงของ 5 ลีกหลัก และไม่นำมาปะปนกับ Match Center</div>
+  <div class="sectionhead"><h2>โปรแกรมทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div>
+  <div id="testFixtureDays" class="fixture-day-tabs" aria-label="เลือกวันที่แข่งขัน"></div>
+  <div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรมทดลอง…</div></div>
+ </details>
 </section>
 <section id="summary" class="page">
  <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">สโมสร · ทีมชาติ</span></div>
@@ -937,6 +960,7 @@ async function loadFootballDatabase(){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
   document.getElementById("databaseMatches").innerHTML='<div class="empty">ตรวจสอบการเชื่อมต่ออินเทอร์เน็ตหรือไฟล์ data/football-database.json</div>';
+  window.dispatchEvent(new CustomEvent("pft-football-database-error",{detail:{message:error.message||"ไม่ทราบสาเหตุ"}}));
   console.error("Football database load failed",error);
  }
 }
@@ -953,6 +977,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/test-experiment-enhancements.js"></script>
 <script src="./js/player-database.js"></script>
 <script src="./js/football-discovery.js"></script>
+<script src="./js/match-center.js"></script>
 <script src="./js/player-stats-import.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>

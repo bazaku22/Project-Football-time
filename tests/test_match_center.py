@@ -1,0 +1,51 @@
+import re
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+HTML = (ROOT / "index.html").read_text(encoding="utf-8")
+WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
+MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
+CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
+
+
+class MatchCenterTests(unittest.TestCase):
+    def test_match_center_uses_real_database_and_five_core_leagues(self):
+        self.assertIn('id="matchCenterApp"', HTML)
+        self.assertIn('getDatabase?.()', MODULE)
+        self.assertIn('new Set(["PL","PD","BL1","SA","FL1"])', MODULE)
+        self.assertIn('pft-football-database-ready', MODULE)
+
+    def test_experiment_fixtures_are_separate_and_collapsed(self):
+        self.assertIn('<details class="mc-experiment">', HTML)
+        self.assertIn('id="testFixturesList"', HTML)
+        self.assertIn('id="testFixtureDays"', HTML)
+        self.assertIn('โปรแกรมทดลอง', HTML)
+
+    def test_database_failure_has_a_visible_error_state(self):
+        self.assertIn('pft-football-database-error', HTML)
+        self.assertIn('pft-football-database-error', MODULE)
+        self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
+
+    def test_no_fallback_to_test_fixtures(self):
+        self.assertIn('ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง', MODULE)
+        self.assertNotIn('getFixtures?.()', MODULE)
+
+    def test_filters_and_time_are_bangkok_local(self):
+        for key in ("today","upcoming","live","finished","all"):
+            self.assertIn('data-match-filter="' + key + '"', HTML)
+        self.assertIn('timeZone:"Asia/Bangkok"', MODULE)
+
+    def test_match_card_uses_team_crests_and_database_match_fields(self):
+        for marker in ("homeTeamId","awayTeamId","homeTeamName","awayTeamName","homeScore","awayScore","utcDate","leagueId"):
+            self.assertIn(marker, MODULE)
+        self.assertIn("mc-crest-wrap", CSS)
+
+    def test_offline_asset_and_cache_are_versioned(self):
+        self.assertIn("football-time-v42", WORKER)
+        self.assertIn('"./css/match-center.css?v=1"', WORKER)
+        self.assertIn('"./js/match-center.js"', WORKER)
+
+
+if __name__ == "__main__":
+    unittest.main()

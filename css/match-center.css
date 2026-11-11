@@ -1,0 +1,43 @@
+/* Match Center — primary daily match discovery */
+#matchCenterApp{display:grid;gap:16px}
+.mc-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+.mc-toolbar .field{flex:1 1 180px;min-width:0}
+.mc-toolbar select{width:100%;min-height:46px}
+.mc-filters{display:flex;gap:8px;overflow-x:auto;padding:2px 0 8px;scrollbar-width:thin}
+.mc-filter{flex:0 0 auto;min-height:42px;padding:9px 14px;border:1px solid var(--ft-border,#30475e);border-radius:999px;background:var(--ft-surface,#12243a);color:var(--ft-text,#f5f8fc);font-weight:650}
+.mc-filter.active{border-color:var(--ft-accent-strong,#238c83);background:rgba(35,140,131,.22);color:#b8f4e4}
+.mc-data-line{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:var(--ft-text-muted,#a9bacb);font-size:.82rem}
+.mc-day-group{display:grid;gap:10px;margin-top:16px}
+.mc-day-group h3{display:flex;justify-content:space-between;gap:10px;align-items:center;margin:0;font-size:1rem;color:var(--ft-text,#f5f8fc)}
+.mc-day-group h3 span{font-size:.78rem;color:var(--ft-text-muted,#a9bacb);font-weight:500}
+.mc-day-matches{display:grid;gap:10px}
+.mc-match-card{padding:14px;border:1px solid var(--ft-border,#30475e);border-radius:16px;background:var(--ft-surface,#12243a);box-shadow:0 8px 22px rgba(0,0,0,.12)}
+.mc-match-top,.mc-match-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.mc-league-name{font-size:.8rem;color:var(--ft-text-muted,#a9bacb);font-weight:650}
+.mc-status{font-size:.74rem;padding:4px 9px;border-radius:999px;background:#263d53;color:#d8e8f5}
+.mc-status-live{background:rgba(230,117,92,.16);color:#ffb09c}
+.mc-status-finished{background:rgba(114,226,191,.13);color:#9cebd4}
+.mc-match-main{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px;padding:16px 0}
+.mc-team{display:flex;align-items:center;gap:9px;min-width:0;font-weight:650}
+.mc-team span:last-child{overflow-wrap:anywhere}
+.mc-team-away{justify-content:flex-end;text-align:right}
+.mc-crest-wrap{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px}
+.mc-crest-wrap img{width:32px;height:32px;object-fit:contain}
+.mc-crest-fallback{display:inline-flex;align-items:center;justify-content:center;flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:#263d53;color:#d8e8f5;font-size:.68rem;font-weight:750}
+.mc-score{min-width:44px;text-align:center;font-size:1.1rem;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mc-match-bottom{padding-top:10px;border-top:1px solid rgba(132,169,198,.14);font-size:.8rem;color:var(--ft-text-muted,#a9bacb)}
+.mc-open-match{border:0;background:transparent;color:var(--ft-info,#79c7ff);font:inherit;font-weight:700;padding:6px 0;cursor:pointer}
+.mc-empty{display:grid;gap:7px;padding:24px 16px;border:1px dashed var(--ft-border,#30475e);border-radius:16px;text-align:center;color:var(--ft-text-muted,#a9bacb)}
+.mc-empty b{color:var(--ft-text,#f5f8fc)}
+.mc-experiment{margin-top:18px}
+.mc-experiment summary{cursor:pointer;font-weight:700;color:var(--ft-info,#79c7ff);padding:12px 0}
+@media(max-width:520px){
+ .mc-match-card{padding:12px}
+ .mc-match-main{gap:6px;padding:13px 0}
+ .mc-team{flex-direction:column;gap:5px;text-align:center;font-size:.84rem}
+ .mc-team-away{justify-content:center}
+ .mc-crest-wrap,.mc-crest-fallback{flex-basis:30px;width:30px;height:30px}
+ .mc-crest-wrap img{width:28px;height:28px}
+ .mc-score{font-size:1rem;min-width:38px}
+ .mc-match-bottom{align-items:flex-start}
+}
