@@ -6,6 +6,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "player-stats-import.js").read_text(encoding="utf-8")
 WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
+DISCOVERY = (ROOT / "js" / "football-discovery.js").read_text(encoding="utf-8")
 
 
 class PlayerStatisticsImportUITests(unittest.TestCase):
@@ -44,6 +45,23 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn('"./js/football-discovery.js"', WORKER)
         self.assertIn('"./js/player-stats-import.js"', WORKER)
         self.assertIn('"./js/player-cloud.js"', WORKER)
+
+
+    def test_phase_a_search_results_render_club_crests(self):
+        self.assertIn("function teamLogo(", DISCOVERY)
+        self.assertIn("function matchTeamVisual(", DISCOVERY)
+        self.assertIn("function resultVisual(", DISCOVERY)
+        self.assertIn("has-team-visual", DISCOVERY)
+        self.assertIn("homeTeam:", DISCOVERY)
+        self.assertIn("awayTeam:", DISCOVERY)
+
+    def test_phase_a_fixture_rows_use_existing_team_crest_data(self):
+        self.assertIn("function findFootballTeamByName(", HTML)
+        self.assertIn("function renderTeamCrest(", HTML)
+        self.assertIn("renderTeamCrest(homeTeam)", HTML)
+        self.assertIn("renderTeamCrest(awayTeam)", HTML)
+        self.assertIn("fixture-match-teams", HTML)
+        self.assertIn("football-time-v39", WORKER)
 
 
 if __name__ == "__main__":
