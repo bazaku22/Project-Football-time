@@ -1,0 +1,29 @@
+name: Player statistics import tests
+
+on:
+  pull_request:
+    paths:
+      - "scripts/validate_player_stats_csv.py"
+      - "scripts/preview_player_stats_import.py"
+      - "tests/test_validate_player_stats_csv.py"
+      - "tests/test_preview_player_stats_import.py"
+      - ".github/workflows/player-stats-import-tests.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Compile scripts and tests
+        run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py
+      - name: Run offline test suite
+        run: python -m unittest discover -s tests -v
