@@ -81,8 +81,8 @@ def request_league(sport_key: str, api_key: str, start: datetime, end: datetime)
         "markets": MARKET,
         "oddsFormat": "decimal",
         "dateFormat": "iso",
-        "commenceTimeFrom": start.isoformat().replace("+00:00", "Z"),
-        "commenceTimeTo": end.isoformat().replace("+00:00", "Z"),
+        "commenceTimeFrom": start.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "commenceTimeTo": end.strftime("%Y-%m-%dT%H:%M:%SZ"),
     })
     req = Request(f"{BASE_URL}/{sport_key}/odds/?{query}", headers={"User-Agent": "Project-Football-Time/5.7"})
     with urlopen(req, timeout=35) as response:
@@ -110,7 +110,13 @@ def main() -> int:
         try:
             payload, quota = request_league(sport_key, api_key, now, end)
         except HTTPError as exc:
-            print(f"Odds request failed for {league_id}: HTTP {exc.code} (API key and URL hidden).", file=sys.stderr)
+            try:
+                body = json.loads(exc.read().decode("utf-8"))
+                detail = str(body.get("message") or body.get("error_code") or body.get("error") or "")
+            except (ValueError, UnicodeDecodeError):
+                detail = ""
+            detail = detail.replace(api_key, "[redacted]")[:240]
+            print(f"Odds request failed for {league_id}: HTTP {exc.code}. {detail} (API key and URL hidden).", file=sys.stderr)
             return 1
         except URLError as exc:
             print(f"Odds request failed for {league_id}: network error ({type(exc.reason).__name__}).", file=sys.stderr)
