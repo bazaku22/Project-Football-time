@@ -1,0 +1,114 @@
+/* Project Football Time — shared design system
+   Phase 1 foundation: visual-only tokens and shared primitives.
+   Keep feature-specific layout rules in their existing stylesheets.
+*/
+:root{
+  color-scheme:dark;
+  --ft-bg:#091522;
+  --ft-surface:#12243a;
+  --ft-surface-raised:#172d45;
+  --ft-surface-inset:#0d1b2a;
+  --ft-border:#30475e;
+  --ft-text:#f5f8fc;
+  --ft-text-muted:#a9bacb;
+  --ft-accent:#72e2bf;
+  --ft-accent-strong:#238c83;
+  --ft-info:#79c7ff;
+  --ft-warning:#f3cd83;
+  --ft-danger:#f39b8f;
+  --ft-success:#72e2bf;
+  --ft-radius-sm:10px;
+  --ft-radius-md:14px;
+  --ft-radius-lg:18px;
+  --ft-space-1:4px;
+  --ft-space-2:8px;
+  --ft-space-3:12px;
+  --ft-space-4:16px;
+  --ft-control-height:48px;
+  --ft-shadow:0 14px 34px rgba(0,0,0,.22);
+
+  /* Compatibility aliases used by existing feature styles. */
+  --bg:var(--ft-bg);
+  --panel:var(--ft-surface);
+  --panel-2:var(--ft-surface-raised);
+  --muted:var(--ft-text-muted);
+  --text:var(--ft-text);
+  --line:var(--ft-border);
+  --green:var(--ft-accent);
+  --blue:var(--ft-info);
+  --gold:var(--ft-warning);
+  --shadow:var(--ft-shadow);
+}
+
+html{background:var(--ft-bg);color-scheme:dark}
+body{color:var(--ft-text);background-color:var(--ft-bg)}
+header{
+  color:var(--ft-text);
+  border-bottom-color:rgba(121,199,255,.18);
+}
+.card,.stat{
+  border:1px solid rgba(132,169,198,.16);
+  border-radius:var(--ft-radius-lg);
+  box-shadow:var(--ft-shadow);
+}
+.sectionhead h2{color:var(--ft-text)}
+.small,.notice,.profile-note,.form-note{color:var(--ft-text-muted)}
+.primary,.secondary,.detail,.result-button{
+  min-height:var(--ft-control-height);
+  border-radius:var(--ft-radius-md);
+  font-weight:650;
+}
+.primary{
+  background:linear-gradient(110deg,#167d75,var(--ft-accent-strong));
+  color:#f5fffd;
+}
+.secondary,.detail,.result-button{
+  background:var(--ft-surface-raised);
+  border:1px solid var(--ft-border);
+  color:var(--ft-text);
+}
+.field input,.field select,.filter,
+input.team-picker-search{
+  min-height:var(--ft-control-height);
+  border:1px solid var(--ft-border);
+  border-radius:var(--ft-radius-md);
+  background:var(--ft-surface-inset);
+  color:var(--ft-text);
+}
+.field input::placeholder,.field select:invalid{color:#8198ad}
+.tag,.result-status{
+  border:1px solid rgba(140,184,214,.16);
+  border-radius:999px;
+  background:#263d53;
+  color:#d8e8f5;
+}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--ft-info);
+  outline-offset:3px;
+}
+button:disabled,input:disabled,select:disabled{
+  cursor:not-allowed;
+  opacity:.58;
+}
+.form-result.win,.p5-good{color:var(--ft-success)}
+.form-result.draw,.p5-warn,.missing{color:var(--ft-warning)}
+.form-result.loss,.p5-bad{color:var(--ft-danger)}
+table{color:var(--ft-text)}
+th{color:var(--ft-text-muted)}
+td,th{border-bottom-color:rgba(132,169,198,.16)}
+.nav{
+  border-top-color:rgba(121,199,255,.18);
+  background:rgba(12,25,39,.97);
+}
+.nav button{color:#b1c1d0}
+.nav button.active{
+  color:#a9f2dc;
+  background:rgba(34,137,119,.2);
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
