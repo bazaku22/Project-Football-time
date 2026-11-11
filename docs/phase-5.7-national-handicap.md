@@ -8,7 +8,7 @@
 - Keep the national-team model separate from the existing club Poisson model.
 
 ## National-team model limitations
-The experiment uses a weighted average of each team's recent goals scored and conceded, blended with conservative baseline scoring rates and a small home adjustment, then builds an independent Poisson score matrix. Samples contain only 3–4 matches, opponent strength is not fully normalized, and confirmed lineups, injuries and player-level performance are not comprehensively available. All national-team estimates are therefore marked low confidence. They are exploratory and do not claim improved accuracy.
+The experiment uses a weighted average of each team's recent goals scored and conceded, blended with conservative baseline scoring rates and a small home adjustment, then builds an independent Poisson score matrix. Samples contain only 3–4 matches, opponent strength is not fully normalized, and confirmed lineups, injuries and player-level performance are not comprehensively available. The existing 156 player records are identity/current-club master records, not player performance statistics, so they are not used as a false proxy for national-team strength. All national-team estimates are therefore marked low confidence. They are exploratory and do not claim improved accuracy.
 
 ## Asian Handicap
 - Derived from the model's score distribution, not market prices.
