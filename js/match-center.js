@@ -112,8 +112,7 @@
   }
   function matchDate(match) {
     const date = new Date(match.utcDate);
-    if (!Number.isNaN(date.getTime())) return bangkokDate(date);
-    return match.isInternational ? String(match.localDate || "") : "";
+    return Number.isNaN(date.getTime()) ? "" : bangkokDate(date);
   }
   function matchSortTime(match) {
     const date = new Date(match.utcDate);
@@ -149,7 +148,7 @@
       }
       const kind = statusKind(match);
       const kickoff = new Date(match.utcDate).getTime();
-      if (activeFilter === "today") return matchDate(match) === today;
+      if (activeFilter === "today") return Boolean(match.utcDate) && matchDate(match) === today;
       if (activeFilter === "upcoming") {
         if (kind !== "upcoming") return false;
         return Number.isFinite(kickoff) ? kickoff >= now : isInternational && String(match.localDate || "") >= today;
@@ -281,15 +280,19 @@
     }
     const groups = new Map();
     rows.forEach((match) => {
-      const key = matchDate(match) || "unknown";
+      const key = match.utcDate ? matchDate(match) :
+        (match.isInternational && match.localDate ? "source-date:" + match.localDate : "unknown");
       if (!groups.has(key)) groups.set(key,[]);
       groups.get(key).push(match);
     });
-    root.innerHTML = [...groups.entries()].map(([date,matches]) =>
-      '<section class="mc-day-group"><h3>' + esc(date === "unknown" ? "ไม่ระบุวันแข่งขัน" : formatThaiDate(date)) +
+    root.innerHTML = [...groups.entries()].map(([date,matches]) => {
+      const heading = date.startsWith("source-date:")
+        ? "วันที่ตามประกาศต้นทาง · " + formatThaiDate(date.slice("source-date:".length))
+        : date === "unknown" ? "ไม่ระบุวันแข่งขัน" : formatThaiDate(date);
+      return '<section class="mc-day-group"><h3>' + esc(heading) +
       '<span>' + matches.length + ' นัด</span></h3><div class="mc-day-matches">' +
-      matches.map(renderCard).join("") + '</div></section>'
-    ).join("");
+      matches.map(renderCard).join("") + '</div></section>';
+    }).join("");
   }
   function renderLeagues() {
     const select = $("matchCenterLeague");
