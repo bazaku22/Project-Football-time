@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Offline preflight validator for Football Time player-statistics CSV files.
-
-This script is deliberately read-only: it performs no network requests, does not
-write to the input file, and does not connect to Supabase or any other service.
-"""
+"""Offline, read-only preflight validator for Football Time player-statistics CSV files."""
 from __future__ import annotations
 
 import argparse
 import csv
+import math
 import re
 import sys
 from datetime import datetime
@@ -29,9 +26,10 @@ SCOPES = {"season", "competition", "match"}
 RIGHTS = {"approved", "manual_review", "not_approved"}
 SEASON_RE = re.compile(r"^\d{4}/\d{2}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Include provider in the key: different providers' observations must coexist.
 KEY_FIELDS = (
-    "canonical_player_key", "season", "competition_code", "team_code",
-    "squad_level", "statistics_scope",
+    "canonical_player_key", "provider", "season", "competition_code",
+    "team_code", "squad_level", "statistics_scope",
 )
 
 
@@ -40,6 +38,14 @@ def parse_timestamp(value: str) -> bool:
         parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
         return parsed.tzinfo is not None and parsed.utcoffset() is not None
     except (TypeError, ValueError):
+        return False
+
+
+def valid_date(value: str) -> bool:
+    try:
+        datetime.strptime(value, "%Y-%m-%d")
+        return True
+    except ValueError:
         return False
 
 
@@ -57,6 +63,9 @@ def validate(path: Path) -> tuple[list[str], int, int]:
     with handle:
         reader = csv.DictReader(handle)
         headers = reader.fieldnames or []
+        if len(headers) != len(set(headers)):
+            errors.append("CSV contains duplicate column names")
+            return errors, 0, 0
         missing = sorted(REQUIRED - set(headers))
         if missing:
             errors.append("Missing required columns: " + ", ".join(missing))
@@ -64,15 +73,20 @@ def validate(path: Path) -> tuple[list[str], int, int]:
 
         for line, raw in enumerate(reader, start=2):
             rows_seen += 1
+            row_error_start = len(errors)
+            if None in raw:
+                errors.append(f"Row {line}: contains more values than the header")
             row = {k: (v or "").strip() for k, v in raw.items() if k is not None}
             prefix = f"Row {line}: "
             if not any(row.values()):
                 errors.append(prefix + "empty row")
                 continue
 
-            for field in ("provider", "player_name", "team_code", "season", "competition_code",
-                          "squad_level", "statistics_scope", "collected_at",
-                          "rights_status", "permission_reference"):
+            for field in (
+                "provider", "player_name", "team_code", "season",
+                "competition_code", "squad_level", "statistics_scope",
+                "collected_at", "rights_status", "permission_reference",
+            ):
                 if not row.get(field):
                     errors.append(prefix + f"{field} is required")
 
@@ -104,14 +118,16 @@ def validate(path: Path) -> tuple[list[str], int, int]:
                     continue  # Blank means unknown, never zero.
                 try:
                     number = float(value)
-                    if number < 0:
+                    if not math.isfinite(number) or number < 0:
                         raise ValueError
                     if field in INTEGER_FIELDS and not number.is_integer():
                         raise ValueError
                     values[field] = number
                 except ValueError:
-                    errors.append(prefix + f"{field} must be a non-negative " +
-                                  ("integer" if field in INTEGER_FIELDS else "number"))
+                    errors.append(
+                        prefix + f"{field} must be a finite non-negative "
+                        + ("integer" if field in INTEGER_FIELDS else "number")
+                    )
 
             if "starts" in values and "appearances" in values and values["starts"] > values["appearances"]:
                 errors.append(prefix + "starts cannot exceed appearances")
@@ -123,7 +139,7 @@ def validate(path: Path) -> tuple[list[str], int, int]:
                 if row.get("statistics_scope") == "match":
                     key += (row.get("match_id", ""),)
                 if key in seen:
-                    errors.append(prefix + f"duplicate natural key (first seen on row {seen[key]})")
+                    errors.append(prefix + f"duplicate same-provider natural key (first seen on row {seen[key]})")
                 else:
                     seen[key] = line
             else:
@@ -131,20 +147,13 @@ def validate(path: Path) -> tuple[list[str], int, int]:
 
             if row.get("rights_status") != "approved":
                 errors.append(prefix + "rights_status is not approved; row is quarantined")
-            if row.get("rights_status") == "approved" and row.get("permission_reference"):
+
+            if len(errors) == row_error_start and row.get("rights_status") == "approved":
                 eligible += 1
 
     if rows_seen == 0:
         errors.append("CSV contains a header but no data rows")
     return errors, rows_seen, eligible
-
-
-def valid_date(value: str) -> bool:
-    try:
-        datetime.strptime(value, "%Y-%m-%d")
-        return True
-    except ValueError:
-        return False
 
 
 def main() -> int:
@@ -153,7 +162,7 @@ def main() -> int:
     args = parser.parse_args()
     errors, rows, eligible = validate(args.csv_file)
     print(f"Rows checked: {rows}")
-    print(f"Rows meeting basic import eligibility: {eligible}")
+    print(f"Rows passing all structural and rights-status checks: {eligible}")
     if errors:
         print(f"Validation issues: {len(errors)}")
         for error in errors:
