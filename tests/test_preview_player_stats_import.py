@@ -46,8 +46,9 @@ class PreviewTests(unittest.TestCase):
                 if not empty_source:
                     writer.writerows(source_rows)
             if source_extra_values and source_rows:
-                with source.open("a", encoding="utf-8") as handle:
-                    handle.write(",EXTRA\\n")
+                content = source.read_text(encoding="utf-8").splitlines()
+                content[-1] += ",EXTRA"
+                source.write_text("\n".join(content) + "\n", encoding="utf-8")
             with mapping.open("w", newline="", encoding="utf-8") as handle:
                 writer = csv.DictWriter(handle, fieldnames=[
                     "provider", "provider_player_id", "canonical_player_key",
