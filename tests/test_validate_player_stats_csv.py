@@ -119,7 +119,10 @@ class CsvValidatorTests(unittest.TestCase):
                 writer = csv.DictWriter(handle, fieldnames=FIELDS)
                 writer.writeheader()
                 writer.writerow(make_row())
-                content = path.read_text(encoding="utf-8").splitlines()\n                content[-1] += ",unexpected-extra-cell"\n                path.write_text("\\n".join(content) + "\\n", encoding="utf-8")
+                handle.flush()
+                content = path.read_text(encoding="utf-8").splitlines()
+                content[-1] += ",unexpected-extra-cell"
+                path.write_text("\n".join(content) + "\n", encoding="utf-8")
             result = subprocess.run(
                 [sys.executable, str(SCRIPT), str(path)],
                 capture_output=True, text=True, check=False,
