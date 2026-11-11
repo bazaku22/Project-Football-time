@@ -17,7 +17,10 @@ support future seasons, and prevent duplicate team records.
 | PD | La Liga | Spain |
 | BL1 | Bundesliga | Germany |
 | SA | Serie A | Italy |
-| FL1 | Ligue 1 | France |\n| ELC | EFL Championship | England |\n| J1 | J1 League | Japan |\n| J2 | J2 League | Japan |
+| FL1 | Ligue 1 | France |
+| ELC | EFL Championship | England |
+| J1 | J1 League | Japan |
+| J2 | J2 League | Japan |
 
 League IDs must remain stable. Provider competition codes are separate from internal IDs. ELC uses provider code ELC. J1/J2 currently have no enabled provider code and must not trigger requests or contain synthetic data. European seasons use cross-year labels; J.League seasons use calendar-year labels.
 
@@ -203,4 +206,12 @@ Rules:
 - Historical snapshots are retained across daily database refreshes, including when older fixtures are no longer returned by the provider.
 - The database updater validates that every probability vector totals 100% and that each snapshot was created before kickoff.
 - The client may keep a local copy for offline continuity, but server-generated snapshots are the durable reference for calibration.
-\n\n## 14. Phase 6 data availability\n\n- The league catalogue may contain planned leagues with no match data.\n- `dataStatus` distinguishes `available`, `awaiting_first_sync`, and `not_available_on_current_free_tier`.\n- Only provider-backed leagues may contain team-season memberships, standings, or matches.\n- A missing league dataset is unavailable, not a zero-valued dataset.\n- The shared analysis engine must filter by both `leagueId` and `season`.\n
+
+
+## 14. Phase 6 data availability
+
+- The league catalogue may contain planned leagues with no match data.
+- `dataStatus` distinguishes `available`, `awaiting_first_sync`, and `not_available_on_current_free_tier`.
+- Only provider-backed leagues may contain team-season memberships, standings, or matches.
+- A missing league dataset is unavailable, not a zero-valued dataset.
+- The shared analysis engine must filter by both `leagueId` and `season`.
