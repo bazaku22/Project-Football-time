@@ -12,7 +12,7 @@
   return value>0?"win":"loss";
  }
  function settleMatch(homeScore,awayScore,line){
-  if(!Number.isInteger(homeScore)||homeScore<0||!Number.isInteger(awayScore)||awayScore<0||!Number.isFinite(Number(line)))return null;
+  if(!Number.isInteger(homeScore)||homeScore<0||!Number.isInteger(awayScore)||awayScore<0||typeof line!=="number"||!Number.isFinite(line))return null;
   const states=splitLine(Number(line)).map(part=>settle(homeScore-awayScore,part));
   if(states.every(x=>x==="win"))return "fullWin";
   if(states.every(x=>x==="loss"))return "fullLoss";
@@ -25,10 +25,10 @@
   return !!p&&OUTCOMES.every(k=>Number.isFinite(p[k])&&p[k]>=0&&p[k]<=100)&&Math.abs(OUTCOMES.reduce((n,k)=>n+p[k],0)-100)<=1.1;
  }
  function isValidSnapshot(s){
-  return !!s&&typeof s.matchId==="string"&&s.matchId.length>0&&Number.isFinite(Number(s.homeLine))&&
+  return !!s&&typeof s.matchId==="string"&&s.matchId.length>0&&typeof s.homeLine==="number"&&Number.isFinite(s.homeLine)&&
    typeof s.createdAt==="string"&&Number.isFinite(Date.parse(s.createdAt))&&
    typeof s.utcDate==="string"&&Number.isFinite(Date.parse(s.utcDate))&&
-   typeof s.source==="string"&&s.source.length>0&&validProbabilities(s.probabilities);
+   typeof s.source==="string"&&s.source.trim().length>0&&validProbabilities(s.probabilities);
  }
  function fingerprint(s){
   if(!s)return "";
@@ -46,7 +46,8 @@
    logLoss-=Math.log(Math.max(0.0001,snapshot.probabilities[actualOutcome]/100));
   });
   const count=rows.length,rates=Object.fromEntries(OUTCOMES.map(k=>[k,count?counts[k]/count:null]));
-  return {count,counts,rates,correct,accuracy:count?correct/count:null,winRate:count?(counts.fullWin+counts.halfWin)/count:null,brier:count?brier/count:null,logLoss:count?logLoss/count:null};
+  const calibration=OUTCOMES.map(k=>({outcome:k,meanProbability:count?rows.reduce((n,row)=>n+row.snapshot.probabilities[k]/100,0)/count:null,observedRate:count?counts[k]/count:null}));
+  return {count,counts,rates,correct,accuracy:count?correct/count:null,winRate:count?(counts.fullWin+counts.halfWin)/count:null,brier:count?brier/count:null,logLoss:count?logLoss/count:null,calibration};
  }
  function calculateHandicapMetrics(snapshots,matches){
   const all=Array.isArray(snapshots)?snapshots:[];
