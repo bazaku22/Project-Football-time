@@ -704,7 +704,7 @@ async function loadAsianHandicapOdds(){
   if(target)target.innerHTML='<div class="empty">ยังไม่มีข้อมูล Handicap จากผู้ให้บริการ · '+esc(error.message)+' · ระบบจะไม่คาดเดาเส้นราคา</div>';
  }
 }
-function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function normalizeOddsTeam(value){return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
 function findAutomaticHandicap(match){
  const events=asianHandicapOddsData?.events||[];
  const home=normalizeOddsTeam(match.homeTeamName),away=normalizeOddsTeam(match.awayTeamName),kickoff=new Date(match.utcDate).getTime();
