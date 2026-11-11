@@ -96,12 +96,20 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-      - name: Install PostgreSQL client
+      - name: Run PostgreSQL schema, RLS, and transaction tests
+        env:
+          POSTGRES_CONTAINER_IMAGE: postgres:16
         run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
-      - name: Bootstrap minimal Supabase Auth roles for isolated PostgreSQL tests
-        run: |
+          set -euo pipefail
+          POSTGRES_CONTAINER="$(docker ps --filter "ancestor=${POSTGRES_CONTAINER_IMAGE}" --format "{{.ID}}" | head -n 1)"
+          if [ -z "$POSTGRES_CONTAINER" ]; then
+            echo "PostgreSQL service container was not found" >&2
+            docker ps -a
+            exit 1
+          fi
+          psql() {
+            docker exec -i "$POSTGRES_CONTAINER" psql -U postgres -d football_time_test "$@"
+          }
           psql -v ON_ERROR_STOP=1 <<'SQL'
           create role anon nologin;
           create role authenticated nologin;
@@ -122,10 +130,6 @@ jobs:
           grant usage on schema auth to anon, authenticated, service_role;
           grant execute on function auth.uid() to authenticated, service_role;
           SQL
-      - name: Apply player statistics schema to disposable PostgreSQL
-        run: |
-          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261111063000_create_player_statistics_foundation.sql
-          psql -v ON_ERROR_STOP=1 -f supabase/migrations/20261111064223_restrict_player_statistics_service_role_grants.sql
-      - name: Execute two-user RLS isolation and transactional import test
-        run: |
-          psql -v ON_ERROR_STOP=1 -f supabase/tests/player_statistics_two_user_import_transaction.test.sql
+          psql -v ON_ERROR_STOP=1 < supabase/migrations/20261111063000_create_player_statistics_foundation.sql
+          psql -v ON_ERROR_STOP=1 < supabase/migrations/20261111064223_restrict_player_statistics_service_role_grants.sql
+          psql -v ON_ERROR_STOP=1 < supabase/tests/player_statistics_two_user_import_transaction.test.sql
