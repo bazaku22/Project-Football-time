@@ -1,5 +1,6 @@
 import importlib.util
 import unittest
+import statistics
 
 spec = importlib.util.spec_from_file_location("odds_fetch", "scripts/fetch_asian_handicap_odds.py")
 module = importlib.util.module_from_spec(spec)
@@ -28,6 +29,12 @@ class OddsParserTests(unittest.TestCase):
         self.assertEqual(result["referenceHomeLine"], -0.75)
         self.assertEqual(result["referenceAwayLine"], 0.75)
         self.assertEqual(result["bookmakers"][0]["bookmaker"], "Example Book")
+
+
+    def test_even_bookmaker_sample_uses_an_actual_offered_line(self):
+        lines = [-3.0, -3.0, -2.75, -2.5]
+        self.assertIn(statistics.median_low(lines), lines)
+        self.assertNotEqual(statistics.median(lines), statistics.median_low(lines))
 
     def test_ignores_unbalanced_or_missing_market_lines(self):
         event = {

@@ -723,7 +723,7 @@ function renderAutomaticHandicap(match,result){
  if(!rows.length){target.innerHTML='<div class="empty">พบข้อมูลการแข่งขัน แต่ไม่มีค่า Handicap ที่ใช้งานได้</div>';return;}
  const updates=rows.map(x=>new Date(x.lastUpdate).getTime()).filter(Number.isFinite),latest=updates.length?Math.max(...updates):0;
  const fresh=latest>0&&Date.now()-latest<=24*60*60*1000;
- const lines=rows.map(x=>x.homeLine).sort((a,b)=>a-b),mid=Math.floor(lines.length/2),reference=lines.length%2?lines[mid]:(lines[mid-1]+lines[mid])/2;
+ const lines=rows.map(x=>x.homeLine).sort((a,b)=>a-b),mid=Math.floor((lines.length-1)/2),reference=lines[mid];
  const fmt=n=>(n>0?"+":"")+Number(n).toFixed(2);
  const details=rows.map(x=>'<div class="p5-row"><span>'+esc(x.bookmaker)+'</span><b>'+fmt(x.homeLine)+' / '+fmt(-x.homeLine)+'</b></div>').join("");
  let calc='<div class="quality-note">ข้อมูลเส้นอ้างอิง '+(fresh?'อัปเดตภายใน 24 ชั่วโมง':'เก่ากว่า 24 ชั่วโมงหรือไม่ทราบเวลา')+' · ค่ากลางจาก '+rows.length+' แหล่ง · เจ้าบ้าน '+fmt(reference)+' · ทีมเยือน '+fmt(-reference)+'</div>';
