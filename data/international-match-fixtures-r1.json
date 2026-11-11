@@ -4,7 +4,7 @@
   "dataset_status": "experimental_fixture_reference",
   "timezone": "Asia/Bangkok",
   "retrieved_at": "2026-11-12T01:13:00+07:00",
-  "source_note": "Manually researched fixture notices from the competition/federation sources listed per fixture. No scraping, automated extraction, API integration, or scheduled refresh. This read-only presentation dataset is separate from the club football database.",
+  "source_note": "Manually researched fixture notices from the competition/federation sources listed per fixture. No scraping, automated extraction, API integration, or scheduled refresh. This read-only presentation dataset is separate from the club football database. The source links and factual fixture details are retained for provenance; no separate data-reuse licence or contractual permission is certified by this file. Review applicable source terms before wider redistribution or commercial reuse.",
   "display_policy": {
     "club_database_unchanged": true,
     "experimental_predictions_hidden": true,
@@ -344,5 +344,6 @@
         "https://www.cbf.com.br/selecao-brasileira/noticias/selecao-brasileira/noticias/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura"
       ]
     }
-  ]
+  ],
+  "rights_status": "source_terms_not_independently_cleared"
 }
