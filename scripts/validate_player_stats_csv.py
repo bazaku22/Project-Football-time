@@ -37,8 +37,8 @@ KEY_FIELDS = (
 
 def parse_timestamp(value: str) -> bool:
     try:
-        datetime.fromisoformat(value.replace("Z", "+00:00"))
-        return True
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        return parsed.tzinfo is not None and parsed.utcoffset() is not None
     except (TypeError, ValueError):
         return False
 
