@@ -15,7 +15,7 @@ Date: 2026-11-11
 - Secret: `THE_ODDS_API_KEY` in GitHub Actions Secrets; never expose it to browser code or commit it to the repository.
 - League sport keys: `soccer_epl`, `soccer_spain_la_liga`, `soccer_germany_bundesliga`, `soccer_italy_serie_a`, and `soccer_france_ligue_one`.
 - Request: one `spreads` market, one `eu` region, upcoming seven-day window.
-- Schedule: daily at 06:15 Asia/Bangkok; manual workflow dispatch is available. No push trigger.
+- Initial refresh: once after an approved PR merge. Schedule: daily at 06:15 Asia/Bangkok; manual workflow dispatch is also available. No push trigger.
 - Provider documents a cost of one credit per region per market. Five requests per run are therefore at most five credits per daily run (about 150 per 30 days when all calls return data).
 - The workflow does not retry failed requests. If quota is insufficient to finish all five league requests, it preserves the previously published data.
 - Soccer `spreads` market availability varies and is not guaranteed. Empty results are valid and must remain visibly unavailable.
