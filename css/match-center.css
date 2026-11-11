@@ -96,3 +96,27 @@
 .mc-intl-disclaimer{font-size:.59rem;line-height:1.5;color:#91a8bb}
 .mc-intl-no-model{padding:8px;border:1px dashed rgba(231,189,114,.28);border-radius:9px;color:#e5c98c;font-size:.68rem}
 @media(max-width:380px){.mc-intl-analysis{padding:9px}.mc-intl-outcome-grid{gap:2px}.mc-intl-outcome b{font-size:.62rem}.mc-intl-line-table{font-size:.53rem}}
+
+
+/* Phase 6.5 — compact daily calendar and multi-select competition filters */
+.mc-calendar{display:grid;gap:10px;padding:12px;border:1px solid var(--ft-border,#30475e);border-radius:16px;background:linear-gradient(145deg,rgba(21,43,61,.94),rgba(13,29,43,.94))}
+.mc-calendar-heading{display:flex;align-items:center;gap:8px}
+.mc-calendar-nav,.mc-calendar-today{min-width:40px;min-height:40px;border:1px solid var(--ft-border,#30475e);border-radius:10px;background:#142b3d;color:#eaf3f8;font-weight:750}
+.mc-calendar-nav{font-size:1.3rem}
+.mc-calendar-today{padding:0 12px;color:#a9f0d3}
+.mc-calendar-picker{display:flex;align-items:center;gap:7px;margin-left:auto;color:var(--ft-text-muted,#a9bacb);font-size:.72rem}
+.mc-calendar-picker input{max-width:145px;min-height:40px;padding:7px;border:1px solid var(--ft-border,#30475e);border-radius:9px;background:#0e1c29;color:#f5f8fc;color-scheme:dark;font:inherit}
+.mc-date-strip{display:grid;grid-auto-columns:minmax(0,1fr);grid-auto-flow:column;gap:6px;overflow-x:auto;padding:1px 0 5px;scroll-snap-type:x mandatory}
+.mc-date-chip{display:grid;justify-items:center;gap:3px;min-width:0;min-height:76px;padding:7px 3px;border:1px solid rgba(145,178,204,.16);border-radius:11px;background:rgba(7,22,35,.55);color:#c8d7e2;scroll-snap-align:start}
+.mc-date-chip>span{font-size:.62rem;color:#a9bdce}
+.mc-date-chip>b{font-size:1.1rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.mc-date-chip>small{font-size:.55rem;color:#91a8bb;white-space:nowrap}
+.mc-date-chip.has-matches>small{color:#9cebd4}
+.mc-date-chip.active{border-color:#55cda1;background:rgba(35,140,110,.22);box-shadow:inset 0 0 0 1px rgba(85,205,161,.16)}
+.mc-date-chip.active>b,.mc-date-chip.active>span{color:#b8f4e4}
+.mc-category-filters,.mc-league-filters{display:flex;gap:7px;overflow-x:auto;padding:2px 0 7px;scrollbar-width:thin}
+.mc-category,.mc-league-chip{flex:0 0 auto;min-height:40px;padding:8px 12px;border:1px solid var(--ft-border,#30475e);border-radius:999px;background:var(--ft-surface,#12243a);color:var(--ft-text,#f5f8fc);font-size:.76rem;font-weight:650}
+.mc-category.active,.mc-league-chip.active{border-color:var(--ft-accent-strong,#238c83);background:rgba(35,140,131,.22);color:#b8f4e4}
+.mc-filter-caption{margin:0 0 6px;color:var(--ft-text-muted,#a9bacb);font-size:.68rem}
+.mc-league-filter-wrap{display:grid;gap:2px;min-width:0}
+@media(max-width:380px){.mc-calendar{padding:9px}.mc-calendar-heading{gap:5px}.mc-calendar-picker{gap:4px;font-size:.65rem}.mc-calendar-picker input{max-width:125px}.mc-date-strip{gap:4px}.mc-date-chip{min-height:70px}.mc-date-chip>small{font-size:.51rem}.mc-category,.mc-league-chip{min-height:38px;padding:7px 10px;font-size:.7rem}}

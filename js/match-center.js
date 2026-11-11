@@ -8,8 +8,11 @@
   let database = null;
   let databaseError = "";
   let activeFilter = "upcoming";
-  let activeLeague = "ALL";
+  let activeLeagues = new Set();
+  let activeCategory = "all";
   let activeSearch = "";
+  let selectedDate = "";
+  let calendarAnchorDate = "";
   let internationalFixtures = [];
   let internationalLoadState = "กำลังโหลดโปรแกรมทีมชาติชุดทดลอง";
   let internationalLoadError = "";
@@ -160,21 +163,29 @@
   function matchId(match) {
     return String(match.id || [match.leagueId,match.utcDate,match.homeTeamId,match.awayTeamId].join("|"));
   }
-  function filteredMatches() {
+  function matchDateKey(match) {
+    return match.utcDate ? matchDate(match) :
+      (match.isInternational && match.localDate ? String(match.localDate) : "");
+  }
+  function leagueFilterValues(match) {
+    if (match.isInternational) return ["INTL","COMP:" + String(match.competitionName || "")];
+    return [String(match.leagueId || "")];
+  }
+  function matchesForFilters() {
     const now = Date.now();
     const today = bangkokDate();
     const clubMatches = (database?.matches || []).filter((match) => CORE_LEAGUES.has(String(match.leagueId)));
     return [...clubMatches,...internationalFixtures].filter((match) => {
       const isInternational = match.isInternational === true;
-      if (activeLeague === "INTL" && !isInternational) return false;
-      if (activeLeague !== "ALL" && activeLeague !== "INTL" && match.leagueId !== activeLeague) return false;
+      if (activeCategory === "club" && isInternational) return false;
+      if (activeCategory === "international" && !isInternational) return false;
+      if (activeLeagues.size && !leagueFilterValues(match).some((value) => activeLeagues.has(value))) return false;
       if (activeSearch) {
         const query = activeSearch.toLocaleLowerCase();
         if (![match.homeTeamName,match.awayTeamName].join(" ").toLocaleLowerCase().includes(query)) return false;
       }
       const kind = statusKind(match);
       const kickoff = new Date(match.utcDate).getTime();
-      if (activeFilter === "today") return Boolean(match.utcDate) && matchDate(match) === today;
       if (activeFilter === "upcoming") {
         if (kind !== "upcoming") return false;
         return Number.isFinite(kickoff) ? kickoff >= now : isInternational && String(match.localDate || "") >= today;
@@ -187,6 +198,72 @@
       if (activeFilter === "finished") return bTime-aTime;
       return aTime-bTime;
     });
+  }
+  function filteredMatches() {
+    return matchesForFilters().filter((match) => matchDateKey(match) === selectedDate);
+  }
+  function shiftDateKey(dateKey, days) {
+    const date = new Date(String(dateKey) + "T12:00:00Z");
+    if (Number.isNaN(date.getTime())) return bangkokDate();
+    date.setUTCDate(date.getUTCDate() + Number(days));
+    return date.toISOString().slice(0,10);
+  }
+  function isDateKey(value) {
+    if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(String(value || ""))) return false;
+    const date = new Date(value + "T12:00:00Z");
+    return Number.isFinite(date.getTime()) && date.toISOString().slice(0,10) === value;
+  }
+  function setSelectedDate(value) {
+    if (!isDateKey(value)) return;
+    selectedDate = value;
+    calendarAnchorDate = value;
+    renderCalendar();
+    render();
+  }
+  function renderCalendar() {
+    const strip = $("matchCenterDateStrip");
+    const picker = $("matchCenterDate");
+    if (picker && selectedDate) picker.value = selectedDate;
+    if (!strip || !calendarAnchorDate) return;
+    const counts = new Map();
+    matchesForFilters().forEach((match) => {
+      const key = matchDateKey(match);
+      if (key) counts.set(key,(counts.get(key) || 0) + 1);
+    });
+    const today = bangkokDate();
+    const days = Array.from({length:7},(_,index) => shiftDateKey(calendarAnchorDate,index));
+    strip.innerHTML = days.map((key) => {
+      const date = new Date(key + "T12:00:00+07:00");
+      const weekday = date.toLocaleDateString("th-TH",{timeZone:"Asia/Bangkok",weekday:"short"});
+      const day = date.toLocaleDateString("th-TH",{timeZone:"Asia/Bangkok",day:"numeric"});
+      const count = counts.get(key) || 0;
+      const active = key === selectedDate;
+      const label = weekday + " " + day + (key === today ? " วันนี้" : "");
+      return '<button type="button" class="mc-date-chip' + (active ? ' active' : '') +
+        (count ? ' has-matches' : '') + '" data-calendar-date="' + key +
+        '" aria-pressed="' + String(active) + '" aria-label="' + esc(label + " มี " + count + " นัด") + '">' +
+        '<span>' + esc(weekday) + '</span><b>' + esc(day) + '</b><small>' + count + ' นัด</small></button>';
+    }).join("");
+  }
+  function renderLeagueFilters() {
+    const root = $("matchCenterLeagueFilters");
+    if (!root) return;
+    const leagues = (database?.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
+    const chips = [
+      ...leagues.map((league) => ({value:String(league.id),label:league.name})),
+      {value:"INTL",label:"ทีมชาติทั้งหมด"},
+      ...[...new Set(internationalFixtures.map((match) => String(match.competitionName || "")).filter(Boolean))]
+        .map((name) => ({value:"COMP:" + name,label:name === "International friendly" ? "กระชับมิตร" : name}))
+    ];
+    const allActive = activeLeagues.size === 0;
+    root.innerHTML = '<button type="button" class="mc-league-chip' + (allActive ? ' active' : '') +
+      '" data-league-filter="ALL" aria-pressed="' + String(allActive) + '">ทุกลีก / รายการ</button>' +
+      chips.map((chip) => {
+        const active = activeLeagues.has(chip.value);
+        return '<button type="button" class="mc-league-chip' + (active ? ' active' : '') +
+          '" data-league-filter="' + esc(chip.value) + '" aria-pressed="' + String(active) + '">' +
+          esc(chip.label) + '</button>';
+      }).join("");
   }
   function probabilityBand(value) {
     return value >= 65 ? "สูง" : value >= 40 ? "กลาง" : "ต่ำ";
@@ -315,6 +392,7 @@
         : '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขัน…</div>';
       return;
     }
+    renderCalendar();
     const rows = filteredMatches();
     count.textContent = rows.length + " นัด";
     const sourceTime = database?.source?.lastSuccessfulSync || database?.generatedAt;
@@ -353,17 +431,7 @@
       matches.map(renderCard).join("") + '</div></section>';
     }).join("");
   }
-  function renderLeagues() {
-    const select = $("matchCenterLeague");
-    if (!select) return;
-    const leagues = (database?.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
-    select.innerHTML = '<option value="ALL">สโมสรและทีมชาติ</option>' +
-      '<option value="INTL">ทีมชาติ · Nations League / กระชับมิตร</option>' +
-      leagues.map((league) =>
-        '<option value="' + esc(league.id) + '">' + esc(league.name) + '</option>'
-      ).join("");
-    select.value = activeLeague;
-  }
+  function renderLeagues() { renderLeagueFilters(); renderCalendar(); }
   function setFilter(filter) {
     activeFilter = filter;
     document.querySelectorAll("[data-match-filter]").forEach((button) => {
@@ -403,16 +471,48 @@
     $("discoveryDateCard")?.scrollIntoView({behavior:"smooth",block:"start"});
   }
   function mount() {
+    selectedDate = bangkokDate();
+    calendarAnchorDate = selectedDate;
     document.querySelectorAll("[data-match-filter]").forEach((button) =>
       button.addEventListener("click",() => setFilter(button.dataset.matchFilter))
     );
-    $("matchCenterLeague")?.addEventListener("change",(event) => {
-      activeLeague = event.target.value || "ALL";
-      render();
+    document.querySelectorAll("[data-match-category]").forEach((button) =>
+      button.addEventListener("click",() => {
+        activeCategory = button.dataset.matchCategory || "all";
+        document.querySelectorAll("[data-match-category]").forEach((item) => {
+          const active = item.dataset.matchCategory === activeCategory;
+          item.classList.toggle("active",active);
+          item.setAttribute("aria-pressed",String(active));
+        });
+        renderLeagueFilters(); renderCalendar(); render();
+      })
+    );
+    $("matchCenterDate")?.addEventListener("change",(event) => setSelectedDate(event.target.value));
+    $("matchCenterDateStrip")?.addEventListener("click",(event) => {
+      const button = event.target.closest("[data-calendar-date]");
+      if (button) setSelectedDate(button.dataset.calendarDate);
+    });
+    document.querySelectorAll("[data-calendar-shift]").forEach((button) =>
+      button.addEventListener("click",() => {
+        const days = Number(button.dataset.calendarShift || 0);
+        selectedDate = shiftDateKey(selectedDate,days);
+        calendarAnchorDate = shiftDateKey(calendarAnchorDate,days);
+        renderCalendar(); render();
+      })
+    );
+    $(".mc-calendar-today")?.addEventListener("click",() => setSelectedDate(bangkokDate()));
+    $("matchCenterLeagueFilters")?.addEventListener("click",(event) => {
+      const button = event.target.closest("[data-league-filter]");
+      if (!button) return;
+      const value = button.dataset.leagueFilter;
+      if (value === "ALL") activeLeagues.clear();
+      else if (activeLeagues.has(value)) activeLeagues.delete(value);
+      else activeLeagues.add(value);
+      renderLeagueFilters(); renderCalendar(); render();
     });
     $("matchCenterSearch")?.addEventListener("input",(event) => {
       activeSearch = String(event.target.value || "").trim();
-      render();
+      renderCalendar(); render();
     });
     $("matchCenterMatches")?.addEventListener("click",(event) => {
       const button = event.target.closest("[data-open-match]");
@@ -420,7 +520,7 @@
     });
     const existing = window.FootballTimeAppContext?.getDatabase?.();
     if (existing) setDatabase(existing);
-    else render();
+    else { renderCalendar(); render(); }
     loadInternationalFixtures();
     loadInternationalHandicapSnapshots();
   }

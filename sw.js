@@ -1,4 +1,4 @@
-const CACHE = "football-time-v51";
+const CACHE = "football-time-v52";
 
 const ASSETS = [
   "./",
@@ -7,7 +7,7 @@ const ASSETS = [
   "./css/ui-refresh-v2.css",
   "./css/football-discovery.css",
   "./css/design-system.css?v=1",
-  "./css/match-center.css?v=1",
+  "./css/match-center.css?v=2",
   "./css/primary-navigation.css?v=1",
   "./css/analysis-refinement.css?v=1",
   "./manifest.webmanifest",
