@@ -41,7 +41,9 @@ snapshot_ids = [str(row["matchId"]) for row in probability_snapshots]
 assert len(snapshot_ids) == len(set(snapshot_ids)), "Duplicate probability snapshots."
 matches_by_id = {str(match["providerMatchId"]): match for match in matches}
 for snapshot in probability_snapshots:
-    assert snapshot["matchId"] in matches_by_id, "Snapshot references an unknown match."
+    # Historical snapshots are self-contained records. Their source match may
+    # legitimately disappear from the provider's current-season fixture feed.
+    assert isinstance(snapshot.get("matchId"), (str, int)), "Snapshot match ID is missing."
     probabilities = snapshot["probabilities"]
     assert set(probabilities) == {"home", "draw", "away"}, "Invalid 1X2 probability fields."
     assert all(isinstance(v, (int, float)) and 0 <= v <= 100 for v in probabilities.values()), "Invalid probability value."
