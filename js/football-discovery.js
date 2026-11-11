@@ -142,6 +142,7 @@
       openDatabaseTab("players");
       const input = $("playerSearch");
       if (input) { input.value = entity.label; input.dispatchEvent(new Event("input",{bubbles:true})); }
+      filterCloudPlayerCards(entity.label);
       return;
     }
     if (entity.type === "match") {
@@ -183,6 +184,14 @@
     root.innerHTML = available.length ? available.map((entity) =>
       '<div class="discovery-favorite"><button type="button" class="discovery-favorite-open" data-open-type="'+esc(entity.type)+'" data-open-id="'+esc(entity.id)+'"><b>'+esc(entity.label || entity.name || "รายการโปรด")+'</b><small>'+esc(entity.meta || "ข้อมูลที่บันทึกไว้")+'</small></button><button type="button" class="discovery-remove" data-favorite-type="'+esc(entity.type)+'" data-favorite-id="'+esc(entity.id)+'" aria-label="นำออกจากรายการโปรด">×</button></div>'
     ).join("") : '<div class="discovery-empty">ยังไม่มีรายการโปรด · กด ☆ ในผลการค้นหาเพื่อบันทึกทีม ลีก นักเตะ หรือแมตช์</div>';
+  }
+  function filterCloudPlayerCards(query) {
+    const root = $("playerStatsCloudList");
+    if (!root) return;
+    const value = String(query || "").trim().toLocaleLowerCase();
+    root.querySelectorAll("article").forEach((card) => {
+      card.hidden = Boolean(value) && !card.textContent.toLocaleLowerCase().includes(value);
+    });
   }
   function dateOf(match) { return String(match.utcDate || "").slice(0,10); }
   function renderDateMatches() {
@@ -271,6 +280,7 @@
   });
   document.addEventListener("input",(event) => {
     if (event.target.id === "discoverySearchInput") renderSearch();
+    if (event.target.id === "playerSearch") filterCloudPlayerCards(event.target.value);
     if (["discoveryDateFrom","discoveryDateTo","discoveryDateLeague"].includes(event.target.id)) renderDateMatches();
   });
   document.addEventListener("change",(event) => {
