@@ -53,6 +53,7 @@ Proposed information architecture (subject to the read-only audit):
 1. **หน้าหลัก / Match Center** — today's and upcoming fixtures, live or completed status, quick league filters.
 2. **ลีกและทีม** — standings, fixtures/results, team profile, form, home/away, and head-to-head.
 3. **วิเคราะห์** — select a match, see the main conclusion and probabilities, then expand the reasons and supporting statistics.
+   - The future match-analysis layout should accommodate separate 1X2, score-margin, and Asian-handicap probability summaries without making the main screen crowded; detailed score distributions and evaluation diagnostics belong behind an expandable detail view.
 4. **ประวัติ** — saved analyses, actual results, and a simple accuracy summary.
 
 Player reference data, legacy records, backups, model diagnostics, and experimental tools should remain accessible where needed but should not dominate the main navigation.
