@@ -35,7 +35,7 @@ class InternationalRoundOneDatasetTests(unittest.TestCase):
     def test_pinned_historical_source_and_result_records_are_consistent(self):
         data = self.results
         self.assertEqual(data["dataset_id"], "international-r1-2026")
-        self.assertEqual(data["source"]["repository_commit"], "b0948cb558c927c357db4067eac5b37b96d0e4bb")
+        self.assertEqual(data["source"]["commit"], "b0948cb558c927c357db4067eac5b37b96d0e4bb")
         self.assertEqual(data["source"]["csv_blob_sha"], "9999a4b380b16189825884a8dab4dc869c847f72")
         self.assertEqual(data["source"]["license"], "CC0-1.0 (repository-declared)")
         records = data["records"]
