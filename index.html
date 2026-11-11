@@ -68,7 +68,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <p class="profile-note">โปรแกรมและผลการแข่งขันจริงจากฐานข้อมูลฟุตบอล 5 ลีกหลัก · เวลาแสดงเป็นเวลาไทย</p>
  <div id="matchCenterApp">
   <div class="mc-toolbar">
-   <div class="field"><label for="matchCenterLeague">เลือกลีก</label><select id="matchCenterLeague" class="filter"><option value="ALL">ทุกลีกหลัก</option></select></div>
+   <div class="field"><label for="matchCenterLeague">เลือกลีก</label><select id="matchCenterLeague" class="filter"><option value="ALL">ทุกลีกหลัก</option></select></div><div class="field"><label for="matchCenterSearch">ค้นหาทีม / คู่แข่งขัน</label><input id="matchCenterSearch" class="filter" type="search" placeholder="พิมพ์ชื่อทีมที่ต้องการค้นหา" autocomplete="off"></div>
   </div>
   <div class="mc-filters" role="group" aria-label="กรองการแข่งขัน">
    <button type="button" class="mc-filter" data-match-filter="today" aria-pressed="false">วันนี้</button>
@@ -96,11 +96,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <section id="fixtures" class="page">
  <div class="sectionhead"><h2>ฐานข้อมูลฟุตบอล</h2><span class="small" id="dbStatus">กำลังโหลดข้อมูล…</span></div><div class="db-subnav" aria-label="หมวดหมู่ฐานข้อมูล">
  <button class="active" data-db-tab="overview">ภาพรวมลีก</button>
- <button data-db-tab="form">ฟอร์มทีม</button>
- <button data-db-tab="profile">โปรไฟล์ทีม</button>
- <button data-db-tab="homeaway">เหย้า/เยือน</button>
- <button data-db-tab="h2h">พบกัน</button>
- <button data-db-tab="league">สถิติลีก</button>
+ <button data-db-tab="team">ทีมและฟอร์ม</button>
+ <button data-db-tab="matchStats">H2H และสถิติลีก</button>
  <button data-db-tab="probability">ความน่าจะเป็น</button>
  <button data-db-tab="accuracy">ความแม่นยำ</button>
  <button data-db-tab="advanced">วิเคราะห์เชิงลึก</button>
@@ -411,8 +408,10 @@ document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));if(b.dataset.page==="archive")render();window.scrollTo(0,0);
 });
 function switchDatabaseTab(tab){
+ const groups={team:["form","profile","homeaway"],matchStats:["h2h","league"]};
+ const visiblePanels=new Set(groups[tab]||[tab]);
  document.querySelectorAll("[data-db-tab]").forEach(b=>b.classList.toggle("active",b.dataset.dbTab===tab));
- document.querySelectorAll(".db-panel").forEach(p=>p.classList.toggle("active",p.id==="dbtab-"+tab));
+ document.querySelectorAll(".db-panel").forEach(p=>p.classList.toggle("active",visiblePanels.has(p.id.replace("dbtab-",""))));
 }
 document.querySelectorAll("[data-db-tab]").forEach(b=>b.onclick=()=>{switchDatabaseTab(b.dataset.dbTab);window.scrollTo(0,0);});
 
