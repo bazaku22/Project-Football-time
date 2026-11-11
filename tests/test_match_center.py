@@ -56,6 +56,11 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('data-db-tab="overview"', MODULE)
         self.assertIn('discoveryDateFrom', MODULE)
 
+    def test_analysis_handoff_matches_the_existing_analysis_status_contract(self):
+        self.assertIn('["SCHEDULED","TIMED"]', MODULE)
+        self.assertIn('analysisStatus', MODULE)
+        self.assertIn('providerMatchId !== ""', MODULE)
+
     def test_offline_asset_and_cache_are_versioned(self):
         self.assertIn("football-time-v42", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
