@@ -1,4 +1,4 @@
-const CACHE = "football-time-v43";
+const CACHE = "football-time-v44";
 
 const ASSETS = [
   "./",
@@ -67,17 +67,20 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.endsWith("/data/football-database.json") ||
       url.pathname.endsWith("/data/player-database.json") ||
       url.pathname.endsWith("/data/asian-handicap-odds.json")) {
+    // Ignore cache-busting query strings so each refresh reuses one cache entry.
+    const cacheKey = new Request(url.origin + url.pathname, { method: "GET" });
+
     event.respondWith(
       fetch(request, { cache: "no-store" })
         .then((response) => {
           if (response.ok) {
             const copy = response.clone();
-            caches.open(CACHE).then((cache) => cache.put(request, copy));
+            caches.open(CACHE).then((cache) => cache.put(cacheKey, copy));
           }
           return response;
         })
         .catch(async () => {
-          const cached = await caches.match(request);
+          const cached = await caches.match(cacheKey);
           if (cached) return cached;
           return new Response(JSON.stringify({error:"Football database is unavailable"}), {
             status:503,headers:{"Content-Type":"application/json"}
