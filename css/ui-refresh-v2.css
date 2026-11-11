@@ -1,0 +1,36 @@
+/* Football Time UI refinement v2 — visual-only overrides */
+:root{color-scheme:dark;--bg:#091522;--panel:#12243a;--panel-2:#172d45;--muted:#a9bacb;--text:#f5f8fc;--line:#30475e;--green:#72e2bf;--blue:#79c7ff;--gold:#f3cd83;--shadow:0 14px 34px rgba(0,0,0,.22)}
+body{font-size:16px;line-height:1.62}header{padding:14px max(16px,calc((100vw - 780px)/2))}
+.logo{width:44px;height:44px;border-radius:14px}h1{font-size:16px;line-height:1.3}.sub{font-size:9px;line-height:1.5}
+main{max-width:800px;padding:18px 16px calc(118px + env(safe-area-inset-bottom))}
+.sectionhead,.topline{align-items:center;margin:22px 2px 11px}.sectionhead h2{font-size:17px;line-height:1.4}
+.small,.notice{font-size:12px;line-height:1.55}.card{padding:16px;margin:13px 0;border-radius:18px}.stat{border-radius:16px;padding:15px 12px}.stat span{font-size:11px}
+button,select,input{font-size:15px}.primary,.secondary,.detail,.result-button{min-height:46px;border-radius:13px;padding:11px 14px}
+.field{gap:7px;margin:11px 0}.field label,.label{font-size:12px;line-height:1.5}
+.field input,.field select,.filter{min-height:48px;padding:11px 13px;border-radius:12px;font-size:15px}
+.tag,.result-status{font-size:11px;padding:6px 10px}.league-card{min-height:68px;border-radius:15px;padding:13px}.league-card b{font-size:13px}.league-card small{font-size:11px}
+.league-logo,.team-crest{width:34px;height:34px}.teams{font-size:18px;line-height:1.5}.value{font-size:15px;line-height:1.5}
+.match-row{padding:13px 0}.match-teams{font-size:14px}.match-meta{font-size:11px}.empty{font-size:14px;line-height:1.7;padding:26px 14px}
+.quality-note,.p5-note{font-size:12px;line-height:1.75;padding:12px 14px}
+.db-subnav{top:154px;padding:9px 2px 12px;gap:8px}.db-subnav button{min-height:42px;padding:9px 15px;font-size:12px}
+.nav{justify-content:space-around;gap:4px;padding:8px 8px calc(9px + env(safe-area-inset-bottom))}.nav button{min-height:48px;font-size:12px;padding:9px 5px}
+table{font-size:12px}td,th{padding:11px 8px}.form-stat,.profile-kpi,.venue-panel,.db-kpi,.p5-metric,.prob-outcome{padding:13px;border-radius:14px}
+.form-stat span,.profile-kpi span,.venue-kpis span,.db-kpi span,.p5-metric span,.prob-outcome span{font-size:11px;line-height:1.5}
+.form-stat b,.profile-kpi b,.db-kpi b,.p5-metric b{font-size:21px}.prob-outcome b{font-size:23px}.profile-note,.form-note,.p5-row{font-size:12px;line-height:1.65}
+.discovery-search{max-width:800px!important;margin:12px auto 1px!important;padding:0!important}
+.discovery-search label{font-size:12px!important;margin-bottom:6px!important;color:#b5c7d8!important}
+.discovery-search input{min-height:50px!important;border-radius:14px!important;padding:12px 46px 12px 15px!important;background:#0b1b2d!important;border:1px solid #405c76!important;font-size:15px!important}
+.discovery-search input::placeholder{color:#8198ad}.discovery-search-results{top:calc(100% + 9px)!important;max-height:min(58vh,520px)!important;border-radius:16px!important;padding:8px!important;background:#102238!important;border-color:#3a5873!important}
+.discovery-result,.discovery-date-row,.discovery-favorite{gap:10px!important;padding:3px 2px}.discovery-result-open,.discovery-favorite-open{min-height:58px!important;padding:10px!important;gap:5px!important}
+.discovery-kind{font-size:10px!important;letter-spacing:.07em}.discovery-result-copy b,.discovery-favorite-open b{font-size:14px!important;line-height:1.45}
+.discovery-result-copy small,.discovery-favorite-open small{font-size:12px!important;line-height:1.45}
+.discovery-star,.discovery-remove{width:44px!important;height:44px!important;flex-basis:44px!important;border-radius:13px!important;font-size:22px!important}
+.discovery-empty{font-size:13px!important;line-height:1.7!important;padding:16px 10px!important}.discovery-count{font-size:12px!important;padding:8px 2px 10px!important}
+.discovery-date-controls{gap:10px!important}.discovery-date-row .discovery-result-open{min-height:64px!important;padding:10px!important}
+.discovery-date-row .discovery-result-open b{font-size:14px!important;line-height:1.6!important}.discovery-date-row .discovery-result-open small{font-size:11px!important}
+.discovery-clear-date{min-height:46px!important}#discoveryFavoritesCard .topline b,#discoveryDateCard .topline b{font-size:15px}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+@media(min-width:600px){main{padding-top:24px}.card{padding:19px}.db-subnav{top:154px}.discovery-date-controls{grid-template-columns:1fr 1fr 1.2fr}.discovery-date-league{grid-column:auto}}
+@media(max-width:420px){header{padding:12px}.logo{width:40px;height:40px}h1{font-size:14px}.sub{font-size:8px}main{padding-left:12px;padding-right:12px}.sectionhead h2{font-size:16px}.card{padding:13px;border-radius:15px}.stats{gap:7px}.stat{padding:11px 8px}.stat b{font-size:21px}.stat span{font-size:10px}.db-subnav{top:148px}.db-subnav button{font-size:11px;padding:8px 12px}.discovery-search input{font-size:14px!important}.discovery-date-controls{grid-template-columns:1fr 1fr}.discovery-date-league{grid-column:1/-1}.nav button{font-size:10px;padding:8px 3px}}
+@media(max-width:360px){.db-subnav{top:142px}.nav button{font-size:9px}.teams{font-size:16px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
