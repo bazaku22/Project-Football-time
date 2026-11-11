@@ -10,6 +10,7 @@
 - `team-form.json`: per-team latest-10 source-row windows and provisional 5/10-match goal features.
 - `team-aliases.json`: explicit canonical team IDs and reviewed aliases.
 - `quality-issues.json`: duplicate candidate, source cutoff, source quality, score semantics, and alias notes.
+- `model-baseline-spec.md`: pre-registered, experimental 1X2 baseline method and capture/evaluation rules.
 
 ## Current audit
 - Pinned source: `martj42/international_results`, commit `b0948cb558c927c357db4067eac5b37b96d0e4bb`, CSV blob `9999a4b380b16189825884a8dab4dc869c847f72`.
