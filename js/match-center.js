@@ -249,18 +249,18 @@
     const count = $("matchCenterCount");
     const state = $("matchCenterDataState");
     if (!root || !count || !state) return;
-    if (!database) {
+    if (!database && !internationalFixtures.length) {
       count.textContent = "—";
-      state.textContent = databaseError || "กำลังรอฐานข้อมูลฟุตบอล";
+      state.textContent = databaseError || internationalLoadState;
       root.innerHTML = databaseError
-        ? '<div class="mc-empty"><b>ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้</b><span>' + esc(databaseError) + ' · ตรวจสอบการเชื่อมต่อแล้วลองใหม่ภายหลัง</span></div>'
-        : '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขันจากฐานข้อมูลหลัก…</div>';
+        ? '<div class="mc-empty"><b>ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้</b><span>' + esc(databaseError) + ' · ' + esc(internationalLoadError || internationalLoadState) + '</span></div>'
+        : '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขัน…</div>';
       return;
     }
     const rows = filteredMatches();
     count.textContent = rows.length + " นัด";
-    const sourceTime = database.source?.lastSuccessfulSync || database.generatedAt;
-    const leagueSync = database.source?.leagueSync || {};
+    const sourceTime = database?.source?.lastSuccessfulSync || database?.generatedAt;
+    const leagueSync = database?.source?.leagueSync || {};
     const freshness = ["PL","PD","BL1","SA","FL1","ELC"].map((code) => {
       const row = leagueSync[code];
       const label = row?.status === "fresh" ? "ใหม่" : row?.status === "stale" ? "ข้อมูลเดิม" : "ไม่ทราบ";
@@ -269,9 +269,11 @@
     const delivery = window.FootballTimeAppContext?.getDataDelivery?.();
     const deliveryLabel = delivery === "cache" ? "แหล่งส่งข้อมูล: แคช" :
       delivery === "network" ? "แหล่งส่งข้อมูล: เครือข่าย" : "แหล่งส่งข้อมูล: ไม่ทราบ";
-    state.textContent = "แหล่งข้อมูลสโมสร: " + (database.source?.provider || "ไม่ระบุ") +
-      " · ซิงก์ล่าสุด " + formatUpdated(sourceTime) +
-      " · " + deliveryLabel + " · ความสดรายลีก " + freshness +
+    state.textContent = (database
+      ? "แหล่งข้อมูลสโมสร: " + (database.source?.provider || "ไม่ระบุ") +
+        " · ซิงก์ล่าสุด " + formatUpdated(sourceTime) +
+        " · " + deliveryLabel + " · ความสดรายลีก " + freshness
+      : "ฐานข้อมูลสโมสรไม่พร้อม · แสดงเฉพาะโปรแกรมทีมชาติชุดทดลอง") +
       " · " + internationalLoadState + " (แยกจากฐานข้อมูลสโมสร)";
     if (!rows.length) {
       root.innerHTML = '<div class="mc-empty"><b>ไม่พบการแข่งขันในตัวกรองนี้</b><span>ไม่มีข้อมูลที่ตรงกับช่วงเวลา ลีก หรือสถานะที่เลือก · ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง</span></div>';
@@ -291,8 +293,8 @@
   }
   function renderLeagues() {
     const select = $("matchCenterLeague");
-    if (!select || !database) return;
-    const leagues = (database.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
+    if (!select) return;
+    const leagues = (database?.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
     select.innerHTML = '<option value="ALL">สโมสรและทีมชาติ</option>' +
       '<option value="INTL">ทีมชาติ · Nations League / กระชับมิตร</option>' +
       leagues.map((league) =>
