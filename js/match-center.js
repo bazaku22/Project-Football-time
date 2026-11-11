@@ -10,6 +10,62 @@
   let activeFilter = "upcoming";
   let activeLeague = "ALL";
   let activeSearch = "";
+  let internationalFixtures = [];
+  let internationalLoadState = "กำลังโหลดโปรแกรมทีมชาติชุดทดลอง";
+  let internationalLoadError = "";
+  const COUNTRY_NAMES = {
+    "Türkiye":"ตุรกี","Belgium":"เบลเยียม","Italy":"อิตาลี","France":"ฝรั่งเศส","Czechia":"เช็กเกีย",
+    "Spain":"สเปน","England":"อังกฤษ","Croatia":"โครเอเชีย","Netherlands":"เนเธอร์แลนด์","Greece":"กรีซ",
+    "Serbia":"เซอร์เบีย","Germany":"เยอรมนี","Norway":"นอร์เวย์","Wales":"เวลส์","Portugal":"โปรตุเกส",
+    "Denmark":"เดนมาร์ก","Argentina":"อาร์เจนตินา","Uruguay":"อุรุกวัย","Saudi Arabia":"ซาอุดีอาระเบีย",
+    "South Korea":"เกาหลีใต้","Qatar":"กาตาร์","Australia":"ออสเตรเลีย","Japan":"ญี่ปุ่น","Brazil":"บราซิล","Singapore":"สิงคโปร์"
+  };
+  function countryFlag(code) {
+    if (code === "GB-ENG" || code === "GB-WLS") {
+      const suffix = code === "GB-ENG" ? "eng" : "wls";
+      return String.fromCodePoint(0x1F3F4,...[...suffix].map((char) => 0xE0000 + char.charCodeAt(0)),0xE007F);
+    }
+    return [...String(code || "").slice(0,2).toUpperCase()]
+      .map((char) => String.fromCodePoint(0x1F1E6 + char.charCodeAt(0) - 65)).join("");
+  }
+  function internationalTeamFlag(name, code) {
+    const label = COUNTRY_NAMES[name] || name || "ทีมชาติ";
+    return '<span class="mc-flag" role="img" aria-label="ธงชาติ' + esc(label) + '"><span aria-hidden="true">' +
+      esc(countryFlag(code)) + '</span><small>' + esc(code) + '</small></span>';
+  }
+  function toInternationalMatch(fixture) {
+    return {
+      id:fixture.id,isInternational:true,utcDate:fixture.kickoff_utc,localDate:fixture.local_date,
+      homeTeamName:fixture.home_team,awayTeamName:fixture.away_team,
+      homeCountryCode:fixture.home_country_code,awayCountryCode:fixture.away_country_code,
+      homeScore:null,awayScore:null,status:String(fixture.match_status || "scheduled").toUpperCase(),
+      leagueId:"INTL",competitionName:fixture.competition,neutralVenue:fixture.neutral_venue,
+      dataStatus:fixture.data_status,sourceNames:fixture.source_names || [],sourceUrls:fixture.source_urls || []
+    };
+  }
+  async function loadInternationalFixtures() {
+    try {
+      const response = await fetch("./data/international-match-fixtures-r1.json");
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const payload = await response.json();
+      if (payload.dataset_status !== "experimental_fixture_reference" || !Array.isArray(payload.fixtures)) {
+        throw new Error("รูปแบบชุดข้อมูลไม่ถูกต้อง");
+      }
+      internationalFixtures = payload.fixtures.filter((fixture) =>
+        fixture.id && fixture.home_team && fixture.away_team && fixture.home_country_code &&
+        fixture.away_country_code && fixture.local_date
+      ).map(toInternationalMatch);
+      internationalLoadState = "โปรแกรมทีมชาติชุดทดลอง " + internationalFixtures.length + " นัด";
+      internationalLoadError = "";
+    } catch (error) {
+      internationalFixtures = [];
+      internationalLoadState = "ไม่สามารถโหลดโปรแกรมทีมชาติชุดทดลอง";
+      internationalLoadError = String(error?.message || error);
+    }
+    renderLeagues();
+    render();
+  }
+
 
   function bangkokDate(value = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -56,12 +112,20 @@
   }
   function matchDate(match) {
     const date = new Date(match.utcDate);
-    return Number.isNaN(date.getTime()) ? "" : bangkokDate(date);
+    if (!Number.isNaN(date.getTime())) return bangkokDate(date);
+    return match.isInternational ? String(match.localDate || "") : "";
+  }
+  function matchSortTime(match) {
+    const date = new Date(match.utcDate);
+    if (!Number.isNaN(date.getTime())) return date.getTime();
+    if (match.isInternational && match.localDate) return new Date(match.localDate + "T23:59:59+07:00").getTime();
+    return Number.POSITIVE_INFINITY;
   }
   function teamFor(id) {
     return (database?.teams || []).find((team) => String(team.id) === String(id)) || null;
   }
-  function crest(team) {
+  function crest(team, countryCode, countryName) {
+    if (countryCode) return internationalTeamFlag(countryName, countryCode);
     const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3);
     if (team?.crest) {
       return '<span class="mc-crest-wrap"><img src="' + esc(team.crest) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden class="mc-crest-fallback">' + esc(initials) + '</span></span>';
@@ -74,23 +138,27 @@
   function filteredMatches() {
     const now = Date.now();
     const today = bangkokDate();
-    return (database?.matches || []).filter((match) => {
-      if (!CORE_LEAGUES.has(String(match.leagueId))) return false;
-      if (activeLeague !== "ALL" && match.leagueId !== activeLeague) return false;
+    const clubMatches = (database?.matches || []).filter((match) => CORE_LEAGUES.has(String(match.leagueId)));
+    return [...clubMatches,...internationalFixtures].filter((match) => {
+      const isInternational = match.isInternational === true;
+      if (activeLeague === "INTL" && !isInternational) return false;
+      if (activeLeague !== "ALL" && activeLeague !== "INTL" && match.leagueId !== activeLeague) return false;
       if (activeSearch) {
         const query = activeSearch.toLocaleLowerCase();
-        const haystack = [match.homeTeamName,match.awayTeamName].join(" ").toLocaleLowerCase();
-        if (!haystack.includes(query)) return false;
+        if (![match.homeTeamName,match.awayTeamName].join(" ").toLocaleLowerCase().includes(query)) return false;
       }
       const kind = statusKind(match);
       const kickoff = new Date(match.utcDate).getTime();
       if (activeFilter === "today") return matchDate(match) === today;
-      if (activeFilter === "upcoming") return kind === "upcoming" && Number.isFinite(kickoff) && kickoff >= now;
+      if (activeFilter === "upcoming") {
+        if (kind !== "upcoming") return false;
+        return Number.isFinite(kickoff) ? kickoff >= now : isInternational && String(match.localDate || "") >= today;
+      }
       if (activeFilter === "live") return kind === "live";
       if (activeFilter === "finished") return kind === "finished";
       return true;
     }).sort((a,b) => {
-      const aTime = new Date(a.utcDate).getTime(), bTime = new Date(b.utcDate).getTime();
+      const aTime = matchSortTime(a), bTime = matchSortTime(b);
       if (activeFilter === "finished") return bTime-aTime;
       return aTime-bTime;
     });
