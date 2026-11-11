@@ -1,4 +1,5 @@
 /* Phase A — Football Discovery */
+.db-subnav{top:150px}
 header .discovery-search{position:relative;max-width:780px;margin:13px auto 0;padding:0 1px}
 .discovery-search label{display:block;margin:0 0 5px;color:#9fb3c5;font-size:10px;font-weight:650;letter-spacing:.04em}
 .discovery-search input{width:100%;min-height:44px;padding:10px 42px 10px 13px;border:1px solid #3a5870;border-radius:12px;background:#0d1b2a;color:#f4f8fb;font:inherit}
@@ -27,5 +28,6 @@ header .discovery-search{position:relative;max-width:780px;margin:13px auto 0;pa
 .discovery-date-row .discovery-result-open small{font-size:10px;color:#9fb3c5}
 .discovery-count{padding:5px 0 8px;color:#9fb3c5;font-size:10px}
 .discovery-clear-date{width:100%;margin:10px 0 0}
-@media(min-width:600px){header .discovery-search{padding:0 2px}.discovery-date-controls{grid-template-columns:1fr 1fr 1.2fr}.discovery-date-league{grid-column:auto}}
+@media(min-width:600px){.db-subnav{top:150px}header .discovery-search{padding:0 2px}.discovery-date-controls{grid-template-columns:1fr 1fr 1.2fr}.discovery-date-league{grid-column:auto}}
+@media(max-width:380px){.db-subnav{top:138px}}
 @media(prefers-reduced-motion:reduce){.discovery-search-results{scroll-behavior:auto}}
