@@ -40,3 +40,9 @@ header{background:linear-gradient(115deg,rgba(13,31,48,.98),rgba(17,47,61,.94));
 .probability-history-item summary small{display:block;margin-top:4px;color:#9fb3c5;font-size:10px}
 .probability-history-item summary strong{flex:0 0 auto;font-size:10px;font-variant-numeric:tabular-nums;color:#9af0d7}
 .probability-history-detail{padding:10px;margin-top:8px;border-radius:10px;background:rgba(8,22,36,.58);color:#b9cad8;font-size:10px;line-height:1.8}
+
+/* Independent Handicap history and accuracy */
+#handicapAccuracySummary .db-kpis{margin-top:10px}
+#handicapAccuracySummary .quality-note{margin-top:10px}
+#handicapAccuracySummary .card{margin-top:10px;padding:10px;background:rgba(8,22,36,.42);border-color:rgba(145,178,204,.14)}
+#handicapHistoryList{max-height:560px;overflow:auto;overscroll-behavior:contain}
