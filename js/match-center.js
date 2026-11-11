@@ -9,6 +9,7 @@
   let databaseError = "";
   let activeFilter = "upcoming";
   let activeLeague = "ALL";
+  let activeSearch = "";
 
   function bangkokDate(value = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
@@ -76,6 +77,11 @@
     return (database?.matches || []).filter((match) => {
       if (!CORE_LEAGUES.has(String(match.leagueId))) return false;
       if (activeLeague !== "ALL" && match.leagueId !== activeLeague) return false;
+      if (activeSearch) {
+        const query = activeSearch.toLocaleLowerCase();
+        const haystack = [match.homeTeamName,match.awayTeamName].join(" ").toLocaleLowerCase();
+        if (!haystack.includes(query)) return false;
+      }
       const kind = statusKind(match);
       const kickoff = new Date(match.utcDate).getTime();
       if (activeFilter === "today") return matchDate(match) === today;
@@ -212,6 +218,10 @@
     );
     $("matchCenterLeague")?.addEventListener("change",(event) => {
       activeLeague = event.target.value || "ALL";
+      render();
+    });
+    $("matchCenterSearch")?.addEventListener("input",(event) => {
+      activeSearch = String(event.target.value || "").trim();
       render();
     });
     $("matchCenterMatches")?.addEventListener("click",(event) => {

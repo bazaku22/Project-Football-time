@@ -1,0 +1,48 @@
+/* Football Time V6.1 — refined dark football UI */
+:root{--ft-bg:#081523;--ft-surface:#11243a;--ft-surface-raised:#172d45;--ft-border:rgba(145,178,204,.2);--ft-accent:#72e2bf;--ft-shadow:0 16px 36px rgba(0,0,0,.26)}
+body{background:radial-gradient(ellipse at 50% -15%,rgba(44,125,151,.2),transparent 48%),var(--ft-bg)}
+header{background:linear-gradient(115deg,rgba(13,31,48,.98),rgba(17,47,61,.94));border-bottom-color:rgba(114,226,191,.2)}
+.app-version{border-color:rgba(114,226,191,.35);background:rgba(38,137,119,.12)}
+.card,.stat,.league-card,.venue-panel,.profile-kpi,.form-stat,.prob-outcome,.db-kpi{border-color:rgba(145,178,204,.18);box-shadow:0 12px 28px rgba(0,0,0,.16)}
+.sectionhead{align-items:flex-end}.sectionhead h2{letter-spacing:-.02em}
+.mc-match-card,.mc-card,.match-card{border-radius:17px}.mc-filter,.pill,.db-subnav button{min-height:42px}
+.prob-outcome{padding:14px 8px;background:linear-gradient(155deg,#1a3048,#12253a)}
+.prob-outcome b{font-size:clamp(21px,6vw,27px);font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.prob-level{display:inline-flex;align-items:center;justify-content:center;margin-top:7px;padding:4px 8px;border-radius:999px;background:rgba(114,226,191,.12);font-weight:750}
+.prob-level.high{color:#8cf0ca;background:rgba(50,190,139,.15)}.prob-level.medium{color:#f3cf88;background:rgba(226,176,81,.14)}.prob-level.low{color:#f3a59e;background:rgba(224,106,106,.13)}
+.analysis-insight{margin-top:14px;padding:14px;border:1px solid rgba(114,226,191,.25);border-radius:15px;background:linear-gradient(145deg,rgba(21,57,62,.52),rgba(17,36,58,.94))}
+.analysis-insight p{font-size:12px;line-height:1.75;color:#d5e4ed;margin:8px 0}.analysis-insight.compact{margin-top:12px;padding:11px}
+.insight-heading{display:flex;justify-content:space-between;align-items:center;gap:8px}.insight-heading>b,.insight-points>b,.insight-caution>b{font-size:12px}
+.insight-points ul{margin:6px 0 0;padding-left:18px;color:#b9cad8;font-size:11px;line-height:1.8}
+.insight-caution{margin-top:9px;padding-top:8px;border-top:1px solid rgba(145,178,204,.14)}.insight-caution p{margin-bottom:0;color:#f0d49b}
+.handicap-line-field{margin-top:8px}.handicap-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:12px 0}
+.handicap-cover{min-width:0;padding:10px 8px;border:1px solid rgba(145,178,204,.16);border-radius:12px;background:rgba(8,22,36,.55)}
+.handicap-cover span{display:block;font-size:9px;line-height:1.5;color:#a9bdce}.handicap-cover b{display:block;margin-top:5px;font-size:20px;font-variant-numeric:tabular-nums}.handicap-cover em{font-style:normal;font-size:10px}
+.handicap-result-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.handicap-result-grid>div{padding:9px 4px;text-align:center;border-radius:10px;background:#142b41;border:1px solid rgba(145,178,204,.13)}
+.handicap-result-grid b{display:block;font-size:13px;font-variant-numeric:tabular-nums}.handicap-result-grid span{display:block;margin-top:3px;font-size:9px;color:#a9bdce}
+.nav{padding-top:9px}.nav button{min-height:44px}
+#matchAnalysis .db-panel,#analysisHistory .db-panel{display:block}
+@media(max-width:390px){.handicap-summary{gap:5px}.handicap-cover{padding:8px 5px}.handicap-cover b{font-size:17px}.handicap-result-grid{gap:3px}.handicap-result-grid>div{padding:8px 2px}.handicap-result-grid b{font-size:11px}.handicap-result-grid span{font-size:8px}}
+@media(min-width:600px){.analysis-insight{padding:17px}.handicap-cover{padding:12px}}
+
+.margin-probability{margin:12px 0;padding:12px;border:1px solid rgba(145,178,204,.16);border-radius:13px;background:rgba(8,22,36,.42)}
+.margin-probability> b{font-size:12px}
+.margin-probability-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:5px;margin-top:9px}
+.margin-probability-grid span{display:flex;flex-direction:column;gap:4px;text-align:center;color:#a9bdce;font-size:9px;line-height:1.45}
+.margin-probability-grid b{font-size:12px;color:#f3f8fc;font-variant-numeric:tabular-nums}
+@media(max-width:390px){.margin-probability{padding:9px 6px}.margin-probability-grid{gap:2px}.margin-probability-grid span{font-size:8px}.margin-probability-grid b{font-size:10px}}
+
+.probability-history-list{max-height:560px;overflow:auto;overscroll-behavior:contain}
+.probability-history-item{border-bottom:1px solid rgba(145,178,204,.14);padding:10px 0}
+.probability-history-item summary{display:flex;justify-content:space-between;align-items:center;gap:10px;cursor:pointer;list-style:none}
+.probability-history-item summary::-webkit-details-marker{display:none}
+.probability-history-item summary b{display:block;font-size:12px}
+.probability-history-item summary small{display:block;margin-top:4px;color:#9fb3c5;font-size:10px}
+.probability-history-item summary strong{flex:0 0 auto;font-size:10px;font-variant-numeric:tabular-nums;color:#9af0d7}
+.probability-history-detail{padding:10px;margin-top:8px;border-radius:10px;background:rgba(8,22,36,.58);color:#b9cad8;font-size:10px;line-height:1.8}
+
+/* Independent Handicap history and accuracy */
+#handicapAccuracySummary .db-kpis{margin-top:10px}
+#handicapAccuracySummary .quality-note{margin-top:10px}
+#handicapAccuracySummary .card{margin-top:10px;padding:10px;background:rgba(8,22,36,.42);border-color:rgba(145,178,204,.14)}
+#handicapHistoryList{max-height:560px;overflow:auto;overscroll-behavior:contain}

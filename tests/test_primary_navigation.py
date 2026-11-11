@@ -17,7 +17,8 @@ class PrimaryNavigationTests(unittest.TestCase):
 
     def test_history_routes_to_existing_accuracy_panel(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        self.assertIn('history: { page: "fixtures", tab: "accuracy" }', source)
+        self.assertIn('analyze: { page: "matchAnalysis", tab: "probability" }', source)
+        self.assertIn('history: { page: "analysisHistory", tab: "accuracy" }', source)
 
     def test_primary_navigation_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text()

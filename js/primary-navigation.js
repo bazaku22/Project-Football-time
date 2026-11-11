@@ -3,8 +3,8 @@
   const routes = {
     home: { page: "home" },
     leagues: { page: "fixtures", tab: "overview" },
-    analyze: { page: "fixtures", tab: "probability" },
-    history: { page: "fixtures", tab: "accuracy" }
+    analyze: { page: "matchAnalysis", tab: "probability" },
+    history: { page: "analysisHistory", tab: "accuracy" }
   };
   const secondary = [
     ["summary","สรุปผลโมเดลทดลอง"],
@@ -24,6 +24,23 @@
     window.scrollTo(0, 0);
   }
   function mount() {
+    const fixtures = $("#fixtures");
+    if (fixtures && !$("#matchAnalysis") && !$("#analysisHistory")) {
+      const analysisPanel = $("#dbtab-probability");
+      const historyPanel = $("#dbtab-accuracy");
+      const analysisPage = document.createElement("section");
+      analysisPage.id = "matchAnalysis";
+      analysisPage.className = "page";
+      analysisPage.innerHTML = '<div class="sectionhead"><h2>วิเคราะห์การแข่งขัน</h2><span class="small">MATCH ANALYSIS</span></div><p class="profile-note">เลือกคู่แข่งขันเพื่อดูความน่าจะเป็น 1X2 และ Handicap จาก Score Distribution ชุดเดียวกัน พร้อมเหตุผลและข้อจำกัดของข้อมูล</p>';
+      const historyPage = document.createElement("section");
+      historyPage.id = "analysisHistory";
+      historyPage.className = "page";
+      historyPage.innerHTML = '<div class="sectionhead"><h2>ประวัติการวิเคราะห์</h2><span class="small">ANALYSIS HISTORY</span></div><p class="profile-note">ตรวจสอบผลการประเมินและ Calibration จากคำทำนายก่อนแข่งที่บันทึกไว้ โดยไม่เขียนทับ Snapshot เดิม</p>';
+      if (analysisPanel) analysisPage.appendChild(analysisPanel);
+      if (historyPanel) historyPage.appendChild(historyPanel);
+      fixtures.after(analysisPage, historyPage);
+      document.querySelectorAll('[data-db-tab="probability"],[data-db-tab="accuracy"]').forEach(button => button.remove());
+    }
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [

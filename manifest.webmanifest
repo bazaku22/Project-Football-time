@@ -5,8 +5,8 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#101820",
-  "theme_color": "#101820",
+  "background_color": "#081523",
+  "theme_color": "#081523",
   "description": "Personal football analysis tracker",
   "icons": [
     {

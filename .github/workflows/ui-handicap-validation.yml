@@ -1,0 +1,64 @@
+name: UI and Handicap Validation
+
+on:
+  pull_request:
+    paths:
+      - "index.html"
+      - "js/asian-handicap.js"
+      - "js/handicap-history.js"
+      - "tests/test_handicap_history.js"
+      - "js/primary-navigation.js"
+      - "js/match-center.js"
+      - "css/analysis-refinement.css"
+      - "tests/test_asian_handicap.js"
+      - ".github/workflows/ui-handicap-validation.yml"
+  push:
+    branches:
+      - "feature/ui-handicap-analysis-v6-1"
+    paths:
+      - "index.html"
+      - "js/asian-handicap.js"
+      - "js/primary-navigation.js"
+      - "js/match-center.js"
+      - "css/analysis-refinement.css"
+      - "tests/test_asian_handicap.js"
+      - ".github/workflows/ui-handicap-validation.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check JavaScript syntax
+        run: |
+          node --check js/asian-handicap.js
+          node --check js/handicap-history.js
+          node --check js/primary-navigation.js
+          node --check js/match-center.js
+          node --check sw.js
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html = Path("index.html").read_text(encoding="utf-8")
+          scripts = [s for s in re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>', html, flags=re.I) if s.strip()]
+          if len(scripts) != 1:
+              raise SystemExit(f"Expected one non-empty inline application script, found {len(scripts)}")
+          Path("/tmp/football-time-inline.js").write_text(scripts[0], encoding="utf-8")
+          PY
+          node --check /tmp/football-time-inline.js
+      - name: Test shared score distribution and handicap settlement
+        run: node tests/test_asian_handicap.js
+      - name: Test immutable Handicap history and independent metrics
+        run: node tests/test_handicap_history.js
+      - name: Check app and service worker versions
+        run: |
+          grep -q 'application-version" content="6.1.0-beta.2"' index.html
+          grep -q 'football-time-v48' sw.js
+          grep -q 'analysis-refinement.css' sw.js
+          ! grep -q 'rows.length>2500' index.html
