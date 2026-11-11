@@ -199,6 +199,19 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   </div>
   <div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div>
  </div>
+
+ <div class="card" id="playerStatsImportPanel">
+  <div class="topline"><b>นำเข้าสถิตินักเตะจาก CSV — Preview</b><span class="tag">OFFLINE PREFLIGHT</span></div>
+  <p class="profile-note">เลือกไฟล์สถิติและไฟล์ mapping เพื่อตรวจ Provider ID แบบตรงตัว จำกัดฤดูกาล 2026/27 การตรวจทำในอุปกรณ์นี้ ไม่อัปโหลดไฟล์และไม่บันทึกฐานข้อมูล</p>
+  <div class="field"><label for="playerStatsCsv">1. ไฟล์สถิติ CSV (สูงสุด 5 MB)</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div>
+  <div class="field"><label for="playerStatsMappingCsv">2. ไฟล์ mapping CSV (สูงสุด 2 MB)</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div>
+  <button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button>
+  <div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div>
+  <div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
+  <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div>
+  <button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
+  <div class="quality-note">Preview เท่านั้น · แถวที่ผ่านยังต้องตรวจสอบสิทธิ์แหล่งข้อมูลโดยมนุษย์ การบันทึกลง ft_* ยังปิดไว้จนกว่าจะมี transactional RPC/Edge Function ที่ผ่านการทดสอบ Auth จริงและได้รับอนุมัติ deployment</div>
+ </div>
  <div class="card"><div class="db-kpis" id="playerDbSummary"></div></div>
  <div id="playerList"><div class="empty">ยังไม่มีข้อมูลนักเตะ</div></div>
  <p class="profile-note">ข้อมูลนักเตะแยกจากรายการทดสอบและฐานข้อมูลการแข่งขัน การนำเข้าในอุปกรณ์นี้เก็บใน Local Storage แยกต่างหาก ทุกชุดข้อมูลต้องมีแหล่งที่มาและฤดูกาลกำกับ หากไม่มีข้อมูลจะแสดงว่าไม่พบ ไม่เติมค่าคาดเดา</p>
@@ -922,5 +935,6 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/test-experiment-enhancements.js"></script>
 <script src="./js/player-database.js"></script>
+<script src="./js/player-stats-import.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
