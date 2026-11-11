@@ -1,0 +1,625 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-11",
+  "modelVersion": "pft-national-poisson-0.1",
+  "methodology": "ผลทีมชาติชุดใหญ่ย้อนหลัง 3–4 นัดจากแหล่งที่ระบุ นำค่าเฉลี่ยยิง/เสียของทั้งสองทีมมาถ่วงน้ำหนัก 65% ร่วมกับค่าเฉลี่ยพื้นฐาน 35% และ home advantage ขนาดเล็ก แล้วสร้าง score matrix ด้วย independent Poisson. เป็นโมเดลทดลองความเชื่อมั่นต่ำ ไม่ได้ประเมินผู้เล่นรายบุคคล และไม่มีข้อมูลยืนยันตัวจริง/อาการบาดเจ็บครบทุกทีม.",
+  "teams": {
+    "Türkiye": {
+      "matches": [
+        [
+          "2026-09-25",
+          "France",
+          0,
+          1
+        ],
+        [
+          "2026-09-28",
+          "Italy",
+          1,
+          4
+        ],
+        [
+          "2026-10-02",
+          "Belgium",
+          0,
+          3
+        ],
+        [
+          "2026-10-05",
+          "Italy",
+          1,
+          3
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Belgium": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Italy",
+          2,
+          0
+        ],
+        [
+          "2026-09-28",
+          "France",
+          0,
+          1
+        ],
+        [
+          "2026-10-02",
+          "Türkiye",
+          3,
+          0
+        ],
+        [
+          "2026-10-05",
+          "France",
+          1,
+          4
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Italy": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Belgium",
+          0,
+          2
+        ],
+        [
+          "2026-09-28",
+          "Türkiye",
+          4,
+          1
+        ],
+        [
+          "2026-10-02",
+          "France",
+          1,
+          1
+        ],
+        [
+          "2026-10-05",
+          "Türkiye",
+          3,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "France": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Türkiye",
+          1,
+          0
+        ],
+        [
+          "2026-09-28",
+          "Belgium",
+          1,
+          0
+        ],
+        [
+          "2026-10-02",
+          "Italy",
+          1,
+          1
+        ],
+        [
+          "2026-10-05",
+          "Belgium",
+          4,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Czechia": {
+      "matches": [
+        [
+          "2026-09-26",
+          "Croatia",
+          1,
+          2
+        ],
+        [
+          "2026-09-29",
+          "England",
+          0,
+          2
+        ],
+        [
+          "2026-10-03",
+          "Spain",
+          1,
+          3
+        ],
+        [
+          "2026-10-06",
+          "England",
+          0,
+          3
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Spain": {
+      "matches": [
+        [
+          "2026-09-26",
+          "England",
+          3,
+          2
+        ],
+        [
+          "2026-09-29",
+          "Croatia",
+          4,
+          1
+        ],
+        [
+          "2026-10-03",
+          "Czechia",
+          3,
+          1
+        ],
+        [
+          "2026-10-06",
+          "Croatia",
+          2,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "England": {
+      "matches": [
+        [
+          "2026-09-26",
+          "Spain",
+          2,
+          3
+        ],
+        [
+          "2026-09-29",
+          "Czechia",
+          2,
+          0
+        ],
+        [
+          "2026-10-03",
+          "Croatia",
+          7,
+          0
+        ],
+        [
+          "2026-10-06",
+          "Czechia",
+          3,
+          0
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Croatia": {
+      "matches": [
+        [
+          "2026-09-26",
+          "Czechia",
+          2,
+          1
+        ],
+        [
+          "2026-09-29",
+          "Spain",
+          1,
+          4
+        ],
+        [
+          "2026-10-03",
+          "England",
+          0,
+          7
+        ],
+        [
+          "2026-10-06",
+          "Spain",
+          1,
+          2
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Netherlands": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Germany",
+          1,
+          1
+        ],
+        [
+          "2026-09-27",
+          "Serbia",
+          2,
+          1
+        ],
+        [
+          "2026-10-01",
+          "Greece",
+          2,
+          2
+        ],
+        [
+          "2026-10-04",
+          "Serbia",
+          2,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Greece": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Serbia",
+          2,
+          1
+        ],
+        [
+          "2026-09-27",
+          "Germany",
+          1,
+          0
+        ],
+        [
+          "2026-10-01",
+          "Netherlands",
+          2,
+          2
+        ],
+        [
+          "2026-10-04",
+          "Germany",
+          0,
+          0
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Serbia": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Greece",
+          1,
+          2
+        ],
+        [
+          "2026-09-27",
+          "Netherlands",
+          1,
+          2
+        ],
+        [
+          "2026-10-01",
+          "Germany",
+          0,
+          2
+        ],
+        [
+          "2026-10-04",
+          "Netherlands",
+          1,
+          2
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Germany": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Netherlands",
+          1,
+          1
+        ],
+        [
+          "2026-09-27",
+          "Greece",
+          0,
+          1
+        ],
+        [
+          "2026-10-01",
+          "Serbia",
+          2,
+          0
+        ],
+        [
+          "2026-10-04",
+          "Greece",
+          0,
+          0
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Portugal": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Wales",
+          1,
+          0
+        ],
+        [
+          "2026-09-27",
+          "Norway",
+          2,
+          1
+        ],
+        [
+          "2026-10-01",
+          "Denmark",
+          4,
+          2
+        ],
+        [
+          "2026-10-04",
+          "Norway",
+          2,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Denmark": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Norway",
+          2,
+          3
+        ],
+        [
+          "2026-09-27",
+          "Wales",
+          2,
+          0
+        ],
+        [
+          "2026-10-01",
+          "Portugal",
+          2,
+          4
+        ],
+        [
+          "2026-10-04",
+          "Wales",
+          1,
+          0
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Wales": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Portugal",
+          0,
+          1
+        ],
+        [
+          "2026-09-27",
+          "Denmark",
+          0,
+          2
+        ],
+        [
+          "2026-10-01",
+          "Norway",
+          2,
+          1
+        ],
+        [
+          "2026-10-04",
+          "Denmark",
+          0,
+          1
+        ]
+      ],
+      "source": "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+    },
+    "Argentina": {
+      "matches": [
+        [
+          "2026-09-30",
+          "Bolivia",
+          4,
+          0
+        ],
+        [
+          "2026-10-03",
+          "Burkina Faso",
+          7,
+          0
+        ],
+        [
+          "2026-10-06",
+          "Benin",
+          3,
+          0
+        ]
+      ],
+      "source": "https://www.rsssf.org/tablesa/arg2026.html"
+    },
+    "Uruguay": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Japan",
+          1,
+          3
+        ],
+        [
+          "2026-09-28",
+          "South Korea",
+          4,
+          1
+        ],
+        [
+          "2026-10-06",
+          "India",
+          6,
+          1
+        ]
+      ],
+      "source": "https://www.auf.org.uy/mayores/"
+    },
+    "Japan": {
+      "matches": [
+        [
+          "2026-09-24",
+          "Uruguay",
+          3,
+          1
+        ],
+        [
+          "2026-09-28",
+          "Venezuela",
+          2,
+          1
+        ],
+        [
+          "2026-10-01",
+          "Ecuador",
+          0,
+          0
+        ],
+        [
+          "2026-10-05",
+          "New Zealand",
+          2,
+          1
+        ]
+      ],
+      "source": "https://www.jfa.jp/samuraiblue/schedule_result/2026.html"
+    },
+    "Brazil": {
+      "matches": [
+        [
+          "2026-09-25",
+          "Australia",
+          1,
+          1
+        ],
+        [
+          "2026-09-29",
+          "Australia",
+          4,
+          2
+        ],
+        [
+          "2026-10-03",
+          "India",
+          4,
+          0
+        ],
+        [
+          "2026-06-07",
+          "Egypt",
+          2,
+          1
+        ]
+      ],
+      "source": "https://inside.fifa.com/pt/data-centre/teams/brazil"
+    }
+  },
+  "fixtures": {
+    "nl-tur-bel": {
+      "note": "Türkiye ยังไม่ชนะในกลุ่ม A1 จาก 4 นัด ส่วน Belgium มีทั้งเกมชนะ Italy/Türkiye และแพ้ France สองครั้ง; UEFA ระบุว่า De Bruyne พ้นโทษแบนกลับมาได้ ขณะที่ Roméo Lavia ติดโทษแบน.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02ab-220793bfb8a3-00d5842942af-1000--uefa-nations-league-matchday-5-preview-harry-kane-set-for-en/"
+      ]
+    },
+    "nl-ita-fra": {
+      "note": "Italy มีผลงาน 2 ชนะ 1 เสมอ 1 แพ้ใน 4 นัดแรก ส่วน France ไม่แพ้และชนะ Belgium 4-1 ในนัดล่าสุดของกลุ่ม A1; ผลพบกันล่าสุดในรอบนี้เสมอ 1-1.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "nl-cze-esp": {
+      "note": "Czechia แพ้ทั้ง 4 นัดแรกและเสีย 10 ประตู; Spain ชนะ 3 จาก 4 นัดและยิง 12 ประตูในข้อมูลชุดเดียวกัน.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "nl-eng-cro": {
+      "note": "England ชนะ 3 จาก 4 นัด รวมผล 7-0 เหนือ Croatia; Croatia ชนะ Czechia แต่แพ้ Spain และ England สองนัด.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02ab-220793bfb8a3-00d5842942af-1000--uefa-nations-league-matchday-5-preview-harry-kane-set-for-en/"
+      ]
+    },
+    "nl-ned-gre": {
+      "note": "ทั้ง Netherlands และ Greece ยังไม่แพ้ในกลุ่ม A2 จาก 4 นัด; นัดก่อนหน้าเสมอกัน 2-2. UEFA ระบุว่า Donyell Malen และ Brian Brobbey กลับมามีตัวเลือกหลังบาดเจ็บ และ Tasos Douvikas เพิ่งทำแฮตทริกใน Champions League.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02ab-220793bfb8a3-00d5842942af-1000--uefa-nations-league-matchday-5-preview-harry-kane-set-for-en/"
+      ]
+    },
+    "nl-srb-ger": {
+      "note": "Serbia ยังไม่มีแต้มจาก 4 นัดแรกในกลุ่ม A2; Germany ชนะ Serbia 2-0 และเสมอ Greece 0-0 ในนัดล่าสุด. UEFA ระบุว่า Aleksandar Mitrović กลับมาจากอาการบาดเจ็บ แต่ยังต้องติดตามความพร้อมจริง.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02ab-220793bfb8a3-00d5842942af-1000--uefa-nations-league-matchday-5-preview-harry-kane-set-for-en/"
+      ]
+    },
+    "nl-por-den": {
+      "note": "Portugal ชนะทั้ง 4 นัดแรกและยิงได้ 9 ประตูในข้อมูลชุดนี้; Denmark ชนะ 2 แพ้ 2 และเสีย 7 ประตู.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "nl-esp-eng": {
+      "note": "เป็นการพบกันอีกครั้งหลัง England ชนะ Spain 3-2 ในนัดเปิดกลุ่ม; ทั้งสองทีมชนะ 3 จาก 4 นัดแรก ขณะที่ Spain ชนะ Croatia สองครั้งในรอบนี้.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "nl-ger-ned": {
+      "note": "Germany ชนะ 1 เสมอ 2 แพ้ 1 ใน 4 นัดแรก; Netherlands ชนะ 2 เสมอ 2 และไม่แพ้. เกมแรกของทั้งคู่จบ 1-1.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "nl-wal-por": {
+      "note": "Portugal ชนะทั้ง 4 นัดแรก ขณะที่ Wales ชนะ 1 แพ้ 3; เกมแรก Portugal ชนะ 1-0. Wales เคยชนะ Norway แสดงศักยภาพเกมรุก แต่ค่าเฉลี่ยเกมรับยังเป็นความเสี่ยง.",
+      "sources": [
+        "https://www.uefa.com/uefanationsleague/news/02a2-1fea18abbcbc-456e846509e7-1000--2026-uefa-nations-league-all-the-league-phase-fixtures-a/"
+      ]
+    },
+    "fr-arg-uru": {
+      "note": "Argentina ชนะ 3 นัดล่าสุดโดยยิง 14 และไม่เสียประตู; Uruguay ชนะ 2 จาก 3 นัดแต่เสีย 5 ประตู. Reuters รายงานว่า Lautaro Martínez และ Cristian Romero ไม่พร้อมจากอาการบาดเจ็บ และ Emiliano Martínez ต้องประเมินความพร้อม.",
+      "sources": [
+        "https://www.rsssf.org/tablesa/arg2026.html",
+        "https://www.auf.org.uy/mayores/",
+        "https://www.reuters.com/sports/soccer/argentina-name-first-squad-post-messi-era-november-friendlies-2026-11-03/"
+      ]
+    },
+    "fr-jpn-bra": {
+      "note": "Japan ชนะ 3 เสมอ 1 จาก 4 นัดล่าสุด; Brazil ชนะ 3 เสมอ 1 จากชุดผลที่รวบรวม. JFA ระบุอันดับ FIFA ล่าสุด Japan 17 และ Brazil 6; การพบกันล่าสุดในฟุตบอลโลก Brazil ชนะ 2-1. รายชื่อ Japan มีผู้เล่นจากสโมสรยุโรปหลายราย แต่ข้อมูลนี้ไม่ใช่สถิติฟอร์มรายบุคคล.",
+      "sources": [
+        "https://www.jfa.jp/samuraiblue/schedule_result/2026.html",
+        "https://www.jfa.jp/eng/national_team/mens_all_2026/news/00036974/",
+        "https://inside.fifa.com/pt/data-centre/teams/brazil"
+      ]
+    }
+  }
+}
