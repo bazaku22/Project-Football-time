@@ -168,8 +168,10 @@
     render();
   }
   function openInDatabase(button) {
-    const page = document.querySelector('[data-page="fixtures"]');
-    page?.click();
+    const route = button.dataset.matchAction === "analysis" ? "analyze" : "leagues";
+    const primaryRoute = document.querySelector('[data-primary-route="' + route + '"]');
+    if (primaryRoute) primaryRoute.click();
+    else document.querySelector('[data-page="fixtures"]')?.click();
     const providerMatchId = button.dataset.providerMatchId || "";
     if (button.dataset.matchAction === "analysis" && providerMatchId) {
       document.querySelector('[data-db-tab="probability"]')?.click();
