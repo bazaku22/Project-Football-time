@@ -35,7 +35,8 @@ jobs:
       - name: Test push-race recovery
         run: |
           bash -n scripts/sync_football_database.sh
-          python3 -m py_compile scripts/build_football_database.py scripts/build_probability_snapshots.py scripts/validate_football_database.py
+          python3 -m py_compile scripts/build_football_database.py scripts/build_probability_snapshots.py scripts/validate_football_database.py scripts/phase6_league_catalog.py
+          python3 -m unittest tests/test_phase6_league_catalog.py
           bash tests/test_database_push_retry.sh
 
       - name: Fetch football data
