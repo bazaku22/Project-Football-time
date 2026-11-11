@@ -5,6 +5,7 @@
 create table public.ft_players (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users(id) on delete cascade,
+  canonical_player_key text not null check (length(btrim(canonical_player_key)) > 0),
   display_name text not null check (length(btrim(display_name)) > 0),
   normalized_name text,
   date_of_birth date,
@@ -12,7 +13,8 @@ create table public.ft_players (
   position text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
-  constraint ft_players_user_id_id_key unique (user_id, id)
+  constraint ft_players_user_id_id_key unique (user_id, id),
+  constraint ft_players_user_canonical_key unique (user_id, canonical_player_key)
 );
 
 create table public.ft_player_source_ids (
@@ -304,11 +306,48 @@ create policy ft_player_memberships_update_own on public.ft_player_memberships
 create policy ft_player_stats_current_select_own on public.ft_player_stats_current
   for select to authenticated using ((select auth.uid()) = user_id);
 create policy ft_player_stats_current_insert_own on public.ft_player_stats_current
-  for insert to authenticated with check ((select auth.uid()) = user_id);
+  for insert to authenticated
+  with check (
+    (select auth.uid()) = user_id
+    and exists (
+      select 1
+      from public.ft_player_stat_source_records s
+      where s.user_id = ft_player_stats_current.user_id
+        and s.id = ft_player_stats_current.selected_source_record_id
+        and s.player_id = ft_player_stats_current.player_id
+        and s.season = ft_player_stats_current.season
+        and s.competition_id = ft_player_stats_current.competition_id
+        and s.team_id = ft_player_stats_current.team_id
+        and s.squad_level = ft_player_stats_current.squad_level
+        and s.statistics_scope = ft_player_stats_current.statistics_scope
+        and s.match_id is not distinct from ft_player_stats_current.match_id
+        and s.stat_date is not distinct from ft_player_stats_current.stat_date
+        and s.stats = ft_player_stats_current.stats
+        and s.rights_status = 'approved'
+    )
+  );
 create policy ft_player_stats_current_update_own on public.ft_player_stats_current
   for update to authenticated
   using ((select auth.uid()) = user_id)
-  with check ((select auth.uid()) = user_id);
+  with check (
+    (select auth.uid()) = user_id
+    and exists (
+      select 1
+      from public.ft_player_stat_source_records s
+      where s.user_id = ft_player_stats_current.user_id
+        and s.id = ft_player_stats_current.selected_source_record_id
+        and s.player_id = ft_player_stats_current.player_id
+        and s.season = ft_player_stats_current.season
+        and s.competition_id = ft_player_stats_current.competition_id
+        and s.team_id = ft_player_stats_current.team_id
+        and s.squad_level = ft_player_stats_current.squad_level
+        and s.statistics_scope = ft_player_stats_current.statistics_scope
+        and s.match_id is not distinct from ft_player_stats_current.match_id
+        and s.stat_date is not distinct from ft_player_stats_current.stat_date
+        and s.stats = ft_player_stats_current.stats
+        and s.rights_status = 'approved'
+    )
+  );
 
 create policy ft_player_stat_change_history_select_own on public.ft_player_stat_change_history
   for select to authenticated using ((select auth.uid()) = user_id);
