@@ -62,7 +62,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Uzbekistan",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20251113-england-serbia",
@@ -85,7 +89,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20251113-moldova-italy",
@@ -108,7 +116,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Moldova",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20251115-denmark-belarus",
@@ -131,7 +143,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Denmark",
+      "canonical_away_team": "Belarus",
+      "canonical_home_team_id": "DEN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20251115-greece-scotland",
@@ -154,7 +170,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Greece",
+      "canonical_away_team": "Scotland",
+      "canonical_home_team_id": "GRE",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20251115-liechtenstein-wales",
@@ -177,7 +197,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Liechtenstein",
+      "canonical_away_team": "Wales",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "WAL"
     },
     {
       "id": "INT-HIST-20251115-mexico-uruguay",
@@ -200,7 +224,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20251116-italy-norway",
@@ -223,7 +251,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Italy",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": "ITA",
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20251116-serbia-latvia",
@@ -246,7 +278,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Serbia",
+      "canonical_away_team": "Latvia",
+      "canonical_home_team_id": "SRB",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20251118-belarus-greece",
@@ -269,7 +305,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belarus",
+      "canonical_away_team": "Greece",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "GRE"
     },
     {
       "id": "INT-HIST-20251118-scotland-denmark",
@@ -292,7 +332,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Scotland",
+      "canonical_away_team": "Denmark",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "DEN"
     },
     {
       "id": "INT-HIST-20251118-united-states-uruguay",
@@ -315,7 +359,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United States",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20251118-wales-north-macedonia",
@@ -338,7 +386,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "North Macedonia",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20251207-qatar-tunisia",
@@ -361,7 +413,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Qatar",
+      "canonical_away_team": "Tunisia",
+      "canonical_home_team_id": "QAT",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260326-denmark-north-macedonia",
@@ -384,7 +440,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Denmark",
+      "canonical_away_team": "North Macedonia",
+      "canonical_home_team_id": "DEN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260326-italy-northern-ireland",
@@ -407,7 +467,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Italy",
+      "canonical_away_team": "Northern Ireland",
+      "canonical_home_team_id": "ITA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260326-wales-bosnia-and-herzegovina",
@@ -430,7 +494,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "Bosnia and Herzegovina",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260327-australia-cameroon",
@@ -453,7 +521,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Cameroon",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260327-england-uruguay",
@@ -476,7 +548,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20260327-greece-paraguay",
@@ -499,7 +575,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Greece",
+      "canonical_away_team": "Paraguay",
+      "canonical_home_team_id": "GRE",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260327-spain-serbia",
@@ -522,7 +602,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20260328-scotland-japan",
@@ -545,7 +629,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Scotland",
+      "canonical_away_team": "Japan",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "JPN"
     },
     {
       "id": "INT-HIST-20260331-algeria-uruguay",
@@ -568,7 +656,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Algeria",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20260331-australia-cura-ao",
@@ -591,7 +683,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Curaçao",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260331-austria-south-korea",
@@ -614,7 +710,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Austria",
+      "canonical_away_team": "South Korea",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "KOR"
     },
     {
       "id": "INT-HIST-20260331-bosnia-and-herzegovina-italy",
@@ -637,7 +737,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Bosnia and Herzegovina",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20260331-czech-republic-denmark",
@@ -660,7 +764,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Czechia",
+      "canonical_away_team": "Denmark",
+      "canonical_home_team_id": "CZE",
+      "canonical_away_team_id": "DEN"
     },
     {
       "id": "INT-HIST-20260331-england-japan",
@@ -683,7 +791,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Japan",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "JPN"
     },
     {
       "id": "INT-HIST-20260331-hungary-greece",
@@ -706,7 +818,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Hungary",
+      "canonical_away_team": "Greece",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "GRE"
     },
     {
       "id": "INT-HIST-20260331-kosovo-turkey",
@@ -729,7 +845,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Kosovo",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20260331-serbia-saudi-arabia",
@@ -752,7 +872,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Serbia",
+      "canonical_away_team": "Saudi Arabia",
+      "canonical_home_team_id": "SRB",
+      "canonical_away_team_id": "KSA"
     },
     {
       "id": "INT-HIST-20260331-wales-northern-ireland",
@@ -775,7 +899,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "Northern Ireland",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260528-republic-of-ireland-qatar",
@@ -798,7 +926,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Republic of Ireland",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20260530-mexico-australia",
@@ -821,7 +953,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "Australia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "AUS"
     },
     {
       "id": "INT-HIST-20260530-south-korea-trinidad-and-tobago",
@@ -844,7 +980,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Trinidad and Tobago",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260531-brazil-panama",
@@ -867,7 +1007,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Panama",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260531-cape-verde-serbia",
@@ -890,7 +1034,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Cape Verde",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20260531-czech-republic-kosovo",
@@ -913,7 +1061,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Czechia",
+      "canonical_away_team": "Kosovo",
+      "canonical_home_team_id": "CZE",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260531-germany-finland",
@@ -936,7 +1088,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Finland",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260531-japan-iceland",
@@ -959,7 +1115,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Japan",
+      "canonical_away_team": "Iceland",
+      "canonical_home_team_id": "JPN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260601-turkey-north-macedonia",
@@ -982,7 +1142,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Türkiye",
+      "canonical_away_team": "North Macedonia",
+      "canonical_home_team_id": "TUR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260602-croatia-belgium",
@@ -1005,7 +1169,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Croatia",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": "CRO",
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20260602-wales-ghana",
@@ -1028,7 +1196,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "Ghana",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260603-dr-congo-denmark",
@@ -1051,7 +1223,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "DR Congo",
+      "canonical_away_team": "Denmark",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "DEN"
     },
     {
       "id": "INT-HIST-20260603-luxembourg-italy",
@@ -1074,7 +1250,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Luxembourg",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20260603-netherlands-algeria",
@@ -1097,7 +1277,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Algeria",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260603-south-korea-el-salvador",
@@ -1120,7 +1304,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "El Salvador",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260604-guatemala-czech-republic",
@@ -1143,7 +1331,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Guatemala",
+      "canonical_away_team": "Czechia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "CZE"
     },
     {
       "id": "INT-HIST-20260604-mexico-serbia",
@@ -1166,7 +1358,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20260604-sweden-greece",
@@ -1189,7 +1385,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Sweden",
+      "canonical_away_team": "Greece",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "GRE"
     },
     {
       "id": "INT-HIST-20260605-puerto-rico-saudi-arabia",
@@ -1212,7 +1412,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Puerto Rico",
+      "canonical_away_team": "Saudi Arabia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "KSA"
     },
     {
       "id": "INT-HIST-20260605-singapore-china",
@@ -1235,7 +1439,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Singapore",
+      "canonical_away_team": "China",
+      "canonical_home_team_id": "SGP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260606-australia-switzerland",
@@ -1258,7 +1466,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Switzerland",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260606-brazil-egypt",
@@ -1281,7 +1493,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Egypt",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260606-qatar-el-salvador",
@@ -1304,7 +1520,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Qatar",
+      "canonical_away_team": "El Salvador",
+      "canonical_home_team_id": "QAT",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260606-romania-wales",
@@ -1327,7 +1547,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Romania",
+      "canonical_away_team": "Wales",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "WAL"
     },
     {
       "id": "INT-HIST-20260606-united-states-germany",
@@ -1350,7 +1574,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United States",
+      "canonical_away_team": "Germany",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "GER"
     },
     {
       "id": "INT-HIST-20260606-venezuela-turkey",
@@ -1373,7 +1601,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Venezuela",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20260607-croatia-slovenia",
@@ -1396,7 +1628,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Croatia",
+      "canonical_away_team": "Slovenia",
+      "canonical_home_team_id": "CRO",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260607-denmark-ukraine",
@@ -1419,7 +1655,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Denmark",
+      "canonical_away_team": "Ukraine",
+      "canonical_home_team_id": "DEN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260607-greece-italy",
@@ -1442,7 +1682,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Greece",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": "GRE",
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20260608-netherlands-uzbekistan",
@@ -1465,7 +1709,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Uzbekistan",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260609-saudi-arabia-senegal",
@@ -1488,7 +1736,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Senegal",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260610-portugal-nigeria",
@@ -1511,7 +1763,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Nigeria",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260611-south-korea-czech-republic",
@@ -1534,7 +1790,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Czechia",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": "CZE"
     },
     {
       "id": "INT-HIST-20260613-australia-turkey",
@@ -1557,7 +1817,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20260613-brazil-morocco",
@@ -1580,7 +1844,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Morocco",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260613-qatar-switzerland",
@@ -1603,7 +1871,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Qatar",
+      "canonical_away_team": "Switzerland",
+      "canonical_home_team_id": "QAT",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260614-germany-cura-ao",
@@ -1626,7 +1898,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Curaçao",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260614-netherlands-japan",
@@ -1649,7 +1925,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Japan",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": "JPN"
     },
     {
       "id": "INT-HIST-20260615-belgium-egypt",
@@ -1672,7 +1952,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belgium",
+      "canonical_away_team": "Egypt",
+      "canonical_home_team_id": "BEL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260615-saudi-arabia-uruguay",
@@ -1695,7 +1979,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20260616-iraq-norway",
@@ -1718,7 +2006,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Iraq",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20260617-england-croatia",
@@ -1741,7 +2033,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Croatia",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "CRO"
     },
     {
       "id": "INT-HIST-20260617-portugal-dr-congo",
@@ -1764,7 +2060,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "DR Congo",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260618-canada-qatar",
@@ -1787,7 +2087,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Canada",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20260618-czech-republic-south-africa",
@@ -1810,7 +2114,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Czechia",
+      "canonical_away_team": "South Africa",
+      "canonical_home_team_id": "CZE",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260618-mexico-south-korea",
@@ -1833,7 +2141,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "South Korea",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "KOR"
     },
     {
       "id": "INT-HIST-20260619-brazil-haiti",
@@ -1856,7 +2168,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Haiti",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260619-turkey-paraguay",
@@ -1879,7 +2195,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Türkiye",
+      "canonical_away_team": "Paraguay",
+      "canonical_home_team_id": "TUR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260619-united-states-australia",
@@ -1902,7 +2222,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United States",
+      "canonical_away_team": "Australia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "AUS"
     },
     {
       "id": "INT-HIST-20260620-germany-ivory-coast",
@@ -1925,7 +2249,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Ivory Coast",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260620-netherlands-sweden",
@@ -1948,7 +2276,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Sweden",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260620-tunisia-japan",
@@ -1971,7 +2303,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Tunisia",
+      "canonical_away_team": "Japan",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "JPN"
     },
     {
       "id": "INT-HIST-20260621-belgium-iran",
@@ -1994,7 +2330,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belgium",
+      "canonical_away_team": "Iran",
+      "canonical_home_team_id": "BEL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260621-spain-saudi-arabia",
@@ -2017,7 +2357,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Saudi Arabia",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "KSA"
     },
     {
       "id": "INT-HIST-20260621-uruguay-cape-verde",
@@ -2040,7 +2384,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Uruguay",
+      "canonical_away_team": "Cape Verde",
+      "canonical_home_team_id": "URU",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260622-norway-senegal",
@@ -2063,7 +2411,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Norway",
+      "canonical_away_team": "Senegal",
+      "canonical_home_team_id": "NOR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260623-panama-croatia",
@@ -2086,7 +2438,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Panama",
+      "canonical_away_team": "Croatia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "CRO"
     },
     {
       "id": "INT-HIST-20260623-portugal-uzbekistan",
@@ -2109,7 +2465,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Uzbekistan",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260624-bosnia-and-herzegovina-qatar",
@@ -2132,7 +2492,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Bosnia and Herzegovina",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20260624-mexico-czech-republic",
@@ -2155,7 +2519,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "Czechia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "CZE"
     },
     {
       "id": "INT-HIST-20260624-scotland-brazil",
@@ -2178,7 +2546,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Scotland",
+      "canonical_away_team": "Brazil",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "BRA"
     },
     {
       "id": "INT-HIST-20260624-south-africa-south-korea",
@@ -2201,7 +2573,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Africa",
+      "canonical_away_team": "South Korea",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "KOR"
     },
     {
       "id": "INT-HIST-20260625-ecuador-germany",
@@ -2224,7 +2600,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Ecuador",
+      "canonical_away_team": "Germany",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "GER"
     },
     {
       "id": "INT-HIST-20260625-japan-sweden",
@@ -2247,7 +2627,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Japan",
+      "canonical_away_team": "Sweden",
+      "canonical_home_team_id": "JPN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260625-paraguay-australia",
@@ -2270,7 +2654,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Paraguay",
+      "canonical_away_team": "Australia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "AUS"
     },
     {
       "id": "INT-HIST-20260625-tunisia-netherlands",
@@ -2293,7 +2681,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Tunisia",
+      "canonical_away_team": "Netherlands",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "NED"
     },
     {
       "id": "INT-HIST-20260625-united-states-turkey",
@@ -2316,7 +2708,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United States",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20260626-cape-verde-saudi-arabia",
@@ -2339,7 +2735,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Cape Verde",
+      "canonical_away_team": "Saudi Arabia",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "KSA"
     },
     {
       "id": "INT-HIST-20260626-new-zealand-belgium",
@@ -2362,7 +2762,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "New Zealand",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20260626-norway-france",
@@ -2385,7 +2789,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Norway",
+      "canonical_away_team": "France",
+      "canonical_home_team_id": "NOR",
+      "canonical_away_team_id": "FRA"
     },
     {
       "id": "INT-HIST-20260626-uruguay-spain",
@@ -2408,7 +2816,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Uruguay",
+      "canonical_away_team": "Spain",
+      "canonical_home_team_id": "URU",
+      "canonical_away_team_id": "ESP"
     },
     {
       "id": "INT-HIST-20260627-colombia-portugal",
@@ -2431,7 +2843,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Colombia",
+      "canonical_away_team": "Portugal",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "POR"
     },
     {
       "id": "INT-HIST-20260627-croatia-ghana",
@@ -2454,7 +2870,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Croatia",
+      "canonical_away_team": "Ghana",
+      "canonical_home_team_id": "CRO",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260627-jordan-argentina",
@@ -2477,7 +2897,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Jordan",
+      "canonical_away_team": "Argentina",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ARG"
     },
     {
       "id": "INT-HIST-20260627-panama-england",
@@ -2500,7 +2924,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Panama",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20260629-brazil-japan",
@@ -2523,7 +2951,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Japan",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": "JPN"
     },
     {
       "id": "INT-HIST-20260629-germany-paraguay",
@@ -2546,7 +2978,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Paraguay",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260629-netherlands-morocco",
@@ -2569,7 +3005,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Morocco",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260630-france-sweden",
@@ -2592,7 +3032,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "Sweden",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260630-ivory-coast-norway",
@@ -2615,7 +3059,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Ivory Coast",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20260701-belgium-senegal",
@@ -2638,7 +3086,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belgium",
+      "canonical_away_team": "Senegal",
+      "canonical_home_team_id": "BEL",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260701-england-dr-congo",
@@ -2661,7 +3113,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "DR Congo",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260702-portugal-croatia",
@@ -2684,7 +3140,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Croatia",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": "CRO"
     },
     {
       "id": "INT-HIST-20260702-spain-austria",
@@ -2707,7 +3167,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Austria",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260703-argentina-cape-verde",
@@ -2730,7 +3194,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Cape Verde",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260703-australia-egypt",
@@ -2753,7 +3221,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Egypt",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260704-paraguay-france",
@@ -2776,7 +3248,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Paraguay",
+      "canonical_away_team": "France",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "FRA"
     },
     {
       "id": "INT-HIST-20260705-brazil-norway",
@@ -2799,7 +3275,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Brazil",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": "BRA",
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20260705-mexico-england",
@@ -2822,7 +3302,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Mexico",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20260706-portugal-spain",
@@ -2845,7 +3329,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Spain",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": "ESP"
     },
     {
       "id": "INT-HIST-20260706-united-states-belgium",
@@ -2868,7 +3356,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United States",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20260707-argentina-egypt",
@@ -2891,7 +3383,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Egypt",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260709-france-morocco",
@@ -2914,7 +3410,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "Morocco",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260710-spain-belgium",
@@ -2937,7 +3437,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20260711-argentina-switzerland",
@@ -2960,7 +3464,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Switzerland",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260711-norway-england",
@@ -2983,7 +3491,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Norway",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": "NOR",
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20260714-france-spain",
@@ -3006,7 +3518,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "Spain",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": "ESP"
     },
     {
       "id": "INT-HIST-20260715-england-argentina",
@@ -3029,7 +3545,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Argentina",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "ARG"
     },
     {
       "id": "INT-HIST-20260718-france-england",
@@ -3052,7 +3572,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20260719-spain-argentina",
@@ -3075,7 +3599,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Argentina",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "ARG"
     },
     {
       "id": "INT-HIST-20260724-cambodia-singapore",
@@ -3098,7 +3626,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Cambodia",
+      "canonical_away_team": "Singapore",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SGP"
     },
     {
       "id": "INT-HIST-20260727-singapore-timor-leste",
@@ -3121,7 +3653,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Singapore",
+      "canonical_away_team": "Timor-Leste",
+      "canonical_home_team_id": "SGP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260731-vietnam-singapore",
@@ -3144,7 +3680,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Vietnam",
+      "canonical_away_team": "Singapore",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SGP"
     },
     {
       "id": "INT-HIST-20260807-singapore-indonesia",
@@ -3167,7 +3707,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Singapore",
+      "canonical_away_team": "Indonesia",
+      "canonical_home_team_id": "SGP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260815-singapore-thailand",
@@ -3190,7 +3734,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Singapore",
+      "canonical_away_team": "Thailand",
+      "canonical_home_team_id": "SGP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260818-thailand-singapore",
@@ -3213,7 +3761,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Thailand",
+      "canonical_away_team": "Singapore",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SGP"
     },
     {
       "id": "INT-HIST-20260923-saudi-arabia-kuwait",
@@ -3236,7 +3788,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Kuwait",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260924-netherlands-germany",
@@ -3259,7 +3815,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Germany",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": "GER"
     },
     {
       "id": "INT-HIST-20260924-norway-denmark",
@@ -3282,7 +3842,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Norway",
+      "canonical_away_team": "Denmark",
+      "canonical_home_team_id": "NOR",
+      "canonical_away_team_id": "DEN"
     },
     {
       "id": "INT-HIST-20260924-portugal-wales",
@@ -3305,7 +3869,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Wales",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": "WAL"
     },
     {
       "id": "INT-HIST-20260924-qatar-bahrain",
@@ -3328,7 +3896,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Qatar",
+      "canonical_away_team": "Bahrain",
+      "canonical_home_team_id": "QAT",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260924-serbia-greece",
@@ -3351,7 +3923,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Serbia",
+      "canonical_away_team": "Greece",
+      "canonical_home_team_id": "SRB",
+      "canonical_away_team_id": "GRE"
     },
     {
       "id": "INT-HIST-20260924-south-korea-ecuador",
@@ -3374,7 +3950,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Ecuador",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260925-australia-brazil",
@@ -3397,7 +3977,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Brazil",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": "BRA"
     },
     {
       "id": "INT-HIST-20260925-indonesia-singapore",
@@ -3420,7 +4004,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Indonesia",
+      "canonical_away_team": "Singapore",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SGP"
     },
     {
       "id": "INT-HIST-20260925-italy-belgium",
@@ -3443,7 +4031,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Italy",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": "ITA",
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20260925-turkey-france",
@@ -3466,7 +4058,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Türkiye",
+      "canonical_away_team": "France",
+      "canonical_home_team_id": "TUR",
+      "canonical_away_team_id": "FRA"
     },
     {
       "id": "INT-HIST-20260926-czech-republic-croatia",
@@ -3489,7 +4085,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Czechia",
+      "canonical_away_team": "Croatia",
+      "canonical_home_team_id": "CZE",
+      "canonical_away_team_id": "CRO"
     },
     {
       "id": "INT-HIST-20260926-england-spain",
@@ -3512,7 +4112,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Spain",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "ESP"
     },
     {
       "id": "INT-HIST-20260926-saudi-arabia-oman",
@@ -3535,7 +4139,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Oman",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260927-denmark-wales",
@@ -3558,7 +4166,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Denmark",
+      "canonical_away_team": "Wales",
+      "canonical_home_team_id": "DEN",
+      "canonical_away_team_id": "WAL"
     },
     {
       "id": "INT-HIST-20260927-germany-greece",
@@ -3581,7 +4193,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Greece",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": "GRE"
     },
     {
       "id": "INT-HIST-20260927-norway-portugal",
@@ -3604,7 +4220,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Norway",
+      "canonical_away_team": "Portugal",
+      "canonical_home_team_id": "NOR",
+      "canonical_away_team_id": "POR"
     },
     {
       "id": "INT-HIST-20260927-serbia-netherlands",
@@ -3627,7 +4247,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Serbia",
+      "canonical_away_team": "Netherlands",
+      "canonical_home_team_id": "SRB",
+      "canonical_away_team_id": "NED"
     },
     {
       "id": "INT-HIST-20260927-yemen-qatar",
@@ -3650,7 +4274,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Yemen",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20260928-belgium-france",
@@ -3673,7 +4301,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belgium",
+      "canonical_away_team": "France",
+      "canonical_home_team_id": "BEL",
+      "canonical_away_team_id": "FRA"
     },
     {
       "id": "INT-HIST-20260928-japan-venezuela",
@@ -3696,7 +4328,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Japan",
+      "canonical_away_team": "Venezuela",
+      "canonical_home_team_id": "JPN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260928-singapore-bangladesh",
@@ -3719,7 +4355,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Singapore",
+      "canonical_away_team": "Bangladesh",
+      "canonical_home_team_id": "SGP",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260928-south-korea-uruguay",
@@ -3742,7 +4382,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20260928-turkey-italy",
@@ -3765,7 +4409,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Türkiye",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": "TUR",
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20260929-australia-brazil",
@@ -3788,7 +4436,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Australia",
+      "canonical_away_team": "Brazil",
+      "canonical_home_team_id": "AUS",
+      "canonical_away_team_id": "BRA"
     },
     {
       "id": "INT-HIST-20260929-czech-republic-england",
@@ -3811,7 +4463,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Czechia",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": "CZE",
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20260929-saudi-arabia-iraq",
@@ -3834,7 +4490,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Iraq",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260929-spain-croatia",
@@ -3857,7 +4517,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Croatia",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "CRO"
     },
     {
       "id": "INT-HIST-20260930-argentina-bolivia",
@@ -3880,7 +4544,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Bolivia",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20260930-united-arab-emirates-qatar",
@@ -3903,7 +4571,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "United Arab Emirates",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20261001-argentina-bolivia",
@@ -3928,7 +4600,11 @@
       "quality_notes": [
         "Same Argentina 4-0 Bolivia match appears on 2026-09-30 and 2026-10-01; excluded from form features pending record-level resolution."
       ],
-      "included_in_form": false
+      "included_in_form": false,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Bolivia",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261001-denmark-portugal",
@@ -3951,7 +4627,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Denmark",
+      "canonical_away_team": "Portugal",
+      "canonical_home_team_id": "DEN",
+      "canonical_away_team_id": "POR"
     },
     {
       "id": "INT-HIST-20261001-germany-serbia",
@@ -3974,7 +4654,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Germany",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": "GER",
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20261001-greece-netherlands",
@@ -3997,7 +4681,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Greece",
+      "canonical_away_team": "Netherlands",
+      "canonical_home_team_id": "GRE",
+      "canonical_away_team_id": "NED"
     },
     {
       "id": "INT-HIST-20261001-japan-ecuador",
@@ -4020,7 +4708,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Japan",
+      "canonical_away_team": "Ecuador",
+      "canonical_home_team_id": "JPN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261001-malaysia-singapore",
@@ -4043,7 +4735,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Malaysia",
+      "canonical_away_team": "Singapore",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "SGP"
     },
     {
       "id": "INT-HIST-20261001-wales-norway",
@@ -4066,7 +4762,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20261002-belgium-turkey",
@@ -4089,7 +4789,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Belgium",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": "BEL",
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20261002-france-italy",
@@ -4112,7 +4816,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "Italy",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": "ITA"
     },
     {
       "id": "INT-HIST-20261002-south-korea-venezuela",
@@ -4135,7 +4843,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Venezuela",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261003-argentina-burkina-faso",
@@ -4158,7 +4870,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Burkina Faso",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261003-croatia-england",
@@ -4181,7 +4897,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Croatia",
+      "canonical_away_team": "England",
+      "canonical_home_team_id": "CRO",
+      "canonical_away_team_id": "ENG"
     },
     {
       "id": "INT-HIST-20261003-india-brazil",
@@ -4204,7 +4924,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "India",
+      "canonical_away_team": "Brazil",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "BRA"
     },
     {
       "id": "INT-HIST-20261003-saudi-arabia-qatar",
@@ -4227,7 +4951,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "Qatar",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": "QAT"
     },
     {
       "id": "INT-HIST-20261003-spain-czech-republic",
@@ -4250,7 +4978,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Spain",
+      "canonical_away_team": "Czechia",
+      "canonical_home_team_id": "ESP",
+      "canonical_away_team_id": "CZE"
     },
     {
       "id": "INT-HIST-20261004-greece-germany",
@@ -4273,7 +5005,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Greece",
+      "canonical_away_team": "Germany",
+      "canonical_home_team_id": "GRE",
+      "canonical_away_team_id": "GER"
     },
     {
       "id": "INT-HIST-20261004-netherlands-serbia",
@@ -4296,7 +5032,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Netherlands",
+      "canonical_away_team": "Serbia",
+      "canonical_home_team_id": "NED",
+      "canonical_away_team_id": "SRB"
     },
     {
       "id": "INT-HIST-20261004-portugal-norway",
@@ -4319,7 +5059,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Portugal",
+      "canonical_away_team": "Norway",
+      "canonical_home_team_id": "POR",
+      "canonical_away_team_id": "NOR"
     },
     {
       "id": "INT-HIST-20261004-wales-denmark",
@@ -4342,7 +5086,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Wales",
+      "canonical_away_team": "Denmark",
+      "canonical_home_team_id": "WAL",
+      "canonical_away_team_id": "DEN"
     },
     {
       "id": "INT-HIST-20261005-france-belgium",
@@ -4365,7 +5113,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "France",
+      "canonical_away_team": "Belgium",
+      "canonical_home_team_id": "FRA",
+      "canonical_away_team_id": "BEL"
     },
     {
       "id": "INT-HIST-20261005-italy-turkey",
@@ -4388,7 +5140,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Italy",
+      "canonical_away_team": "Türkiye",
+      "canonical_home_team_id": "ITA",
+      "canonical_away_team_id": "TUR"
     },
     {
       "id": "INT-HIST-20261005-japan-new-zealand",
@@ -4411,7 +5167,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Japan",
+      "canonical_away_team": "New Zealand",
+      "canonical_home_team_id": "JPN",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261006-argentina-benin",
@@ -4434,7 +5194,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Argentina",
+      "canonical_away_team": "Benin",
+      "canonical_home_team_id": "ARG",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261006-croatia-spain",
@@ -4457,7 +5221,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Croatia",
+      "canonical_away_team": "Spain",
+      "canonical_home_team_id": "CRO",
+      "canonical_away_team_id": "ESP"
     },
     {
       "id": "INT-HIST-20261006-england-czech-republic",
@@ -4480,7 +5248,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "England",
+      "canonical_away_team": "Czechia",
+      "canonical_home_team_id": "ENG",
+      "canonical_away_team_id": "CZE"
     },
     {
       "id": "INT-HIST-20261006-india-uruguay",
@@ -4503,7 +5275,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "India",
+      "canonical_away_team": "Uruguay",
+      "canonical_home_team_id": null,
+      "canonical_away_team_id": "URU"
     },
     {
       "id": "INT-HIST-20261006-saudi-arabia-united-arab-emirates",
@@ -4526,7 +5302,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "Saudi Arabia",
+      "canonical_away_team": "United Arab Emirates",
+      "canonical_home_team_id": "KSA",
+      "canonical_away_team_id": null
     },
     {
       "id": "INT-HIST-20261006-south-korea-uzbekistan",
@@ -4549,7 +5329,11 @@
       },
       "quality_status": "provisional_cc0_multisource",
       "quality_notes": [],
-      "included_in_form": true
+      "included_in_form": true,
+      "canonical_home_team": "South Korea",
+      "canonical_away_team": "Uzbekistan",
+      "canonical_home_team_id": "KOR",
+      "canonical_away_team_id": null
     }
   ]
 }
