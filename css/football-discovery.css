@@ -50,3 +50,7 @@ header .discovery-search{position:relative;max-width:780px;margin:13px auto 0;pa
 .fixture-team-line .fixture-team-name{flex:1}
 .fixture-team-line .vs{flex:0 0 auto;margin:0 2px}
 @media(max-width:380px){.discovery-team-crest{width:30px;height:30px;flex-basis:30px}.fixture-match-teams{gap:5px}.fixture-team{gap:4px}.fixture-team>span:last-child{font-size:11px}}
+
+/* Final polish: keep a reliable crest fallback when a logo URL fails. */
+.discovery-crest-wrap,.team-crest-wrap{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+.discovery-crest-wrap [hidden],.team-crest-wrap [hidden]{display:none!important}

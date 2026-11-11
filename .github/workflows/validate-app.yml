@@ -26,6 +26,7 @@ on:
       - "js/test-experiment-enhancements.js"
       - "tests/test_asian_handicap.js"
       - "sw.js"
+      - "js/football-discovery.js"
       - "js/probability-metrics.js"
       - "js/test-experiment.js"
       - "tests/test_experiment_fixture_contract.py"
@@ -107,6 +108,8 @@ jobs:
           print("Application structure and Phase 4.7 analytics feature markers are present.")
           PY
           node --check /tmp/football-time-app.js
+          node --check sw.js
+          node --check js/football-discovery.js
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
           node --check js/test-experiment-enhancements.js

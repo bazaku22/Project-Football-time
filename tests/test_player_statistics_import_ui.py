@@ -39,7 +39,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v39", WORKER)
+        self.assertIn("football-time-v40", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
         self.assertIn('"./css/ui-refresh-v2.css"', WORKER)
         self.assertIn('"./js/football-discovery.js"', WORKER)
@@ -61,8 +61,18 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("renderTeamCrest(homeTeam)", HTML)
         self.assertIn("renderTeamCrest(awayTeam)", HTML)
         self.assertIn("fixture-match-teams", HTML)
-        self.assertIn("football-time-v39", WORKER)
+        self.assertIn("football-time-v40", WORKER)
 
+
+    def test_phase_a_broken_crest_urls_fall_back_to_initials(self):
+        self.assertIn("this.nextElementSibling.hidden=false", DISCOVERY)
+        self.assertIn("this.nextElementSibling.hidden=false", HTML)
+        self.assertIn("discovery-crest-wrap", DISCOVERY)
+        self.assertIn("team-crest-wrap", HTML)
+
+    def test_service_worker_and_html_have_no_literal_newline_escape_corruption(self):
+        self.assertNotIn("\\n", WORKER)
+        self.assertNotIn("\\n", HTML)
 
 if __name__ == "__main__":
     unittest.main()
