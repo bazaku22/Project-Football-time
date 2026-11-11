@@ -11,14 +11,31 @@ let previewId=null;
 let currentSession=null;
 let privateRecords=[];
 function clearPreview(){$("playerCloudPreviewPanel").hidden=true;$("playerCloudPreviewSummary").textContent="";previewId=null;}
+async function loadPlayerStatistics(){
+ try{
+  if(!currentSession?.access_token){window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"กรุณาเข้าสู่ระบบเพื่อดูสถิติส่วนตัว"}}));return;}
+  const [statsRes,playersRes,idsRes,membersRes]=await Promise.all([
+   supabase.from("ft_player_stats_current").select("id,player_id,season,competition_id,team_id,squad_level,statistics_scope,stats,verification_status,updated_at").eq("season","2025/26").eq("team_id","arsenal").order("updated_at",{ascending:false}),
+   supabase.from("ft_players").select("id,display_name,position"),
+   supabase.from("ft_player_source_ids").select("player_id,source_name,provider_player_id,verification_status"),
+   supabase.from("ft_player_memberships").select("player_id,team_id,season,squad_level").eq("season","2025/26").eq("team_id","arsenal")
+  ]);
+  const error=statsRes.error||playersRes.error||idsRes.error||membersRes.error;if(error)throw error;
+  const players=new Map((playersRes.data||[]).map(x=>[x.id,x]));
+  const ids=new Map((idsRes.data||[]).map(x=>[x.player_id,x]));
+  const memberships=new Map((membersRes.data||[]).map(x=>[x.player_id,x]));
+  const rows=(statsRes.data||[]).map(x=>({id:x.id,player:players.get(x.player_id)||{},sourceId:ids.get(x.player_id)||{},membership:memberships.get(x.player_id)||{},season:x.season,competition:x.competition_id,stats:x.stats||{},verificationStatus:x.verification_status,updatedAt:x.updated_at}));
+  window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows,status:"อ่านข้อมูลจาก Supabase ตามสิทธิ์บัญชีแล้ว"}}));
+ }catch(error){window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"โหลดสถิติไม่สำเร็จ: "+(error?.message||"เกิดข้อผิดพลาด")}}));}
+}
 async function loadPrivateData(session){
  currentSession=session||null;privateRecords=[];
- if(!session?.access_token){privateRecords=[];publishData([],null);$("playerCloudLogin").hidden=false;$("playerCloudSignedIn").hidden=true;clearPreview();status("ยังไม่ได้เข้าสู่ระบบ · ข้อมูล Cloud ส่วนตัวถูกซ่อนไว้");return;}
+ if(!session?.access_token){privateRecords=[];publishData([],null);await loadPlayerStatistics();$("playerCloudLogin").hidden=false;$("playerCloudSignedIn").hidden=true;clearPreview();status("ยังไม่ได้เข้าสู่ระบบ · ข้อมูล Cloud ส่วนตัวถูกซ่อนไว้");return;}
  $("playerCloudLogin").hidden=true;$("playerCloudSignedIn").hidden=false;$("playerCloudUser").textContent="บัญชี: "+(session.user?.email||"เข้าสู่ระบบแล้ว");status("กำลังโหลดข้อมูลส่วนตัวจาก Cloud…");
  const {data,error}=await supabase.functions.invoke("player-data",{body:{}});
  if(error||data?.error){publishData([],null);status("เข้าสู่ระบบแล้ว แต่โหลดข้อมูล Cloud ไม่สำเร็จ: "+(data?.error||error.message));return;}
  privateRecords=Array.isArray(data?.records)?data.records:[];
- publishData(privateRecords,data?.latestSync||null);status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
+ publishData(privateRecords,data?.latestSync||null);await loadPlayerStatistics();status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
 }
 $("playerCloudSendLink").addEventListener("click",async()=>{
  const button=$("playerCloudSendLink"),email=$("playerCloudEmail").value.trim();if(!email){status("กรุณากรอกอีเมลก่อน");return;}button.disabled=true;status("กำลังส่งลิงก์เข้าสู่ระบบ…");

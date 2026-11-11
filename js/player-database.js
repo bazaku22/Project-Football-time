@@ -7,6 +7,20 @@
  const valid=r=>r&&typeof r==="object"&&["id","playerId","name","teamId","leagueId","season"].every(k=>typeof r[k]==="string")&&r.statistics&&typeof r.statistics==="object";
  const merge=()=>{const m=new Map();central.forEach(r=>{if(valid(r))m.set(r.id,r)});local.forEach(r=>{if(valid(r))m.set(r.id,r)});all=[...m.values()]};
  const fmt=v=>v===null||v===undefined||v===""?"—":esc(v);
+ function renderCloudStats(payload){
+  const root=$("playerStatsCloudList"),summary=$("playerStatsCloudSummary"),status=$("playerStatsCloudStatus");
+  if(!root||!summary||!status)return;
+  const rows=Array.isArray(payload?.rows)?payload.rows:[];
+  status.textContent=payload?.status||"ยังไม่ได้โหลดสถิติ";
+  summary.innerHTML='<div class="db-kpi"><b>'+rows.length+'</b><span>ชุดสถิติจาก Cloud</span></div><div class="db-kpi"><b>'+rows.filter(r=>r.verificationStatus==="verified").length+'</b><span>ชุดที่ยืนยันแล้ว</span></div>';
+  if(!rows.length){root.innerHTML='<div class="empty">ยังไม่มีสถิติที่แสดงได้ หรือกรุณาเข้าสู่ระบบ</div>';return;}
+  root.innerHTML=rows.map(r=>{
+   const s=r.stats||{},p=r.player||{},source=r.sourceId||{};
+   const items=[["ลงเล่น",s.appearances],["ตัวจริง",s.starts],["นาที",s.minutes_played],["ประตู",s.goals],["แอสซิสต์",s.assists],["xG",s.xg],["xA",s.xa],["ยิง",s.shots],["ยิงเข้ากรอบ",s.shots_on_target],["Key passes",s.key_passes],["Tackles",s.tackles],["Interceptions",s.interceptions],["ใบเหลือง",s.yellow_cards],["ใบแดง",s.red_cards]];
+   return '<article class="card"><div class="topline"><b>'+esc(p.display_name||"ไม่ระบุชื่อ")+'</b><span class="tag">'+(r.verificationStatus==="verified"?"ยืนยันแล้ว":"รอตรวจสอบ")+'</span></div><div class="small">Arsenal · '+esc(r.season)+' · '+esc(p.position||"ไม่ระบุตำแหน่ง")+'</div><div class="p5-score">'+items.map(([label,value])=>'<div class="p5-metric"><b>'+fmt(value)+'</b><span>'+label+'</span></div>').join("")+'</div><div class="small">OpenPlay ID: '+esc(source.provider_player_id||"—")+' · ID สถานะ: '+esc(source.verification_status||"—")+' · ขอบเขต: '+esc(r.competition)+'</div><div class="small">แหล่งข้อมูล: OpenPlay · CC BY 4.0 · 2025/26</div></article>';
+  }).join("");
+ }
+ window.addEventListener("pft-player-stats-data",event=>renderCloudStats(event.detail||{}));
  function render(){
   const lf=$("playerLeagueFilter"),tf=$("playerTeamFilter"),q=$("playerSearch").value.trim().toLocaleLowerCase(),oldL=lf.value||"ALL",oldT=tf.value||"ALL";
   const leagues=[...new Map(all.map(r=>[r.leagueId,r.leagueName||r.leagueId])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
