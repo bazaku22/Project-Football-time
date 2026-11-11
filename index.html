@@ -814,9 +814,11 @@ async function loadAsianHandicapOdds(){
   asianHandicapOddsData=data;
   if(target)target.innerHTML='<div class="small">อัปเดตชุดข้อมูลล่าสุด '+dateTime(data.fetchedAt)+' · ใช้โควตา '+esc(String(data.quota?.used??"ไม่ทราบ"))+' · คงเหลือ '+esc(String(data.quota?.remaining??"ไม่ทราบ"))+'</div><div class="quality-note">แสดงเฉพาะเส้น Handicap ที่ผู้ให้บริการส่งกลับมาจริง ไม่พบข้อมูลจะไม่เติมค่าคาดเดา</div>';
   if(footballDB)renderProbabilityAnalysis();
+  window.dispatchEvent(new Event("pft-handicap-reference-ready"));
  }catch(error){
   asianHandicapOddsData=null;
   if(target)target.innerHTML='<div class="empty">ยังไม่มีข้อมูล Handicap จากผู้ให้บริการ · '+esc(error.message)+' · ระบบจะไม่คาดเดาเส้นราคา</div>';
+  window.dispatchEvent(new Event("pft-handicap-reference-ready"));
  }
 }
 function findAutomaticHandicap(match){
