@@ -776,7 +776,7 @@ function renderProbabilityAnalysis(){
  if(fixtures.some(m=>String(m.providerMatchId)===previous))matchSelect.value=previous;
  leagueSelect.onchange=()=>renderProbabilityAnalysis();matchSelect.onchange=()=>renderProbabilityAnalysis();
  const match=fixtures.find(m=>String(m.providerMatchId)===matchSelect.value)||fixtures[0],output=document.getElementById("probabilityOutput");
- if(!match){output.innerHTML='<div class="empty">ไม่มีโปรแกรมแข่งขันที่ยังไม่เริ่มในลีกนี้</div>';return;}
+ if(!match){output.innerHTML='<div class="empty">ไม่มีโปรแกรมแข่งขันที่ยังไม่เริ่มในลีกนี้</div>';const handicap=document.getElementById("automaticHandicapOdds");if(handicap)handicap.innerHTML='<div class="empty">ไม่มีคู่แข่งขันในลีกนี้สำหรับแสดงเส้นอ้างอิง</div>';return;}
  const result=computeMatchProbability(match);
  renderAutomaticHandicap(match,result);
  if(!result){output.innerHTML='<div class="empty">ข้อมูลผลการแข่งขันย้อนหลังยังไม่เพียงพอสำหรับคำนวณ</div>';return;}
