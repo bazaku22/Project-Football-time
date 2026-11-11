@@ -201,7 +201,7 @@
     return '<details class="mc-intl-details"><summary>รายละเอียดโปรแกรมทีมชาติ</summary>' +
       '<div>รายการ: ' + esc(match.competitionName) + '</div><div>' + esc(venue) + '</div>' +
       '<div>' + esc(timeNote) + '</div><div class="mc-intl-source">แหล่งข้อมูล: ' + (sources || "ไม่ระบุ") + '</div>' +
-      '<p>ชุดข้อมูลทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · ยังไม่แสดงผลวิเคราะห์ทีมชาติ</p></details>';
+      '<p>ชุดข้อมูลทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · ยังไม่แสดงผลวิเคราะห์ทีมชาติ · สิทธิ์เผยแพร่ต่อยังไม่ได้รับการยืนยัน</p></details>';
   }
   function renderCard(match) {
     const isInternational = match.isInternational === true;
