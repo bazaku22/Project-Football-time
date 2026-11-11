@@ -159,7 +159,7 @@ if os.path.exists(previous_database_path):
         previous_probability_snapshots = []
 
 database = {
-    "schemaVersion": "1.1.0",
+    "schemaVersion": "1.2.0",
     "generatedAt": sync_time,
     "source": {
         "provider": "football-data.org",
