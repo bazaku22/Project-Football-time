@@ -124,36 +124,9 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('renderLeagueFilters()', MODULE)
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
-        self.assertEqual(len(re.findall(r"\\bfetch\\s*\\(", MODULE)), 2)
+        self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
         self.assertIn('football-time-v52', WORKER)
 
 
 if __name__ == "__main__":
     unittest.main()
-
-
-    def test_daily_calendar_filters_by_bangkok_date(self):
-        self.assertIn('id="matchCenterDate"', HTML)
-        self.assertIn('id="matchCenterDateStrip"', HTML)
-        self.assertIn('data-calendar-shift="-7"', HTML)
-        self.assertIn('data-calendar-shift="7"', HTML)
-        self.assertIn('function matchDateKey(match)', MODULE)
-        self.assertIn('matchDateKey(match) === selectedDate', MODULE)
-        self.assertIn('timeZone:"Asia/Bangkok"', MODULE)
-        self.assertIn('function shiftDateKey(dateKey, days)', MODULE)
-
-    def test_category_and_multi_competition_filters_are_present(self):
-        for category in ("all","club","international"):
-            self.assertIn('data-match-category="' + category + '"', HTML)
-        self.assertIn('id="matchCenterLeagueFilters"', HTML)
-        self.assertIn('activeLeagues = new Set()', MODULE)
-        self.assertIn('activeLeagues.has(value)', MODULE)
-        self.assertIn('COMP:', MODULE)
-        self.assertIn('leagueFilterValues(match)', MODULE)
-        self.assertIn('renderLeagueFilters()', MODULE)
-
-    def test_calendar_is_read_only_and_adds_no_providers(self):
-        self.assertIn('fetch("./data/international-match-fixtures-r1.json")', MODULE)
-        self.assertIn('fetch("./data/international-handicap-snapshots-r1.json")', MODULE)
-        self.assertNotIn('matchCenterDate', WORKER)
-        self.assertIn('football-time-v52', WORKER)
