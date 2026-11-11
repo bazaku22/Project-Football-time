@@ -104,7 +104,7 @@ def main():
                 "leagueId": "PL",
                 "season": "2025-2026",
                 "utcDate": past.isoformat(),
-                "createdAt": past.isoformat(),
+                "createdAt": (past - timedelta(days=1)).isoformat(),
                 "probabilities": {"home": 40.0, "draw": 30.0, "away": 30.0},
             }
             for index in range(2501)
