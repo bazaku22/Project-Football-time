@@ -50,6 +50,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 /* Phase 5: advanced analysis */
 .p5-score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.p5-metric{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.p5-metric b{display:block;font-size:20px}.p5-metric span{font-size:10px;color:var(--muted)}.p5-bar{height:7px;background:#344653;border-radius:8px;overflow:hidden;margin-top:7px}.p5-bar i{display:block;height:100%;background:var(--green)}.p5-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.p5-row:last-child{border:0}.p5-note{padding:10px;border-left:3px solid var(--gold);background:#252b2d;border-radius:5px;color:var(--muted);font-size:11px;line-height:1.65;margin:9px 0}.p5-good{color:var(--green)}.p5-warn{color:var(--gold)}.p5-bad{color:#f39b8f}@media(max-width:380px){.p5-score{grid-template-columns:1fr 1fr}}
  .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}
+.experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 </head>
@@ -66,7 +67,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="field"><label>วันที่แข่งขัน *</label><input id="matchDate" type="date" required></div><div class="field"><label>เวลาแข่งขัน</label><input id="matchTime" maxlength="30" placeholder="20:00"></div>
  <div class="field full"><label>ทีมที่โมเดลเลือก *</label><input id="selectedTeam" required maxlength="70"></div><div class="field"><label>Handicap (ถ้ามี)</label><input id="handicap" maxlength="12" placeholder="-0.5"></div><div class="field"><label>โอกาสตามโมเดล (%) *</label><input id="prob" type="number" min="0" max="100" required></div>
  <div class="field full"><label>สกอร์คาดการณ์</label><input id="prediction" maxlength="10" placeholder="2-1"></div></div><div class="form-actions"><button class="primary" type="submit">บันทึกรายการ</button><button class="secondary" type="button" id="cancelAdd">ยกเลิก</button></div></form></section>
- <div class="sectionhead"><h2>รายการที่ติดตาม</h2><span class="small">บันทึกก่อนแข่ง</span></div><div id="matches"></div>
+ <div class="sectionhead"><h2>โปรแกรมแข่งขันและชุดทดลอง 11–20 พ.ย. 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">โปรแกรมแยกตามวันแข่งขัน แสดงเวลาไทย และเก็บคำทำนายทดลองแยกจากประวัติเดิม</div><div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมชุดทดลอง…</div></div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div><div class="sectionhead"><h2>ประวัติการทดสอบเดิม (Legacy)</h2><span class="small">#001–#011 · อ่านอย่างเดียว</span></div><div id="matches"></div>
  <p class="notice">รายการทดสอบส่วนกลางโหลดจากเว็บไซต์ และรวมกับรายการที่บันทึกในอุปกรณ์นี้ · ผลหลังแข่งและรายการที่เพิ่มจากอุปกรณ์ยังจัดเก็บในเครื่องนี้</p><div class="small" id="centralRecordStatus" role="status">กำลังตรวจสอบรายการทดสอบส่วนกลาง…</div>
 </section>
 <section id="fixtures" class="page">
@@ -81,8 +82,8 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <button data-db-tab="accuracy">ความแม่นยำ</button>
  <button data-db-tab="advanced">วิเคราะห์เชิงลึก</button>
  <button data-db-tab="players">ฐานข้อมูลนักเตะ</button>
- <button data-db-tab="testfixtures">โปรแกรมทดสอบ 11–20 พ.ย.</button>
-</div><div class="db-panel" id="dbtab-testfixtures"><div class="sectionhead"><h2>โปรแกรมทดสอบ 11–20 พฤศจิกายน 2026</h2><span class="small" id="testFixturesCount">กำลังโหลด…</span></div><div class="quality-note">แสดงวันแข่งขันตามปฏิทินของรายการ พร้อมเวลาไทย (ICT, UTC+7) แยกชัดเจนเมื่อเวลาไทยข้ามไปวันถัดไป เวลาอ้างอิงและแหล่งข้อมูลแสดงในแต่ละคู่ โปรแกรมนี้แยกจากฐานข้อมูล 5 ลีกหลักและไม่ถูกนำไปคำนวณ Poisson หรือ Calibration ของลีก</div><div id="testFixturesList"><div class="empty">กำลังโหลดโปรแกรม…</div></div></div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
+
+</div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
  <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">5 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
  <div class="pillrow" id="leaguePicker"></div>
  <div class="sectionhead"><h2 id="selectedLeagueTitle">Premier League</h2><span class="small" id="selectedLeagueCountry"></span></div>
@@ -817,6 +818,7 @@ loadFootballDatabase();
 loadTestFixtures();
 if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Service worker registration failed",e));
 </script>
+<script src="./js/test-experiment.js"></script>
 <script src="./js/player-database.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
