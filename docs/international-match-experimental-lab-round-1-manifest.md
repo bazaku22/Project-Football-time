@@ -153,6 +153,8 @@ Only results with a clear senior men's match, date, and score are listed below. 
 | Brazil | 03/10/2026 | Brazil vs India | 4–0 | CBF |
 | South Korea | 28/09/2026 | Korea Republic vs Uruguay | 1–4 | AUF match centre |
 | Argentina | 30/09/2026 | Argentina vs Bolivia | 4–0 | AFA official match report |
+| Argentina | 03/10/2026 | Argentina vs Burkina Faso | 7–0 | AFA official match report; AFA's fixture notice confirms 3 Oct local date |
+| Argentina | 06/10/2026 | Argentina vs Benin | 3–0 | AFA official match report; FIFA archive confirms 6 Oct date |
 
 Official result pages:
 - SAFF senior national team match list: https://www.saff.com.sa/en/nationalteams.php?id=1&type=2
@@ -161,7 +163,11 @@ Official result pages:
 - JFA SAMURAI BLUE fixtures and results: https://jfa.jp/samuraiblue/
 - AUF September–October 2026 senior team results (Japan 3–1 Uruguay; Korea Republic 1–4 Uruguay): https://www.auf.org.uy/buscar/Fecha%2BFIFA/pag/2/
 - AUF Korea Republic 1–4 Uruguay match centre: https://www.auf.org.uy/amistosocorea-del-sur-vs-uruguay523430/
-- AFA Argentina 4–0 Bolivia match report: https://www.afa.com.ar/es/posts/la-seleccion-argentina-se-mide-ante-bolivia-en-cordoba
+- AFA Argentina 4–0 Bolivia match report (30 Sep): https://www.afa.com.ar/es/posts/la-seleccion-argentina-vencio-4-0-a-bolivia-en-cordoba
+- AFA Argentina 7–0 Burkina Faso match report: https://www.afa.com.ar/es/posts/la-seleccion-argentina-le-gano-7-0-a-burkina-faso-en-el-segundo-amistoso-de-la-fecha-fifa
+- AFA Argentina October friendly schedule (Bolivia 30 Sep, Burkina Faso 3 Oct, Benin 6 Oct): https://www.afa.com.ar/es/posts/amistosos-internacionales-en-argentina
+- AFA Argentina 3–0 Benin match report: https://www.afa.com.ar/es/posts/la-seleccion-argentina-despidio-a-lionel-messi-con-una-goleada-ante-benin
+- FIFA international match archive (cross-check for 6 Oct Benin date and 7 Oct latest archive entries): https://inside.fifa.com/data-centre/matches
 - CBF Brazil 2–4 Australia report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos/jogos-selecao-masculina/brasil-vence-a-australia-por-4-a-2
 - CBF Brazil 4–0 India report: https://www.cbf.com.br/selecao-brasileira/noticias/jogos-selecao-masculina/a/brasil-goleia-a-india-em-em-calcuta
 
@@ -171,10 +177,10 @@ Official result pages:
 |---|---|---:|---|
 | South Korea | vs Saudi Arabia | 1 | One result (1–4 vs Uruguay, 28 Sep) confirmed by AUF; other recent results await KFA/official-source confirmation |
 | Qatar | vs Australia | 0 | QFA fixture notice verified; recent historical score list not yet verified |
-| Argentina | vs Uruguay | 1 | One result (4–0 vs Bolivia, 30 Sep) confirmed by AFA; Burkina Faso and Benin results still await direct official match reports |
+| Argentina | vs Uruguay | 3 | Bolivia 4–0 (30 Sep), Burkina Faso 7–0 (3 Oct), and Benin 3–0 (6 Oct) confirmed by AFA; dates cross-checked against AFA's October fixture notice and FIFA archive |
 | Singapore | vs Brazil | 0 | Secondary result listings found; official FAS result source not yet verified |
 
-The official-source count is intentionally uneven: Saudi Arabia 5, Japan 4, Brazil 3 unique matches, Australia 2, Uruguay 2, South Korea 1, Argentina 1; Qatar and Singapore remain at 0 accepted results. Brazil and Australia share the same two Australia–Brazil matches; those are two match records, not four independent matches. Uruguay and South Korea share the Korea Republic–Uruguay match; it is also one match record. The Brazil–India and Argentina–Bolivia matches are distinct records.
+The official-source count is intentionally uneven: Saudi Arabia 5, Japan 4, Brazil 3 unique matches, Australia 2, Uruguay 2, Argentina 3, South Korea 1; Qatar and Singapore remain at 0 accepted results. Brazil and Australia share the same two Australia–Brazil matches; those are two match records, not four independent matches. Uruguay and South Korea share the Korea Republic–Uruguay match; it is also one match record. The Brazil–India and Argentina–Bolivia matches are distinct records.
 
 Secondary references were located for South Korea, Argentina, and Singapore, but are not accepted into the official-source sheet in this revision. If used later, retain a separate provenance class and permission review rather than silently merging them with official-source records.
 
@@ -204,10 +210,10 @@ For each team-match pre-match feature:
 - **Provisional form-ready:** at least 5 prior senior men's results are present in the pinned CC0 dataset, the team identity is normalized, and the sample is filtered strictly before kickoff. Show the actual sample count and label the data as multi-source / not federation-verified.
 - **Limited:** fewer than 10 distinct recent results, no independent federation confirmation, uncertain venue classification, mixed competition context, or unresolved data-quality flags. Use only supported features and lower the data-readiness label.
 - **Insufficient:** no usable prior results, unresolved team identity, or a material score/date conflict affecting the available sample. Exclude the affected record or team feature rather than guessing.
-- Argentina is limited to 9 distinct recent results until the duplicate-date 4–0 Bolivia entry is resolved. Do not count both dates.
+- In the pinned CC0 extract, Argentina remains limited to 9 distinct recent results because the 4–0 Bolivia entry appears twice; do not count both dates. This is a CC0-only coverage count, not the total of all independently verified AFA records. AFA separately verifies the 30 Sep Bolivia, 3 Oct Burkina Faso, and 6 Oct Benin fixtures/results.
 - Qatar and Singapore have no accepted manually verified federation historical-result rows in Section 4. Their provisional recent-form rows may come only from the pinned CC0 dataset; do not promote secondary score listings into the official-source sheet. If the CC0 row itself is missing or ambiguous, omit that feature.
 - South Korea has one independently confirmed recent result in Section 4; other recent-form rows remain CC0 multi-source records unless independently confirmed.
-- **Cut-off limitation:** the pinned CSV's latest match date is 2026-10-06. No later results are assumed. Any match between 2026-10-07 and each Round 1 kickoff must be checked separately; if it cannot be confirmed from a permitted source, leave it out and disclose that the form sample may be stale.
+- **Cut-off limitation:** the pinned CSV's latest match date is 2026-10-06. A spot-check of FIFA's public match archive shows 7 Oct entries for Mexico–Chile and USA–Canada (neither is among the 25 pilot teams), with the displayed archive's latest entries at 7 Oct. This is not proof of exhaustive coverage for every federation. No later result for a Round 1 team is accepted in this revision; if a later pre-kickoff match is found in a permitted official source, add it with provenance, otherwise disclose possible staleness and do not infer that no match occurred.
 - Readiness is separate from probability confidence.
 - Fifteen fixtures are a pilot sample, not enough to claim model superiority. Report Brier score, log loss, calibration, sample count, and uncertainty separately.
 - Separate Nations League and friendly evaluations where sample size allows.
@@ -274,7 +280,7 @@ GF/GA are descriptive averages from each team's latest available distinct match 
 7. **Score semantics:** scores in this file include extra time and exclude shoot-outs. For regulation-time model evaluation, verify knockout matches separately and do not treat shoot-out winners as 90-minute outcomes.
 8. **Source quality:** this is a CC0 multi-source compilation, not an official federation feed. Use it for exploratory form/history only; cross-check the most recent and anomalous matches against federation/competition sources before presenting match-specific explanations or making model claims.
 
-**Audit conclusion:** the source-data coverage gate is passed for a 5-match experimental form baseline across all 25 teams. It is conditionally passed for 10-match form for 24 teams; Argentina remains limited to 9 distinct matches until the duplicate-date issue is resolved. This does not authorize ingestion into production or establish that the experimental model is ready/calibrated.
+**Audit conclusion:** the pinned CC0 source-data coverage gate is passed for a 5-match experimental form baseline across all 25 teams. It is conditionally passed for 10-match form for 24 teams; Argentina remains limited to 9 distinct CC0 matches until the duplicate-date issue is resolved. AFA's three official results for Argentina are separately recorded in Section 4 and must be reconciled by match identity before any combined-source sample is assembled. This does not authorize ingestion into production or establish that the experimental model is ready/calibrated.
 
 
 ### Explicit exclusions and accepted fallback
