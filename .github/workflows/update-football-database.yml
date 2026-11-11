@@ -46,7 +46,7 @@ jobs:
 
           mkdir -p "$RUNNER_TEMP/football-data"
 
-          codes=("PL" "PD" "BL1" "SA" "FL1")
+          codes=("PL" "PD" "BL1" "SA" "FL1" "ELC")
 
           fetch_endpoint() {
             local code="$1"
