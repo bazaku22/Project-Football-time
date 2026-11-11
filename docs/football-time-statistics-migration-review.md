@@ -1,9 +1,9 @@
 # Football Time — Player Statistics Migration Review
 
-**Status:** Draft for human review only  
+**Status:** Applied to production Supabase; deployment record updated 2026-11-11  
 **Migration:** `supabase/migrations/20261111063000_create_player_statistics_foundation.sql`  
 **Target:** Supabase project `igbprkdqtsxvlcgcrqkn`  
-**Applied:** No — this SQL has not been executed against the live project.
+**Applied:** Yes — migration version `20261111064131` (`create_player_statistics_foundation`). Follow-up privilege hardening migration `20261111064223` (`restrict_player_statistics_service_role_grants`) also applied.
 
 ## 1. Safety boundary
 
@@ -70,9 +70,9 @@ The migration does not automatically write change-history rows. A future applica
 - GitHub Actions static schema checks: passed; confirmed seven additive tables, RLS enablement statements, no destructive DDL, and pgTAP plan/assertion count 32/32.
 - Migration SQL: reviewed against the live schema metadata and current Supabase RLS guidance; not executed.
 - pgTAP schema test: added but not run because the Supabase CLI / local Postgres test environment is not available in this execution environment.
-- Live Supabase: no DDL, grants, policies, inserts, updates, or deletes were executed.
+- Live Supabase: both additive migrations applied successfully. Seven new tables are present with RLS enabled; all seven are empty. `anon` has no SELECT/INSERT privileges, `authenticated` has no DELETE privilege, and `service_role` grants are limited to the documented operations after the follow-up hardening migration. The existing tables remain unchanged: `player_records` 189 rows, `player_sync_runs` 3 rows, `player_sync_previews` 3 rows.
 
-Local disposable Supabase validation is not available in this execution environment, and creating a hosted Supabase branch may incur charges, so no branch was created. The user has explicitly approved the complete deployment sequence. Proceed only after the final GitHub CI run is green; the pgTAP assertions remain unexecuted and this limitation must be retained in the deployment record.
+Local disposable Supabase validation was not available in this execution environment; no hosted Supabase branch was created to avoid potential charges. The user explicitly approved the complete deployment sequence. GitHub CI passed the offline tests and static schema checks before merge. The pgTAP assertions remain unexecuted; this limitation must be retained in the deployment record.
 
 ## 7. Rollback plan
 
@@ -89,3 +89,14 @@ Only if the new tables are confirmed empty, or after a separately authorized com
 7. `ft_players`
 
 Never drop or truncate `player_records`, `player_sync_runs`, or `player_sync_previews` as part of this rollback.
+
+
+## 8. Production deployment record (2026-11-11)
+
+- PR #53 merged to `main`: commit `15a9a1e4bcbc8270bdf860c6dbec9b7239e35ef6`.
+- Production migration `20261111064131_create_player_statistics_foundation`: applied successfully.
+- Production migration `20261111064223_restrict_player_statistics_service_role_grants`: applied successfully. This follow-up revokes inherited/default extra grants from `service_role` on the seven new tables, then grants only SELECT/INSERT/UPDATE on mutable tables and SELECT/INSERT on append-only source/history tables.
+- Verified in production: all seven new tables exist, RLS is enabled, all seven have zero rows, `anon` has no SELECT/INSERT, authenticated has no DELETE, and service_role has no DELETE. Append-only tables deny UPDATE to both authenticated and service_role.
+- Verified existing row counts unchanged: `player_records=189`, `player_sync_runs=3`, `player_sync_previews=3`.
+- No player data was imported, no API was called, no provider quota was consumed, and no scheduled workflow was added.
+- pgTAP was not executed; only GitHub offline Python tests and static schema checks were green. Functional two-user RLS isolation and an end-to-end transaction test are still required before any production import is enabled.
