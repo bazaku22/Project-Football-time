@@ -1,5 +1,5 @@
 /* November 2026 experiment history.
- * Isolated from pft_matches_v1 and pft_probability_predictions_v1.
+ * Uses a dedicated browser store and never contributes to the core calibration history.
  */
 (function () {
   "use strict";
