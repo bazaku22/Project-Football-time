@@ -15,10 +15,12 @@ on:
       - "js/primary-navigation.js"
       - "js/match-center.js"
       - "css/analysis-refinement.css"
-      - "tests/test_asian_handicap.js"\n      - "docs/phase-6-5-match-calendar-filters.md"
+      - "tests/test_asian_handicap.js"
+      - "docs/phase-6-5-match-calendar-filters.md"
       - ".github/workflows/ui-handicap-validation.yml"
   push:
     branches:
+      - "main"
       - "feature/match-card-intelligence-v6-2"
     paths:
       - "index.html"
