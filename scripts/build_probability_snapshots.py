@@ -8,7 +8,6 @@ from datetime import datetime, timezone
 DB_PATH = "data/football-database.json"
 MODEL_VERSION = "pft-poisson-1.0"
 MAX_GOALS = 10
-MAX_SNAPSHOTS = 2500
 
 
 def parse_date(value):
@@ -49,15 +48,17 @@ def main():
     raw_snapshots = database.get("probabilitySnapshots", [])
     snapshots = []
     known_ids = set()
-    if isinstance(raw_snapshots, list):
-        for row in raw_snapshots:
-            if not isinstance(row, dict) or row.get("matchId") is None:
-                continue
-            match_id = str(row["matchId"])
-            if match_id in known_ids:
-                continue
-            snapshots.append(row)
-            known_ids.add(match_id)
+    if not isinstance(raw_snapshots, list):
+        raise ValueError("probabilitySnapshots must be a list; refusing to discard history.")
+
+    for row in raw_snapshots:
+        if not isinstance(row, dict) or row.get("matchId") is None:
+            raise ValueError("Invalid historical snapshot; refusing to discard history.")
+        match_id = str(row["matchId"])
+        if match_id in known_ids:
+            raise ValueError(f"Duplicate historical snapshot for match {match_id}; refusing to discard history.")
+        snapshots.append(row)
+        known_ids.add(match_id)
     matches_by_id = {str(match.get("providerMatchId")): match for match in matches
                      if match.get("providerMatchId") is not None}
     for snapshot in snapshots:
@@ -269,8 +270,6 @@ def main():
         added += 1
 
     snapshots.sort(key=lambda row: row.get("createdAt", ""))
-    if len(snapshots) > MAX_SNAPSHOTS:
-        snapshots = snapshots[-MAX_SNAPSHOTS:]
 
     database["probabilitySnapshots"] = snapshots
     with open(DB_PATH, "w", encoding="utf-8") as handle:
