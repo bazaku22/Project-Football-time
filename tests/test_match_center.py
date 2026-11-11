@@ -67,14 +67,14 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v47", WORKER)
+        self.assertIn("football-time-v48", WORKER)
         self.assertIn('"./css/match-center.css?v=1"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.1.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.1.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.1.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.1.0-beta.2</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.1.0-beta.2">', HTML)
+        self.assertIn('<span class="app-version">V6.1.0-beta.2</span>', HTML)
 
     def test_network_and_cache_delivery_are_distinguished(self):
         self.assertIn('headers.set("X-PFT-Data-Source", "network")', WORKER)
