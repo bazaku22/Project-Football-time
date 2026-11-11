@@ -53,6 +53,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 .experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}.result-button[hidden],.result-form[hidden]{display:none!important}#showAdd[hidden],#importBackup[hidden]{display:none!important}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
+<link rel="stylesheet" href="./css/football-discovery.css?v=1">
 </head>
 <body>
 <header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.0.0-beta.1</span></div></div></header>
@@ -916,7 +917,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent="เชื่อมต่อสำเร็จ";
-  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();
+  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready"));
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
@@ -936,6 +937,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/test-experiment-enhancements.js"></script>
 <script src="./js/player-database.js"></script>
+<script src="./js/football-discovery.js"></script>
 <script src="./js/player-stats-import.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
