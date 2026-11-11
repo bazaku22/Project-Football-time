@@ -106,13 +106,23 @@ def main() -> int:
     now = datetime.now(timezone.utc)
     end = now + timedelta(days=7)
     events, quotas = [], []
-    for league_id, (sport_key, league_name) in LEAGUES.items():
+    for index, (league_id, (sport_key, league_name)) in enumerate(LEAGUES.items()):
         try:
             payload, quota = request_league(sport_key, api_key, now, end)
-        except (HTTPError, URLError, TimeoutError, ValueError) as exc:
-            print(f"Odds request failed for {league_id}: {exc}", file=sys.stderr)
+        except HTTPError as exc:
+            print(f"Odds request failed for {league_id}: HTTP {exc.code} (API key and URL hidden).", file=sys.stderr)
+            return 1
+        except URLError as exc:
+            print(f"Odds request failed for {league_id}: network error ({type(exc.reason).__name__}).", file=sys.stderr)
+            return 1
+        except (TimeoutError, ValueError) as exc:
+            print(f"Odds request failed for {league_id}: {type(exc).__name__}: {exc}", file=sys.stderr)
             return 1
         quotas.append(quota)
+        requests_still_needed = len(LEAGUES) - index - 1
+        if quota["remaining"] is not None and quota["remaining"] < requests_still_needed:
+            print("Quota is too low to complete all five leagues; preserving the previous data file.")
+            return 0
         for item in payload:
             normalized = parse_event(item, league_id, league_name)
             if normalized:
