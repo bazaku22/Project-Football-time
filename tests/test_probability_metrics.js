@@ -12,7 +12,7 @@ const v1=snap("1","pft-poisson-1.0",{home:60,draw:25,away:15});
 const v2=snap("1","pft-poisson-2.0",{home:70,draw:20,away:10});
 const rows=[
  v1,v2,
- snap("2","pft-poisson-1.0",{home:20,draw:65,away:15}),
+ snap("2","pft-poisson-1.0",{home:20,draw:15,away:65}),
  snap("3","pft-poisson-1.0",{home:45,draw:30,away:25}),
  snap("4","bad",{home:60,draw:20,away:20},{createdAt:"2026-11-10T19:00:00Z"}),
  snap("5","bad",{home:60,draw:20,away:30}),
@@ -30,7 +30,7 @@ assert.equal(result.excludedDuplicate,1);
 assert.equal(result.outcomeDisagreements,0);
 assert.equal(result.overall.accuracy,2/3);
 assert.ok(result.overall.accuracy95.lower<result.overall.accuracy&&result.overall.accuracy95.upper>result.overall.accuracy);
-assert.ok(Math.abs(result.overall.brier-(0.245+0.815+0.815)/3)<1e-12);
+assert.ok(Math.abs(result.overall.brier-(0.245+1.185+0.14)/3)<1e-12);
 assert.ok(result.overall.logLoss>0);
 assert.ok(result.overall.topLabelEce>=0&&result.overall.topLabelEce<=1);
 assert.ok(result.overall.classwiseEce>=0&&result.overall.classwiseEce<=1);
