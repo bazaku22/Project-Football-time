@@ -1,0 +1,4 @@
+canonical_player_key,provider,provider_player_id,player_name,team_code,season,competition_code,squad_level,statistics_scope,match_id,stat_date,appearances,starts,minutes,goals,assists,shots,shots_on_target,xg,xa,yellow_cards,red_cards,saves,clean_sheets,source_url,source_record_id,collected_at,rights_status,permission_reference,notes
+,synthetic_provider,SYN-001,Synthetic Forward,ARS,2026/27,PL,first_team,season,,,5,4,360,2,1,8,4,1.4,0.3,1,0,,,,SYN-STAT-001,2026-11-11T12:00:00Z,approved,fixture-only-not-a-real-license,synthetic test data only
+,synthetic_provider,SYN-002,Synthetic Midfielder,ARS,2026/27,PL,first_team,season,,,4,3,270,1,2,5,2,0.7,0.5,0,0,,,,SYN-STAT-002,2026-11-11T12:00:00Z,approved,fixture-only-not-a-real-license,synthetic test data only
+,synthetic_provider,SYN-003,Synthetic Keeper,ARS,2026/27,PL,first_team,season,,,5,5,450,0,0,0,0,0,0,0,0,18,2,,,SYN-STAT-003,2026-11-11T12:00:00Z,manual_review,fixture-only-not-a-real-license,synthetic test data only
