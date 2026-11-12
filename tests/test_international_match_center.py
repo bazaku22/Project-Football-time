@@ -74,7 +74,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v60", WORKER)
+        self.assertIn("football-time-v61", WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
