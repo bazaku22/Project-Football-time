@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "dataset": "football-time-player-position-pilot",
+  "season": "2026/27",
+  "competition": "Premier League",
+  "team": "Manchester United",
+  "status": "research_only",
+  "collected_at": "2026-11-12T21:23:00+07:00",
+  "api_calls": 0,
+  "production_import": false,
+  "rights_status": "pending_review",
+  "notes": [
+    "This is a research/test fixture, not a production player database.",
+    "Official club squad categories are used only for broad position_group classification.",
+    "Provider position tags are retained as reported by the cited FBref table and may be multi-position.",
+    "Specific tactical position and playing role remain null until supported by match-level evidence.",
+    "Season statistics are intentionally empty: available pages mix scopes or show conflicting values and rights are not cleared.",
+    "No provider API was called and no Supabase data was written."
+  ],
+  "sources": [
+    {
+      "name": "Manchester United Men's Team",
+      "url": "https://www.manutd.com/en/teams/mens-team",
+      "purpose": "Official squad membership, shirt numbers and broad position groups"
+    },
+    {
+      "name": "Premier League Manchester United Squad",
+      "url": "https://www.premierleague.com/en/clubs/1/manchester-united/squad",
+      "purpose": "Cross-check squad membership, shirt numbers and broad position groups"
+    },
+    {
+      "name": "FBref Manchester United Stats 2026-2027",
+      "url": "https://fbref.com/en/squads/19538871/2026-2027/Manchester-United-Stats",
+      "purpose": "Cross-reference provider position tags; not treated as a licensed production feed"
+    }
+  ],
+  "players": [
+    {
+      "research_key": "bruno-fernandes",
+      "name": "Bruno Fernandes",
+      "shirt_number": 8,
+      "position_group": "MIDFIELDER",
+      "official_position_label": "Midfielder",
+      "provider_position_tags": [
+        "MF"
+      ],
+      "verified_specific_position": null,
+      "playing_roles": [],
+      "position_evidence": "club_squad_category",
+      "rights_status": "pending_review",
+      "season_statistics": {}
+    },
+    {
+      "research_key": "matheus-cunha",
+      "name": "Matheus Cunha",
+      "shirt_number": 10,
+      "position_group": "FORWARD",
+      "official_position_label": "Forward",
+      "provider_position_tags": [
+        "FW",
+        "MF"
+      ],
+      "verified_specific_position": null,
+      "playing_roles": [],
+      "position_evidence": "club_squad_category;provider_multi_position_tags",
+      "rights_status": "pending_review",
+      "season_statistics": {}
+    },
+    {
+      "research_key": "bryan-mbeumo",
+      "name": "Bryan Mbeumo",
+      "shirt_number": 19,
+      "position_group": "FORWARD",
+      "official_position_label": "Forward",
+      "provider_position_tags": [
+        "MF",
+        "FW"
+      ],
+      "verified_specific_position": null,
+      "playing_roles": [],
+      "position_evidence": "club_squad_category;provider_multi_position_tags",
+      "rights_status": "pending_review",
+      "season_statistics": {}
+    },
+    {
+      "research_key": "kobbie-mainoo",
+      "name": "Kobbie Mainoo",
+      "shirt_number": 37,
+      "position_group": "MIDFIELDER",
+      "official_position_label": "Midfielder",
+      "provider_position_tags": [
+        "MF"
+      ],
+      "verified_specific_position": null,
+      "playing_roles": [],
+      "position_evidence": "club_squad_category;provider_position_tags",
+      "rights_status": "pending_review",
+      "season_statistics": {}
+    },
+    {
+      "research_key": "harry-maguire",
+      "name": "Harry Maguire",
+      "shirt_number": 5,
+      "position_group": "DEFENDER",
+      "official_position_label": "Defender",
+      "provider_position_tags": [
+        "DF"
+      ],
+      "verified_specific_position": null,
+      "playing_roles": [],
+      "position_evidence": "club_squad_category;provider_position_tags",
+      "rights_status": "pending_review",
+      "season_statistics": {}
+    }
+  ]
+}
