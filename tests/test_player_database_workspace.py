@@ -28,7 +28,7 @@ class PlayerDatabaseWorkspaceTests(unittest.TestCase):
         cloud = (ROOT / "js/player-cloud.js").read_text()
         self.assertIn('supabase.from("ft_players")', cloud)
         self.assertIn('new CustomEvent("pft-player-directory-data"', cloud)
-        self.assertIn("playersRes.data||[]).map(p=>", cloud)
+        self.assertIn("(playersRes.data||[]).flatMap(p=>", cloud)
         self.assertIn("statistics:stat?.stats||{}", cloud)
 
     def test_advanced_tools_are_collapsed_and_primary_list_is_singular(self):
