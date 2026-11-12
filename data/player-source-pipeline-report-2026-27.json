@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "generated_at": "2026-11-12",
+  "season": "2026/27",
+  "status": "research_only",
+  "production_import": false,
+  "provider_api_calls": 0,
+  "provider_monthly_cost_thb": 0,
+  "supabase_writes": 0,
+  "supabase_deletes": 0,
+  "supabase_migrations": 0,
+  "sources": {
+    "reep_release_stamp": null,
+    "reep_input_supplied": false,
+    "wikidata_input": "local_manual_export"
+  },
+  "counts": {
+    "wikidata_candidates": 0,
+    "reep_player_entities": 0,
+    "reep_provider_bridges": 0,
+    "reep_relationship_edges": 0,
+    "reep_player_squad_or_lineup_edges": 0,
+    "wikidata_qids_matched_to_reep": 0,
+    "wikidata_qids_unmatched_to_reep": 0,
+    "wikidata_candidates_with_dated_active_p54": 0,
+    "duplicate_qid_to_reep_links": 0,
+    "overlapping_active_multi_club_candidates": 0
+  },
+  "limitations": [
+    "No Reep snapshot or Wikidata candidate export was supplied; this empty baseline is not a coverage result.",
+    "P54 is a candidate membership signal, not proof of current-season registration, first-team status or roster completeness.",
+    "Reep identity bridges do not establish current club membership.",
+    "No commercial reuse rights or Production eligibility is asserted."
+  ],
+  "unmatched_wikidata_qids": [],
+  "duplicate_reep_identity_links": [],
+  "overlapping_active_multi_club_candidates": [],
+  "identity_review_rows": []
+}

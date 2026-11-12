@@ -34,6 +34,10 @@ on:
       - "scripts/validate_player_coverage.py"
       - "tests/test_player_coverage.py"
       - "docs/player-coverage-gap-analysis-2026-11-12.md"
+      - "scripts/player_source_pipeline.py"
+      - "tests/test_player_source_pipeline.py"
+      - "data/player-source-pipeline-report-2026-27.json"
+      - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
@@ -257,6 +261,22 @@ jobs:
           python3 -m py_compile scripts/validate_player_coverage.py
           python3 -m unittest tests/test_player_coverage.py
           python3 scripts/validate_player_coverage.py
+
+      - name: Validate offline player source pipeline
+        run: |
+          python3 -m py_compile scripts/player_source_pipeline.py
+          python3 -m unittest tests/test_player_source_pipeline.py -v
+          python3 scripts/player_source_pipeline.py --output /tmp/player-source-pipeline-report.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("/tmp/player-source-pipeline-report.json").read_text(encoding="utf-8"))
+          if report.get("production_import") is not False or report.get("provider_api_calls") != 0:
+              raise SystemExit("Offline player source pipeline safety contract failed")
+          if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
+              raise SystemExit("Production Supabase mutation is forbidden in this pipeline")
+          print("Offline source pipeline safety contract is valid.")
+          PY
 
       - name: Validate player importer and database JSON
         run: |
