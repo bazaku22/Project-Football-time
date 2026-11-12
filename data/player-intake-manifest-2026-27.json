@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "season": "2026/27",
+  "status": "draft",
+  "production_import": false,
+  "provider_api_calls": 0,
+  "records_count": 0,
+  "notes": "Empty starter template. Add only source records with independently verified reuse rights and player memberships with current-season club evidence. This file is not an import instruction.",
+  "sources": [],
+  "memberships": []
+}
