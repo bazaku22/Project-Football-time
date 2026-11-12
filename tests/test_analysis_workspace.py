@@ -33,10 +33,10 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("insightTarget.replaceChildren()", body)
 
     def test_app_and_service_worker_versions_are_aligned(self):
-        self.assertIn('application-version" content="6.7.0-beta.1"', self.html)
-        self.assertIn('football-time-v54', self.service_worker)
-        self.assertIn('application-version" content="6.7.0-beta.1"', self.workflow)
-        self.assertIn('football-time-v54', self.workflow)
+        self.assertIn('application-version" content="6.7.1-beta.1"', self.html)
+        self.assertIn('football-time-v55', self.service_worker)
+        self.assertIn('application-version" content="6.7.1-beta.1"', self.workflow)
+        self.assertIn('football-time-v55', self.workflow)
 
     def test_probability_model_and_handicap_panel_remain_present(self):
         self.assertIn("function computeMatchProbability(", self.html)
