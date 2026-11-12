@@ -89,6 +89,11 @@ def normalize(payload: dict[str, Any], collected_at: str | None = None) -> dict[
         team = game.get(side)
         if isinstance(team, dict) and team.get("team_id") and team.get("abbrev"):
             team_codes[str(team["team_id"])] = str(team["abbrev"]).strip().upper()
+    team_codes = {}
+    for side in ("home", "away"):
+        team = game.get(side)
+        if isinstance(team, dict) and team.get("team_id") and team.get("abbrev"):
+            team_codes[str(team["team_id"])] = str(team["abbrev"]).strip().upper()
     rows = []
     seen = set()
     for player in players:
@@ -98,6 +103,9 @@ def normalize(payload: dict[str, Any], collected_at: str | None = None) -> dict[
         team_code = str(player.get("team_id") or "").strip()
         if not pid or not team_code:
             continue
+        canonical_team_code = team_codes.get(team_code)
+        if not canonical_team_code:
+            raise ValueError(f"player team_id {team_code} is not present in match home/away metadata")
         canonical_team_code = team_codes.get(team_code)
         if not canonical_team_code:
             raise ValueError(f"player team_id {team_code} is not present in match home/away metadata")
