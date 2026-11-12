@@ -15,7 +15,7 @@ This is a source-specific intake review for the five Football Time leagues: Prem
 
 ## Engineering decision
 
-<badge>Candidate — not yet accessed</badge>
+**Status: Candidate — not yet accessed**
 
 StrikerAPI is currently the strongest practical candidate for a controlled 2026/27 pilot because:
 1. its official docs list all five target leagues;
