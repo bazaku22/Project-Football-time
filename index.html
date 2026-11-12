@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.7.2-beta.1">
-<title>Project Football Time V6.7.2-beta.1</title>
+<meta name="application-version" content="6.8.0-beta.1">
+<title>Project Football Time V6.8.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -60,12 +60,14 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/match-center.css?v=2">
 <link rel="stylesheet" href="./css/primary-navigation.css?v=1">
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
+<link rel="stylesheet" href="./css/international-handicap.css?v=1">
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
+<script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.7.2-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.8.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -1158,6 +1160,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/football-discovery.js"></script>
 <script src="./js/match-center.js"></script>
 <script src="./js/primary-navigation.js"></script>
+<script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/player-stats-import.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
