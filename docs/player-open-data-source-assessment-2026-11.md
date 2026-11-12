@@ -59,3 +59,24 @@ A candidate can be approved for a specific data field only after all applicable 
 - UOC dataset metadata and CC BY-NC-SA 4.0 licence: https://recerca.uoc.edu/documentos/69cfd56916de95024f74cf0f
 
 This assessment is an engineering intake decision, not legal advice or a final legal opinion. Re-review source terms and release metadata before each new ingestion.
+
+
+## Follow-up source scan — 2026-11-12
+
+A second discovery pass checked additional roster and open-data leads. None changes the approval decision above.
+
+| Candidate | Current evidence | Limitation / rights position | Decision |
+|---|---|---|---|
+| [Wikidata structured data](https://www.wikidata.org/wiki/Wikidata:Licensing) | Structured data is released under CC0. Player-to-team statements can use property P54 (member of sports team), sometimes with start/end qualifiers. | CC0 addresses Wikidata's structured-data copyright status, not factual completeness or correctness. Statements may be missing, stale, unsourced, or lack season registration / first-team scope. Club relationships must be checked per player with qualifiers, references, and observation date; coverage across all five leagues has not been measured. | **Conditional discovery and cross-check source only.** A future field-level review may approve individually evidenced records; do not claim complete squad coverage or bulk import from a bare P54 statement. |
+| [FootballSquads](https://www.footballsquads.co.uk/) | Public pages advertise current and historical squad details; the site reports 2026/27 updates for all five target leagues in August 2026. | No explicit open-data licence or permission for extraction, database reuse, or redistribution was established in this review. Public visibility is not a reuse licence. | **Not approved for ingestion.** May be used as a discovery lead only if terms and permission are resolved; do not scrape or copy. |
+| [API Ninjas soccer players API](https://api-ninjas.com/api/football) | Product page advertises daily-refreshed current squads and endpoints for all five target leagues. | This is a provider API, not an open-data licence. Plan limits, commercial rights, attribution, redistribution and expected credits/cost need separate review and explicit user approval before any call. | **Not called and not approved.** Keep outside the 0 THB/month baseline unless separately approved. |
+| [Transfermarkt datasets](https://github.com/dcaribou/transfermarkt-datasets) | Repository documents a large historical dataset and states updates are paused; current data stops at 2026-07-06 and 2026/27 squads are not covered. | Derived from Transfermarkt; current-season coverage is absent and source rights remain unsuitable for assuming reuse. | **Not eligible for 2026/27 intake.** Do not use as a workaround or scrape upstream. |
+| [OpenFootball Players](https://github.com/openfootball/players) | CC0 player identity reference, already assessed above. | Still does not provide current club membership. | **No change: identity reference only.** |
+
+### Operational conclusion
+
+- Wikidata is the only newly identified zero-provider-cost lead with an explicit open structured-data licence worth further field-level evaluation. Its P54 statements are not a substitute for a complete registered-squad feed.
+- If Wikidata is evaluated later, use only documented structured-data statements; preserve item IDs, statement references, rank, qualifiers, retrieved timestamp and source URLs. Reject deprecated statements, missing/contradictory qualifiers, and unsupported club-season assumptions. Measure coverage club-by-club before any intake decision.
+- FootballSquads may help discover that a club roster exists, but no data may be copied until its reuse terms are affirmatively cleared.
+- API Ninjas requires a separate provider/cost/rights decision and an explicit authorization before any API call. No trial, key request or API call was made.
+- No new player rows were added to the pilot or manifest in this pass.
