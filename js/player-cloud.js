@@ -23,6 +23,12 @@ async function loadPlayerStatistics(){
   ]);
   const error=statsRes.error||playersRes.error||idsRes.error||membersRes.error||sourcesRes.error;if(error)throw error;
   const players=new Map((playersRes.data||[]).map(x=>[x.id,x]));
+  const directory=(playersRes.data||[]).map(p=>{
+   const membership=(membersRes.data||[]).filter(m=>m.player_id===p.id).sort((a,b)=>String(b.season).localeCompare(String(a.season)))[0]||null;
+   const stat=(statsRes.data||[]).find(x=>x.player_id===p.id)||null;
+   return {id:p.id,display_name:p.display_name,position:p.position,nationality:p.nationality,team_id:membership?.team_id||null,season:membership?.season||null,squad_level:membership?.squad_level||null,statistics:stat?.stats||{},verificationStatus:stat?.verification_status||"identity_only"};
+  });
+  window.dispatchEvent(new CustomEvent("pft-player-directory-data",{detail:{players:directory,status:"อ่านรายชื่อนักเตะ Canonical จาก ft_players ตามสิทธิ์บัญชีแล้ว"}}));
   const ids=new Map(),memberships=new Map(),sources=new Map();
   for(const x of idsRes.data||[]){if(!ids.has(x.player_id))ids.set(x.player_id,[]);ids.get(x.player_id).push(x);}
   for(const x of membersRes.data||[]){if(!memberships.has(x.player_id))memberships.set(x.player_id,[]);memberships.get(x.player_id).push(x);}
@@ -38,10 +44,12 @@ async function loadPrivateData(session){
  currentSession=session||null;privateRecords=[];
  if(!session?.access_token){privateRecords=[];publishData([],null);await loadPlayerStatistics();$("playerCloudLogin").hidden=false;$("playerCloudSignedIn").hidden=true;clearPreview();status("ยังไม่ได้เข้าสู่ระบบ · ข้อมูล Cloud ส่วนตัวถูกซ่อนไว้");return;}
  $("playerCloudLogin").hidden=true;$("playerCloudSignedIn").hidden=false;$("playerCloudUser").textContent="บัญชี: "+(session.user?.email||"เข้าสู่ระบบแล้ว");status("กำลังโหลดข้อมูลส่วนตัวจาก Cloud…");
+ // The canonical ft_players directory must load independently of the legacy player-data Edge Function.
+ await loadPlayerStatistics();
  const {data,error}=await supabase.functions.invoke("player-data",{body:{}});
  if(error||data?.error){publishData([],null);status("เข้าสู่ระบบแล้ว แต่โหลดข้อมูล Cloud ไม่สำเร็จ: "+(data?.error||error.message));return;}
  privateRecords=Array.isArray(data?.records)?data.records:[];
- publishData(privateRecords,data?.latestSync||null);await loadPlayerStatistics();status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
+ publishData(privateRecords,data?.latestSync||null);status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
 }
 $("playerCloudSendLink").addEventListener("click",async()=>{
  const button=$("playerCloudSendLink"),email=$("playerCloudEmail").value.trim();if(!email){status("กรุณากรอกอีเมลก่อน");return;}button.disabled=true;status("กำลังส่งลิงก์เข้าสู่ระบบ…");
