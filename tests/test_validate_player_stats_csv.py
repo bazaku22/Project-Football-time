@@ -22,6 +22,7 @@ def make_row(**overrides):
     row.update({
         "canonical_player_key": "ft-player-001",
         "provider": "manual_source_a",
+        "provider_player_id": "manual-player-001",
         "player_name": "Example Player",
         "team_code": "ARS",
         "season": "2026/27",
@@ -53,6 +54,12 @@ class CsvValidatorTests(unittest.TestCase):
         result = self.run_csv([make_row()])
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("Rows passing all structural and rights-status checks: 1", result.stdout)
+
+    def test_missing_provider_player_id_is_rejected(self):
+        result = self.run_csv([make_row(provider_player_id="")])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("provider_player_id is required", result.stdout)
+        self.assertIn("Rows passing all structural and rights-status checks: 0", result.stdout)
 
     def test_unapproved_rights_and_invalid_timestamp_fail(self):
         result = self.run_csv([make_row(
