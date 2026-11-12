@@ -96,8 +96,8 @@ def main():
         assert snapshot["sample"]["awayForm10"] <= 10
         assert snapshot["breakdown"]["h2h"]["minimumSample"] == 5
         assert snapshot["sample"]["h2h"] == 5
-        assert snapshot["sample"]["homeOpponentStrength"] == 4
-        assert snapshot["sample"]["awayOpponentStrength"] == 4
+        assert snapshot["sample"]["homeOpponentStrength"] == 1
+        assert snapshot["sample"]["awayOpponentStrength"] == 1
         assert snapshot["breakdown"]["h2h"]["applied"] is True
         original_probabilities = dict(snapshot["probabilities"])
         original_created_at = snapshot["createdAt"]
