@@ -1,0 +1,513 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "international-r1-2026",
+  "datasetStatus": "experimental_isolated_provider_handicap_reference",
+  "competition": "UEFA Nations League",
+  "sportKey": "soccer_uefa_nations_league",
+  "provider": "The Odds API",
+  "market": "spreads",
+  "region": "eu",
+  "fetchedAt": "2026-11-12T08:42:17.589930Z",
+  "apiRequestsThisRun": 1,
+  "quota": {
+    "remaining": 268,
+    "used": 232,
+    "last": 1
+  },
+  "eventCountReceived": 35,
+  "matchedFixtureCount": 10,
+  "unmatchedOrDuplicateEventCount": 25,
+  "events": [
+    {
+      "fixtureId": "INT-R1-001",
+      "providerEventId": "d598d5e914a905ef70b01fd1b444aecb",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Turkey",
+      "awayTeam": "Belgium",
+      "commenceTime": "2026-11-12T17:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        }
+      ],
+      "referenceHomeLine": 0.5,
+      "referenceAwayLine": -0.5
+    },
+    {
+      "fixtureId": "INT-R1-004",
+      "providerEventId": "8a1174de9079b530bd6612e3fde6e2fa",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "England",
+      "awayTeam": "Croatia",
+      "commenceTime": "2026-11-12T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.75,
+          "awayLine": 1.75
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": -1.75,
+          "awayLine": 1.75
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        }
+      ],
+      "referenceHomeLine": -1.5,
+      "referenceAwayLine": 1.5
+    },
+    {
+      "fixtureId": "INT-R1-003",
+      "providerEventId": "87441c4ff41ea3d37812826345450408",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Czech Republic",
+      "awayTeam": "Spain",
+      "commenceTime": "2026-11-12T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": 2.0,
+          "awayLine": -2.0
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 1.75,
+          "awayLine": -1.75
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": 1.75,
+          "awayLine": -1.75
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": 2.0,
+          "awayLine": -2.0
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": 1.75,
+          "awayLine": -1.75
+        }
+      ],
+      "referenceHomeLine": 1.75,
+      "referenceAwayLine": -1.75
+    },
+    {
+      "fixtureId": "INT-R1-002",
+      "providerEventId": "c096e9bfabbbb93326413433b7c63511",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Italy",
+      "awayTeam": "France",
+      "commenceTime": "2026-11-12T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        }
+      ],
+      "referenceHomeLine": 0.5,
+      "referenceAwayLine": -0.5
+    },
+    {
+      "fixtureId": "INT-R1-006",
+      "providerEventId": "d0ee3d2f44cf592797f6ecae8de62edd",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Serbia",
+      "awayTeam": "Germany",
+      "commenceTime": "2026-11-13T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": 1.75,
+          "awayLine": -1.75
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": 1.75,
+          "awayLine": -1.75
+        }
+      ],
+      "referenceHomeLine": 1.5,
+      "referenceAwayLine": -1.5
+    },
+    {
+      "fixtureId": "INT-R1-005",
+      "providerEventId": "0010d3b2b15a2b8cb04053b0b1407cc5",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Netherlands",
+      "awayTeam": "Greece",
+      "commenceTime": "2026-11-13T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
+    },
+    {
+      "fixtureId": "INT-R1-007",
+      "providerEventId": "8d67c473dbea0c85b30eefee4bca53d9",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Norway",
+      "awayTeam": "Wales",
+      "commenceTime": "2026-11-14T17:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.75,
+          "awayLine": 1.75
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
+        }
+      ],
+      "referenceHomeLine": -1.75,
+      "referenceAwayLine": 1.75
+    },
+    {
+      "fixtureId": "INT-R1-008",
+      "providerEventId": "159554f486f93d1d8d4213c570117a0e",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Portugal",
+      "awayTeam": "Denmark",
+      "commenceTime": "2026-11-14T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-12T08:41:48Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-12T08:40:01Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "BetAnything",
+          "lastUpdate": "2026-11-12T08:41:16Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
+    },
+    {
+      "fixtureId": "INT-R1-009",
+      "providerEventId": "9cb05a2b01f14b556d7c79f7d060f2b9",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Belgium",
+      "awayTeam": "Italy",
+      "commenceTime": "2026-11-15T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        }
+      ],
+      "referenceHomeLine": -0.5,
+      "referenceAwayLine": 0.5
+    },
+    {
+      "fixtureId": "INT-R1-010",
+      "providerEventId": "bef3dd0d3dad6760e4e531bc9565fb8c",
+      "sportKey": "soccer_uefa_nations_league",
+      "homeTeam": "Spain",
+      "awayTeam": "England",
+      "commenceTime": "2026-11-15T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-12T08:40:21Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-12T08:41:53Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-12T08:41:50Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
+        }
+      ],
+      "referenceHomeLine": -0.75,
+      "referenceAwayLine": 0.75
+    }
+  ],
+  "usageNote": "Experimental reference data only. No bookmaker prices, betting advice, or production club data."
+}
