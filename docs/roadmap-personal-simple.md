@@ -66,6 +66,8 @@ Acceptance:
 - Maintain fixtures, results, scores, and standings for the five core leagues using the existing approved data pipeline.
 - Show data freshness and unavailable/stale status clearly; never silently substitute invented or stale values.
 - Check duplicate fixtures, missing scores, postponed matches, season/league mapping, and team identity consistency when a concrete issue is found.
+- Add a derived Research & Statistics layer from the existing database, refreshed twice daily without additional provider calls.
+- Keep upstream provider freshness visible; a derived refresh must never make stale source data appear fresh.
 - Keep the current provider and request cadence. Do not add providers, increase polling, or incur costs without explicit approval.
 - Do not make user-verified data a recurring blocker; investigate again only when new evidence indicates a problem.
 
@@ -75,6 +77,8 @@ Acceptance:
 ### Step 3 — Useful team and match statistics
 Keep the statistics that directly help a user understand a match:
 - Recent form over the last 5–10 completed matches.
+- Derived daily research summaries: last 10 W/D/L, goals for/against, home/away form, league scoring baseline, and recent H2H with sample-size warnings.
+- Run the derived research refresh at 07:15 and 19:15 Bangkok time using existing database contents only; no extra API credits or provider requests.
 - Home and away performance.
 - Goals scored and conceded.
 - League position and points per match.
@@ -115,6 +119,13 @@ Acceptance:
 Acceptance:
 - The user can review what was predicted, what actually happened, and how the app has performed over time.
 
+### Research refresh — approved implementation direction
+- Use a scheduled GitHub Actions workflow twice daily (07:15 and 19:15 Asia/Bangkok) to derive team and match research from the existing football database.
+- Publish a source-attributed JSON snapshot only after tests pass.
+- First iteration covers form, goals for/against, home/away performance, league scoring baselines, standings context and recent H2H.
+- This is not a new player-stat provider, independent scouting feed, or a change to model coefficients.
+- Integrate the derived summaries into Match Analysis Insight only after the pipeline and first scheduled run are verified.
+
 ## 4. Player data — maintenance only
 
 - Keep the existing 156-player private database as-is.
@@ -129,6 +140,7 @@ Acceptance:
 - No paid API, subscription, plan upgrade, or paid data source without explicit user approval.
 - Keep API credentials in GitHub Secrets or existing secure server-side configuration; never expose them in client code or repository data.
 - Reuse the existing football match-data workflow and provider limits. Do not increase polling or add providers/API calls without approval.
+- The separate research refresh may run twice daily because it only recalculates statistics from the already-ingested local database; it makes no external requests and incurs no provider credits.
 - If a free-tier quota or provider access is exhausted, show data as unavailable/stale rather than switching to a paid source or making extra requests.
 
 ### Existing approved exception — The Odds API reference handicap
