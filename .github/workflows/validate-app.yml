@@ -10,6 +10,8 @@ on:
       - "tests/test_player_database_workspace.py"
       - "js/player-identity-review.js"
       - "css/player-identity-review.css"
+      - "css/player-directory.css"
+      - "tests/test_player_directory_refresh.py"
       - "tests/test_player_identity_review_ui.py"
       - "js/reep-alias-pilot.js"
       - "js/player-cloud.js"
@@ -175,7 +177,7 @@ jobs:
           print("Experiment summary tab and automatic API handicap UI markers are valid.")
           PY
           node --check js/player-database.js
-          python3 -m unittest tests/test_player_database_workspace.py -v
+          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py -v
           node --input-type=module --check < js/reep-alias-pilot.js
 
       - name: Validate multi-source player identity matcher
