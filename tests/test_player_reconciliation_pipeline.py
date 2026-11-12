@@ -80,6 +80,37 @@ class PlayerReconciliationPipelineTests(unittest.TestCase):
         self.assertEqual(arsenal["candidate_count"], 1)
         self.assertEqual(arsenal["canonical_team_id"], "")
 
+    def test_provider_team_reference_enriches_abbreviated_squad_names(self):
+        staging, db = fixtures()
+        staging["players"][0]["provider_team_name"] = "ARS"
+        reference = {
+            "season": "2026/27", "provider": "strikerapi",
+            "status": "reference_only", "production_import": False,
+            "provider_api_calls": 5, "estimated_credits": 5,
+            "teams": [{
+                "league_id": "PL", "provider_team_id": "st1",
+                "name": "Arsenal FC", "display_name": "Arsenal FC",
+                "short_name": "Arsenal", "abbrev": "ARS"
+            }]
+        }
+        result = run(staging, db, reference)
+        arsenal = next(row for row in result["_team_rows"] if row["provider_team_name"] == "ARS")
+        self.assertEqual(arsenal["provider_team_official_name"], "Arsenal FC")
+        self.assertEqual(arsenal["provider_team_abbrev"], "ARS")
+        self.assertEqual(arsenal["candidate_team_ids"], "ft-ars")
+        self.assertEqual(arsenal["canonical_team_id"], "")
+        self.assertEqual(result["provider_team_reference_api_calls"], 5)
+        self.assertEqual(result["supabase_writes"], 0)
+
+    def test_rejects_wrong_provider_team_reference_season(self):
+        staging, db = fixtures()
+        reference = {
+            "season": "2025/26", "provider": "strikerapi",
+            "status": "reference_only", "production_import": False, "teams": []
+        }
+        with self.assertRaisesRegex(ValueError, "2026/27"):
+            run(staging, db, reference)
+
 
 if __name__ == "__main__":
     unittest.main()
