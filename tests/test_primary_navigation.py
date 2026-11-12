@@ -28,6 +28,23 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('./js/primary-navigation.js', sw)
         self.assertIn('./css/primary-navigation.css?v=1', sw)
 
+
+    def test_team_and_league_insights_use_compact_subtabs(self):
+        html = (ROOT / "index.html").read_text()
+        self.assertIn('const databaseSubtabOptions={', html)
+        self.assertIn('team:[["profile","ภาพรวมทีม"],["form","ฟอร์มย้อนหลัง"],["homeaway","ผลงานเหย้า / เยือน"]]', html)
+        self.assertIn('matchStats:[["h2h","การพบกัน (H2H)"],["league","สถิติลีก"]]', html)
+        self.assertIn('const visiblePanels=new Set([selected]);', html)
+        self.assertIn('data-db-subtab', html)
+        self.assertIn('id="dbSubnavSecondary"', html)
+
+    def test_ui_release_and_service_worker_cache_are_bumped_together(self):
+        html = (ROOT / "index.html").read_text()
+        sw = (ROOT / "sw.js").read_text()
+        self.assertIn('content="6.6.0-beta.1"', html)
+        self.assertIn('Project Football Time V6.6.0-beta.1', html)
+        self.assertIn('football-time-v53', sw)
+
     def test_four_primary_items_replace_legacy_bottom_nav(self):
         html = (ROOT / "index.html").read_text()
         self.assertNotIn('data-page="summary"', html[html.index('<nav class="nav"'):html.index('</nav>')])
