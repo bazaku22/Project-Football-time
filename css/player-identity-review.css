@@ -1,0 +1,16 @@
+.identity-review-intro{font-size:11px;line-height:1.7;color:var(--muted);margin:7px 0 12px}
+.identity-review-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:10px 0}
+.identity-review-card{background:#14232d;border:1px solid var(--line);border-radius:11px;padding:11px;margin:9px 0;min-width:0}
+.identity-review-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;font-size:13px}
+.identity-review-heading b{overflow-wrap:anywhere}
+.identity-review-meta,.identity-review-issue,.identity-review-confirm{font-size:10px;line-height:1.65;margin-top:7px;overflow-wrap:anywhere}
+.identity-review-meta{color:var(--muted)}
+.identity-review-issue{color:#e7bd72}
+.identity-review-confirm{color:#a8f0cc}
+.identity-review-label{display:block;font-size:10px;color:var(--muted);margin:10px 0 5px}
+.identity-review-card select{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:10px;color:#fff}
+.identity-review-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.identity-review-actions button{font-size:11px;padding:8px 10px;border-radius:9px}
+.identity-review-approve{border:0;background:#28785e;color:#fff;font-weight:700}
+.identity-review-filter{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:380px){.identity-review-summary{gap:5px}.identity-review-card{padding:9px}.identity-review-actions button{flex:1}}
