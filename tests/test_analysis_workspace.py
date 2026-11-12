@@ -49,6 +49,12 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("String(x.matchId)+\"|\"+String(x.modelVersion||\"legacy/unknown\")", self.html)
         self.assertIn("snapshotKey=id+\"|\"+PROBABILITY_MODEL_VERSION", self.html)
 
+    def test_research_statistics_panel_is_loaded_without_changing_probability_model(self):
+        self.assertIn('./js/research-insight.js', self.html)
+        self.assertIn('./css/football-research.css?v=1', self.html)
+        self.assertIn('football-research-stats-2026-27.json', (ROOT / "js/research-insight.js").read_text(encoding="utf-8"))
+        self.assertIn('function computeMatchProbability(', self.html)
+
     def test_probability_model_and_handicap_panel_remain_present(self):
         self.assertIn("function computeMatchProbability(", self.html)
         self.assertIn('id="automaticHandicapOdds"', self.html)
