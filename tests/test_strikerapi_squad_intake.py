@@ -20,19 +20,32 @@ class StrikerApiSquadIntakeTests(unittest.TestCase):
         self.assertEqual(result["provider_api_calls"],0)
         self.assertEqual(result["estimated_credits"],0)
         self.assertEqual(result["coverage"]["total_player_memberships"],5)
+        self.assertEqual(result["coverage"]["unique_provider_players"],5)
+        self.assertEqual(result["coverage"]["repeated_provider_ids"],0)
         self.assertEqual(set(result["coverage"]["leagues"]),set(LEAGUES))
         self.assertTrue(all(r["canonical_player_id"] is None for r in result["players"]))
         self.assertTrue(all(r["team_mapping_status"]=="needs_exact_team_id_review" for r in result["players"]))
         self.assertTrue(all(r["squad_level"]=="unknown" for r in result["players"]))
+    def test_repeated_provider_id_is_preserved_as_memberships_and_flagged(self):
+        data=fixture()
+        data["PD"]["players"][0]["player_id"]="PL-player-1"
+        result=normalize(data)
+        self.assertEqual(result["coverage"]["total_player_memberships"],5)
+        self.assertEqual(result["coverage"]["unique_provider_players"],4)
+        self.assertEqual(result["coverage"]["repeated_provider_ids"],1)
+        report=result["duplicate_provider_id_review"][0]
+        self.assertEqual(report["provider_player_id"],"PL-player-1")
+        self.assertEqual(report["observation_count"],2)
+        self.assertEqual(report["review_status"],"conflicting_identity_observations")
+        repeated=[r for r in result["players"] if r["provider_player_id"]=="PL-player-1"]
+        self.assertEqual(len(repeated),2)
+        self.assertTrue(all(r["provider_identity_status"]=="needs_manual_review" for r in repeated))
     def test_rejects_missing_league(self):
         data=fixture(); data.pop("PL")
         with self.assertRaisesRegex(ValueError,"missing five-league"): normalize(data)
     def test_rejects_wrong_season(self):
         data=fixture(); data["PD"]["season"]=2025
         with self.assertRaisesRegex(ValueError,"expected 2026/27"): normalize(data)
-    def test_rejects_duplicate_provider_id(self):
-        data=fixture(); data["PD"]["players"][0]["player_id"]="PL-player-1"
-        with self.assertRaisesRegex(ValueError,"duplicate StrikerAPI"): normalize(data)
     def test_rejects_missing_identity(self):
         data=fixture(); data["SA"]["players"][0]["player_id"]=""
         with self.assertRaisesRegex(ValueError,"missing player_id or name"): normalize(data)
@@ -48,5 +61,6 @@ class StrikerApiSquadIntakeTests(unittest.TestCase):
             loaded=json.loads(path.read_text(encoding="utf-8"))
             self.assertFalse(loaded["production_import"])
             self.assertEqual(loaded["supabase_writes"],0)
+            self.assertEqual(len(loaded["player_master_candidates"]),5)
 
 if __name__=="__main__": unittest.main()
