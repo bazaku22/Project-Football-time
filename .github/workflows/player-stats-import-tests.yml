@@ -16,6 +16,8 @@ on:
       - "tests/test_player_statistics_import_ui.py"
       - "scripts/validate_player_stats_csv.py"
       - "scripts/preview_player_stats_import.py"
+      - "scripts/update_player_database.py"
+      - "tests/test_strikerapi_player_importer.py"
       - "tests/test_validate_player_stats_csv.py"
       - "tests/test_preview_player_stats_import.py"
       - "tests/test_player_stats_import_e2e.py"
@@ -40,7 +42,7 @@ jobs:
         with:
           python-version: "3.x"
       - name: Compile scripts and tests
-        run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py tests/test_player_stats_import_e2e.py tests/test_player_statistics_import_ui.py tests/test_match_center.py tests/test_primary_navigation.py
+        run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py tests/test_player_stats_import_e2e.py tests/test_player_statistics_import_ui.py tests/test_strikerapi_player_importer.py tests/test_match_center.py tests/test_primary_navigation.py
       - name: Validate browser CSV preview module
         run: |
           node --check js/player-stats-import.js
@@ -71,6 +73,7 @@ jobs:
           PY
       - name: Run offline test suite
         run: python -m unittest discover -s tests -p 'test_*player_stats*.py' -v
+          python -m unittest tests/test_strikerapi_player_importer.py -v
 
   postgres-rls-transaction:
     runs-on: ubuntu-latest
