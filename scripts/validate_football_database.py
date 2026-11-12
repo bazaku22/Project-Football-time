@@ -37,8 +37,11 @@ for league_id in expected_pending:
     assert row.get("providerCompetitionCode") is None,         f"Pending league must not make provider requests: {league_id}"
     assert row.get("dataStatus") == "not_available_on_current_free_tier",         f"Pending league status is incorrect: {league_id}"
 
-snapshot_ids = [str(row["matchId"]) for row in probability_snapshots]
-assert len(snapshot_ids) == len(set(snapshot_ids)), "Duplicate probability snapshots."
+snapshot_ids = [
+    f'{row["matchId"]}|{row.get("modelVersion") or "legacy/unknown"}'
+    for row in probability_snapshots
+]
+assert len(snapshot_ids) == len(set(snapshot_ids)), "Duplicate match/model probability snapshots."
 matches_by_id = {str(match["providerMatchId"]): match for match in matches}
 for snapshot in probability_snapshots:
     # Historical snapshots are self-contained records. Their source match may
