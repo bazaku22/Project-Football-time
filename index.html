@@ -714,8 +714,8 @@ function teamSeasonMetrics(leagueId,season,teamId){
  const five=formStats(form5),ten=formStats(form10);
  const formPPG=ten.count>=5?0.6*five.ppg+0.4*ten.ppg:ten.ppg;
  const standing=(footballDB.standings||[]).find(x=>x.leagueId===leagueId&&x.season===season&&x.teamId===teamId);
- const opponentPPGs=form10.map(m=>{
-  const opponentId=m.homeTeamId===teamId?m.awayTeamId:m.homeTeamId;
+ const opponentIds=[...new Set(form10.map(m=>m.homeTeamId===teamId?m.awayTeamId:m.homeTeamId).filter(Boolean))];
+ const opponentPPGs=opponentIds.map(opponentId=>{
   const row=(footballDB.standings||[]).find(x=>x.leagueId===leagueId&&x.season===season&&x.teamId===opponentId);
   return row&&Number(row.played)>=3&&Number.isFinite(Number(row.points))?Number(row.points)/Number(row.played):null;
  }).filter(Number.isFinite);
