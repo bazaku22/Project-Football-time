@@ -15,7 +15,9 @@
     "Provider position tags are retained as reported by the cited FBref table and may be multi-position.",
     "Specific tactical position and playing role remain null until supported by match-level evidence.",
     "Season statistics are intentionally empty: available pages mix scopes or show conflicting values and rights are not cleared.",
-    "No provider API was called and no Supabase data was written."
+    "No provider API was called and no Supabase data was written.",
+    "Player portraits are linked from Wikimedia Commons under the individual file licenses recorded per player; author, source page, license URL, and capture date are retained.",
+    "Copyright license review is separate from personality/publicity rights; those rights have not been independently cleared, so portraits are limited to this research pilot and require further review before wider commercial use."
   ],
   "sources": [
     {
@@ -48,7 +50,14 @@
       "playing_roles": [],
       "position_evidence": "club_squad_category",
       "rights_status": "pending_review",
-      "season_statistics": {}
+      "season_statistics": {},
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bruno%20Fernandes%20Croatia%20v%20Portugal%202%20July%202026-081.jpg?width=480",
+      "photo_source_url": "https://commons.wikimedia.org/wiki/File:Bruno_Fernandes_Croatia_v_Portugal_2_July_2026-081.jpg",
+      "photo_author": "Bryan Berlin / WikiPortraits",
+      "photo_license": "CC BY-SA 4.0",
+      "photo_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "photo_captured_at": "2026-07-02",
+      "photo_review_status": "copyright_license_verified_personality_rights_not_independently_cleared"
     },
     {
       "research_key": "matheus-cunha",
@@ -64,7 +73,14 @@
       "playing_roles": [],
       "position_evidence": "club_squad_category;provider_multi_position_tags",
       "rights_status": "pending_review",
-      "season_statistics": {}
+      "season_statistics": {},
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Matheus%20Cunha%20Brazil%20V%20Morocco%2013%20June%202026-178%20(cropped).jpg?width=480",
+      "photo_source_url": "https://commons.wikimedia.org/wiki/File:Matheus_Cunha_Brazil_V_Morocco_13_June_2026-178_(cropped).jpg",
+      "photo_author": "Bryan Berlin / WikiPortraits",
+      "photo_license": "CC BY-SA 4.0",
+      "photo_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "photo_captured_at": "2026-06-13",
+      "photo_review_status": "copyright_license_verified_personality_rights_not_independently_cleared"
     },
     {
       "research_key": "bryan-mbeumo",
@@ -80,7 +96,14 @@
       "playing_roles": [],
       "position_evidence": "club_squad_category;provider_multi_position_tags",
       "rights_status": "pending_review",
-      "season_statistics": {}
+      "season_statistics": {},
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Bryan%20Mbeumo%2000-02-31.18.png?width=480",
+      "photo_source_url": "https://commons.wikimedia.org/wiki/File:Bryan_Mbeumo_00-02-31.18.png",
+      "photo_author": "AFC Bournemouth",
+      "photo_license": "CC BY 3.0",
+      "photo_license_url": "https://creativecommons.org/licenses/by/3.0/",
+      "photo_captured_at": "2025-12-15",
+      "photo_review_status": "copyright_license_verified_personality_rights_not_independently_cleared"
     },
     {
       "research_key": "kobbie-mainoo",
@@ -95,7 +118,14 @@
       "playing_roles": [],
       "position_evidence": "club_squad_category;provider_position_tags",
       "rights_status": "pending_review",
-      "season_statistics": {}
+      "season_statistics": {},
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Kobbie%20Mainoo%20England%20v%20Panama%2027%20June%2026-052.jpg?width=480",
+      "photo_source_url": "https://commons.wikimedia.org/wiki/File:Kobbie_Mainoo_England_v_Panama_27_June_26-052.jpg",
+      "photo_author": "Bryan Berlin / WikiPortraits",
+      "photo_license": "CC BY-SA 4.0",
+      "photo_license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "photo_captured_at": "2026-06-27",
+      "photo_review_status": "copyright_license_verified_personality_rights_not_independently_cleared"
     },
     {
       "research_key": "harry-maguire",
@@ -110,7 +140,14 @@
       "playing_roles": [],
       "position_evidence": "club_squad_category;provider_position_tags",
       "rights_status": "pending_review",
-      "season_statistics": {}
+      "season_statistics": {},
+      "photo_url": "https://commons.wikimedia.org/wiki/Special:FilePath/Harry%20Maguire.jpg?width=480",
+      "photo_source_url": "https://commons.wikimedia.org/wiki/File:Harry_Maguire.jpg",
+      "photo_author": "Kirill Venediktov",
+      "photo_license": "CC BY-SA 3.0",
+      "photo_license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "photo_captured_at": "2018-06-13",
+      "photo_review_status": "copyright_license_verified_personality_rights_not_independently_cleared"
     }
   ]
 }
