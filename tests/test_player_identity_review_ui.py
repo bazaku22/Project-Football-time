@@ -26,7 +26,7 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
 
     def test_review_decisions_are_local_only_and_no_network_or_supabase_write(self):
         self.assertIn("pft_player_identity_review_decisions_v1", MODULE)
-        self.assertNotRegex(MODULE, r"\\bfetch\\s*\\(")
+        self.assertNotIn("fetch(", MODULE)
         self.assertNotIn("createClient", MODULE)
         self.assertNotIn("supabase", MODULE.lower())
         self.assertIn("localStorage", MODULE)
