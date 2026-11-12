@@ -88,7 +88,7 @@ def team_candidates(players: list[dict], teams: list[dict]) -> list[dict]:
     return output
 
 
-def build_team_report(players: list[dict], football_db: dict) -> list[dict]:
+def build_team_report(players: list[dict], football_db: dict, provider_reference: dict | None = None) -> list[dict]:
     teams = football_db["teams"]
     memberships = football_db.get("teamSeasons", [])
     if not isinstance(memberships, list):
@@ -102,6 +102,20 @@ def build_team_report(players: list[dict], football_db: dict) -> list[dict]:
     for team in teams:
         if any((league, team.get("id")) in season_members for league in LEAGUE_IDS):
             filtered.append(team)
+    reference_lookup = {}
+    if provider_reference is not None:
+        if provider_reference.get("season") != "2026/27" or provider_reference.get("provider") != "strikerapi":
+            raise ValueError("provider team reference must be StrikerAPI 2026/27 data")
+        if provider_reference.get("status") != "reference_only" or provider_reference.get("production_import") is not False:
+            raise ValueError("provider team reference must be reference-only")
+        reference_rows = provider_reference.get("teams")
+        if not isinstance(reference_rows, list):
+            raise ValueError("provider team reference teams must be an array")
+        for ref in reference_rows:
+            key = (ref.get("league_id"), str(ref.get("provider_team_id") or ""))
+            if not key[1] or key in reference_lookup:
+                raise ValueError(f"invalid or duplicate provider team reference key: {key}")
+            reference_lookup[key] = ref
     result = []
     seen = set()
     for row in players:
@@ -110,31 +124,42 @@ def build_team_report(players: list[dict], football_db: dict) -> list[dict]:
             continue
         seen.add(key)
         league_id, provider_id, provider_name = key
+        provider_ref = reference_lookup.get((league_id, provider_id))
+        provider_values = {norm(provider_name)} if provider_name else set()
+        if provider_ref:
+            provider_values.update(norm(provider_ref.get(field)) for field in (
+                "name", "display_name", "short_name", "abbrev"
+            ) if provider_ref.get(field))
+        provider_values.discard("")
         candidates = []
-        name = norm(provider_name)
-        if name:
-            for team in filtered:
-                if (league_id, team.get("id")) not in season_members:
-                    continue
-                if name in {
-                    norm(team.get("name")),
-                    norm(team.get("shortName")),
-                    norm(team.get("tla")),
-                }:
-                    candidates.append(team)
+        match_bases = {}
+        for team in filtered:
+            if (league_id, team.get("id")) not in season_members:
+                continue
+            canonical_values = {
+                norm(team.get("name")), norm(team.get("shortName")), norm(team.get("tla"))
+            }
+            canonical_values.discard("")
+            if provider_values & canonical_values:
+                candidates.append(team)
+                match_bases[str(team.get("id", ""))] = "exact_normalized_provider_reference_name_or_abbreviation"
         candidates.sort(key=lambda item: str(item.get("id", "")))
         result.append({
             "league_id": league_id,
             "provider_team_id": provider_id,
             "provider_team_name": provider_name,
+            "provider_team_official_name": (provider_ref or {}).get("name", ""),
+            "provider_team_abbrev": (provider_ref or {}).get("abbrev", ""),
+            "provider_reference_found": "true" if provider_ref else "false",
             "candidate_team_ids": ";".join(str(x.get("id", "")) for x in candidates),
             "candidate_team_names": ";".join(str(x.get("name", "")) for x in candidates),
             "candidate_count": len(candidates),
+            "candidate_match_basis": ";".join(match_bases.values()),
             "status": "exact_name_candidate_needs_review" if len(candidates) == 1 else (
                 "ambiguous_exact_name_candidates" if candidates else "unmatched_needs_manual_alias"),
             "canonical_team_id": "",
             "review_required": "true",
-            "note": "Exact normalized name within same league/season; advisory only, manual approval required."
+            "note": "Provider list_teams identity and exact normalized name/abbreviation comparison are advisory only; human approval required."
         })
     return sorted(result, key=lambda x: (x["league_id"], x["provider_team_name"] or "", x["provider_team_id"]))
 
@@ -174,10 +199,10 @@ def write_csv(path: Path, rows: list[dict], columns: list[str]) -> None:
         writer.writerows(rows)
 
 
-def run(staging: dict, football_db: dict) -> dict:
+def run(staging: dict, football_db: dict, provider_reference: dict | None = None) -> dict:
     teams = validate_inputs(staging, football_db)
     players = staging["players"]
-    team_rows = build_team_report(players, football_db)
+    team_rows = build_team_report(players, football_db, provider_reference)
     player_rows = build_player_report(players)
     team_counts = defaultdict(int)
     for row in team_rows:
@@ -202,6 +227,9 @@ def run(staging: dict, football_db: dict) -> dict:
         "supabase_migrations": 0,
         "production_import": False,
         "team_registry_records_considered": len(teams),
+        "provider_team_reference_records": len(provider_reference.get("teams", [])) if provider_reference else 0,
+        "provider_team_reference_api_calls": provider_reference.get("provider_api_calls", 0) if provider_reference else 0,
+        "provider_team_reference_estimated_credits": provider_reference.get("estimated_credits", 0) if provider_reference else 0,
         "limitations": [
             "Exact normalized team-name matches are candidates only and require human review.",
             "No fuzzy matching, alias inference, canonical ID assignment, or automatic player merge is performed.",
@@ -217,16 +245,19 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--staging", required=True, type=Path, help="StrikerAPI staging JSON")
     parser.add_argument("--football-db", required=True, type=Path, help="Football Time football-database.json")
+    parser.add_argument("--provider-teams", type=Path, help="Optional StrikerAPI list_teams 2026/27 reference JSON")
     parser.add_argument("--out-dir", type=Path, default=Path("data/staging/reconciliation-2026-27"))
     args = parser.parse_args()
     try:
-        result = run(load_json(args.staging), load_json(args.football_db))
+        provider_reference = load_json(args.provider_teams) if args.provider_teams else None
+        result = run(load_json(args.staging), load_json(args.football_db), provider_reference)
         args.out_dir.mkdir(parents=True, exist_ok=True)
         team_rows, player_rows = result.pop("_team_rows"), result.pop("_player_rows")
         write_csv(args.out_dir / "team-mapping-review-2026-27.csv", team_rows, [
             "league_id", "provider_team_id", "provider_team_name", "candidate_team_ids",
-            "candidate_team_names", "candidate_count", "status", "canonical_team_id",
-            "review_required", "note"])
+            "provider_team_official_name", "provider_team_abbrev", "provider_reference_found",
+            "candidate_team_ids", "candidate_team_names", "candidate_count", "candidate_match_basis",
+            "status", "canonical_team_id", "review_required", "note"])
         write_csv(args.out_dir / "player-identity-review-2026-27.csv", player_rows, [
             "provider", "provider_player_id", "player_name_variants", "membership_observations",
             "league_ids", "provider_team_ids", "status", "canonical_player_id", "review_required", "note"])
