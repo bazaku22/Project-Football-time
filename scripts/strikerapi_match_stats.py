@@ -17,11 +17,10 @@ from pathlib import Path
 from typing import Any
 
 BASE_URL = "https://mcp.strikerapi.com/v1/get_game"
-LEAGUE_CODES = {"soccer", "laliga", "bundesliga", "seriea", "ligue1"}
+LEAGUE_CODES = {"soccer": "PL", "laliga": "PD", "bundesliga": "BL1", "seriea": "SA", "ligue1": "FL1"}
 METRIC_FIELDS = (
     "goals", "assists", "shots", "shots_on_target", "yellow_cards",
-    "red_cards", "saves", "goals_conceded", "shots_faced",
-    "fouls_committed", "fouls_suffered", "offsides", "own_goals",
+    "red_cards", "saves", "xg", "xa", "clean_sheets",
 )
 
 
@@ -85,6 +84,11 @@ def normalize(payload: dict[str, Any], collected_at: str | None = None) -> dict[
     season_start = int(season_year)
     season = f"{season_start}/{str((season_start + 1) % 100).zfill(2)}"
     stamp = collected_at or datetime.now(timezone.utc).isoformat()
+    team_codes = {}
+    for side in ("home", "away"):
+        team = game.get(side)
+        if isinstance(team, dict) and team.get("team_id") and team.get("abbrev"):
+            team_codes[str(team["team_id"])] = str(team["abbrev"]).strip().upper()
     rows = []
     seen = set()
     for player in players:
@@ -94,6 +98,9 @@ def normalize(payload: dict[str, Any], collected_at: str | None = None) -> dict[
         team_code = str(player.get("team_id") or "").strip()
         if not pid or not team_code:
             continue
+        canonical_team_code = team_codes.get(team_code)
+        if not canonical_team_code:
+            raise ValueError(f"player team_id {team_code} is not present in match home/away metadata")
         key = (pid, team_code)
         if key in seen:
             raise ValueError(f"duplicate player/team identity in match: {pid}/{team_code}")
@@ -114,9 +121,10 @@ def normalize(payload: dict[str, Any], collected_at: str | None = None) -> dict[
             "provider": "strikerapi",
             "provider_player_id": pid,
             "player_name": str(player.get("name") or ""),
-            "team_code": team_code,
+            "team_code": canonical_team_code,
+            "provider_team_id": team_code,
             "season": season,
-            "competition_code": league.upper(),
+            "competition_code": LEAGUE_CODES[league],
             "squad_level": "first_team",
             "statistics_scope": "match",
             "match_id": game_id,
