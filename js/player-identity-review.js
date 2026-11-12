@@ -61,7 +61,7 @@
   rows.forEach(row=>{
    const d=currentDecision(row),card=create("article","identity-review-card");
    const heading=create("div","identity-review-heading");
-   heading.append(create("b","",row.player_name),create("span","tag",d?.status==="verified"?"ยืนยันแล้ว":d?.status==="approved"?"อนุมัติในเครื่อง":d?.status==="rejected"?"ไม่ใช่คนเดียวกัน":d?.status==="followup"?"ขอตรวจเพิ่ม":row.status));
+   heading.append(create("b","",row.player_name),create("span","tag",d?.status==="verified"?"ยืนยันแล้ว":d?.status==="provisional"?"รายการใหม่ · รอตรวจ":d?.status==="approved"?"อนุมัติในเครื่อง":d?.status==="rejected"?"ไม่ใช่คนเดียวกัน":d?.status==="followup"?"ขอตรวจเพิ่ม":row.status));
    card.append(heading);
    card.append(create("div","small","Provider: "+row.provider+" · Provider Player ID: "+row.provider_player_id));
    if(row.canonical_player_key)card.append(create("div","identity-review-meta","Canonical ID: "+row.canonical_player_key));
@@ -128,7 +128,7 @@
   state.rows.forEach(row=>{
    if(row.status==="conflicting_identity_observations"){held++;return;}
    const existing=currentDecision(row);
-   if(existing?.status==="verified"||existing?.status==="approved"||existing?.status==="provisional")return;
+   if(existing)return;
    state.decisions[key(row)]={status:"provisional",provisional_player_key:"provisional:"+row.provider.toLowerCase()+":"+row.provider_player_id,canonical_player_key:"",provider:row.provider,provider_player_id:row.provider_player_id,player_name:row.player_name,reviewer,reviewed_at:new Date().toISOString()};
    created++;
   });
