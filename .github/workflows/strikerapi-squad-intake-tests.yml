@@ -5,6 +5,11 @@ on:
       - "scripts/strikerapi_squad_intake.py"
       - "tests/test_strikerapi_squad_intake.py"
       - "scripts/player_reconciliation_pipeline.py"
+      - "data/player-team-alias-candidates-2026-27.json"
+      - "js/player-team-alias-review.js"
+      - "css/player-identity-review.css"
+      - "index.html"
+      - "sw.js"
       - "tests/test_player_reconciliation_pipeline.py"
       - "scripts/strikerapi_team_reference.py"
       - "tests/test_strikerapi_team_reference.py"
@@ -27,6 +32,7 @@ jobs:
         run: |
           python -m py_compile scripts/strikerapi_squad_intake.py tests/test_strikerapi_squad_intake.py
           python -m py_compile scripts/player_reconciliation_pipeline.py tests/test_player_reconciliation_pipeline.py
+          node --check js/player-team-alias-review.js
           python -m py_compile scripts/strikerapi_team_reference.py tests/test_strikerapi_team_reference.py
           python -m unittest tests/test_strikerapi_squad_intake.py -v
           python -m unittest tests/test_player_reconciliation_pipeline.py -v

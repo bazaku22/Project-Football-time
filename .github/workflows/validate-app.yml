@@ -9,6 +9,7 @@ on:
       - "data/player-position-pilot-2026-27.json"
       - "tests/test_player_database_workspace.py"
       - "js/player-identity-review.js"
+      - "js/player-team-alias-review.js"
       - "css/player-identity-review.css"
       - "css/player-directory.css"
       - "tests/test_player_directory_refresh.py"
@@ -193,6 +194,7 @@ jobs:
           node --check js/handicap-reference.js
           node tests/test_handicap_history.js
           node tests/test_handicap_reference.js
+          node --check js/player-team-alias-review.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check js/test-experiment-enhancements.js

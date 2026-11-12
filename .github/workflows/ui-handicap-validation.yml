@@ -5,6 +5,7 @@ on:
     paths:
       - "index.html"
       - "js/player-identity-review.js"
+      - "js/player-team-alias-review.js"
       - "css/player-identity-review.css"
       - "js/international-handicap-model.js"
       - "js/international-handicap-workspace.js"
@@ -65,6 +66,7 @@ jobs:
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check js/player-identity-review.js
+          node --check js/player-team-alias-review.js
           node --check sw.js
           python - <<'PY'
           import re
@@ -88,8 +90,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.17.0-beta.1"' index.html
-          grep -q 'football-time-v67' sw.js
+          grep -q 'application-version" content="6.18.0-beta.1"' index.html
+          grep -q 'football-time-v68' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html
