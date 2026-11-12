@@ -12,6 +12,7 @@
 - `quality-issues.json`: duplicate candidate, source cutoff, source quality, score semantics, and alias notes.
 - `model-baseline-spec.md`: pre-registered, experimental 1X2 baseline method and capture/evaluation rules.
 - `prediction-snapshots.json`: immutable pre-kickoff 1X2 baseline snapshots and explicit non-eligible fixture records.
+- `handicap-reference.json`: optional isolated Nations League market-reference snapshot; created only after a manually dispatched workflow run.
 
 ## Current audit
 - Pinned source: `martj42/international_results`, commit `b0948cb558c927c357db4067eac5b37b96d0e4bb`, CSV blob `9999a4b380b16189825884a8dab4dc869c847f72`.
@@ -23,7 +24,7 @@
 
 ## Data rules
 - Separate from `data/football-database.json`, club prediction snapshots, and club evaluation history.
-- No application import, production database write, Local Storage change, Supabase write, API integration, workflow, polling, or scheduled job.
+- No application import, production database write, Local Storage change, or Supabase write. The optional provider reference is isolated and fetched only by a manually dispatched workflow; there is no cron, polling, or automatic trigger.
 - Preserve original source team names and normalize only through the explicit alias file; no fuzzy matching.
 - Unknown fields stay `null`; do not infer kickoff, venue, neutral status, lineups, or scores.
 - Strict pre-kickoff feature cutoff: records must be dated before 2026-11-12 for this pilot baseline. No target fixture or post-kickoff result is included.
@@ -37,4 +38,15 @@
 - The data is suitable for an isolated exploratory baseline only. It does not establish model calibration or superiority.
 
 ## Explicit exclusions
-No production app, club database/model/history, Local Storage, Supabase, API/provider, quota, workflow, schedule, polling, or recurring-cost changes. No import into production. No odds, bookmaker data, betting recommendations, or gambling workflows.
+No production app, club database/model/history, Local Storage, or Supabase changes. The experimental Nations League workflow uses exactly one The Odds API request per manual run and writes only `handicap-reference.json`; it does not run automatically. No import into production. No bookmaker prices, betting recommendations, or gambling workflows.
+
+
+## Isolated Nations League Handicap reference pilot
+
+- Workflow: `.github/workflows/update-international-handicap.yml` (manual `workflow_dispatch` only).
+- Sport key: `soccer_uefa_nations_league`; market: `spreads`; region: `eu`.
+- Exactly one API request per manual run; no retry, schedule, cron, or automatic PR/merge trigger.
+- Output: `handicap-reference.json` in this directory only. Club odds and club data are untouched.
+- Provider event must uniquely match a manifest Nations League fixture using explicit team IDs, home/away order, and kickoff within six hours. Unknown/ambiguous names are rejected.
+- Only offered spread points and source update timestamps are stored; bookmaker prices are not stored.
+- Creating/merging the workflow does not execute it. A separate explicit approval is required before a live dispatch that consumes API quota.
