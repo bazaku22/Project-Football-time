@@ -55,10 +55,11 @@ def main():
         if not isinstance(row, dict) or row.get("matchId") is None:
             raise ValueError("Invalid historical snapshot; refusing to discard history.")
         match_id = str(row["matchId"])
-        if match_id in known_ids:
-            raise ValueError(f"Duplicate historical snapshot for match {match_id}; refusing to discard history.")
+        snapshot_key = f"{match_id}|{row.get('modelVersion') or 'legacy/unknown'}"
+        if snapshot_key in known_ids:
+            raise ValueError(f"Duplicate historical snapshot for key {snapshot_key}; refusing to discard history.")
         snapshots.append(row)
-        known_ids.add(match_id)
+        known_ids.add(snapshot_key)
     league_sync = database.get("source", {}).get("leagueSync", {})
     freshness_is_authoritative = bool(league_sync)
     fresh_leagues = {league_id for league_id, state in league_sync.items()
@@ -180,7 +181,8 @@ def main():
         if match_id is None or kickoff is None or kickoff <= now:
             continue
         match_id = str(match_id)
-        if match_id in known_ids:
+        snapshot_key = f"{match_id}|{MODEL_VERSION}"
+        if snapshot_key in known_ids:
             continue
 
         league_id, season = match.get("leagueId"), match.get("season")
@@ -326,7 +328,7 @@ def main():
             "modelVersion": MODEL_VERSION,
             "createdAt": now.isoformat(),
         })
-        known_ids.add(match_id)
+        known_ids.add(snapshot_key)
         added += 1
 
     snapshots.sort(key=lambda row: row.get("createdAt", ""))
