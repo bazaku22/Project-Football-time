@@ -30,6 +30,10 @@ on:
       - "tests/test_player_intake_manifest.py"
       - "data/player-intake-manifest-2026-27.json"
       - "docs/player-intake-manifest-2026-27.md"
+      - "data/player-coverage-2026-27.json"
+      - "scripts/validate_player_coverage.py"
+      - "tests/test_player_coverage.py"
+      - "docs/player-coverage-gap-analysis-2026-11-12.md"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
@@ -247,6 +251,12 @@ jobs:
           python3 -m py_compile scripts/validate_player_intake_manifest.py
           python3 -m unittest tests/test_player_intake_manifest.py
           python3 scripts/validate_player_intake_manifest.py
+
+      - name: Validate five-league 2026/27 player coverage register
+        run: |
+          python3 -m py_compile scripts/validate_player_coverage.py
+          python3 -m unittest tests/test_player_coverage.py
+          python3 scripts/validate_player_coverage.py
 
       - name: Validate player importer and database JSON
         run: |
