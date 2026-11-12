@@ -34,6 +34,8 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertIn('r.photoUrl||r.photo_url||""', js)
         self.assertIn('initials(name)', js)
         self.assertIn('onerror="this.hidden=true;this.nextElementSibling.hidden=false"', js)
+        self.assertIn("ดูแหล่งที่มาและเงื่อนไข", js)
+        self.assertIn("สิทธิส่วนบุคคล", js)
         html = (ROOT / "index.html").read_text()
         self.assertIn("ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น", html)
 
