@@ -12,13 +12,14 @@ Offline mode makes zero provider calls:
 python scripts/strikerapi_squad_intake.py --input tests/fixtures/strikerapi/squads-five-leagues-2026-27.json
 ```
 
-Explicit live mode makes exactly five `get_squad` requests, one per league, estimated at 50 credits total:
+The repository includes a manual-only GitHub Actions workflow:
 
-```bash
-STRIKERAPI_API_KEY=... python scripts/strikerapi_squad_intake.py --fetch
-```
+1. Open Actions → **Fetch StrikerAPI current squads to staging**.
+2. Select **Run workflow** on `main`.
+3. The workflow makes exactly five `get_squad` requests, estimated at 50 credits total.
+4. Download the `strikerapi-current-squads-2026-27` artifact from the completed run.
 
-The live command requires the existing GitHub secret in a suitable Actions environment. It does not fetch detailed profiles and does not call `get_game` or `get_player`.
+The workflow uses the existing `STRIKERAPI_API_KEY` repository secret. It does not fetch detailed profiles and does not call `get_game` or `get_player`. It uploads a review artifact only; it does not commit data to `main`.
 
 ## Identity and membership rules
 
@@ -33,7 +34,7 @@ The live command requires the existing GitHub secret in a suitable Actions envir
 
 Output is written only to `data/staging/`, marked `staging_only`, and retains `manual_review` rights status. It assigns no canonical IDs, does not update `data/player-database.json`, and performs zero Supabase writes, migrations or deletes. Provider access does not itself clear third-party competition/database rights.
 
-The explicit live command costs an estimated 50 credits per full five-league refresh, within the approved Free Pilot ceiling of 500 credits/month. Do not add player-profile calls to this workflow; those require a separate budgeted operation.
+The explicit live workflow costs an estimated 50 credits per full five-league refresh, within the approved Free Pilot ceiling of 500 credits/month. It is manual-only, has no schedule, and does not run automatically on push or pull request. Do not add player-profile calls to this workflow; those require a separate budgeted operation.
 
 ## Validation
 
