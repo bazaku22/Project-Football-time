@@ -1,0 +1,3 @@
+provider,provider_player_id,canonical_player_key,review_status,reviewer,reviewed_at,team_code,season
+synthetic_provider,SYN-001,ft-synthetic-001,verified,fixture-reviewer,2026-11-12T10:00:00Z,ARS,2026/27
+synthetic_provider,SYN-003,ft-synthetic-003,verified,fixture-reviewer,2026-11-12T10:00:00Z,ARS,2026/27
