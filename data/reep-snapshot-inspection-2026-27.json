@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "generated_at": "2026-11-12",
+  "status": "awaiting_local_snapshot",
+  "season_context": "2026/27",
+  "source": "Reep Register local snapshot",
+  "release_stamp": "2026-10-25.1",
+  "snapshot_file_name": null,
+  "snapshot_size_bytes": null,
+  "snapshot_sha256": null,
+  "read_only": true,
+  "external_access": false,
+  "row_values_exported": false,
+  "production_import": false,
+  "provider_api_calls": 0,
+  "provider_monthly_cost_thb": 0,
+  "supabase_writes": 0,
+  "supabase_deletes": 0,
+  "supabase_migrations": 0,
+  "table_count": 0,
+  "tables": [],
+  "note": "No Reep snapshot is staged in the repository or CI. This is an explicit empty baseline, not evidence that the release has zero tables."
+}
