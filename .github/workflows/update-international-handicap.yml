@@ -33,12 +33,13 @@ jobs:
         run: python3 scripts/fetch_international_handicap_odds.py
       - name: Commit isolated experimental file only
         run: |
-          if git diff --quiet -- data/experimental/international-r1/handicap-reference.json; then
+          FILE="data/experimental/international-r1/handicap-reference.json"
+          git add -- "$FILE"
+          if git diff --cached --quiet -- "$FILE"; then
             echo "No international Handicap data changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/experimental/international-r1/handicap-reference.json
           git commit -m "chore: refresh isolated Nations League Handicap references"
           git push origin main
