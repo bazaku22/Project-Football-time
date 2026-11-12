@@ -136,3 +136,14 @@ Verified implementation boundary:
 - The new CLI preview writes local JSON/CSV review reports only. It makes no network requests and no database writes.
 
 Do not describe the existing squad preview/save button as a statistics CSV import. A future UI integration needs a separate file-selection and preview screen, exact provider-ID mapping review, row-level quarantine reasons, permission-evidence review, and an explicit final confirmation. The server-side write path must enforce authenticated ownership and write source observations, current stats, and change history atomically. That UI/write path is not part of this test-only step.
+
+
+## Atomic Supabase import RPC (implementation slice)
+
+Migration `20261112110000_add_atomic_player_stats_import_rpc.sql` adds `public.import_player_statistics_batch`, a single-call all-or-nothing import boundary for 1–500 reviewed rows. It creates the import batch, creates/locates canonical players by internal key, links only exact provider IDs, appends immutable source observations, adds membership evidence when new, updates current-stat pointers as **pending** review, and appends change history. If any row fails, PostgreSQL rolls back the complete RPC call, including the batch and earlier rows.
+
+Each row requires explicit `identity_verified=true` and `rights_reviewed=true` operator attestations, `rights_status=approved`, a permission reference, exact provider ID, content hash, collection timestamp, matching team/season/squad membership, and valid scope/metrics. These flags record the authenticated operator's review; they are not independent proof that a provider licence is legally sufficient. Current stats remain `verification_status=pending` and must not be used by the prediction model until separately reviewed.
+
+The function derives ownership exclusively from `auth.uid()`; callers cannot supply a user ID. Authenticated direct INSERT/UPDATE privileges on the seven canonical tables are revoked. Authenticated users retain owner-scoped SELECT and EXECUTE on this RPC. The function uses a restricted `search_path`, schema-qualified relations, and EXECUTE is revoked from PUBLIC/anon. Its narrowly scoped SECURITY DEFINER boundary is necessary because direct table writes are disabled; the auth.uid guard and grants require review with Supabase Security Advisors before any production migration.
+
+The PostgreSQL test `supabase/tests/player_statistics_atomic_import_rpc.test.sql` covers successful import, pending model-review status, owner isolation, direct-write denial, and rollback of a two-row batch when its second row fails. CI runs it only against an ephemeral PostgreSQL service. The migration is committed to GitHub only; it has **not** been applied to Supabase Production, and no production data has been written.
