@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.5.0-beta.1">
-<title>Project Football Time V6.5.0-beta.1</title>
+<meta name="application-version" content="6.6.0-beta.1">
+<title>Project Football Time V6.6.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -65,7 +65,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/handicap-reference.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.5.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.6.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -426,13 +426,41 @@ document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>{
  document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x===b));
  document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===b.dataset.page));if(b.dataset.page==="archive")render();window.scrollTo(0,0);
 });
-function switchDatabaseTab(tab){
- const groups={team:["form","profile","homeaway"],matchStats:["h2h","league"]};
- const visiblePanels=new Set(groups[tab]||[tab]);
+const databaseSubtabs={team:"profile",matchStats:"h2h"};
+const databaseSubtabOptions={
+ team:[["profile","ภาพรวมทีม"],["form","ฟอร์มย้อนหลัง"],["homeaway","ผลงานเหย้า / เยือน"]],
+ matchStats:[["h2h","การพบกัน (H2H)"],["league","สถิติลีก"]]
+};
+let activeDatabaseTab="overview";
+function switchDatabaseTab(tab,subtab){
+ activeDatabaseTab=tab;
+ const options=databaseSubtabOptions[tab]||null;
+ if(options&&options.some(([key])=>key===subtab)) databaseSubtabs[tab]=subtab;
+ const selected=options?databaseSubtabs[tab]:tab;
+ const visiblePanels=new Set([selected]);
  document.querySelectorAll("[data-db-tab]").forEach(b=>b.classList.toggle("active",b.dataset.dbTab===tab));
  document.querySelectorAll(".db-panel").forEach(p=>p.classList.toggle("active",visiblePanels.has(p.id.replace("dbtab-",""))));
+ const secondary=document.getElementById("dbSubnavSecondary");
+ if(secondary){
+  secondary.hidden=!options;
+  secondary.innerHTML=options?options.map(([key,label])=>'<button type="button" data-db-subtab="'+key+'" class="'+(key===selected?"active":"")+'" aria-pressed="'+String(key===selected)+'">'+label+'</button>').join(""):"";
+ }
+}
+const primaryDatabaseNav=document.querySelector(".db-subnav");
+if(primaryDatabaseNav&&!document.getElementById("dbSubnavSecondary")){
+ const secondary=document.createElement("div");
+ secondary.id="dbSubnavSecondary";
+ secondary.className="db-subnav-secondary";
+ secondary.hidden=true;
+ secondary.setAttribute("aria-label","หมวดข้อมูลย่อย");
+ primaryDatabaseNav.insertAdjacentElement("afterend",secondary);
 }
 document.querySelectorAll("[data-db-tab]").forEach(b=>b.onclick=()=>{switchDatabaseTab(b.dataset.dbTab);window.scrollTo(0,0);});
+document.addEventListener("click",event=>{
+ const button=event.target.closest("[data-db-subtab]");
+ if(!button)return;
+ switchDatabaseTab(activeDatabaseTab,button.dataset.dbSubtab);
+});
 
 const addPanel=document.getElementById("addPanel");
 document.getElementById("showAdd").onclick=()=>{addPanel.hidden=false;addPanel.scrollIntoView({behavior:"smooth"});};
