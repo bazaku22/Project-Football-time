@@ -29,6 +29,20 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertTrue(all(p["season_statistics"] == {} for p in data["players"]))
         self.assertTrue(all(p["rights_status"] == "pending_review" for p in data["players"]))
 
+    def test_current_five_league_research_dataset_is_rendered_with_real_membership_metadata(self):
+        js = (ROOT / "js/player-database.js").read_text()
+        sw = (ROOT / "sw.js").read_text()
+        self.assertIn("current-player-squads-2026-27.json", js)
+        self.assertIn("current-player-squads-2026-27.json", sw)
+        self.assertIn("source.league_name", js)
+        self.assertIn("source.url", js)
+        self.assertNotIn('teamName:"Manchester United"', js)
+        data = json.loads((ROOT / "data/current-player-squads-2026-27.json").read_text())
+        self.assertEqual(data["records_count"], 25)
+        self.assertEqual(len(data["players"]), 25)
+        self.assertEqual(len({p["league_id"] for p in data["players"]}), 5)
+        self.assertTrue(all(p["statistics"] == {} and p["rights_status"] == "pending_review" for p in data["players"]))
+
     def test_player_photos_are_opt_in_only_and_have_safe_fallback(self):
         js = (ROOT / "js/player-database.js").read_text()
         self.assertIn('r.photoUrl||r.photo_url||""', js)
