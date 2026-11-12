@@ -39,6 +39,9 @@ on:
       - "data/player-source-pipeline-report-2026-27.json"
       - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
       - "scripts/reep_snapshot_inspector.py"
+      - "scripts/wikidata_p54_jsonl_extractor.py"
+      - "tests/test_wikidata_p54_jsonl_extractor.py"
+      - "docs/phase3-wikidata-local-jsonl-extractor-2026-27.md"
       - "tests/test_reep_snapshot_inspector.py"
       - "data/reep-snapshot-inspection-2026-27.json"
       - "docs/phase3-reep-local-snapshot-inspection-2026-27.md"
@@ -280,6 +283,19 @@ jobs:
           if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
               raise SystemExit("Production Supabase mutation is forbidden in this pipeline")
           print("Offline source pipeline safety contract is valid.")
+          PY
+
+      - name: Validate offline Wikidata JSONL P54 extractor
+        run: |
+          python3 -m py_compile scripts/wikidata_p54_jsonl_extractor.py
+          python3 -m unittest tests/test_wikidata_p54_jsonl_extractor.py -v
+          python3 - <<'PY'
+          from pathlib import Path
+          source = Path("scripts/wikidata_p54_jsonl_extractor.py").read_text(encoding="utf-8")
+          for forbidden in ("requests.", "urllib.request", "httpx.", "supabase"):
+              if forbidden in source:
+                  raise SystemExit(f"Unexpected network/database integration: {forbidden}")
+          print("Wikidata extractor remains local-only with no network or database integration.")
           PY
 
       - name: Validate Reep local DuckDB snapshot inspector
