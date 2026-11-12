@@ -39,6 +39,10 @@ on:
       - "data/player-source-pipeline-report-2026-27.json"
       - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
       - "scripts/reep_snapshot_inspector.py"
+      - "js/research-insight.js"
+      - "css/football-research.css"
+      - "sw.js"
+      - "index.html"
       - "scripts/build_football_research.py"
       - "tests/test_build_football_research.py"
       - "data/football-research-stats-2026-27.json"
@@ -341,6 +345,7 @@ jobs:
       - name: Validate automated football research refresh
         run: |
           python3 -m py_compile scripts/build_football_research.py
+          node --check js/research-insight.js
           python3 -m unittest tests/test_build_football_research.py -v
 
       - name: Validate Phase 6 league catalogue and database scripts
