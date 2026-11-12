@@ -35,10 +35,22 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertIn('"reviewer": mapped[0].get("reviewer", "")', RECONCILER)
         self.assertIn('"reviewed_at": mapped[0].get("reviewed_at", "")', RECONCILER)
 
+    def test_team_alias_review_panel_is_local_only_and_loaded(self):
+        panel = HTML[HTML.index('id="playerTeamAliasReviewPanel"'):HTML.index('id="playerStatsImportPanel"')]
+        for marker in ("playerTeamAliasReviewFile", "playerTeamAliasReviewer",
+                       "playerTeamAliasReviewRows", "playerTeamAliasExport"):
+            self.assertIn(marker, panel)
+        self.assertIn('./js/player-team-alias-review.js', HTML)
+        alias_module = (ROOT / "js" / "player-team-alias-review.js").read_text(encoding="utf-8")
+        self.assertIn("pft_player_team_alias_decisions_2026_27_v1", alias_module)
+        self.assertNotIn("fetch(", alias_module)
+        self.assertNotIn("supabase", alias_module.lower())
+
     def test_service_worker_caches_new_assets_and_invalidates_old_cache(self):
         self.assertIn("football-time-v68", WORKER)
         self.assertIn('"./css/player-identity-review.css?v=1"', WORKER)
         self.assertIn('"./js/player-identity-review.js"', WORKER)
+        self.assertIn('"./js/player-team-alias-review.js"', WORKER)
 
 
 if __name__ == "__main__":
