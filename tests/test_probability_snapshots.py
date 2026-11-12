@@ -74,6 +74,13 @@ def main():
         assert abs(sum(snapshot["probabilities"].values()) - 100) <= 0.11
         assert all(0 <= value <= 100 for value in snapshot["probabilities"].values())
         assert datetime.fromisoformat(snapshot["createdAt"]) < kickoff
+        assert snapshot["modelVersion"] == "pft-poisson-2.0"
+        assert snapshot["sample"]["homeForm5"] <= 5
+        assert snapshot["sample"]["homeForm10"] <= 10
+        assert snapshot["sample"]["awayForm5"] <= 5
+        assert snapshot["sample"]["awayForm10"] <= 10
+        assert snapshot["breakdown"]["h2h"]["minimumSample"] == 5
+        assert snapshot["breakdown"]["h2h"]["applied"] is False
         original_probabilities = dict(snapshot["probabilities"])
         original_created_at = snapshot["createdAt"]
 
