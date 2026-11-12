@@ -49,15 +49,37 @@ def number(value):
  try: return float(value) if isinstance(value,float) else int(value)
  except (ValueError,TypeError): return None
 
+def select_season_stats(seasons, target_season, current_team=None):
+ """Select only the exact requested season; never fall back to an unrelated season."""
+ for item in seasons or []:
+  if str(item.get("season")) != str(target_season):
+   continue
+  source_team=item.get("team")
+  if current_team and source_team and str(source_team) != str(current_team):
+   continue
+  return item
+ return None
+
+def merge_non_null_stats(existing, incoming):
+ """Refresh known metrics while preserving prior values when the provider omits them."""
+ merged=dict(existing or {})
+ for key,value in (incoming or {}).items():
+  if value is not None and value != "":
+   merged[key]=value
+ return merged
+
 def main():
  old=json.loads(PDB.read_text(encoding="utf-8")) if PDB.exists() else {"records":[]}
  football=json.loads(FDB.read_text(encoding="utf-8")) if FDB.exists() else {}
  old_records={r["id"]:r for r in old.get("records",[]) if isinstance(r,dict) and r.get("id")}
  teams=football.get("teams",[])
- team_lookup={}
+ team_candidates={}
  for team in teams:
   for name in (team.get("name"),team.get("shortName"),team.get("displayName")):
-   if norm(name): team_lookup[norm(name)]=team
+   key=norm(name)
+   if key: team_candidates.setdefault(key,{})[str(team.get("id") or team.get("teamId") or "")]=team
+ # Name matching is accepted only when it resolves to one unique football-data team.
+ team_lookup={key:next(iter(values.values())) for key,values in team_candidates.items() if len(values)==1}
  records={}
  fetched=datetime.now(timezone.utc).isoformat()
  squad_counts={}
@@ -83,9 +105,9 @@ def main():
    rid=f"{player_key}:{pft_team_id}:{season_value}"
    previous=old_records.get(rid,{})
    stats=dict(previous.get("statistics") or {})
-   stats.setdefault("appearances",number(player.get("appearances")))
-   stats.setdefault("lineups",None); stats.setdefault("minutes",None)
-   for key in ("rating","goals","assists","shotsTotal","shotsOnTarget","xg","yellowCards","redCards","saves","cleanSheets","goalsPer90","assistsPer90","xgPer90"):
+   squad_appearances=number(player.get("appearances"))
+   if squad_appearances is not None: stats["appearances"]=squad_appearances
+   for key in ("lineups","minutes","rating","goals","assists","shotsTotal","shotsOnTarget","xg","yellowCards","redCards","saves","cleanSheets","goalsPer90","assistsPer90","xgPer90"):
     stats.setdefault(key,None)
    records[rid]={
     "id":rid,"playerId":player_key,"name":name,"age":number(player.get("age")),
@@ -116,8 +138,7 @@ def main():
    break
   player=result.get("player") or {}
   seasons=result.get("seasons") or []
-  selected=next((s for s in seasons if str(s.get("season"))==record["season"] and (not s.get("team") or s.get("team")==player.get("team"))),None)
-  if selected is None and seasons: selected=seasons[0]
+  selected=select_season_stats(seasons,record["season"],player.get("team"))
   if selected:
    mapping={
     "appearances":"appearances","lineups":"starts","minutes":"minutes","goals":"goals",
@@ -125,14 +146,17 @@ def main():
     "yellowCards":"yellow_cards","redCards":"red_cards","saves":"saves","cleanSheets":"clean_sheets",
     "goalsPer90":"goals_per90","assistsPer90":"assists_per90","xgPer90":"xg_per90"
    }
-   for target,source in mapping.items(): record["statistics"][target]=selected.get(source)
-   record["season"]=str(selected.get("season") or record["season"])
+   incoming={target:selected.get(source) for target,source in mapping.items()}
+   record["statistics"]=merge_non_null_stats(record["statistics"],incoming)
+   record["profileStatus"]="profiled"
+   record["source"].update({"profileEndpoint":"get_player","profileFetchedAt":fetched,"profileSeasonMatched":record["season"]})
+   record["recentGames"]=result.get("recent_games") or []
+   profiles_done+=1
+  else:
+   record["source"]["profileSeasonMatched"]=None
+   record["source"]["profileNote"]="No exact season/team statistics returned; profile remains roster-only."
   record["position"]=player.get("position") or record.get("position")
   record["number"]=number(player.get("jersey")) if player.get("jersey") is not None else record.get("number")
-  record["profileStatus"]="profiled"
-  record["source"].update({"provider":"StrikerAPI","profileEndpoint":"get_player","profileFetchedAt":fetched})
-  record["recentGames"]=result.get("recent_games") or []
-  profiles_done+=1
  next_offset=(offset+profiles_done)%len(roster)
  # Merge roster with old data, retaining old records for players not in the current squad feed.
  merged=dict(old_records)
