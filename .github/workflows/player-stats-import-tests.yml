@@ -143,6 +143,7 @@ jobs:
           SQL
           psql -v ON_ERROR_STOP=1 < supabase/migrations/20261111063000_create_player_statistics_foundation.sql
           psql -v ON_ERROR_STOP=1 < supabase/migrations/20261111064223_restrict_player_statistics_service_role_grants.sql
-          psql -v ON_ERROR_STOP=1 < supabase/migrations/20261112110000_add_atomic_player_stats_import_rpc.sql
+          # Run the pre-existing table-level lifecycle test before RPC-only writes are enforced.
           psql -v ON_ERROR_STOP=1 < supabase/tests/player_statistics_two_user_import_transaction.test.sql
+          psql -v ON_ERROR_STOP=1 < supabase/migrations/20261112110000_add_atomic_player_stats_import_rpc.sql
           psql -v ON_ERROR_STOP=1 < supabase/tests/player_statistics_atomic_import_rpc.test.sql
