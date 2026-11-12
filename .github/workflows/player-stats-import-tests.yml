@@ -4,6 +4,9 @@ on:
   pull_request:
     paths:
       - "js/player-stats-import.js"
+      - "js/player-cloud.js"
+      - "js/player-database.js"
+      - "sw.js"
       - "js/match-center.js"
       - "js/primary-navigation.js"
       - "css/primary-navigation.css"
@@ -47,6 +50,8 @@ jobs:
         run: python -m py_compile scripts/validate_player_stats_csv.py scripts/preview_player_stats_import.py tests/test_validate_player_stats_csv.py tests/test_preview_player_stats_import.py tests/test_player_stats_import_e2e.py tests/test_player_statistics_import_ui.py tests/test_strikerapi_player_importer.py tests/test_match_center.py tests/test_primary_navigation.py
       - name: Validate browser CSV preview module
         run: |
+          node --check js/player-cloud.js
+          node --check js/player-database.js
           node --check js/player-stats-import.js
           node --check js/match-center.js
           node --check js/primary-navigation.js
