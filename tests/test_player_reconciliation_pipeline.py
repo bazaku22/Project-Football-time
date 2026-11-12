@@ -102,6 +102,39 @@ class PlayerReconciliationPipelineTests(unittest.TestCase):
         self.assertEqual(result["provider_team_reference_api_calls"], 5)
         self.assertEqual(result["supabase_writes"], 0)
 
+    def test_pending_team_alias_is_candidate_only(self):
+        staging, db = fixtures()
+        staging["players"][0]["provider_team_id"] = "ars-provider"
+        aliases = {
+            "provider": "strikerapi", "season": "2026/27",
+            "status": "pending_human_review", "production_import": False,
+            "aliases": [{
+                "league_id": "PL", "provider_team_id": "ars-provider",
+                "candidate_team_id": "ft-ars", "candidate_team_name": "Arsenal FC",
+                "canonical_team_id": "", "status": "alias_candidate_needs_review"
+            }]
+        }
+        result = run(staging, db, alias_registry=aliases)
+        row = next(x for x in result["_team_rows"] if x["provider_team_id"] == "ars-provider")
+        self.assertEqual(row["status"], "alias_candidate_needs_review")
+        self.assertEqual(row["canonical_team_id"], "")
+        self.assertEqual(row["alias_candidate_team_id"], "ft-ars")
+        self.assertEqual(result["pending_team_alias_candidates"], 1)
+
+    def test_rejects_confirmed_alias_in_pending_registry(self):
+        staging, db = fixtures()
+        aliases = {
+            "provider": "strikerapi", "season": "2026/27",
+            "status": "pending_human_review", "production_import": False,
+            "aliases": [{
+                "league_id": "PL", "provider_team_id": "st1",
+                "candidate_team_id": "ft-ars", "candidate_team_name": "Arsenal FC",
+                "canonical_team_id": "ft-ars", "status": "alias_candidate_needs_review"
+            }]
+        }
+        with self.assertRaisesRegex(ValueError, "no confirmed canonical ID"):
+            run(staging, db, alias_registry=aliases)
+
     def test_rejects_wrong_provider_team_reference_season(self):
         staging, db = fixtures()
         reference = {
