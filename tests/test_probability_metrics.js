@@ -13,7 +13,7 @@ const v2=snap("1","pft-poisson-2.0",{home:70,draw:20,away:10});
 const rows=[
  v1,v2,
  snap("2","pft-poisson-1.0",{home:20,draw:15,away:65}),
- snap("3","pft-poisson-1.0",{home:45,draw:30,away:25}),
+ snap("3","pft-poisson-1.0",{home:45,draw:30,away:25},{actualOutcome:"home"}),
  snap("4","bad",{home:60,draw:20,away:20},{createdAt:"2026-11-10T19:00:00Z"}),
  snap("5","bad",{home:60,draw:20,away:30}),
  snap("6","intl",{home:40,draw:30,away:30},{scope:"international"}),
@@ -22,15 +22,15 @@ const rows=[
 const result=calculate(rows,matches,[{id:"PL",name:"Premier League"},{id:"PD",name:"La Liga"}]);
 assert.equal(result.totalSnapshots,8);
 assert.equal(result.validPreMatch,4);
-assert.equal(result.evaluated,3);
-assert.equal(result.pending,1);
+assert.equal(result.evaluated,2);
+assert.equal(result.pending,2);
 assert.equal(result.excludedInvalid,2);
 assert.equal(result.excludedScope,1);
 assert.equal(result.excludedDuplicate,1);
 assert.equal(result.outcomeDisagreements,0);
-assert.equal(result.overall.accuracy,2/3);
+assert.equal(result.overall.accuracy,0.5);
 assert.ok(result.overall.accuracy95.lower<result.overall.accuracy&&result.overall.accuracy95.upper>result.overall.accuracy);
-assert.ok(Math.abs(result.overall.brier-(0.245+1.185+0.14)/3)<1e-12);
+assert.ok(Math.abs(result.overall.brier-(0.245+1.185)/2)<1e-12);
 assert.ok(result.overall.logLoss>0);
 assert.ok(result.overall.topLabelEce>=0&&result.overall.topLabelEce<=1);
 assert.ok(result.overall.classwiseEce>=0&&result.overall.classwiseEce<=1);
@@ -49,6 +49,9 @@ assert.equal(disagreement.evaluatedRows[0].outcomeSource,"finished_match_score")
 const storedFallback=calculate([{...v1,matchId:"missing",actualOutcome:"home"}],[],[]);
 assert.equal(storedFallback.evaluated,1);
 assert.equal(storedFallback.evaluatedRows[0].outcomeSource,"stored_snapshot_outcome");
+const unfinishedWithAnnotation=calculate([{...v1,matchId:"3",actualOutcome:"home"}],matches,[]);
+assert.equal(unfinishedWithAnnotation.evaluated,0,"An unfinished match record must not be evaluated from a stored annotation");
+assert.equal(unfinishedWithAnnotation.pending,1);
 const empty=calculate([],[],[]);
 assert.equal(empty.overall.accuracy,null);
 assert.equal(empty.overall.brier,null);
