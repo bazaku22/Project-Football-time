@@ -1,4 +1,4 @@
-const CACHE = "football-time-v65";
+const CACHE = "football-time-v66";
 
 const ASSETS = [
   "./",
@@ -24,6 +24,7 @@ const ASSETS = [
   "./data/national-team-research-2026-11.json",
   "./data/player-database.json",
   "./data/player-position-pilot-2026-27.json",
+  "./data/current-player-squads-2026-27.json",
   "./data/asian-handicap-odds.json",
   "./data/experimental/international-r1/fixtures.json",
   "./data/experimental/international-r1/prediction-snapshots.json",
@@ -82,6 +83,7 @@ self.addEventListener("fetch", (event) => {
   if (url.pathname.endsWith("/data/football-database.json") ||
       url.pathname.endsWith("/data/player-database.json") ||
       url.pathname.endsWith("/data/player-position-pilot-2026-27.json") ||
+      url.pathname.endsWith("/data/current-player-squads-2026-27.json") ||
       url.pathname.endsWith("/data/asian-handicap-odds.json")) {
     // Ignore cache-busting query strings so each refresh reuses one cache entry.
     const cacheKey = new Request(url.origin + url.pathname, { method: "GET" });
