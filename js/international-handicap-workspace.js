@@ -46,16 +46,18 @@
       return response.json();
     });
   }
-  function derive(fixture, prediction, reference, now) {
+  function derive(fixture, prediction, reference, referenceFetchedAt) {
     const kickoff = Date.parse(fixture.kickoff_utc || "");
-    const captured = Date.parse(prediction.captured_at || "");
+    const predictionCaptured = Date.parse(prediction.captured_at || "");
+    const referenceCaptured = Date.parse(referenceFetchedAt || "");
+    const captured = Math.max(predictionCaptured, referenceCaptured);
     const latest = reference.bookmakers.map(function (row) {
       return Date.parse(row.lastUpdate || "");
     }).filter(Number.isFinite).reduce(function (max, value) { return Math.max(max, value); }, 0);
-    const ageHours = latest ? Math.max(0, (now - latest) / 3600000) : Infinity;
+    const ageHours = latest && referenceCaptured ? (referenceCaptured - latest) / 3600000 : Infinity;
     const sourceCount = new Set(reference.bookmakers.map(function (row) { return row.bookmaker; })).size;
     const preMatch = Number.isFinite(kickoff) && Number.isFinite(captured) && captured < kickoff;
-    const fresh = latest > 0 && ageHours <= 24;
+    const fresh = latest > 0 && Number.isFinite(ageHours) && ageHours >= 0 && ageHours <= 24;
     const enoughSources = sourceCount >= 3;
     let status = "insufficient_reference";
     let statusLabel = "ข้อมูลอ้างอิงไม่เพียงพอ";
@@ -104,7 +106,7 @@
     return {
       schemaVersion: 1, fixtureId: fixture.id, competition: "UEFA Nations League",
       home: fixture.home_team, away: fixture.away_team, kickoffUtc: fixture.kickoff_utc,
-      capturedAt: prediction.captured_at, modelVersion: prediction.model_version,
+      capturedAt: Number.isFinite(captured) ? new Date(captured).toISOString() : null, modelVersion: prediction.model_version,
       expectedGoals: prediction.expected_goals || null,
       homeLine: reference.referenceHomeLine, awayLine: reference.referenceAwayLine,
       sourceCount: sourceCount, sources: reference.bookmakers.map(function (row) {
@@ -270,12 +272,11 @@
       });
       const predictions = new Map(data[1].snapshots.map(function (row) { return [row.fixture_id, row]; }));
       const references = new Map(data[2].events.map(function (row) { return [row.fixtureId, row]; }));
-      const now = Date.now();
       const records = fixtures.map(function (fixture) {
         const prediction = predictions.get(fixture.id);
         const reference = references.get(fixture.id);
         if (!prediction || !reference) return null;
-        return derive(fixture, prediction, reference, now);
+        return derive(fixture, prediction, reference, data[2].fetchedAt);
       }).filter(Boolean).sort(function (a,b) { return a.kickoffUtc.localeCompare(b.kickoffUtc); });
       const snapshots = ensureSnapshots(records);
       const results = read(RESULT_KEY);
