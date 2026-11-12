@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.9.0-beta.1">
-<title>Project Football Time V6.9.0-beta.1</title>
+<meta name="application-version" content="6.9.1-beta.1">
+<title>Project Football Time V6.9.1-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -67,7 +67,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.9.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.9.1-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -262,13 +262,13 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <p class="profile-note">ข้อมูลนักเตะแยกจากรายการทดสอบและฐานข้อมูลการแข่งขัน การนำเข้าในอุปกรณ์นี้เก็บใน Local Storage แยกต่างหาก ทุกชุดข้อมูลต้องมีแหล่งที่มาและฤดูกาลกำกับ หากไม่มีข้อมูลจะแสดงว่าไม่พบ ไม่เติมค่าคาดเดา</p>
 </div>
 <div class="db-panel" id="dbtab-accuracy">
- <div class="sectionhead"><h2>ติดตามความแม่นยำและ Calibration</h2><span class="small">PHASE 4.6</span></div>
+ <div class="sectionhead"><h2>Accuracy &amp; Model Evaluation Center</h2><span class="small">PHASE 5</span></div>
  <div id="probabilityAccuracySummary" class="empty">กำลังตรวจสอบคำทำนายที่บันทึกไว้…</div>
  <div class="card"><div class="topline"><b>การสอบเทียบความน่าจะเป็น</b><span class="small">ค่าประเมินเทียบผลจริง</span></div><div id="probabilityCalibration"></div></div>
  <div class="card"><div class="topline"><b>สถิติ Handicap (แยกจาก 1X2)</b><span class="small">ประเมินจากเส้นและเปอร์เซ็นต์ที่บันทึกก่อนแข่ง</span></div><div id="handicapAccuracySummary"><div class="empty">กำลังตรวจสอบประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ Handicap ย้อนหลัง</b><span class="small">Snapshot ไม่แก้ไขย้อนหลัง</span></div><div id="handicapHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ 1X2 ย้อนหลัง</b><span class="small">Snapshot เดิม · ใหม่ไปเก่า</span></div><div id="probabilityHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ…</div></div></div>
- <p class="profile-note">ประเมินเฉพาะคำทำนายที่บันทึกไว้ก่อนเวลาแข่งขันและมีผลจริงในฐานข้อมูลบนอุปกรณ์นี้ คำทำนายเก่าที่ไม่มีเปอร์เซ็นต์ 1X2 แยกครบจะไม่นำมาปะปน</p>
+ <p class="profile-note">ประเมินเฉพาะ Club 1X2 Snapshot ที่บันทึกก่อนเริ่มแข่ง แยกตามลีก ฤดูกาล และเวอร์ชันโมเดล · ใช้ผลจริงจากสกอร์ FINISHED ก่อนข้อมูล annotation · ไม่แก้ไข Snapshot เดิม · Legacy, Handicap และ International แยกประเมิน</p>
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
@@ -1082,17 +1082,22 @@ function renderProbabilityAccuracy(){
  const metrics=window.FootballTimeMetrics.calculateProbabilityMetrics(probabilitySnapshots(),footballDB.matches||[],footballDB.leagues||[]);
  const fmt=value=>Number.isFinite(value)?value.toFixed(3):"—";
  const pct=value=>Number.isFinite(value)?(value*100).toFixed(1)+"%":"—";
- const n=metrics.evaluated,overall=metrics.overall;
- const sampleNote=n<30?"ตัวอย่างน้อยกว่า 30 คู่: ผลประเมินผันผวนสูง ยังสรุปคุณภาพโมเดลไม่ได้":n<100?"ตัวอย่าง 30–99 คู่: เป็นผลเบื้องต้น ควรติดตามเพิ่ม":"ตัวอย่างตั้งแต่ 100 คู่ขึ้นไป: ยังเป็นการประเมินเชิงสังเกต ไม่ใช่หลักฐานยืนยันความสามารถทำนาย";
+ const signed=value=>Number.isFinite(value)?(value>0?"+":"")+value.toFixed(3):"—";
+ const n=metrics.evaluated,overall=metrics.overall,ci=overall.accuracy95;
+ const sampleNote=n<30?"ตัวอย่างน้อยกว่า 30 คู่: ผลประเมินยังผันผวนสูง ไม่ควรสรุปว่าโมเดลใดดีกว่า":n<100?"ตัวอย่าง 30–99 คู่: เป็นผลเบื้องต้น ควรติดตามเพิ่ม":"ตัวอย่างตั้งแต่ 100 คู่ขึ้นไป: เป็นผลประเมินเชิงสังเกต ยังไม่ใช่หลักฐานยืนยันความสามารถทำนาย";
  const leagueRows=metrics.byLeague.map(row=>'<div class="calibration-row"><span>'+esc(row.name)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
- const modelRows=metrics.byModel.map(row=>'<div class="calibration-row"><span>'+esc(row.version)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
- document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด (ไม่ลบย้อนหลัง)</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>Snapshot ที่ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่มีผลจริงสำหรับประเมิน</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>ทายผล 1X2 ถูก (ตัวเลือกที่มี % สูงสุด)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Brier score มาตรฐาน (ช่วง 0–2 · ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log loss เฉลี่ย (ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+fmt(overall.ece)+'</b><span>Calibration error (ECE · ต่ำดีกว่า)</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง · คัดออก '+metrics.excluded+' รายการ</span></div></div><div class="quality-note">'+sampleNote+' · ใช้เฉพาะ 1X2 ครบ 100% และบันทึกก่อนเวลาแข่งขัน</div><div class="card"><b>แยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>แยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
- const bins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+(bin.min*100).toFixed(0)+'–'+(bin.max*100).toFixed(0)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
- document.getElementById("probabilityCalibration").innerHTML=bins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>';
+ const modelRows=metrics.byModel.map(row=>'<div class="calibration-row"><span>'+esc(row.version)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+' · LogLoss '+fmt(row.logLoss)+'</span></div>').join("");
+ const leagueModelRows=metrics.byLeagueAndModel.map(row=>'<div class="calibration-row"><span>'+esc(row.leagueName)+' · '+esc(row.version)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
+ const seasonRows=metrics.bySeason.map(row=>'<div class="calibration-row"><span>'+esc(row.season)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
+ const comparisonRows=metrics.modelComparisons.map(row=>'<div class="calibration-row"><span>'+esc(row.modelA)+' → '+esc(row.modelB)+' · จับคู่ร่วมกัน '+row.pairedCount+' คู่</span><b>Δ Brier '+signed(row.brierDelta)+'</b><span>Δ LogLoss '+signed(row.logLossDelta)+' · Δ Accuracy '+pct(row.accuracyDelta)+'</span></div>').join("");
+ const interval=ci?pct(ci.lower)+" – "+pct(ci.upper):"—";
+ document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด · เก็บประวัติครบ</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่ประเมินผลได้</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>Accuracy · เลือกผลที่ % สูงสุด</span></div><div class="db-kpi"><b>'+interval+'</b><span>ช่วงความเชื่อมั่น Accuracy 95% (Wilson)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Multiclass Brier · 0–2 · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log Loss · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.topLabelEce)+'</b><span>Top-label ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.classwiseEce)+'</b><span>Classwise ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง</span></div></div><div class="quality-note">'+sampleNote+' · คัดออก '+metrics.excluded+' รายการ (ข้อมูลไม่ถูกต้อง '+metrics.excludedInvalid+' · International '+metrics.excludedScope+' · ซ้ำ '+metrics.excludedDuplicate+') · พบ annotation ไม่ตรงสกอร์จริง '+metrics.outcomeDisagreements+' รายการ โดยใช้สกอร์ FINISHED เป็นหลัก</div><div class="card"><b>เปรียบเทียบโมเดลบนคู่แข่งขันชุดเดียวกัน</b>'+(comparisonRows||'<div class="empty">ยังไม่มีเวอร์ชันที่มีคู่แข่งขันร่วมกัน</div>')+'<div class="small">ค่า Delta = โมเดล B ลบโมเดล A · ค่า Brier / Log Loss ติดลบหมายถึงโมเดล B ต่ำกว่า · เป็นการเปรียบเทียบเชิงพรรณนา ไม่ใช่การทดสอบนัยสำคัญทางสถิติ</div></div><div class="card"><b>ผลประเมินแยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามลีก × เวอร์ชันโมเดล</b>'+(leagueModelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามฤดูกาล</b>'+(seasonRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
+ const topBins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+Math.round(bin.min*100)+'–'+Math.round(bin.max*100)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
+ const classBins=["home","draw","away"].map(key=>'<div class="small" style="margin-top:10px"><b>'+({home:"เจ้าบ้านชนะ",draw:"เสมอ",away:"ทีมเยือนชนะ"}[key])+' · ECE '+fmt(overall.classwise[key].ece)+'</b></div>'+overall.classwise[key].bins.map(bin=>'<div class="calibration-row"><span>'+Math.round(bin.min*100)+'–'+Math.round(bin.max*100)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("")).join("");
+ document.getElementById("probabilityCalibration").innerHTML='<div class="small"><b>Top-label reliability</b> · วัดความน่าจะเป็นของผลลัพธ์ที่โมเดลให้น้ำหนักสูงสุด</div>'+(topBins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>')+'<div class="divider"></div><div class="small"><b>One-vs-rest reliability</b> · ประเมิน calibration ของเจ้าบ้าน / เสมอ / ทีมเยือนแยกกัน</div>'+classBins;
  renderProbabilityHistory();
  renderHandicapHistory();
 }
-
 let testFixturesData=null;
 let selectedTestFixtureDate=null;
 function renderTestFixtures(){
