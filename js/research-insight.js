@@ -35,11 +35,14 @@
   function render() {
     const target = $("#analysisInsightOutput"), matchSelect = $("#probMatchSelect");
     if (!target || !matchSelect || !database) return;
-    target.querySelector(".research-insight")?.remove();
+    const existing = target.querySelector(".research-insight");
     const matchId = String(matchSelect.value || "");
     const match = (database.matches || []).find(x => String(x.providerMatchId) === matchId);
-    if (!match) return;
+    if (!match) { existing?.remove(); return; }
+    if (existing?.dataset.matchId === matchId && existing?.dataset.state === loadState) return;
+    existing?.remove();
     const card = node("section", "analysis-insight research-insight");
+    card.dataset.matchId = matchId; card.dataset.state = loadState;
     card.append(node("div", "insight-heading", "Research Statistics · ข้อมูลประกอบจากสถิติจริง"));
     if (loadState !== "ready" || !report) {
       card.append(node("p", "research-muted", loadState === "missing"
