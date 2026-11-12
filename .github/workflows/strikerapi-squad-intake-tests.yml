@@ -4,6 +4,10 @@ on:
     paths:
       - "scripts/strikerapi_squad_intake.py"
       - "tests/test_strikerapi_squad_intake.py"
+      - "scripts/player_reconciliation_pipeline.py"
+      - "tests/test_player_reconciliation_pipeline.py"
+      - "docs/strikerapi-current-squad-intake-2026-27.md"
+      - "docs/player-reconciliation-pipeline-2026-27.md"
       - ".github/workflows/strikerapi-squad-intake-tests.yml"
       - ".github/workflows/fetch-strikerapi-current-squads.yml"
 permissions:
@@ -19,4 +23,6 @@ jobs:
       - name: Compile and run offline tests
         run: |
           python -m py_compile scripts/strikerapi_squad_intake.py tests/test_strikerapi_squad_intake.py
+          python -m py_compile scripts/player_reconciliation_pipeline.py tests/test_player_reconciliation_pipeline.py
           python -m unittest tests/test_strikerapi_squad_intake.py -v
+          python -m unittest tests/test_player_reconciliation_pipeline.py -v
