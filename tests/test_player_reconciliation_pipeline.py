@@ -19,8 +19,8 @@ def fixtures():
     }
     football_db = {
         "teams": [
-            {"id": "ft-ars", "name": "Arsenal FC", "shortName": "Arsenal"},
-            {"id": "ft-bar", "name": "FC Barcelona", "shortName": "Barça"},
+            {"id": "ft-ars", "name": "Arsenal FC", "shortName": "Arsenal", "tla": "ARS"},
+            {"id": "ft-bar", "name": "FC Barcelona", "shortName": "Barça", "tla": "FCB"},
             {"id": "ft-other", "name": "Arsenal FC", "shortName": "Arsenal"}
         ],
         "teamSeasons": [
