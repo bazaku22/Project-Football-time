@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.11.0-beta.1">
-<title>Project Football Time V6.11.0-beta.1</title>
+<meta name="application-version" content="6.12.0-beta.1">
+<title>Project Football Time V6.12.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -68,7 +68,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.11.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.12.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -240,6 +240,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div class="form-controls">
    <div class="field"><label for="playerLeagueFilter">ลีก</label><select id="playerLeagueFilter" class="filter"><option value="ALL">ทุกลีก</option></select></div>
    <div class="field"><label for="playerTeamFilter">ทีม</label><select id="playerTeamFilter" class="filter"><option value="ALL">ทุกทีม</option></select></div>
+   <div class="field"><label for="playerPositionFilter">ตำแหน่งการเล่น</label><select id="playerPositionFilter" class="filter"><option value="ALL">ทุกตำแหน่ง</option><option value="FORWARD">แนวรุก</option><option value="MIDFIELDER">กองกลาง</option><option value="DEFENDER">กองหลัง</option><option value="GOALKEEPER">ผู้รักษาประตู</option><option value="MULTI">หลายกลุ่มตำแหน่ง</option><option value="UNKNOWN">ยังไม่ระบุตำแหน่ง</option></select></div>
    <div class="field full"><label for="playerSearch">ค้นหาชื่อนักเตะ</label><input id="playerSearch" class="filter" type="search" placeholder="พิมพ์ชื่อนักเตะ"></div>
   </div>
   <div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div>
