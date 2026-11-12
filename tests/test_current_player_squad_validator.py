@@ -58,6 +58,11 @@ class CurrentPlayerSquadValidatorTests(unittest.TestCase):
         self.assertIn("written permission", doc.lower())
         self.assertIn("Do not scrape", doc)
         self.assertIn("Target recurring provider cost remains 0 THB/month.", doc)
+        self.assertIn("Wikidata structured data", doc)
+        self.assertIn("Conditional discovery and cross-check source only.", doc)
+        self.assertIn("FootballSquads", doc)
+        self.assertIn("API Ninjas", doc)
+        self.assertIn("2026-07-06", doc)
 
     def test_rejects_prior_season_membership(self):
         payload = copy.deepcopy(self.data)
