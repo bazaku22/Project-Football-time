@@ -23,6 +23,8 @@ class PlayerIdentityReconciliationTests(unittest.TestCase):
         )
         self.assertEqual(rows[0]["status"], "exact_verified_mapping")
         self.assertEqual(rows[0]["canonical_player_key"], "ft-001")
+        self.assertEqual(rows[0]["reviewer"], "reviewer-1")
+        self.assertEqual(rows[0]["reviewed_at"], "2026-11-12T10:00:00Z")
 
     def test_name_and_dob_only_create_candidates_not_links(self):
         rows = reconcile(
