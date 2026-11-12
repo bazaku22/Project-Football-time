@@ -106,3 +106,28 @@ These observations mean the current-season dataset is **not populated yet**. The
 3. Resolve team/player identities and squad levels, marking uncertainty rather than guessing.
 4. Review club-kit photo availability and rights; fall back to club-colour avatars where needed.
 5. Present the validated import manifest for approval before any Production write.
+
+
+## Source-rights review — 2026-11-12
+
+This is a product intake risk-control review, not legal advice or a final legal opinion. It records the published website terms observed on 2026-11-12. It does not determine whether individual names or isolated facts are independently protected in every jurisdiction.
+
+| League/source | Terms reviewed | Observed restriction relevant to reuse | Intake decision |
+|---|---|---|---|
+| Premier League | [Official Terms of Use](https://www.premierleague.com/es/terms-and-conditions) | Reserves copyright and database rights; prohibits reuse/reproduction/redistribution, expressly including creating a database from website material, without prior written approval. | Written permission required before copying records into a distributed player database. |
+| La Liga | [LALIGA Legal Notice](https://www.laliga.com/en-GB/legal/legal-web) | Restricts reproduction, distribution, commercialization and other exploitation of website content without authorization. Whether a limited set of independently verified factual fields is outside that restriction needs qualified review. | Do not treat the official directory/profile as an open data licence; permission or legal review required. |
+| Bundesliga | [Official Legal Notice](https://www.bundesliga.com/en/bundesliga/info/legal-notices) | Reserves IP rights; says reproduction, storage and repetition in databases/electronic systems require prior written consent where not otherwise permitted by law. It also restricts automated access, analysis and downloads. | Do not scrape or bulk-copy; written permission or independently verified lawful basis required. |
+| Serie A | [Official Terms and Conditions](https://en.legaseriea.it/terms-and-conditions) | States content including data compilations is protected and extraction/use in whole or part requires express written consent. | Written permission required; no data mining or extraction. |
+| Ligue 1 / LFP | [Official Terms of Use](https://ligue1.com/en/legal/cgu) | Restricts reproduction, modification, transmission, redistribution, sale, commercial exploitation and reuse without prior written consent. | Written permission required before reusing site content. |
+
+### Operational decision
+
+- All seven official-source entries currently in the 2026/27 pilot are marked `reuse_status: written_permission_required`; the underlying player rows remain `rights_status: pending_review`.
+- These sources may remain linked as research references in this isolated Research Only pilot, but they are **not approved data feeds** and must not be used to bulk-expand or republish the database.
+- The validator now fails if one of these source records is marked reusable without changing the documented permission gate. A future open-data source must be reviewed separately and carry its exact licence, attribution obligations, scope, version/date and source URL before its status can be changed.
+- Player photographs, club crests, league marks and player personality/publicity rights remain separate review items; a data-source permission does not grant image or trademark rights.
+- No provider API calls, scraping, Production writes, migrations, imports or deletions were performed for this review.
+
+### Next permitted data-discovery route
+
+Prioritize independently licensed/open datasets (for example, a source with an explicit CC0 or compatible database licence) and verify its coverage, update cadence, season membership and attribution requirements before adding records. Wikidata may be investigated as a discovery lead, but its current-club membership statements must be checked for freshness and provenance; it is not assumed to provide complete or current squad coverage. Do not substitute another aggregator whose terms prohibit reuse.
