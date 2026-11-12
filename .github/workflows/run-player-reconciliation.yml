@@ -1,0 +1,64 @@
+name: Player reconciliation from existing staging artifact
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: "Successful StrikerAPI staging workflow run ID (no new provider calls)"
+        required: true
+        type: string
+        default: "43278796571"
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Download existing staging artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: strikerapi-current-squads-2026-27
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.source_run_id }}
+          github-token: ${{ github.token }}
+          path: data/staging/incoming
+
+      - name: Locate and validate staging snapshot
+        id: staging
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t files < <(find data/staging/incoming -type f -name 'strikerapi-current-squads-2026-27.json')
+          if [ "${#files[@]}" -ne 1 ]; then
+            echo "Expected exactly one staging JSON, found ${#files[@]}" >&2
+            find data/staging/incoming -maxdepth 4 -type f -print >&2
+            exit 1
+          fi
+          echo "path=${files[0]}" >> "$GITHUB_OUTPUT"
+
+      - name: Run offline reconciliation
+        run: |
+          python -m py_compile scripts/player_reconciliation_pipeline.py
+          python scripts/player_reconciliation_pipeline.py \
+            --staging "${{ steps.staging.outputs.path }}" \
+            --football-db data/football-database.json \
+            --out-dir data/staging/reconciliation-2026-27
+
+      - name: Upload reconciliation reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: football-time-player-reconciliation-2026-27
+          path: data/staging/reconciliation-2026-27/
+          if-no-files-found: error
+          retention-days: 14
