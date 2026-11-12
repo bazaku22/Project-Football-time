@@ -118,7 +118,14 @@
   }
   function openDatabaseTab(tab) {
     openPage("fixtures");
-    document.querySelector('[data-db-tab="'+tab+'"]')?.click();
+    const groupedTab = ({
+      profile:"team",form:"team",homeaway:"team",
+      h2h:"matchStats",league:"matchStats"
+    })[tab] || tab;
+    document.querySelector('[data-db-tab="'+groupedTab+'"]')?.click();
+    if (groupedTab !== tab) {
+      document.querySelector('[data-db-subtab="'+tab+'"]')?.click();
+    }
   }
   function openEntity(entity) {
     if (!entity) return;
