@@ -224,6 +224,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   </div>
  </div>
  <div id="playerList"><div class="empty">กำลังโหลดรายชื่อนักเตะ…</div></div>
+ <div class="card" id="provisionalPlayerDirectory"><div class="topline"><b>รายชื่อนักเตะปัจจุบัน · Provisional Directory</b><span class="tag">LOCAL DATA</span></div><p class="profile-note">แสดงรายชื่อจาก StrikerAPI 2026/27 ที่สร้างเป็นรายการรอตรวจสอบ ข้อมูลนี้ยังไม่ใช่ Canonical Identity และเก็บเฉพาะในอุปกรณ์ที่นำเข้าไฟล์</p><div class="field"><label for="provisionalDirectoryFile">นำเข้า provisional-player-review-2026-27.csv</label><input id="provisionalDirectoryFile" class="filter" type="file" accept=".csv,text/csv"></div><div id="provisionalDirectoryStatus" class="small" role="status">ยังไม่มีข้อมูล Provisional ในอุปกรณ์นี้</div><div class="db-kpis" id="provisionalDirectorySummary"></div><div class="form-controls"><div class="field"><label for="provisionalDirectoryLeague">ลีก</label><select id="provisionalDirectoryLeague" class="filter"><option value="ALL">ทุกลีก</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="BL1">Bundesliga</option><option value="SA">Serie A</option><option value="FL1">Ligue 1</option></select></div><div class="field"><label for="provisionalDirectorySearch">ค้นหาชื่อ / Provider ID / Team ID</label><input id="provisionalDirectorySearch" class="filter" type="search" placeholder="พิมพ์คำค้น"></div></div><div id="provisionalDirectoryRows"><div class="empty">นำเข้าไฟล์ CSV เพื่อแสดงรายชื่อนักเตะ</div></div><div class="form-actions"><button class="secondary" id="provisionalDirectoryPrev" type="button" disabled>ก่อนหน้า</button><span class="small" id="provisionalDirectoryPager">0 รายการ</span><button class="secondary" id="provisionalDirectoryNext" type="button" disabled>ถัดไป</button></div></div>
  <p class="profile-note">รูปนักเตะจะแสดงเมื่อมี URL ภาพที่ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น หากยังไม่มีจะแสดงอักษรย่อแทน เพื่อไม่ใช้ภาพที่ไม่มีสิทธิ์</p>
  <details class="card"><summary><b>เครื่องมือจัดการข้อมูลและระบบเดิม (ขั้นสูง)</b></summary>
   <p class="profile-note">เก็บเครื่องมือเดิมไว้เพื่อรักษาข้อมูลและประวัติ ไม่ใช่แหล่งข้อมูลหลักของรายชื่อนักเตะ</p>
@@ -1182,4 +1183,5 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/player-team-alias-review.js"></script>
 <script src="./js/research-insight.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
+<script src="./js/provisional-player-directory.js"></script>
 </body></html>
