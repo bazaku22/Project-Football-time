@@ -15,6 +15,14 @@ class PrimaryNavigationTests(unittest.TestCase):
         for target in ("summary", "analysis", "archive", "players", "advanced"):
             self.assertIn('["' + target + '"', source)
 
+    def test_international_handicap_stays_in_secondary_tools(self):
+        navigation = (ROOT / "js/primary-navigation.js").read_text()
+        workspace = (ROOT / "js/international-handicap-workspace.js").read_text()
+        self.assertIn('["internationalHandicap","ทีมชาติ AH"]', navigation)
+        self.assertIn('activate("internationalHandicap", null, "")', navigation)
+        self.assertNotIn('nav.insertAdjacentHTML("beforeend"', workspace)
+        self.assertNotIn('data-intl-route', workspace)
+
     def test_history_routes_to_existing_accuracy_panel(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         self.assertIn('analyze: { page: "matchAnalysis", tab: "probability" }', source)
