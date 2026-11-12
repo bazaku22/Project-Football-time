@@ -47,10 +47,10 @@
  }
  function render(){
   const root=$("playerIdentityReviewRows");if(!root)return;root.replaceChildren();
-  const counts={pending:0,approved:0,rejected:0,followup:0,verified:0};
-  state.rows.forEach(row=>{const d=currentDecision(row);if(d?.status==="verified")counts.verified++;else if(d?.status==="approved")counts.approved++;else if(d?.status==="rejected")counts.rejected++;else if(d?.status==="followup")counts.followup++;else counts.pending++;});
+  const counts={pending:0,provisional:0,approved:0,rejected:0,followup:0,verified:0};
+  state.rows.forEach(row=>{const d=currentDecision(row);if(d?.status==="verified")counts.verified++;else if(d?.status==="provisional")counts.provisional++;else if(d?.status==="approved")counts.approved++;else if(d?.status==="rejected")counts.rejected++;else if(d?.status==="followup")counts.followup++;else counts.pending++;});
   $("playerIdentityReviewSummary").innerHTML=[
-   ["ทั้งหมด",state.rows.length],["รอตรวจ",counts.pending],["อนุมัติในเครื่อง",counts.approved],["ยืนยันเดิม",counts.verified],["ไม่ตรงกัน",counts.rejected],["ขอตรวจเพิ่ม",counts.followup]
+   ["ทั้งหมด",state.rows.length],["รอตรวจ",counts.pending],["สร้างรายการรอตรวจ",counts.provisional],["อนุมัติในเครื่อง",counts.approved],["ยืนยันเดิม",counts.verified],["ไม่ตรงกัน",counts.rejected],["ขอตรวจเพิ่ม",counts.followup]
   ].map(([label,value])=>'<div class="db-kpi"><b>'+value+'</b><span>'+label+'</span></div>').join("");
   const rows=state.rows.filter(row=>{
    const d=currentDecision(row),status=d?.status==="verified"?"verified":d?.status||"pending";
@@ -72,6 +72,7 @@
    }
    if(row.issues)card.append(create("div","identity-review-issue",row.issues));
    if(d?.reviewer)card.append(create("div","small","ผู้ตรวจ: "+d.reviewer+" · เวลา: "+d.reviewed_at));
+   if(d?.status==="provisional"){card.append(create("div","identity-review-confirm","สร้างรายการนักเตะชั่วคราวแล้ว · "+d.provisional_player_key+" · ยังไม่ใช่ Canonical ID และยังไม่ผ่านการยืนยัน"));root.append(card);return;}
    if(d?.status==="verified"||d?.status==="approved"){card.append(create("div","identity-review-confirm","ผลตรวจ: "+d.canonical_player_key+" · "+(d.status==="verified"?"ยืนยันมาจากไฟล์ Mapping":"อนุมัติในอุปกรณ์นี้")));root.append(card);return;}
    const choices=(row.candidate_keys||"").split(";").filter(Boolean);
    if(choices.length){
@@ -79,9 +80,10 @@
     const select=create("select","filter");select.dataset.candidateFor=key(row);
     select.append(new Option("เลือก Candidate…",""));choices.forEach(id=>select.append(new Option(id,id)));
     card.append(label,select);
-   }else card.append(create("div","identity-review-issue","ไม่มี Candidate ที่ระบบเสนอ · ไม่สามารถอนุมัติการจับคู่จากหน้านี้ได้"));
+   }else card.append(create("div","identity-review-issue","ไม่มี Candidate · สร้างรายการนักเตะชั่วคราวเพื่อรอตรวจสอบได้ โดยยังไม่กำหนด Canonical ID"));
    const actions=create("div","identity-review-actions");
    if(choices.length){const approve=create("button","identity-review-approve","ยืนยันการจับคู่");approve.type="button";approve.dataset.identityAction="approve";approve.dataset.identityKey=key(row);actions.append(approve);}
+   else if(row.status!=="conflicting_identity_observations"){const provisional=create("button","identity-review-approve","สร้างรายการนักเตะรอตรวจสอบ");provisional.type="button";provisional.dataset.identityAction="create-provisional";provisional.dataset.identityKey=key(row);actions.append(provisional);}
    const reject=create("button","secondary","ไม่ใช่คนเดียวกัน");reject.type="button";reject.dataset.identityAction="rejected";reject.dataset.identityKey=key(row);actions.append(reject);
    const follow=create("button","secondary","ขอตรวจสอบเพิ่ม");follow.type="button";follow.dataset.identityAction="followup";follow.dataset.identityKey=key(row);actions.append(follow);
    card.append(actions);root.append(card);
@@ -104,7 +106,10 @@
   const action=button.dataset.identityAction,select=document.querySelector('[data-candidate-for="'+CSS.escape(key(row))+'"]');
   const candidate=select?.value||"";
   if(action==="approve"&&(!candidate||(row.candidate_keys||"").split(";").indexOf(candidate)<0)){setStatus("กรุณาเลือก Candidate ที่มีอยู่ในรายการ");return;}
-  const decision={status:action,canonical_player_key:action==="approve"?candidate:"",reviewer,reviewed_at:new Date().toISOString()};
+  if(action==="create-provisional"&&row.status==="conflicting_identity_observations"){setStatus("รายการนี้มีข้อมูลขัดแย้ง ต้องพักไว้ตรวจสอบ ห้ามสร้างรายการอัตโนมัติ");return;}
+  const decision=action==="create-provisional"
+   ? {status:"provisional",provisional_player_key:"provisional:"+row.provider.toLowerCase()+":"+row.provider_player_id,canonical_player_key:"",provider:row.provider,provider_player_id:row.provider_player_id,player_name:row.player_name,reviewer,reviewed_at:new Date().toISOString()}
+   : {status:action,canonical_player_key:action==="approve"?candidate:"",reviewer,reviewed_at:new Date().toISOString()};
   state.decisions[key(row)]=decision;
   if(!persist())return;
   render();setStatus("บันทึกผลตรวจในอุปกรณ์นี้แล้ว · ยังไม่มีการเปลี่ยนฐานข้อมูล Cloud");
@@ -115,6 +120,26 @@
   state.rows.forEach(row=>{const d=currentDecision(row);if(d&&(d.status==="verified"||d.status==="approved")&&d.canonical_player_key)rows.push({provider:row.provider,provider_player_id:row.provider_player_id,canonical_player_key:d.canonical_player_key,review_status:"verified",reviewer:d.reviewer||"",reviewed_at:d.reviewed_at||""});});
   if(!rows.length){setStatus("ยังไม่มี Mapping ที่ยืนยันแล้วให้ส่งออก");return;}
   download("player-id-mapping-reviewed.csv",headers,rows);setStatus("ส่งออก Mapping ที่มนุษย์ยืนยันแล้ว "+rows.length+" รายการ · ไม่ได้เขียนลงฐานข้อมูล");
+ }
+ function createAllProvisional(){
+  const reviewer=$("playerIdentityReviewer").value.trim();
+  if(!reviewer){setStatus("กรุณาระบุรหัสหรือชื่อผู้ตรวจสอบก่อนสร้างรายการ");$("playerIdentityReviewer").focus();return;}
+  let created=0,held=0;
+  state.rows.forEach(row=>{
+   if(row.status==="conflicting_identity_observations"){held++;return;}
+   const existing=currentDecision(row);
+   if(existing?.status==="verified"||existing?.status==="approved"||existing?.status==="provisional")return;
+   state.decisions[key(row)]={status:"provisional",provisional_player_key:"provisional:"+row.provider.toLowerCase()+":"+row.provider_player_id,canonical_player_key:"",provider:row.provider,provider_player_id:row.provider_player_id,player_name:row.player_name,reviewer,reviewed_at:new Date().toISOString()};
+   created++;
+  });
+  if(!persist())return;
+  render();setStatus("สร้างรายการนักเตะรอตรวจสอบ "+created+" รายการ · พักรายการขัดแย้ง "+held+" รายการ · ยังไม่มี Canonical ID และไม่เขียน Cloud");
+ }
+ function exportProvisional(){
+  const headers=["provisional_player_key","provider","provider_player_id","player_name","season","league_ids","provider_team_ids","review_status","reviewer","reviewed_at"];
+  const rows=state.rows.map(row=>({row,d:currentDecision(row)})).filter(x=>x.d?.status==="provisional").map(({row,d})=>({provisional_player_key:d.provisional_player_key,provider:row.provider,provider_player_id:row.provider_player_id,player_name:row.player_name,season:"2026/27",league_ids:row.league_ids||"",provider_team_ids:row.provider_team_ids||"",review_status:"provisional_needs_manual_verification",reviewer:d.reviewer||"",reviewed_at:d.reviewed_at||""}));
+  if(!rows.length){setStatus("ยังไม่มีรายการนักเตะชั่วคราวให้ส่งออก");return;}
+  download("provisional-player-review-2026-27.csv",headers,rows);setStatus("ส่งออกรายการนักเตะรอตรวจสอบ "+rows.length+" รายการ · ไม่มี Canonical ID");
  }
  function exportDecisions(){
   const headers=["provider","provider_player_id","player_name","decision","canonical_player_key","reviewer","reviewed_at","source_status"];
@@ -127,6 +152,8 @@
  $("playerIdentityReviewFilter")?.addEventListener("change",event=>{state.filter=event.target.value;render();});
  $("playerIdentityExportMappings")?.addEventListener("click",exportMappings);
  $("playerIdentityExportDecisions")?.addEventListener("click",exportDecisions);
+ $("playerIdentityCreateAllProvisional")?.addEventListener("click",createAllProvisional);
+ $("playerIdentityExportProvisional")?.addEventListener("click",exportProvisional);
  $("playerIdentityReviewClear")?.addEventListener("click",()=>{state.rows=[];state.fileName="";$("playerIdentityReviewFile").value="";render();setStatus("ล้างเฉพาะคิวที่เปิดอยู่ · ประวัติการตรวจยังคงอยู่ในอุปกรณ์");});
  render();
 })();
