@@ -216,7 +216,8 @@
     root.innerHTML = '<div class="intl-ah-kpis"><div><b>' + snapshots.length +
       '</b><span>Snapshot แยกทีมชาติ</span></div><div><b>' + evaluated.length +
       '</b><span>ประเมินแล้ว</span></div><div><b>' + pending +
-      '</b><span>รอผลจริง</span></div><div><b>' + (brier == null ? "—" : brier.toFixed(3)) +
+      '</b><span>รอผลจริง</span></div><div><b>' + excluded +
+      '</b><span>คัดออก · ข้อมูลไม่ผ่าน</span></div><div><b>' + (brier == null ? "—" : brier.toFixed(3)) +
       '</b><span>Brier เฉลี่ย · ต่ำดีกว่า</span></div><div><b>' + (logLoss == null ? "—" : logLoss.toFixed(3)) +
       '</b><span>Log Loss เฉลี่ย · ต่ำดีกว่า</span></div></div>' +
       '<div class="quality-note">คำนวณเฉพาะ Snapshot ที่มีความน่าจะเป็นครบและมีผลจริงที่ผู้ใช้บันทึกพร้อมแหล่งยืนยัน · ตัวอย่างน้อยไม่ใช่หลักฐานยืนยันความแม่นยำ</div>' +
