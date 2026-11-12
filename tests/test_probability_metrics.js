@@ -14,5 +14,9 @@ const result=calculate(snapshots,matches,[{id:"PL",name:"Premier League"},{id:"P
 assert.equal(result.totalSnapshots,5);assert.equal(result.validPreMatch,3);assert.equal(result.evaluated,2);assert.equal(result.pending,1);assert.equal(result.excluded,2);assert.equal(result.overall.accuracy,.5);assert.equal(result.overall.count,2);
 // Conventional multiclass Brier: (0.245 + 1.185) / 2 = 0.715, with a 0–2 range.
 assert.ok(Math.abs(result.overall.brier-0.715)<1e-12);assert.ok(result.overall.brier>=0&&result.overall.brier<=2);assert.ok(result.overall.logLoss>0);assert.ok(result.overall.ece>=0&&result.overall.ece<=1);
+const multiVersion=calculate([...snapshots,{...snapshots[0],modelVersion:"pft-poisson-2.0"}],matches,[{id:"PL",name:"Premier League"},{id:"PD",name:"La Liga"}]);
+assert.equal(multiVersion.totalSnapshots,6);assert.equal(multiVersion.evaluated,3);
+assert.equal(multiVersion.byModel.find(x=>x.version==="pft-poisson-1.0").count,2);
+assert.equal(multiVersion.byModel.find(x=>x.version==="pft-poisson-2.0").count,1);
 const empty=calculate([],[],[]);assert.equal(empty.overall.accuracy,null);assert.equal(empty.overall.brier,null);
 console.log("Probability metrics tests: PASSED");
