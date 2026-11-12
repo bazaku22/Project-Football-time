@@ -25,6 +25,8 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn('getElementById("analysisInsightOutput")', body)
         self.assertIn('output.querySelector(".analysis-insight")', body)
         self.assertIn("insightTarget.appendChild(insight)", body)
+        self.assertIn("analysis-details", body)
+        self.assertIn("detailNodes.forEach(node=>content.appendChild(node))", body)
 
     def test_analysis_insight_is_not_left_in_empty_or_stale_state(self):
         body = re.search(r"function renderProbabilityAnalysis\(\)\s*\{([\s\S]*?)\n\}", self.html).group(1)
