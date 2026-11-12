@@ -72,7 +72,7 @@
    }
    if(row.issues)card.append(create("div","identity-review-issue",row.issues));
    if(d?.reviewer)card.append(create("div","small","ผู้ตรวจ: "+d.reviewer+" · เวลา: "+d.reviewed_at));
-   if(d?.status==="verified"||d?.status==="approved"){card.append(create("div","identity-review-confirm","ผลตรวจ: "+d.canonical_player_key+" · "+(d.status==="verified"?"ยืนยันมาจากไฟล์ Mapping":"อนุมัติในอุปกรณ์นี้"));root.append(card);return;}
+   if(d?.status==="verified"||d?.status==="approved"){card.append(create("div","identity-review-confirm","ผลตรวจ: "+d.canonical_player_key+" · "+(d.status==="verified"?"ยืนยันมาจากไฟล์ Mapping":"อนุมัติในอุปกรณ์นี้")));root.append(card);return;}
    const choices=(row.candidate_keys||"").split(";").filter(Boolean);
    if(choices.length){
     const label=create("label","identity-review-label","เลือก Canonical Player ID ที่คิดว่าเป็นคนเดียวกัน");
