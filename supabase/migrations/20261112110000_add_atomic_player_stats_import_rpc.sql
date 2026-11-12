@@ -49,9 +49,10 @@ begin
      or p_file_sha256 is null or p_file_sha256 !~ '^[0-9a-f]{64}$' then
     raise exception 'invalid_import_batch_metadata' using errcode = '22023';
   end if;
-  if jsonb_typeof(p_rows) <> 'array'
-     or jsonb_array_length(p_rows) < 1
-     or jsonb_array_length(p_rows) > 500 then
+  if p_rows is null or jsonb_typeof(p_rows) is distinct from 'array' then
+    raise exception 'rows_must_be_array_with_1_to_500_items' using errcode = '22023';
+  end if;
+  if jsonb_array_length(p_rows) < 1 or jsonb_array_length(p_rows) > 500 then
     raise exception 'rows_must_be_array_with_1_to_500_items' using errcode = '22023';
   end if;
 
@@ -64,7 +65,7 @@ begin
 
   for v_row in select value from jsonb_array_elements(p_rows)
   loop
-    if jsonb_typeof(v_row) <> 'object' then
+    if jsonb_typeof(v_row) is distinct from 'object' then
       raise exception 'each_import_row_must_be_object' using errcode = '22023';
     end if;
 
@@ -97,8 +98,8 @@ begin
        or v_row->>'identity_verified' is distinct from 'true'
        or v_row->>'rights_reviewed' is distinct from 'true'
        or v_row->>'rights_status' is distinct from 'approved'
-       or jsonb_typeof(v_stats) <> 'object'
-       or jsonb_typeof(v_membership) <> 'object' then
+       or jsonb_typeof(v_stats) is distinct from 'object'
+       or jsonb_typeof(v_membership) is distinct from 'object' then
       raise exception 'row_identity_scope_rights_or_provenance_invalid' using errcode = '22023';
     end if;
 
