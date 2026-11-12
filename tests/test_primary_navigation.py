@@ -40,9 +40,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.7.1-beta.1"', html)
-        self.assertIn('Project Football Time V6.7.1-beta.1', html)
-        self.assertIn('football-time-v55', sw)
+        self.assertIn('content="6.7.2-beta.1"', html)
+        self.assertIn('Project Football Time V6.7.2-beta.1', html)
+        self.assertIn('football-time-v56', sw)
 
     def test_discovery_team_shortcuts_route_into_grouped_team_subtabs(self):
         source = (ROOT / "js/football-discovery.js").read_text()
