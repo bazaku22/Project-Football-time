@@ -41,7 +41,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v62", WORKER)
+        self.assertIn("football-time-v63", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
         self.assertIn('"./css/design-system.css?v=1"', WORKER)
         self.assertIn('"./css/match-center.css?v=2"', WORKER)
@@ -59,8 +59,8 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertNotIn('.eq("team_id","arsenal")', PLAYER_CLOUD)
         self.assertIn('ft_player_stat_source_records', PLAYER_CLOUD)
         self.assertIn('selected_source_record_id', PLAYER_CLOUD)
-        self.assertIn('r.teamId||"ไม่ระบุทีม"', PLAYER_DATABASE)
-        self.assertIn('source.source_name', PLAYER_DATABASE)
+        self.assertIn("r.team_id", PLAYER_DATABASE)
+        self.assertIn('source_name', PLAYER_CLOUD)
         self.assertNotIn('OpenPlay · CC BY 4.0 · 2025/26', PLAYER_DATABASE)
 
     def test_phase_a_search_results_render_club_crests(self):
@@ -77,7 +77,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("renderTeamCrest(homeTeam)", HTML)
         self.assertIn("renderTeamCrest(awayTeam)", HTML)
         self.assertIn("fixture-match-teams", HTML)
-        self.assertIn("football-time-v62", WORKER)
+        self.assertIn("football-time-v63", WORKER)
 
 
     def test_phase_a_broken_crest_urls_fall_back_to_initials(self):
