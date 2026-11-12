@@ -214,7 +214,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 </div>
 <div class="db-panel" id="dbtab-players">
  <div class="player-directory-hero"><div><div class="player-eyebrow">FOOTBALL TIME · PLAYER HUB</div><h2>ฐานข้อมูลนักเตะ</h2><p>รายชื่อปัจจุบัน สถิติ และประวัติ แยกจากกันอย่างชัดเจน</p></div><div class="player-hero-mark">XI</div></div>
- <div class="player-view-tabs" role="tablist" aria-label="หมวดข้อมูลนักเตะ"><button type="button" class="active" data-player-view="current">ฤดูกาลปัจจุบัน</button><button type="button" data-player-view="archive">ข้อมูลเก่า / Archive</button><button type="button" data-player-view="research">Research Only</button></div>
+ <div class="player-view-tabs" role="tablist" aria-label="หมวดข้อมูลนักเตะ"><button type="button" class="active" data-player-view="current">ฤดูกาลปัจจุบัน</button><button type="button" data-player-view="archive">ข้อมูลเก่า / Archive</button><button type="button" data-player-view="research">Research Only</button><button type="button" data-player-view="provisional">Provisional · รอยืนยัน</button></div>
  <div class="player-filter-panel"><div class="small" id="playerDbStatus" role="status">กำลังโหลดรายชื่อนักเตะ…</div><div class="db-kpis" id="playerDbSummary"></div>
   <div class="form-controls">
    <div class="field"><label for="playerLeagueFilter">ลีก</label><select id="playerLeagueFilter" class="filter"><option value="ALL">ทุกลีก</option></select></div>
@@ -223,7 +223,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
    <div class="field full"><label for="playerSearch">ค้นหาชื่อนักเตะ</label><input id="playerSearch" class="filter" type="search" placeholder="พิมพ์ชื่อนักเตะ"></div>
   </div>
  </div>
- <div id="playerList"><div class="empty">กำลังโหลดรายชื่อนักเตะ…</div></div>
+ <div class="card" id="provisionalPlayerImportPanel"><div class="topline"><b>นำเข้ารายชื่อนักเตะรอตรวจสอบ</b><span class="tag">LOCAL ONLY</span></div><p class="profile-note">นำเข้า CSV จาก Provisional Player Review เพื่อแสดงรายชื่อนักเตะบนอุปกรณ์นี้เท่านั้น ข้อมูลยังไม่ใช่ Canonical ID และไม่มีการส่งข้อมูลไป Supabase หรือเผยแพร่เป็นไฟล์ฐานข้อมูลสาธารณะ</p><div class="field"><label for="provisionalPlayerCsv">ไฟล์ provisional-player-review-2026-27.csv</label><input id="provisionalPlayerCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="form-actions"><button class="primary" id="provisionalPlayerImport" type="button">นำเข้ารายชื่อนักเตะ</button><button class="secondary" id="provisionalPlayerExport" type="button">ส่งออก CSV จากอุปกรณ์นี้</button></div><div class="small" id="provisionalPlayerImportStatus" role="status">ยังไม่มีรายการนักเตะที่นำเข้าในอุปกรณ์นี้</div></div>\n <div id="playerList"><div class="empty">กำลังโหลดรายชื่อนักเตะ…</div></div>
  <p class="profile-note">รูปนักเตะจะแสดงเมื่อมี URL ภาพที่ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น หากยังไม่มีจะแสดงอักษรย่อแทน เพื่อไม่ใช้ภาพที่ไม่มีสิทธิ์</p>
  <details class="card"><summary><b>เครื่องมือจัดการข้อมูลและระบบเดิม (ขั้นสูง)</b></summary>
   <p class="profile-note">เก็บเครื่องมือเดิมไว้เพื่อรักษาข้อมูลและประวัติ ไม่ใช่แหล่งข้อมูลหลักของรายชื่อนักเตะ</p>
@@ -1172,7 +1172,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/test-experiment.js"></script>
 
 <script src="./js/test-experiment-enhancements.js"></script>
-<script src="./js/player-database.js"></script>
+<script src="./js/player-database.js"></script>\n<script src="./js/player-provisional-directory.js"></script>
 <script src="./js/football-discovery.js"></script>
 <script src="./js/match-center.js"></script>
 <script src="./js/primary-navigation.js"></script>
