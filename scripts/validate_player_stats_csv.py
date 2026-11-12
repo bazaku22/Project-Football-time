@@ -11,7 +11,7 @@ from datetime import datetime
 from pathlib import Path
 
 REQUIRED = {
-    "canonical_player_key", "provider", "player_name", "team_code", "season",
+    "canonical_player_key", "provider", "provider_player_id", "player_name", "team_code", "season",
     "competition_code", "squad_level", "statistics_scope", "collected_at",
     "rights_status", "permission_reference",
 }
@@ -83,7 +83,7 @@ def validate(path: Path) -> tuple[list[str], int, int]:
                 continue
 
             for field in (
-                "provider", "player_name", "team_code", "season",
+                "provider", "provider_player_id", "player_name", "team_code", "season",
                 "competition_code", "squad_level", "statistics_scope",
                 "collected_at", "rights_status", "permission_reference",
             ):
