@@ -17,7 +17,11 @@
       "url": "https://www.premierleague.com/en/news/4725682",
       "observed_at": "2026-11-12",
       "scope": "Official 2026/27 club squad numbers; the page includes first-team and eligible academy players.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://www.premierleague.com/es/terms-and-conditions",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "Official Premier League terms reserve copyright/database rights and prohibit reuse or redistribution, including creating a database from website material, without prior written approval."
     },
     {
       "id": "bundesliga-2026-27",
@@ -28,7 +32,11 @@
       "url": "https://www.bundesliga.com/en/bundesliga/player",
       "observed_at": "2026-11-12",
       "scope": "Official player directory grouped by club and playing position.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://www.bundesliga.com/en/bundesliga/info/legal-notices",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "Bundesliga legal notice says reproduction, storage and repetition in databases or electronic systems require prior written consent where not otherwise permitted by law; automated access/download is also restricted."
     },
     {
       "id": "serie-a-2026-27",
@@ -39,7 +47,11 @@
       "url": "https://www.acmilan.com/en/teams/men-first-team",
       "observed_at": "2026-11-12",
       "scope": "Official club first-team roster, season selector set to 2026/27, grouped by playing position.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://en.legaseriea.it/terms-and-conditions",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "Lega Serie A terms prohibit extracting or using content, including data compilations, without express written consent."
     },
     {
       "id": "ligue1-2026-27",
@@ -50,7 +62,11 @@
       "url": "https://www.psg.fr/en/mens-football/squad/season/2026-2027",
       "observed_at": "2026-11-12",
       "scope": "Official club first-team squad page for 2026/27, grouped by playing position.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://ligue1.com/en/legal/cgu",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "LFP terms restrict reproduction, redistribution and reuse of site information without prior written consent."
     },
     {
       "id": "laliga-real-madrid-stats-2026-27",
@@ -61,7 +77,11 @@
       "url": "https://www.laliga.com/en-GB/stats/laliga-easports/scorers/team/real-madrid",
       "observed_at": "2026-11-12",
       "scope": "Official Real Madrid team statistics for 2026/27; names listed with team code RMA.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://www.laliga.com/en-GB/legal/legal-web",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "LALIGA legal notice restricts reproduction, distribution and exploitation of website content without authorization; the exact treatment of isolated factual data needs legal review."
     },
     {
       "id": "laliga-mbappe-profile-2026-27",
@@ -72,7 +92,11 @@
       "url": "https://www.laliga.com/jugador/kylian-mbappe-lottin",
       "observed_at": "2026-11-12",
       "scope": "Official player profile; club, forward position, and 2026/27 season statistics.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://www.laliga.com/en-GB/legal/legal-web",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "LALIGA legal notice restricts reproduction, distribution and exploitation of website content without authorization; the exact treatment of isolated factual data needs legal review."
     },
     {
       "id": "laliga-bellingham-profile-2026-27",
@@ -83,7 +107,11 @@
       "url": "https://www.laliga.com/jugador/jude-bellingham",
       "observed_at": "2026-11-12",
       "scope": "Official player profile; club, midfielder position, and 2026/27 season statistics.",
-      "terms_status": "pending_review"
+      "terms_status": "pending_review",
+      "terms_url": "https://www.laliga.com/en-GB/legal/legal-web",
+      "terms_reviewed_at": "2026-11-12",
+      "reuse_status": "written_permission_required",
+      "reuse_basis": "LALIGA legal notice restricts reproduction, distribution and exploitation of website content without authorization; the exact treatment of isolated factual data needs legal review."
     }
   ],
   "players": [
@@ -538,5 +566,7 @@
       "photo_status": "not_added_no_cleared_current_kit_photo"
     }
   ],
-  "notice": "This is a limited research intake pilot, not a complete five-league roster. Names and memberships are linked to official pages; source terms and intended-use rights remain pending review. No statistics or portraits are approved for Production."
+  "notice": "This is a limited research intake pilot, not a complete five-league roster. Names and memberships are linked to official pages; source terms and intended-use rights remain pending review. No statistics or portraits are approved for Production.",
+  "rights_reviewed_at": "2026-11-12",
+  "source_reuse_policy": "no_reuse_without_written_permission_or_verified_open_license"
 }
