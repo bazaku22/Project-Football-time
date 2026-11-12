@@ -39,7 +39,7 @@
   const a=document.createElement("a");a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
  }
  function currentDecision(row){
-  if(row.status==="exact_verified_mapping"&&row.canonical_player_key)return {status:"verified",canonical_player_key:row.canonical_player_key,reviewer:"",reviewed_at:""};
+  if(row.status==="exact_verified_mapping"&&row.canonical_player_key)return {status:"verified",canonical_player_key:row.canonical_player_key,reviewer:row.reviewer||"",reviewed_at:row.reviewed_at||""};
   return state.decisions[key(row)]||null;
  }
  function create(tag,className,text){
@@ -112,7 +112,7 @@
  function exportMappings(){
   const headers=["provider","provider_player_id","canonical_player_key","review_status","reviewer","reviewed_at"];
   const rows=[];
-  state.rows.forEach(row=>{const d=currentDecision(row);if(d&&(d.status==="verified"||d.status==="approved")&&d.canonical_player_key)rows.push({provider:row.provider,provider_player_id:row.provider_player_id,canonical_player_key:d.canonical_player_key,review_status:"verified",reviewer:d.reviewer||"previously_verified",reviewed_at:d.reviewed_at||"previously_verified"});});
+  state.rows.forEach(row=>{const d=currentDecision(row);if(d&&(d.status==="verified"||d.status==="approved")&&d.canonical_player_key)rows.push({provider:row.provider,provider_player_id:row.provider_player_id,canonical_player_key:d.canonical_player_key,review_status:"verified",reviewer:d.reviewer||"",reviewed_at:d.reviewed_at||""});});
   if(!rows.length){setStatus("ยังไม่มี Mapping ที่ยืนยันแล้วให้ส่งออก");return;}
   download("player-id-mapping-reviewed.csv",headers,rows);setStatus("ส่งออก Mapping ที่มนุษย์ยืนยันแล้ว "+rows.length+" รายการ · ไม่ได้เขียนลงฐานข้อมูล");
  }
