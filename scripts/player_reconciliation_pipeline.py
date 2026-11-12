@@ -116,7 +116,11 @@ def build_team_report(players: list[dict], football_db: dict) -> list[dict]:
             for team in filtered:
                 if (league_id, team.get("id")) not in season_members:
                     continue
-                if name in {norm(team.get("name")), norm(team.get("shortName"))}:
+                if name in {
+                    norm(team.get("name")),
+                    norm(team.get("shortName")),
+                    norm(team.get("tla")),
+                }:
                     candidates.append(team)
         candidates.sort(key=lambda item: str(item.get("id", "")))
         result.append({

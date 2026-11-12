@@ -19,8 +19,8 @@ def fixtures():
     }
     football_db = {
         "teams": [
-            {"id": "ft-ars", "name": "Arsenal FC", "shortName": "Arsenal"},
-            {"id": "ft-bar", "name": "FC Barcelona", "shortName": "Barça"},
+            {"id": "ft-ars", "name": "Arsenal FC", "shortName": "Arsenal", "tla": "ARS"},
+            {"id": "ft-bar", "name": "FC Barcelona", "shortName": "Barça", "tla": "FCB"},
             {"id": "ft-other", "name": "Arsenal FC", "shortName": "Arsenal"}
         ],
         "teamSeasons": [
@@ -52,6 +52,14 @@ class PlayerReconciliationPipelineTests(unittest.TestCase):
         repeated = next(row for row in players if row["provider_player_id"] == "p1")
         self.assertEqual(repeated["status"], "conflicting_identity_observations")
         self.assertEqual(repeated["membership_observations"], 2)
+
+    def test_provider_tla_matches_only_same_league(self):
+        staging, db = fixtures()
+        staging["players"][0]["provider_team_name"] = "ARS"
+        result = run(staging, db)
+        arsenal = next(row for row in result["_team_rows"] if row["provider_team_name"] == "ARS")
+        self.assertEqual(arsenal["candidate_team_ids"], "ft-ars")
+        self.assertEqual(arsenal["status"], "exact_name_candidate_needs_review")
 
     def test_rejects_non_staging_input(self):
         staging, db = fixtures()
