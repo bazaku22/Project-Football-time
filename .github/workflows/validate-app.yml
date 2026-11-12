@@ -75,6 +75,10 @@ on:
       - "tests/test_primary_navigation.py"
       - "tests/test_analysis_workspace.py"
       - "tests/test_player_statistics_import_ui.py"
+      - "data/player-statistics-intake-2026-27.json"
+      - "scripts/validate_player_statistics_intake.py"
+      - "tests/test_player_statistics_intake.py"
+      - "docs/player-directory-and-statistics-intake-2026-27.md"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
       - "scripts/fetch_international_handicap_odds.py"
@@ -271,6 +275,9 @@ jobs:
           python3 -m py_compile scripts/validate_player_intake_manifest.py
           python3 -m unittest tests/test_player_intake_manifest.py
           python3 scripts/validate_player_intake_manifest.py
+          python3 -m py_compile scripts/validate_player_statistics_intake.py
+          python3 scripts/validate_player_statistics_intake.py
+          python3 -m unittest tests/test_player_statistics_intake.py -v
 
       - name: Validate five-league 2026/27 player coverage register
         run: |

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "season": "2026/27",
+  "status": "draft",
+  "production_import": false,
+  "provider_api_calls": 0,
+  "records_count": 0,
+  "notes": "Empty offline staging template. Add player-season statistics only after the source, metric definitions, current player identity and reuse rights are independently verified.",
+  "sources": [],
+  "statistics": []
+}
