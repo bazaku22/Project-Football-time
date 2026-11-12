@@ -15,6 +15,14 @@ assert.equal(findEvent(match,[event]),event);
 assert.equal(findEvent({...match,leagueId:"PL"},[event]),null);
 assert.equal(findEvent({...match,awayTeamName:"Dortmund"},[event]),null);
 assert.equal(findEvent({...match,utcDate:"2026-11-21T02:00:00Z"},[event]),null);
+
+// Provider aliases must resolve the exact Troyes vs Le Havre fixture without fuzzy matching.
+const troyesMatch={leagueId:"FL1",homeTeamName:"ES Troyes AC",awayTeamName:"Le Havre AC",utcDate:"2026-11-20T19:45:00Z"};
+const troyesEvent={leagueId:"FL1",homeTeam:"Troyes",awayTeam:"Le Havre",commenceTime:"2026-11-20T19:45:00Z",bookmakers:[]};
+assert.equal(findEvent(troyesMatch,[troyesEvent]),troyesEvent);
+assert.equal(findEvent({...troyesMatch,awayTeamName:"Le Havre United"},[troyesEvent]),null);
+assert.equal(findEvent({...troyesMatch,leagueId:"PL"},[troyesEvent]),null);
+
 const selected=selectReference(event,Date.parse("2026-11-11T17:00:00Z"));
 assert.equal(selected.status,"ready");
 assert.equal(selected.freshSourceCount,3);
