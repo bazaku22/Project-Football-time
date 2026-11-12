@@ -18,6 +18,9 @@ on:
       - "supabase/functions/reep-aliases/index.ts"
       - "docs/phase-5.6-reep-private-alias-pilot.md"
       - "data/player-database.json"
+      - "data/current-player-squads-2026-27.json"
+      - "scripts/validate_current_player_squads.py"
+      - "tests/test_current_player_squad_validator.py"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
@@ -178,6 +181,9 @@ jobs:
           PY
           node --check js/player-database.js
           python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py -v
+          python3 -m py_compile scripts/validate_current_player_squads.py
+          python3 scripts/validate_current_player_squads.py
+          python3 -m unittest tests/test_current_player_squad_validator.py -v
           node --input-type=module --check < js/reep-alias-pilot.js
 
       - name: Validate multi-source player identity matcher
