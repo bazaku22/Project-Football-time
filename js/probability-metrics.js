@@ -30,13 +30,13 @@ function calculateProbabilityMetrics(snapshots,matches,leagues){
   if(!s||typeof s.matchId!=="string"||!validVector(s.probabilities)){excludedInvalid++;return;}
   if(s.isInternational===true||s.scope==="international"||s.competitionType==="international"){excludedScope++;return;}
   const key=String(s.matchId)+"|"+String(s.modelVersion||"legacy/unknown");
-  if(seen.has(key)){excludedDuplicate++;return;}seen.add(key);
   const kickoff=Date.parse(s.utcDate||""),created=Date.parse(s.createdAt||"");
   if(!Number.isFinite(kickoff)||!Number.isFinite(created)||created>=kickoff){excludedInvalid++;return;}
+  if(seen.has(key)){excludedDuplicate++;return;}seen.add(key);
   valid.push(s);
   const match=byId.get(s.matchId),fromMatch=actualFromMatch(match),stored=["home","draw","away"].includes(s.actualOutcome)?s.actualOutcome:null;
   if(fromMatch&&stored&&fromMatch!==stored)outcomeDisagreements++;
-  const actualOutcome=fromMatch||stored;
+  const actualOutcome=fromMatch||(!match?stored:null);
   if(actualOutcome)evaluated.push({snapshot:s,match:match||null,actualOutcome,outcomeSource:fromMatch?"finished_match_score":"stored_snapshot_outcome"});
  });
  const group=(rows,keyFn,labelFn)=>{const map=new Map();rows.forEach(row=>{const key=keyFn(row);if(!map.has(key))map.set(key,[]);map.get(key).push(row);});return [...map].map(([key,rows])=>({key,...labelFn(key,rows),...summarize(rows)}));};
