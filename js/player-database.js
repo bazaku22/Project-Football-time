@@ -1,7 +1,7 @@
 "use strict";
 // Directory policy: current season is the primary view; legacy seasons remain reviewable in Archive.
 (() => {
- const PILOT_URL="./data/player-position-pilot-2026-27.json",CURRENT_SEASON="2026/27",$=id=>document.getElementById(id);
+ const PILOT_URL="./data/player-position-pilot-2026-27.json",CURRENT_DATA_URL="./data/current-player-squads-2026-27.json",CURRENT_SEASON="2026/27",$=id=>document.getElementById(id);
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const fmt=v=>v===null||v===undefined||v===""?"—":esc(v);
  const labels={FORWARD:"แนวรุก",MIDFIELDER:"กองกลาง",DEFENDER:"กองหลัง",GOALKEEPER:"ผู้รักษาประตู",MULTI:"หลายกลุ่มตำแหน่ง",UNKNOWN:"ยังไม่ระบุตำแหน่ง"};
@@ -10,7 +10,7 @@
  const initials=name=>String(name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase();
  function render(){
   const q=$("playerSearch").value.trim().toLocaleLowerCase(),league=$("playerLeagueFilter").value,team=$("playerTeamFilter").value,pos=$("playerPositionFilter").value;
-  const base=view==="research"?pilot.map(p=>({...p,kind:"research",name:p.name,teamName:"Manchester United",teamId:"manchester-united",leagueName:"Premier League",leagueId:"PL",season:"2026/27",number:p.shirt_number,positionGroup:p.position_group,position:p.official_position_label,statistics:{},photoUrl:p.photo_url||null})):canonical.filter(p=>view==="archive"?p.season!==CURRENT_SEASON:p.season===CURRENT_SEASON);
+  const base=view==="research"?pilot.map(p=>({...p,kind:"research",statistics:{},photoUrl:p.photo_url||null})):canonical.filter(p=>view==="archive"?p.season!==CURRENT_SEASON:p.season===CURRENT_SEASON);
   const rows=base.filter(r=>(league==="ALL"||(r.leagueId||"unknown")===league)&&(team==="ALL"||(r.teamId||"unknown")===team)&&(pos==="ALL"||position(r)===pos)&&(!q||String(r.name||r.display_name||"").toLocaleLowerCase().includes(q))).sort((a,b)=>String(a.name||a.display_name).localeCompare(String(b.name||b.display_name)));
   const leagues=[...new Map(base.map(r=>[r.leagueId||"unknown",r.leagueName||r.leagueId||"ไม่ระบุลีก"])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
   const teams=[...new Map(base.map(r=>[r.teamId||"unknown",r.teamName||r.teamId||"ไม่ระบุทีม"])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
@@ -22,12 +22,31 @@
   $("playerList").innerHTML=rows.length?rows.map(r=>{
    const research=r.kind==="research",s=r.statistics||{},name=r.name||r.display_name||"ไม่ระบุชื่อ",photo=r.photoUrl||r.photo_url||"",metrics=[["ลงเล่น",s.appearances],["ประตู",s.goals],["แอสซิสต์",s.assists],["นาที",s.minutes??s.minutes_played]];
    const avatar=photo?'<img class="player-avatar" src="'+esc(photo)+'" alt="รูป '+esc(name)+'" loading="lazy" referrerpolicy="no-referrer" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span class="player-avatar-fallback" hidden>'+esc(initials(name))+'</span>':'<span class="player-avatar-fallback">'+esc(initials(name))+'</span>';
+   const sourceCredit=research&&r.source_url?'<div class="player-card-foot">แหล่งข้อมูล: '+esc(r.source_publisher||"ไม่ระบุ")+' · <a href="'+esc(r.source_url)+'" target="_blank" rel="noopener noreferrer">เปิดแหล่งข้อมูล</a></div>':"";
    const photoCredit=research&&r.photo_source_url?'<div class="player-card-foot">ภาพ: '+esc(r.photo_author||"ไม่ระบุผู้ถ่าย")+' · '+esc(r.photo_license||"ไม่ระบุสัญญาอนุญาต")+' · <a href="'+esc(r.photo_source_url)+'" target="_blank" rel="noopener noreferrer">ดูแหล่งที่มาและเงื่อนไข</a><br>หมายเหตุ: ตรวจสอบสัญญาอนุญาตลิขสิทธิ์แล้ว แต่ยังไม่ได้ยืนยันสิทธิส่วนบุคคลของผู้ถูกถ่าย</div>':'';
-   return '<article class="player-card"><div class="player-card-top"><div class="player-avatar-wrap">'+avatar+'</div><div class="player-main"><div class="player-name">'+esc(name)+'</div><div class="player-meta">'+esc(r.teamName||r.team_id||"ไม่ระบุทีม")+' · '+esc(r.leagueName||r.leagueId||"ไม่ระบุลีก")+'</div><div class="player-meta">'+esc(r.season||"ไม่ระบุฤดูกาล")+' · '+esc(labels[position(r)]||"ยังไม่ระบุตำแหน่ง")+' · เบอร์ '+fmt(r.number??r.shirt_number)+'</div></div><span class="player-status '+(research?"research":"canonical")+'">'+(research?"RESEARCH ONLY":view==="archive"?"ARCHIVE":"CANONICAL")+'</span></div>'+(research?'<div class="player-research-note"><b>ข้อมูลทดลอง — ไม่ใช่ข้อมูล Production</b><br>สิทธิ์แหล่งข้อมูล: '+esc(r.rights_status||"pending_review")+' · ยังไม่มีสถิติที่ผ่านการตรวจสอบ</div>'+photoCredit:'<div class="player-metrics">'+metrics.map(([k,v])=>'<div><b>'+fmt(v)+'</b><span>'+k+'</span></div>').join("")+'</div><div class="player-card-foot">Canonical ID: '+esc(r.id)+' · '+esc(r.verificationStatus||"identity_only")+'</div>')+'</article>';
+   return '<article class="player-card"><div class="player-card-top"><div class="player-avatar-wrap">'+avatar+'</div><div class="player-main"><div class="player-name">'+esc(name)+'</div><div class="player-meta">'+esc(r.teamName||r.team_id||"ไม่ระบุทีม")+' · '+esc(r.leagueName||r.leagueId||"ไม่ระบุลีก")+'</div><div class="player-meta">'+esc(r.season||"ไม่ระบุฤดูกาล")+' · '+esc(labels[position(r)]||"ยังไม่ระบุตำแหน่ง")+' · เบอร์ '+fmt(r.number??r.shirt_number)+'</div></div><span class="player-status '+(research?"research":"canonical")+'">'+(research?"RESEARCH ONLY":view==="archive"?"ARCHIVE":"CANONICAL")+'</span></div>'+(research?'<div class="player-research-note"><b>ข้อมูลทดลอง — ไม่ใช่ข้อมูล Production</b><br>สิทธิ์แหล่งข้อมูล: '+esc(r.rights_status||"pending_review")+' · ยังไม่มีสถิติที่ผ่านการตรวจสอบ</div>'+sourceCredit+photoCredit:'<div class="player-metrics">'+metrics.map(([k,v])=>'<div><b>'+fmt(v)+'</b><span>'+k+'</span></div>').join("")+'</div><div class="player-card-foot">Canonical ID: '+esc(r.id)+' · '+esc(r.verificationStatus||"identity_only")+'</div>')+'</article>';
   }).join(""):'<div class="empty">ไม่พบรายชื่อนักเตะในหมวดนี้ ลองเปลี่ยนตัวกรองหรือเข้าสู่ระบบ Cloud เพื่อโหลดข้อมูล Canonical</div>';
  }
  function setView(next){view=next;document.querySelectorAll("[data-player-view]").forEach(b=>b.classList.toggle("active",b.dataset.playerView===view));$("playerLeagueFilter").value="ALL";$("playerTeamFilter").value="ALL";render();}
- async function loadPilot(){try{const res=await fetch(PILOT_URL,{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const d=await res.json();pilot=Array.isArray(d.players)?d.players:[];directoryStatus="โหลดชุดทดลอง "+pilot.length+" คนแล้ว";}catch(e){pilot=[];directoryStatus="โหลดชุดทดลองไม่สำเร็จ: "+e.message;}render();}
+ async function loadPilot(){
+  try{
+   const [legacyRes,currentRes]=await Promise.all([fetch(PILOT_URL,{cache:"no-store"}),fetch(CURRENT_DATA_URL,{cache:"no-store"})]);
+   if(!legacyRes.ok)throw new Error("Legacy pilot HTTP "+legacyRes.status);
+   if(!currentRes.ok)throw new Error("Current squad pilot HTTP "+currentRes.status);
+   const legacy=await legacyRes.json(),current=await currentRes.json();
+   if(legacy.status!=="research_only"||legacy.production_import!==false||current.status!=="research_only"||current.production_import!==false||!Array.isArray(current.players)||!Array.isArray(current.sources))throw new Error("Research dataset safety/schema check failed");
+   const oldByName=new Map((legacy.players||[]).map(p=>[String(p.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase(),p]));
+   const sources=new Map(current.sources.map(s=>[s.id,s]));
+   const group=p=>{const v=String(p||"").toLowerCase();if(v==="goalkeeper")return "GOALKEEPER";if(v==="defender")return "DEFENDER";if(["forward","striker"].includes(v))return "FORWARD";if(v==="midfielder")return "MIDFIELDER";return "UNKNOWN";};
+   pilot=current.players.map(p=>{
+    const old=oldByName.get(String(p.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase())||{};
+    const source=sources.get(p.source_id)||{};
+    return {id:p.id,name:p.name,teamName:p.club_name,teamId:p.club_id,leagueName:source.league_name||p.league_id,leagueId:p.league_id,season:p.season,number:p.shirt_number??old.shirt_number??null,positionGroup:group(p.position)||old.position_group||"UNKNOWN",position:p.position||old.official_position_label||null,rights_status:p.rights_status||"pending_review",statistics:{},source_url:source.url||null,source_publisher:source.publisher||null,photo_url:old.photo_url||null,photo_source_url:old.photo_source_url||null,photo_author:old.photo_author||null,photo_license:old.photo_license||null,photo_license_url:old.photo_license_url||null,photo_review_status:old.photo_review_status||null};
+   });
+   directoryStatus="โหลดชุดทดลอง 5 ลีก "+pilot.length+" คนแล้ว (Research Only)";
+  }catch(e){pilot=[];directoryStatus="โหลดชุดทดลองไม่สำเร็จ: "+e.message;}
+  render();
+ }
  window.addEventListener("pft-player-directory-data",e=>{const d=e.detail||{};canonical=Array.isArray(d.players)?d.players:[];directoryStatus=d.status||"โหลด Canonical แล้ว";render();});
  window.addEventListener("pft-player-directory-status",e=>{directoryStatus=String(e.detail||"");render();});
  window.addEventListener("pft-player-stats-data",e=>{statsStatus=e.detail?.status||"ยังไม่ได้โหลดสถิติ";render();});
