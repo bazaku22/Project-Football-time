@@ -181,14 +181,14 @@
       html += '<div class="quality-note">ผลจริง ' + result.homeScore + "-" + result.awayScore +
         ' · ' + LABELS[evaluation.actualOutcome] + ' · Brier ' + evaluation.brier.toFixed(3) +
         ' · Log Loss ' + evaluation.logLoss.toFixed(3) + '</div>';
-    } else if (!result && Date.now() >= Date.parse(snapshot.kickoffUtc)) {
+    } else if (!result && Date.now() >= Date.parse(snapshot.kickoffUtc) + 2 * 60 * 60 * 1000) {
       html += '<form class="intl-ah-result" data-intl-result="' + esc(snapshot.fixtureId) + '">' +
         '<b>บันทึกผลจริงเพื่อประเมินโมเดล</b><div class="field"><label>สกอร์หลังจบ 90 นาที (เจ้าบ้าน-ทีมเยือน)</label>' +
         '<input name="score" required pattern="[0-9]{1,2}-[0-9]{1,2}" placeholder="2-1"></div>' +
         '<div class="field"><label>แหล่งยืนยันผล</label><input name="source" required maxlength="120" placeholder="เช่น UEFA / เว็บไซต์ทางการ"></div>' +
         '<button class="secondary" type="submit">บันทึกผลเพื่อประเมิน</button></form>';
     } else if (!result) {
-      html += '<div class="intl-ah-status">รอผลการแข่งขัน · Snapshot ก่อนแข่งถูกเก็บแยกไว้แล้ว</div>';
+      html += '<div class="intl-ah-status">รอการแข่งขันจบอย่างน้อย 2 ชั่วโมงก่อนเปิดบันทึกผล · Snapshot ก่อนแข่งถูกเก็บแยกไว้แล้ว</div>';
     }
     html += '</article>';
     return html;
