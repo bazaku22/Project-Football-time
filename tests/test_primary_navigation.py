@@ -49,7 +49,8 @@ class PrimaryNavigationTests(unittest.TestCase):
         source = (ROOT / "js/football-discovery.js").read_text()
         self.assertIn('profile:"team",form:"team",homeaway:"team"', source)
         self.assertIn('h2h:"matchStats",league:"matchStats"', source)
-        self.assertIn('data-db-subtab="'+tab+'"', source)
+        self.assertIn('data-db-subtab', source)
+        self.assertIn('groupedTab !== tab', source)
 
     def test_four_primary_items_replace_legacy_bottom_nav(self):
         html = (ROOT / "index.html").read_text()
