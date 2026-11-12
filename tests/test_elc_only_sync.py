@@ -77,6 +77,25 @@ class ElcOnlyMergeTests(unittest.TestCase):
                          {"football-data:2"})
         self.assertIn("football-data:9", {row["id"] for row in updated["teams"]})
 
+    def test_sync_repairs_missing_eight_league_catalogue_without_creating_pending_data(self):
+        original = base_database()
+        original["leagues"] = [row for row in original["leagues"]
+                               if row["id"] in {"PL", "PD", "BL1", "SA", "FL1"}]
+        teams, matches, standings = payloads()
+        updated = merge_elc_payloads(original, teams, matches, standings,
+                                      now="2026-11-12T08:00:00+00:00")
+        catalogue = {row["id"]: row for row in updated["leagues"]}
+        self.assertEqual(set(catalogue), {"PL", "PD", "BL1", "SA", "FL1", "ELC", "J1", "J2"})
+        for league_id in {"PL", "PD", "BL1", "SA", "FL1", "ELC"}:
+            self.assertEqual(catalogue[league_id]["dataStatus"], "available")
+            self.assertTrue(catalogue[league_id]["providerCompetitionCode"])
+        for league_id in {"J1", "J2"}:
+            self.assertIsNone(catalogue[league_id]["providerCompetitionCode"])
+            self.assertEqual(catalogue[league_id]["dataStatus"],
+                             "not_available_on_current_free_tier")
+        for key in ("teamSeasons", "standings", "matches"):
+            self.assertFalse(any(row.get("leagueId") in {"J1", "J2"} for row in updated[key]))
+
     def test_missing_total_standings_rejected(self):
         teams, matches, standings = payloads()
         standings["standings"] = []

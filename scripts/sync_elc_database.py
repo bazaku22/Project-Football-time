@@ -100,6 +100,29 @@ def merge_elc_payloads(database, teams_payload, matches_payload, standings_paylo
         raise ValueError("ELC standings references a team absent from the ELC teams payload.")
 
     result = copy.deepcopy(database)
+    # Keep the league catalogue aligned with the validator. The existing production
+    # database may predate the eight-league catalogue, so add missing catalogue rows
+    # without fetching or creating any J1/J2 football data.
+    catalogue = {row["id"]: row for row in result.get("leagues", [])}
+    league_metadata = {
+        "PL": {"name": "Premier League", "country": "England", "providerCompetitionCode": "PL"},
+        "PD": {"name": "La Liga", "country": "Spain", "providerCompetitionCode": "PD"},
+        "BL1": {"name": "Bundesliga", "country": "Germany", "providerCompetitionCode": "BL1"},
+        "SA": {"name": "Serie A", "country": "Italy", "providerCompetitionCode": "SA"},
+        "FL1": {"name": "Ligue 1", "country": "France", "providerCompetitionCode": "FL1"},
+        "ELC": {"name": "Championship", "country": "England", "providerCompetitionCode": "ELC"},
+        "J1": {"name": "J1 League", "country": "Japan", "providerCompetitionCode": None},
+        "J2": {"name": "J2 League", "country": "Japan", "providerCompetitionCode": None},
+    }
+    for league_id, metadata in league_metadata.items():
+        row = catalogue.setdefault(league_id, {"id": league_id})
+        row.update(metadata)
+        row["dataStatus"] = (
+            "not_available_on_current_free_tier"
+            if league_id in {"J1", "J2"} else "available"
+        )
+    result["leagues"] = list(catalogue.values())
+
     # Keep all existing team master records, including teams no longer in the current ELC squad.
     merged_teams = {row["id"]: row for row in result["teams"]}
     merged_teams.update(team_rows)
