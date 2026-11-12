@@ -45,6 +45,12 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('Project Football Time V6.6.0-beta.1', html)
         self.assertIn('football-time-v53', sw)
 
+    def test_discovery_team_shortcuts_route_into_grouped_team_subtabs(self):
+        source = (ROOT / "js/football-discovery.js").read_text()
+        self.assertIn('profile:"team",form:"team",homeaway:"team"', source)
+        self.assertIn('h2h:"matchStats",league:"matchStats"', source)
+        self.assertIn('data-db-subtab="'+tab+'"', source)
+
     def test_four_primary_items_replace_legacy_bottom_nav(self):
         html = (ROOT / "index.html").read_text()
         self.assertNotIn('data-page="summary"', html[html.index('<nav class="nav"'):html.index('</nav>')])
