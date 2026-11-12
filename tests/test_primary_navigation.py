@@ -42,7 +42,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text()
         self.assertIn('content="6.7.2-beta.1"', html)
         self.assertIn('Project Football Time V6.7.2-beta.1', html)
-        self.assertIn('football-time-v55', sw)
+        self.assertIn('football-time-v56', sw)
 
     def test_discovery_team_shortcuts_route_into_grouped_team_subtabs(self):
         source = (ROOT / "js/football-discovery.js").read_text()
