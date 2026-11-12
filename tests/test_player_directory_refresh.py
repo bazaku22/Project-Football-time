@@ -59,3 +59,10 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_research_pilot_photos_include_source_author_license_and_review_notice(self):
+        data = json.loads((ROOT / "data/player-position-pilot-2026-27.json").read_text())
+        self.assertTrue(all(p.get("photo_url", "").startswith("https://commons.wikimedia.org/wiki/Special:FilePath/") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_source_url", "").startswith("https://commons.wikimedia.org/wiki/File:") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_author") and p.get("photo_license") and p.get("photo_license_url") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_review_status") == "copyright_license_verified_personality_rights_not_independently_cleared" for p in data["players"]))
