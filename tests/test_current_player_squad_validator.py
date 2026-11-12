@@ -37,6 +37,20 @@ class CurrentPlayerSquadValidatorTests(unittest.TestCase):
         )
         self.assertFalse(self.data["production_import"])
 
+    def test_official_sources_are_blocked_until_written_permission_or_verified_open_license(self):
+        for source in self.data["sources"]:
+            self.assertEqual(source["reuse_status"], "written_permission_required")
+            self.assertTrue(source["terms_url"].startswith("https://"))
+            self.assertEqual(source["terms_reviewed_at"], "2026-11-12")
+            self.assertTrue(source["reuse_basis"])
+
+    def test_rejects_source_marked_reusable_without_permission_review(self):
+        payload = copy.deepcopy(self.data)
+        payload["sources"][0]["reuse_status"] = "approved"
+        result = self.run_validator(payload)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("blocked pending written permission", result.stderr)
+
     def test_rejects_prior_season_membership(self):
         payload = copy.deepcopy(self.data)
         payload["players"][0]["season"] = "2025/26"
