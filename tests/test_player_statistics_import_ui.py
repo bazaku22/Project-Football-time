@@ -40,6 +40,11 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertNotIn("localStorage", MODULE)
         self.assertIn("No database writes", MODULE)
 
+    def test_research_insight_assets_are_in_current_service_worker_cache(self):
+        self.assertIn("football-time-v67", WORKER)
+        self.assertIn("./js/research-insight.js", WORKER)
+        self.assertIn("./css/football-research.css?v=1", WORKER)
+
     def test_service_worker_cache_version_and_asset(self):
         self.assertIn("football-time-v67", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
