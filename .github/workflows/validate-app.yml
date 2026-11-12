@@ -227,6 +227,12 @@ jobs:
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
 
+      - name: Validate rights-cleared player intake manifest
+        run: |
+          python3 -m py_compile scripts/validate_player_intake_manifest.py
+          python3 -m unittest tests/test_player_intake_manifest.py
+          python3 scripts/validate_player_intake_manifest.py
+
       - name: Validate player importer and database JSON
         run: |
           python3 -m py_compile scripts/update_player_database.py
