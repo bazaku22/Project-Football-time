@@ -148,8 +148,11 @@ def main():
         ten = form_stats(form10)
         form_ppg = 0.6 * five["ppg"] + 0.4 * ten["ppg"] if ten["count"] >= 5 else ten["ppg"]
         opponent_ppgs = []
-        for row in form10:
-            opponent_id = row.get("awayTeamId") if row.get("homeTeamId") == team_id else row.get("homeTeamId")
+        opponent_ids = {
+            row.get("awayTeamId") if row.get("homeTeamId") == team_id else row.get("homeTeamId")
+            for row in form10
+        }
+        for opponent_id in opponent_ids:
             opponent = standings_by_team.get((league_id, season, opponent_id))
             if opponent and int(opponent.get("played") or 0) >= 3:
                 opponent_ppgs.append(opponent["points"] / opponent["played"])
