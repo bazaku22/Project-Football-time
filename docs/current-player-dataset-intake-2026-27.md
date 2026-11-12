@@ -33,6 +33,20 @@ This document defines the intake and review contract. It does not claim that a 2
 - Never scrape AiScore, LiveScore, or any source without permission.
 - No API call is made until the user separately approves the provider, expected cost/credits, and scope.
 
+## Initial official-source inventory
+
+These are discovery references for checking current-season membership and player facts, not blanket permission to copy or republish their data. Terms, database rights, attribution, and intended use must be reviewed before ingestion.
+
+| Competition | Current-season source discovered | Intended use / limitation |
+|---|---|---|
+| Premier League | [2026/27 squad lists](https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists), [2026/27 squad numbers](https://www.premierleague.com/en/news/4725682/all-20-premier-league-clubs-squad-numbers-for-202627-season), [player directory](https://www.premierleague.com/en/players) | Official first-team and U21 squad evidence; distinguish the 25-player submitted list from eligible U21s |
+| La Liga | [Official club squad pages](https://www.laliga.com/clubes/fc-barcelona/plantilla), [2026/27 player profile example](https://www.laliga.com/en-GB/player/jude-bellingham) | Club squad membership, position and player profile facts; verify each club's page and season |
+| Bundesliga | [Official Bundesliga player directory](https://www.bundesliga.com/en/bundesliga/player/) | Current club grouping, position and shirt-number evidence; confirm each player record and season |
+| Serie A | [Official 2026/27 player statistics](https://www.legaseriea.it/serie-a/statistiche/giocatori), [English player statistics](https://en.legaseriea.it/serie-a/statistiche/giocatori) | Current-season appearances and player list; statistics are competition-scoped and should not be mistaken for full squad membership |
+| Ligue 1 | [Official Ligue 1 Data Zone](https://ligue1.com/en/data-zone/ligue1mcdonalds) | Current-season club and statistical discovery; obtain squad membership from official club evidence where the data zone does not establish full roster membership |
+
+A discovered page may be incomplete, dynamically rendered, or scoped to registered first-team players only. Record the exact page, observed date, scope, and any uncertainty for each player. Do not use third-party aggregators as the sole identity or membership authority.
+
 ## Required player intake fields
 
 | Field | Requirement |
