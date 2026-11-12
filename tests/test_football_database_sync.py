@@ -14,6 +14,7 @@ class FootballDatabaseSyncTests(unittest.TestCase):
         (self.root/"scripts").mkdir(); (self.root/"data").mkdir()
         shutil.copy(ROOT/"scripts"/"build_football_database.py",self.root/"scripts")
         shutil.copy(ROOT/"scripts"/"phase6_league_catalog.py",self.root/"scripts")
+        shutil.copy(ROOT/"scripts"/"validate_football_database.py",self.root/"scripts")
         self.runner=self.root/"runner"/"football-data"; self.runner.mkdir(parents=True)
         ids=["football-data:900","football-data:901"]
         previous={"generatedAt":"2026-11-10T18:32:58+00:00","source":{"lastSuccessfulSync":"2026-11-10T18:32:58+00:00","leagueSync":{"ELC":{"status":"fresh","lastSuccessfulSync":"2026-11-10T18:32:58+00:00"}}},
@@ -31,6 +32,18 @@ class FootballDatabaseSyncTests(unittest.TestCase):
         env=dict(os.environ,RUNNER_TEMP=str(self.root/"runner"))
         subprocess.run(["python3","scripts/build_football_database.py"],cwd=self.root,env=env,check=True,capture_output=True,text=True)
         return json.loads((self.root/"data"/"football-database.json").read_text())
+    def test_points_deduction_is_accepted_by_database_validator(self):
+        db=self.build()
+        row=next(x for x in db["standings"] if x["leagueId"]=="PL")
+        row.update({"played":1,"won":1,"draw":0,"lost":0,"points":0})
+        db["probabilitySnapshots"]=[]
+        (self.root/"data"/"football-database.json").write_text(json.dumps(db))
+        result=subprocess.run(
+            ["python3","scripts/validate_football_database.py"],
+            cwd=self.root,capture_output=True,text=True
+        )
+        self.assertEqual(result.returncode,0,result.stdout+"\n"+result.stderr)
+        self.assertIn("All reference and consistency checks passed.",result.stdout)
     def test_optional_elc_failure_preserves_previous_rows_and_history(self):
         db=self.build()
         self.assertEqual(db["source"]["leagueSync"]["ELC"]["status"],"stale")
