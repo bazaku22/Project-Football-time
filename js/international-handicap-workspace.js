@@ -235,8 +235,7 @@
   }
   function mount() {
     const main = document.querySelector("main");
-    const nav = document.querySelector(".nav");
-    if (!main || !nav || document.getElementById("internationalHandicap")) return;
+    if (!main || document.getElementById("internationalHandicap")) return;
     const page = document.createElement("section");
     page.id = "internationalHandicap";
     page.className = "page";
@@ -247,14 +246,6 @@
       '<div id="intlAhAnalysis"><div class="empty">กำลังโหลดข้อมูล Nations League…</div></div>' +
       '<div id="intlAhHistory" hidden></div><div class="notice">ข้อมูลอ้างอิงเป็นข้อมูลทดลอง ไม่ใช่บริการรับเดิมพัน ไม่มีราคาเดิมพันหรือคำแนะนำการเดิมพัน</div>';
     main.appendChild(page);
-    nav.insertAdjacentHTML("beforeend", '<button type="button" data-intl-route="true">ทีมชาติ AH</button>');
-    nav.addEventListener("click", function (event) {
-      if (!event.target.closest("[data-intl-route]")) return;
-      document.querySelectorAll(".page").forEach(function (node) { node.classList.toggle("active", node.id === "internationalHandicap"); });
-      document.querySelectorAll("[data-primary-route]").forEach(function (node) { node.classList.remove("active"); });
-      nav.querySelector("[data-intl-route]").classList.add("active");
-      window.scrollTo(0, 0);
-    });
     page.addEventListener("click", function (event) {
       const button = event.target.closest("[data-intl-tab]");
       if (!button) return;
