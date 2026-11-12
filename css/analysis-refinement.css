@@ -57,3 +57,12 @@ header{background:linear-gradient(115deg,rgba(13,31,48,.98),rgba(17,47,61,.94));
 #matchAnalysis #analysisInsightOutput:empty{display:none}
 #matchAnalysis #analysisInsightOutput .analysis-insight{margin:12px 0 14px}
 @media(min-width:600px){#matchAnalysis #probabilityOutput .prob-grid{gap:12px}}
+
+#matchAnalysis .analysis-details{margin-top:12px;border:1px solid rgba(145,178,204,.16);border-radius:12px;background:rgba(8,22,36,.38);padding:11px}
+#matchAnalysis .analysis-details>summary{cursor:pointer;color:#b9cad8;font-size:11px;font-weight:700;list-style:none}
+#matchAnalysis .analysis-details>summary::-webkit-details-marker{display:none}
+#matchAnalysis .analysis-details>summary:after{content:"＋";float:right;color:#72e2bf}
+#matchAnalysis .analysis-details[open]>summary:after{content:"−"}
+#matchAnalysis .analysis-details-content{padding-top:8px}
+#matchAnalysis .analysis-details-content .quality-note{margin:8px 0}
+#matchAnalysis .analysis-details-content h3{margin:12px 0 5px!important}
