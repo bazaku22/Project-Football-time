@@ -32,6 +32,9 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertIn("localStorage", MODULE)
         self.assertIn("playerIdentityCreateAllProvisional", HTML)
         self.assertIn("playerIdentityExportProvisional", HTML)
+        self.assertIn('<option value="provisional">สร้างรายการรอตรวจ</option>', HTML)
+        self.assertIn('if(row.status==="conflicting_identity_observations"){held++;return;}', MODULE)
+        self.assertIn('if(existing)return;', MODULE)
 
     def test_reconciler_preserves_original_reviewer_evidence(self):
         self.assertIn('"reviewer": mapped[0].get("reviewer", "")', RECONCILER)
