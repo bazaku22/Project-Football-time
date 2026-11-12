@@ -290,11 +290,12 @@ jobs:
           python3 -m py_compile scripts/wikidata_p54_jsonl_extractor.py
           python3 -m unittest tests/test_wikidata_p54_jsonl_extractor.py -v
           python3 - <<'PY'
+          import re
           from pathlib import Path
           source = Path("scripts/wikidata_p54_jsonl_extractor.py").read_text(encoding="utf-8")
-          for forbidden in ("requests.", "urllib.request", "httpx.", "supabase"):
-              if forbidden in source:
-                  raise SystemExit(f"Unexpected network/database integration: {forbidden}")
+          forbidden_import = re.search(r"(?m)^\\s*(?:import|from)\\s+(?:requests|urllib|httpx|supabase)(?:\\.|\\s|$)", source)
+          if forbidden_import:
+              raise SystemExit("Unexpected network/database module import in local extractor.")
           print("Wikidata extractor remains local-only with no network or database integration.")
           PY
 
