@@ -51,3 +51,22 @@ python -m unittest tests/test_player_reconciliation_pipeline.py -v
 This workflow downloads the already-created staging artifact from the selected run, then fetches the five-league StrikerAPI team reference (5 credits total) to resolve provider team abbreviations to official provider names. It does not refetch player squads or match statistics, write to Supabase, create canonical IDs, merge players, or commit staging data to the repository. The output includes the provider team reference JSON as audit evidence. The report artifact is retained for 14 days. The source artifact must still be available in GitHub Actions.
 
 Workflow file: `.github/workflows/run-player-reconciliation.yml`.
+
+
+## Curated team alias review and app handoff
+
+The seven unmatched provider abbreviations from the reviewed artifact are stored in `data/player-team-alias-candidates-2026-27.json` as pending suggestions only. Each entry records the provider team ID, league/season, proposed Football Time team ID, and provenance. The candidate field is not a canonical mapping; `canonical_team_id` must remain empty until a human-reviewed mapping is separately accepted.
+
+Run the reconciliation workflow after this change to produce:
+- `team-mapping-review-2026-27.csv` including the seven alias candidates.
+- `player-identity-review-2026-27.csv` with columns accepted by the app's offline Identity Review panel.
+- `reconciliation-summary-2026-27.json`.
+
+The workflow now uses the existing staging artifact and checked-in pending alias suggestions only. It makes **zero StrikerAPI calls / zero credits**. It does not write to Supabase or publish player records.
+
+### App review steps
+
+1. Open Football Time → ฐานข้อมูลฟุตบอล → ฐานข้อมูลนักเตะ.
+2. In **ตรวจสอบการจับคู่ทีม**, import `team-mapping-review-2026-27.csv`, review proposed aliases, enter a reviewer label, and export the decisions.
+3. In **Identity Review**, import `player-identity-review-2026-27.csv`. Rows with repeated provider IDs (including the Moussa Diarra observation) remain flagged; no canonical IDs are assigned.
+4. Decisions are local to the device until exported. No review action writes to Supabase or the repository.
