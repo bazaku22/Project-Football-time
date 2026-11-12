@@ -30,6 +30,7 @@ on:
       - "css/analysis-refinement.css"
       - "manifest.webmanifest"
       - "tests/test_primary_navigation.py"
+      - "tests/test_analysis_workspace.py"
       - "tests/test_player_statistics_import_ui.py"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
@@ -128,7 +129,7 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check sw.js
-          python3 -m unittest tests/test_match_center.py tests/test_international_match_center.py tests/test_primary_navigation.py
+          python3 -m unittest tests/test_match_center.py tests/test_international_match_center.py tests/test_primary_navigation.py tests/test_analysis_workspace.py
           node --check js/football-discovery.js
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
