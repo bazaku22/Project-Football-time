@@ -165,3 +165,17 @@ Input columns:
 Only one exact `(provider, provider_player_id)` mapping with explicit review evidence is treated as resolved. Names and exact date-of-birth matches may only create candidate suggestions; they never create a link. Duplicate provider IDs in an input file, multiple mappings for one provider identity, missing canonical targets, and unreviewed mappings are quarantined. The tool writes a CSV review queue and a JSON summary; it creates zero automatic merges and performs zero database writes.
 
 Regression coverage: exact verified mapping, name/DOB candidate-only behavior, unreviewed and conflicting mappings, missing targets, duplicate provider identities, and incomplete review evidence.
+
+
+## Offline player identity review workspace
+
+After generating `player-identity-review-queue.csv` with `scripts/reconcile_player_identity.py`, open Football Time → Leagues & Teams → Football Database → Player Database → Identity Review and load the CSV.
+
+- Enter a reviewer identifier before recording any decision.
+- Approve only a candidate shown in the reconciliation output; name/DOB similarity remains a suggestion and requires explicit human review.
+- Mark non-matches or request further review without creating a provider-ID link.
+- Decisions are stored only in the browser's separate `pft_player_identity_review_decisions_v1` local-storage key.
+- Export `player-id-mapping-reviewed.csv` to feed explicit human-approved exact mappings back into the offline reconciliation CLI. Original reviewer and timestamp evidence for already-verified mappings are retained in the queue export.
+- Export a separate decision report for audit.
+
+This workspace does not call APIs, write Supabase, modify canonical player records, or alter the legacy player database. Exported mappings are files for a subsequent separately reviewed import workflow, not a database write.

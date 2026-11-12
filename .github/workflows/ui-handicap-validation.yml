@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "js/player-identity-review.js"
+      - "css/player-identity-review.css"
       - "js/international-handicap-model.js"
       - "js/international-handicap-workspace.js"
       - "css/international-handicap.css"
@@ -62,6 +64,7 @@ jobs:
           node --check js/international-handicap-workspace.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
+          node --check js/player-identity-review.js
           node --check sw.js
           python - <<'PY'
           import re
@@ -85,8 +88,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.10.0-beta.1"' index.html
-          grep -q 'football-time-v60' sw.js
+          grep -q 'application-version" content="6.11.0-beta.1"' index.html
+          grep -q 'football-time-v61' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html

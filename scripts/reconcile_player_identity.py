@@ -76,7 +76,7 @@ def reconcile(provider_rows, canonical_rows, mapping_rows):
                 "provider": provider, "provider_player_id": provider_id,
                 "player_name": row["player_name"], "status": "duplicate_provider_identity",
                 "canonical_player_key": "", "candidate_keys": "",
-                "candidate_reasons": "", "review_required": "true",
+                "candidate_reasons": "", "reviewer": "", "reviewed_at": "", "review_required": "true",
                 "issues": "Duplicate provider identity within input file",
             })
             continue
@@ -133,7 +133,10 @@ def reconcile(provider_rows, canonical_rows, mapping_rows):
             "provider": provider, "provider_player_id": provider_id,
             "player_name": row["player_name"], "status": status,
             "canonical_player_key": canonical_key, "candidate_keys": candidate_text,
-            "candidate_reasons": reason_text, "review_required": str(status != "exact_verified_mapping").lower(),
+            "candidate_reasons": reason_text,
+            "reviewer": mapped[0].get("reviewer", "") if len(mapped) == 1 else "",
+            "reviewed_at": mapped[0].get("reviewed_at", "") if len(mapped) == 1 else "",
+            "review_required": str(status != "exact_verified_mapping").lower(),
             "issues": " | ".join(issues),
         })
     return results
@@ -157,7 +160,7 @@ def main() -> int:
         mappings = read_csv(args.mapping_csv, MAPPING_REQUIRED)
         rows = reconcile(provider, canonical, mappings)
         columns = ["provider", "provider_player_id", "player_name", "status",
-                   "canonical_player_key", "candidate_keys", "candidate_reasons",
+                   "canonical_player_key", "candidate_keys", "candidate_reasons", "reviewer", "reviewed_at",
                    "review_required", "issues"]
         with args.out.open("w", encoding="utf-8-sig", newline="") as handle:
             writer = csv.DictWriter(handle, fieldnames=columns)
