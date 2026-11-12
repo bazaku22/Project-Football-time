@@ -6,6 +6,9 @@ on:
     paths:
       - "index.html"
       - "js/player-database.js"
+      - "js/player-identity-review.js"
+      - "css/player-identity-review.css"
+      - "tests/test_player_identity_review_ui.py"
       - "js/reep-alias-pilot.js"
       - "js/player-cloud.js"
       - "supabase/functions/reep-aliases/index.ts"
