@@ -11,6 +11,7 @@ on:
       - "js/player-squad-review.js"
       - "css/player-squad-review.css"
       - "tests/test_player_squad_review_ui.py"
+      - "tests/test_player_identity_review_ui.py"
       - "index.html"
       - "sw.js"
       - ".github/workflows/run-player-reconciliation.yml"
@@ -37,3 +38,4 @@ jobs:
           python -m unittest tests/test_player_reconciliation_pipeline.py -v
           python -m unittest tests/test_strikerapi_team_reference.py -v
           python -m unittest tests/test_player_squad_review_ui.py -v
+          python -m unittest tests/test_player_identity_review_ui.py -v
