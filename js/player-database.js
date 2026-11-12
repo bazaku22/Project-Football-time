@@ -1,7 +1,7 @@
 "use strict";
 // Directory policy: current season is the primary view; legacy seasons remain reviewable in Archive.
 (() => {
- const PILOT_URL="./data/player-position-pilot-2026-27.json",CURRENT_SEASON="2026/27",$=id=>document.getElementById(id);
+ const PILOT_URL="./data/player-position-pilot-2026-27.json",CURRENT_DATA_URL="./data/current-player-squads-2026-27.json",CURRENT_SEASON="2026/27",$=id=>document.getElementById(id);
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const fmt=v=>v===null||v===undefined||v===""?"—":esc(v);
  const labels={FORWARD:"แนวรุก",MIDFIELDER:"กองกลาง",DEFENDER:"กองหลัง",GOALKEEPER:"ผู้รักษาประตู",MULTI:"หลายกลุ่มตำแหน่ง",UNKNOWN:"ยังไม่ระบุตำแหน่ง"};
@@ -10,7 +10,7 @@
  const initials=name=>String(name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase();
  function render(){
   const q=$("playerSearch").value.trim().toLocaleLowerCase(),league=$("playerLeagueFilter").value,team=$("playerTeamFilter").value,pos=$("playerPositionFilter").value;
-  const base=view==="research"?pilot.map(p=>({...p,kind:"research",name:p.name,teamName:"Manchester United",teamId:"manchester-united",leagueName:"Premier League",leagueId:"PL",season:"2026/27",number:p.shirt_number,positionGroup:p.position_group,position:p.official_position_label,statistics:{},photoUrl:p.photo_url||null})):canonical.filter(p=>view==="archive"?p.season!==CURRENT_SEASON:p.season===CURRENT_SEASON);
+  const base=view==="research"?pilot.map(p=>({...p,kind:"research",statistics:{},photoUrl:p.photo_url||null})):canonical.filter(p=>view==="archive"?p.season!==CURRENT_SEASON:p.season===CURRENT_SEASON);
   const rows=base.filter(r=>(league==="ALL"||(r.leagueId||"unknown")===league)&&(team==="ALL"||(r.teamId||"unknown")===team)&&(pos==="ALL"||position(r)===pos)&&(!q||String(r.name||r.display_name||"").toLocaleLowerCase().includes(q))).sort((a,b)=>String(a.name||a.display_name).localeCompare(String(b.name||b.display_name)));
   const leagues=[...new Map(base.map(r=>[r.leagueId||"unknown",r.leagueName||r.leagueId||"ไม่ระบุลีก"])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
   const teams=[...new Map(base.map(r=>[r.teamId||"unknown",r.teamName||r.teamId||"ไม่ระบุทีม"])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
@@ -27,7 +27,25 @@
   }).join(""):'<div class="empty">ไม่พบรายชื่อนักเตะในหมวดนี้ ลองเปลี่ยนตัวกรองหรือเข้าสู่ระบบ Cloud เพื่อโหลดข้อมูล Canonical</div>';
  }
  function setView(next){view=next;document.querySelectorAll("[data-player-view]").forEach(b=>b.classList.toggle("active",b.dataset.playerView===view));$("playerLeagueFilter").value="ALL";$("playerTeamFilter").value="ALL";render();}
- async function loadPilot(){try{const res=await fetch(PILOT_URL,{cache:"no-store"});if(!res.ok)throw new Error("HTTP "+res.status);const d=await res.json();pilot=Array.isArray(d.players)?d.players:[];directoryStatus="โหลดชุดทดลอง "+pilot.length+" คนแล้ว";}catch(e){pilot=[];directoryStatus="โหลดชุดทดลองไม่สำเร็จ: "+e.message;}render();}
+ async function loadPilot(){
+  try{
+   const [legacyRes,currentRes]=await Promise.all([fetch(PILOT_URL,{cache:"no-store"}),fetch(CURRENT_DATA_URL,{cache:"no-store"})]);
+   if(!legacyRes.ok)throw new Error("Legacy pilot HTTP "+legacyRes.status);
+   if(!currentRes.ok)throw new Error("Current squad pilot HTTP "+currentRes.status);
+   const legacy=await legacyRes.json(),current=await currentRes.json();
+   if(legacy.status!=="research_only"||legacy.production_import!==false||current.status!=="research_only"||current.production_import!==false||!Array.isArray(current.players)||!Array.isArray(current.sources))throw new Error("Research dataset safety/schema check failed");
+   const oldByName=new Map((legacy.players||[]).map(p=>[String(p.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase(),p]));
+   const sources=new Map(current.sources.map(s=>[s.id,s]));
+   const group=p=>{const v=String(p||"").toLowerCase();if(v==="goalkeeper")return "GOALKEEPER";if(v==="defender")return "DEFENDER";if(["forward","striker"].includes(v))return "FORWARD";if(v==="midfielder")return "MIDFIELDER";return "UNKNOWN";};
+   pilot=current.players.map(p=>{
+    const old=oldByName.get(String(p.name||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase())||{};
+    const source=sources.get(p.source_id)||{};
+    return {id:p.id,name:p.name,teamName:p.club_name,teamId:p.club_id,leagueName:source.league_name||p.league_id,leagueId:p.league_id,season:p.season,number:p.shirt_number??old.shirt_number??null,positionGroup:group(p.position)||old.position_group||"UNKNOWN",position:p.position||old.official_position_label||null,rights_status:p.rights_status||"pending_review",statistics:{},source_url:source.url||null,source_publisher:source.publisher||null,photo_url:old.photo_url||null,photo_source_url:old.photo_source_url||null,photo_author:old.photo_author||null,photo_license:old.photo_license||null,photo_license_url:old.photo_license_url||null,photo_review_status:old.photo_review_status||null};
+   });
+   directoryStatus="โหลดชุดทดลอง 5 ลีก "+pilot.length+" คนแล้ว (Research Only)";
+  }catch(e){pilot=[];directoryStatus="โหลดชุดทดลองไม่สำเร็จ: "+e.message;}
+  render();
+ }
  window.addEventListener("pft-player-directory-data",e=>{const d=e.detail||{};canonical=Array.isArray(d.players)?d.players:[];directoryStatus=d.status||"โหลด Canonical แล้ว";render();});
  window.addEventListener("pft-player-directory-status",e=>{directoryStatus=String(e.detail||"");render();});
  window.addEventListener("pft-player-stats-data",e=>{statsStatus=e.detail?.status||"ยังไม่ได้โหลดสถิติ";render();});
