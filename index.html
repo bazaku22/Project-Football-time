@@ -240,6 +240,16 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
    <div class="field"><label for="playerIdentityReviewFilter">กรองสถานะ</label><select id="playerIdentityReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">อนุมัติในเครื่อง</option><option value="verified">ยืนยันแล้ว</option><option value="rejected">ไม่ใช่คนเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div><div id="playerIdentityReviewRows"><div class="empty">เลือกไฟล์คิวตรวจสอบเพื่อเริ่มต้น</div></div>
    <div class="form-actions"><button class="secondary" id="playerIdentityExportMappings" type="button">ส่งออก Mapping ที่ยืนยัน</button><button class="secondary" id="playerIdentityExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div><button class="secondary" id="playerIdentityReviewClear" type="button">ล้างคิวที่เปิดอยู่</button><div class="quality-note">ผลตรวจเก็บในอุปกรณ์และไฟล์ส่งออก ไม่ได้เขียนลง Supabase</div>
   </div>
+  <div class="card" id="playerTeamAliasReviewPanel"><div class="topline"><b>ตรวจสอบการจับคู่ทีม (Team Alias Review)</b><span class="tag">OFFLINE REVIEW</span></div>
+   <p class="identity-review-intro">ตรวจสอบ 7 ชื่อทีมที่ไม่ตรงกันแบบตรงตัวกับทะเบียนทีมหลัก ระบบเสนอทีมให้พิจารณาเท่านั้น การกดยืนยันจะเก็บในอุปกรณ์และส่งออก CSV ไม่แก้ทะเบียน Production</p>
+   <div class="field"><label for="playerTeamAliasReviewFile">ไฟล์ team-mapping-review-2026-27.csv</label><input id="playerTeamAliasReviewFile" class="filter" type="file" accept=".csv,text/csv"></div>
+   <div class="field"><label for="playerTeamAliasReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerTeamAliasReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div>
+   <div id="playerTeamAliasReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบทีม</div><div id="playerTeamAliasReviewSummary" class="identity-review-summary"></div>
+   <div class="field"><label for="playerTeamAliasReviewFilter">กรองสถานะ</label><select id="playerTeamAliasReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">ยืนยันในเครื่อง</option><option value="rejected">ไม่ใช่ทีมเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div>
+   <div id="playerTeamAliasReviewRows"><div class="empty">เลือกไฟล์ team-mapping-review เพื่อเริ่มต้น</div></div>
+   <div class="form-actions"><button class="secondary" id="playerTeamAliasExport" type="button">ส่งออก Alias ที่ยืนยัน</button><button class="secondary" id="playerTeamAliasExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div>
+   <div class="quality-note">การยืนยันเป็นผลตรวจภายในเครื่องเท่านั้น ยังไม่เปลี่ยน canonical team mapping และไม่เขียน Supabase</div>
+  </div>
   <div class="card" id="playerStatsImportPanel"><div class="topline"><b>นำเข้าสถิติ CSV — Preview เท่านั้น</b><span class="tag">OFFLINE PREFLIGHT</span></div><p class="profile-note">ตรวจไฟล์ในอุปกรณ์ ไม่อัปโหลดและไม่บันทึกฐานข้อมูล</p>
    <div class="field"><label for="playerStatsCsv">ไฟล์สถิติ CSV</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerStatsMappingCsv">ไฟล์ mapping CSV</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div><button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button><div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div><div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
    <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div><button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
@@ -1169,6 +1179,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/player-stats-import.js"></script>
 <script src="./js/player-identity-review.js"></script>
+<script src="./js/player-team-alias-review.js"></script>
 <script src="./js/research-insight.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
