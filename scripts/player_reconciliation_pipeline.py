@@ -88,7 +88,7 @@ def team_candidates(players: list[dict], teams: list[dict]) -> list[dict]:
     return output
 
 
-def build_team_report(players: list[dict], football_db: dict, provider_reference: dict | None = None) -> list[dict]:
+def build_team_report(players: list[dict], football_db: dict, provider_reference: dict | None = None, alias_registry: dict | None = None) -> list[dict]:
     teams = football_db["teams"]
     memberships = football_db.get("teamSeasons", [])
     if not isinstance(memberships, list):
@@ -116,6 +116,19 @@ def build_team_report(players: list[dict], football_db: dict, provider_reference
             if not key[1] or key in reference_lookup:
                 raise ValueError(f"invalid or duplicate provider team reference key: {key}")
             reference_lookup[key] = ref
+    alias_lookup = {}
+    if alias_registry is not None:
+        if alias_registry.get("provider") != "strikerapi" or alias_registry.get("season") != "2026/27":
+            raise ValueError("team alias registry must be StrikerAPI 2026/27")
+        if alias_registry.get("status") != "pending_human_review" or alias_registry.get("production_import") is not False:
+            raise ValueError("team alias registry must remain pending human review")
+        for alias in alias_registry.get("aliases", []):
+            key = (alias.get("league_id"), str(alias.get("provider_team_id") or ""))
+            if not key[1] or key in alias_lookup or alias.get("status") != "alias_candidate_needs_review":
+                raise ValueError(f"invalid or duplicate pending team alias: {key}")
+            if alias.get("canonical_team_id") or not alias.get("candidate_team_id"):
+                raise ValueError(f"team alias must have a candidate but no confirmed canonical ID: {key}")
+            alias_lookup[key] = alias
     result = []
     seen = set()
     for row in players:
@@ -143,6 +156,13 @@ def build_team_report(players: list[dict], football_db: dict, provider_reference
             if provider_values & canonical_values:
                 candidates.append(team)
                 match_bases[str(team.get("id", ""))] = "exact_normalized_provider_reference_name_or_abbreviation"
+        alias = alias_lookup.get((league_id, provider_id))
+        if alias:
+            candidates = [team for team in filtered if team.get("id") == alias.get("candidate_team_id")
+                          and (league_id, team.get("id")) in season_members]
+            if len(candidates) != 1 or candidates[0].get("name") != alias.get("candidate_team_name"):
+                raise ValueError(f"team alias candidate does not match same-league registry: {(league_id, provider_id)}")
+            match_bases = {str(candidates[0]["id"]): "curated_alias_candidate_pending_review"}
         candidates.sort(key=lambda item: str(item.get("id", "")))
         result.append({
             "league_id": league_id,
@@ -150,13 +170,16 @@ def build_team_report(players: list[dict], football_db: dict, provider_reference
             "provider_team_name": provider_name,
             "provider_team_official_name": (provider_ref or {}).get("name", ""),
             "provider_team_abbrev": (provider_ref or {}).get("abbrev", ""),
+            "alias_candidate_team_id": alias.get("candidate_team_id", "") if alias else "",
+            "alias_candidate_team_name": alias.get("candidate_team_name", "") if alias else "",
+            "alias_review_status": alias.get("status", "") if alias else "",
             "provider_reference_found": "true" if provider_ref else "false",
             "candidate_team_ids": ";".join(str(x.get("id", "")) for x in candidates),
             "candidate_team_names": ";".join(str(x.get("name", "")) for x in candidates),
             "candidate_count": len(candidates),
             "candidate_match_basis": ";".join(match_bases.values()),
-            "status": "exact_name_candidate_needs_review" if len(candidates) == 1 else (
-                "ambiguous_exact_name_candidates" if candidates else "unmatched_needs_manual_alias"),
+            "status": "alias_candidate_needs_review" if alias else ("exact_name_candidate_needs_review" if len(candidates) == 1 else (
+                "ambiguous_exact_name_candidates" if candidates else "unmatched_needs_manual_alias")),
             "canonical_team_id": "",
             "review_required": "true",
             "note": "Provider list_teams identity and exact normalized name/abbreviation comparison are advisory only; human approval required."
@@ -178,6 +201,7 @@ def build_player_report(players: list[dict]) -> list[dict]:
         result.append({
             "provider": provider,
             "provider_player_id": provider_id,
+            "player_name": names[0] if names else "Unknown",
             "player_name_variants": ";".join(names),
             "membership_observations": len(rows),
             "league_ids": ";".join(leagues),
@@ -185,6 +209,10 @@ def build_player_report(players: list[dict]) -> list[dict]:
             "status": "conflicting_identity_observations" if repeated and conflicting else (
                 "repeated_identity_needs_review" if repeated else "single_observation_needs_canonical_review"),
             "canonical_player_id": "",
+            "canonical_player_key": "",
+            "candidate_keys": "",
+            "candidate_reasons": "",
+            "issues": "Repeated provider ID / multiple team observations; manual identity review required" if repeated and conflicting else "No canonical identity mapping exists; manual verification required",
             "review_required": "true",
             "note": "No canonical identity assigned; repeated provider IDs and all first observations require review."
         })
@@ -199,10 +227,10 @@ def write_csv(path: Path, rows: list[dict], columns: list[str]) -> None:
         writer.writerows(rows)
 
 
-def run(staging: dict, football_db: dict, provider_reference: dict | None = None) -> dict:
+def run(staging: dict, football_db: dict, provider_reference: dict | None = None, alias_registry: dict | None = None) -> dict:
     teams = validate_inputs(staging, football_db)
     players = staging["players"]
-    team_rows = build_team_report(players, football_db, provider_reference)
+    team_rows = build_team_report(players, football_db, provider_reference, alias_registry)
     player_rows = build_player_report(players)
     team_counts = defaultdict(int)
     for row in team_rows:
@@ -228,6 +256,7 @@ def run(staging: dict, football_db: dict, provider_reference: dict | None = None
         "production_import": False,
         "team_registry_records_considered": len(teams),
         "provider_team_reference_records": len(provider_reference.get("teams", [])) if provider_reference else 0,
+        "pending_team_alias_candidates": len(alias_registry.get("aliases", [])) if alias_registry else 0,
         "provider_team_reference_api_calls": provider_reference.get("provider_api_calls", 0) if provider_reference else 0,
         "provider_team_reference_estimated_credits": provider_reference.get("estimated_credits", 0) if provider_reference else 0,
         "total_provider_api_calls": provider_reference.get("provider_api_calls", 0) if provider_reference else 0,
@@ -247,21 +276,24 @@ def main() -> int:
     parser.add_argument("--staging", required=True, type=Path, help="StrikerAPI staging JSON")
     parser.add_argument("--football-db", required=True, type=Path, help="Football Time football-database.json")
     parser.add_argument("--provider-teams", type=Path, help="Optional StrikerAPI list_teams 2026/27 reference JSON")
+    parser.add_argument("--team-aliases", type=Path, help="Optional curated pending-only same-season team alias candidates")
     parser.add_argument("--out-dir", type=Path, default=Path("data/staging/reconciliation-2026-27"))
     args = parser.parse_args()
     try:
         provider_reference = load_json(args.provider_teams) if args.provider_teams else None
-        result = run(load_json(args.staging), load_json(args.football_db), provider_reference)
+        alias_registry = load_json(args.team_aliases) if args.team_aliases else None
+        result = run(load_json(args.staging), load_json(args.football_db), provider_reference, alias_registry)
         args.out_dir.mkdir(parents=True, exist_ok=True)
         team_rows, player_rows = result.pop("_team_rows"), result.pop("_player_rows")
         write_csv(args.out_dir / "team-mapping-review-2026-27.csv", team_rows, [
             "league_id", "provider_team_id", "provider_team_name",
             "provider_team_official_name", "provider_team_abbrev", "provider_reference_found",
             "candidate_team_ids", "candidate_team_names", "candidate_count", "candidate_match_basis",
-            "status", "canonical_team_id", "review_required", "note"])
+            "alias_candidate_team_id", "alias_candidate_team_name", "alias_review_status", "status", "canonical_team_id", "review_required", "note"])
         write_csv(args.out_dir / "player-identity-review-2026-27.csv", player_rows, [
-            "provider", "provider_player_id", "player_name_variants", "membership_observations",
-            "league_ids", "provider_team_ids", "status", "canonical_player_id", "review_required", "note"])
+            "provider", "provider_player_id", "player_name", "player_name_variants", "membership_observations",
+            "league_ids", "provider_team_ids", "status", "canonical_player_key", "candidate_keys",
+            "candidate_reasons", "review_required", "issues", "canonical_player_id", "note"])
         (args.out_dir / "reconciliation-summary-2026-27.json").write_text(
             json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     except (OSError, json.JSONDecodeError, ValueError, KeyError) as exc:
