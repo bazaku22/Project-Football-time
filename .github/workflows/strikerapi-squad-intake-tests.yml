@@ -8,6 +8,11 @@ on:
       - "tests/test_player_reconciliation_pipeline.py"
       - "scripts/strikerapi_team_reference.py"
       - "tests/test_strikerapi_team_reference.py"
+      - "js/player-squad-review.js"
+      - "css/player-squad-review.css"
+      - "tests/test_player_squad_review_ui.py"
+      - "index.html"
+      - "sw.js"
       - ".github/workflows/run-player-reconciliation.yml"
       - "docs/strikerapi-current-squad-intake-2026-27.md"
       - "docs/player-reconciliation-pipeline-2026-27.md"
@@ -31,3 +36,4 @@ jobs:
           python -m unittest tests/test_strikerapi_squad_intake.py -v
           python -m unittest tests/test_player_reconciliation_pipeline.py -v
           python -m unittest tests/test_strikerapi_team_reference.py -v
+          python -m unittest tests/test_player_squad_review_ui.py -v
