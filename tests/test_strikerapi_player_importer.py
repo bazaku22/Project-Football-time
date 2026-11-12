@@ -36,6 +36,19 @@ class StrikerApiPlayerImporterTests(unittest.TestCase):
     def test_empty_season_list_does_not_select_any_other_season(self):
         self.assertIsNone(importer.select_season_stats([], "2026/27", None))
 
+    def test_ambiguous_team_names_are_not_mapped(self):
+        teams = [
+            {"id": 1, "name": "United FC"},
+            {"id": 2, "name": "United"},
+        ]
+        lookup = importer.build_team_lookup(teams)
+        self.assertNotIn(importer.norm("United"), lookup)
+
+    def test_unique_team_name_maps_to_catalogue_team(self):
+        teams = [{"id": 57, "name": "Arsenal", "shortName": "Arsenal"}]
+        lookup = importer.build_team_lookup(teams)
+        self.assertEqual(lookup[importer.norm("Arsenal")]["id"], 57)
+
 
 if __name__ == "__main__":
     unittest.main()
