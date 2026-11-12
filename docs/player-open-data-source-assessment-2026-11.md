@@ -107,3 +107,41 @@ A further public-web discovery pass tested whether a simpler, league-by-league s
 A league-by-league official-source workflow is easier to verify than manually assembling a Wikidata export, especially for the Premier League and Bundesliga. However, it does not solve the project's rights constraint or provide complete, reusable coverage across all five leagues. The safest useful next step is to seek permission or identify an explicitly licensed feed for the missing roster fields; do not bypass the existing rights gate by scraping pages or treating public visibility as permission.
 
 No data files, player records, app code, Supabase tables, or Production state were changed in this source-discovery pass.
+
+
+## Single-club pilot — Arsenal, Premier League 2026/27
+
+### Source structure verified
+
+The Premier League's official 3 September 2026 publication separates:
+- the submitted senior squad list (up to 25 registered players, subject to its home-grown rules); and
+- a separate U21 contract/scholar list, eligible above the senior squad limit.
+
+This distinction matters: a player can be eligible for first-team appearances without being part of the submitted 25-player senior squad. The 22 September squad-number publication is a different evidence class and includes players who appeared or may appear in first-team squads. Do not merge these categories into a single "first_team" membership label.
+
+### Read-only comparison against existing canonical data
+
+A read-only Production query found 29 Arsenal canonical memberships for season 2025/26. All 29 are currently labelled `first_team`; four records have no position value. The 2026/27 official Arsenal page separately lists the four corresponding young players in its U21 section.
+
+This is a **classification warning**, not proof that the historical 2025/26 memberships are wrong: the source page describes 2026/27 and cannot be used to rewrite prior-season membership. It does demonstrate why season-specific squad-level evidence is required and why missing position data must not be used as a proxy for squad level.
+
+### Pilot result
+
+- Candidate official source found: **1/5 leagues** (Premier League).
+- Club tested against existing canonical data: **Arsenal only**.
+- Existing Production records inspected: **29**, read-only.
+- 2026/27 Production memberships: **0** (unchanged).
+- New player rows imported: **0**.
+- Memberships reclassified or deleted: **0**.
+- API/provider calls, scraping, downloads, and Supabase writes: **0**.
+
+### Operational decision
+
+The simplest viable workflow is now:
+1. use official league publications as a season-specific *research reference*;
+2. distinguish senior submitted squad, U21 registered list, matchday/appearance evidence, and general first-team eligibility;
+3. compare only in read-only/research mode until source reuse rights are cleared;
+4. use independent, rights-cleared player identity/stat sources for canonical records; and
+5. preserve source evidence and the exact season for every membership.
+
+The Premier League page is a strong completeness/eligibility reference for this one competition, but its existing rights gate remains in force. No roster content has been bulk-copied into the repository or Production. This pilot does not establish coverage for the other four leagues.
