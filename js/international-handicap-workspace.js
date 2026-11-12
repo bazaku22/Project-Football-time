@@ -41,7 +41,7 @@
     }) + " น." : "ไม่ทราบเวลา";
   }
   function loadJSON(name) {
-    return fetch(ROOT + name + "?v=1", {cache:"no-store"}).then(function (response) {
+    return fetch(ROOT + name, {cache:"no-store"}).then(function (response) {
       if (!response.ok) throw new Error(name + " HTTP " + response.status);
       return response.json();
     });
@@ -168,7 +168,7 @@
         ' · ระบบงดแสดงเปอร์เซ็นต์แทนการคาดเดาข้อมูล</div>';
     }
     html += '<details class="intl-ah-details"><summary>เหตุผล ข้อจำกัด และแหล่งข้อมูล</summary>' +
-      '<p>Expected Goals: ' + (snapshot.expectedGoals ?
+      '<p>แหล่งเส้นอ้างอิง: The Odds API · Expected Goals: ' + (snapshot.expectedGoals ?
         Number(snapshot.expectedGoals.home).toFixed(2) + " – " + Number(snapshot.expectedGoals.away).toFixed(2) : "ไม่มีข้อมูล") +
       ' · โมเดล ' + esc(snapshot.modelVersion) + '</p><p>' + esc(snapshot.dataReason) +
       '</p><p>ข้อมูลฟอร์มทีมชาติอ้างอิงผลย้อนหลังถึง 6 ต.ค. 2026 จากชุดข้อมูล CC0 แบบรวบรวมหลายแหล่ง ไม่ใช่ฟีดสหพันธ์ และไม่มีการปรับความแข็งแกร่งคู่แข่งหรือค่าสนามเหย้าที่ผ่านการ fit</p>' +
