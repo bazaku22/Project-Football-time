@@ -38,5 +38,8 @@ For each league and current catalogue season:
 - H2H is descriptive context, not a standalone prediction.
 - Existing probability models are not recalibrated or changed.
 
-## Next integration
-After CI and the first scheduled run are confirmed, connect these research summaries to the existing Match Analysis Insight view while preserving its current layout and model outputs.
+## Match Analysis integration
+The same PR includes a compact Research Statistics panel beneath the existing Analysis Insight. It displays current-season team form, goals for/against, home/away sample sizes, league goal baseline, H2H sample count and both report/source timestamps. The panel is explicitly descriptive and does not modify model probabilities, coefficients, pre-match snapshots or accuracy history. If the research report is missing, the app displays a clear unavailable state rather than inventing statistics.
+
+## Rollout
+After CI and the first scheduled run are confirmed, verify the UI on Android. The first scheduled run can only publish useful statistics if the existing source database contains valid current-season fixtures and results.
