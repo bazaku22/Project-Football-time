@@ -36,7 +36,7 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertIn('"reviewed_at": mapped[0].get("reviewed_at", "")', RECONCILER)
 
     def test_service_worker_caches_new_assets_and_invalidates_old_cache(self):
-        self.assertIn("football-time-v63", WORKER)
+        self.assertIn("football-time-v64", WORKER)
         self.assertIn('"./css/player-identity-review.css?v=1"', WORKER)
         self.assertIn('"./js/player-identity-review.js"', WORKER)
 

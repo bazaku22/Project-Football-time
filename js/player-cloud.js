@@ -23,10 +23,13 @@ async function loadPlayerStatistics(){
   ]);
   const error=statsRes.error||playersRes.error||idsRes.error||membersRes.error||sourcesRes.error;if(error)throw error;
   const players=new Map((playersRes.data||[]).map(x=>[x.id,x]));
-  const directory=(playersRes.data||[]).map(p=>{
-   const membership=(membersRes.data||[]).filter(m=>m.player_id===p.id).sort((a,b)=>String(b.season).localeCompare(String(a.season)))[0]||null;
-   const stat=(statsRes.data||[]).find(x=>x.player_id===p.id)||null;
-   return {id:p.id,display_name:p.display_name,position:p.position,nationality:p.nationality,team_id:membership?.team_id||null,season:membership?.season||null,squad_level:membership?.squad_level||null,statistics:stat?.stats||{},verificationStatus:stat?.verification_status||"identity_only"};
+  const directory=(playersRes.data||[]).flatMap(p=>{
+   const playerMemberships=(membersRes.data||[]).filter(m=>m.player_id===p.id);
+   const memberships=playerMemberships.length?playerMemberships:[null];
+   return memberships.map(m=>{
+    const stat=(statsRes.data||[]).find(x=>x.player_id===p.id&&x.season===m?.season&&x.team_id===m?.team_id&&x.squad_level===m?.squad_level)||null;
+    return {id:p.id,display_name:p.display_name,position:p.position,nationality:p.nationality,team_id:m?.team_id||null,teamName:m?.team_id||null,season:m?.season||null,squad_level:m?.squad_level||null,statistics:stat?.stats||{},verificationStatus:stat?.verification_status||"identity_only",photoUrl:null};
+   });
   });
   window.dispatchEvent(new CustomEvent("pft-player-directory-data",{detail:{players:directory,status:"อ่านรายชื่อนักเตะ Canonical จาก ft_players ตามสิทธิ์บัญชีแล้ว"}}));
   const ids=new Map(),memberships=new Map(),sources=new Map();
