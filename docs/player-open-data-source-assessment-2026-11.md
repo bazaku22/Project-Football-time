@@ -80,3 +80,30 @@ A second discovery pass checked additional roster and open-data leads. None chan
 - FootballSquads may help discover that a club roster exists, but no data may be copied until its reuse terms are affirmatively cleared.
 - API Ninjas requires a separate provider/cost/rights decision and an explicit authorization before any API call. No trial, key request or API call was made.
 - No new player rows were added to the pilot or manifest in this pass.
+
+
+## Official roster discovery pass — 2026-11-12
+
+A further public-web discovery pass tested whether a simpler, league-by-league source mix could replace a user-prepared Wikidata export. This is a source-discovery assessment only; no page scraping, bulk copying, API calls, or Production ingestion was performed.
+
+| League | Candidate source found | What the page establishes | Current decision |
+|---|---|---|---|
+| Premier League | [Official 2026/27 squad lists](https://www.premierleague.com/ar/news/4706139/see-all-the-202627-premier-league-squad-lists) and [official squad numbers](https://www.premierleague.com/en/news/4725682) | Published 25-player squad lists and U21 contract/scholar groups; a separate September 2026 article lists squad numbers for all 20 clubs. This is the clearest official roster discovery lead found. | **Research reference only.** Existing official-source rights gate still applies; no bulk extraction or import without written permission or a separately reviewed legal basis. |
+| La Liga | [Official 2026/27 clubs directory](https://www.laliga.com/en-US/laliga-easports/clubs) | Confirms the 2026/27 competition club list, not a player roster. | **Club catalogue cross-check only.** Still need a rights-cleared player-membership source. |
+| Bundesliga | [DFB Data Center — example: VfB Stuttgart 2026/27](https://datencenter.dfb.de/en/competitions/12/seasons/2026-2027/teams/2076) | A season-specific squad page with player names, shirt numbers, birthdays and position groups. | **Strong verification lead, not approved for bulk reuse.** Review DFB terms, database rights and permitted reuse before extraction. |
+| Serie A | [Lega Serie A player statistics](https://en.legaseriea.it/serie-a/statistiche/giocatori) | The page exposes a 2026/27 player-statistics view with club and role filters and player records. It is appearance/statistics-oriented, not necessarily a complete registered squad. | **Appearance/player discovery only.** Not a complete squad feed; terms and bulk reuse rights remain unapproved. |
+| Ligue 1 | [Ligue 1 official news example](https://ligue1.com/fr/articles/l1_article_6057-) | Official editorial coverage can confirm selected players and clubs, but the page found is a national-team call-up article, not a complete squad list. | **Not a roster source.** A complete official 2026/27 squad endpoint/page and reuse basis remain unverified. |
+
+### Easier workflow considered
+
+1. Use league/association pages to identify clubs and candidate players, but do not bulk-copy protected roster content.
+2. For every candidate, retain a source URL, observation date, exact club identity, and evidence type (registered squad, first-team squad, matchday squad, or appearance). Do not conflate these categories.
+3. Resolve player identity with stable source-native IDs where available; names alone are insufficient.
+4. Only send candidates into the existing rights-cleared intake manifest after the specific source and data fields pass reuse review. Unapproved pages remain manual research links, not ingestion inputs.
+5. Keep unresolved coverage gaps visible. In particular, the current discovery pass does not establish a uniform, reusable source for all five leagues.
+
+### Operational conclusion
+
+A league-by-league official-source workflow is easier to verify than manually assembling a Wikidata export, especially for the Premier League and Bundesliga. However, it does not solve the project's rights constraint or provide complete, reusable coverage across all five leagues. The safest useful next step is to seek permission or identify an explicitly licensed feed for the missing roster fields; do not bypass the existing rights gate by scraping pages or treating public visibility as permission.
+
+No data files, player records, app code, Supabase tables, or Production state were changed in this source-discovery pass.
