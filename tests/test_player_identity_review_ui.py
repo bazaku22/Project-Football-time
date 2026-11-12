@@ -21,7 +21,7 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
     def test_manual_review_actions_and_filter_exist(self):
         for marker in ("approve", "rejected", "followup", "candidate_keys",
                        "reviewed_at", "reviewer", "player-id-mapping-reviewed.csv",
-                       "player-identity-review-decisions.csv"):
+                       "player-identity-review-decisions.csv", "createAllProvisional", "provisional_player_key", "provisional-player-review-2026-27.csv", "create-provisional"):
             self.assertIn(marker, MODULE)
 
     def test_review_decisions_are_local_only_and_no_network_or_supabase_write(self):
@@ -30,6 +30,8 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertNotIn("createClient", MODULE)
         self.assertNotIn("supabase", MODULE.lower())
         self.assertIn("localStorage", MODULE)
+        self.assertIn("playerIdentityCreateAllProvisional", HTML)
+        self.assertIn("playerIdentityExportProvisional", HTML)
 
     def test_reconciler_preserves_original_reviewer_evidence(self):
         self.assertIn('"reviewer": mapped[0].get("reviewer", "")', RECONCILER)
@@ -47,7 +49,7 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertNotIn("supabase", alias_module.lower())
 
     def test_service_worker_caches_new_assets_and_invalidates_old_cache(self):
-        self.assertIn("football-time-v68", WORKER)
+        self.assertIn("football-time-v69", WORKER)
         self.assertIn('"./css/player-identity-review.css?v=1"', WORKER)
         self.assertIn('"./js/player-identity-review.js"', WORKER)
         self.assertIn('"./js/player-team-alias-review.js"', WORKER)
