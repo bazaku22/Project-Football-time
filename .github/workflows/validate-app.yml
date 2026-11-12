@@ -6,6 +6,8 @@ on:
     paths:
       - "index.html"
       - "js/player-database.js"
+      - "data/player-position-pilot-2026-27.json"
+      - "tests/test_player_database_workspace.py"
       - "js/player-identity-review.js"
       - "css/player-identity-review.css"
       - "tests/test_player_identity_review_ui.py"
@@ -173,6 +175,7 @@ jobs:
           print("Experiment summary tab and automatic API handicap UI markers are valid.")
           PY
           node --check js/player-database.js
+          python3 -m unittest tests/test_player_database_workspace.py -v
           node --input-type=module --check < js/reep-alias-pilot.js
 
       - name: Validate multi-source player identity matcher
