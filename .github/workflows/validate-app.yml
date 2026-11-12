@@ -34,6 +34,12 @@ on:
       - "tests/test_player_statistics_import_ui.py"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
+      - "scripts/fetch_international_handicap_odds.py"
+      - "tests/test_international_handicap_odds.py"
+      - ".github/workflows/update-international-handicap.yml"
+      - "data/experimental/international-r1/fixtures.json"
+      - "data/experimental/international-r1/team-aliases.json"
+      - "data/experimental/international-r1/README.md"
       - ".github/workflows/update-asian-handicap-odds.yml"
       - "data/asian-handicap-odds.json"
       - "docs/phase-5.7-odds-and-legacy-archive.md"
@@ -189,6 +195,8 @@ jobs:
           node tests/test_asian_handicap.js
           python3 -m py_compile scripts/fetch_asian_handicap_odds.py
           python3 -m unittest tests/test_asian_handicap_odds.py
+          python3 -m py_compile scripts/fetch_international_handicap_odds.py
+          python3 -m unittest tests/test_international_handicap_odds.py
           python3 - <<'PY'
           import json
           from pathlib import Path
