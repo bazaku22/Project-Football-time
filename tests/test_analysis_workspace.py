@@ -33,10 +33,10 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("insightTarget.replaceChildren()", body)
 
     def test_app_and_service_worker_versions_are_aligned(self):
-        self.assertIn('application-version" content="6.16.0-beta.1"', self.html)
-        self.assertIn('football-time-v66', self.service_worker)
-        self.assertIn('application-version" content="6.16.0-beta.1"', self.workflow)
-        self.assertIn('football-time-v66', self.workflow)
+        self.assertIn('application-version" content="6.17.0-beta.1"', self.html)
+        self.assertIn('football-time-v67', self.service_worker)
+        self.assertIn('application-version" content="6.17.0-beta.1"', self.workflow)
+        self.assertIn('football-time-v67', self.workflow)
 
     def test_probability_model_uses_five_and_ten_match_form_and_opponent_strength(self):
         self.assertIn('const PROBABILITY_MODEL_VERSION="pft-poisson-2.0"', self.html)
@@ -48,6 +48,12 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("minimumSample:5", self.html)
         self.assertIn("String(x.matchId)+\"|\"+String(x.modelVersion||\"legacy/unknown\")", self.html)
         self.assertIn("snapshotKey=id+\"|\"+PROBABILITY_MODEL_VERSION", self.html)
+
+    def test_research_statistics_panel_is_loaded_without_changing_probability_model(self):
+        self.assertIn('./js/research-insight.js', self.html)
+        self.assertIn('./css/football-research.css?v=1', self.html)
+        self.assertIn('football-research-stats-2026-27.json', (ROOT / "js/research-insight.js").read_text(encoding="utf-8"))
+        self.assertIn('function computeMatchProbability(', self.html)
 
     def test_probability_model_and_handicap_panel_remain_present(self):
         self.assertIn("function computeMatchProbability(", self.html)

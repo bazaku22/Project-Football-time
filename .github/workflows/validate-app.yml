@@ -39,6 +39,15 @@ on:
       - "data/player-source-pipeline-report-2026-27.json"
       - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
       - "scripts/reep_snapshot_inspector.py"
+      - "js/research-insight.js"
+      - "css/football-research.css"
+      - "sw.js"
+      - "index.html"
+      - "scripts/build_football_research.py"
+      - "tests/test_build_football_research.py"
+      - "data/football-research-stats-2026-27.json"
+      - "docs/automated-football-research-refresh.md"
+      - ".github/workflows/update-football-research.yml"
       - "scripts/wikidata_p54_jsonl_extractor.py"
       - "tests/test_wikidata_p54_jsonl_extractor.py"
       - "docs/phase3-wikidata-local-jsonl-extractor-2026-27.md"
@@ -332,6 +341,12 @@ jobs:
               raise SystemExit("Duplicate player record IDs")
           print("Player database schema and IDs are valid.")
           PY
+
+      - name: Validate automated football research refresh
+        run: |
+          python3 -m py_compile scripts/build_football_research.py
+          node --check js/research-insight.js
+          python3 -m unittest tests/test_build_football_research.py -v
 
       - name: Validate Phase 6 league catalogue and database scripts
         run: |
