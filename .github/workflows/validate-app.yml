@@ -21,6 +21,10 @@ on:
       - "data/current-player-squads-2026-27.json"
       - "scripts/validate_current_player_squads.py"
       - "tests/test_current_player_squad_validator.py"
+      - "scripts/validate_player_intake_manifest.py"
+      - "tests/test_player_intake_manifest.py"
+      - "data/player-intake-manifest-2026-27.json"
+      - "docs/player-intake-manifest-2026-27.md"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
@@ -226,6 +230,12 @@ jobs:
         run: |
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
+
+      - name: Validate rights-cleared player intake manifest
+        run: |
+          python3 -m py_compile scripts/validate_player_intake_manifest.py
+          python3 -m unittest tests/test_player_intake_manifest.py
+          python3 scripts/validate_player_intake_manifest.py
 
       - name: Validate player importer and database JSON
         run: |
