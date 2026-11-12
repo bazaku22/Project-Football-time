@@ -1,0 +1,77 @@
+{
+  "PL": {
+    "season": 2026,
+    "players": [
+      {
+        "player_id": "PL-fixture-001",
+        "name": "Fixture Player PL",
+        "team_id": "PL-team-001",
+        "team_name": "PL FC",
+        "position": "Midfielder",
+        "jersey": 8,
+        "age": 25,
+        "citizenship": "Example"
+      }
+    ]
+  },
+  "PD": {
+    "season": 2026,
+    "players": [
+      {
+        "player_id": "PD-fixture-001",
+        "name": "Fixture Player PD",
+        "team_id": "PD-team-001",
+        "team_name": "PD FC",
+        "position": "Midfielder",
+        "jersey": 8,
+        "age": 25,
+        "citizenship": "Example"
+      }
+    ]
+  },
+  "BL1": {
+    "season": 2026,
+    "players": [
+      {
+        "player_id": "BL1-fixture-001",
+        "name": "Fixture Player BL1",
+        "team_id": "BL1-team-001",
+        "team_name": "BL1 FC",
+        "position": "Midfielder",
+        "jersey": 8,
+        "age": 25,
+        "citizenship": "Example"
+      }
+    ]
+  },
+  "SA": {
+    "season": 2026,
+    "players": [
+      {
+        "player_id": "SA-fixture-001",
+        "name": "Fixture Player SA",
+        "team_id": "SA-team-001",
+        "team_name": "SA FC",
+        "position": "Midfielder",
+        "jersey": 8,
+        "age": 25,
+        "citizenship": "Example"
+      }
+    ]
+  },
+  "FL1": {
+    "season": 2026,
+    "players": [
+      {
+        "player_id": "FL1-fixture-001",
+        "name": "Fixture Player FL1",
+        "team_id": "FL1-team-001",
+        "team_name": "FL1 FC",
+        "position": "Midfielder",
+        "jersey": 8,
+        "age": 25,
+        "citizenship": "Example"
+      }
+    ]
+  }
+}
