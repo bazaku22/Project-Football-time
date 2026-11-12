@@ -180,7 +180,7 @@
     if (evaluation) {
       html += '<div class="quality-note">ผลจริง ' + result.homeScore + "-" + result.awayScore +
         ' · ' + LABELS[evaluation.actualOutcome] + ' · Brier ' + evaluation.brier.toFixed(3) +
-        ' · Log Loss ' + evaluation.logLoss.toFixed(3) + '</div>';
+        ' · Log Loss ' + evaluation.logLoss.toFixed(3) + ' · แหล่งผล ' + esc(result.source) + '</div>';
     } else if (!result && Date.now() >= Date.parse(snapshot.kickoffUtc) + 2 * 60 * 60 * 1000) {
       html += '<form class="intl-ah-result" data-intl-result="' + esc(snapshot.fixtureId) + '">' +
         '<b>บันทึกผลจริงเพื่อประเมินโมเดล</b><div class="field"><label>สกอร์หลังจบ 90 นาที (เจ้าบ้าน-ทีมเยือน)</label>' +
@@ -201,7 +201,9 @@
     const valid = evaluated.filter(function (row) { return row.snapshot.probabilities; });
     const brier = valid.length ? valid.reduce(function (sum, row) { return sum + row.evaluation.brier; }, 0) / valid.length : null;
     const logLoss = valid.length ? valid.reduce(function (sum, row) { return sum + row.evaluation.logLoss; }, 0) / valid.length : null;
-    const pending = snapshots.length - evaluated.length;
+    const eligible = snapshots.filter(function (snapshot) { return !!snapshot.probabilities; }).length;
+    const pending = eligible - evaluated.length;
+    const excluded = snapshots.length - eligible;
     const cards = snapshots.map(function (snapshot) {
       const result = resultFor(results, snapshot.fixtureId);
       const evaluation = evaluate(snapshot, result);
