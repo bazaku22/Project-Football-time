@@ -51,6 +51,14 @@ class CurrentPlayerSquadValidatorTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("blocked pending written permission", result.stderr)
 
+    def test_open_data_source_assessment_preserves_roster_eligibility_gates(self):
+        doc = (ROOT / "docs/player-open-data-source-assessment-2026-11.md").read_text()
+        self.assertIn("Identity/crosswalk candidate only. Not a squad-membership feed.", doc)
+        self.assertIn("Identity reference only. Not a current-club source.", doc)
+        self.assertIn("written permission", doc.lower())
+        self.assertIn("Do not scrape", doc)
+        self.assertIn("Target recurring provider cost remains 0 THB/month.", doc)
+
     def test_rejects_prior_season_membership(self):
         payload = copy.deepcopy(self.data)
         payload["players"][0]["season"] = "2025/26"
