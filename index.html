@@ -727,8 +727,9 @@ function teamSeasonMetrics(leagueId,season,teamId){
 function probabilitySnapshots(){
  let localRows=[];try{const value=JSON.parse(localStorage.getItem(PROBABILITY_STORAGE_KEY)||"[]");if(Array.isArray(value))localRows=value;}catch(e){console.warn("Local probability history could not be read",e);}
  const serverRows=Array.isArray(footballDB?.probabilitySnapshots)?footballDB.probabilitySnapshots:[];
- const merged=new Map();serverRows.forEach(x=>{if(x&&typeof x.matchId==="string"&&x.probabilities&&Number.isFinite(x.probabilities.home)&&Number.isFinite(x.probabilities.draw)&&Number.isFinite(x.probabilities.away))merged.set(x.matchId,x);});
- localRows.forEach(x=>{if(!x||typeof x.matchId!=="string"||!x.probabilities||!Number.isFinite(x.probabilities.home)||!Number.isFinite(x.probabilities.draw)||!Number.isFinite(x.probabilities.away))return;const existing=merged.get(x.matchId);if(!existing){merged.set(x.matchId,x);return;}merged.set(x.matchId,{...existing,actualOutcome:existing.actualOutcome||x.actualOutcome,actualScore:existing.actualScore||x.actualScore,evaluatedAt:existing.evaluatedAt||x.evaluatedAt});});
+ const snapshotKey=x=>String(x.matchId)+"|"+String(x.modelVersion||"legacy/unknown");
+ const merged=new Map();serverRows.forEach(x=>{if(x&&typeof x.matchId==="string"&&x.probabilities&&Number.isFinite(x.probabilities.home)&&Number.isFinite(x.probabilities.draw)&&Number.isFinite(x.probabilities.away))merged.set(snapshotKey(x),x);});
+ localRows.forEach(x=>{if(!x||typeof x.matchId!=="string"||!x.probabilities||!Number.isFinite(x.probabilities.home)||!Number.isFinite(x.probabilities.draw)||!Number.isFinite(x.probabilities.away))return;const key=snapshotKey(x),existing=merged.get(key);if(!existing){merged.set(key,x);return;}merged.set(key,{...existing,actualOutcome:existing.actualOutcome||x.actualOutcome,actualScore:existing.actualScore||x.actualScore,evaluatedAt:existing.evaluatedAt||x.evaluatedAt});});
  return [...merged.values()];
 }
 function saveProbabilitySnapshots(rows){
@@ -812,12 +813,12 @@ function computeMatchProbability(match){
 }
 function recordUpcomingProbabilities(){
  if(!footballDB)return;
- const rows=probabilitySnapshots(),known=new Set(rows.map(x=>x.matchId)),now=Date.now();
+ const rows=probabilitySnapshots(),known=new Set(rows.map(x=>String(x.matchId)+"|"+String(x.modelVersion||"legacy/unknown"))),now=Date.now();
  (footballDB.matches||[]).filter(m=>(m.status==="SCHEDULED"||m.status==="TIMED")&&m.utcDate&&new Date(m.utcDate).getTime()>now&&m.providerMatchId!==undefined).forEach(m=>{
-  const id=String(m.providerMatchId);if(known.has(id))return;
+  const id=String(m.providerMatchId),snapshotKey=id+"|"+PROBABILITY_MODEL_VERSION;if(known.has(snapshotKey))return;
   const result=computeMatchProbability(m);if(!result)return;
   rows.push({matchId:id,leagueId:m.leagueId,season:m.season,utcDate:m.utcDate,homeTeamName:m.homeTeamName,awayTeamName:m.awayTeamName,probabilities:result.probabilities,expectedGoals:result.expectedGoals,confidenceScore:result.confidenceScore,confidence:result.confidence,sample:result.sample,breakdown:result.breakdown,modelVersion:PROBABILITY_MODEL_VERSION,createdAt:new Date().toISOString()});
-  known.add(id);
+  known.add(snapshotKey);
  });
  saveProbabilitySnapshots(rows);
 }
