@@ -35,4 +35,20 @@ const missing=selectReference({bookmakers:[]},Date.now());
 assert.equal(missing.status,"missing");
 const actualOffered=[-3,-2.75,-2.5];
 assert.ok(actualOffered.includes(selected.selected.line),"reference line must be an actually offered fresh line");
-console.log("Automatic fresh Handicap reference selection tests: PASSED");
+
+ // Integration contract: every current provider event must resolve to exactly one fixture
+ // in the club database using explicit aliases, competition identity, home/away order and kickoff.
+ const fs=require("node:fs");
+ const path=require("node:path");
+ const database=JSON.parse(fs.readFileSync(path.join(__dirname,"../data/football-database.json"),"utf8"));
+ const oddsData=JSON.parse(fs.readFileSync(path.join(__dirname,"../data/asian-handicap-odds.json"),"utf8"));
+ assert.ok(oddsData.events.length>0,"provider snapshot must contain events for integration coverage");
+ const matchedFixtureIds=[];
+ for(const providerEvent of oddsData.events){
+  const fixtures=database.matches.filter(candidate=>findEvent(candidate,[providerEvent])===providerEvent);
+  assert.equal(fixtures.length,1, "expected one unique DB fixture for "+providerEvent.leagueId+": "+providerEvent.homeTeam+" vs "+providerEvent.awayTeam);
+  matchedFixtureIds.push(fixtures[0].providerMatchId ?? fixtures[0].id);
+ }
+ assert.equal(new Set(matchedFixtureIds).size,matchedFixtureIds.length,"provider events must not resolve to the same DB fixture");
+
+console.log("Automatic fresh Handicap reference selection and live-snapshot integration tests: PASSED");
