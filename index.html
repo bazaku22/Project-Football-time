@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.6.0-beta.1">
-<title>Project Football Time V6.6.0-beta.1</title>
+<meta name="application-version" content="6.7.0-beta.1">
+<title>Project Football Time V6.7.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -65,7 +65,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/handicap-reference.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.6.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.7.0-beta.1</span></div></div></header>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -189,6 +189,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div class="field"><label for="probMatchSelect">เลือกการแข่งขันที่ยังไม่เริ่ม</label><select id="probMatchSelect" class="filter"></select></div>
  </div><div id="probabilityOutput" class="empty">กำลังเตรียมการวิเคราะห์…</div></div>
  <div class="card"><div class="topline"><b>Asian Handicap อัตโนมัติ</b><span class="small">แหล่งข้อมูล: The Odds API</span></div><div id="automaticHandicapOdds" class="empty">กำลังตรวจสอบข้อมูล Handicap…</div></div>
+ <div id="analysisInsightOutput" aria-live="polite"></div>
  <p class="profile-note">ใช้แบบจำลอง Poisson จากประตูได้–เสีย เหย้า/เยือน ฟอร์ม 5 นัด คะแนนต่อเกม และสถิติ H2H เมื่อมีตัวอย่างเพียงพอ ความน่าจะเป็นเป็นค่าประเมินจากข้อมูล ไม่ใช่คำรับประกันผล และระดับความเชื่อมั่นของข้อมูลแยกจากเปอร์เซ็นต์ความน่าจะเป็น</p>
 </div>
 
@@ -938,6 +939,7 @@ function renderAutomaticHandicap(match,result){
 }
 function renderProbabilityAnalysis(){
  if(!footballDB)return;
+ const insightTarget=document.getElementById("analysisInsightOutput");if(insightTarget)insightTarget.replaceChildren();
  const leagueSelect=document.getElementById("probLeagueSelect"),matchSelect=document.getElementById("probMatchSelect");if(!leagueSelect||!matchSelect)return;
  const leagues=footballDB.leagues||[],leagueId=leagues.some(x=>x.id===leagueSelect.value)?leagueSelect.value:selectedLeagueId;
  leagueSelect.innerHTML=leagues.map(l=>'<option value="'+esc(l.id)+'">'+esc(l.name)+'</option>').join("");leagueSelect.value=leagueId;
@@ -954,6 +956,7 @@ function renderProbabilityAnalysis(){
  const p=result.probabilities;
  const outcome=(label,value)=>'<div class="prob-outcome"><span>'+label+'</span><b>'+value.toFixed(1)+'%</b><div class="prob-level '+bandClass(value)+'">โอกาส'+probabilityBand(value)+'</div></div>';
  output.innerHTML='<div class="league-line"><div><b>'+esc(match.homeTeamName)+' vs '+esc(match.awayTeamName)+'</b><div class="small">'+dateTime(match.utcDate)+' · '+esc(match.season)+'</div></div></div><div class="prob-grid">'+outcome("เจ้าบ้านชนะ",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือนชนะ",p.away)+'</div><div class="margin-probability"><b>การกระจายผลต่างประตู</b><div class="margin-probability-grid"><span>เจ้าบ้านชนะ 2+<b>'+result.scoreMargin.homeByTwoPlus.toFixed(1)+'%</b></span><span>เจ้าบ้านชนะ 1<b>'+result.scoreMargin.homeByOne.toFixed(1)+'%</b></span><span>เสมอ<b>'+result.scoreMargin.draw.toFixed(1)+'%</b></span><span>ทีมเยือนชนะ 1<b>'+result.scoreMargin.awayByOne.toFixed(1)+'%</b></span><span>ทีมเยือนชนะ 2+<b>'+result.scoreMargin.awayByTwoPlus.toFixed(1)+'%</b></span></div></div><div class="db-kpis"><div class="db-kpi"><b>'+result.expectedGoals.home.toFixed(2)+'</b><span>ประตูคาดหมายเจ้าบ้าน</span></div><div class="db-kpi"><b>'+result.expectedGoals.away.toFixed(2)+'</b><span>ประตูคาดหมายทีมเยือน</span></div><div class="db-kpi"><b>'+result.probabilityLevel+'</b><span>ระดับของผลลัพธ์ที่มี % สูงสุด ('+result.topProbability.toFixed(1)+'%)</span></div><div class="db-kpi"><b>'+result.confidenceScore+' / 100</b><span>ความเชื่อมั่นด้านคุณภาพข้อมูล · '+result.confidence+'</span></div></div><div class="quality-note">ความน่าจะเป็นและความเชื่อมั่นเป็นคนละค่า · ตัวอย่างข้อมูล: เหย้า '+result.sample.homeVenue+' นัด / เยือน '+result.sample.awayVenue+' นัด / ฟอร์ม '+result.sample.homeForm+' และ '+result.sample.awayForm+' นัด / H2H '+result.sample.h2h+' นัด</div><div class="quality-note">แยกที่มาของค่า xG: ฐานเหย้า/เยือน '+result.breakdown.baseline.home.toFixed(2)+' / '+result.breakdown.baseline.away.toFixed(2)+' · ตัวคูณฟอร์ม '+result.breakdown.multipliers.homeForm.toFixed(3)+' / '+result.breakdown.multipliers.awayForm.toFixed(3)+' · ตัวคูณอันดับ '+result.breakdown.multipliers.homeStandings.toFixed(3)+' / '+result.breakdown.multipliers.awayStandings.toFixed(3)+' · H2H '+(result.breakdown.h2h.applied?'ปรับ 15% จาก '+result.breakdown.h2h.count+' นัด':'ไม่ใช้ (ตัวอย่างไม่ถึง 3 นัด)')+'</div><h3 style="font-size:13px;margin:14px 0 5px">ปัจจัยที่ใช้คำนวณ</h3><ul class="prob-reasons">'+result.reasons.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul><div class="analysis-insight"><div class="insight-heading"><b>Analysis Insight · สรุปผลวิเคราะห์</b><span class="prob-level '+bandClass(result.topProbability)+'">โอกาส'+probabilityBand(result.topProbability)+'</span></div><p>'+esc(result.insight.summary)+'</p><div class="insight-points"><b>ปัจจัยสนับสนุน</b><ul>'+result.insight.support.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul></div><div class="insight-caution"><b>ข้อควรระวัง</b><p>'+esc(result.insight.caution)+'</p></div></div><div class="small">โมเดล '+PROBABILITY_MODEL_VERSION+' · คำทำนายก่อนแข่งจะถูกบันทึกครั้งแรกและไม่เขียนทับย้อนหลัง</div>';
+ const insight=output.querySelector(".analysis-insight");if(insightTarget&&insight)insightTarget.appendChild(insight);
 }
 
 /* Phase 5 — explainable team strength, attacking/defensive profile, uncertainty and data quality. */
