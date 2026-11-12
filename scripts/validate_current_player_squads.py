@@ -54,6 +54,14 @@ def validate(data: dict, expected_season: str = TARGET_SEASON) -> list[str]:
             errors.append(f"source {source_id} must have an HTTPS URL")
         if source.get("terms_status") != "pending_review":
             errors.append(f"source {source_id} must remain pending_review")
+        if source.get("reuse_status") != "written_permission_required":
+            errors.append(f"source {source_id} must remain blocked pending written permission or a separately verified open licence")
+        if not str(source.get("terms_url", "")).startswith("https://"):
+            errors.append(f"source {source_id} must include an HTTPS terms URL")
+        if source.get("terms_reviewed_at") != "2026-11-12":
+            errors.append(f"source {source_id} must include the current terms review date")
+        if not source.get("reuse_basis"):
+            errors.append(f"source {source_id} must include a documented reuse restriction")
 
     seen_ids = set()
     seen_memberships = set()
