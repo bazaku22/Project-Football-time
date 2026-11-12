@@ -29,7 +29,7 @@ The canonical templates are `data/import-templates/player-statistics-template.cs
 |---|---:|---|
 | `canonical_player_key` | Yes | Football Time internal player key, if already resolved. Leave blank only for an unresolved row that must be reviewed manually. |
 | `provider` | Yes | Source/provider name, e.g. `manual`, `licensed_csv_vendor`. |
-| `provider_player_id` | No | Player identifier in that source. |
+| `provider_player_id` | Yes | Exact player identifier in that source. Required for identity resolution; names are never an acceptable substitute. |
 | `player_name` | Yes | Name as represented by the source. Not sufficient alone to merge identities. |
 | `team_code` | Yes | Football Time team code. |
 | `season` | Yes | Season label, e.g. `2026/27`. |
@@ -92,6 +92,8 @@ A successful preview is not an import. No Supabase writes occur.
 The validator in `scripts/validate_player_stats_csv.py` is offline and read-only. It does not contact any network, call an API, modify the CSV, or connect to Supabase. Run it with `python scripts/validate_player_stats_csv.py path/to/file.csv`. A passing result is only a structural preflight; it does not independently prove that a source licence or permission is legally sufficient. A human must verify the permission reference before setting `rights_status=approved`.
 
 ## Duplicate key
+
+Every statistics row must include a non-empty `provider_player_id`. The offline validator rejects rows without it, even when a canonical key is supplied. This prevents a name-only or manually typed canonical key from being treated as sufficient identity evidence.
 
 The intended natural key is:
 
