@@ -5,6 +5,7 @@ on:
       - "scripts/strikerapi_squad_intake.py"
       - "tests/test_strikerapi_squad_intake.py"
       - ".github/workflows/strikerapi-squad-intake-tests.yml"
+      - ".github/workflows/fetch-strikerapi-current-squads.yml"
 permissions:
   contents: read
 jobs:
