@@ -38,3 +38,15 @@ This is an offline report generator. It makes zero provider API calls, has no Su
 python -m py_compile scripts/player_reconciliation_pipeline.py tests/test_player_reconciliation_pipeline.py
 python -m unittest tests/test_player_reconciliation_pipeline.py -v
 ```
+
+
+## Run from the existing GitHub Actions artifact
+
+1. Open **Actions → Player reconciliation from existing staging artifact**.
+2. Select **Run workflow** on `main`.
+3. Keep the default source run ID `43278796571` (or enter another successful run that contains the named staging artifact).
+4. Download the `football-time-player-reconciliation-2026-27` artifact after the run succeeds.
+
+This workflow downloads the already-created staging artifact from the selected run. It does not call StrikerAPI, write to Supabase, create canonical IDs, merge players, or commit staging data to the repository. The downloaded report artifact is retained for 14 days. The source artifact must still be available in GitHub Actions.
+
+Workflow file: `.github/workflows/run-player-reconciliation.yml`.
