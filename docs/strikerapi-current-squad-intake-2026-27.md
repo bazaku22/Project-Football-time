@@ -24,6 +24,8 @@ The workflow uses the existing `STRIKERAPI_API_KEY` repository secret. It does n
 ## Identity and membership rules
 
 - Keep `(provider, provider_player_id)` as source identity, not the Football Time canonical player ID.
+- Repeated provider player IDs across league payloads are not discarded or treated as fatal. Preserve each league membership observation, create one deduplicated Player Master candidate, and flag repeated IDs for manual review.
+- If repeated observations disagree on name or provider team ID, mark the identity as `conflicting_identity_observations`; do not auto-merge or assign a canonical ID.
 - Keep provider team ID and canonical team ID separate; team mappings begin as `needs_exact_team_id_review`.
 - StrikerAPI season start year `2026` normalizes to `2026/27`.
 - Do not infer first-team, U21, U18 or reserve membership from the endpoint alone. Squad level remains `unknown` until independently evidenced.
