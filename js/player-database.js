@@ -7,6 +7,24 @@
  const valid=r=>r&&typeof r==="object"&&["id","playerId","name","teamId","leagueId","season"].every(k=>typeof r[k]==="string")&&r.statistics&&typeof r.statistics==="object";
  const merge=()=>{const m=new Map();central.forEach(r=>{if(valid(r))m.set(r.id,r)});local.forEach(r=>{if(valid(r))m.set(r.id,r)});all=[...m.values()]};
  const fmt=v=>v===null||v===undefined||v===""?"—":esc(v);
+ const POSITION_LABELS={FORWARD:"แนวรุก",MIDFIELDER:"กองกลาง",DEFENDER:"กองหลัง",GOALKEEPER:"ผู้รักษาประตู",MULTI:"หลายกลุ่มตำแหน่ง",UNKNOWN:"ยังไม่ระบุตำแหน่ง"};
+ function positionGroup(record){
+  const explicit=String(record.positionGroup||"").toUpperCase();
+  if(Object.prototype.hasOwnProperty.call(POSITION_LABELS,explicit))return explicit;
+  const raw=String(record.position||"").toUpperCase().trim();
+  if(!raw)return "UNKNOWN";
+  const tokens=raw.split(/[\\/,;|+]+/).map(x=>x.trim()).filter(Boolean);
+  const groups=new Set();
+  for(const token of tokens){
+   if(["GK","GOALKEEPER"].includes(token))groups.add("GOALKEEPER");
+   else if(["DF","DEF","DEFENDER","CB","LCB","RCB","LB","RB","LWB","RWB"].includes(token))groups.add("DEFENDER");
+   else if(["MF","MID","MIDFIELDER","DM","CDM","CM","LCM","RCM","AM","CAM","LAM","RAM","LM","RM"].includes(token))groups.add("MIDFIELDER");
+   else if(["FW","FWD","FORWARD","ST","CF","LW","RW","SS","LF","RF"].includes(token))groups.add("FORWARD");
+  }
+  if(groups.size===1)return [...groups][0];
+  if(groups.size>1)return "MULTI";
+  return "UNKNOWN";
+ }
  function renderCloudStats(payload){
   const root=$("playerStatsCloudList"),summary=$("playerStatsCloudSummary"),status=$("playerStatsCloudStatus");
   if(!root||!summary||!status)return;
@@ -24,18 +42,18 @@
  }
  window.addEventListener("pft-player-stats-data",event=>renderCloudStats(event.detail||{}));
  function render(){
-  const lf=$("playerLeagueFilter"),tf=$("playerTeamFilter"),q=$("playerSearch").value.trim().toLocaleLowerCase(),oldL=lf.value||"ALL",oldT=tf.value||"ALL";
+  const lf=$("playerLeagueFilter"),tf=$("playerTeamFilter"),pf=$("playerPositionFilter"),q=$("playerSearch").value.trim().toLocaleLowerCase(),oldL=lf.value||"ALL",oldT=tf.value||"ALL",oldP=pf?.value||"ALL";
   const leagues=[...new Map(all.map(r=>[r.leagueId,r.leagueName||r.leagueId])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
   lf.innerHTML='<option value="ALL">ทุกลีก</option>'+leagues.map(([id,n])=>'<option value="'+esc(id)+'">'+esc(n)+'</option>').join("");lf.value=leagues.some(x=>x[0]===oldL)?oldL:"ALL";
   const league=lf.value,teams=[...new Map(all.filter(r=>league==="ALL"||r.leagueId===league).map(r=>[r.teamId,r.teamName||r.teamId])).entries()].sort((a,b)=>a[1].localeCompare(b[1]));
   tf.innerHTML='<option value="ALL">ทุกทีม</option>'+teams.map(([id,n])=>'<option value="'+esc(id)+'">'+esc(n)+'</option>').join("");tf.value=teams.some(x=>x[0]===oldT)?oldT:"ALL";
-  const team=tf.value,rows=all.filter(r=>(league==="ALL"||r.leagueId===league)&&(team==="ALL"||r.teamId===team)&&(!q||r.name.toLocaleLowerCase().includes(q))).sort((a,b)=>a.name.localeCompare(b.name));
+  const team=tf.value;if(pf)pf.value=oldP;const rows=all.filter(r=>(league==="ALL"||r.leagueId===league)&&(team==="ALL"||r.teamId===team)&&(!pf||pf.value==="ALL"||positionGroup(r)===pf.value)&&(!q||r.name.toLocaleLowerCase().includes(q))).sort((a,b)=>a.name.localeCompare(b.name));
   $("playerDbSummary").innerHTML='<div class="db-kpi"><b>'+new Set(all.map(r=>r.playerId)).size+'</b><span>รหัสนักเตะไม่ซ้ำ</span></div><div class="db-kpi"><b>'+all.length+'</b><span>รายการนักเตะ / ทีม / ฤดูกาล</span></div>';
   const profiled=central.filter(r=>r.profileStatus==="profiled").length;
   $("playerDbStatus").textContent="ข้อมูล Cloud ส่วนตัว "+central.length+" รายการ · โปรไฟล์ "+profiled+" รายการ · ในอุปกรณ์ "+local.length+" รายการ · แสดง "+rows.length+" รายการ · "+privateStatus;
   $("playerList").innerHTML=rows.length?rows.map(r=>{
    const s=r.statistics||{},src=r.source||{},metrics=[["ลงสนาม",s.appearances],["ตัวจริง",s.lineups],["นาที",s.minutes],["ประตู",s.goals],["แอสซิสต์",s.assists],["เรตติ้ง",s.rating],["ยิงเข้ากรอบ",s.shotsOnTarget],["xG",s.xg],["xG/90",s.xgPer90],["ประตู/90",s.goalsPer90],["คีย์พาส",s.keyPasses],["ผ่านบอลสำเร็จ",s.passAccuracy===null||s.passAccuracy===undefined?null:s.passAccuracy+"%"],["เข้าสกัด",s.tackles],["ใบเหลือง",s.yellowCards],["ใบแดง",s.redCards]];
-   return '<article class="card"><div class="profile-hero">'+(r.photo?'<img class="team-crest" src="'+esc(r.photo)+'" alt="" loading="lazy" onerror="this.hidden=true">':"")+'<div><b>'+esc(r.name)+'</b><div class="small">'+esc(r.teamName||"ไม่ระบุทีม")+' · '+esc(r.leagueName||r.leagueId)+' · '+esc(r.season)+'</div><div class="small">'+esc(r.position||"ไม่ระบุตำแหน่ง")+' · เบอร์ '+fmt(r.number)+' · อายุ '+fmt(r.age)+'</div></div></div><div class="p5-score">'+metrics.map(([k,v])=>'<div class="p5-metric"><b>'+fmt(v)+'</b><span>'+k+'</span></div>').join("")+'</div><div class="small">แหล่งข้อมูล: '+esc(src.provider||"ผู้ใช้นำเข้า")+' · ตรวจข้อมูล: '+esc(src.fetchedAt||"ไม่ระบุวันที่")+'</div></article>';
+   return '<article class="card"><div class="profile-hero">'+(r.photo?'<img class="team-crest" src="'+esc(r.photo)+'" alt="" loading="lazy" onerror="this.hidden=true">':"")+'<div><b>'+esc(r.name)+'</b><div class="small">'+esc(r.teamName||"ไม่ระบุทีม")+' · '+esc(r.leagueName||r.leagueId)+' · '+esc(r.season)+'</div><div class="small">'+esc((POSITION_LABELS[positionGroup(r)]||"ไม่ระบุตำแหน่ง")+(r.position?" · "+r.position:""))+' · เบอร์ '+fmt(r.number)+' · อายุ '+fmt(r.age)+'</div></div></div><div class="p5-score">'+metrics.map(([k,v])=>'<div class="p5-metric"><b>'+fmt(v)+'</b><span>'+k+'</span></div>').join("")+'</div><div class="small">แหล่งข้อมูล: '+esc(src.provider||"ผู้ใช้นำเข้า")+' · ตรวจข้อมูล: '+esc(src.fetchedAt||"ไม่ระบุวันที่")+'</div></article>';
   }).join(""):'<div class="empty">ไม่พบข้อมูลนักเตะตามตัวกรอง หรือยังไม่มีข้อมูลจากแหล่งข้อมูล</div>';
  }
  function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(local));return true}catch(e){alert("บันทึกข้อมูลไม่สำเร็จ: "+e.message);return false}}
@@ -64,7 +82,7 @@
   }catch(e){alert("นำเข้าไม่สำเร็จ: "+e.message)}finally{event.target.value=""}};
   reader.onerror=()=>alert("อ่านไฟล์ไม่ได้");reader.readAsText(file);
  }
- $("playerLeagueFilter").addEventListener("change",render);$("playerTeamFilter").addEventListener("change",render);$("playerSearch").addEventListener("input",render);
+ $("playerLeagueFilter").addEventListener("change",render);$("playerTeamFilter").addEventListener("change",render);$("playerPositionFilter")?.addEventListener("change",render);$("playerSearch").addEventListener("input",render);
  $("playerExportButton").addEventListener("click",exportData);$("playerImportButton").addEventListener("click",()=>$("playerImportFile").click());$("playerImportFile").addEventListener("change",importData);
  load();
 })();
