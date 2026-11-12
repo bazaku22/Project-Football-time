@@ -91,6 +91,7 @@ def build_research(db, generated_at=None):
         for fixture in upcoming:
             h, a = str(fixture["homeTeamId"]), str(fixture["awayTeamId"])
             history = [m for m in matches if m.get("leagueId") == league and finished(m) and
+                       (not season or str(m.get("season") or "") == season) and
                        {str(m.get("homeTeamId") or ""), str(m.get("awayTeamId") or "")} == {h, a}]
             history.sort(key=lambda m: m.get("utcDate") or "", reverse=True)
             sample = []
