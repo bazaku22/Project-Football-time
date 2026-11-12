@@ -6,6 +6,8 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "player-stats-import.js").read_text(encoding="utf-8")
 WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
+PLAYER_CLOUD = (ROOT / "js" / "player-cloud.js").read_text(encoding="utf-8")
+PLAYER_DATABASE = (ROOT / "js" / "player-database.js").read_text(encoding="utf-8")
 DISCOVERY = (ROOT / "js" / "football-discovery.js").read_text(encoding="utf-8")
 
 
@@ -39,7 +41,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v59", WORKER)
+        self.assertIn("football-time-v60", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
         self.assertIn('"./css/design-system.css?v=1"', WORKER)
         self.assertIn('"./css/match-center.css?v=2"', WORKER)
@@ -51,6 +53,15 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn('"./js/player-stats-import.js"', WORKER)
         self.assertIn('"./js/player-cloud.js"', WORKER)
 
+
+    def test_player_cloud_statistics_are_not_hardcoded_to_one_team_or_season(self):
+        self.assertNotIn('.eq("season","2025/26")', PLAYER_CLOUD)
+        self.assertNotIn('.eq("team_id","arsenal")', PLAYER_CLOUD)
+        self.assertIn('ft_player_stat_source_records', PLAYER_CLOUD)
+        self.assertIn('selected_source_record_id', PLAYER_CLOUD)
+        self.assertIn('r.teamId||"ไม่ระบุทีม"', PLAYER_DATABASE)
+        self.assertIn('source.source_name', PLAYER_DATABASE)
+        self.assertNotIn('OpenPlay · CC BY 4.0 · 2025/26', PLAYER_DATABASE)
 
     def test_phase_a_search_results_render_club_crests(self):
         self.assertIn("function teamLogo(", DISCOVERY)
@@ -66,7 +77,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("renderTeamCrest(homeTeam)", HTML)
         self.assertIn("renderTeamCrest(awayTeam)", HTML)
         self.assertIn("fixture-match-teams", HTML)
-        self.assertIn("football-time-v59", WORKER)
+        self.assertIn("football-time-v60", WORKER)
 
 
     def test_phase_a_broken_crest_urls_fall_back_to_initials(self):
