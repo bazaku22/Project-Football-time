@@ -83,7 +83,8 @@ jobs:
       - name: Run offline player-data tests
         run: |
           python -m unittest discover -s tests -p 'test_*player_stats*.py' -v
-          python -m unittest tests/test_strikerapi_player_importer.py tests/test_player_identity_reconciliation.py -v
+          python -m unittest tests/test_strikerapi_player_importer.py -v
+          python -m unittest discover -s tests -p 'test_player_identity_reconciliation.py' -v
 
   postgres-rls-transaction:
     runs-on: ubuntu-latest
