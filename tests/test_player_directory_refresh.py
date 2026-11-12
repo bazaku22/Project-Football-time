@@ -34,6 +34,8 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertIn('r.photoUrl||r.photo_url||""', js)
         self.assertIn('initials(name)', js)
         self.assertIn('onerror="this.hidden=true;this.nextElementSibling.hidden=false"', js)
+        self.assertIn("ดูแหล่งที่มาและเงื่อนไข", js)
+        self.assertIn("สิทธิส่วนบุคคล", js)
         html = (ROOT / "index.html").read_text()
         self.assertIn("ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น", html)
 
@@ -55,6 +57,14 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertIn('./css/player-directory.css?v=1', sw)
         for marker in (".player-directory-hero", ".player-card", ".player-avatar-wrap", ".player-metrics"):
             self.assertIn(marker, css)
+
+
+    def test_research_pilot_photos_include_source_author_license_and_review_notice(self):
+        data = json.loads((ROOT / "data/player-position-pilot-2026-27.json").read_text())
+        self.assertTrue(all(p.get("photo_url", "").startswith("https://commons.wikimedia.org/wiki/Special:FilePath/") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_source_url", "").startswith("https://commons.wikimedia.org/wiki/File:") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_author") and p.get("photo_license") and p.get("photo_license_url") for p in data["players"]))
+        self.assertTrue(all(p.get("photo_review_status") == "copyright_license_verified_personality_rights_not_independently_cleared" for p in data["players"]))
 
 
 if __name__ == "__main__":
