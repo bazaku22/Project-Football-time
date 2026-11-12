@@ -44,6 +44,10 @@ def main():
         match(5, "H", "X5", 3, 1, past),
         match(6, "X6", "A", 0, 2, past),
         match(7, "H", "A", 1, 0, past),
+        match(8, "H", "A", 2, 0, past - timedelta(days=1)),
+        match(9, "A", "H", 1, 1, past - timedelta(days=2)),
+        match(10, "H", "A", 0, 1, past - timedelta(days=3)),
+        match(11, "A", "H", 0, 2, past - timedelta(days=4)),
     ]
     kickoff = now + timedelta(days=7)
     upcoming = match(999, "H", "A", None, None, kickoff, "TIMED")
@@ -80,7 +84,10 @@ def main():
         assert snapshot["sample"]["awayForm5"] <= 5
         assert snapshot["sample"]["awayForm10"] <= 10
         assert snapshot["breakdown"]["h2h"]["minimumSample"] == 5
-        assert snapshot["breakdown"]["h2h"]["applied"] is False
+        assert snapshot["sample"]["h2h"] == 5
+        assert snapshot["sample"]["homeOpponentStrength"] >= 3
+        assert snapshot["sample"]["awayOpponentStrength"] >= 3
+        assert snapshot["breakdown"]["h2h"]["applied"] is True
         original_probabilities = dict(snapshot["probabilities"])
         original_created_at = snapshot["createdAt"]
 
