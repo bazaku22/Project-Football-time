@@ -208,7 +208,7 @@
       const result = resultFor(results, snapshot.fixtureId);
       const evaluation = evaluate(snapshot, result);
       return '<div class="intl-ah-history-row"><b>' + esc(snapshot.home) + ' – ' + esc(snapshot.away) +
-        '</b><span>' + (evaluation ? esc(LABELS[evaluation.actualOutcome]) : esc(snapshot.dataStatusLabel + " · รอผล")) +
+        '</b><span>' + (evaluation ? esc(LABELS[evaluation.actualOutcome]) : esc(snapshot.dataStatusLabel + (snapshot.probabilities ? " · รอผล" : " · คัดออก"))) +
         '</span><small>' + esc(snapshot.fixtureId) + ' · เส้น ' + fmtLine(snapshot.homeLine) + '</small></div>';
     }).join("");
     const root = document.getElementById("intlAhHistory");
