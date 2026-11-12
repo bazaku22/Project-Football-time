@@ -99,7 +99,7 @@ jobs:
           from pathlib import Path
 
           html = Path("index.html").read_text(encoding="utf-8")
-          scripts = re.findall(r"<script>(.*?)</script>", html, flags=re.S)
+          scripts = [s for s in re.findall(r'<script(?:\s[^>]*)?>([\s\S]*?)</script>', html, flags=re.I) if s.strip()]
           if len(scripts) != 1:
               raise SystemExit(f"Expected one inline application script, found {len(scripts)}")
           Path("/tmp/football-time-app.js").write_text(scripts[0], encoding="utf-8")
