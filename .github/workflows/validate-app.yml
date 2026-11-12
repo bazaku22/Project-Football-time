@@ -60,6 +60,9 @@ on:
       - "docs/phase-5.6-wyscout-parser-pilot.md"
       - ".github/workflows/validate-app.yml"
       - ".github/workflows/update-football-database.yml"
+      - ".github/workflows/update-elc-only.yml"
+      - "scripts/sync_elc_database.py"
+      - "tests/test_elc_only_sync.py"
   push:
     branches:
       - main
@@ -219,8 +222,8 @@ jobs:
 
       - name: Validate Phase 6 league catalogue and database scripts
         run: |
-          python3 -m py_compile scripts/build_football_database.py scripts/validate_football_database.py scripts/phase6_league_catalog.py
-          python3 -m unittest tests/test_phase6_league_catalog.py tests/test_football_database_sync.py
+          python3 -m py_compile scripts/build_football_database.py scripts/validate_football_database.py scripts/phase6_league_catalog.py scripts/sync_elc_database.py
+          python3 -m unittest tests/test_phase6_league_catalog.py tests/test_football_database_sync.py tests/test_elc_only_sync.py
 
       - name: Validate football database JSON
         run: |
