@@ -68,18 +68,22 @@ def merge_non_null_stats(existing, incoming):
    merged[key]=value
  return merged
 
+def build_team_lookup(teams):
+ """Map a normalized team name only when it identifies one catalogue team."""
+ candidates={}
+ for index,team in enumerate(teams or []):
+  team_key=str(team.get("id") or team.get("teamId") or "missing-id:"+str(index))
+  for name in (team.get("name"),team.get("shortName"),team.get("displayName")):
+   key=norm(name)
+   if key: candidates.setdefault(key,{})[team_key]=team
+ return {key:next(iter(rows.values())) for key,rows in candidates.items() if len(rows)==1}
+
 def main():
  old=json.loads(PDB.read_text(encoding="utf-8")) if PDB.exists() else {"records":[]}
  football=json.loads(FDB.read_text(encoding="utf-8")) if FDB.exists() else {}
  old_records={r["id"]:r for r in old.get("records",[]) if isinstance(r,dict) and r.get("id")}
  teams=football.get("teams",[])
- team_candidates={}
- for team in teams:
-  for name in (team.get("name"),team.get("shortName"),team.get("displayName")):
-   key=norm(name)
-   if key: team_candidates.setdefault(key,{})[str(team.get("id") or team.get("teamId") or "")]=team
- # Name matching is accepted only when it resolves to one unique football-data team.
- team_lookup={key:next(iter(values.values())) for key,values in team_candidates.items() if len(values)==1}
+ team_lookup=build_team_lookup(teams)
  records={}
  fetched=datetime.now(timezone.utc).isoformat()
  squad_counts={}
