@@ -17,7 +17,7 @@ TARGET_SEASON = "2026/27"
 AS_OF = date(2026, 11, 12)
 LEAGUES = {"PL", "PD", "BL1", "SA", "FL1"}
 QID = re.compile(r"^Q[1-9][0-9]*$")
-STATEMENT_ID = re.compile(r"^[A-Za-z0-9._:-]{1,128}$")
+STATEMENT_ID = re.compile(r"^[A-Za-z0-9.$:_-]{1,128}$")
 
 
 def valid_date(value: object) -> bool:
