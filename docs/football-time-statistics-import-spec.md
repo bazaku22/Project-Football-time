@@ -147,3 +147,21 @@ Each row requires explicit `identity_verified=true` and `rights_reviewed=true` o
 The function derives ownership exclusively from `auth.uid()`; callers cannot supply a user ID. Authenticated direct INSERT/UPDATE privileges on the seven canonical tables are revoked. Authenticated users retain owner-scoped SELECT and EXECUTE on this RPC. The function uses a restricted `search_path`, schema-qualified relations, and EXECUTE is revoked from PUBLIC/anon. Its narrowly scoped SECURITY DEFINER boundary is necessary because direct table writes are disabled; the auth.uid guard and grants require review with Supabase Security Advisors before any production migration.
 
 The PostgreSQL test `supabase/tests/player_statistics_atomic_import_rpc.test.sql` covers successful import, pending model-review status, owner isolation, direct-write denial, and rollback of a two-row batch when its second row fails. CI runs it only against an ephemeral PostgreSQL service. The migration is committed to GitHub only; it has **not** been applied to Supabase Production, and no production data has been written.
+
+
+## Player identity reconciliation queue (Phase 3 implementation slice)
+
+Use `scripts/reconcile_player_identity.py` to compare a provider roster export, the canonical player registry, and the reviewed provider-ID mapping file without contacting a provider or writing to Supabase:
+
+```bash
+python scripts/reconcile_player_identity.py provider-roster.csv canonical-players.csv player-id-mapping.csv
+```
+
+Input columns:
+- Provider roster: `provider`, `provider_player_id`, `player_name`; optional `date_of_birth`, `nationality`, and `team_code` may be retained in the source file for review.
+- Canonical registry: `canonical_player_key`, `display_name`; optional `date_of_birth`.
+- Mapping: `provider`, `provider_player_id`, `canonical_player_key`; a mapping is considered verified only when it also contains `review_status=verified`, a non-empty `reviewer`, and a non-empty `reviewed_at`.
+
+Only one exact `(provider, provider_player_id)` mapping with explicit review evidence is treated as resolved. Names and exact date-of-birth matches may only create candidate suggestions; they never create a link. Duplicate provider IDs in an input file, multiple mappings for one provider identity, missing canonical targets, and unreviewed mappings are quarantined. The tool writes a CSV review queue and a JSON summary; it creates zero automatic merges and performs zero database writes.
+
+Regression coverage: exact verified mapping, name/DOB candidate-only behavior, unreviewed and conflicting mappings, missing targets, duplicate provider identities, and incomplete review evidence.
