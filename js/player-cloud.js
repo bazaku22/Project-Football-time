@@ -49,7 +49,7 @@ async function loadPrivateData(session){
  const {data,error}=await supabase.functions.invoke("player-data",{body:{}});
  if(error||data?.error){publishData([],null);status("เข้าสู่ระบบแล้ว แต่โหลดข้อมูล Cloud ไม่สำเร็จ: "+(data?.error||error.message));return;}
  privateRecords=Array.isArray(data?.records)?data.records:[];
- publishData(privateRecords,data?.latestSync||null);await loadPlayerStatistics();status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
+ publishData(privateRecords,data?.latestSync||null);status("เชื่อมต่อ Cloud ส่วนตัวแล้ว · "+privateRecords.length+" รายการ");
 }
 $("playerCloudSendLink").addEventListener("click",async()=>{
  const button=$("playerCloudSendLink"),email=$("playerCloudEmail").value.trim();if(!email){status("กรุณากรอกอีเมลก่อน");return;}button.disabled=true;status("กำลังส่งลิงก์เข้าสู่ระบบ…");
