@@ -38,6 +38,10 @@ on:
       - "tests/test_player_source_pipeline.py"
       - "data/player-source-pipeline-report-2026-27.json"
       - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
+      - "scripts/reep_snapshot_inspector.py"
+      - "tests/test_reep_snapshot_inspector.py"
+      - "data/reep-snapshot-inspection-2026-27.json"
+      - "docs/phase3-reep-local-snapshot-inspection-2026-27.md"
       - "scripts/update_player_database.py"
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
@@ -276,6 +280,25 @@ jobs:
           if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
               raise SystemExit("Production Supabase mutation is forbidden in this pipeline")
           print("Offline source pipeline safety contract is valid.")
+          PY
+
+      - name: Validate Reep local DuckDB snapshot inspector
+        run: |
+          python3 -m py_compile scripts/reep_snapshot_inspector.py
+          python3 -m unittest tests/test_reep_snapshot_inspector.py -v
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("data/reep-snapshot-inspection-2026-27.json").read_text(encoding="utf-8"))
+          if report.get("status") != "awaiting_local_snapshot":
+              raise SystemExit("Expected an explicit empty local-snapshot baseline.")
+          if report.get("production_import") is not False or report.get("provider_api_calls") != 0:
+              raise SystemExit("Reep snapshot inspection safety contract failed.")
+          if report.get("row_values_exported") is not False or report.get("external_access") is not False:
+              raise SystemExit("Reep inspector must remain schema-only and external-access-disabled.")
+          if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
+              raise SystemExit("Supabase mutations are forbidden in the Reep inspector.")
+          print("Reep inspector baseline is safe; no snapshot was falsely claimed as inspected.")
           PY
 
       - name: Validate player importer and database JSON
