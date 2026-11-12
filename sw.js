@@ -1,4 +1,4 @@
-const CACHE = "football-time-v56";
+const CACHE = "football-time-v57";
 
 const ASSETS = [
   "./",
@@ -10,6 +10,7 @@ const ASSETS = [
   "./css/match-center.css?v=2",
   "./css/primary-navigation.css?v=1",
   "./css/analysis-refinement.css?v=1",
+  "./css/international-handicap.css?v=1",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png",
@@ -21,6 +22,9 @@ const ASSETS = [
   "./data/national-team-research-2026-11.json",
   "./data/player-database.json",
   "./data/asian-handicap-odds.json",
+  "./data/experimental/international-r1/fixtures.json",
+  "./data/experimental/international-r1/prediction-snapshots.json",
+  "./data/experimental/international-r1/handicap-reference.json",
   "./js/player-database.js",
   "./js/football-discovery.js",
   "./js/match-center.js",
@@ -33,6 +37,8 @@ const ASSETS = [
   "./js/asian-handicap.js",
   "./js/handicap-history.js",
   "./js/handicap-reference.js",
+  "./js/international-handicap-model.js",
+  "./js/international-handicap-workspace.js",
   "./js/test-experiment-enhancements.js"
 ];
 

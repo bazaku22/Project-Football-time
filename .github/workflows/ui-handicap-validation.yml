@@ -4,6 +4,12 @@ on:
   pull_request:
     paths:
       - "index.html"
+      - "js/international-handicap-model.js"
+      - "js/international-handicap-workspace.js"
+      - "css/international-handicap.css"
+      - "data/experimental/international-r1/**"
+      - "tests/test_international_handicap_model.js"
+      - "tests/test_international_handicap_workspace.py"
       - "data/international-match-fixtures-r1.json"
       - "tests/test_international_match_center.py"
       - "js/asian-handicap.js"
@@ -24,6 +30,11 @@ on:
       - "feature/match-card-intelligence-v6-2"
     paths:
       - "index.html"
+      - "js/international-handicap-model.js"
+      - "js/international-handicap-workspace.js"
+      - "css/international-handicap.css"
+      - "data/experimental/international-r1/**"
+      - "tests/test_international_handicap_model.js"
       - "js/asian-handicap.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
@@ -47,6 +58,8 @@ jobs:
           node --check js/asian-handicap.js
           node --check js/handicap-history.js
           node --check js/handicap-reference.js
+          node --check js/international-handicap-model.js
+          node --check js/international-handicap-workspace.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
           node --check sw.js
@@ -60,6 +73,10 @@ jobs:
           Path("/tmp/football-time-inline.js").write_text(scripts[0], encoding="utf-8")
           PY
           node --check /tmp/football-time-inline.js
+      - name: Test international Handicap probability engine
+        run: node tests/test_international_handicap_model.js
+      - name: Test Nations League workspace isolation and data readiness
+        run: python3 -m unittest tests.test_international_handicap_workspace -v
       - name: Test shared score distribution and handicap settlement
         run: node tests/test_asian_handicap.js
       - name: Test immutable Handicap history and independent metrics
@@ -68,7 +85,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.7.2-beta.1"' index.html
-          grep -q 'football-time-v56' sw.js
+          grep -q 'application-version" content="6.8.0-beta.1"' index.html
+          grep -q 'football-time-v57' sw.js
           grep -q 'analysis-refinement.css' sw.js
+          grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html
