@@ -95,3 +95,43 @@ No new provider requests or manual syncs were made as part of this audit.
 ## Scope and limitations
 
 This is a repository and workflow-level audit, not a live production-device test, legal review, or independent verification of all external provider records. Supabase data was not queried or modified. The scheduled sync workflows were not dispatched. No API quota was consumed.
+
+
+## Phase 1 deep audit — implementation findings
+
+### 6. Navigation consistency correction
+
+A runtime inspection found that `js/international-handicap-workspace.js` appended a fifth button directly to the primary `.nav`, even though `js/primary-navigation.js` defines exactly four primary routes. This contradicted the four-item navigation requirement.
+
+The Phase 1 branch moves the International Handicap entry into the existing **เครื่องมือเพิ่มเติม** secondary-tools group. The International page, data files, model, and Local Storage keys are unchanged. A regression assertion was added to `tests/test_primary_navigation.py`.
+
+### 7. Football and player data readiness
+
+- The published `data/player-database.json` currently has `records: []`, `generatedAt: null`, and source status `awaiting_api_key`. Therefore, the public repository snapshot does not demonstrate a populated player database.
+- The repository has separate manual workflows for StrikerAPI player database updates and API Ninjas current-squad updates. The checked-in empty database metadata still identifies `API-Football`, which is inconsistent with those current importer paths and should be reconciled before treating player-source provenance as production-ready.
+- No player sync was dispatched and no provider quota was consumed. Private/cloud player records were not queried, so this finding applies to the checked-in public JSON only.
+
+### 8. Club and International isolation
+
+Verified source-level boundaries:
+- Club snapshots use `pft_handicap_snapshots_v1`; International uses `pft_international_handicap_snapshots_r1` and `pft_international_handicap_results_r1`.
+- International workspace reads only `data/experimental/international-r1/`; the contract tests explicitly reject references to the Club snapshot key and club database.
+- International Handicap is limited to the 10 UEFA Nations League fixtures; friendlies are excluded from the handicap workspace.
+- The International reference workflow is `workflow_dispatch` only, requests one provider payload per run, and commits only `handicap-reference.json`. It has no schedule.
+- The current international reference sample includes one fixture with only one bookmaker; its three-source readiness gate correctly withholds probabilities for that fixture. The remaining dataset is experimental and must retain its source and model limitations.
+
+### 9. Accuracy and calibration audit
+
+- 1X2 evaluation validates probability vectors, excludes snapshots created at/after kickoff, and evaluates against stored outcomes or finished match scores. Tests cover accuracy, multiclass Brier (0–2 scale), Log Loss, top-label ECE, pending/excluded counts, and empty datasets.
+- The probability snapshot builder preserves existing snapshots, appends only future fixtures, and records outcomes without overwriting the original forecast or capture time. Integration tests cover history retention and fail-closed handling of corrupt/invalid history.
+- Club Handicap history validates five mutually exclusive settlement outcomes, quarter-line splits, pre-kickoff capture, and finished-match score evaluation. Tests cover settlement and independent Brier/Log Loss summaries.
+- International Handicap calculates per-snapshot Brier and Log Loss only when a user-entered result exists. Results are entered after the fixture and include a source text field, but are not independently fetched or verified by the app. This is an evidence/provenance limitation, not proof that the result is wrong.
+- Current sample counts are small for experimental International evaluation. Do not interpret the displayed metrics as established model accuracy or calibration.
+
+### 10. CI and merge gate
+
+The audit documentation-only commit does not match the path filters in the existing validation workflows, so no CI run was created for the initial PR #97 commit. The Phase 1 navigation correction touches files covered by the existing application and UI/Handicap validation path filters; the updated PR must be evaluated on those checks before merge.
+
+### 11. Scope boundary
+
+This Phase 1 work is a source-code, repository-data, workflow, and test-contract audit. It does not prove live Supabase contents, private cloud player records, provider-side freshness at the current moment, or Android device behavior. No scheduled/manual workflow, provider API request, Supabase write, production deployment, or user-data mutation was performed.
