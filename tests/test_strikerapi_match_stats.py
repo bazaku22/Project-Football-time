@@ -35,6 +35,9 @@ class StrikerApiMatchStatsTests(unittest.TestCase):
         first = result["statistics"][0]
         self.assertEqual(first["statistics_scope"], "match")
         self.assertEqual(first["match_id"], "match-001")
+        self.assertEqual(first["team_code"], "ARS")
+        self.assertEqual(first["provider_team_id"], "359")
+        self.assertEqual(first["competition_code"], "PL")
         self.assertEqual(first["appearances"], 1)
         self.assertEqual(first["starts"], 1)
         self.assertEqual(first["minutes"], 90)
