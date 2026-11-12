@@ -44,6 +44,8 @@ async function loadPrivateData(session){
  currentSession=session||null;privateRecords=[];
  if(!session?.access_token){privateRecords=[];publishData([],null);await loadPlayerStatistics();$("playerCloudLogin").hidden=false;$("playerCloudSignedIn").hidden=true;clearPreview();status("ยังไม่ได้เข้าสู่ระบบ · ข้อมูล Cloud ส่วนตัวถูกซ่อนไว้");return;}
  $("playerCloudLogin").hidden=true;$("playerCloudSignedIn").hidden=false;$("playerCloudUser").textContent="บัญชี: "+(session.user?.email||"เข้าสู่ระบบแล้ว");status("กำลังโหลดข้อมูลส่วนตัวจาก Cloud…");
+ // The canonical ft_players directory must load independently of the legacy player-data Edge Function.
+ await loadPlayerStatistics();
  const {data,error}=await supabase.functions.invoke("player-data",{body:{}});
  if(error||data?.error){publishData([],null);status("เข้าสู่ระบบแล้ว แต่โหลดข้อมูล Cloud ไม่สำเร็จ: "+(data?.error||error.message));return;}
  privateRecords=Array.isArray(data?.records)?data.records:[];
