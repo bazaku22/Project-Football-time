@@ -236,6 +236,12 @@ jobs:
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
 
+      - name: Validate offline Wikidata player membership review
+        run: |
+          python3 -m py_compile scripts/validate_wikidata_player_membership.py
+          python3 -m unittest tests/test_wikidata_player_membership.py
+          python3 scripts/validate_wikidata_player_membership.py
+
       - name: Validate rights-cleared player intake manifest
         run: |
           python3 -m py_compile scripts/validate_player_intake_manifest.py
