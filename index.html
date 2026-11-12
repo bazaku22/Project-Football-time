@@ -64,6 +64,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <link rel="stylesheet" href="./css/international-handicap.css?v=1">
 <link rel="stylesheet" href="./css/player-identity-review.css?v=1">
+<link rel="stylesheet" href="./css/player-squad-review.css?v=1">
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
@@ -239,6 +240,23 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
    <div class="field"><label for="playerIdentityReviewFile">ไฟล์คิวตรวจสอบ CSV</label><input id="playerIdentityReviewFile" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerIdentityReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerIdentityReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div><div id="playerIdentityReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบ</div><div id="playerIdentityReviewSummary" class="identity-review-summary"></div>
    <div class="field"><label for="playerIdentityReviewFilter">กรองสถานะ</label><select id="playerIdentityReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">อนุมัติในเครื่อง</option><option value="verified">ยืนยันแล้ว</option><option value="rejected">ไม่ใช่คนเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div><div id="playerIdentityReviewRows"><div class="empty">เลือกไฟล์คิวตรวจสอบเพื่อเริ่มต้น</div></div>
    <div class="form-actions"><button class="secondary" id="playerIdentityExportMappings" type="button">ส่งออก Mapping ที่ยืนยัน</button><button class="secondary" id="playerIdentityExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div><button class="secondary" id="playerIdentityReviewClear" type="button">ล้างคิวที่เปิดอยู่</button><div class="quality-note">ผลตรวจเก็บในอุปกรณ์และไฟล์ส่งออก ไม่ได้เขียนลง Supabase</div>
+  </div>
+  <div class="card player-squad-review" id="playerSquadReviewPanel"><div class="topline"><b>ตรวจสอบข้อมูลนักเตะฤดูกาล 2026/27</b><span class="tag">LOCAL STAGING REVIEW</span></div>
+   <p class="identity-review-intro">เครื่องมือนี้อ่าน CSV จาก ZIP Reconciliation ในอุปกรณ์นี้เท่านั้น ไม่ส่งข้อมูลขึ้นเครือข่าย ไม่สร้าง Canonical ID และไม่เขียน Supabase</p>
+   <div class="player-squad-review-grid">
+    <div class="field"><label for="playerSquadTeamCsv">1) team-mapping-review-2026-27.csv</label><input id="playerSquadTeamCsv" class="filter" type="file" accept=".csv,text/csv"></div>
+    <div class="field"><label for="playerSquadPlayerCsv">2) player-identity-review-2026-27.csv</label><input id="playerSquadPlayerCsv" class="filter" type="file" accept=".csv,text/csv"></div>
+   </div>
+   <div class="field"><label for="playerSquadReviewer">ผู้ตรวจสอบ</label><input id="playerSquadReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนยืนยัน Mapping"></div>
+   <div class="form-actions"><button class="primary" id="playerSquadReviewLoad" type="button">โหลด CSV เพื่อทดสอบในเครื่อง</button><button class="secondary" id="playerSquadExportTeams" type="button">ส่งออก Team Alias ที่ยืนยัน</button><button class="secondary" id="playerSquadExportPlayers" type="button">ส่งออกรายงาน Player Review</button></div>
+   <div id="playerSquadReviewStatus" class="small" role="status">ยังไม่ได้เลือกไฟล์</div><div id="playerSquadReviewSummary" class="identity-review-summary"></div>
+   <h3>Team Mapping Review</h3><p class="profile-note">89 ทีมมี Candidate จากชื่อที่ตรงกัน และ 7 ทีมมี Alias Candidate ที่เตรียมไว้ ทุกทีมต้องกดยืนยันด้วยคนก่อนส่งออก</p>
+   <div class="player-squad-review-controls"><input id="playerSquadTeamSearch" class="filter" type="search" placeholder="ค้นหาชื่อทีม / ลีก"><select id="playerSquadTeamFilter" class="filter"><option value="pending">รอตรวจ</option><option value="all">ทั้งหมด</option><option value="approved">ยืนยันในเครื่อง</option><option value="rejected">ไม่ตรงกัน</option><option value="followup">ตรวจเพิ่ม</option></select></div>
+   <div id="playerSquadTeamRows" class="player-squad-review-list"><div class="empty">โหลด CSV ก่อน</div></div><div class="player-squad-review-pagination"><button class="secondary" id="playerSquadTeamPrev" type="button" disabled>ก่อนหน้า</button><span id="playerSquadTeamPage" class="small">หน้า 1 / 1</span><button class="secondary" id="playerSquadTeamNext" type="button" disabled>ถัดไป</button></div>
+   <h3>Player Identity Observation</h3><p class="profile-note">แสดง 2,953 Provider Player IDs และ 1 ID ที่พบข้ามลีก การตรวจ Observation ไม่เท่ากับการยืนยันตัวบุคคล และไม่มีปุ่มสร้าง Canonical Player ID</p>
+   <div class="player-squad-review-controls"><input id="playerSquadPlayerSearch" class="filter" type="search" placeholder="ค้นหาชื่อนักเตะ / Provider ID / ลีก"><select id="playerSquadPlayerFilter" class="filter"><option value="all">ทั้งหมด</option><option value="followup">ตรวจเพิ่มแล้ว</option><option value="pending">รอตรวจ</option></select></div>
+   <div id="playerSquadPlayerRows" class="player-squad-review-list"><div class="empty">โหลด CSV ก่อน</div></div><div class="player-squad-review-pagination"><button class="secondary" id="playerSquadPlayerPrev" type="button" disabled>ก่อนหน้า</button><span id="playerSquadPlayerPage" class="small">หน้า 1 / 1</span><button class="secondary" id="playerSquadPlayerNext" type="button" disabled>ถัดไป</button></div>
+   <button class="secondary" id="playerSquadReviewClear" type="button">ล้างข้อมูล CSV ที่เปิดอยู่</button><div class="quality-note">ผลการตรวจเก็บใน Local Storage ของอุปกรณ์และส่งออกเป็น CSV ได้เท่านั้น ไม่มีการเขียน Cloud/Production</div>
   </div>
   <div class="card" id="playerStatsImportPanel"><div class="topline"><b>นำเข้าสถิติ CSV — Preview เท่านั้น</b><span class="tag">OFFLINE PREFLIGHT</span></div><p class="profile-note">ตรวจไฟล์ในอุปกรณ์ ไม่อัปโหลดและไม่บันทึกฐานข้อมูล</p>
    <div class="field"><label for="playerStatsCsv">ไฟล์สถิติ CSV</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerStatsMappingCsv">ไฟล์ mapping CSV</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div><button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button><div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div><div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
@@ -1169,6 +1187,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/player-stats-import.js"></script>
 <script src="./js/player-identity-review.js"></script>
+<script src="./js/player-squad-review.js"></script>
 <script src="./js/research-insight.js"></script>
 <script type="module" src="./js/player-cloud.js"></script>
 </body></html>
