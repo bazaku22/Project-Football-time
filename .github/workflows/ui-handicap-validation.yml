@@ -9,6 +9,7 @@ on:
       - "css/international-handicap.css"
       - "data/experimental/international-r1/**"
       - "tests/test_international_handicap_model.js"
+      - "tests/test_international_handicap_workspace.py"
       - "data/international-match-fixtures-r1.json"
       - "tests/test_international_match_center.py"
       - "js/asian-handicap.js"
@@ -74,6 +75,8 @@ jobs:
           node --check /tmp/football-time-inline.js
       - name: Test international Handicap probability engine
         run: node tests/test_international_handicap_model.js
+      - name: Test Nations League workspace isolation and data readiness
+        run: python3 -m unittest tests.test_international_handicap_workspace -v
       - name: Test shared score distribution and handicap settlement
         run: node tests/test_asian_handicap.js
       - name: Test immutable Handicap history and independent metrics
