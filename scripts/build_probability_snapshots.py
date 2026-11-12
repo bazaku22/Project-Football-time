@@ -109,6 +109,23 @@ def main():
         form5 = games[:5]
         form10 = games[:10]
 
+        def venue_stats(venue):
+            rows = [m for m in games if m.get("homeTeamId") == team_id] if venue == "home" else [
+                m for m in games if m.get("awayTeamId") == team_id
+            ]
+            played = len(rows)
+            goals_for = goals_against = 0
+            for row in rows:
+                gf = row["homeScore"] if venue == "home" else row["awayScore"]
+                ga = row["awayScore"] if venue == "home" else row["homeScore"]
+                goals_for += gf
+                goals_against += ga
+            return {
+                "played": played,
+                "gfpg": goals_for / played if played else 0,
+                "gapg": goals_against / played if played else 0,
+            }
+
         def form_stats(rows):
             points = goals_for = goals_against = 0
             for row in rows:
