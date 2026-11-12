@@ -145,3 +145,54 @@ The simplest viable workflow is now:
 5. preserve source evidence and the exact season for every membership.
 
 The Premier League page is a strong completeness/eligibility reference for this one competition, but its existing rights gate remains in force. No roster content has been bulk-copied into the repository or Production. This pilot does not establish coverage for the other four leagues.
+
+## Four-league roster source pilot — 2026/27
+
+### Scope and method
+
+Following the Arsenal / Premier League pilot, this pass tested one representative club in each remaining target league:
+
+- La Liga — Real Madrid
+- Bundesliga — Bayern München
+- Serie A — AC Milan
+- Ligue 1 — Paris Saint-Germain
+
+The review checked whether a season-labelled official league or club page exposes player identity and squad evidence, and whether the evidence can be distinguished from matchday appearances or general eligibility. It did not scrape pages, copy roster rows into project data, call provider APIs, or write to Supabase.
+
+### Source findings
+
+| League / club | Official source reviewed | Evidence visible | Classification and limitation | Intake decision |
+|---|---|---|---|---|
+| La Liga — Real Madrid | [LALIGA official 2026/27 club squad page](https://iaas-public-front-pro.laliga.com/en-US/clubs/real-madrid/squad) and [Real Madrid official 2026/27 squad numbers](https://www.realmadrid.com/en-US/news/football/first-team/latest-news/dorsales-del-real-madrid-para-la-temporada-2026-27-10-08-2026) | Season-labelled club squad page; club publication groups first-team players by position and shirt number. | Useful first-team squad evidence, but squad numbers are not the same as a league registration list or proof of every player's registration status. The page does not establish a uniform registered-squad definition comparable to the Premier League's submitted 25-player list. | **Research reference only.** Official-source reuse gate remains in force. |
+| Bundesliga — Bayern München | [DFB Data Center — Bayern München, Bundesliga 2026/27](https://datencenter.dfb.de/en/competitions/bundesliga/seasons/2026-2027/teams/bayern-munich) | Season-specific squad table with player names, shirt numbers, birthdays and position groups. | Strong structured verification lead for a club-season squad. The displayed squad may include players beyond a narrow first-team registration category; the page alone does not define contract, registration or matchday eligibility for every entry. | **Research reference only.** DFB terms, database rights and bulk-reuse permission have not been approved. |
+| Serie A — AC Milan | [AC Milan official Men's First Team roster](https://www.acmilan.com/en/teams/men-first-team) and [Lega Serie A — Milan squad](https://en.legaseriea.it/team/milan/squad) | Club page explicitly offers season 2026/27 and groups players by goalkeeper, defender, midfielder and forward; league page also exposes player names, club association and shirt numbers. | Best cross-check among the four pilots because club and league pages can be compared. Neither page, as reviewed, establishes a complete league-registered list with a clear cut-off or distinguishes every first-team, youth and matchday status. | **Research reference only.** No bulk reuse approval; do not treat the visible list as a complete registration export. |
+| Ligue 1 — Paris Saint-Germain | [PSG official men's squad, 2026/27](https://www.psg.fr/en/mens-football/squad/season/2026-2027) | Season-labelled club squad with player names, positions and shirt numbers. | Confirms a club-published first-team squad view, not a complete Ligue 1 registration dataset. It does not by itself establish league registration, youth eligibility or matchday status for each player. | **Research reference only.** Official-source reuse gate remains in force. |
+
+### Canonical database comparison
+
+The existing read-only Production audit found 29 canonical membership rows, all belonging to Arsenal for 2025/26. No canonical membership rows for the four sampled clubs were present in that audited set, and the audit found zero 2026/27 canonical memberships overall.
+
+This is a statement about the inspected canonical membership table only; it is not evidence that the clubs have no players, nor a count of the legacy provider-specific records. No new Supabase query that changes data was run, and no rows were inserted, updated, reclassified or deleted.
+
+### Pilot result
+
+- Additional league/club official source leads found: **4/4**.
+- Total sampled clubs across the two pilots: **5** (Arsenal, Real Madrid, Bayern München, AC Milan, Paris Saint-Germain).
+- Sampled club pages with a season-labelled player/squad view: **4/4** in this pass.
+- 2026/27 Production canonical memberships: **0** in the audited dataset.
+- New player rows or membership rows copied into project files: **0**.
+- Production imports, updates, reclassifications or deletes: **0**.
+- Provider API calls, credits, scraping and bulk downloads: **0**.
+
+### Operational conclusion
+
+The five-league discovery gap is now narrower: a season-labelled official club/league squad view was found for one representative club in each target league. The evidence is not yet a complete, uniformly defined or rights-cleared five-league roster feed.
+
+For any later expansion:
+1. keep each league's evidence class explicit (registered squad, club first-team page, U21/youth, matchday squad or appearance);
+2. verify coverage across every club, not just one representative club;
+3. review each source's terms, database rights, commercial reuse and redistribution permissions before copying any records;
+4. preserve source IDs, URLs, observation dates, season and the precise membership definition; and
+5. keep all unresolved records in Research Only until the existing rights-cleared intake validator accepts them.
+
+This pilot is an engineering source-discovery review, not legal advice. The existing official-source rights gate remains unchanged. No app/UI/version, player data file, manifest, Supabase table or Production state was changed.
