@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "season": "2026/27",
+  "as_of": "2026-11-12",
+  "status": "research_only",
+  "retrieval_mode": "manual_local_export",
+  "source": "Wikidata structured data",
+  "source_license": "CC0-1.0",
+  "source_license_url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+  "property": "P54",
+  "network_access": false,
+  "production_import": false,
+  "provider_api_calls": 0,
+  "records_count": 0,
+  "candidates": []
+}
