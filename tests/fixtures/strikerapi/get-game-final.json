@@ -1,0 +1,50 @@
+{
+  "game": {
+    "game_id": "fixture-2026-11-12",
+    "date": "2026-11-12",
+    "status": "final",
+    "season": 2026,
+    "league": "soccer",
+    "competition": "Premier League",
+    "home": {
+      "team_id": "359",
+      "abbrev": "ARS",
+      "name": "Arsenal",
+      "score": 2
+    },
+    "away": {
+      "team_id": "382",
+      "abbrev": "MNC",
+      "name": "Manchester City",
+      "score": 1
+    }
+  },
+  "players": [
+    {
+      "player_id": "fixture-player-1",
+      "name": "Example Player One",
+      "team_id": "359",
+      "starter": true,
+      "minute_on": 0,
+      "minute_off": 90,
+      "goals": 1,
+      "assists": 0,
+      "shots": 3,
+      "shots_on_target": 2,
+      "yellow_cards": 0
+    },
+    {
+      "player_id": "fixture-player-2",
+      "name": "Example Player Two",
+      "team_id": "382",
+      "starter": false,
+      "minute_on": 70,
+      "minute_off": 90,
+      "goals": null,
+      "assists": 1,
+      "shots": 1,
+      "shots_on_target": 0,
+      "yellow_cards": 1
+    }
+  ]
+}
