@@ -1,4 +1,5 @@
 "use strict";
+// Directory policy: current season is the primary view; legacy seasons remain reviewable in Archive.
 (() => {
  const PILOT_URL="./data/player-position-pilot-2026-27.json",CURRENT_SEASON="2026/27",$=id=>document.getElementById(id);
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
