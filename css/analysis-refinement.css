@@ -46,3 +46,14 @@ header{background:linear-gradient(115deg,rgba(13,31,48,.98),rgba(17,47,61,.94));
 #handicapAccuracySummary .quality-note{margin-top:10px}
 #handicapAccuracySummary .card{margin-top:10px;padding:10px;background:rgba(8,22,36,.42);border-color:rgba(145,178,204,.14)}
 #handicapHistoryList{max-height:560px;overflow:auto;overscroll-behavior:contain}
+
+
+/* Phase 6.7 — focused match analysis workspace */
+#matchAnalysis .sectionhead{margin-bottom:8px}
+#matchAnalysis>p.profile-note{margin:0 0 14px;max-width:62ch;line-height:1.7}
+#matchAnalysis #dbtab-probability>.sectionhead{display:none}
+#matchAnalysis #dbtab-probability>.card:first-of-type{margin-top:8px}
+#matchAnalysis #probabilityOutput>.league-line{padding:2px 0 10px;border-bottom:1px solid rgba(145,178,204,.14)}
+#matchAnalysis #analysisInsightOutput:empty{display:none}
+#matchAnalysis #analysisInsightOutput .analysis-insight{margin:12px 0 14px}
+@media(min-width:600px){#matchAnalysis #probabilityOutput .prob-grid{gap:12px}}
