@@ -3,8 +3,15 @@
  "use strict";
  const MAX_AGE_MS=24*60*60*1000;
  const MATCH_WINDOW_MS=6*60*60*1000;
+ // Explicit aliases bridge provider display names to the canonical club names in the football database.
+ // Keep this list narrow: do not use fuzzy or token-subset matching for fixture identity.
+ const TEAM_ALIASES={
+  "es troyes ac":"troyes",
+  "le havre ac":"le havre"
+ };
  function normalizeTeam(value){
-  return String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  const normalized=String(value||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/[^a-z0-9]+/g," ").trim();
+  return TEAM_ALIASES[normalized]||normalized;
  }
  function findEvent(match,events){
   if(!match||!Array.isArray(events))return null;
