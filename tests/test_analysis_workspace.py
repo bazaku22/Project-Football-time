@@ -46,6 +46,8 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("home.opponentCount>=3", self.html)
         self.assertIn("h2h.length>=5", self.html)
         self.assertIn("minimumSample:5", self.html)
+        self.assertIn("String(x.matchId)+\"|\"+String(x.modelVersion||\"legacy/unknown\")", self.html)
+        self.assertIn("snapshotKey=id+\"|\"+PROBABILITY_MODEL_VERSION", self.html)
 
     def test_probability_model_and_handicap_panel_remain_present(self):
         self.assertIn("function computeMatchProbability(", self.html)
