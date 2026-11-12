@@ -52,6 +52,15 @@ def main():
     kickoff = now + timedelta(days=7)
     upcoming = match(999, "H", "A", None, None, kickoff, "TIMED")
     fixtures.append(upcoming)
+    legacy_snapshot = {
+        "matchId": "999",
+        "leagueId": "PL",
+        "season": "2026-2027",
+        "utcDate": kickoff.isoformat(),
+        "createdAt": (now - timedelta(days=1)).isoformat(),
+        "probabilities": {"home": 50.0, "draw": 25.0, "away": 25.0},
+        "modelVersion": "pft-poisson-1.0",
+    }
     database = {
         "schemaVersion": "1.1.0",
         "leagues": [{"id": "PL"}],
@@ -62,7 +71,7 @@ def main():
             {"leagueId": "PL", "season": "2026-2027", "teamId": "A", "played": 4, "points": 7},
         ],
         "matches": fixtures,
-        "probabilitySnapshots": [],
+        "probabilitySnapshots": [legacy_snapshot],
     }
 
     with tempfile.TemporaryDirectory() as directory:
@@ -72,8 +81,10 @@ def main():
         db_path.write_text(json.dumps(database), encoding="utf-8")
 
         first = run_builder(directory)
-        assert len(first["probabilitySnapshots"]) == 1, "Expected one future snapshot."
-        snapshot = first["probabilitySnapshots"][0]
+        assert len(first["probabilitySnapshots"]) == 2, "Expected v1 history plus one v2 snapshot."
+        legacy = next(row for row in first["probabilitySnapshots"] if row["modelVersion"] == "pft-poisson-1.0")
+        snapshot = next(row for row in first["probabilitySnapshots"] if row["modelVersion"] == "pft-poisson-2.0")
+        assert legacy["probabilities"] == legacy_snapshot["probabilities"], "Legacy forecast was overwritten."
         assert snapshot["matchId"] == "999"
         assert abs(sum(snapshot["probabilities"].values()) - 100) <= 0.11
         assert all(0 <= value <= 100 for value in snapshot["probabilities"].values())
@@ -99,17 +110,20 @@ def main():
         db_path.write_text(json.dumps(first), encoding="utf-8")
 
         second = run_builder(directory)
-        evaluated = second["probabilitySnapshots"][0]
+        evaluated = next(row for row in second["probabilitySnapshots"] if row["modelVersion"] == "pft-poisson-2.0")
+        legacy_evaluated = next(row for row in second["probabilitySnapshots"] if row["modelVersion"] == "pft-poisson-1.0")
         assert evaluated["actualOutcome"] == "home", "Finished match outcome was not recorded."
+        assert legacy_evaluated["actualOutcome"] == "home", "Legacy snapshot result was not recorded."
         assert evaluated["actualScore"] == "2-1"
-        assert evaluated["probabilities"] == original_probabilities, "Original forecast was overwritten."
+        assert evaluated["probabilities"] == original_probabilities, "Original v2 forecast was overwritten."
+        assert legacy_evaluated["probabilities"] == legacy_snapshot["probabilities"], "Legacy forecast was overwritten."
         assert evaluated["createdAt"] == original_created_at, "Original snapshot time was overwritten."
 
         second["matches"] = [row for row in second["matches"] if row["providerMatchId"] != 999]
         db_path.write_text(json.dumps(second), encoding="utf-8")
         third = run_builder(directory)
-        assert len(third["probabilitySnapshots"]) == 1, "Historical snapshot was not preserved."
-        assert third["probabilitySnapshots"][0]["actualOutcome"] == "home"
+        assert len(third["probabilitySnapshots"]) == 2, "Both model versions must be preserved."
+        assert all(row["actualOutcome"] == "home" for row in third["probabilitySnapshots"])
 
         # Retention must not silently prune immutable history at an arbitrary cap.
         archived = third["probabilitySnapshots"] + [
@@ -126,7 +140,7 @@ def main():
         third["probabilitySnapshots"] = archived
         db_path.write_text(json.dumps(third), encoding="utf-8")
         fourth = run_builder(directory)
-        assert len(fourth["probabilitySnapshots"]) == 2502, (
+        assert len(fourth["probabilitySnapshots"]) == 2503, (
             "Historical snapshots were pruned; all records must be retained."
         )
 
