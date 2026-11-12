@@ -70,3 +70,8 @@ The workflow now uses the existing staging artifact and checked-in pending alias
 2. In **ตรวจสอบการจับคู่ทีม**, import `team-mapping-review-2026-27.csv`, review proposed aliases, enter a reviewer label, and export the decisions.
 3. In **Identity Review**, import `player-identity-review-2026-27.csv`. Rows with repeated provider IDs (including the Moussa Diarra observation) remain flagged; no canonical IDs are assigned.
 4. Decisions are local to the device until exported. No review action writes to Supabase or the repository.
+
+
+## Provisional player review queue
+
+Rows without canonical candidates are not a failed import. The app supports local-only provisional review records for single-observation players. The bulk action "สร้างรายการรอตรวจสอบทั้งหมด" creates stable keys in the `provisional:` namespace, retains provider ID/name/season/team observations, and leaves `canonical_player_key` empty. Conflicting repeated-provider-ID rows are held and excluded from bulk creation. Users can export `provisional-player-review-2026-27.csv` for a later, rights-reviewed intake step. These are device-local review drafts only: they are not canonical player records, do not approve identity, do not modify `data/player-database.json`, and do not write to Supabase.

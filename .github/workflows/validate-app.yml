@@ -219,7 +219,7 @@ jobs:
           print("Experiment summary tab and automatic API handicap UI markers are valid.")
           PY
           node --check js/player-database.js
-          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py -v
+          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py tests/test_player_identity_review_ui.py -v
           python3 -m py_compile scripts/validate_current_player_squads.py
           python3 scripts/validate_current_player_squads.py
           python3 -m unittest tests/test_current_player_squad_validator.py -v
