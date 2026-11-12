@@ -211,72 +211,39 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <p class="profile-note">คะแนนความแข็งแกร่งเป็นดัชนีเปรียบเทียบภายในลีกและฤดูกาลเดียวกัน ไม่ใช่ความน่าจะเป็นชนะ ส่วนความพร้อมผู้เล่นจะแสดงว่าไม่ทราบเมื่อไม่มี feed ที่เชื่อถือได้ และจะไม่เดาข้อมูลที่ขาดหาย</p>
 </div>
 <div class="db-panel" id="dbtab-players">
- <div class="sectionhead"><h2>ฐานข้อมูลนักเตะและสถิติ</h2><span class="small">PHASE 5.6</span></div>
- <div class="card" id="playerCloudAuth">
-  <div class="topline"><b>คลังนักเตะส่วนตัว (Private Cloud)</b><span class="tag">SUPABASE AUTH</span></div>
-  <div class="small" id="playerCloudStatus" role="status">ยังไม่ได้เข้าสู่ระบบ · ข้อมูลในคลาวด์จะแสดงเฉพาะบัญชีที่เข้าสู่ระบบ</div>
-  <div id="playerCloudLogin">
-   <div class="field"><label for="playerCloudEmail">อีเมลสำหรับเข้าสู่ระบบ</label><input id="playerCloudEmail" class="filter" type="email" autocomplete="email" placeholder="you@example.com"></div>
-   <button class="primary" id="playerCloudSendLink" type="button">ส่งลิงก์เข้าสู่ระบบทางอีเมล</button>
-  </div>
-  <div id="playerCloudSignedIn" hidden>
-   <div class="small" id="playerCloudUser"></div>
-   <div class="form-actions">
-   <button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div>
-   <button class="secondary" id="playerCloudReepPilot" type="button">ทดสอบจับคู่ชื่อกับ Reep (ไม่ใช้ StrikerAPI)</button>
-   <div id="playerCloudPreviewPanel" class="p5-note" hidden>
-    <b>ตัวอย่างข้อมูลพร้อมตรวจสอบ</b><div id="playerCloudPreviewSummary" class="small"></div>
-    <button class="primary" id="playerCloudSavePreview" type="button">2. ยืนยันบันทึกข้อมูลชุดนี้</button>
-    <button class="secondary" id="playerCloudCancelPreview" type="button">ยกเลิก Preview</button>
-   </div>
-   <div id="playerCloudReepPanel" class="p5-note" hidden>
-    <b>ผลการทดสอบชื่อแฝงจาก Reep</b>
-    <div id="playerCloudReepSummary" class="small"></div>
-    <div id="playerCloudReepResults" class="small"></div>
-   </div>
-  </div>
- </div>
- <div class="card"><div class="small" id="playerDbStatus">กำลังโหลดฐานข้อมูลนักเตะ…</div>
+ <div class="sectionhead"><h2>ฐานข้อมูลนักเตะ</h2><span class="small">CANONICAL DIRECTORY</span></div>
+ <div class="card"><div class="small" id="playerDbStatus" role="status">กำลังโหลดรายชื่อนักเตะ…</div><div class="db-kpis" id="playerDbSummary"></div>
   <div class="form-controls">
    <div class="field"><label for="playerLeagueFilter">ลีก</label><select id="playerLeagueFilter" class="filter"><option value="ALL">ทุกลีก</option></select></div>
    <div class="field"><label for="playerTeamFilter">ทีม</label><select id="playerTeamFilter" class="filter"><option value="ALL">ทุกทีม</option></select></div>
-   <div class="field"><label for="playerPositionFilter">ตำแหน่งการเล่น</label><select id="playerPositionFilter" class="filter"><option value="ALL">ทุกตำแหน่ง</option><option value="FORWARD">แนวรุก</option><option value="MIDFIELDER">กองกลาง</option><option value="DEFENDER">กองหลัง</option><option value="GOALKEEPER">ผู้รักษาประตู</option><option value="MULTI">หลายกลุ่มตำแหน่ง</option><option value="UNKNOWN">ยังไม่ระบุตำแหน่ง</option></select></div>
+   <div class="field"><label for="playerPositionFilter">ตำแหน่ง</label><select id="playerPositionFilter" class="filter"><option value="ALL">ทุกตำแหน่ง</option><option value="FORWARD">แนวรุก</option><option value="MIDFIELDER">กองกลาง</option><option value="DEFENDER">กองหลัง</option><option value="GOALKEEPER">ผู้รักษาประตู</option><option value="MULTI">หลายกลุ่มตำแหน่ง</option><option value="UNKNOWN">ยังไม่ระบุตำแหน่ง</option></select></div>
    <div class="field full"><label for="playerSearch">ค้นหาชื่อนักเตะ</label><input id="playerSearch" class="filter" type="search" placeholder="พิมพ์ชื่อนักเตะ"></div>
   </div>
-  <div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div>
  </div>
-
- <div class="card" id="playerIdentityReviewPanel">
-  <div class="topline"><b>ตรวจสอบตัวตนนักเตะ (Identity Review)</b><span class="tag">OFFLINE REVIEW</span></div>
-  <p class="identity-review-intro">นำเข้าไฟล์ player-identity-review-queue.csv จากเครื่องมือ Reconciliation เพื่อพิจารณา Candidate ด้วยคนจริง ระบบจะไม่รวมผู้เล่นให้อัตโนมัติ การตัดสินใจและประวัติเก็บไว้ในอุปกรณ์นี้เท่านั้น</p>
-  <div class="field"><label for="playerIdentityReviewFile">ไฟล์คิวตรวจสอบ CSV (สูงสุด 5 MB)</label><input id="playerIdentityReviewFile" class="filter" type="file" accept=".csv,text/csv"></div>
-  <div class="field"><label for="playerIdentityReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerIdentityReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div>
-  <div id="playerIdentityReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบ</div>
-  <div id="playerIdentityReviewSummary" class="identity-review-summary"></div>
-  <div class="identity-review-filter">
-   <div class="field"><label for="playerIdentityReviewFilter">กรองสถานะ</label><select id="playerIdentityReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">อนุมัติในเครื่อง</option><option value="verified">ยืนยันแล้ว</option><option value="rejected">ไม่ใช่คนเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div>
+ <div id="playerList"><div class="empty">กำลังโหลดรายชื่อนักเตะ…</div></div>
+ <p class="profile-note">รายชื่อ Canonical แสดงได้แม้ยังไม่มีสถิติ ส่วนผู้เล่น Research Only เป็นชุดทดลองแยกต่างหาก ไม่ใช่ข้อมูล Production ข้อมูลเก่าและเครื่องมือนำเข้าอยู่ในส่วนจัดการขั้นสูงด้านล่าง</p>
+ <details class="card"><summary><b>เครื่องมือจัดการข้อมูลและระบบเดิม (ขั้นสูง)</b></summary>
+  <p class="profile-note">เก็บเครื่องมือเดิมไว้เพื่อรักษาข้อมูลและประวัติ ไม่ใช่แหล่งข้อมูลหลักของรายชื่อนักเตะ</p>
+  <div class="card" id="playerCloudAuth"><div class="topline"><b>คลังนักเตะส่วนตัว / Legacy Cloud</b><span class="tag">SUPABASE AUTH</span></div><div class="small" id="playerCloudStatus" role="status">ยังไม่ได้เข้าสู่ระบบ</div>
+   <div id="playerCloudLogin"><div class="field"><label for="playerCloudEmail">อีเมลสำหรับเข้าสู่ระบบ</label><input id="playerCloudEmail" class="filter" type="email" autocomplete="email" placeholder="you@example.com"></div><button class="primary" id="playerCloudSendLink" type="button">ส่งลิงก์เข้าสู่ระบบทางอีเมล</button></div>
+   <div id="playerCloudSignedIn" hidden><div class="small" id="playerCloudUser"></div><div class="form-actions"><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div><button class="secondary" id="playerCloudReepPilot" type="button">ทดสอบจับคู่ชื่อกับ Reep</button>
+    <div id="playerCloudPreviewPanel" class="p5-note" hidden><b>ตัวอย่างข้อมูลพร้อมตรวจสอบ</b><div id="playerCloudPreviewSummary" class="small"></div><button class="primary" id="playerCloudSavePreview" type="button">ยืนยันบันทึก Preview</button><button class="secondary" id="playerCloudCancelPreview" type="button">ยกเลิก Preview</button></div>
+    <div id="playerCloudReepPanel" class="p5-note" hidden><b>ผลการทดสอบชื่อแฝงจาก Reep</b><div id="playerCloudReepSummary" class="small"></div><div id="playerCloudReepResults" class="small"></div></div>
+   </div>
   </div>
-  <div id="playerIdentityReviewRows"><div class="empty">เลือกไฟล์คิวตรวจสอบเพื่อเริ่มต้น</div></div>
-  <div class="form-actions"><button class="secondary" id="playerIdentityExportMappings" type="button">ส่งออก Mapping ที่ยืนยัน</button><button class="secondary" id="playerIdentityExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div>
-  <button class="secondary" id="playerIdentityReviewClear" type="button">ล้างคิวที่เปิดอยู่</button>
-  <div class="quality-note">การอนุมัติในหน้านี้เป็นเพียงผลตรวจในอุปกรณ์และไฟล์ส่งออก ไม่ได้เขียนลง Supabase หรือเปลี่ยนข้อมูลผู้เล่นในระบบ การนำ Mapping ไปใช้ต้องผ่านการตรวจสอบและนำเข้าตามกระบวนการแยกต่างหาก</div>
- </div>
- <div class="card" id="playerStatsImportPanel">
-  <div class="topline"><b>นำเข้าสถิตินักเตะจาก CSV — Preview</b><span class="tag">OFFLINE PREFLIGHT</span></div>
-  <p class="profile-note">เลือกไฟล์สถิติและไฟล์ mapping เพื่อตรวจ Provider ID แบบตรงตัว จำกัดฤดูกาล 2026/27 การตรวจทำในอุปกรณ์นี้ ไม่อัปโหลดไฟล์และไม่บันทึกฐานข้อมูล</p>
-  <div class="field"><label for="playerStatsCsv">1. ไฟล์สถิติ CSV (สูงสุด 5 MB)</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div>
-  <div class="field"><label for="playerStatsMappingCsv">2. ไฟล์ mapping CSV (สูงสุด 2 MB)</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div>
-  <button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button>
-  <div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div>
-  <div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
-  <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div>
-  <button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
-  <div class="quality-note">Preview เท่านั้น · แถวที่ผ่านยังต้องตรวจสอบสิทธิ์แหล่งข้อมูลโดยมนุษย์ การบันทึกลง ft_* ยังปิดไว้จนกว่าจะมี transactional RPC/Edge Function ที่ผ่านการทดสอบ Auth จริงและได้รับอนุมัติ deployment</div>
- </div>
- <div class="card"><div class="sectionhead"><h2>สถิติจาก Cloud</h2><span class="small">OpenPlay · 2025/26</span></div><div class="db-kpis" id="playerStatsCloudSummary"></div><div id="playerStatsCloudStatus" class="small" role="status">รอเข้าสู่ระบบเพื่อโหลดสถิติ…</div><div id="playerStatsCloudList"></div></div>
- <div class="card"><div class="db-kpis" id="playerDbSummary"></div></div>
- <div id="playerList"><div class="empty">ยังไม่มีข้อมูลนักเตะ</div></div>
- <p class="profile-note">ข้อมูลนักเตะแยกจากรายการทดสอบและฐานข้อมูลการแข่งขัน การนำเข้าในอุปกรณ์นี้เก็บใน Local Storage แยกต่างหาก ทุกชุดข้อมูลต้องมีแหล่งที่มาและฤดูกาลกำกับ หากไม่มีข้อมูลจะแสดงว่าไม่พบ ไม่เติมค่าคาดเดา</p>
+  <div class="card"><b>Local JSON archive</b><div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div></div>
+  <div class="card" id="playerIdentityReviewPanel"><div class="topline"><b>ตรวจสอบตัวตนนักเตะ (Identity Review)</b><span class="tag">OFFLINE REVIEW</span></div><p class="identity-review-intro">นำเข้าไฟล์คิวจาก Reconciliation เพื่อพิจารณา Candidate ด้วยคนจริง ระบบไม่รวมผู้เล่นให้อัตโนมัติ</p>
+   <div class="field"><label for="playerIdentityReviewFile">ไฟล์คิวตรวจสอบ CSV</label><input id="playerIdentityReviewFile" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerIdentityReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerIdentityReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div><div id="playerIdentityReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบ</div><div id="playerIdentityReviewSummary" class="identity-review-summary"></div>
+   <div class="field"><label for="playerIdentityReviewFilter">กรองสถานะ</label><select id="playerIdentityReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">อนุมัติในเครื่อง</option><option value="verified">ยืนยันแล้ว</option><option value="rejected">ไม่ใช่คนเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div><div id="playerIdentityReviewRows"><div class="empty">เลือกไฟล์คิวตรวจสอบเพื่อเริ่มต้น</div></div>
+   <div class="form-actions"><button class="secondary" id="playerIdentityExportMappings" type="button">ส่งออก Mapping ที่ยืนยัน</button><button class="secondary" id="playerIdentityExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div><button class="secondary" id="playerIdentityReviewClear" type="button">ล้างคิวที่เปิดอยู่</button><div class="quality-note">ผลตรวจเก็บในอุปกรณ์และไฟล์ส่งออก ไม่ได้เขียนลง Supabase</div>
+  </div>
+  <div class="card" id="playerStatsImportPanel"><div class="topline"><b>นำเข้าสถิติ CSV — Preview เท่านั้น</b><span class="tag">OFFLINE PREFLIGHT</span></div><p class="profile-note">ตรวจไฟล์ในอุปกรณ์ ไม่อัปโหลดและไม่บันทึกฐานข้อมูล</p>
+   <div class="field"><label for="playerStatsCsv">ไฟล์สถิติ CSV</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerStatsMappingCsv">ไฟล์ mapping CSV</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div><button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button><div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div><div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
+   <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div><button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
+  </div>
+  <div class="card"><b>สถิติจาก Cloud</b><div class="db-kpis" id="playerStatsCloudSummary"></div><div id="playerStatsCloudStatus" class="small" role="status">รอเข้าสู่ระบบ</div><div id="playerStatsCloudList"></div></div>
+ </details>
+</div>
 </div>
 <div class="db-panel" id="dbtab-accuracy">
  <div class="sectionhead"><h2>Accuracy &amp; Model Evaluation Center</h2><span class="small">PHASE 5</span></div>
