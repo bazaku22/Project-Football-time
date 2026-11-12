@@ -230,6 +230,7 @@ def run(staging: dict, football_db: dict, provider_reference: dict | None = None
         "provider_team_reference_records": len(provider_reference.get("teams", [])) if provider_reference else 0,
         "provider_team_reference_api_calls": provider_reference.get("provider_api_calls", 0) if provider_reference else 0,
         "provider_team_reference_estimated_credits": provider_reference.get("estimated_credits", 0) if provider_reference else 0,
+        "total_provider_api_calls": provider_reference.get("provider_api_calls", 0) if provider_reference else 0,
         "limitations": [
             "Exact normalized team-name matches are candidates only and require human review.",
             "No fuzzy matching, alias inference, canonical ID assignment, or automatic player merge is performed.",
@@ -254,7 +255,7 @@ def main() -> int:
         args.out_dir.mkdir(parents=True, exist_ok=True)
         team_rows, player_rows = result.pop("_team_rows"), result.pop("_player_rows")
         write_csv(args.out_dir / "team-mapping-review-2026-27.csv", team_rows, [
-            "league_id", "provider_team_id", "provider_team_name", "candidate_team_ids",
+            "league_id", "provider_team_id", "provider_team_name",
             "provider_team_official_name", "provider_team_abbrev", "provider_reference_found",
             "candidate_team_ids", "candidate_team_names", "candidate_count", "candidate_match_basis",
             "status", "canonical_team_id", "review_required", "note"])
