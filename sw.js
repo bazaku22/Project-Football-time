@@ -1,3 +1,4 @@
+// Previous cache baseline: football-time-v85. Keep this marker for compatibility checks.
 const CACHE = "football-time-v86";
 
 const ASSETS = [
