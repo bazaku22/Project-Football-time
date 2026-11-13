@@ -7,6 +7,7 @@ to Supabase. Empty manifests are valid drafts; unreviewed data is not importable
 from __future__ import annotations
 import argparse
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -104,8 +105,9 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
         for metric, value in stats.items():
             if metric not in METRICS:
                 errors.append(f"row {rid} has unsupported metric {metric}")
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0:
-                errors.append(f"row {rid} metric {metric} must be a non-negative number")
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or not math.isfinite(value) or value < 0):
+                errors.append(f"row {rid} metric {metric} must be a finite non-negative number")
         for metric in stats:
             if metric not in (source.get("metric_definitions") or {}):
                 errors.append(f"row {rid} metric {metric} has no source definition")
