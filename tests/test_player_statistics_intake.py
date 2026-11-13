@@ -69,6 +69,30 @@ class PlayerStatisticsIntakeTests(unittest.TestCase):
         self.assertTrue(any("shots_on_target cannot exceed shots" in e for e in errors))
         self.assertTrue(any("non-negative" in e for e in errors))
 
+    def test_non_finite_metric_values_are_rejected(self):
+        for invalid in (float("nan"), float("inf"), float("-inf")):
+            data = empty_manifest()
+            data["status"] = "research_only"
+            data["sources"] = [{
+                "id": "s", "publisher": "Example", "source_scope": "PL 2026/27",
+                "licence_id": "CC0-1.0", "source_url": "https://example.test/data",
+                "licence_url": "https://example.test/licence", "licence_reviewed_at": "2026-11-13",
+                "rights_review_status": "approved", "commercial_use_allowed": True,
+                "database_rights_reviewed": True, "redistribution_allowed": True,
+                "metric_definitions": {"goals": "Goals"}
+            }]
+            data["statistics"] = [{
+                "id": "r", "season": "2026/27", "league_id": "PL",
+                "canonical_player_key": "p", "provider_player_id": "p1",
+                "club_id": "c", "club_name": "Club", "competition_id": "PL",
+                "identity_match_status": "exact", "rights_status": "approved",
+                "source_id": "s", "observed_at": "2026-11-13",
+                "evidence_url": "https://example.test/player/p/stats",
+                "metrics": {"goals": invalid}
+            }]
+            data["records_count"] = 1
+            self.assertTrue(any("finite non-negative" in error for error in validate(data)))
+
     def test_provider_calls_and_production_import_are_blocked(self):
         data = empty_manifest()
         data["provider_api_calls"] = 1
