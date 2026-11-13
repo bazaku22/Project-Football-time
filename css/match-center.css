@@ -185,3 +185,17 @@
 .mc-match-stat b{font-size:.74rem;font-variant-numeric:tabular-nums;color:#f3f8fc}
 .mc-match-stat i{width:1px;height:13px;background:rgba(145,178,204,.25)}
 @media(max-width:380px){.mc-match-stats{padding:9px}.mc-match-stats-grid{gap:7px 8px}.mc-match-stat{gap:5px;font-size:.65rem}.mc-match-stat b{font-size:.69rem}}
+
+
+/* Compact Match Center prediction card; full model detail lives in Analysis. */
+.mc-analysis-summary{gap:7px;padding:9px 10px;margin:0 0 9px;border-color:rgba(79,164,255,.24);background:linear-gradient(145deg,rgba(12,44,82,.58),rgba(8,24,44,.78))}
+.mc-analysis-title{font-size:.7rem;color:#c8e7ff;letter-spacing:.02em}
+.mc-analysis-1x2{gap:5px}
+.mc-analysis-outcome{padding:6px 4px;background:rgba(3,15,31,.42)}
+.mc-analysis-outcome b{font-size:.94rem;color:#75c8ff}
+.mc-analysis-outcome small{display:none}
+.mc-analysis-handicap{padding-top:6px;font-size:.68rem}
+.mc-analysis-handicap>div:first-child b,.mc-analysis-cover>b{font-size:.88rem;color:#75c8ff}
+.mc-analysis-push,.mc-analysis-source{font-size:.57rem}
+.mc-analysis-source{line-height:1.35}
+.mc-analysis-data{max-height:260px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
