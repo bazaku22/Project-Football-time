@@ -43,6 +43,17 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
         self.assertNotIn("supabase", source.lower())
         self.assertNotIn("XMLHttpRequest", source)
 
+    def test_mount_failure_is_visible_and_does_not_lock_out_retry(self):
+        source = (ROOT / "js/player-match-event-entry.js").read_text(encoding="utf-8")
+        mount = source[source.index("  function mount(){"):source.index("\n  if(document.readyState", source.index("  function mount(){"))]
+        self.assertIn('const missing=required.filter(id=>!$(id)||!page.contains($(id)))', mount)
+        self.assertIn('Player Match Event Entry initialization failed:', mount)
+        self.assertIn('page.dataset.mounted="true"', mount)
+        self.assertLess(mount.index('renderMatchOptions();renderAll();renderEventFields();renderStatsTable();'),
+                        mount.index('page.dataset.mounted="true"'))
+        self.assertIn('page.dataset.mounted="false"', mount)
+        self.assertIn('setAttribute("role","alert")', mount)
+
     def test_styles_and_scripts_are_cached_and_app_version_is_bumped(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
