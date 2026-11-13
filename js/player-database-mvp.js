@@ -4,9 +4,17 @@
  const LEAGUES=[["PL","Premier League"],["PD","La Liga"],["BL1","Bundesliga"],["SA","Serie A"],["FL1","Ligue 1"]];
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  let registry=null, selectedLeague=null, selectedTeam=null, query="";
- const root=document.createElement("section");root.id="playerDatabasePage";root.className="page";
+ const root=document.createElement("section");root.id="dbtab-playerDatabase";root.className="db-panel";
  root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อเข้าสู่รายชื่อนักเตะ</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
- document.querySelector("#main")?.appendChild(root);
+ const fixtures=document.querySelector("#fixtures");
+ const databaseNav=document.querySelector(".db-subnav");
+ if(fixtures&&databaseNav){
+  fixtures.appendChild(root);
+  const tab=document.createElement("button");tab.type="button";tab.dataset.dbTab="playerDatabase";tab.textContent="ข้อมูลผู้เล่น";
+  databaseNav.appendChild(tab);
+ }else{
+  root.id="playerDatabasePage";root.className="page";document.querySelector("#main")?.appendChild(root);
+ }
  const content=()=>root.querySelector("#pdb-content");
  function render(){
   if(!registry){content().innerHTML='<div class="pdb-empty">ไม่สามารถโหลดทะเบียนทีมได้ กรุณาลองใหม่ภายหลัง</div>';return;}
