@@ -20,7 +20,7 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("player-team-name-registry-2026-27.json",JS)
   self.assertIn("provider_display_names_verified",JS)
  def test_service_worker_cache(self):
-  self.assertIn("football-time-v85",SW)
+  self.assertIn("football-time-v86",SW)
   self.assertIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertIn("./js/player-hub.js",SW)
 
@@ -35,7 +35,7 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn('rights_status==="approved"', JS)
   self.assertIn('No data', JS)
   self.assertIn("pft-open-canonical-player", JS)
-  self.assertIn("football-time-v85", SW)
+  self.assertIn("football-time-v86", SW)
   self.assertIn('const statusLabel={verified:"ตรวจสอบแล้ว",pending:"รอตรวจสอบ",disputed:"มีข้อโต้แย้ง"}', JS)
 
 if __name__=="__main__":unittest.main()
