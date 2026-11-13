@@ -72,7 +72,7 @@ class MatchCenterTests(unittest.TestCase):
     def test_offline_asset_and_cache_are_versioned(self):
         self.assertIn("football-time-v81", WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
-        self.assertIn('"./css/match-center.css?v=4"', WORKER)
+        self.assertIn('"./css/match-center.css?v=5"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
