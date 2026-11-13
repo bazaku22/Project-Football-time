@@ -25,6 +25,7 @@ def valid_match():
         "lineups": [
             {"team_id": "ARS", "role": "starting_xi", "player": player("Starter", "FT-P-000001"), "source_ids": ["official"]},
             {"team_id": "ARS", "role": "substitute", "player": player("Bench only", "FT-P-000002"), "source_ids": ["official"]},
+            {"team_id": "CHE", "role": "starting_xi", "player": player("Starter away", "FT-P-000004"), "source_ids": ["official"]},
             {"team_id": "CHE", "role": "substitute", "player": player("Sub in", "FT-P-000003"), "source_ids": ["official"]}
         ],
         "events": [
