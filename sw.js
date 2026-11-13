@@ -1,4 +1,4 @@
-const CACHE = "football-time-v83";
+const CACHE = "football-time-v84";
 
 const ASSETS = [
   "./",
@@ -12,7 +12,7 @@ const ASSETS = [
   "./css/football-research.css?v=1",
   "./css/match-center.css?v=7",
   "./css/match-center-mockup.css?v=1",
-  "./css/primary-navigation.css?v=1",
+  "./css/primary-navigation.css?v=1",\n  "./css/home-dashboard.css?v=1",
   "./css/analysis-refinement.css?v=1",
   "./css/international-handicap.css?v=1",
   "./css/player-identity-review.css?v=1",
@@ -39,7 +39,7 @@ const ASSETS = [
   "./js/match-center.js",
   "./js/unified-match-center.js",
   "./js/match-center-mockup.js",
-  "./js/primary-navigation.js",
+  "./js/primary-navigation.js",\n  "./js/home-dashboard.js",
   "./js/player-stats-import.js",
   "./js/player-identity-review.js",
   "./js/player-team-alias-review.js",
