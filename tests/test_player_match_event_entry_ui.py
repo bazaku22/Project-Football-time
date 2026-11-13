@@ -64,15 +64,15 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
     def test_styles_and_scripts_are_cached_and_app_version_is_bumped(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.4"', html)
-        self.assertIn('<span class="app-version">V6.26.5-beta.4</span>', html)
+        self.assertIn('content="6.26.5-beta.5"', html)
+        self.assertIn('<span class="app-version">V6.26.5-beta.5</span>', html)
         self.assertIn('<main id="main">', html)
         self.assertEqual(html.count('<main id="main">'), 1)
         self.assertIn('./css/player-match-event-entry.css?v=1', html)
         self.assertIn('./js/player-match-event-entry.js', html)
         self.assertIn('./css/player-match-event-entry.css?v=1', sw)
         self.assertIn('./js/player-match-event-entry.js', sw)
-        self.assertIn('const CACHE = "football-time-v91"', sw)
+        self.assertIn('const CACHE = "football-time-v92"', sw)
 
 
 if __name__ == "__main__":
