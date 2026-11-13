@@ -7,7 +7,7 @@
   }[c]));
   let database = null;
   let databaseError = "";
-  let activeFilter = "upcoming";
+  let activeFilter = "all";
   let activeLeagues = new Set();
   let activeCategory = "all";
   let activeSearch = "";
@@ -501,6 +501,7 @@
       })
     );
     $(".mc-calendar-today")?.addEventListener("click",() => setSelectedDate(bangkokDate()));
+    $(".mc-calendar-yesterday")?.addEventListener("click",() => setSelectedDate(shiftDateKey(bangkokDate(),-1)));
     $("matchCenterLeagueFilters")?.addEventListener("click",(event) => {
       const button = event.target.closest("[data-league-filter]");
       if (!button) return;
