@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PlayerDatabaseWorkspaceTests(unittest.TestCase):
-    def test_research_pilot_is_visible_but_not_production_data(self):
+    def test_research_pilot_remains_review_only_and_not_production_data(self):
         data = json.loads((ROOT / "data/player-position-pilot-2026-27.json").read_text())
         self.assertEqual(data["status"], "research_only")
         self.assertEqual(data["rights_status"], "pending_review")
@@ -33,17 +33,15 @@ class PlayerDatabaseWorkspaceTests(unittest.TestCase):
         self.assertIn("const statsByPlayer=new Map()", cloud)
         self.assertNotIn(".find(x=>x.player_id===p.id", cloud)
 
-    def test_advanced_tools_are_collapsed_and_primary_list_is_singular(self):
+    def test_legacy_player_workspace_is_removed_from_runtime(self):
         html = (ROOT / "index.html").read_text()
-        start = html.index('<div class="db-panel" id="dbtab-players">')
-        end = html.index('<div class="db-panel" id="dbtab-accuracy">', start)
-        panel = html[start:end]
-        self.assertEqual(panel.count('id="playerList"'), 1)
-        self.assertEqual(panel.count('id="playerDbSummary"'), 1)
-        self.assertIn("<details class=\"card\">", panel)
-        self.assertIn('id="playerIdentityReviewPanel"', panel)
-        self.assertIn('id="playerStatsImportPanel"', panel)
-        self.assertIn('id="playerCloudAuth"', panel)
+        worker = (ROOT / "sw.js").read_text()
+        self.assertNotIn('id="dbtab-players"', html)
+        self.assertNotIn('id="playerList"', html)
+        self.assertNotIn('id="playerCloudAuth"', html)
+        self.assertNotIn("./js/player-database.js", html)
+        self.assertNotIn("./js/player-database.js", worker)
+        self.assertNotIn("./css/player-directory.css?v=1", html)
 
 
 if __name__ == "__main__":
