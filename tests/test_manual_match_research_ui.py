@@ -9,6 +9,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         source = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
         self.assertIn('["matchResearch","นำเข้าผลและสถิติ"]', source)
         self.assertIn('researchPage.id = "manualMatchResearchPage"', source)
+        self.assertIn('target === "matchResearch") {\n        activate("manualMatchResearchPage", null, "")', source)
         self.assertIn('activate(target, null, "")', source)
 
     def test_import_ui_is_loaded_and_cached(self):

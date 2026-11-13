@@ -99,6 +99,9 @@
       } else if (target === "advanced") {
         activate("fixtures", "advanced", "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
+      } else if (target === "matchResearch") {
+        activate("manualMatchResearchPage", null, "");
+        document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else {
         activate(target, null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
