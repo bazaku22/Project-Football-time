@@ -415,9 +415,9 @@
     const homeMark = isInternational ? crest(null,match.homeCountryCode,match.homeTeamName) : crest(home);
     const awayMark = isInternational ? crest(null,match.awayCountryCode,match.awayTeamName) : crest(away);
     const topLabel = isInternational ? match.competitionName : (league?.name || match.leagueId);
-    const bottom = isInternational
+    const bottom = (isInternational
       ? '<span class="mc-intl-tag">ทีมชาติ · ชุดทดลอง</span>' + renderInternationalDetails(match)
-      : '<button type="button" class="mc-open-match" data-open-match="' + esc(matchId(match)) +
+      : '') + '<button type="button" class="mc-open-match" data-unified-match="' + esc(matchId(match)) + '" data-open-match="' + esc(matchId(match)) +
         '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) +
         '" data-match-league="' + esc(match.leagueId) +
         '" data-provider-match-id="' + esc(providerMatchId) +
@@ -596,6 +596,16 @@
     renderLeagues();
     render();
   }
+  window.FootballTimeMatchCenter = {
+    getMatchById(id) {
+      return [...(database?.matches || []), ...internationalFixtures].find((match) => matchId(match) === String(id)) || null;
+    },
+    getCompetitionName(match) {
+      if (match?.isInternational) return match.competitionName || "รายการทีมชาติ";
+      return (database?.leagues || []).find((league) => String(league.id) === String(match?.leagueId))?.name || match?.leagueId || "ไม่ระบุรายการ";
+    },
+    getTeamName(id) { return teamFor(id)?.name || ""; }
+  };
   window.addEventListener("pft-football-database-error",(event) => {
     database = null;
     databaseError = String(event.detail?.message || "ไม่ทราบสาเหตุ");
