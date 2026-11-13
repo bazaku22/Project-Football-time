@@ -233,7 +233,7 @@ The separate file `data/footballsquads-roster-intake-2026-27.json` now contains 
 | Atlético Madrid | Lines 16–72; departed section begins at line 73 | 47 |
 | Celta Vigo | Lines 16–55; departed section begins at line 56 | 34 |
 | Málaga | Lines 18–57; departed section begins at line 58 | 30 |
-| **Total** | **25/96 club pages** | **778** |
+| **Total** | **32/96 club pages** | **990** |
 
 The manual intake retains each club's source URL, observation date, roster/departed-section boundary and provider display-name lookup reference. All memberships remain `source_listed_pending_independent_crosscheck` and `name_only_unverified`; they have no provider player IDs, statistics or photographs. The provider team IDs are explicitly marked as display-name lookup keys, **not canonical team IDs**.
 
@@ -242,8 +242,8 @@ The Atlético Madrid, Celta Vigo and Málaga pages include entries whose club as
 ### Current completion gate
 
 - League index club count confirmed: 96/96.
-- Individual club pages manually transcribed: **25/96**.
-- Source-listed player-name observations: **778**.
+- Individual club pages manually transcribed: **32/96**.
+- Source-listed player-name observations: **990**.
 - Independent membership cross-check complete: **0/96**.
 - App integration: **not started**.
 - Production imports/writes: **0**.
@@ -255,4 +255,4 @@ The roster intake validator is at `scripts/validate_footballsquads_roster_intake
 
 - `scripts/validate_footballsquads_roster_intake.py` validates source provenance, manual-only collection, observation/boundary metadata, required attribution, duplicate memberships, and the no-provider-ID/no-statistics/no-photo gates.
 - `tests/test_footballsquads_roster_intake_validator.py` adds six regression tests, including rejection of premature complete status, Production import, automated extraction, invented provider IDs/statistics, and duplicate memberships.
-- A structural check against the current JSON passed: 4 distinct source clubs, 778 memberships, unique membership IDs/keys, all rows still pending cross-check, and no provider IDs/statistics/photos. The Python test suite and repository CI have **not** yet been run; no PR has been opened because the 96-club completion gate is not met.
+- A structural check against the current JSON passed: 4 distinct source clubs, 990 memberships, unique membership IDs/keys, all rows still pending cross-check, and no provider IDs/statistics/photos. The Python test suite and repository CI have **not** yet been run; no PR has been opened because the 96-club completion gate is not met.
