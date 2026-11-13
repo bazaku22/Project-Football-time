@@ -1,35 +1,35 @@
 {
   "schemaVersion": "1.3.0",
-  "generatedAt": "2026-11-12T23:44:01.159014+00:00",
+  "generatedAt": "2026-11-13T23:41:28.567422+00:00",
   "source": {
     "provider": "football-data.org",
     "apiVersion": "v4",
     "attribution": "Data provided by football-data.org",
-    "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00",
+    "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00",
     "leagueSync": {
       "PL": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       },
       "PD": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       },
       "BL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       },
       "SA": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       },
       "FL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       },
       "ELC": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-12T23:44:01.159014+00:00"
+        "lastSuccessfulSync": "2026-11-13T23:41:28.567422+00:00"
       }
     }
   },
@@ -2277,7 +2277,7 @@
       "goalsAgainst": 5,
       "goalDifference": 10,
       "points": 27,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2292,7 +2292,7 @@
       "goalsAgainst": 7,
       "goalDifference": 19,
       "points": 22,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2307,7 +2307,7 @@
       "goalsAgainst": 13,
       "goalDifference": 8,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2322,7 +2322,7 @@
       "goalsAgainst": 10,
       "goalDifference": 4,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2337,7 +2337,7 @@
       "goalsAgainst": 16,
       "goalDifference": 3,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2352,7 +2352,7 @@
       "goalsAgainst": 10,
       "goalDifference": 2,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2367,7 +2367,7 @@
       "goalsAgainst": 14,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2382,7 +2382,7 @@
       "goalsAgainst": 11,
       "goalDifference": 5,
       "points": 14,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2397,7 +2397,7 @@
       "goalsAgainst": 8,
       "goalDifference": 2,
       "points": 14,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2412,7 +2412,7 @@
       "goalsAgainst": 17,
       "goalDifference": -3,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2427,7 +2427,7 @@
       "goalsAgainst": 11,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2442,7 +2442,7 @@
       "goalsAgainst": 16,
       "goalDifference": -3,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2457,7 +2457,7 @@
       "goalsAgainst": 11,
       "goalDifference": 0,
       "points": 11,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2472,7 +2472,7 @@
       "goalsAgainst": 20,
       "goalDifference": -5,
       "points": 11,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2487,7 +2487,7 @@
       "goalsAgainst": 12,
       "goalDifference": -2,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2502,7 +2502,7 @@
       "goalsAgainst": 13,
       "goalDifference": -4,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2517,7 +2517,7 @@
       "goalsAgainst": 19,
       "goalDifference": -9,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2532,7 +2532,7 @@
       "goalsAgainst": 19,
       "goalDifference": -5,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2547,7 +2547,7 @@
       "goalsAgainst": 17,
       "goalDifference": -9,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PL",
@@ -2562,7 +2562,7 @@
       "goalsAgainst": 24,
       "goalDifference": -14,
       "points": 7,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2577,7 +2577,7 @@
       "goalsAgainst": 13,
       "goalDifference": 35,
       "points": 33,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2592,7 +2592,7 @@
       "goalsAgainst": 10,
       "goalDifference": 21,
       "points": 30,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2607,7 +2607,7 @@
       "goalsAgainst": 10,
       "goalDifference": 13,
       "points": 28,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2622,7 +2622,7 @@
       "goalsAgainst": 15,
       "goalDifference": 5,
       "points": 26,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2637,7 +2637,7 @@
       "goalsAgainst": 20,
       "goalDifference": 1,
       "points": 22,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2652,7 +2652,7 @@
       "goalsAgainst": 19,
       "goalDifference": -2,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2667,7 +2667,7 @@
       "goalsAgainst": 11,
       "goalDifference": 4,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2682,7 +2682,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2697,7 +2697,7 @@
       "goalsAgainst": 14,
       "goalDifference": 1,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2712,7 +2712,7 @@
       "goalsAgainst": 30,
       "goalDifference": -13,
       "points": 14,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2727,7 +2727,7 @@
       "goalsAgainst": 10,
       "goalDifference": 0,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2742,7 +2742,7 @@
       "goalsAgainst": 17,
       "goalDifference": -2,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2757,7 +2757,7 @@
       "goalsAgainst": 14,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2772,7 +2772,7 @@
       "goalsAgainst": 21,
       "goalDifference": -6,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2787,7 +2787,7 @@
       "goalsAgainst": 18,
       "goalDifference": -10,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2802,7 +2802,7 @@
       "goalsAgainst": 23,
       "goalDifference": -11,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2817,7 +2817,7 @@
       "goalsAgainst": 21,
       "goalDifference": -5,
       "points": 11,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2832,7 +2832,7 @@
       "goalsAgainst": 20,
       "goalDifference": -6,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2847,7 +2847,7 @@
       "goalsAgainst": 20,
       "goalDifference": -12,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "PD",
@@ -2862,7 +2862,7 @@
       "goalsAgainst": 23,
       "goalDifference": -14,
       "points": 5,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2877,7 +2877,7 @@
       "goalsAgainst": 9,
       "goalDifference": 20,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2892,7 +2892,7 @@
       "goalsAgainst": 7,
       "goalDifference": 9,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2907,7 +2907,7 @@
       "goalsAgainst": 10,
       "goalDifference": 10,
       "points": 19,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2922,7 +2922,7 @@
       "goalsAgainst": 13,
       "goalDifference": 14,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2937,7 +2937,7 @@
       "goalsAgainst": 17,
       "goalDifference": 3,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2952,7 +2952,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2967,7 +2967,7 @@
       "goalsAgainst": 18,
       "goalDifference": -1,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2982,7 +2982,7 @@
       "goalsAgainst": 15,
       "goalDifference": 0,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2997,7 +2997,7 @@
       "goalsAgainst": 17,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3012,7 +3012,7 @@
       "goalsAgainst": 20,
       "goalDifference": -5,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3027,7 +3027,7 @@
       "goalsAgainst": 20,
       "goalDifference": -10,
       "points": 12,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3042,7 +3042,7 @@
       "goalsAgainst": 19,
       "goalDifference": -1,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3057,7 +3057,7 @@
       "goalsAgainst": 11,
       "goalDifference": -3,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3072,7 +3072,7 @@
       "goalsAgainst": 20,
       "goalDifference": 0,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3087,7 +3087,7 @@
       "goalsAgainst": 14,
       "goalDifference": -4,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3102,7 +3102,7 @@
       "goalsAgainst": 21,
       "goalDifference": -14,
       "points": 7,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3117,7 +3117,7 @@
       "goalsAgainst": 11,
       "goalDifference": -6,
       "points": 6,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3132,7 +3132,7 @@
       "goalsAgainst": 25,
       "goalDifference": -13,
       "points": 4,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3147,7 +3147,7 @@
       "goalsAgainst": 9,
       "goalDifference": 16,
       "points": 29,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3162,7 +3162,7 @@
       "goalsAgainst": 13,
       "goalDifference": 15,
       "points": 28,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3177,7 +3177,7 @@
       "goalsAgainst": 10,
       "goalDifference": 21,
       "points": 27,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3192,7 +3192,7 @@
       "goalsAgainst": 13,
       "goalDifference": 10,
       "points": 24,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3207,7 +3207,7 @@
       "goalsAgainst": 10,
       "goalDifference": 8,
       "points": 23,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3222,7 +3222,7 @@
       "goalsAgainst": 15,
       "goalDifference": 9,
       "points": 20,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3237,7 +3237,7 @@
       "goalsAgainst": 12,
       "goalDifference": 3,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3252,7 +3252,7 @@
       "goalsAgainst": 14,
       "goalDifference": 2,
       "points": 17,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3267,7 +3267,7 @@
       "goalsAgainst": 15,
       "goalDifference": -5,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3282,7 +3282,7 @@
       "goalsAgainst": 14,
       "goalDifference": 4,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3297,7 +3297,7 @@
       "goalsAgainst": 17,
       "goalDifference": -2,
       "points": 14,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3312,7 +3312,7 @@
       "goalsAgainst": 20,
       "goalDifference": -3,
       "points": 14,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3327,7 +3327,7 @@
       "goalsAgainst": 16,
       "goalDifference": -5,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3342,7 +3342,7 @@
       "goalsAgainst": 22,
       "goalDifference": -10,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3357,7 +3357,7 @@
       "goalsAgainst": 25,
       "goalDifference": -8,
       "points": 9,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3372,7 +3372,7 @@
       "goalsAgainst": 17,
       "goalDifference": -8,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3387,7 +3387,7 @@
       "goalsAgainst": 29,
       "goalDifference": -13,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3402,7 +3402,7 @@
       "goalsAgainst": 25,
       "goalDifference": -8,
       "points": 7,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3417,7 +3417,7 @@
       "goalsAgainst": 21,
       "goalDifference": -13,
       "points": 6,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "SA",
@@ -3432,7 +3432,7 @@
       "goalsAgainst": 25,
       "goalDifference": -13,
       "points": 5,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3447,7 +3447,7 @@
       "goalsAgainst": 10,
       "goalDifference": 12,
       "points": 23,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3462,7 +3462,7 @@
       "goalsAgainst": 7,
       "goalDifference": 7,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3477,7 +3477,7 @@
       "goalsAgainst": 10,
       "goalDifference": 7,
       "points": 20,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3492,7 +3492,7 @@
       "goalsAgainst": 14,
       "goalDifference": 8,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3507,7 +3507,7 @@
       "goalsAgainst": 9,
       "goalDifference": 6,
       "points": 17,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3522,7 +3522,7 @@
       "goalsAgainst": 12,
       "goalDifference": 3,
       "points": 17,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3537,7 +3537,7 @@
       "goalsAgainst": 11,
       "goalDifference": 2,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3552,7 +3552,7 @@
       "goalsAgainst": 21,
       "goalDifference": 0,
       "points": 16,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3567,7 +3567,7 @@
       "goalsAgainst": 12,
       "goalDifference": 6,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3582,7 +3582,7 @@
       "goalsAgainst": 8,
       "goalDifference": 1,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3597,7 +3597,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3612,7 +3612,7 @@
       "goalsAgainst": 14,
       "goalDifference": 1,
       "points": 13,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3627,7 +3627,7 @@
       "goalsAgainst": 22,
       "goalDifference": -4,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3642,7 +3642,7 @@
       "goalsAgainst": 24,
       "goalDifference": -11,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3657,7 +3657,7 @@
       "goalsAgainst": 19,
       "goalDifference": -7,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3672,7 +3672,7 @@
       "goalsAgainst": 19,
       "goalDifference": -10,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3687,7 +3687,7 @@
       "goalsAgainst": 17,
       "goalDifference": -10,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3702,7 +3702,7 @@
       "goalsAgainst": 22,
       "goalDifference": -13,
       "points": 2,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3717,7 +3717,7 @@
       "goalsAgainst": 14,
       "goalDifference": 14,
       "points": 29,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3732,7 +3732,7 @@
       "goalsAgainst": 19,
       "goalDifference": 11,
       "points": 29,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3747,7 +3747,7 @@
       "goalsAgainst": 18,
       "goalDifference": 6,
       "points": 29,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3762,7 +3762,7 @@
       "goalsAgainst": 18,
       "goalDifference": 8,
       "points": 28,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3777,7 +3777,7 @@
       "goalsAgainst": 15,
       "goalDifference": 8,
       "points": 28,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3792,7 +3792,7 @@
       "goalsAgainst": 18,
       "goalDifference": 4,
       "points": 26,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3807,7 +3807,7 @@
       "goalsAgainst": 15,
       "goalDifference": 14,
       "points": 24,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3822,7 +3822,7 @@
       "goalsAgainst": 18,
       "goalDifference": 6,
       "points": 24,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3837,7 +3837,7 @@
       "goalsAgainst": 23,
       "goalDifference": 14,
       "points": 23,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3852,7 +3852,7 @@
       "goalsAgainst": 19,
       "goalDifference": 2,
       "points": 22,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3867,7 +3867,7 @@
       "goalsAgainst": 18,
       "goalDifference": 2,
       "points": 22,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3882,7 +3882,7 @@
       "goalsAgainst": 24,
       "goalDifference": 8,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3897,7 +3897,7 @@
       "goalsAgainst": 23,
       "goalDifference": -1,
       "points": 21,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3912,7 +3912,7 @@
       "goalsAgainst": 27,
       "goalDifference": 0,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3927,7 +3927,7 @@
       "goalsAgainst": 20,
       "goalDifference": -2,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3942,7 +3942,7 @@
       "goalsAgainst": 27,
       "goalDifference": -4,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3957,7 +3957,7 @@
       "goalsAgainst": 24,
       "goalDifference": -8,
       "points": 18,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3972,7 +3972,7 @@
       "goalsAgainst": 29,
       "goalDifference": -9,
       "points": 17,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3987,7 +3987,7 @@
       "goalsAgainst": 23,
       "goalDifference": -10,
       "points": 17,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4002,7 +4002,7 @@
       "goalsAgainst": 23,
       "goalDifference": -10,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4017,7 +4017,7 @@
       "goalsAgainst": 26,
       "goalDifference": -11,
       "points": 15,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4032,7 +4032,7 @@
       "goalsAgainst": 31,
       "goalDifference": -9,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4047,7 +4047,7 @@
       "goalsAgainst": 30,
       "goalDifference": -16,
       "points": 10,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4062,7 +4062,7 @@
       "goalsAgainst": 30,
       "goalDifference": -17,
       "points": 8,
-      "updatedAt": "2026-11-12T23:44:01.159014+00:00"
+      "updatedAt": "2026-11-13T23:41:28.567422+00:00"
     }
   ],
   "matches": [
@@ -26847,7 +26847,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-14T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -26860,7 +26860,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Bolton Wanderers FC",
@@ -26873,7 +26873,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Norwich City FC",
@@ -26886,7 +26886,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Bristol City FC",
@@ -26899,7 +26899,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Middlesbrough FC",
@@ -26912,7 +26912,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Stoke City FC",
@@ -26925,7 +26925,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Charlton Athletic FC",
@@ -26938,7 +26938,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:69",
       "homeTeamName": "Portsmouth FC",
@@ -26951,7 +26951,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-15T16:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Sheffield United FC",
@@ -26964,7 +26964,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-16T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Watford FC",
@@ -26977,7 +26977,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-16T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Burnley FC",
@@ -26990,7 +26990,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-17T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Cardiff City FC",
@@ -27003,7 +27003,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Birmingham City FC",
@@ -27016,7 +27016,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Lincoln City FC",
@@ -27029,7 +27029,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Millwall FC",
@@ -27042,7 +27042,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Swansea City AFC",
@@ -27055,7 +27055,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:348",
       "homeTeamName": "West Ham United FC",
@@ -27068,7 +27068,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Derby County FC",
@@ -27081,7 +27081,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Preston North End FC",
@@ -27094,7 +27094,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Wrexham AFC",
@@ -27107,7 +27107,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Blackburn Rovers FC",
@@ -27120,7 +27120,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Southampton FC",
@@ -27133,7 +27133,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-22T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Queens Park Rangers FC",
@@ -27146,7 +27146,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-23T11:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:328",
       "homeTeamName": "West Bromwich Albion FC",
@@ -27159,7 +27159,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-28T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Wrexham AFC",
@@ -27172,7 +27172,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -27185,7 +27185,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Derby County FC",
@@ -27198,7 +27198,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Middlesbrough FC",
@@ -27211,7 +27211,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Norwich City FC",
@@ -27224,7 +27224,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Bolton Wanderers FC",
@@ -27237,7 +27237,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Bristol City FC",
@@ -27250,7 +27250,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Southampton FC",
@@ -27263,7 +27263,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Charlton Athletic FC",
@@ -27276,7 +27276,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:69",
       "homeTeamName": "Blackburn Rovers FC",
@@ -27289,7 +27289,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Cardiff City FC",
@@ -27302,7 +27302,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-08-29T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Watford FC",
@@ -27315,7 +27315,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Preston North End FC",
@@ -27328,7 +27328,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:76",
       "homeTeamName": "West Ham United FC",
@@ -27341,7 +27341,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Lincoln City FC",
@@ -27354,7 +27354,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Sheffield United FC",
@@ -27367,7 +27367,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Portsmouth FC",
@@ -27380,7 +27380,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Swansea City AFC",
@@ -27393,7 +27393,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Stoke City FC",
@@ -27406,7 +27406,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-01T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Birmingham City FC",
@@ -27419,7 +27419,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-02T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Millwall FC",
@@ -27432,7 +27432,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-02T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Queens Park Rangers FC",
@@ -27445,7 +27445,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-02T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:348",
       "homeTeamName": "West Bromwich Albion FC",
@@ -27458,7 +27458,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-02T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Burnley FC",
@@ -27471,7 +27471,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Preston North End FC",
@@ -27484,7 +27484,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:348",
       "homeTeamName": "Stoke City FC",
@@ -27497,7 +27497,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Lincoln City FC",
@@ -27510,7 +27510,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Queens Park Rangers FC",
@@ -27523,7 +27523,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Sheffield United FC",
@@ -27536,7 +27536,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Portsmouth FC",
@@ -27549,7 +27549,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:346",
       "homeTeamName": "West Bromwich Albion FC",
@@ -27562,7 +27562,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:342",
       "homeTeamName": "West Ham United FC",
@@ -27575,7 +27575,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Burnley FC",
@@ -27588,7 +27588,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Millwall FC",
@@ -27601,7 +27601,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-05T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Swansea City AFC",
@@ -27614,7 +27614,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-06T11:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Birmingham City FC",
@@ -27627,7 +27627,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Blackburn Rovers FC",
@@ -27640,7 +27640,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Southampton FC",
@@ -27653,7 +27653,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Watford FC",
@@ -27666,7 +27666,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Cardiff City FC",
@@ -27679,7 +27679,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Wrexham AFC",
@@ -27692,7 +27692,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-08T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Bolton Wanderers FC",
@@ -27705,7 +27705,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-09T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Derby County FC",
@@ -27718,7 +27718,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-09T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Norwich City FC",
@@ -27731,7 +27731,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-09T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:69",
       "homeTeamName": "Charlton Athletic FC",
@@ -27744,7 +27744,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-11T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:404",
       "homeTeamName": "West Ham United FC",
@@ -27757,7 +27757,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Derby County FC",
@@ -27770,7 +27770,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Bolton Wanderers FC",
@@ -27783,7 +27783,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:69",
       "homeTeamName": "West Bromwich Albion FC",
@@ -27796,7 +27796,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Southampton FC",
@@ -27809,7 +27809,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Preston North End FC",
@@ -27822,7 +27822,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Blackburn Rovers FC",
@@ -27835,7 +27835,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Charlton Athletic FC",
@@ -27848,7 +27848,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Watford FC",
@@ -27861,7 +27861,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Swansea City AFC",
@@ -27874,7 +27874,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-12T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Middlesbrough FC",
@@ -27887,7 +27887,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-13T11:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Sheffield United FC",
@@ -27900,7 +27900,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-15T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Middlesbrough FC",
@@ -27913,7 +27913,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-15T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Bristol City FC",
@@ -27926,7 +27926,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-18T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Bristol City FC",
@@ -27939,7 +27939,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Stoke City FC",
@@ -27952,7 +27952,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Millwall FC",
@@ -27965,7 +27965,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:348",
       "homeTeamName": "Cardiff City FC",
@@ -27978,7 +27978,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Wrexham AFC",
@@ -27991,7 +27991,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Burnley FC",
@@ -28004,7 +28004,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Queens Park Rangers FC",
@@ -28017,7 +28017,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Portsmouth FC",
@@ -28030,7 +28030,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Birmingham City FC",
@@ -28043,7 +28043,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-19T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Lincoln City FC",
@@ -28056,7 +28056,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-20T11:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -28069,7 +28069,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-09-20T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Norwich City FC",
@@ -28082,7 +28082,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-09T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:69",
       "homeTeamName": "West Ham United FC",
@@ -28095,7 +28095,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:332",
       "homeTeamName": "West Bromwich Albion FC",
@@ -28108,7 +28108,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Swansea City AFC",
@@ -28121,7 +28121,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Charlton Athletic FC",
@@ -28134,7 +28134,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Sheffield United FC",
@@ -28147,7 +28147,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Watford FC",
@@ -28160,7 +28160,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Derby County FC",
@@ -28173,7 +28173,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Blackburn Rovers FC",
@@ -28186,7 +28186,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Bolton Wanderers FC",
@@ -28199,7 +28199,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Preston North End FC",
@@ -28212,7 +28212,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-10T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Middlesbrough FC",
@@ -28225,7 +28225,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-11T11:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Southampton FC",
@@ -28238,7 +28238,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -28251,7 +28251,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Wrexham AFC",
@@ -28264,7 +28264,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Millwall FC",
@@ -28277,7 +28277,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Cardiff City FC",
@@ -28290,7 +28290,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:348",
       "homeTeamName": "Burnley FC",
@@ -28303,7 +28303,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Bristol City FC",
@@ -28316,7 +28316,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Birmingham City FC",
@@ -28329,7 +28329,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-13T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Stoke City FC",
@@ -28342,7 +28342,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-14T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Portsmouth FC",
@@ -28355,7 +28355,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-14T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Norwich City FC",
@@ -28368,7 +28368,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-14T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Queens Park Rangers FC",
@@ -28381,7 +28381,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-14T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Lincoln City FC",
@@ -28394,7 +28394,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-16T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Burnley FC",
@@ -28407,7 +28407,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Millwall FC",
@@ -28420,7 +28420,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Middlesbrough FC",
@@ -28433,7 +28433,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:348",
       "homeTeamName": "Watford FC",
@@ -28446,7 +28446,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Norwich City FC",
@@ -28459,7 +28459,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Southampton FC",
@@ -28472,7 +28472,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Bristol City FC",
@@ -28485,7 +28485,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:69",
       "homeTeamName": "Birmingham City FC",
@@ -28498,7 +28498,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Derby County FC",
@@ -28511,7 +28511,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Swansea City AFC",
@@ -28524,7 +28524,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:59",
       "homeTeamName": "West Bromwich Albion FC",
@@ -28537,7 +28537,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-17T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Wrexham AFC",
@@ -28550,7 +28550,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-20T18:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -28563,7 +28563,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-23T19:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Bolton Wanderers FC",
@@ -28576,7 +28576,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Sheffield United FC",
@@ -28589,7 +28589,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Charlton Athletic FC",
@@ -28602,7 +28602,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T11:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Portsmouth FC",
@@ -28615,7 +28615,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Cardiff City FC",
@@ -28628,7 +28628,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Queens Park Rangers FC",
@@ -28641,7 +28641,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Stoke City FC",
@@ -28654,7 +28654,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:74",
       "homeTeamName": "Preston North End FC",
@@ -28667,7 +28667,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Lincoln City FC",
@@ -28680,7 +28680,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:340",
       "homeTeamName": "West Ham United FC",
@@ -28693,7 +28693,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Blackburn Rovers FC",
@@ -28706,7 +28706,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-24T14:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -28719,7 +28719,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-30T20:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:356",
       "awayTeamId": "football-data:404",
       "homeTeamName": "Sheffield United FC",
@@ -28732,7 +28732,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:70",
       "awayTeamId": "football-data:1081",
       "homeTeamName": "Stoke City FC",
@@ -28745,7 +28745,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:68",
       "awayTeamId": "football-data:346",
       "homeTeamName": "Norwich City FC",
@@ -28758,7 +28758,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1126",
       "awayTeamId": "football-data:332",
       "homeTeamName": "Lincoln City FC",
@@ -28771,7 +28771,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:76",
       "awayTeamId": "football-data:715",
       "homeTeamName": "Wolverhampton Wanderers FC",
@@ -28784,7 +28784,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:563",
       "awayTeamId": "football-data:74",
       "homeTeamName": "West Ham United FC",
@@ -28797,7 +28797,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:72",
       "awayTeamId": "football-data:59",
       "homeTeamName": "Swansea City AFC",
@@ -28810,7 +28810,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:60",
       "awayTeamId": "football-data:387",
       "homeTeamName": "Bolton Wanderers FC",
@@ -28823,7 +28823,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:343",
       "awayTeamId": "football-data:348",
       "homeTeamName": "Middlesbrough FC",
@@ -28836,7 +28836,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:328",
       "awayTeamId": "football-data:325",
       "homeTeamName": "Burnley FC",
@@ -28849,7 +28849,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:384",
       "awayTeamId": "football-data:342",
       "homeTeamName": "Millwall FC",
@@ -28862,7 +28862,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-10-31T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:340",
       "awayTeamId": "football-data:69",
       "homeTeamName": "Southampton FC",
@@ -28875,7 +28875,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Queens Park Rangers FC",
@@ -28888,7 +28888,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Derby County FC",
@@ -28901,7 +28901,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Blackburn Rovers FC",
@@ -28914,7 +28914,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Watford FC",
@@ -28927,7 +28927,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Charlton Athletic FC",
@@ -28940,7 +28940,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Portsmouth FC",
@@ -28953,7 +28953,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Preston North End FC",
@@ -28966,7 +28966,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T20:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:340",
       "homeTeamName": "West Bromwich Albion FC",
@@ -28979,7 +28979,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-03T20:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:384",
       "homeTeamName": "Birmingham City FC",
@@ -28992,7 +28992,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-04T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Cardiff City FC",
@@ -29005,7 +29005,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-04T19:45:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Wrexham AFC",
@@ -29018,7 +29018,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-04T20:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Bristol City FC",
@@ -29031,7 +29031,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-06T20:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:342",
       "awayTeamId": "football-data:60",
       "homeTeamName": "Derby County FC",
@@ -29044,7 +29044,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:404",
       "awayTeamId": "football-data:76",
       "homeTeamName": "Wrexham AFC",
@@ -29057,7 +29057,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:325",
       "awayTeamId": "football-data:70",
       "homeTeamName": "Portsmouth FC",
@@ -29070,7 +29070,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T12:30:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:387",
       "awayTeamId": "football-data:68",
       "homeTeamName": "Bristol City FC",
@@ -29083,7 +29083,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:69",
       "awayTeamId": "football-data:1126",
       "homeTeamName": "Queens Park Rangers FC",
@@ -29096,7 +29096,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:715",
       "awayTeamId": "football-data:328",
       "homeTeamName": "Cardiff City FC",
@@ -29109,7 +29109,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:348",
       "awayTeamId": "football-data:356",
       "homeTeamName": "Charlton Athletic FC",
@@ -29122,7 +29122,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:346",
       "awayTeamId": "football-data:343",
       "homeTeamName": "Watford FC",
@@ -29135,7 +29135,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:59",
       "awayTeamId": "football-data:563",
       "homeTeamName": "Blackburn Rovers FC",
@@ -29148,7 +29148,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:74",
       "awayTeamId": "football-data:384",
       "homeTeamName": "West Bromwich Albion FC",
@@ -29161,7 +29161,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:1081",
       "awayTeamId": "football-data:340",
       "homeTeamName": "Preston North End FC",
@@ -29174,7 +29174,7 @@
       "leagueId": "ELC",
       "season": "2026-2027",
       "utcDate": "2026-11-07T15:00:00Z",
-      "status": "FINISHED",
+      "status": "POSTPONED",
       "homeTeamId": "football-data:332",
       "awayTeamId": "football-data:72",
       "homeTeamName": "Birmingham City FC",
