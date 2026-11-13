@@ -5,6 +5,9 @@ on:
     branches: [main]
     paths:
       - "index.html"
+      - "js/notification-center.js"
+      - "css/notification-center.css"
+      - "tests/test_notification_center.py"
       - "js/player-database.js"
       - "data/player-position-pilot-2026-27.json"
       - "tests/test_player_database_workspace.py"
@@ -189,6 +192,8 @@ jobs:
           PY
           node --check /tmp/football-time-app.js
           node --check sw.js
+          node --check js/notification-center.js
+          python3 -m unittest tests/test_notification_center.py -v
           python3 -m unittest tests/test_match_center.py tests/test_international_match_center.py tests/test_primary_navigation.py tests/test_analysis_workspace.py
           node --check js/football-discovery.js
           node --check js/test-experiment.js

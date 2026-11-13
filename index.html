@@ -65,13 +65,15 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <link rel="stylesheet" href="./css/international-handicap.css?v=1">
 <link rel="stylesheet" href="./css/player-identity-review.css?v=1">
+<link rel="stylesheet" href="./css/notification-center.css?v=1">
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.20.0-beta.1</span></div></div></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.20.0-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
@@ -1143,7 +1145,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent=footballDBDelivery==="cache"?"ใช้ข้อมูลจากแคช (อาจไม่ใช่ข้อมูลล่าสุด)":footballDBDelivery==="network"?"รับข้อมูลจากเครือข่าย":"โหลดข้อมูลสำเร็จ (ไม่ทราบแหล่ง)";
-  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready"));
+  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready",{detail:{generatedAt:data.generatedAt||"",lastSuccessfulSync:data.source?.lastSuccessfulSync||"",provider:data.source?.provider||"",delivery:footballDBDelivery}}));
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
@@ -1175,4 +1177,5 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script type="module" src="./js/player-cloud.js"></script>
 <script src="./js/provisional-player-directory.js"></script>
 <script src="./js/player-hub.js"></script>
+<script src="./js/notification-center.js"></script>
 </body></html>

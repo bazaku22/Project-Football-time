@@ -20,7 +20,7 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("player-team-name-registry-2026-27.json",JS)
   self.assertIn("provider_display_names_verified",JS)
  def test_service_worker_cache(self):
-  self.assertIn("football-time-v73",SW)
+  self.assertIn("football-time-v74",SW)
   self.assertIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertIn("./js/player-hub.js",SW)
 if __name__=="__main__":unittest.main()
