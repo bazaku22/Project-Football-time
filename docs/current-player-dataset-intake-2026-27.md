@@ -211,3 +211,42 @@ All 20 individual Premier League club pages linked from the 2026/27 FootballSqua
 For the 18 pages newly opened in this pass, the explicit "Players no longer at this club" boundary was located and checked. The section is separate from the current roster table; examples include Bournemouth (page line 70), Brentford (line 82), Brighton (line 91), Chelsea (line 83), Crystal Palace (line 98), Liverpool (line 90), Manchester City (line 85), Manchester United (line 107), Newcastle United (line 87), and Tottenham Hotspur (line 80). Rows below that heading are not current-roster memberships and must be excluded.
 
 This is a page-opening and section-boundary audit, **not** a completed player-by-player transcription. Empty shirt-number rows are still excluded. No roster dataset rows were added or changed in this pass. Individual roster transcription and conflict review remain outstanding for all 20 Premier League clubs; do not count these pages as completed roster records.
+
+## Manual roster transcription progress — 2026-11-14
+
+The current-season FootballSquads directory was reopened and its four remaining league indexes were checked directly:
+
+- La Liga: 20 club links (index: https://www.footballsquads.co.uk/spain/2026-2027/spalali.htm).
+- Bundesliga: 18 club links (index: https://www.footballsquads.co.uk/ger/2026-2027/gerbun.htm).
+- Serie A: 20 club links (index: https://www.footballsquads.co.uk/italy/2026-2027/seriea.htm).
+- Ligue 1: 18 club links (index: https://www.footballsquads.co.uk/france/2026-2027/fralig1.htm).
+
+These confirm the 96-club target count at index level when combined with the Premier League's 20 clubs. They do not constitute roster transcription.
+
+### Player rows manually transcribed
+
+The separate file `data/footballsquads-roster-intake-2026-27.json` now contains source-listed name observations for four La Liga club pages:
+
+| Club | Source current-roster boundary | Names transcribed |
+|---|---|---:|
+| Barcelona | Lines 18–58; departed section begins at line 59 | 37 |
+| Atlético Madrid | Lines 16–72; departed section begins at line 73 | 47 |
+| Celta Vigo | Lines 16–55; departed section begins at line 56 | 34 |
+| Málaga | Lines 18–57; departed section begins at line 58 | 30 |
+| **Total** | **4/96 club pages** | **148** |
+
+The manual intake retains each club's source URL, observation date, roster/departed-section boundary and provider display-name lookup reference. All memberships remain `source_listed_pending_independent_crosscheck` and `name_only_unverified`; they have no provider player IDs, statistics or photographs. The provider team IDs are explicitly marked as display-name lookup keys, **not canonical team IDs**.
+
+The Atlético Madrid, Celta Vigo and Málaga pages include entries whose club association or status warrants additional checking. They have been preserved as source observations rather than silently corrected or promoted to verified membership. The Real Madrid page was opened but not transcribed because the source page contains material requiring further review; it is not counted in the four completed transcriptions.
+
+### Current completion gate
+
+- League index club count confirmed: 96/96.
+- Individual club pages manually transcribed: **4/96**.
+- Source-listed player-name observations: **148**.
+- Independent membership cross-check complete: **0/96**.
+- App integration: **not started**.
+- Production imports/writes: **0**.
+- Provider API calls: **0**.
+
+The roster intake validator is at `scripts/validate_footballsquads_roster_intake.py`. This partial research file is not wired into the app and cannot be marked complete or released. The release gate remains all 96 manually reviewed club pages, cross-check and canonical team mapping, plus passing validation and CI.
