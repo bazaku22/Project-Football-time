@@ -97,6 +97,18 @@ class PlayerMatchEventLedgerTests(unittest.TestCase):
         self.assertTrue(result["totals_are_lower_bounds"])
         self.assertFalse(result["publishable"])
 
+    def test_verified_record_requires_permission_basis_for_each_source(self):
+        data = dataset()
+        data["records"][0]["sources"][1]["permission_basis"] = None
+        with self.assertRaisesRegex(ValueError, "documented permission basis"):
+            validate(data)
+
+    def test_one_canonical_player_id_cannot_be_assigned_to_both_teams(self):
+        data = dataset()
+        data["records"][0]["lineups"][2]["player"]["ft_player_id"] = "FT-P-000001"
+        with self.assertRaisesRegex(ValueError, "cannot belong to both teams"):
+            validate(data)
+
     def test_pending_rights_cannot_be_marked_verified(self):
         data = dataset()
         data["records"][0]["sources"][1]["reuse_rights"] = "pending"
