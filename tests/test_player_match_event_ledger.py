@@ -81,6 +81,8 @@ class PlayerMatchEventLedgerTests(unittest.TestCase):
         data["records"][0]["events"][1]["scorer"] = player("Unknown scorer", None)
         result = derive_player_statistics(data)
         self.assertNotIn("Unknown scorer", {p["display_name"] for p in result["players"]})
+        self.assertTrue(result["totals_are_lower_bounds"])
+        self.assertFalse(result["publishable"])
 
     def test_pending_rights_cannot_be_marked_verified(self):
         data = dataset()
@@ -99,6 +101,11 @@ class PlayerMatchEventLedgerTests(unittest.TestCase):
         data["records"].append(copy.deepcopy(data["records"][0]))
         with self.assertRaisesRegex(ValueError, "match_id is empty or duplicated"):
             validate(data)
+
+    def test_fully_reviewed_and_rights_cleared_fixture_is_publishable(self):
+        result = derive_player_statistics(dataset())
+        self.assertFalse(result["totals_are_lower_bounds"])
+        self.assertTrue(result["publishable"])
 
     def test_incomplete_expected_match_coverage_is_reported_as_lower_bound(self):
         data = dataset()
