@@ -93,7 +93,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('<title>Project Football Time V6.26.3-beta.1</title>', HTML)
         self.assertIn('<meta name="application-version" content="6.26.3-beta.1">', HTML)
         self.assertIn('<span class="app-version">V6.26.3-beta.1</span>', HTML)
-        self.assertIn("ทีมชาติชุดทดลอง", HTML)
+        self.assertIn("ทีมชาติชุดทดลอง", MODULE)
 
 
 if __name__ == "__main__":
