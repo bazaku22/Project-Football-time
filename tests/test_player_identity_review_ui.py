@@ -29,9 +29,9 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertNotIn("createClient", MODULE)
         self.assertNotIn("supabase", MODULE.lower())
         self.assertIn("localStorage", MODULE)
-        self.assertIn("playerIdentityCreateAllProvisional", HTML)
-        self.assertIn("playerIdentityExportProvisional", HTML)
-        self.assertIn('<option value="provisional">สร้างรายการรอตรวจ</option>', HTML)
+        self.assertNotIn("playerIdentityCreateAllProvisional", HTML)
+        self.assertNotIn("playerIdentityExportProvisional", HTML)
+        self.assertNotIn('<option value="provisional">สร้างรายการรอตรวจ</option>', HTML)
         self.assertIn('if(row.status==="conflicting_identity_observations"){held++;return;}', MODULE)
         self.assertIn('if(existing)return;', MODULE)
 
