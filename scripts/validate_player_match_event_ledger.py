@@ -179,18 +179,20 @@ def derive_player_statistics(data: dict) -> dict:
         for event in row.get("events", []):
             if event["type"] == "substitution":
                 mark_appearance(match_id, event["player_on"])
-                ensure(event["player_off"])
+                mark_appearance(match_id, event["player_off"])
             elif event["type"] == "goal":
                 if event["goal_type"] in {"normal", "penalty"}:
                     scorer = ensure(event["scorer"])
                     if scorer is not None:
                         scorer["goals"] += 1
+                        mark_appearance(match_id, event["scorer"])
                 elif event["goal_type"] == "own_goal":
-                    ensure(event["own_goal_player"])  # Retain the identity, but do not credit a goal.
+                    mark_appearance(match_id, event["own_goal_player"])  # Evidence of appearance, but no personal goal credit.
                 if event["assist_status"] == "explicit":
                     assister = ensure(event["assist_player"])
                     if assister is not None:
                         assister["assists"] += 1
+                        mark_appearance(match_id, event["assist_player"])
 
     expected = {str(value) for value in data.get("expected_finished_match_ids", [])}
     recorded = {str(row["match_id"]) for row in data["records"]}
