@@ -78,7 +78,7 @@
       const details = document.createElement("details");
       details.id = "secondaryTools";
       details.className = "pn-secondary card";
-      details.innerHTML = '<summary>เครื่องมือเพิ่มเติม</summary><p class="pn-note">เครื่องมือรองและพื้นที่เดิมยังคงเข้าถึงได้ โดยไม่ปะปนกับเมนูหลัก</p><div class="pn-tool-grid">' +
+      details.innerHTML = '<summary>เครื่องมือเพิ่มเติม</summary><p class="pn-note">รวมเครื่องมือรองที่ยังเปิดใช้งาน โดยไม่ปะปนกับเมนูหลัก</p><div class="pn-tool-grid">' +
         secondary.map(([id,label]) => '<button type="button" class="secondary" data-secondary-route="' + id + '">' + label + '</button>').join("") +
         '</div>';
       const experiment = home.querySelector(".mc-experiment");
