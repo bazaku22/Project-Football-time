@@ -10,7 +10,7 @@
  const teamIdOf=r=>String(first(r,["provider_team_ids","provider_team_id","team_id","teamId"])||"").split(";")[0].trim();
  const rawTeamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();
  const teamNameOf=r=>state.teamNames[leagueOf(r)]?.[teamIdOf(r)]||rawTeamNameOf(r)||("ทีม Provider #"+teamIdOf(r));
- const normTeamName=s=>String(s||"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
+ const normTeamName=s=>String(s||"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]/g,"");
  function teamCrestOf(league,providerTeamId,name){
   const db=window.FootballTimeAppContext?.getDatabase?.(),teams=db?.teams||[],target=normTeamName(name);if(!target)return "";
   const hits=teams.filter(t=>[t.name,t.shortName,t.tla].some(v=>normTeamName(v)===target)&&t.crest);
