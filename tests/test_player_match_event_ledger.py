@@ -67,6 +67,19 @@ class PlayerMatchEventLedgerTests(unittest.TestCase):
         self.assertEqual(players["FT-P-000001"]["goals"], 1)
         self.assertEqual(players["FT-P-000005"]["goals"], 0)
 
+    def test_goal_and_substitution_events_also_prove_player_appearance(self):
+        data = dataset()
+        row = data["records"][0]
+        row["lineups"] = [item for item in row["lineups"] if item["player"]["ft_player_id"] not in {"FT-P-000004", "FT-P-000005"}]
+        row["events"][1]["scorer"] = player("Event-only scorer", "FT-P-000007")
+        row["events"][2]["own_goal_player"] = player("Event-only own goal", "FT-P-000008")
+        row["events"][0]["player_off"] = player("Event-only subbed off", "FT-P-000009")
+        result = derive_player_statistics(data)
+        players = {item["ft_player_id"]: item for item in result["players"]}
+        self.assertEqual(players["FT-P-000007"]["appearances"], 1)
+        self.assertEqual(players["FT-P-000008"]["appearances"], 1)
+        self.assertEqual(players["FT-P-000009"]["appearances"], 1)
+
     def test_only_explicit_assist_is_counted(self):
         data = dataset()
         event = data["records"][0]["events"][1]
