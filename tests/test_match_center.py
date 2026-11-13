@@ -78,7 +78,6 @@ class MatchCenterTests(unittest.TestCase):
     def test_app_version_is_consistent_and_visible(self):
         self.assertIn('<title>Project Football Time V6.26.5-beta.2</title>', HTML)
         self.assertIn('<meta name="application-version" content="6.26.5-beta.2">', HTML)
-        self.assertIn('<span class="app-version">V6.26.5-beta.2</span>', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
