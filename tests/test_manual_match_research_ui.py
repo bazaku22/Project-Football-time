@@ -36,7 +36,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
             'sources.some((source) => source.reuse_rights !== "confirmed")',
             'AUTHORITATIVE.has(source?.source_type)',
             'event.source_urls.some((url) => !sourceUrls.has(url))',
-            'rating.reuse_rights === "confirmed"',
+            'rating?.reuse_rights === "confirmed"',
             'rating.scale_min >= rating.scale_max',
             'new Set()',
             '"PL","PD","BL1","SA","FL1","UNL"'
