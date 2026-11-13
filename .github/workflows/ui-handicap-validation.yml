@@ -28,6 +28,9 @@ on:
       - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
+      - "js/manual-match-research.js"
+      - "css/manual-match-research.css"
+      - "tests/test_manual_match_research_ui.py"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
       - "docs/phase-6-5-match-calendar-filters.md"
@@ -70,6 +73,8 @@ jobs:
           node --check js/international-handicap-workspace.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
+          node --check js/manual-match-research.js
+          python3 -m unittest tests/test_manual_match_research_ui.py -v
           node --check js/player-identity-review.js
           node --check js/player-team-alias-review.js
           node --check js/provisional-player-directory.js
@@ -97,8 +102,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.21.0-beta.1"' index.html
-          grep -q 'football-time-v75' sw.js
+          grep -q 'application-version" content="6.22.0-beta.1"' index.html
+          grep -q 'football-time-v76' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html
