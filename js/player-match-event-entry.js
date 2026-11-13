@@ -173,22 +173,43 @@
     $("pmeStatsTable").innerHTML=rows.length?'<div class="pme-table-wrap"><table><thead><tr><th>FT Player ID</th><th>ผู้เล่น</th><th>ลงสนาม</th><th>ประตู</th><th>แอสซิสต์</th></tr></thead><tbody>'+rows.map(p=>'<tr><td>'+esc(p.id)+'</td><td>'+esc(p.name)+'</td><td>'+p.apps+'</td><td>'+p.goals+'</td><td>'+p.assists+'</td></tr>').join("")+'</tbody></table></div>':'<div class="pme-empty">ยังไม่มีผู้เล่นที่ยืนยัน FT Player ID ให้คำนวณสถิติ</div>';
   }
   function mount(){
-    if(!$("playerMatchEventEntryPage")||$("playerMatchEventEntryPage").dataset.mounted)return;$("playerMatchEventEntryPage").dataset.mounted="true";
-    matches=getMatches();
-    $("pmeCompetition").addEventListener("change",()=>{renderMatchOptions();const visible=matches.some(m=>String(m.providerMatchId)===String(selectedMatch?.providerMatchId)&&($("pmeCompetition").value==="all"||m.leagueId===$("pmeCompetition").value));if(!visible){selectedMatch=null;draft=null;renderAll();renderEventFields();}});
-    $("pmeMatch").addEventListener("change",e=>selectMatch(e.target.value));
-    $("pmeReloadMatches").addEventListener("click",()=>{matches=getMatches();renderMatchOptions();renderStoredSummary();setStatus("อ่านรายการแข่งขันล่าสุดแล้ว "+matches.length+" แมตช์","success");});
-    $("pmeAddLineup").addEventListener("click",addLineup);$("pmeAddSource").addEventListener("click",addSource);$("pmeAddEvent").addEventListener("click",addEvent);
-    $("pmeEventType").addEventListener("change",renderEventFields);$("pmeSave").addEventListener("click",saveRecord);$("pmeExport").addEventListener("click",exportData);
-    $("pmeClear").addEventListener("click",()=>{if(!window.confirm("ลบข้อมูล Player Match Event Ledger ที่เก็บในอุปกรณ์นี้ทั้งหมดหรือไม่?"))return;localStorage.removeItem(STORAGE_KEY);draft=selectedMatch?newDraft(selectedMatch):null;renderAll();renderStatsTable();setStatus("ล้างข้อมูลในอุปกรณ์นี้แล้ว","success");});
-    $("pmeSavedList").addEventListener("click",e=>{const b=e.target.closest("[data-edit-match]");if(!b)return;$("pmeMatch").value=b.dataset.editMatch;selectMatch(b.dataset.editMatch);$("pmeEditor").scrollIntoView({behavior:"smooth",block:"start"});});
-    $("pmeLineupList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-lineup]");if(b)removeItem("lineups",Number(b.dataset.removeLineup));});
-    $("pmeSourceList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-source]");if(b)removeItem("sources",Number(b.dataset.removeSource));});
-    $("pmeEventList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-event]");if(b)removeItem("events",Number(b.dataset.removeEvent));});
-    $("pmeRenderStats").addEventListener("click",renderStatsTable);
-    window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderHeader();renderStoredSummary();renderStatsTable();});
-    renderMatchOptions();renderAll();renderEventFields();renderStatsTable();
-    if(!matches.length)setStatus("ยังไม่พบแมตช์ FINISHED ฤดูกาล 2026/27 ในฐานข้อมูลที่โหลดอยู่ หน้านี้จะไม่สร้างแมตช์ปลอมให้","warning");
+    const page=$("playerMatchEventEntryPage");
+    if(!page||page.dataset.mounted==="true")return false;
+    const required=["pmeCompetition","pmeMatch","pmeMatchSummary","pmeMatchCount","pmeReloadMatches","pmeLineupTeam","pmePlayerRole","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeLineupSources","pmeIdentityConfirmed","pmeAddLineup","pmeSourceName","pmeSourceUrl","pmeSourceType","pmeSourceRights","pmePermissionBasis","pmeAddSource","pmeSourceList","pmeLineupList","pmeEventType","pmeEventMinute","pmeSubFields","pmeGoalFields","pmeEventSources","pmeAddEvent","pmeEventList","pmeLineupCoverage","pmeEventCoverage","pmeReviewedConfirm","pmeReviewState","pmeSave","pmeExport","pmeStatus","pmeSummary","pmeSavedList","pmeClear","pmeRenderStats","pmeStatsStatus","pmeStatsTable"];
+    const missing=required.filter(id=>!$(id)||!page.contains($(id)));
+    if(missing.length){
+      console.error("Player Match Event Entry mount deferred; missing page controls:",missing);
+      return false;
+    }
+    try{
+      matches=getMatches();
+      $("pmeCompetition").addEventListener("change",()=>{renderMatchOptions();const visible=matches.some(m=>String(m.providerMatchId)===String(selectedMatch?.providerMatchId)&&($("pmeCompetition").value==="all"||m.leagueId===$("pmeCompetition").value));if(!visible){selectedMatch=null;draft=null;renderAll();renderEventFields();}});
+      $("pmeMatch").addEventListener("change",e=>selectMatch(e.target.value));
+      $("pmeReloadMatches").addEventListener("click",()=>{matches=getMatches();renderMatchOptions();renderStoredSummary();setStatus("อ่านรายการแข่งขันล่าสุดแล้ว "+matches.length+" แมตช์","success");});
+      $("pmeAddLineup").addEventListener("click",addLineup);$("pmeAddSource").addEventListener("click",addSource);$("pmeAddEvent").addEventListener("click",addEvent);
+      $("pmeEventType").addEventListener("change",renderEventFields);$("pmeSave").addEventListener("click",saveRecord);$("pmeExport").addEventListener("click",exportData);
+      $("pmeClear").addEventListener("click",()=>{if(!window.confirm("ลบข้อมูล Player Match Event Ledger ที่เก็บในอุปกรณ์นี้ทั้งหมดหรือไม่?"))return;localStorage.removeItem(STORAGE_KEY);draft=selectedMatch?newDraft(selectedMatch):null;renderAll();renderStatsTable();setStatus("ล้างข้อมูลในอุปกรณ์นี้แล้ว","success");});
+      $("pmeSavedList").addEventListener("click",e=>{const b=e.target.closest("[data-edit-match]");if(!b)return;$("pmeMatch").value=b.dataset.editMatch;selectMatch(b.dataset.editMatch);$("pmeEditor").scrollIntoView({behavior:"smooth",block:"start"});});
+      $("pmeLineupList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-lineup]");if(b)removeItem("lineups",Number(b.dataset.removeLineup));});
+      $("pmeSourceList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-source]");if(b)removeItem("sources",Number(b.dataset.removeSource));});
+      $("pmeEventList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-event]");if(b)removeItem("events",Number(b.dataset.removeEvent));});
+      $("pmeRenderStats").addEventListener("click",renderStatsTable);
+      window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderHeader();renderStoredSummary();renderStatsTable();});
+      renderMatchOptions();renderAll();renderEventFields();renderStatsTable();
+      page.dataset.mounted="true";
+      if(!matches.length)setStatus("ยังไม่พบแมตช์ FINISHED ฤดูกาล 2026/27 ในฐานข้อมูลที่โหลดอยู่ หน้านี้จะไม่สร้างแมตช์ปลอมให้","warning");
+      return true;
+    }catch(error){
+      page.dataset.mounted="false";
+      console.error("Player Match Event Entry initialization failed:",error);
+      const status=$("pmeStatus");
+      if(status){
+        status.className="pme-status pme-status-error";
+        status.setAttribute("role","alert");
+        status.textContent="หน้าเครื่องมือเปิดแล้ว แต่เริ่มต้นระบบไม่สำเร็จ กรุณารีเฟรชหน้าแอป หากยังพบปัญหาให้แจ้งทีมพัฒนา (รายละเอียดถูกบันทึกใน Console)";
+      }
+      return false;
+    }
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount,{once:true});else mount();
   window.FootballTimePlayerMatchEventEntry={storageKey:STORAGE_KEY,loadStored,getMatches};
