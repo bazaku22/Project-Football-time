@@ -1,0 +1,34 @@
+name: Player Match Event Ledger Tests
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/player-match-event-ledger-2026-27.json"
+      - "data/player-match-event-ledger-2026-27.schema.json"
+      - "scripts/validate_player_match_event_ledger.py"
+      - "tests/test_player_match_event_ledger.py"
+      - "docs/player-match-event-ledger-2026-27.md"
+      - ".github/workflows/player-match-event-ledger-tests.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-ledger:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate JSON documents
+        run: |
+          python -m json.tool data/player-match-event-ledger-2026-27.json > /dev/null
+          python -m json.tool data/player-match-event-ledger-2026-27.schema.json > /dev/null
+      - name: Compile validator and tests
+        run: python -m py_compile scripts/validate_player_match_event_ledger.py tests/test_player_match_event_ledger.py
+      - name: Run ledger regression tests
+        run: python -m unittest tests/test_player_match_event_ledger.py -v
+      - name: Validate empty starter dataset and derive safe totals
+        run: python scripts/validate_player_match_event_ledger.py

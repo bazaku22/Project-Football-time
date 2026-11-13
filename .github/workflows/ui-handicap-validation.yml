@@ -36,6 +36,9 @@ on:
       - "js/manual-match-research.js"
       - "css/manual-match-research.css"
       - "tests/test_manual_match_research_ui.py"
+      - "js/player-match-event-entry.js"
+      - "css/player-match-event-entry.css"
+      - "tests/test_player_match_event_entry_ui.py"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
       - "docs/phase-6-5-match-calendar-filters.md"
@@ -81,7 +84,8 @@ jobs:
           node --check js/unified-match-center.js
           node --check js/match-center-mockup.js
           node --check js/manual-match-research.js
-          python3 -m unittest tests/test_manual_match_research_ui.py -v
+          node --check js/player-match-event-entry.js
+          python3 -m unittest tests/test_manual_match_research_ui.py tests/test_player_match_event_entry_ui.py -v
           node --check js/player-identity-review.js
           node --check js/player-team-alias-review.js
           node --check js/provisional-player-directory.js
@@ -109,8 +113,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.26.4-beta.1"' index.html
-          grep -q 'football-time-v87' sw.js
+          grep -q 'application-version" content="6.26.5-beta.1"' index.html
+          grep -q 'football-time-v88' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html
