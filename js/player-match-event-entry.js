@@ -25,7 +25,8 @@
   const currentRecord=()=>draft||(selectedMatch?newDraft(selectedMatch):null);
   function playerOptions(teamId){const row=currentRecord();return row?row.lineups.filter(x=>!teamId||x.team_id===teamId).map(x=>x.player):[];}
   function playerSelect(id,teamId,placeholder){return '<select id="'+id+'" class="pme-control"><option value="">'+esc(placeholder)+'</option>'+playerOptions(teamId).map(p=>{const key=p.ft_player_id||"name:"+p.observed_name;return '<option value="'+esc(key)+'">'+esc(p.observed_name)+(p.identity_status==="unresolved"?" · ยังไม่ยืนยัน ID":"")+'</option>';}).join("")+'</select>';}
-  function findPlayer(key){if(!key)return null;return currentRecord()?.lineups.find(x=>(x.player.ft_player_id||"name:"+x.player.observed_name)===key)?.player||null;}
+  function findLineup(key){if(!key)return null;return currentRecord()?.lineups.find(x=>(x.player.ft_player_id||"name:"+x.player.observed_name)===key)||null;}
+  function findPlayer(key){return findLineup(key)?.player||null;}
 
   function renderMatchOptions(){
     const comp=$("pmeCompetition").value||"all",visible=matches.filter(m=>comp==="all"||m.leagueId===comp);
@@ -102,26 +103,46 @@
     const type=$("pmeEventType").value,minute=$("pmeEventMinute").value.trim(),team=type==="goal"?$("pmeGoalTeam").value:$("pmeLineupTeam").value;
     if(!/^[0-9]{1,3}(\+[0-9]{1,2})?$/.test(minute))return setStatus("นาทีต้องเป็นตัวเลข เช่น 45 หรือ 90+3","error");
     const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:r.sources.map(s=>s.source_id)};
-    if(type==="substitution"){e.player_on=findPlayer($("pmePlayerOn").value);e.player_off=findPlayer($("pmePlayerOff").value);if(!e.player_on||!e.player_off||e.player_on.observed_name===e.player_off.observed_name)return setStatus("เลือกผู้เล่นที่ลงและผู้เล่นที่ออกให้ครบ","error");}
+    if(type==="substitution"){
+      const on=findLineup($("pmePlayerOn").value),off=findLineup($("pmePlayerOff").value);
+      if(!on||!off||on.team_id!==team||off.team_id!==team||on.player.observed_name===off.player.observed_name)return setStatus("เลือกผู้เล่นที่ลงและออกจากทีมเดียวกันให้ครบ","error");
+      e.player_on=on.player;e.player_off=off.player;
+    }
     else{
       e.goal_type=$("pmeGoalType").value;e.assist_status=$("pmeAssistStatus").value;
-      if(e.goal_type==="own_goal"){e.own_goal_player=findPlayer($("pmeOwnGoalPlayer").value);e.scorer=null;if(!e.own_goal_player)return setStatus("เลือกผู้เล่นที่ทำเข้าประตูตัวเอง","error");if(e.assist_status==="explicit")return setStatus("ไม่บันทึกแอสซิสต์ให้เหตุการณ์ Own Goal","error");}
-      else{e.scorer=findPlayer($("pmeScorer").value);if(!e.scorer)return setStatus("เลือกผู้ทำประตู","error");}
-      e.assist_player=e.assist_status==="explicit"?findPlayer($("pmeAssistPlayer").value):null;if(e.assist_status==="explicit"&&!e.assist_player)return setStatus("เลือกผู้เล่นที่ได้รับเครดิตแอสซิสต์","error");
+      if(e.goal_type==="own_goal"){
+        const own=findLineup($("pmeOwnGoalPlayer").value);
+        if(!own||own.team_id===team)return setStatus("ผู้เล่น Own Goal ต้องอยู่ทีมตรงข้ามกับทีมที่ได้ประตู","error");
+        e.own_goal_player=own.player;e.scorer=null;
+        if(e.assist_status==="explicit")return setStatus("ไม่บันทึกแอสซิสต์ให้เหตุการณ์ Own Goal","error");
+      } else {
+        const scorer=findLineup($("pmeScorer").value);
+        if(!scorer||scorer.team_id!==team)return setStatus("ผู้ทำประตูต้องอยู่ทีมที่ได้รับเครดิตประตู","error");
+        e.scorer=scorer.player;
+      }
+      const assist=e.assist_status==="explicit"?findLineup($("pmeAssistPlayer").value):null;
+      if(e.assist_status==="explicit"&&(!assist||assist.team_id!==team||assist.player.ft_player_id===e.scorer?.ft_player_id))return setStatus("ผู้แอสซิสต์ต้องอยู่ทีมเดียวกับผู้ทำประตูและต้องไม่ใช่ผู้ทำประตูเอง","error");
+      e.assist_player=assist?.player||null;
     }
     r.events.push(e);$("pmeEventMinute").value="";renderAll();renderEventFields();
   }
-  function removeItem(key,index){const r=currentRecord();if(!r)return;r[key].splice(index,1);renderAll();if(key==="lineups")renderEventFields();}
+  function removeItem(key,index){
+    const r=currentRecord();if(!r)return;r[key].splice(index,1);
+    if(key==="sources"){const ids=r.sources.map(s=>s.source_id);r.lineups.forEach(x=>x.source_ids=ids);r.events.forEach(x=>x.source_ids=ids);}
+    renderAll();if(key==="lineups")renderEventFields();
+  }
   function saveRecord(){
     const r=currentRecord();if(!r)return setStatus("กรุณาเลือกแมตช์","error");if(!r.sources.length)return setStatus("ต้องมีแหล่งอ้างอิงอย่างน้อย 1 แหล่ง","error");
     r.lineup_coverage=$("pmeLineupCoverage").value;r.event_coverage=$("pmeEventCoverage").value;
     const people=[...r.lineups.map(x=>x.player),...r.events.flatMap(e=>e.type==="substitution"?[e.player_on,e.player_off]:[e.scorer,e.own_goal_player,e.assist_player].filter(Boolean))];
     const identities=people.every(p=>p.identity_status==="verified"&&/^FT-P-[0-9]{6}$/.test(p.ft_player_id||""));
-    const verified=r.sources.length>=2&&r.sources.every(s=>s.reuse_rights==="confirmed")&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&identities&&$("pmeReviewedConfirm").checked;
+    const startersHome=r.lineups.filter(x=>x.team_id===r.home_team.team_id&&x.role==="starting_xi").length;
+    const startersAway=r.lineups.filter(x=>x.team_id===r.away_team.team_id&&x.role==="starting_xi").length;
+    const verified=r.sources.length>=2&&r.sources.every(s=>s.reuse_rights==="confirmed")&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&startersHome===11&&startersAway===11&&identities&&$("pmeReviewedConfirm").checked;
     r.review_status=verified?"verified":"needs_review";
     const next=loadStored(),i=next.records.findIndex(x=>String(x.match_id)===String(r.match_id));if(i>=0)next.records[i]=r;else next.records.push(r);
     next.records.sort((a,b)=>String(a.match_id).localeCompare(String(b.match_id),undefined,{numeric:true}));next.expected_finished_match_ids=expectedMatchIds();next.dataset_status=next.records.length?"research_records_present":"research_intake_empty";next.updated_at=new Date().toISOString();
-    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(next));draft=JSON.parse(JSON.stringify(r));renderAll();setStatus(verified?"บันทึกแล้วและผ่านเงื่อนไขตรวจสอบครบ":"บันทึกในอุปกรณ์นี้แล้ว · สถานะ needs_review","success");}catch(_){setStatus("พื้นที่จัดเก็บไม่เพียงพอ จึงยังไม่ได้บันทึก","error");}
+    try{localStorage.setItem(STORAGE_KEY,JSON.stringify(next));draft=JSON.parse(JSON.stringify(r));renderAll();renderStatsTable();setStatus(verified?"บันทึกแล้วและผ่านเงื่อนไขตรวจสอบครบ":"บันทึกในอุปกรณ์นี้แล้ว · สถานะ needs_review","success");}catch(_){setStatus("พื้นที่จัดเก็บไม่เพียงพอ จึงยังไม่ได้บันทึก","error");}
   }
   function exportData(){
     const data=loadStored();data.expected_finished_match_ids=expectedMatchIds();data.dataset_status=data.records.length?"research_records_present":"research_intake_empty";data.updated_at=new Date().toISOString();
