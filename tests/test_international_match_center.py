@@ -33,6 +33,17 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('leagueId:"INTL"', MODULE)
         self.assertIn('return ["INTL","COMP:" + String(match.competitionName || "")]', MODULE)
 
+    def test_manual_research_results_overlay_existing_international_fixture_ids(self):
+        self.assertIn('pft_manual_match_research_2026_27_v1', MODULE)
+        self.assertIn('fixture_ref?.international_fixture_id', MODULE)
+        self.assertIn('applyManualResearchResults()', MODULE)
+        self.assertIn('researchRecord', MODULE)
+        self.assertIn('record.score?.home', MODULE)
+        self.assertIn('record?.events', MODULE)
+        self.assertIn('pft-manual-match-research-updated', MODULE)
+        self.assertIn('mc-research-status', CSS)
+        self.assertIn('ไม่เขียนลงฐานข้อมูลหลักหรือ Supabase', MODULE)
+
     def test_flags_are_local_unicode_and_accessible(self):
         self.assertIn("function countryFlag(code)", MODULE)
         self.assertIn('aria-label="ธงชาติ', MODULE)
@@ -74,14 +85,14 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v77", WORKER)
+        self.assertIn("football-time-v78", WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
     def test_app_version_and_copy_are_updated(self):
-        self.assertIn('<title>Project Football Time V6.22.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.22.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.22.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.23.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.23.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.23.0-beta.1</span>', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", HTML)
 
 

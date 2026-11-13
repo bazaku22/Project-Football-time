@@ -15,17 +15,18 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.22.0-beta.1"', html)
+        self.assertIn('content="6.23.0-beta.1"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v77"', sw)
+        self.assertIn('const CACHE = "football-time-v78"', sw)
 
     def test_ui_requires_validation_before_import_and_keeps_data_local(self):
         source = (ROOT / "js/manual-match-research.js").read_text(encoding="utf-8")
         self.assertIn('$("mrImportButton").disabled = !pendingDataset', source)
         self.assertIn('localStorage.setItem(STORAGE_KEY,JSON.stringify(merged))', source)
+        self.assertIn('pft-manual-match-research-updated', source)
         self.assertIn('pft_manual_match_research_2026_27_v1', source)
         self.assertIn('window.confirm("ต้องการลบข้อมูล Manual Research', source)
         self.assertIn('file.size > 2 * 1024 * 1024', source)

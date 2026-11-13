@@ -102,8 +102,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.22.0-beta.1"' index.html
-          grep -q 'football-time-v77' sw.js
+          grep -q 'application-version" content="6.23.0-beta.1"' index.html
+          grep -q 'football-time-v78' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html
