@@ -10,6 +10,7 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn('const LEDGER_KEY="pft_player_match_event_ledger_2026_27_v1"', source)
         self.assertIn("window.FootballTimePlayerMatchEventEntry", source)
         self.assertIn("function loadLedger()", source)
+        self.assertIn('const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1"', source)
         self.assertNotIn("supabase", source.lower())
         self.assertNotIn("XMLHttpRequest", source)
         self.assertEqual(source.count("fetch("), 1)
@@ -35,6 +36,11 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn("ยังไม่ยืนยัน FT Player ID", source)
         self.assertIn("data-player", source)
         self.assertIn("function teamLedger(teamId)", source)
+        self.assertIn("function loadTeamAliases()", source)
+        self.assertIn('decision?.status==="approved"', source)
+        self.assertIn('decision.canonical_team_id.startsWith("football-data:")', source)
+        self.assertIn("teamMappingPending:true", source)
+        self.assertIn("รอยืนยัน Team ID Mapping", source)
 
     def test_profile_discloses_partial_ledger_scope_and_only_verified_match_totals(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
