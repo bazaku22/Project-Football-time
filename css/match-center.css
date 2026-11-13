@@ -174,3 +174,14 @@
 .mc-detail-kpi b{display:block;font-size:1.05rem}
 .mc-detail-kpi span{font-size:.7rem;color:var(--ft-text-muted,#a9bacb)}
 @media(max-width:380px){.mc-detail-summary{padding:12px}.mc-detail-score{font-size:1.45rem}.mc-detail-tabs button{font-size:.68rem;padding:9px 1px}}
+
+
+/* Match Center card dashboard: match facts first, then model probabilities (layout B). */
+.mc-match-stats{display:grid;gap:7px;margin:0 0 11px;padding:10px 11px;border:1px solid rgba(132,169,198,.16);border-radius:12px;background:rgba(5,19,32,.34)}
+.mc-match-stats-heading{font-size:.69rem;font-weight:750;color:#b8cbd9}
+.mc-match-stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
+.mc-match-stat{display:grid;grid-template-columns:minmax(0,1fr) auto 5px auto;align-items:center;gap:7px;min-width:0;font-size:.7rem}
+.mc-match-stat span{color:#a9bdce;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc-match-stat b{font-size:.74rem;font-variant-numeric:tabular-nums;color:#f3f8fc}
+.mc-match-stat i{width:1px;height:13px;background:rgba(145,178,204,.25)}
+@media(max-width:380px){.mc-match-stats{padding:9px}.mc-match-stats-grid{gap:7px 8px}.mc-match-stat{gap:5px;font-size:.65rem}.mc-match-stat b{font-size:.69rem}}
