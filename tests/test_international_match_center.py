@@ -33,6 +33,17 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('leagueId:"INTL"', MODULE)
         self.assertIn('return ["INTL","COMP:" + String(match.competitionName || "")]', MODULE)
 
+    def test_manual_research_results_overlay_existing_international_fixture_ids(self):
+        self.assertIn('pft_manual_match_research_2026_27_v1', MODULE)
+        self.assertIn('fixture_ref?.international_fixture_id', MODULE)
+        self.assertIn('applyManualResearchResults()', MODULE)
+        self.assertIn('researchRecord', MODULE)
+        self.assertIn('record.score?.home', MODULE)
+        self.assertIn('record.events', MODULE)
+        self.assertIn('pft-manual-match-research-updated', MODULE)
+        self.assertIn('mc-research-status', CSS)
+        self.assertIn('ไม่เขียนลงฐานข้อมูลหลักหรือ Supabase', MODULE)
+
     def test_flags_are_local_unicode_and_accessible(self):
         self.assertIn("function countryFlag(code)", MODULE)
         self.assertIn('aria-label="ธงชาติ', MODULE)

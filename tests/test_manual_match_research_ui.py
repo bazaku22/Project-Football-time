@@ -26,6 +26,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         source = (ROOT / "js/manual-match-research.js").read_text(encoding="utf-8")
         self.assertIn('$("mrImportButton").disabled = !pendingDataset', source)
         self.assertIn('localStorage.setItem(STORAGE_KEY,JSON.stringify(merged))', source)
+        self.assertIn('pft-manual-match-research-updated', source)
         self.assertIn('pft_manual_match_research_2026_27_v1', source)
         self.assertIn('window.confirm("ต้องการลบข้อมูล Manual Research', source)
         self.assertIn('file.size > 2 * 1024 * 1024', source)
