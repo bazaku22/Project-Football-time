@@ -16,6 +16,7 @@
   if(source.rights_review_status!=="approved")add(issues,label+" "+id+": rights review ยังไม่ approved");
   for(const field of ["commercial_use_allowed","database_rights_reviewed","redistribution_allowed"])if(source[field]!==true)add(issues,label+" "+id+": "+field+" ไม่ได้รับอนุญาต/ยังไม่ยืนยัน");
   if(source.attribution_required===true&&!source.attribution_text)add(issues,label+" "+id+": ขาด attribution_text");
+  if(label==="statistics"&&(!source.metric_definitions||typeof source.metric_definitions!=="object"||Array.isArray(source.metric_definitions)))add(issues,label+" "+id+": metric_definitions ต้องเป็น object");
  }
  function validateManifest(data,type){
   const issues=[],isMembership=type==="membership",rowsKey=isMembership?"memberships":"statistics";
@@ -78,7 +79,7 @@
   (s?.sources||[]).forEach(source=>{
    const other=mSources.get(source?.id);
    if(!other)return;
-   for(const field of ["publisher","source_url","licence_id","licence_url","rights_review_status","commercial_use_allowed","database_rights_reviewed","redistribution_allowed"])
+   for(const field of ["publisher","source_scope","source_url","licence_id","licence_url","licence_reviewed_at","rights_review_status","commercial_use_allowed","database_rights_reviewed","redistribution_allowed","attribution_required","attribution_text"])
     if(other[field]!==source[field])crossIssues.push("source "+source.id+": Membership/Statistics ไม่ตรงกันที่ "+field);
   });
   const all=[...(m?.issues||[]),...(s?.issues||[]),...crossIssues];
