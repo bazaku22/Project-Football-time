@@ -365,9 +365,13 @@
           const minute = item.minute !== undefined && item.minute !== null ? esc(item.minute) + "'" : "ไม่ระบุนาที";
           const player = item.player?.name || "ไม่ระบุผู้เล่น";
           const team = item.team || "";
+          const canonicalId = String(item.player?.canonical_player_id || item.player?.canonicalPlayerId || "");
+          const identity = canonicalId
+            ? '<button type="button" class="mc-canonical-player-link" data-canonical-player-ref="' + esc(canonicalId) + '">เปิดโปรไฟล์นักเตะ</button>'
+            : '<small class="mc-research-muted">ยังไม่เชื่อม Canonical Player ID</small>';
           return '<div class="mc-research-event"><span>' + minute + '</span><span>' +
             esc(eventLabels[item.type] || item.type || "เหตุการณ์") + '</span><b>' +
-            esc(player) + '</b><small>' + esc(team) + '</small></div>';
+            esc(player) + '</b><small>' + esc(team) + '</small>' + identity + '</div>';
         }).join("") + '</div>'
       : '<p class="mc-research-muted">ยังไม่มีข้อมูลเหตุการณ์ที่นำเข้า</p>';
     const verification = record?.verification_status === "verified" ? "ตรวจสอบแล้ว" :
@@ -565,6 +569,11 @@
     $("matchCenterSearch")?.addEventListener("input",(event) => {
       activeSearch = String(event.target.value || "").trim();
       renderCalendar(); render();
+    });
+    document.addEventListener("click",(event)=>{
+      const link=event.target.closest("[data-canonical-player-ref]");
+      if(!link)return;
+      window.dispatchEvent(new CustomEvent("pft-open-canonical-player",{detail:{canonicalPlayerId:link.dataset.canonicalPlayerRef}}));
     });
     $("matchCenterMatches")?.addEventListener("click",(event) => {
       const button = event.target.closest("[data-open-match]");
