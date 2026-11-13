@@ -12,6 +12,11 @@ class PlayerOperationsCenterTests(unittest.TestCase):
         self.assertIn('id = "playerOperationsPage"', script)
         self.assertIn('button.dataset.secondaryRoute = "playerOperations"', script)
 
+    def test_operations_route_is_handled_by_primary_navigation(self):
+        navigation = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
+        self.assertIn('target === "playerOperations"', navigation)
+        self.assertIn('activate("playerOperationsPage", null, "")', navigation)
+
     def test_six_phases_are_visible_and_evidence_based(self):
         script = (ROOT / "js/player-operations-center.js").read_text(encoding="utf-8")
         for marker in [
