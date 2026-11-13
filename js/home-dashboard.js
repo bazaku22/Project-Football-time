@@ -25,6 +25,7 @@
     const status = String(match.status || "").toUpperCase();
     if (["IN_PLAY","LIVE","PAUSED","HALFTIME","EXTRA_TIME","PENALTY_SHOOTOUT"].includes(status)) return "live";
     if (status === "FINISHED") return "finished";
+    if (["POSTPONED","CANCELLED","SUSPENDED","AWARDED"].includes(status)) return "other";
     return "upcoming";
   };
   const labelOf = (kind) => ({live:"LIVE",upcoming:"UPCOMING",finished:"FT"})[kind];
@@ -44,7 +45,7 @@
     const matches = database.matches.filter((match) => {
       if (!CORE_LEAGUES.has(String(match.leagueId)) || !match.utcDate) return false;
       const kickoff = new Date(match.utcDate);
-      return Number.isFinite(kickoff.getTime()) && bangkokDate(kickoff) === today;
+      return Number.isFinite(kickoff.getTime()) && bangkokDate(kickoff) === today && kindOf(match) !== "other";
     });
     const counts = {live:0,upcoming:0,finished:0};
     matches.forEach((match) => counts[kindOf(match)]++);
