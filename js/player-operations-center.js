@@ -32,7 +32,7 @@
     },
     {
       n:"06", title:"ซิงก์ตามรอบและติดตามความครอบคลุม", status:"รออนุมัติการเรียก Provider", tone:"warning",
-      detail:"มี GitHub Actions สำหรับอัปเดตฐานนักเตะและงานตามรอบแล้ว แต่การดึงข้อมูลจริงอาจใช้ API credits และต้องตรวจ secret/แผนบริการก่อน",
+      detail:"มี GitHub Actions สำหรับอัปเดตฐานนักเตะแบบ manual-only เพื่อควบคุมโควตา ยังไม่มีการยืนยันว่าตั้งเวลาซิงก์อัตโนมัติอยู่ การดึงข้อมูลจริงอาจใช้ API credits และต้องตรวจ secret/แผนบริการก่อน",
       evidence:"ไม่มีการเรียก Provider API หรือใช้เครดิต และไม่มี Production write ในการทำ Operations Center นี้"
     }
   ];
@@ -64,7 +64,7 @@
         <a href="https://github.com/bazaku22/Project-Football-time/blob/main/scripts/player_reconciliation_pipeline.py" target="_blank" rel="noopener noreferrer"><b>Identity Reconciliation</b><span>จับคู่ผู้เล่นและทีมแบบ offline โดยไม่เดา canonical ID</span></a>
         <a href="https://github.com/bazaku22/Project-Football-time/blob/main/docs/player-open-data-source-assessment-2026-11.md" target="_blank" rel="noopener noreferrer"><b>Source Rights Register</b><span>ตรวจสิทธิ์การใช้ข้อมูลแยกตามผู้ให้บริการและประเภทข้อมูล</span></a>
         <a href="https://github.com/bazaku22/Project-Football-time/blob/main/supabase/migrations/20261112110000_add_atomic_player_stats_import_rpc.sql" target="_blank" rel="noopener noreferrer"><b>Atomic Import RPC</b><span>รองรับการนำเข้าสถิติแบบ transaction เมื่อผ่านการอนุมัติและ deployment gate</span></a>
-        <a href="https://github.com/bazaku22/Project-Football-time/actions/workflows/update-player-database.yml" target="_blank" rel="noopener noreferrer"><b>Scheduled Player Sync</b><span>Workflow เดิมสำหรับซิงก์รายชื่อและสถิติ ไม่ได้เริ่มทำงานจากหน้านี้</span></a>
+        <a href="https://github.com/bazaku22/Project-Football-time/actions/workflows/update-player-database.yml" target="_blank" rel="noopener noreferrer"><b>Manual Player Sync</b><span>Workflow แบบ manual-only สำหรับซิงก์รายชื่อและสถิติ เพื่อควบคุมโควตา ไม่ได้เริ่มทำงานจากหน้านี้</span></a>
       </div>
       <div class="poc-gate">
         <b>ประตูความปลอดภัยก่อนเติมข้อมูลจริง</b>
