@@ -13,8 +13,10 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn('const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1"', source)
         self.assertNotIn("supabase", source.lower())
         self.assertNotIn("XMLHttpRequest", source)
-        self.assertEqual(source.count("fetch("), 1)
+        self.assertEqual(source.count("fetch("), 2)
         self.assertIn("fetch(REGISTRY_URL", source)
+        self.assertIn("fetch(TEAM_ALIAS_URL", source)
+        self.assertIn("reviewed bundled crosswalk", source)
 
     def test_verified_statistics_require_complete_review_and_rights_gates(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
@@ -61,6 +63,23 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn('["SA","Serie A"]', source)
         self.assertIn('["FL1","Ligue 1"]', source)
 
+    def test_reviewed_crosswalk_contains_only_exact_registry_and_canonical_id_decisions(self):
+        import json
+        crosswalk = json.loads((ROOT / "data/player-team-alias-decisions-2026-27.json").read_text(encoding="utf-8"))
+        self.assertEqual(crosswalk["status"], "reviewed_approved")
+        self.assertFalse(crosswalk["production_import"])
+        self.assertEqual(len(crosswalk["decisions"]), 7)
+        for item in crosswalk["decisions"]:
+            self.assertEqual(item["status"], "approved")
+            self.assertFalse(item["review_required"])
+            self.assertRegex(item["canonical_team_id"], r"^football-data:[0-9]+$")
+            self.assertIn("candidate_artifact_exact_canonical_id", item["evidence"])
+            self.assertIn("football_database_exact_canonical_id_and_name", item["evidence"])
+
+    def test_bundled_crosswalk_is_still_gated_by_exact_provider_name(self):
+        source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
+        self.assertIn("providerName===item.provider_team_name", source)
+        self.assertIn('item.review_required===false', source)
 
 if __name__ == "__main__":
     unittest.main()
