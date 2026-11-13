@@ -25,6 +25,10 @@ on:
       - "js/handicap-reference.js"
       - "tests/test_handicap_reference.js"
       - "css/match-center.css"
+      - "css/match-center-mockup.css"
+      - "match-center-mockup.html"
+      - "js/match-center-mockup.js"
+      - "tests/test_match_center_mockup.py"
       - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
@@ -73,6 +77,7 @@ jobs:
           node --check js/international-handicap-workspace.js
           node --check js/primary-navigation.js
           node --check js/match-center.js
+          node --check js/match-center-mockup.js
           node --check js/manual-match-research.js
           python3 -m unittest tests/test_manual_match_research_ui.py -v
           node --check js/player-identity-review.js
@@ -102,8 +107,8 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.23.0-beta.1"' index.html
-          grep -q 'football-time-v79' sw.js
+          grep -q 'application-version" content="6.24.0-beta.1"' index.html
+          grep -q 'football-time-v80' sw.js
           grep -q 'analysis-refinement.css' sw.js
           grep -q 'international-r1/handicap-reference.json' sw.js
           ! grep -q 'rows.length>2500' index.html

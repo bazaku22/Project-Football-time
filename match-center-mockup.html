@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1420">
+<meta name="application-version" content="6.24.0-beta.1">
+<title>Match Center Mockup · Project Football Time V6.24.0-beta.1</title>
+<link rel="stylesheet" href="./css/match-center-mockup.css?v=1">
+</head>
+<body class="mc-mockup-page">
+<header class="mm-header">
+  <a class="mm-back" href="./index.html">← กลับหน้าหลัก</a>
+  <div><b>PROJECT FOOTBALL TIME</b><span>MATCH CENTER · UI MOCKUP</span></div>
+  <span class="mm-version">V6.24.0-beta.1</span>
+</header>
+<main class="mm-main">
+  <div class="mm-demo-banner"><b>ตัวอย่างหน้าจอเท่านั้น</b><span>ข้อมูลทีม สกอร์ เหตุการณ์ และสถิติทั้งหมดด้านล่างเป็นข้อมูลจำลอง ไม่ได้ดึงจากการแข่งขันจริง</span></div>
+  <section class="mm-match-summary" aria-label="สรุปการแข่งขัน">
+    <div class="mm-match-meta"><span>PREMIER LEAGUE · ตัวอย่าง</span><span class="mm-status">จบการแข่งขัน</span></div>
+    <div class="mm-kickoff">วันเสาร์ 8 พฤศจิกายน 2026 · 22:00 น. (เวลาไทย)</div>
+    <div class="mm-scoreboard">
+      <div class="mm-team"><div class="mm-crest mm-home-crest">NC</div><b>North City</b><small>เจ้าบ้าน</small></div>
+      <div class="mm-score"><strong>3 <i>–</i> 2</strong><small>จบการแข่งขัน · 90+5′</small></div>
+      <div class="mm-team"><div class="mm-crest mm-away-crest">SU</div><b>South United</b><small>ทีมเยือน</small></div>
+    </div>
+    <div class="mm-scorers" aria-label="ผู้ทำประตูแยกตามทีม">
+      <section><h3>North City <span>3 ประตู</span></h3>
+        <p><b>A. Striker</b><time>18′</time></p>
+        <p><b>B. Forward</b><time>72′ (P)</time></p>
+        <p><b>C. Midfielder</b><time>90+2′ (OG)</time></p>
+      </section>
+      <section><h3>South United <span>2 ประตู</span></h3>
+        <p><b>D. Winger</b><time>54′</time></p>
+        <p><b>E. Striker</b><time>81′</time></p>
+      </section>
+    </div>
+    <div class="mm-summary-foot"><span>สนาม: North City Stadium</span><span>ผู้ชม: 48,210</span></div>
+  </section>
+
+  <nav class="mm-tabs" role="tablist" aria-label="รายละเอียดการแข่งขัน">
+    <button type="button" class="active" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab="overview">Overview</button>
+    <button type="button" id="tab-events" role="tab" aria-selected="false" aria-controls="panel-events" data-tab="events">Events</button>
+    <button type="button" id="tab-statistics" role="tab" aria-selected="false" aria-controls="panel-statistics" data-tab="statistics">Statistics</button>
+    <button type="button" id="tab-analysis" role="tab" aria-selected="false" aria-controls="panel-analysis" data-tab="analysis">Analysis</button>
+  </nav>
+
+  <section class="mm-panel active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+    <article class="mm-card">
+      <div class="mm-section-head"><h2>Match Overview</h2><span>FULL TIME</span></div>
+      <div class="mm-mini-score"><b>North City</b><strong>3 – 2</strong><b>South United</b></div>
+      <div class="mm-facts"><div><small>ครองบอล</small><b>52% – 48%</b></div><div><small>ยิงทั้งหมด</small><b>14 – 11</b></div><div><small>ยิงตรงกรอบ</small><b>7 – 5</b></div></div>
+    </article>
+    <article class="mm-card">
+      <div class="mm-section-head"><h2>Goal Events</h2><span>แสดง 3 เหตุการณ์แรก</span></div>
+      <div id="overview-goals" class="mm-goal-list">
+        <div class="mm-goal"><time>18′</time><div><b>A. Striker</b><small>North City · Assist: J. Creator</small></div><strong>1–0</strong></div>
+        <div class="mm-goal away"><time>54′</time><div><b>D. Winger</b><small>South United · Assist: F. Playmaker</small></div><strong>1–1</strong></div>
+        <div class="mm-goal"><time>72′</time><div><b>B. Forward (P)</b><small>North City · Penalty</small></div><strong>2–1</strong></div>
+        <div class="mm-goal away mm-extra-goal" hidden><time>81′</time><div><b>E. Striker</b><small>South United · Assist: D. Winger</small></div><strong>2–2</strong></div>
+        <div class="mm-goal mm-extra-goal" hidden><time>90+2′</time><div><b>C. Midfielder (OG)</b><small>North City · Own goal</small></div><strong>3–2</strong></div>
+      </div>
+      <button type="button" class="mm-view-all" id="view-all-goals" aria-expanded="false">ดูประตูทั้งหมด (5) ↓</button>
+    </article>
+    <article class="mm-card">
+      <div class="mm-section-head"><h2>Match Information</h2></div>
+      <div class="mm-info-row"><span>ผู้ตัดสิน</span><b>Alex Example</b></div>
+      <div class="mm-info-row"><span>สนาม</span><b>North City Stadium</b></div>
+      <div class="mm-info-row"><span>เวลาแข่งขัน</span><b>90 นาที + ทดเวลา</b></div>
+    </article>
+  </section>
+
+  <section class="mm-panel" id="panel-events" role="tabpanel" aria-labelledby="tab-events" hidden>
+    <article class="mm-card"><div class="mm-section-head"><h2>Match Timeline</h2><span>เหตุการณ์ทั้งหมด</span></div>
+      <div class="mm-timeline">
+        <div class="mm-event goal"><time>18′</time><span>⚽</span><div><b>A. Striker · Goal</b><small>North City · Assist J. Creator</small></div><strong>1–0</strong></div>
+        <div class="mm-event"><time>33′</time><span>🟨</span><div><b>G. Defender · Yellow Card</b><small>South United</small></div></div>
+        <div class="mm-event goal away"><time>54′</time><span>⚽</span><div><b>D. Winger · Goal</b><small>South United · Assist F. Playmaker</small></div><strong>1–1</strong></div>
+        <div class="mm-event goal"><time>72′</time><span>⚽</span><div><b>B. Forward · Penalty (P)</b><small>North City</small></div><strong>2–1</strong></div>
+        <div class="mm-event"><time>76′</time><span>🔁</span><div><b>เปลี่ยนตัว</b><small>North City · H. Runner เข้าแทน J. Creator</small></div></div>
+        <div class="mm-event goal away"><time>81′</time><span>⚽</span><div><b>E. Striker · Goal</b><small>South United · Assist D. Winger</small></div><strong>2–2</strong></div>
+        <div class="mm-event goal"><time>90+2′</time><span>⚽</span><div><b>C. Midfielder · Own Goal (OG)</b><small>North City</small></div><strong>3–2</strong></div>
+        <div class="mm-event"><time>90+5′</time><span>⏱</span><div><b>จบการแข่งขัน</b><small>Full Time</small></div></div>
+      </div>
+    </article>
+  </section>
+
+  <section class="mm-panel" id="panel-statistics" role="tabpanel" aria-labelledby="tab-statistics" hidden>
+    <article class="mm-card"><div class="mm-section-head"><h2>Match Statistics</h2><span>ตัวอย่างข้อมูล</span></div>
+      <div class="mm-stat-head"><b>North City</b><b>South United</b></div>
+      <div class="mm-stat-row"><div><b>52%</b><span>ครองบอล</span><b>48%</b></div><div class="mm-bar"><i style="width:52%"></i></div></div>
+      <div class="mm-stat-row"><div><b>14</b><span>ยิงทั้งหมด</span><b>11</b></div><div class="mm-bar"><i style="width:56%"></i></div></div>
+      <div class="mm-stat-row"><div><b>7</b><span>ยิงตรงกรอบ</span><b>5</b></div><div class="mm-bar"><i style="width:58%"></i></div></div>
+      <div class="mm-stat-row"><div><b>6</b><span>เตะมุม</span><b>4</b></div><div class="mm-bar"><i style="width:60%"></i></div></div>
+      <div class="mm-stat-row"><div><b>10</b><span>ฟาวล์</span><b>13</b></div><div class="mm-bar"><i style="width:43%"></i></div></div>
+      <div class="mm-stat-row"><div><b>2</b><span>ใบเหลือง</span><b>3</b></div><div class="mm-bar"><i style="width:40%"></i></div></div>
+      <p class="mm-muted">ค่าทั้งหมดเป็นข้อมูลจำลองสำหรับตรวจสอบการจัดวาง ไม่ใช่สถิติจากผู้ให้บริการ</p>
+    </article>
+  </section>
+
+  <section class="mm-panel" id="panel-analysis" role="tabpanel" aria-labelledby="tab-analysis" hidden>
+    <article class="mm-card"><div class="mm-section-head"><h2>Pre-match Probability</h2><span>จำลอง</span></div>
+      <div class="mm-prob-grid"><div><small>เจ้าบ้านชนะ</small><b>48%</b><span>กลาง</span></div><div><small>เสมอ</small><b>27%</b><span>ต่ำ</span></div><div><small>ทีมเยือนชนะ</small><b>25%</b><span>ต่ำ</span></div></div>
+      <div class="mm-info-row"><span>Asian Handicap</span><b>North City -0.25 · 54%</b></div>
+      <div class="mm-info-row"><span>Over 2.5 Goals</span><b>61% · กลาง</b></div>
+    </article>
+    <article class="mm-card"><div class="mm-section-head"><h2>Analysis Insight</h2><span>เหตุผลประกอบ</span></div>
+      <p class="mm-insight">ตัวอย่าง: North City มีความได้เปรียบจากผลงานในบ้านและค่าเฉลี่ยการสร้างโอกาสที่สูงกว่า ขณะที่ South United มีเกมสวนกลับที่อันตราย ความน่าจะเป็นจึงเอนมาทางเจ้าบ้านเล็กน้อย แต่ยังมีความไม่แน่นอนจากขนาดตัวอย่างและข้อมูลผู้เล่นที่จำลองขึ้น</p>
+      <p class="mm-muted">ส่วนนี้เป็นตัวอย่างรูปแบบการนำเสนอเท่านั้น ไม่ใช่คำทำนายของการแข่งขันจริง</p>
+    </article>
+  </section>
+</main>
+<script src="./js/match-center-mockup.js"></script>
+</body>
+</html>

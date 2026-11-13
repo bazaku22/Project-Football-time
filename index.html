@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.23.0-beta.1">
-<title>Project Football Time V6.23.0-beta.1</title>
+<meta name="application-version" content="6.24.0-beta.1">
+<title>Project Football Time V6.24.0-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -52,6 +52,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 .p5-score{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0}.p5-metric{background:#14232d;border:1px solid var(--line);border-radius:10px;padding:11px}.p5-metric b{display:block;font-size:20px}.p5-metric span{font-size:10px;color:var(--muted)}.p5-bar{height:7px;background:#344653;border-radius:8px;overflow:hidden;margin-top:7px}.p5-bar i{display:block;height:100%;background:var(--green)}.p5-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}.p5-row:last-child{border:0}.p5-note{padding:10px;border-left:3px solid var(--gold);background:#252b2d;border-radius:5px;color:var(--muted);font-size:11px;line-height:1.65;margin:9px 0}.p5-good{color:var(--green)}.p5-warn{color:var(--gold)}.p5-bad{color:#f39b8f}@media(max-width:380px){.p5-score{grid-template-columns:1fr 1fr}}
  .app-version{display:inline-block;margin-top:5px;padding:3px 7px;border:1px solid #405461;border-radius:7px;color:#b7f3d9;font-size:10px;letter-spacing:.04em}.league-status{display:block;margin-top:4px;color:var(--muted);font-size:9px}.league-data-status{margin:9px 0;padding:9px 11px;border:1px solid var(--line);border-radius:9px;color:var(--muted);font-size:11px;line-height:1.6;background:#14232d}
 .experiment-panel{margin-top:12px;padding-top:11px;border-top:1px solid var(--line)}.experiment-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:8px 0}.experiment-kpi{background:#14232d;border:1px solid var(--line);border-radius:9px;padding:8px;text-align:center}.experiment-kpi b{display:block;font-size:17px}.experiment-kpi span{font-size:9px;color:var(--muted)}.experiment-reasons{font-size:10px;line-height:1.6;color:var(--muted);padding-left:17px}.experiment-result{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}.experiment-result input{width:100%;background:#101c24;border:1px solid #405461;border-radius:9px;padding:9px;color:#fff}.experiment-actions{margin-top:8px}.experiment-status{font-size:11px;line-height:1.6;color:var(--muted)}.result-button[hidden],.result-form[hidden]{display:none!important}#showAdd[hidden],#importBackup[hidden]{display:none!important}
+.mc-mockup-launch{display:grid;gap:3px;margin:10px 0 14px;padding:11px 13px;border:1px solid rgba(102,217,166,.28);border-radius:12px;background:rgba(28,74,60,.18)}.mc-mockup-launch a{color:#b7f3d9;font-size:12px;font-weight:750;text-decoration:none}.mc-mockup-launch small{color:var(--muted);font-size:10px}
 </style>
 <link rel="stylesheet" href="./css/ui-refresh.css?v=1">
 <link rel="stylesheet" href="./css/football-discovery.css?v=1">
@@ -73,12 +74,13 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.23.0-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.24.0-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
 <dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main>
 <section id="home" class="page active">
  <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
  <p class="profile-note">โปรแกรมและผลการแข่งขัน 5 ลีกหลักและทีมชาติชุดทดลอง · เรียงตามเวลาไทย</p>
+ <div class="mc-mockup-launch"><a href="./match-center-mockup.html">ทดลอง Match Center รูปแบบใหม่ <span aria-hidden="true">→</span></a><small>ต้นแบบแยกจากหน้าการแข่งขันจริง · ใช้ข้อมูลจำลอง</small></div>
  <div id="matchCenterApp">
   <div class="mc-calendar" aria-label="ปฏิทินโปรแกรมแข่งขัน">
    <div class="mc-calendar-heading">
