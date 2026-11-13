@@ -34,6 +34,8 @@
   rows.forEach((row,i)=>{
    const tag=rowsKey+" แถว "+(i+1);
    if(!row||typeof row!=="object"||Array.isArray(row)){add(issues,tag+": ต้องเป็น object");return;}
+   if(!row.id||seenRows.has(row.id))add(issues,tag+": ID ว่างหรือซ้ำ");
+   seenRows.add(row.id);
    if(row.season!=="2026/27")add(issues,tag+": season ไม่ใช่ 2026/27");
    if(!Object.prototype.hasOwnProperty.call(leagues,row.league_id))add(issues,tag+": league_id ต้องเป็นหนึ่งใน PL, PD, BL1, SA, FL1");
    if(!row.source_id||!sourceMap.has(row.source_id))add(issues,tag+": source_id ไม่อยู่ใน source registry");
@@ -50,8 +52,18 @@
    }else{
     for(const field of ["id","canonical_player_key","provider_player_id","club_id","club_name","competition_id","observed_at"])if(!row[field])add(issues,tag+": ขาด "+field);
     if(row.identity_match_status!=="exact")add(issues,tag+": identity_match_status ต้องเป็น exact");
+    if(!https(row.evidence_url))add(issues,tag+": evidence_url ต้องเป็น HTTPS");
     if(!row.metrics||typeof row.metrics!=="object"||Array.isArray(row.metrics)||!Object.keys(row.metrics).length)add(issues,tag+": ต้องมี metrics");
-    else Object.entries(row.metrics).forEach(([name,value])=>{if(!Number.isFinite(value)||value<0)add(issues,tag+": metric "+name+" ต้องเป็นตัวเลขไม่ติดลบ");});
+    else Object.entries(row.metrics).forEach(([name,value])=>{
+     if(!metricNames.has(name))add(issues,tag+": ไม่รองรับ metric "+name);
+     if(typeof value!=="number"||!Number.isFinite(value)||value<0)add(issues,tag+": metric "+name+" ต้องเป็นตัวเลขไม่ติดลบ");
+     const source=sourceMap.get(row.source_id);
+     if(!source?.metric_definitions||!source.metric_definitions[name])add(issues,tag+": metric "+name+" ไม่มี source definition");
+    });
+    const metrics=row.metrics||{};
+    if(Number.isFinite(metrics.starts)&&Number.isFinite(metrics.appearances)&&metrics.starts>metrics.appearances)add(issues,tag+": starts มากกว่า appearances");
+    if(Number.isFinite(metrics.minutes)&&Number.isFinite(metrics.appearances)&&metrics.minutes>metrics.appearances*150)add(issues,tag+": minutes เกินขอบเขตตรวจสอบเบื้องต้น");
+    if(Number.isFinite(metrics.shots_on_target)&&Number.isFinite(metrics.shots)&&metrics.shots_on_target>metrics.shots)add(issues,tag+": shots_on_target มากกว่า shots");
    }
   });
   if(data.records_count!==rows.length)add(issues,"records_count ไม่ตรงกับจำนวน "+rowsKey);
