@@ -10,7 +10,6 @@
     ["summary","สรุปผลโมเดลทดลอง"],
     ["analysis","หลักการวิเคราะห์"],
     ["archive","คลัง Legacy"],
-    ["players","ฐานข้อมูลนักเตะ"],
     ["advanced","วิเคราะห์เชิงลึก"],
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"]
@@ -79,7 +78,7 @@
       const details = document.createElement("details");
       details.id = "secondaryTools";
       details.className = "pn-secondary card";
-      details.innerHTML = '<summary>เครื่องมือเพิ่มเติม</summary><p class="pn-note">เครื่องมือรองและพื้นที่เดิมยังคงเข้าถึงได้ โดยไม่ปะปนกับเมนูหลัก</p><div class="pn-tool-grid">' +
+      details.innerHTML = '<summary>เครื่องมือเพิ่มเติม</summary><p class="pn-note">รวมเครื่องมือรองที่ยังเปิดใช้งาน โดยไม่ปะปนกับเมนูหลัก</p><div class="pn-tool-grid">' +
         secondary.map(([id,label]) => '<button type="button" class="secondary" data-secondary-route="' + id + '">' + label + '</button>').join("") +
         '</div>';
       const experiment = home.querySelector(".mc-experiment");
@@ -92,9 +91,6 @@
       const target = button.dataset.secondaryRoute;
       if (target === "internationalHandicap") {
         activate("internationalHandicap", null, "");
-        document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
-      } else if (target === "players") {
-        activate("fixtures", "players", "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "advanced") {
         activate("fixtures", "advanced", "");

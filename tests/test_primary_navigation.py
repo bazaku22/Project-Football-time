@@ -12,8 +12,15 @@ class PrimaryNavigationTests(unittest.TestCase):
 
     def test_navigation_keeps_secondary_destinations_reachable(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        for target in ("summary", "analysis", "archive", "players", "advanced"):
+        for target in ("summary", "analysis", "archive", "advanced"):
             self.assertIn('["' + target + '"', source)
+
+    def test_legacy_player_database_route_is_removed(self):
+        source = (ROOT / "js/primary-navigation.js").read_text()
+        html = (ROOT / "index.html").read_text()
+        self.assertNotIn('["players","ฐานข้อมูลนักเตะ"]', source)
+        self.assertNotIn('target === "players"', source)
+        self.assertNotIn('data-db-tab="players"', html)
 
     def test_international_handicap_stays_in_secondary_tools(self):
         navigation = (ROOT / "js/primary-navigation.js").read_text()
@@ -48,9 +55,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.3-beta.1"', html)
-        self.assertIn('Project Football Time V6.26.3-beta.1', html)
-        self.assertIn('football-time-v86', sw)
+        self.assertIn('content="6.26.4-beta.1"', html)
+        self.assertIn('Project Football Time V6.26.4-beta.1', html)
+        self.assertIn('football-time-v87', sw)
 
     def test_discovery_team_shortcuts_route_into_grouped_team_subtabs(self):
         source = (ROOT / "js/football-discovery.js").read_text()

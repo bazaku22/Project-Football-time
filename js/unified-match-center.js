@@ -24,10 +24,7 @@
     return minute == null ? "—" : String(minute) + (extra ? "+" + extra : "") + "′";
   };
   const eventPlayer = (event) => event.player?.name || event.playerName || event.scorer?.name || event.player || "ไม่ระบุผู้เล่น";
-  const playerLink = (event) => {
-    const id = event.player?.canonical_player_id || event.player?.canonicalPlayerId || event.canonicalPlayerId || event.scorer?.canonical_player_id;
-    return id ? '<button type="button" class="mc-detail-player" data-canonical-player-ref="' + esc(id) + '">' + esc(eventPlayer(event)) + '</button>' : esc(eventPlayer(event));
-  };
+  const playerLink = (event) => esc(eventPlayer(event));
   const card = (heading, content) => '<section class="mc-detail-card"><h3>' + heading + '</h3>' + content + '</section>';
   const empty = (message) => '<div class="mc-detail-empty">' + message + '</div>';
   function summaryMarkup(match) {

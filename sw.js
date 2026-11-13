@@ -1,4 +1,4 @@
-const CACHE = "football-time-v86";
+const CACHE = "football-time-v87";
 
 const ASSETS = [
   "./",
@@ -8,7 +8,6 @@ const ASSETS = [
   "./css/ui-refresh-v2.css",
   "./css/football-discovery.css",
   "./css/design-system.css?v=1",
-  "./css/player-directory.css?v=1",
   "./css/football-research.css?v=1",
   "./css/match-center.css?v=7",
   "./css/match-center-mockup.css?v=1",
@@ -16,8 +15,6 @@ const ASSETS = [
   "./css/home-dashboard.css?v=1",
   "./css/analysis-refinement.css?v=1",
   "./css/international-handicap.css?v=1",
-  "./css/player-identity-review.css?v=1",
-  "./css/player-research-intake.css?v=1",
   "./css/notification-center.css?v=1",
   "./manifest.webmanifest",
   "./icon-192.png",
@@ -28,34 +25,20 @@ const ASSETS = [
   "./data/test-records.json",
   "./data/test-fixtures-2026-11.json",
   "./data/national-team-research-2026-11.json",
-  "./data/player-database.json",
-  "./data/player-team-name-registry-2026-27.json",
-  "./data/player-position-pilot-2026-27.json",
-  "./data/current-player-squads-2026-27.json",
   "./data/asian-handicap-odds.json",
   "./data/experimental/international-r1/fixtures.json",
   "./data/experimental/international-r1/prediction-snapshots.json",
   "./data/experimental/international-r1/handicap-reference.json",
-  "./js/player-database.js",
   "./js/football-discovery.js",
   "./js/match-center.js",
   "./js/unified-match-center.js",
   "./js/match-center-mockup.js",
   "./js/primary-navigation.js",
   "./js/home-dashboard.js",
-  "./js/player-stats-import.js",
-  "./js/player-research-intake.js",
-  "./js/player-identity-review.js",
-  "./js/player-team-alias-review.js",
-  "./js/provisional-player-directory.js",
-  "./js/player-hub.js",
   "./js/notification-center.js",
   "./js/manual-match-research.js",
   "./css/manual-match-research.css?v=1",
-  "./css/player-hub.css?v=2",
   "./js/research-insight.js",
-  "./js/player-cloud.js",
-  "./js/reep-alias-pilot.js",
   "./js/probability-metrics.js",
   "./js/test-experiment.js",
   "./js/asian-handicap.js",
@@ -100,9 +83,6 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (url.pathname.endsWith("/data/football-database.json") ||
-      url.pathname.endsWith("/data/player-database.json") ||
-      url.pathname.endsWith("/data/player-position-pilot-2026-27.json") ||
-      url.pathname.endsWith("/data/current-player-squads-2026-27.json") ||
       url.pathname.endsWith("/data/asian-handicap-odds.json") ||
       url.pathname.endsWith("/data/football-research-stats-2026-27.json")) {
     // Ignore cache-busting query strings so each refresh reuses one cache entry.

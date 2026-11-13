@@ -32,9 +32,10 @@ class PlayerCompetitionStatisticsTests(unittest.TestCase):
         self.assertIn("ไม่มีข้อมูลสถิติในรายการนี้", HUB)
         self.assertIn("No data", HUB)
 
-    def test_canonical_profile_is_a_distinct_panel(self):
-        self.assertIn('id="playerCanonicalHub"', HTML)
-        self.assertIn('id="playerCanonicalProfile"', HTML)
+    def test_canonical_profile_panel_is_removed_from_app(self):
+        self.assertNotIn('id="playerCanonicalHub"', HTML)
+        self.assertNotIn('id="playerCanonicalProfile"', HTML)
+        self.assertNotIn("./js/player-hub.js", HTML)
 
 
 if __name__ == "__main__":

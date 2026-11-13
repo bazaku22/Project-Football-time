@@ -15,12 +15,39 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.3-beta.1"', html)
+        self.assertIn('content="6.26.4-beta.1"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v86"', sw)
+        self.assertIn('const CACHE = "football-time-v87"', sw)
+
+
+    def test_legacy_player_ui_is_removed_without_affecting_match_events(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        sw = (ROOT / "sw.js").read_text(encoding="utf-8")
+        navigation = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
+        discovery = (ROOT / "js/football-discovery.js").read_text(encoding="utf-8")
+        match_center = (ROOT / "js/match-center.js").read_text(encoding="utf-8")
+        unified_match_center = (ROOT / "js/unified-match-center.js").read_text(encoding="utf-8")
+
+        self.assertNotIn('data-db-tab="players"', html)
+        self.assertNotIn('id="dbtab-players"', html)
+        for legacy_script in [
+            "./js/player-database.js", "./js/player-cloud.js", "./js/player-hub.js",
+            "./js/player-stats-import.js", "./js/player-research-intake.js",
+            "./js/player-identity-review.js", "./js/player-team-alias-review.js",
+            "./js/provisional-player-directory.js"
+        ]:
+            self.assertNotIn(legacy_script, html)
+            self.assertNotIn(legacy_script, sw)
+        self.assertNotIn('target === "players"', navigation)
+        self.assertNotIn("pft-player-stats-data", discovery)
+        self.assertNotIn("getLocalPlayers", discovery)
+        self.assertIn('const player = item.player?.name', match_center)
+        self.assertIn("const eventPlayer = (event)", unified_match_center)
+        self.assertNotIn("data-canonical-player-ref", match_center)
+        self.assertNotIn("data-canonical-player-ref", unified_match_center)
 
     def test_ui_requires_validation_before_import_and_keeps_data_local(self):
         source = (ROOT / "js/manual-match-research.js").read_text(encoding="utf-8")

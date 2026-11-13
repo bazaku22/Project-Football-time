@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.26.3-beta.1">
-<title>Project Football Time V6.26.3-beta.1</title>
+<meta name="application-version" content="6.26.4-beta.1">
+<title>Project Football Time V6.26.4-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -58,16 +58,12 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/football-discovery.css?v=1">
 <link rel="stylesheet" href="./css/ui-refresh-v2.css?v=1">
 <link rel="stylesheet" href="./css/design-system.css?v=1">
-<link rel="stylesheet" href="./css/player-directory.css?v=1">
-<link rel="stylesheet" href="./css/player-hub.css?v=2">
 <link rel="stylesheet" href="./css/football-research.css?v=1">
 <link rel="stylesheet" href="./css/match-center.css?v=7">
 <link rel="stylesheet" href="./css/primary-navigation.css?v=1">
 <link rel="stylesheet" href="./css/home-dashboard.css?v=1">
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <link rel="stylesheet" href="./css/international-handicap.css?v=1">
-<link rel="stylesheet" href="./css/player-identity-review.css?v=1">
-<link rel="stylesheet" href="./css/player-research-intake.css?v=1">
 <link rel="stylesheet" href="./css/notification-center.css?v=1">
 <link rel="stylesheet" href="./css/manual-match-research.css?v=1">
 <script src="./js/asian-handicap.js"></script>
@@ -76,7 +72,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.3-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.4-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
 <dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main>
 <section id="home" class="page active">
@@ -157,8 +153,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <button data-db-tab="probability">ความน่าจะเป็น</button>
  <button data-db-tab="accuracy">ความแม่นยำ</button>
  <button data-db-tab="advanced">วิเคราะห์เชิงลึก</button>
- <button data-db-tab="players">ฐานข้อมูลนักเตะ</button>
-
 </div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
  <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">8 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
  <div class="pillrow" id="leaguePicker"></div>
@@ -246,58 +240,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>5.4 ความเสี่ยงและความไม่แน่นอน</b><span class="small">คะแนนความเสี่ยง</span></div><div id="p5Risk" class="empty">กำลังประเมิน…</div></div>
  <div class="card"><div class="topline"><b>5.5 เหตุผลการวิเคราะห์และคุณภาพข้อมูล</b><span class="small">ตรวจสอบย้อนกลับได้</span></div><div id="p5Explanation" class="empty">กำลังรวบรวมข้อมูล…</div></div>
  <p class="profile-note">คะแนนความแข็งแกร่งเป็นดัชนีเปรียบเทียบภายในลีกและฤดูกาลเดียวกัน ไม่ใช่ความน่าจะเป็นชนะ ส่วนความพร้อมผู้เล่นจะแสดงว่าไม่ทราบเมื่อไม่มี feed ที่เชื่อถือได้ และจะไม่เดาข้อมูลที่ขาดหาย</p>
-</div>
-<div class="db-panel" id="dbtab-players">
- <div class="player-directory-hero"><div><div class="player-eyebrow">FOOTBALL TIME · PLAYER HUB</div><h2>ฐานข้อมูลนักเตะ</h2><p>รายชื่อปัจจุบัน สถิติ และประวัติ แยกจากกันอย่างชัดเจน</p></div><div class="player-hero-mark">XI</div></div>
- <div class="player-view-tabs" hidden role="tablist" aria-label="หมวดข้อมูลนักเตะ"><button type="button" class="active" data-player-view="current">ฤดูกาลปัจจุบัน</button><button type="button" data-player-view="archive">ข้อมูลเก่า / Archive</button><button type="button" data-player-view="research">Research Only</button></div>
- <section class="player-hub" id="playerHub"><div class="player-hub-summary" id="playerHubSummary"></div><div id="playerHubStatus" class="small" role="status">กำลังโหลดข้อมูลจากอุปกรณ์นี้…</div><p class="profile-note">รูปนักเตะจะแสดงเมื่อมี URL ภาพที่ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น หากยังไม่มีจะแสดงอักษรย่อแทน เพื่อไม่ใช้ภาพที่ไม่มีสิทธิ์</p><div class="player-hub-section-title"><h3>1. เลือกลีก</h3><span class="small">ฤดูกาล 2026/27</span></div><section id="playerCanonicalHub" class="player-canonical-hub" aria-labelledby="playerCanonicalTitle">
- <div class="player-hub-section-title"><h3 id="playerCanonicalTitle">ฐานข้อมูลนักเตะ Canonical</h3><span class="player-canonical-source">SUPABASE · PRIVATE</span></div>
- <p class="profile-note">ข้อมูลจาก Canonical Player Database แยกตามการแข่งขันและฤดูกาล ข้อมูลที่ไม่มีหรือยังไม่มีสิทธิ์แสดงจะไม่ถูกนำมาคำนวณ</p>
- <div id="playerCanonicalStatus" class="small" role="status">รอโหลดข้อมูลจากฐานข้อมูลส่วนตัว</div>
- <div class="player-canonical-controls"><label for="playerCanonicalSearch">ค้นหานักเตะ</label><input id="playerCanonicalSearch" class="filter" type="search" placeholder="ชื่อหรือ Canonical Player ID"></div>
- <div id="playerCanonicalRoster" class="player-hub-roster"><div class="player-hub-empty">เข้าสู่ระบบเพื่อดูข้อมูล Canonical</div></div>
- <section id="playerCanonicalProfile" class="player-hub-profile" hidden></section>
-</section><div id="playerHubLeagues" class="player-hub-leagues"></div><div class="player-hub-section-title"><h3>2. เลือกทีม</h3><span class="small">แตะทีมเพื่อกรองรายชื่อ</span></div><div id="playerHubTeams" class="player-hub-teams"></div><div class="player-hub-controls"><div class="field"><label for="playerHubPosition">ตำแหน่ง</label><select id="playerHubPosition" class="filter"><option value="ALL">ทุกตำแหน่ง</option><option value="GOALKEEPER">ผู้รักษาประตู</option><option value="DEFENDER">กองหลัง</option><option value="MIDFIELDER">กองกลาง</option><option value="FORWARD">กองหน้า</option><option value="UNKNOWN">ยังไม่ระบุ</option></select></div><div class="field"><label for="playerHubSearch">ค้นหานักเตะ</label><input id="playerHubSearch" class="filter" type="search" placeholder="ชื่อหรือ Provider ID"></div></div><div class="player-hub-section-title"><h3 id="playerHubRosterTitle">3. รายชื่อนักเตะ</h3><span class="small" id="playerHubRosterCount">0 คน</span></div><div id="playerHubRoster" class="player-hub-roster"><div class="empty">ยังไม่มีข้อมูลในเครื่อง</div></div><div class="player-hub-pager"><button type="button" class="secondary" id="playerHubPrev" disabled>ก่อนหน้า</button><span id="playerHubPager" class="small">0 รายการ</span><button type="button" class="secondary" id="playerHubNext" disabled>ถัดไป</button></div><section id="playerHubProfile" class="player-hub-profile" hidden></section></section><details class="card"><summary><b>เครื่องมือจัดการข้อมูลและระบบเดิม (ขั้นสูง)</b></summary><div hidden id="playerLegacyDirectoryRuntime"><div id="playerDbStatus"></div><div id="playerDbSummary"></div><select id="playerLeagueFilter"><option value="ALL">ALL</option></select><select id="playerTeamFilter"><option value="ALL">ALL</option></select><select id="playerPositionFilter"><option value="ALL">ALL</option></select><input id="playerSearch" type="search"><div id="playerList"></div></div>
-  <p class="profile-note">เก็บเครื่องมือเดิมไว้เพื่อรักษาข้อมูลและประวัติ ไม่ใช่แหล่งข้อมูลหลักของรายชื่อนักเตะ</p>
-  <div class="card" id="playerCloudAuth"><div class="topline"><b>คลังนักเตะส่วนตัว / Legacy Cloud</b><span class="tag">SUPABASE AUTH</span></div><div class="small" id="playerCloudStatus" role="status">ยังไม่ได้เข้าสู่ระบบ</div>
-   <div id="playerCloudLogin"><div class="field"><label for="playerCloudEmail">อีเมลสำหรับเข้าสู่ระบบ</label><input id="playerCloudEmail" class="filter" type="email" autocomplete="email" placeholder="you@example.com"></div><button class="primary" id="playerCloudSendLink" type="button">ส่งลิงก์เข้าสู่ระบบทางอีเมล</button></div>
-   <div id="playerCloudSignedIn" hidden><div class="small" id="playerCloudUser"></div><div class="form-actions"><button class="secondary" id="playerCloudRefresh" type="button">รีเฟรชข้อมูล</button><button class="secondary" id="playerCloudSignOut" type="button">ออกจากระบบ</button></div><button class="secondary" id="playerCloudReepPilot" type="button">ทดสอบจับคู่ชื่อกับ Reep</button>
-    <div id="playerCloudPreviewPanel" class="p5-note" hidden><b>ตัวอย่างข้อมูลพร้อมตรวจสอบ</b><div id="playerCloudPreviewSummary" class="small"></div><button class="primary" id="playerCloudSavePreview" type="button">ยืนยันบันทึก Preview</button><button class="secondary" id="playerCloudCancelPreview" type="button">ยกเลิก Preview</button></div>
-    <div id="playerCloudReepPanel" class="p5-note" hidden><b>ผลการทดสอบชื่อแฝงจาก Reep</b><div id="playerCloudReepSummary" class="small"></div><div id="playerCloudReepResults" class="small"></div></div>
-   </div>
-  </div>
-  <div class="card"><b>Local JSON archive</b><div class="form-actions"><button class="secondary" id="playerImportButton" type="button">นำเข้า JSON</button><button class="secondary" id="playerExportButton" type="button">ส่งออก JSON</button><input id="playerImportFile" type="file" accept=".json,application/json" hidden></div></div>
-  <div class="card" id="playerIdentityReviewPanel"><div class="topline"><b>ตรวจสอบตัวตนนักเตะ (Identity Review)</b><span class="tag">OFFLINE REVIEW</span></div><p class="identity-review-intro">นำเข้าไฟล์คิวจาก Reconciliation เพื่อพิจารณา Candidate ด้วยคนจริง ระบบไม่รวมผู้เล่นให้อัตโนมัติ</p>
-   <div class="field"><label for="playerIdentityReviewFile">ไฟล์คิวตรวจสอบ CSV</label><input id="playerIdentityReviewFile" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerIdentityReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerIdentityReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div><div id="playerIdentityReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบ</div><div id="playerIdentityReviewSummary" class="identity-review-summary"></div>
-   <div class="field"><label for="playerIdentityReviewFilter">กรองสถานะ</label><select id="playerIdentityReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="provisional">สร้างรายการรอตรวจ</option><option value="approved">อนุมัติในเครื่อง</option><option value="verified">ยืนยันแล้ว</option><option value="rejected">ไม่ใช่คนเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div><div id="playerIdentityReviewRows"><div class="empty">เลือกไฟล์คิวตรวจสอบเพื่อเริ่มต้น</div></div>
-   <div class="form-actions"><button class="secondary" id="playerIdentityCreateAllProvisional" type="button">สร้างรายการรอตรวจสอบทั้งหมด</button><button class="secondary" id="playerIdentityExportProvisional" type="button">ส่งออกรายการรอตรวจสอบ</button></div><div class="form-actions"><button class="secondary" id="playerIdentityExportMappings" type="button">ส่งออก Mapping ที่ยืนยัน</button><button class="secondary" id="playerIdentityExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div><button class="secondary" id="playerIdentityReviewClear" type="button">ล้างคิวที่เปิดอยู่</button><div class="quality-note">ผลตรวจเก็บในอุปกรณ์และไฟล์ส่งออก ไม่ได้เขียนลง Supabase</div>
-  </div>
-  <div class="card" id="playerTeamAliasReviewPanel"><div class="topline"><b>ตรวจสอบการจับคู่ทีม (Team Alias Review)</b><span class="tag">OFFLINE REVIEW</span></div>
-   <p class="identity-review-intro">ตรวจสอบ 7 ชื่อทีมที่ไม่ตรงกันแบบตรงตัวกับทะเบียนทีมหลัก ระบบเสนอทีมให้พิจารณาเท่านั้น การกดยืนยันจะเก็บในอุปกรณ์และส่งออก CSV ไม่แก้ทะเบียน Production</p>
-   <div class="field"><label for="playerTeamAliasReviewFile">ไฟล์ team-mapping-review-2026-27.csv</label><input id="playerTeamAliasReviewFile" class="filter" type="file" accept=".csv,text/csv"></div>
-   <div class="field"><label for="playerTeamAliasReviewer">รหัสหรือชื่อผู้ตรวจสอบ</label><input id="playerTeamAliasReviewer" class="filter" type="text" maxlength="100" placeholder="ระบุผู้ตรวจสอบก่อนบันทึกผล"></div>
-   <div id="playerTeamAliasReviewStatus" class="small" role="status">ยังไม่มีคิวตรวจสอบทีม</div><div id="playerTeamAliasReviewSummary" class="identity-review-summary"></div>
-   <div class="field"><label for="playerTeamAliasReviewFilter">กรองสถานะ</label><select id="playerTeamAliasReviewFilter" class="filter"><option value="pending">รอตรวจสอบ</option><option value="all">ทั้งหมด</option><option value="approved">ยืนยันในเครื่อง</option><option value="rejected">ไม่ใช่ทีมเดียวกัน</option><option value="followup">ขอตรวจเพิ่ม</option></select></div>
-   <div id="playerTeamAliasReviewRows"><div class="empty">เลือกไฟล์ team-mapping-review เพื่อเริ่มต้น</div></div>
-   <div class="form-actions"><button class="secondary" id="playerTeamAliasExport" type="button">ส่งออก Alias ที่ยืนยัน</button><button class="secondary" id="playerTeamAliasExportDecisions" type="button">ส่งออกรายงานตรวจสอบ</button></div>
-   <div class="quality-note">การยืนยันเป็นผลตรวจภายในเครื่องเท่านั้น ยังไม่เปลี่ยน canonical team mapping และไม่เขียน Supabase</div>
-  </div>
-  <div class="card" id="playerStatsImportPanel"><div class="topline"><b>นำเข้าสถิติ CSV — Preview เท่านั้น</b><span class="tag">OFFLINE PREFLIGHT</span></div><p class="profile-note">ตรวจไฟล์ในอุปกรณ์ ไม่อัปโหลดและไม่บันทึกฐานข้อมูล</p>
-   <div class="field"><label for="playerStatsCsv">ไฟล์สถิติ CSV</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerStatsMappingCsv">ไฟล์ mapping CSV</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div><button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button><div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div><div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
-   <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div><button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
-  </div>
- 
-  <div class="card player-research-intake" id="playerResearchIntakePanel"><div class="topline"><b>Research Intake Gate — Five European Leagues 2026/27</b><span class="tag">LOCAL · RIGHTS GATED</span></div>
-   <p class="identity-review-intro">ตรวจ manifest นักเตะและสถิติแบบออฟไลน์ แยกสิทธิ์แหล่งข้อมูลออกจากสิทธิ์ใช้ข้อมูลแต่ละประเภท ข้อมูลที่ยังไม่ผ่านสิทธิ์หรือหลักฐานจะถูก BLOCKED และไม่มีการส่งขึ้น Cloud</p>
-   <div class="field"><label for="playerResearchMembershipFile">Membership manifest (JSON)</label><input id="playerResearchMembershipFile" class="filter" type="file" accept=".json,application/json"></div>
-   <div class="field"><label for="playerResearchStatsFile">Statistics manifest (JSON)</label><input id="playerResearchStatsFile" class="filter" type="file" accept=".json,application/json"></div>
-   <div id="playerResearchIntakeStatus" class="small" role="status" aria-live="polite">ยังไม่ได้เลือก manifest · รองรับ PL, La Liga, Bundesliga, Serie A และ Ligue 1</div>
-   <div id="playerResearchIntakeSummary" class="identity-review-summary"></div><div id="playerResearchIntakeFindings"></div>
-   <div class="form-actions"><button class="secondary" id="playerResearchIntakeExport" type="button" disabled>ส่งออกรายงานตรวจสอบ</button><button class="secondary" id="playerResearchIntakeReset" type="button">ล้างไฟล์</button></div>
-   <div class="quality-note">แม้ผ่านการตรวจไฟล์ก็เป็นเพียง Local Preview ไม่ใช่การอนุมัติทางกฎหมายหรือคำสั่ง Import · Production import ต้องได้รับอนุมัติแยกต่างหาก</div>
-  </div>
- </details>
-</div>
 </div>
 <div class="db-panel" id="dbtab-accuracy">
  <div class="sectionhead"><h2>Accuracy &amp; Model Evaluation Center</h2><span class="small">PHASE 5</span></div>
@@ -1214,21 +1156,13 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/test-experiment.js"></script>
 
 <script src="./js/test-experiment-enhancements.js"></script>
-<script src="./js/player-database.js"></script>
 <script src="./js/football-discovery.js"></script>
 <script src="./js/match-center.js"></script>
 <script src="./js/unified-match-center.js"></script>
 <script src="./js/primary-navigation.js"></script>
 <script src="./js/home-dashboard.js"></script>
 <script src="./js/international-handicap-workspace.js"></script>
-<script src="./js/player-stats-import.js"></script>
-<script src="./js/player-research-intake.js"></script>
-<script src="./js/player-identity-review.js"></script>
-<script src="./js/player-team-alias-review.js"></script>
 <script src="./js/research-insight.js"></script>
-<script type="module" src="./js/player-cloud.js"></script>
-<script src="./js/provisional-player-directory.js"></script>
-<script src="./js/player-hub.js"></script>
 <script src="./js/notification-center.js"></script>
 <script src="./js/manual-match-research.js"></script>
 </body></html>

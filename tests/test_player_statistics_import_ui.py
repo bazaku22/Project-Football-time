@@ -12,11 +12,13 @@ DISCOVERY = (ROOT / "js" / "football-discovery.js").read_text(encoding="utf-8")
 
 
 class PlayerStatisticsImportUITests(unittest.TestCase):
-    def test_panel_is_separate_from_legacy_squad_preview(self):
-        self.assertIn('id="playerStatsImportPanel"', HTML)
-        self.assertIn('id="playerCloudPreviewPanel"', HTML)
-        self.assertIn('id="playerStatsImportPanel"', HTML[HTML.index('id="dbtab-players"'):HTML.index('id="dbtab-accuracy"')])
-        self.assertIn('./js/player-stats-import.js', HTML)
+    def test_legacy_player_import_and_cloud_panels_are_removed_from_app(self):
+        for marker in ('id="playerStatsImportPanel"', 'id="playerCloudPreviewPanel"', 'id="dbtab-players"'):
+            self.assertNotIn(marker, HTML)
+        self.assertNotIn('./js/player-stats-import.js', HTML)
+        self.assertNotIn('./js/player-cloud.js', HTML)
+        self.assertNotIn('./js/player-stats-import.js', WORKER)
+        self.assertNotIn('./js/player-cloud.js', WORKER)
 
     def test_local_preview_controls_and_report_exports_exist(self):
         for marker in (
@@ -41,12 +43,12 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("No database writes", MODULE)
 
     def test_research_insight_assets_are_in_current_service_worker_cache(self):
-        self.assertIn("football-time-v86", WORKER)
+        self.assertIn("football-time-v87", WORKER)
         self.assertIn("./js/research-insight.js", WORKER)
         self.assertIn("./css/football-research.css?v=1", WORKER)
 
     def test_service_worker_cache_version_and_asset(self):
-        self.assertIn("football-time-v86", WORKER)
+        self.assertIn("football-time-v87", WORKER)
         self.assertIn('"./css/football-discovery.css"', WORKER)
         self.assertIn('"./css/design-system.css?v=1"', WORKER)
         self.assertIn('"./css/match-center.css?v=7"', WORKER)
@@ -55,9 +57,15 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn('"./js/match-center.js"', WORKER)
         self.assertIn('"./css/ui-refresh-v2.css"', WORKER)
         self.assertIn('"./js/football-discovery.js"', WORKER)
-        self.assertIn('"./js/player-stats-import.js"', WORKER)
-        self.assertIn('"./js/player-cloud.js"', WORKER)
 
+
+    def test_legacy_player_modules_are_not_loaded_or_precached(self):
+        for name in ("player-database.js", "player-hub.js", "player-stats-import.js",
+                     "player-research-intake.js", "player-identity-review.js",
+                     "player-team-alias-review.js", "provisional-player-directory.js",
+                     "player-cloud.js"):
+            self.assertNotIn("./js/" + name, HTML)
+            self.assertNotIn("./js/" + name, WORKER)
 
     def test_player_cloud_statistics_are_not_hardcoded_to_one_team_or_season(self):
         self.assertNotIn('.eq("season","2025/26")', PLAYER_CLOUD)
@@ -82,7 +90,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn("renderTeamCrest(homeTeam)", HTML)
         self.assertIn("renderTeamCrest(awayTeam)", HTML)
         self.assertIn("fixture-match-teams", HTML)
-        self.assertIn("football-time-v86", WORKER)
+        self.assertIn("football-time-v87", WORKER)
 
 
     def test_phase_a_broken_crest_urls_fall_back_to_initials(self):

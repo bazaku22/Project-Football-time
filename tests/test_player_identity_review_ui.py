@@ -9,14 +9,13 @@ RECONCILER = (ROOT / "scripts" / "reconcile_player_identity.py").read_text(encod
 
 
 class PlayerIdentityReviewUITests(unittest.TestCase):
-    def test_review_panel_is_in_player_database_workspace(self):
-        panel = HTML[HTML.index('id="dbtab-players"'):HTML.index('id="dbtab-accuracy"')]
-        for marker in ("playerIdentityReviewPanel", "playerIdentityReviewFile",
-                       "playerIdentityReviewer", "playerIdentityReviewRows",
-                       "playerIdentityExportMappings", "playerIdentityExportDecisions"):
-            self.assertIn(marker, panel)
-        self.assertIn('./js/player-identity-review.js', HTML)
-        self.assertIn('./css/player-identity-review.css?v=1', HTML)
+    def test_legacy_identity_review_ui_is_removed_from_app(self):
+        for marker in ('id="dbtab-players"', 'id="playerIdentityReviewPanel"',
+                       'id="playerTeamAliasReviewPanel"'):
+            self.assertNotIn(marker, HTML)
+        self.assertNotIn('./js/player-identity-review.js', HTML)
+        self.assertNotIn('./js/player-team-alias-review.js', HTML)
+        self.assertNotIn('./css/player-identity-review.css?v=1', HTML)
 
     def test_manual_review_actions_and_filter_exist(self):
         for marker in ("approve", "rejected", "followup", "candidate_keys",
@@ -30,9 +29,9 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertNotIn("createClient", MODULE)
         self.assertNotIn("supabase", MODULE.lower())
         self.assertIn("localStorage", MODULE)
-        self.assertIn("playerIdentityCreateAllProvisional", HTML)
-        self.assertIn("playerIdentityExportProvisional", HTML)
-        self.assertIn('<option value="provisional">สร้างรายการรอตรวจ</option>', HTML)
+        self.assertNotIn("playerIdentityCreateAllProvisional", HTML)
+        self.assertNotIn("playerIdentityExportProvisional", HTML)
+        self.assertNotIn('<option value="provisional">สร้างรายการรอตรวจ</option>', HTML)
         self.assertIn('if(row.status==="conflicting_identity_observations"){held++;return;}', MODULE)
         self.assertIn('if(existing)return;', MODULE)
 
@@ -40,22 +39,20 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertIn('"reviewer": mapped[0].get("reviewer", "")', RECONCILER)
         self.assertIn('"reviewed_at": mapped[0].get("reviewed_at", "")', RECONCILER)
 
-    def test_team_alias_review_panel_is_local_only_and_loaded(self):
-        panel = HTML[HTML.index('id="playerTeamAliasReviewPanel"'):HTML.index('id="playerStatsImportPanel"')]
-        for marker in ("playerTeamAliasReviewFile", "playerTeamAliasReviewer",
-                       "playerTeamAliasReviewRows", "playerTeamAliasExport"):
-            self.assertIn(marker, panel)
-        self.assertIn('./js/player-team-alias-review.js', HTML)
+    def test_legacy_team_alias_review_ui_is_removed_from_app(self):
+        self.assertNotIn('id="playerTeamAliasReviewPanel"', HTML)
+        self.assertNotIn('./js/player-team-alias-review.js', HTML)
+        self.assertNotIn('./js/player-team-alias-review.js', WORKER)
         alias_module = (ROOT / "js" / "player-team-alias-review.js").read_text(encoding="utf-8")
         self.assertIn("pft_player_team_alias_decisions_2026_27_v1", alias_module)
         self.assertNotIn("fetch(", alias_module)
         self.assertNotIn("supabase", alias_module.lower())
 
-    def test_service_worker_caches_new_assets_and_invalidates_old_cache(self):
-        self.assertIn("football-time-v86", WORKER)
-        self.assertIn('"./css/player-identity-review.css?v=1"', WORKER)
-        self.assertIn('"./js/player-identity-review.js"', WORKER)
-        self.assertIn('"./js/player-team-alias-review.js"', WORKER)
+    def test_service_worker_no_longer_precaches_legacy_identity_tools(self):
+        self.assertIn("football-time-v87", WORKER)
+        self.assertNotIn('"./css/player-identity-review.css?v=1"', WORKER)
+        self.assertNotIn('"./js/player-identity-review.js"', WORKER)
+        self.assertNotIn('"./js/player-team-alias-review.js"', WORKER)
 
 
 if __name__ == "__main__":
