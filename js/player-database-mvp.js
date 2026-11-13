@@ -25,7 +25,7 @@
  }
  function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return value&&typeof value==="object"&&!Array.isArray(value)?value:{}}catch(_){return {};}}
  function recordVerified(record){
-  if(!record||record.review_status!=="verified"||record.lineup_coverage!=="complete"||record.event_coverage!=="complete")return false;
+  if(!record||record.season!=="2026/27"||record.review_status!=="verified"||record.lineup_coverage!=="complete"||record.event_coverage!=="complete")return false;
   const sources=Array.isArray(record.sources)?record.sources:[];
   const authoritative=sources.some(s=>s&&["official_competition","federation","licensed_provider"].includes(s.source_type));
   return sources.length>=2&&authoritative&&sources.every(s=>s&&s.reuse_rights==="confirmed"&&typeof s.permission_basis==="string"&&s.permission_basis.trim());
@@ -55,7 +55,7 @@
    const key=String(matchId)+":"+item.id;if(!item._apps.has(key)){item._apps.add(key);item.appearances+=1;}
   };
   (Array.isArray(data.records)?data.records:[]).forEach(record=>{
-   if(!record||!Array.isArray(record.lineups)||!Array.isArray(record.events))return;
+   if(!record||record.season!=="2026/27"||record.competition_code!==selectedLeague?.[0]||!Array.isArray(record.lineups)||!Array.isArray(record.events))return;
    const trusted=recordVerified(record);
    if(trusted)verifiedMatches++;else pendingMatches++;
    const home=record.home_team?.team_id,away=record.away_team?.team_id,matchId=String(record.match_id??"");
