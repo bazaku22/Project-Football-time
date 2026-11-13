@@ -1,4 +1,4 @@
-const CACHE = "football-time-v71";
+const CACHE = "football-time-v72";
 
 const ASSETS = [
   "./",
@@ -24,6 +24,7 @@ const ASSETS = [
   "./data/test-fixtures-2026-11.json",
   "./data/national-team-research-2026-11.json",
   "./data/player-database.json",
+  "./data/player-team-name-registry-2026-27.json",
   "./data/player-position-pilot-2026-27.json",
   "./data/current-player-squads-2026-27.json",
   "./data/asian-handicap-odds.json",
