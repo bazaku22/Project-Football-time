@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-check the two offline 2026/27 player research manifests as one PL pilot bundle."""
+"""Cross-check the offline 2026/27 five-league player research manifests."""
 from __future__ import annotations
 import argparse
 import json
@@ -12,6 +12,9 @@ except ImportError:
     from validate_player_intake_manifest import validate as validate_memberships
     from validate_player_statistics_intake import validate as validate_statistics
 
+LEAGUES = {"PL", "PD", "BL1", "SA", "FL1"}
+LEAGUE_NAMES = {"PL":"Premier League","PD":"La Liga","BL1":"Bundesliga","SA":"Serie A","FL1":"Ligue 1"}
+
 def validate_bundle(membership: dict, statistics: dict) -> list[str]:
     errors=[]
     if not isinstance(membership,dict) or not isinstance(statistics,dict):
@@ -23,8 +26,8 @@ def validate_bundle(membership: dict, statistics: dict) -> list[str]:
         errors.extend(f"{label}: {message}" for message in validator(data))
         rows=data.get(key,[])
         for row in rows if isinstance(rows,list) else []:
-            if isinstance(row,dict) and row.get("league_id")!="PL":
-                errors.append(f"{label}: pilot only permits league_id=PL (found {row.get('league_id')})")
+            if isinstance(row,dict) and row.get("league_id") not in LEAGUES:
+                errors.append(f"{label}: unsupported league_id {row.get('league_id')!r}; expected one of {', '.join(sorted(LEAGUES))}")
     membership_sources={x.get("id"):x for x in membership.get("sources",[]) if isinstance(x,dict) and x.get("id")}
     statistics_sources={x.get("id"):x for x in statistics.get("sources",[]) if isinstance(x,dict) and x.get("id")}
     for source_id in sorted(set(membership_sources)&set(statistics_sources)):
@@ -47,8 +50,13 @@ def main() -> int:
     if errors:
         for message in errors: print("ERROR: "+message,file=sys.stderr)
         print("RESULT: BLOCKED — no data was imported.",file=sys.stderr);return 1
-    print("Premier League 2026/27 research bundle validated.")
-    print(f"Membership rows: {len(membership['memberships'])}; statistics rows: {len(statistics['statistics'])}")
+    counts={league:{"memberships":0,"statistics":0} for league in LEAGUES}
+    for row in membership["memberships"]: counts[row["league_id"]]["memberships"]+=1
+    for row in statistics["statistics"]: counts[row["league_id"]]["statistics"]+=1
+    print("Five-league 2026/27 research bundle validated.")
+    for league in ("PL","PD","BL1","SA","FL1"):
+        print(f"{LEAGUE_NAMES[league]} ({league}): {counts[league]['memberships']} memberships; {counts[league]['statistics']} statistics")
+    print(f"Total memberships: {len(membership['memberships'])}; total statistics: {len(statistics['statistics'])}")
     print("Offline validation only; no provider calls or Production writes.")
     return 0
 if __name__=="__main__": raise SystemExit(main())
