@@ -24,7 +24,7 @@
   }catch(_){}
   return {dataset_id:"player-match-event-ledger-2026-27",season:"2026/27",records:[],expected_finished_match_ids:[]};
  }
- function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return {...bundledTeamAliases,...(value&&typeof value==="object"&&!Array.isArray(value)?value:{})}}catch(_){return {...bundledTeamAliases};}}
+ function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return {...(value&&typeof value==="object"&&!Array.isArray(value)?value:{}),...bundledTeamAliases}}catch(_){return {...bundledTeamAliases};}}
  function recordVerified(record){
   if(!record||record.season!=="2026/27"||record.review_status!=="verified"||record.lineup_coverage!=="complete"||record.event_coverage!=="complete")return false;
   const sources=Array.isArray(record.sources)?record.sources:[];
