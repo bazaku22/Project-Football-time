@@ -102,7 +102,7 @@
     const r=currentRecord();if(!r)return setStatus("กรุณาเลือกแมตช์ก่อน","error");if(!r.sources.length)return setStatus("เพิ่มแหล่งอ้างอิงก่อนบันทึกเหตุการณ์","error");
     const type=$("pmeEventType").value,minute=$("pmeEventMinute").value.trim(),team=type==="goal"?$("pmeGoalTeam").value:$("pmeLineupTeam").value;
     if(!/^[0-9]{1,3}(\+[0-9]{1,2})?$/.test(minute))return setStatus("นาทีต้องเป็นตัวเลข เช่น 45 หรือ 90+3","error");
-    const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:r.sources.map(s=>s.source_id)};
+    const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:r.sources.length?[r.sources[0].source_id]:[]};
     if(type==="substitution"){
       const on=findLineup($("pmePlayerOn").value),off=findLineup($("pmePlayerOff").value);
       if(!on||!off||on.team_id!==team||off.team_id!==team||on.player.observed_name===off.player.observed_name)return setStatus("เลือกผู้เล่นที่ลงและออกจากทีมเดียวกันให้ครบ","error");
@@ -154,7 +154,7 @@
     const data=loadStored(),players=new Map(),appearances=new Set();let unresolved=false;
     const ensure=p=>{if(!p||p.identity_status!=="verified"||!p.ft_player_id){unresolved=true;return null;}if(!players.has(p.ft_player_id))players.set(p.ft_player_id,{id:p.ft_player_id,name:p.observed_name,apps:0,goals:0,assists:0});return players.get(p.ft_player_id);};
     const app=(matchId,p)=>{const x=ensure(p);if(x){const key=matchId+":"+p.ft_player_id;if(!appearances.has(key)){appearances.add(key);x.apps++;}}};
-    data.records.forEach(r=>{r.lineups.forEach(x=>{if(x.role==="starting_xi")app(r.match_id,x.player);else ensure(x.player);});r.events.forEach(e=>{if(e.type==="substitution"){app(r.match_id,e.player_on);ensure(e.player_off);}else{if(e.goal_type==="own_goal")ensure(e.own_goal_player);else{const x=ensure(e.scorer);if(x)x.goals++;}if(e.assist_status==="explicit"){const x=ensure(e.assist_player);if(x)x.assists++;}}});});
+    data.records.forEach(r=>{r.lineups.forEach(x=>{if(x.role==="starting_xi")app(r.match_id,x.player);else ensure(x.player);});r.events.forEach(e=>{if(e.type==="substitution"){app(r.match_id,e.player_on);app(r.match_id,e.player_off);}else{if(e.goal_type==="own_goal")app(r.match_id,e.own_goal_player);else{const x=ensure(e.scorer);if(x){x.goals++;app(r.match_id,e.scorer);}}if(e.assist_status==="explicit"){const x=ensure(e.assist_player);if(x){x.assists++;app(r.match_id,e.assist_player);}}}});});
     const expected=new Set(expectedMatchIds()),recorded=new Set(data.records.map(r=>String(r.match_id)));
     const complete=expected.size>0&&[...expected].every(id=>recorded.has(id))&&data.records.every(r=>r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&r.review_status==="verified")&&!unresolved;
     $("pmeStatsStatus").textContent=complete?"ข้อมูลครบตามแมตช์ที่อยู่ในฐานข้อมูลและผ่านการตรวจสอบ":"สถิติเป็น Lower bound: ข้อมูลแมตช์/ไลน์อัป/เหตุการณ์/ตัวตนยังไม่ครบ";
