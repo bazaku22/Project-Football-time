@@ -47,3 +47,32 @@ python3 -m unittest tests/test_player_statistics_intake.py -v
 
 ## Safety
 No provider API credits or cost are used. No Production Supabase writes, migrations, deletes, archives or updates are performed. No 2025/26 records are changed. This PR adds validation contracts only; it does not claim that the player directory or statistics are populated.
+
+
+## Player statistics source review — 2026-11-13
+
+This review adds current-season source leads without treating directory listings as licences or initiating any provider access.
+
+| Candidate | 2026/27 relevance | Rights / operational finding | Decision |
+|---|---|---|---|
+| StrikerAPI | A third-party source directory reports player-stat coverage for all five target leagues. It also reports a free tier with a finite monthly credit allowance. | This is a discovery lead, not provider confirmation. The exact plan terms, commercial use, database rights, redistribution, attribution and rate limits must be verified from StrikerAPI's own terms before any data use. No API call or credit was used. | Highest-priority provider review because it aligns with the existing player-ID strategy; not approved for ingestion or API access yet. |
+| Footballdata.io | Its public changelog states that 2026/27 player statistics were restored across covered leagues in August 2026. | Current-season availability does not establish free access, commercial rights, database rights or redistribution permission. API plan and terms require direct review. | Candidate for a terms/plan review only; no API call. |
+| IMPECT Open Data | Public repository documents player KPIs, lineups and player/squad master data, but its stated dataset coverage is Bundesliga 2023/24. | The repository points to IMPECT Terms of Use; independent source documentation describes non-commercial research use and no redistribution. It is historical and incompatible with the current-season requirement and Production reuse gate. | Excluded from 2026/27 Production intake. |
+| open-matchday | Public repository advertises 2026/27 match-level statistics for all five leagues, but not a player-season directory/statistics feed. | Repository describes use as non-commercial/informational. No production ingestion or redistribution. | May be useful for separate match-level research only; not a player source. |
+| SportsDataStack | Aggregates discovery information about player-stat providers and coverage. | It is a source directory, not the underlying data publisher or a data licence. | Discovery aid only; never cite it as permission to ingest data. |
+
+### Review references
+
+- StrikerAPI league coverage discovery: https://sportsdatastack.com/data/player-stats/
+- Footballdata.io 2026/27 restoration notice: https://footballdata.io/changelog/
+- IMPECT source repository and terms pointer: https://github.com/ImpectAPI/open-data
+- open-matchday dataset and stated use restriction: https://github.com/oladeeayo/open-matchday
+
+### Next action and stop conditions
+
+1. Request/review provider documentation and terms for StrikerAPI first, then Footballdata.io as a fallback; record the exact free-plan limits and the separate rights for roster identity versus player statistics.
+2. Do not create credentials, start a trial, make API requests, or consume credits until the user explicitly authorizes that provider access.
+3. Do not stage data from a source unless commercial use, database rights and redistribution are all explicitly allowed for Football Time's intended use.
+4. If no source passes, keep the affected cohort marked `permission_pending` / `not_cleared`; do not substitute scraping or non-commercial datasets.
+
+This is a source-assessment update only. It does not add player names or statistics, call providers, alter application code, write to Supabase, or change the 2025/26 archive.
