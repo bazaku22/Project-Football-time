@@ -1,0 +1,71 @@
+name: OpenPlay Historical Player Stats Intake
+
+on:
+  workflow_dispatch:
+    inputs:
+      season:
+        description: Published historical season to stage
+        required: true
+        type: choice
+        options:
+          - "2025/26"
+        default: "2025/26"
+
+permissions:
+  contents: read
+
+jobs:
+  intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Parquet reader
+        run: python -m pip install --disable-pip-version-check duckdb
+
+      - name: Download, verify and stage OpenPlay data
+        shell: bash
+        run: |
+          python scripts/openplay_player_stats_intake.py \
+            --download-release \
+            --season 2526 \
+            --output-dir openplay-intake-output
+
+      - name: Validate generated artifacts
+        run: |
+          python - <<'PY'
+          import csv, json
+          from pathlib import Path
+          root = Path("openplay-intake-output")
+          report = json.loads((root / "openplay-player-stats-intake-report.json").read_text())
+          required = [
+              "openplay-player-match-stats-review.csv",
+              "openplay-player-season-stats-review.csv",
+              "openplay-player-id-mapping-template.csv",
+              "ATTRIBUTION.txt",
+          ]
+          missing = [name for name in required if not (root / name).is_file()]
+          if missing:
+              raise SystemExit("Missing outputs: " + ", ".join(missing))
+          if report.get("production_import") is not False or report.get("supabase_writes") != 0:
+              raise SystemExit("Unsafe import metadata")
+          if report.get("provider_api_calls") != 0 or report.get("canonical_player_ids_assigned") != 0:
+              raise SystemExit("Unexpected provider calls or canonical IDs")
+          if report.get("match_stat_rows", 0) <= 0:
+              raise SystemExit("No OpenPlay match stats were staged")
+          print(json.dumps(report, indent=2))
+          PY
+
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openplay-player-stats-review-2025-26
+          path: openplay-intake-output/
+          retention-days: 14
