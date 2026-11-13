@@ -150,9 +150,12 @@ def derive_player_statistics(data: dict) -> dict:
     """Return confirmed-ID lower-bound totals; unresolved names are never auto-merged."""
     validate(data)
     players, appeared = {}, set()
+    unresolved_identity = False
 
     def ensure(player):
+        nonlocal unresolved_identity
         if player.get("identity_status") != "verified" or not player.get("ft_player_id"):
+            unresolved_identity = True
             return None
         pid = player["ft_player_id"]
         return players.setdefault(pid, {"ft_player_id": pid, "display_name": player["observed_name"],
@@ -176,6 +179,7 @@ def derive_player_statistics(data: dict) -> dict:
         for event in row.get("events", []):
             if event["type"] == "substitution":
                 mark_appearance(match_id, event["player_on"])
+                ensure(event["player_off"])
             elif event["type"] == "goal":
                 if event["goal_type"] in {"normal", "penalty"}:
                     scorer = ensure(event["scorer"])
@@ -190,12 +194,20 @@ def derive_player_statistics(data: dict) -> dict:
 
     expected = {str(value) for value in data.get("expected_finished_match_ids", [])}
     recorded = {str(row["match_id"]) for row in data["records"]}
-    complete = bool(expected) and expected == recorded and all(
+    evidence_complete = bool(expected) and expected == recorded and all(
         row["lineup_coverage"] == "complete" and row["event_coverage"] == "complete"
+        and row["review_status"] == "verified"
         for row in data["records"]
+    )
+    complete = evidence_complete and not unresolved_identity
+    rights_cleared = bool(data["records"]) and all(
+        source["reuse_rights"] == "confirmed"
+        for row in data["records"] for source in row["sources"]
     )
     return {
         "season": data["season"], "totals_are_lower_bounds": not complete,
+        "publishable": complete and rights_cleared,
+        "unresolved_identity_present": unresolved_identity,
         "coverage": {
             "expected_finished_matches": len(expected), "recorded_matches": len(recorded),
             "missing_match_ids": sorted(expected - recorded),
