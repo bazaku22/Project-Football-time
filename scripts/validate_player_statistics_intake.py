@@ -41,7 +41,7 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
         errors.append("schemaVersion must equal 1")
     if data.get("season") != season:
         errors.append(f"season must equal {season}")
-    if data.get("status") not in {"draft", "research_only"}:
+    if not isinstance(data.get("status"), str) or data.get("status") not in {"draft", "research_only"}:
         errors.append("status must be draft or research_only")
     if data.get("production_import") is not False:
         errors.append("production_import must be false")
@@ -102,7 +102,7 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
         seen.add(rid)
         if row.get("season") != season:
             errors.append(f"row {rid} has a non-current season")
-        if row.get("league_id") not in LEAGUES:
+        if not isinstance(row.get("league_id"), str) or row.get("league_id") not in LEAGUES:
             errors.append(f"row {rid} has an unsupported league")
         for field in ("canonical_player_key", "provider_player_id", "club_id", "club_name", "competition_id"):
             if not _non_empty_string(row.get(field)):
