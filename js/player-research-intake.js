@@ -3,6 +3,7 @@
  const $=id=>document.getElementById(id),panel=$("playerResearchIntakePanel");
  if(!panel)return;
  const state={membership:null,statistics:null,report:null};
+ const leagues={PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1"};
  const https=v=>typeof v==="string"&&/^https:\/\//i.test(v);
  const add=(a,m)=>a.push(m);
  function inspectSource(source,label,issues){
@@ -32,7 +33,7 @@
    const tag=rowsKey+" แถว "+(i+1);
    if(!row||typeof row!=="object"||Array.isArray(row)){add(issues,tag+": ต้องเป็น object");return;}
    if(row.season!=="2026/27")add(issues,tag+": season ไม่ใช่ 2026/27");
-   if(row.league_id!=="PL")add(issues,tag+": Pilot อนุญาตเฉพาะ PL");
+   if(!Object.prototype.hasOwnProperty.call(leagues,row.league_id))add(issues,tag+": league_id ต้องเป็นหนึ่งใน PL, PD, BL1, SA, FL1");
    if(!row.source_id||!sourceMap.has(row.source_id))add(issues,tag+": source_id ไม่อยู่ใน source registry");
    if(row.rights_status!=="approved")add(issues,tag+": rights_status ไม่ approved");
    if(isMembership){
@@ -67,7 +68,10 @@
   $("playerResearchIntakeFindings").innerHTML=findings.length?'<ul class="research-intake-findings">'+findings.map(item=>'<li>'+esc(item)+'</li>').join("")+'</ul>':'<div class="quality-note">ทั้งสอง manifest ผ่านการตรวจเบื้องต้นในเครื่อง · ยังต้องตรวจหลักฐานและสิทธิ์โดยผู้รับผิดชอบก่อนอนุมัติ Import</div>';
   $("playerResearchIntakeStatus").textContent=blocked?"BLOCKED · ยังไม่มีชุดข้อมูลที่ผ่านครบทั้ง Membership และ Statistics":"LOCAL PREVIEW · ผ่านการตรวจโครงสร้างเบื้องต้นเท่านั้น";
   $("playerResearchIntakeExport").disabled=!(m||s);
-  state.report={type:"player-research-intake-validation",preview_only:true,pilot_league:"PL",season:"2026/27",membership:{rows:mRows,status:m?.status||"not_selected",issues:m?.issues||[]},statistics:{rows:sRows,status:s?.status||"not_selected",issues:s?.issues||[]},production_import:false,provider_api_calls:0,notice:"Local validation only. Not legal approval and not a Production import."};
+  const leagueCounts=Object.fromEntries(Object.entries(leagues).map(([id,name])=>[id,{name,memberships:0,statistics:0}]));
+  (m?.rows||[]).forEach(row=>{if(leagueCounts[row.league_id])leagueCounts[row.league_id].memberships++;});
+  (s?.rows||[]).forEach(row=>{if(leagueCounts[row.league_id])leagueCounts[row.league_id].statistics++;});
+  state.report={type:"player-research-intake-validation",preview_only:true,supported_leagues:leagues,league_counts:leagueCounts,season:"2026/27",membership:{rows:mRows,status:m?.status||"not_selected",issues:m?.issues||[]},statistics:{rows:sRows,status:s?.status||"not_selected",issues:s?.issues||[]},production_import:false,provider_api_calls:0,notice:"Local validation only. Not legal approval and not a Production import."};
  }
  async function load(kind,file){
   if(!file)return;
