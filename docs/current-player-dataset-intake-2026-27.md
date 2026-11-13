@@ -154,3 +154,40 @@ The project owner confirmed that the app is non-commercial and approved Football
 - Keep `production_import: false`. This repository/UI release does not authorize Production Supabase writes, migrations, or data imports.
 - Do not reuse the old 25 research-only rows or the 29 Arsenal 2025/26 canonical records as current 2026/27 roster data without fresh source verification.
 - Preserve all existing local app data and the Match Event Ledger; do not clear user cache/data.
+
+## FootballSquads source-index verification — 2026-11-14
+
+The current-season index pages were opened and checked as the manual collection entry points. They list the following club counts:
+
+| League | Source index | Listed clubs | Target |
+|---|---|---:|---:|
+| Premier League | https://www.footballsquads.co.uk/eng/2026-2027/engprem.htm | 20 | 20 |
+| La Liga | https://www.footballsquads.co.uk/spain/2026-2027/spalali.htm | 20 | 20 |
+| Bundesliga | https://www.footballsquads.co.uk/ger/2026-2027/gerbun.htm | 18 | 18 |
+| Serie A | https://www.footballsquads.co.uk/italy/2026-2027/seriea.htm | 20 | 20 |
+| Ligue 1 | https://www.footballsquads.co.uk/france/2026-2027/fralig1.htm | 18 | 18 |
+| **Total** | | **96** | **96** |
+
+This verifies the index-level club count only. It does **not** mean that any of the 96 individual roster pages has passed player-by-player transcription or departure-section review. Individual pages must still be opened and checked; the current roster table ends before the explicit “Players no longer at this club” section. Empty shirt-number rows are not player records.
+
+### First individual-page review observations
+
+- Arsenal and Aston Villa 2026/27 pages were opened. Both show a current roster table followed by a separate “Players no longer at this club” section.
+- The pages contain many academy-age entries, consistent with the approved scope to include every named player in the current roster regardless of age.
+- Some displayed player/club combinations appear unusual. Preserve the page as the cited source, but flag any conflict for independent review rather than silently correcting or inferring.
+- The FootballSquads site itself disclaims accuracy and completeness. Every club record therefore retains its exact page URL and observation date, and no claim of registration, eligibility or appearance may be inferred from roster presence.
+
+### Current collection gate
+
+- Index-level club coverage: 96/96 listed.
+- Individual roster pages fully transcribed and checked: **not yet complete**.
+- Verified player memberships added to the production app: **0**.
+- Provider API calls: 0.
+- Production Supabase writes/migrations: 0.
+
+Required attribution for the eventual non-commercial app and documentation:
+
+> Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved
+
+Terms reference: https://footballsquads.co.uk/tou.htm (non-commercial use permitted with source credit; commercial use requires express permission). Re-check the terms before release and whenever the app's distribution or monetization model changes.
+
