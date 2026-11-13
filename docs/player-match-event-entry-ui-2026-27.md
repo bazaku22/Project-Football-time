@@ -14,9 +14,9 @@ Open it from Match Center → เครื่องมือเพิ่มเ�
 
 1. Select a finished match from the existing central football database. The page does not invent fixtures or accept scheduled matches.
 2. Add one or more direct source URLs. Rights default to `pending`; select `confirmed` only when there is a documented basis. The permission-basis field is required before a match can be marked verified.
-3. Add the Starting XI and substitute list for each team. Enter a FT Player ID only when identity has been reviewed and confirm the identity checkbox. Otherwise the player remains unresolved and is excluded from ID-based totals.
-4. Add substitution events with both players, or goal events with normal/penalty/own-goal type. Explicit assist attribution is required before an assist is counted.
-5. Set lineup/event coverage. A match can only be marked verified when both teams have exactly 11 recorded starters, both coverage flags are complete, all player identities are verified, at least two sources have confirmed reuse rights and a permission basis, and the reviewer explicitly confirms the review.
+3. Add the Starting XI and substitute list for each team. Select one or more source records that directly support each lineup entry. Player selectors use the lineup row identity rather than name-only values, so identical names across the two teams remain distinct. Enter a FT Player ID only when identity has been reviewed and confirm the identity checkbox. Otherwise the player remains unresolved and is excluded from ID-based totals.
+4. Add substitution events with both players, or goal events with normal/penalty/own-goal type. Select one or more source records for each event. Explicit assist attribution is required before an assist is counted.
+5. Set lineup/event coverage. A match can only be marked verified when both teams have exactly 11 recorded starters, both coverage flags are complete, all player identities are verified, at least two sources have confirmed reuse rights and a documented permission basis, at least one source is an organiser/federation/licensed provider, and the reviewer explicitly reconfirms the review for the currently selected match. Switching matches clears the confirmation checkbox and entry fields.
 6. Save locally. Reopen a saved match to edit it. Export the JSON ledger regularly for backup.
 
 ## Calculation rules
