@@ -13,7 +13,8 @@
     ["advanced","วิเคราะห์เชิงลึก"],
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"],
-    ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"]
+    ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"],
+    ["playerDatabase","หมวดข้อมูลผู้เล่น"]
   ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey) {
