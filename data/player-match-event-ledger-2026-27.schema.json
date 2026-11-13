@@ -86,9 +86,9 @@
             },
             "allOf": [
               {"if": {"properties": {"type": {"const": "substitution"}}}, "then": {"required": ["player_on", "player_off"]}},
-              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"enum": ["normal", "penalty"]}}, "then": {"required": ["goal_type", "scorer", "assist_status"]}},
-              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"const": "own_goal"}}, "then": {"required": ["goal_type", "own_goal_player", "assist_status"]}},
-              {"if": {"properties": {"assist_status": {"const": "explicit"}}, "then": {"required": ["assist_player"]}}
+              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"enum": ["normal", "penalty"]}}}, "then": {"required": ["goal_type", "scorer", "assist_status"]}},
+              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"const": "own_goal"}}}, "then": {"required": ["goal_type", "own_goal_player", "assist_status"]}},
+              {"if": {"properties": {"assist_status": {"const": "explicit"}}}, "then": {"required": ["assist_player"]}}
             ]
           }
         },
