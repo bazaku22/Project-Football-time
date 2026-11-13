@@ -26,7 +26,7 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
         source = (ROOT / "js/player-match-event-entry.js").read_text(encoding="utf-8")
         self.assertIn('localStorage.setItem(STORAGE_KEY,JSON.stringify(next))', source)
         self.assertIn('window.FootballTimeAppContext?.getDatabase?.()', source)
-        self.assertIn('String(row.status || "").toUpperCase() === "FINISHED"', source)
+        self.assertIn('String(row.status||"").toUpperCase()==="FINISHED"', source)
         self.assertIn('row.providerMatchId!=null', source)
         self.assertIn('reuse_rights:$("pmeSourceRights").value', source)
         self.assertIn('event_id:"event-"', source)
