@@ -9,7 +9,7 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn('id="playerHub"',HTML)
   self.assertIn("./js/player-hub.js",HTML)
   self.assertIn('id="playerHubProfile"',HTML)
-  self.assertIn("./css/player-hub.css?v=1",HTML)
+  self.assertIn("./css/player-hub.css?v=2",HTML)
  def test_team_navigation_and_profile_sections(self):
   for token in ["playerHubLeagues","playerHubTeams","playerHubRoster","data-hub-player","overview","season","matches","performance"]:
    self.assertIn(token,JS)
@@ -24,17 +24,18 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertIn("./js/player-hub.js",SW)
 
-    def test_canonical_competition_views_are_separate_from_provisional_directory(self):
-        self.assertIn('id="playerCanonicalHub"', HTML)
-        self.assertIn('id="playerCanonicalProfile"', HTML)
-        self.assertIn("pft-player-directory-data", JS)
-        self.assertIn("pft-player-stats-data", JS)
-        self.assertIn('data-canonical-tab="overall"', JS)
-        self.assertIn('data-canonical-tab="club"', JS)
-        self.assertIn('data-canonical-tab="national"', JS)
-        self.assertIn('rights_status==="approved"', JS)
-        self.assertIn('No data', JS)
-        self.assertIn("pft-open-canonical-player", JS)
-        self.assertIn("football-time-v79", SW)
+ def test_canonical_competition_views_are_separate_from_provisional_directory(self):
+  self.assertIn('id="playerCanonicalHub"', HTML)
+  self.assertIn('id="playerCanonicalProfile"', HTML)
+  self.assertIn("pft-player-directory-data", JS)
+  self.assertIn("pft-player-stats-data", JS)
+  self.assertIn('data-canonical-tab="overall"', JS)
+  self.assertIn('data-canonical-tab="club"', JS)
+  self.assertIn('data-canonical-tab="national"', JS)
+  self.assertIn('rights_status==="approved"', JS)
+  self.assertIn('No data', JS)
+  self.assertIn("pft-open-canonical-player", JS)
+  self.assertIn("football-time-v79", SW)
+  self.assertIn('const statusLabel={verified:"ตรวจสอบแล้ว",pending:"รอตรวจสอบ",disputed:"มีข้อโต้แย้ง"}', JS)
 
 if __name__=="__main__":unittest.main()
