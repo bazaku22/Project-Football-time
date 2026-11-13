@@ -102,5 +102,29 @@ class PlayerStatisticsIntakeTests(unittest.TestCase):
         self.assertTrue(any("production_import" in e for e in errors))
 
 
+    def test_malformed_input_returns_errors_without_crashing(self):
+        self.assertTrue(any("manifest must be an object" in error for error in validate([])))
+
+        data = empty_manifest()
+        data["statistics"] = [
+            {"id": []},
+            {
+                "id": "malformed-row",
+                "league_id": [],
+                "metrics": {
+                    "appearances": 1,
+                    "minutes": "not-a-number",
+                    "shots": 2,
+                    "shots_on_target": "also-not-a-number"
+                }
+            }
+        ]
+        data["records_count"] = 2
+        errors = validate(data)
+        self.assertTrue(any("row id must be a non-empty string" in error for error in errors))
+        self.assertTrue(any("unsupported league" in error for error in errors))
+        self.assertTrue(any("finite non-negative number" in error for error in errors))
+
+
 if __name__ == "__main__":
     unittest.main()
