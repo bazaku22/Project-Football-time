@@ -41,7 +41,7 @@ class PlayerOperationsCenterTests(unittest.TestCase):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("6.26.5-beta.5", index)
-        self.assertIn("football-time-v93", sw)
+        self.assertIn("football-time-v94", sw)
         self.assertIn("./js/player-operations-center.js", sw)
         self.assertIn("./css/player-operations-center.css", sw)
 
