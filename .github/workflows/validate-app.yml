@@ -119,6 +119,9 @@ on:
       - "data/player-match-event-ledger-2026-27.schema.json"
       - "scripts/validate_player_match_event_ledger.py"
       - "tests/test_player_match_event_ledger.py"
+      - "js/player-match-event-entry.js"
+      - "css/player-match-event-entry.css"
+      - "tests/test_player_match_event_entry_ui.py"
       - "docs/player-match-event-ledger-2026-27.md"
       - ".github/workflows/player-match-event-ledger-tests.yml"
       - "docs/phase-6-5-match-calendar-filters.md"
@@ -389,6 +392,11 @@ jobs:
         run: |
           node --check js/manual-match-research.js
           python3 -m unittest tests/test_manual_match_research_ui.py -v
+
+      - name: Validate local player match event entry UI
+        run: |
+          node --check js/player-match-event-entry.js
+          python3 -m unittest tests/test_player_match_event_entry_ui.py -v
 
       - name: Validate manual match research intake contract
         run: |
