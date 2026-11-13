@@ -53,7 +53,7 @@
           <div><b>29</b><span>Season memberships</span></div>
           <div><b>29</b><span>Current stat rows</span></div>
         </div>
-        <p class="poc-footnote">ข้อมูล Canonical ที่ตรวจพบเป็นชุด Arsenal 2025/26 และต้องคงอยู่ใน Archive ไม่ย้ายไปเป็นฤดูกาล 2026/27 โดยอัตโนมัติ</p>
+        <p class="poc-footnote">ข้อมูล Canonical ที่ตรวจพบเป็นชุด Arsenal 2025/26 และต้องคงอยู่ใน Archive ไม่ย้ายไปเป็นฤดูกาล 2026/27 โดยอัตโนมัติ · ตาราง ft_players, ft_player_source_ids, ft_player_memberships และ ft_player_stats_current</p>
       </div>
       <div class="poc-section-title"><b>ความคืบหน้า 6 เฟส</b><span>สถานะตามหลักฐานที่ตรวจได้</span></div>
       <div id="pocPhaseList" class="poc-phase-list"></div>
