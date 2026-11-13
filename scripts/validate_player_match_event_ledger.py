@@ -181,6 +181,8 @@ def derive_player_statistics(data: dict) -> dict:
                     scorer = ensure(event["scorer"])
                     if scorer is not None:
                         scorer["goals"] += 1
+                elif event["goal_type"] == "own_goal":
+                    ensure(event["own_goal_player"])  # Retain the identity, but do not credit a goal.
                 if event["assist_status"] == "explicit":
                     assister = ensure(event["assist_player"])
                     if assister is not None:
