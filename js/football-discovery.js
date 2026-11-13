@@ -6,13 +6,12 @@
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
   }[c]));
   const db = () => window.FootballTimeAppContext?.getDatabase?.() || null;
-  let cloudPlayers = [];
   let index = [];
 
   function readFavorites() {
     try {
       const value = JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]");
-      return Array.isArray(value) ? value.filter((x) => x && typeof x.type === "string" && typeof x.id === "string") : [];
+      return Array.isArray(value) ? value.filter((x) => x && x.type !== "player" && typeof x.type === "string" && typeof x.id === "string") : [];
     } catch (_) { return []; }
   }
   let favorites = readFavorites();
@@ -39,12 +38,6 @@
       favorites.push({type:entity.type,id:entity.id,label:entity.label,meta:entity.meta || ""});
     }
     saveFavorites();
-  }
-  function getLocalPlayers() {
-    try {
-      const rows = JSON.parse(localStorage.getItem("pft_players_v1") || "[]");
-      return Array.isArray(rows) ? rows : [];
-    } catch (_) { return []; }
   }
   function buildIndex() {
     const data = db();
@@ -78,26 +71,6 @@
         });
       });
     }
-    const players = [...getLocalPlayers(), ...cloudPlayers.map((row) => ({
-      id:"cloud:" + String(row.playerId || row.player?.id || row.sourceId?.provider_player_id || ""),
-      playerId:String(row.playerId || row.player?.id || ""),
-      name:row.player?.display_name || row.player?.name || "ไม่ระบุชื่อ",
-      teamName:row.player?.team_name || row.player?.teamName || "",
-      leagueName:row.player?.league_name || row.player?.leagueName || "",
-      season:row.season || "",
-      _cloud:true
-    }))];
-    const seenPlayers = new Set();
-    players.forEach((player) => {
-      const id = String(player.id || player.playerId || "");
-      if (!id || seenPlayers.has(id)) return;
-      seenPlayers.add(id);
-      rows.push({
-        type:"player",id,label:player.name || player.display_name || "ไม่ระบุชื่อนักเตะ",
-        meta:[player.teamName,player.leagueName,player.season].filter(Boolean).join(" · ") || "ฐานข้อมูลนักเตะ",
-        search:[player.name,player.display_name,player.teamName,player.leagueName,player.season].filter(Boolean).join(" ")
-      });
-    });
     const fixtures = window.FootballTimeAppContext?.getFixtures?.() || [];
     fixtures.forEach((match) => rows.push({
       type:"testmatch",id:String(match.id),label:(match.home || "ทีมเจ้าบ้าน") + " vs " + (match.away || "ทีมเยือน"),
@@ -146,13 +119,6 @@
         teamSelect.value = entity.id;
         teamSelect.dispatchEvent(new Event("change",{bubbles:true}));
       }
-      return;
-    }
-    if (entity.type === "player") {
-      openDatabaseTab("players");
-      const input = $("playerSearch");
-      if (input) { input.value = entity.label; input.dispatchEvent(new Event("input",{bubbles:true})); }
-      filterCloudPlayerCards(entity.label);
       return;
     }
     if (entity.type === "match") {
@@ -206,15 +172,7 @@
     if (status) status.textContent = favorites.length + " รายการ · บันทึกในอุปกรณ์นี้เท่านั้น";
     root.innerHTML = available.length ? available.map((entity) =>
       '<div class="discovery-favorite"><button type="button" class="discovery-favorite-open" data-open-type="'+esc(entity.type)+'" data-open-id="'+esc(entity.id)+'"><b>'+esc(entity.label || entity.name || "รายการโปรด")+'</b><small>'+esc(entity.meta || "ข้อมูลที่บันทึกไว้")+'</small></button><button type="button" class="discovery-remove" data-favorite-type="'+esc(entity.type)+'" data-favorite-id="'+esc(entity.id)+'" aria-label="นำออกจากรายการโปรด">×</button></div>'
-    ).join("") : '<div class="discovery-empty">ยังไม่มีรายการโปรด · กด ☆ ในผลการค้นหาเพื่อบันทึกทีม ลีก นักเตะ หรือแมตช์</div>';
-  }
-  function filterCloudPlayerCards(query) {
-    const root = $("playerStatsCloudList");
-    if (!root) return;
-    const value = String(query || "").trim().toLocaleLowerCase();
-    root.querySelectorAll("article").forEach((card) => {
-      card.hidden = Boolean(value) && !card.textContent.toLocaleLowerCase().includes(value);
-    });
+    ).join("") : '<div class="discovery-empty">ยังไม่มีรายการโปรด · กด ☆ ในผลการค้นหาเพื่อบันทึกทีม ลีก หรือแมตช์</div>';
   }
   function dateOf(match) { return String(match.utcDate || "").slice(0,10); }
   function renderDateMatches() {
@@ -305,7 +263,6 @@
   });
   document.addEventListener("input",(event) => {
     if (event.target.id === "discoverySearchInput") renderSearch();
-    if (event.target.id === "playerSearch") filterCloudPlayerCards(event.target.value);
     if (["discoveryDateFrom","discoveryDateTo","discoveryDateLeague"].includes(event.target.id)) renderDateMatches();
   });
   document.addEventListener("change",(event) => {
@@ -324,10 +281,6 @@
       $("discoverySearchResults").hidden = true;
       $("discoverySearchInput")?.setAttribute("aria-expanded","false");
     }
-  });
-  window.addEventListener("pft-player-stats-data",(event) => {
-    cloudPlayers = Array.isArray(event.detail?.rows) ? event.detail.rows : [];
-    buildIndex();renderSearch();renderFavorites();
   });
   window.addEventListener("pft-football-database-ready",() => {
     buildIndex();refreshLeagueOptions();renderSearch();renderFavorites();renderDateMatches();
