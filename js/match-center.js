@@ -93,6 +93,7 @@
     }
     renderLeagues();
     render();
+    window.dispatchEvent(new CustomEvent("pft-match-center-data-ready"));
   }
 
 
@@ -627,6 +628,7 @@
     databaseError = "";
     renderLeagues();
     render();
+    window.dispatchEvent(new CustomEvent("pft-match-center-data-ready"));
   }
   window.FootballTimeMatchCenter = {
     getMatchById(id) {
@@ -636,7 +638,20 @@
       if (match?.isInternational) return match.competitionName || "รายการทีมชาติ";
       return (database?.leagues || []).find((league) => String(league.id) === String(match?.leagueId))?.name || match?.leagueId || "ไม่ระบุรายการ";
     },
-    getTeamName(id) { return teamFor(id)?.name || ""; }
+    getTeamName(id) { return teamFor(id)?.name || ""; },
+    getTodaySummary() {
+      const today = bangkokDate();
+      const matches = [...(database?.matches || []), ...internationalFixtures]
+        .filter((match) => matchDateKey(match) === today && statusKind(match) !== "other");
+      const summary = {live:0,upcoming:0,finished:0,total:matches.length};
+      matches.forEach((match) => {
+        const kind = statusKind(match);
+        if (kind === "live") summary.live++;
+        else if (kind === "finished") summary.finished++;
+        else summary.upcoming++;
+      });
+      return database || internationalFixtures.length ? summary : null;
+    }
   };
   window.addEventListener("pft-football-database-error",(event) => {
     database = null;

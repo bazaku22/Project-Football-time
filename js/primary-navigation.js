@@ -63,7 +63,7 @@
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [
-      '<button type="button" data-primary-route="home" class="active" aria-current="page">⌂ หน้าหลัก</button>',
+      '<button type="button" data-primary-route="home" class="active" aria-current="page">⚽ Match Center</button>',
       '<button type="button" data-primary-route="leagues">▤ ลีกและทีม</button>',
       '<button type="button" data-primary-route="analyze">◎ วิเคราะห์</button>',
       '<button type="button" data-primary-route="history">▥ ประวัติ</button>'

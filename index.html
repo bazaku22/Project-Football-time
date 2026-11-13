@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.26.2-beta.1">
-<title>Project Football Time V6.26.2-beta.1</title>
+<meta name="application-version" content="6.26.3-beta.1">
+<title>Project Football Time V6.26.3-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -75,15 +75,15 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.2-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.3-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
 <dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main>
 <section id="home" class="page active">
  <section id="homeTodayDashboard" class="home-dashboard" aria-labelledby="homeTodayTitle">
   <div class="home-hero">
    <div class="home-brandline"><span class="home-ball" aria-hidden="true">⚽</span><span>FOOTBALL TIME</span><span class="home-live-indicator">MATCHDAY</span></div>
-   <p class="home-eyebrow">ภาพรวมฟุตบอลประจำวัน</p>
-   <h2 id="homeTodayTitle">วันนี้ในสนาม</h2>
+   <p class="home-eyebrow">ภาพรวมการแข่งขันวันนี้</p>
+   <h2 id="homeTodayTitle">Match Center</h2>
    <p id="homeTodayDate" class="home-date">กำลังเตรียมข้อมูลการแข่งขันวันนี้…</p>
    <div class="home-hero-glow" aria-hidden="true"></div>
   </div>
@@ -92,12 +92,10 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
    <article class="home-status-card"><span class="home-status-label">UPCOMING</span><strong id="homeUpcomingCount">—</strong><small>รอแข่งขัน</small></article>
    <article class="home-status-card"><span class="home-status-label">FULL TIME</span><strong id="homeFinishedCount">—</strong><small>จบการแข่งขัน</small></article>
   </div>
-  <div class="home-section-heading"><div><span class="home-section-kicker">TODAY'S FIXTURES</span><h3>แมตช์วันนี้</h3></div><span id="homeTodayMatchTotal" class="home-match-total">— นัด</span></div>
-  <div id="homeTodayMatches" class="home-today-list" aria-live="polite"><div class="home-dashboard-empty">กำลังโหลดข้อมูลการแข่งขันจากฐานข้อมูลหลัก…</div></div>
-  <div class="home-dashboard-footer"><span id="homeDataFreshness">ข้อมูลจากฐานข้อมูลฟุตบอลหลัก</span><button type="button" id="homeOpenMatchCenter" class="home-open-match-center">เปิด Match Center <span aria-hidden="true">→</span></button></div>
+  <div class="home-dashboard-footer"><span id="homeDataFreshness">ข้อมูลจากฐานข้อมูลฟุตบอลหลัก</span><span id="homeTodayMatchTotal" class="home-match-total">— นัดวันนี้</span></div>
  </section>
- <div class="sectionhead"><h2>Match Center</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
- <p class="profile-note">โปรแกรมและผลการแข่งขัน 5 ลีกหลักและทีมชาติชุดทดลอง · เรียงตามเวลาไทย</p>
+ <div class="sectionhead"><h2>โปรแกรมและผลการแข่งขัน</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
+ <p class="profile-note">เลือกวัน ลีก และสถานะ หรือค้นหาทีม เพื่อดูการแข่งขันและเปิดรายละเอียดได้จากหน้าเดียว</p>
 
  <div id="matchCenterApp">
   <div class="mc-calendar" aria-label="ปฏิทินโปรแกรมแข่งขัน">
@@ -317,7 +315,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <tr><td>คู่ที่บันทึก</td><td id="statCount">0 / 20</td></tr><tr><td>ตรวจผลแล้ว</td><td id="statChecked">0 คู่</td></tr><tr><td>ผ่าน</td><td id="statPassed">0 คู่</td></tr><tr><td>ไม่ผ่าน</td><td id="statFailed">0 คู่</td></tr><tr><td>คืนทุน</td><td id="statPush">0 คู่</td></tr><tr><td>อัตราผ่าน</td><td id="statAccuracy">—</td></tr>
 </table></div></section>
 </main>
-<nav class="nav" aria-label="เมนูหลัก"><button type="button" class="active" data-primary-route="home" aria-current="page">⌂ หน้าหลัก</button><button type="button" data-primary-route="leagues">▤ ลีกและทีม</button><button type="button" data-primary-route="analyze">◎ วิเคราะห์</button><button type="button" data-primary-route="history">▥ ประวัติ</button></nav>
+<nav class="nav" aria-label="เมนูหลัก"><button type="button" class="active" data-primary-route="home" aria-current="page">⚽ Match Center</button><button type="button" data-primary-route="leagues">▤ ลีกและทีม</button><button type="button" data-primary-route="analyze">◎ วิเคราะห์</button><button type="button" data-primary-route="history">▥ ประวัติ</button></nav>
 <script src="./js/probability-metrics.js"></script>
 <script>
 "use strict";
