@@ -22,7 +22,7 @@ class ProvisionalPlayerDirectoryTests(unittest.TestCase):
         self.assertIn("Provider Player ID ซ้ำ", MODULE)
 
     def test_service_worker_caches_directory_script_and_bumps_version(self):
-        self.assertIn("football-time-v85", WORKER)
+        self.assertIn("football-time-v86", WORKER)
         self.assertIn("./js/provisional-player-directory.js", WORKER)
 
 if __name__ == "__main__":
