@@ -76,7 +76,7 @@ References:
 | 564743 | 8 Nov | Real Sociedad 1-0 Rayo | Detailed page | Official LALIGA match page exposes starters, substitutes, scorer minute and substitution timeline. |
 | 564742 | 8 Nov | Celta 0-0 Levante | Detailed page | Official LALIGA match page exposes starters, substitutes and substitutions; no goals/assists in a 0-0 match. |
 | 564747 | 8 Nov | Villarreal 2-0 Getafe | Detailed page | Official LALIGA match page exposes starters, substitutes, goals and an explicitly credited assist on the second goal. |
-| 564746 | 8 Nov | Atlético 1-2 Barcelona | Conflict | Official page search snapshot surfaced a live/partial 1-1 state, while the repository record says 1-2. Final report/score must be reconciled before use. |
+| 564746 | 8 Nov | Atlético 1-2 Barcelona | Partial page | Official page search snapshot was captured during the match at 1-1, not at full time. The repository's final 1-2 result still needs a final-state page check before use. |
 
 References:
 - https://www.laliga.com/en-GB/laliga-easports/results/2026-27/gameweek-1
@@ -145,7 +145,7 @@ References:
 | 559676 | 20 Sep | Auxerre 2-1 Brest | Not located | No suitable match-specific player report surfaced. |
 | 559678 | 20 Sep | Nice 2-1 Lille | Partial page | Fan discussion surfaced, but no suitable match report/player evidence; do not use forum comments as source data. |
 | 559675 | 20 Sep | Marseille 1-2 PSG | Not located | No suitable match-specific player report surfaced. |
-| 559632 | 8 Nov | Brest 2-0 Lyon | Detailed page | Local sports live report lists XIs, substitutions, scorers and penalty; independent match page also surfaced. Not the official league report. |
+| 559632 | 8 Nov | Brest 2-0 Lyon | Detailed page | Local sports live report lists XIs, substitutions, scorers and penalty; independent match page also surfaced. The Le Progrès page contains an internal score mismatch (match fiche 1-0 vs live timeline 2-0); cross-check the 2-0 result with the independent page. Not the official league report. |
 | 559633 | 8 Nov | Le Havre 0-2 Lorient | Partial page | Live report confirms goals/events and substitutions; complete XI/bench was not confirmed in the reviewed source. |
 | 559634 | 8 Nov | Angers 0-2 Nice | Not located | Search surfaced fan discussion but no suitable match report/player evidence. |
 | 559630 | 8 Nov | Lens 1-2 Marseille | Not located | No suitable match-specific player report surfaced. |
