@@ -13,7 +13,7 @@ let privateRecords=[];
 function clearPreview(){$("playerCloudPreviewPanel").hidden=true;$("playerCloudPreviewSummary").textContent="";previewId=null;}
 async function loadPlayerStatistics(){
  try{
-  if(!currentSession?.access_token){window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"กรุณาเข้าสู่ระบบเพื่อดูสถิติส่วนตัว"}}));return;}
+  if(!currentSession?.access_token){window.dispatchEvent(new CustomEvent("pft-player-directory-data",{detail:{players:[],status:"กรุณาเข้าสู่ระบบเพื่อดูข้อมูล Canonical"}}));window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"กรุณาเข้าสู่ระบบเพื่อดูสถิติส่วนตัว"}}));return;}
   const [statsRes,playersRes,idsRes,membersRes,sourcesRes]=await Promise.all([
    supabase.from("ft_player_stats_current").select("id,player_id,season,competition_id,team_id,squad_level,statistics_scope,match_id,stat_date,stats,selected_source_record_id,verification_status,updated_at").order("updated_at",{ascending:false}).limit(5000),
    supabase.from("ft_players").select("id,display_name,position,nationality").limit(5000),
@@ -44,7 +44,7 @@ async function loadPlayerStatistics(){
    return {id:x.id,player,sourceIds:ids.get(x.player_id)||[],membership:member,source:sources.get(x.selected_source_record_id)||null,season:x.season,competition:x.competition_id,teamId:x.team_id,squadLevel:x.squad_level,statisticsScope:x.statistics_scope,matchId:x.match_id,statDate:x.stat_date,stats:x.stats||{},verificationStatus:x.verification_status,updatedAt:x.updated_at};
   });
   window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows,status:"อ่านสถิตินักเตะทุกลีกและฤดูกาลจาก Supabase ตามสิทธิ์บัญชีแล้ว"}}));
- }catch(error){window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"โหลดสถิติไม่สำเร็จ: "+(error?.message||"เกิดข้อผิดพลาด")}}));}
+ }catch(error){window.dispatchEvent(new CustomEvent("pft-player-directory-data",{detail:{players:[],status:"โหลดข้อมูล Canonical ไม่สำเร็จ"}}));window.dispatchEvent(new CustomEvent("pft-player-stats-data",{detail:{rows:[],status:"โหลดสถิติไม่สำเร็จ: "+(error?.message||"เกิดข้อผิดพลาด")}}));}
 }
 async function loadPrivateData(session){
  currentSession=session||null;privateRecords=[];
