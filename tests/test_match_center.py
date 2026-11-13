@@ -5,6 +5,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HTML = (ROOT / "index.html").read_text(encoding="utf-8")
 WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
+SYNC_WORKFLOW = (ROOT / ".github" / "workflows" / "update-football-database.yml").read_text(encoding="utf-8")
+DATABASE_BUILDER = (ROOT / "scripts" / "build_football_database.py").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
 CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
 
@@ -68,15 +70,15 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v74", WORKER)
+        self.assertIn("football-time-v75", WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
-        self.assertIn('"./css/match-center.css?v=2"', WORKER)
+        self.assertIn('"./css/match-center.css?v=3"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.20.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.20.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.20.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.21.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.21.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.21.0-beta.1</span>', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
@@ -122,6 +124,28 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('COMP:', MODULE)
         self.assertIn('leagueFilterValues(match)', MODULE)
         self.assertIn('renderLeagueFilters()', MODULE)
+
+
+    def test_daily_view_includes_finished_results_by_default(self):
+        self.assertIn('let activeFilter = "all";', MODULE)
+        self.assertIn('data-match-filter="all" aria-pressed="true">ทั้งหมด</button>', HTML)
+        self.assertIn('status === "FINISHED"', MODULE)
+        self.assertIn('match.homeScore !== null', MODULE)
+        self.assertIn('match.awayScore !== null', MODULE)
+
+    def test_yesterday_shortcut_uses_bangkok_calendar_date(self):
+        self.assertIn('class="mc-calendar-yesterday">เมื่อวาน</button>', HTML)
+        self.assertIn('$(".mc-calendar-yesterday")?.addEventListener("click"', MODULE)
+        self.assertIn('setSelectedDate(shiftDateKey(bangkokDate(),-1))', MODULE)
+        self.assertIn('timeZone:"Asia/Bangkok"', MODULE)
+
+    def test_daily_result_sync_uses_existing_provider_workflow(self):
+        self.assertIn('cron: "0 23 * * *"', SYNC_WORKFLOW)
+        self.assertIn('https://api.football-data.org/v4/competitions/$code/$endpoint', SYNC_WORKFLOW)
+        self.assertIn('for endpoint in teams matches standings', SYNC_WORKFLOW)
+        self.assertIn('"status":m.get("status")', DATABASE_BUILDER)
+        self.assertIn('ft.get("home")', DATABASE_BUILDER)
+        self.assertIn('ft.get("away")', DATABASE_BUILDER)
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
