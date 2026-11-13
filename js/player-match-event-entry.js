@@ -164,7 +164,8 @@
   function mount(){
     if(!$("playerMatchEventEntryPage")||$("playerMatchEventEntryPage").dataset.mounted)return;$("playerMatchEventEntryPage").dataset.mounted="true";
     matches=getMatches();
-    $("pmeCompetition").addEventListener("change",renderMatchOptions);$("pmeMatch").addEventListener("change",e=>selectMatch(e.target.value));
+    $("pmeCompetition").addEventListener("change",()=>{renderMatchOptions();const visible=matches.some(m=>String(m.providerMatchId)===String(selectedMatch?.providerMatchId)&&($("pmeCompetition").value==="all"||m.leagueId===$("pmeCompetition").value));if(!visible){selectedMatch=null;draft=null;renderAll();renderEventFields();}});
+    $("pmeMatch").addEventListener("change",e=>selectMatch(e.target.value));
     $("pmeReloadMatches").addEventListener("click",()=>{matches=getMatches();renderMatchOptions();renderStoredSummary();setStatus("อ่านรายการแข่งขันล่าสุดแล้ว "+matches.length+" แมตช์","success");});
     $("pmeAddLineup").addEventListener("click",addLineup);$("pmeAddSource").addEventListener("click",addSource);$("pmeAddEvent").addEventListener("click",addEvent);
     $("pmeEventType").addEventListener("change",renderEventFields);$("pmeSave").addEventListener("click",saveRecord);$("pmeExport").addEventListener("click",exportData);
@@ -174,7 +175,7 @@
     $("pmeSourceList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-source]");if(b)removeItem("sources",Number(b.dataset.removeSource));});
     $("pmeEventList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-event]");if(b)removeItem("events",Number(b.dataset.removeEvent));});
     $("pmeRenderStats").addEventListener("click",renderStatsTable);
-    window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderStoredSummary();});
+    window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderHeader();renderStoredSummary();renderStatsTable();});
     renderMatchOptions();renderAll();renderEventFields();renderStatsTable();
     if(!matches.length)setStatus("ยังไม่พบแมตช์ FINISHED ฤดูกาล 2026/27 ในฐานข้อมูลที่โหลดอยู่ หน้านี้จะไม่สร้างแมตช์ปลอมให้","warning");
   }
