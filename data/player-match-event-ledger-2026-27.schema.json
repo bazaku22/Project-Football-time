@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Football Time Player Match Event Ledger 2026/27",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dataset_id", "season", "dataset_status", "scope", "expected_finished_match_ids", "records"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "dataset_id": {"const": "player-match-event-ledger-2026-27"},
+    "season": {"const": "2026/27"},
+    "dataset_status": {"enum": ["research_intake_empty", "research_records_present"]},
+    "scope": {"type": "object", "required": ["competitions"], "properties": {"competitions": {"const": ["PL", "PD", "BL1", "SA", "FL1"]}}},
+    "expected_finished_match_ids": {"type": "array", "uniqueItems": true, "items": {"type": ["string", "integer"]}},
+    "records": {"type": "array", "items": {"$ref": "#/$defs/match"}}
+  },
+  "$defs": {
+    "player": {
+      "type": "object", "additionalProperties": false,
+      "required": ["observed_name", "identity_status", "ft_player_id"],
+      "properties": {
+        "observed_name": {"type": "string", "minLength": 1},
+        "identity_status": {"enum": ["verified", "unresolved"]},
+        "ft_player_id": {"type": ["string", "null"], "pattern": "^FT-P-[0-9]{6}$"},
+        "provider_identity": {"type": ["object", "null"], "properties": {"source": {"type": "string"}, "player_id": {"type": "string"}}, "required": ["source", "player_id"]}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source_id", "name", "url", "source_type", "checked_at", "reuse_rights"],
+      "properties": {
+        "source_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "format": "uri", "pattern": "^https://"},
+        "source_type": {"enum": ["official_competition", "federation", "licensed_provider", "other"]},
+        "checked_at": {"type": "string", "format": "date-time"},
+        "reuse_rights": {"enum": ["confirmed", "pending", "prohibited"]},
+        "permission_basis": {"type": ["string", "null"]}
+      }
+    },
+    "match": {
+      "type": "object", "additionalProperties": false,
+      "required": ["match_id", "competition_code", "season", "match_status", "home_team", "away_team", "lineup_coverage", "event_coverage", "review_status", "sources", "lineups", "events"],
+      "properties": {
+        "match_id": {"type": ["string", "integer"]},
+        "competition_code": {"enum": ["PL", "PD", "BL1", "SA", "FL1"]},
+        "season": {"const": "2026/27"},
+        "match_status": {"const": "FINISHED"},
+        "home_team": {"type": "object", "required": ["team_id", "name"], "properties": {"team_id": {"type": "string"}, "name": {"type": "string"}}},
+        "away_team": {"type": "object", "required": ["team_id", "name"], "properties": {"team_id": {"type": "string"}, "name": {"type": "string"}}},
+        "lineup_coverage": {"enum": ["complete", "partial", "unknown"]},
+        "event_coverage": {"enum": ["complete", "partial", "unknown"]},
+        "review_status": {"enum": ["verified", "needs_review", "unverified"]},
+        "sources": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/source"}},
+        "lineups": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["team_id", "role", "player", "source_ids"],
+            "properties": {
+              "team_id": {"type": "string"},
+              "role": {"enum": ["starting_xi", "substitute"]},
+              "player": {"$ref": "#/$defs/player"},
+              "shirt_number": {"type": ["integer", "null"], "minimum": 1},
+              "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}}
+            }
+          }
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["event_id", "type", "minute", "team_id", "source_ids"],
+            "properties": {
+              "event_id": {"type": "string"},
+              "type": {"enum": ["substitution", "goal"]},
+              "minute": {"type": "string", "pattern": "^[0-9]{1,3}(\\+[0-9]{1,2})?$"},
+              "team_id": {"type": "string"},
+              "source_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+              "player_on": {"$ref": "#/$defs/player"},
+              "player_off": {"$ref": "#/$defs/player"},
+              "goal_type": {"enum": ["normal", "penalty", "own_goal"]},
+              "scorer": {"oneOf": [{"$ref": "#/$defs/player"}, {"type": "null"}]},
+              "own_goal_player": {"oneOf": [{"$ref": "#/$defs/player"}, {"type": "null"}]},
+              "assist_status": {"enum": ["explicit", "none_confirmed", "unknown"]},
+              "assist_player": {"oneOf": [{"$ref": "#/$defs/player"}, {"type": "null"}]}
+            },
+            "allOf": [
+              {"if": {"properties": {"type": {"const": "substitution"}}}, "then": {"required": ["player_on", "player_off"]}},
+              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"enum": ["normal", "penalty"]}}, "then": {"required": ["goal_type", "scorer", "assist_status"]}},
+              {"if": {"properties": {"type": {"const": "goal"}, "goal_type": {"const": "own_goal"}}, "then": {"required": ["goal_type", "own_goal_player", "assist_status"]}},
+              {"if": {"properties": {"assist_status": {"const": "explicit"}}, "then": {"required": ["assist_player"]}}
+            ]
+          }
+        },
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}

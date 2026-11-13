@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "player-match-event-ledger-2026-27",
+  "season": "2026/27",
+  "dataset_status": "research_intake_empty",
+  "scope": {"competitions": ["PL", "PD", "BL1", "SA", "FL1"]},
+  "expected_finished_match_ids": [],
+  "records": []
+}
