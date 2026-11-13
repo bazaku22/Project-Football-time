@@ -4,6 +4,8 @@
  if(!panel)return;
  const state={membership:null,statistics:null,report:null};
  const leagues={PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1"};
+ const metricNames=new Set(["appearances","starts","minutes","goals","assists","yellow_cards","red_cards","clean_sheets","saves","goals_conceded","xg","xa","shots","shots_on_target","key_passes","tackles","interceptions","passes_completed","passes_attempted"]);
+ const squadLevels=new Set(["first_team","u21","u18","reserve","unknown"]);
  const https=v=>typeof v==="string"&&/^https:\/\//i.test(v);
  const add=(a,m)=>a.push(m);
  function inspectSource(source,label,issues){
@@ -27,7 +29,7 @@
   const rows=Array.isArray(data[rowsKey])?data[rowsKey]:[];
   if(!Array.isArray(data.sources))add(issues,"sources ต้องเป็น array");
   if(!Array.isArray(data[rowsKey]))add(issues,rowsKey+" ต้องเป็น array");
-  const sourceMap=new Map();
+  const sourceMap=new Map(),seenRows=new Set(),seenPairs=new Set();
   sources.forEach(source=>{if(!source||!source.id||sourceMap.has(source.id))add(issues,"source ID ว่างหรือซ้ำ");else sourceMap.set(source.id,source);inspectSource(source,type,issues);});
   rows.forEach((row,i)=>{
    const tag=rowsKey+" แถว "+(i+1);
@@ -38,7 +40,11 @@
    if(row.rights_status!=="approved")add(issues,tag+": rights_status ไม่ approved");
    if(isMembership){
     for(const field of ["id","player_name","source_player_id","club_id","club_name","observed_at"])if(!row[field])add(issues,tag+": ขาด "+field);
+    if(!squadLevels.has(row.squad_level))add(issues,tag+": squad_level ไม่ถูกต้อง");
     if(row.membership_status!=="current_verified")add(issues,tag+": membership_status ไม่ current_verified");
+    const pair=JSON.stringify([row.league_id,row.club_id,row.season,row.source_player_id]);
+    if(seenPairs.has(pair))add(issues,tag+": source player membership ซ้ำ");
+    seenPairs.add(pair);
     if(!["registered_squad","first_team_roster","academy_roster"].includes(row.membership_type))add(issues,tag+": membership_type ไม่ถูกต้อง");
     if(!https(row.evidence_url))add(issues,tag+": evidence_url ต้องเป็น HTTPS");
    }else{
@@ -55,7 +61,15 @@
  function readFile(file){return new Promise((resolve,reject)=>{if(!file){resolve(null);return;}if(file.size>5*1024*1024){reject(Error("ไฟล์เกิน 5 MB"));return;}const reader=new FileReader();reader.onload=()=>{try{resolve(JSON.parse(String(reader.result||"")));}catch(e){reject(Error("JSON ไม่ถูกต้อง: "+e.message));}};reader.onerror=()=>reject(Error("อ่านไฟล์ไม่ได้"));reader.readAsText(file,"UTF-8");});}
  function esc(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
  function render(){
-  const m=state.membership,s=state.statistics,all=[...(m?.issues||[]),...(s?.issues||[])],mRows=m?.rows?.length||0,sRows=s?.rows?.length||0;
+  const m=state.membership,s=state.statistics,crossIssues=[],mRows=m?.rows?.length||0,sRows=s?.rows?.length||0;
+  const mSources=new Map((m?.sources||[]).filter(x=>x&&x.id).map(x=>[x.id,x]));
+  (s?.sources||[]).forEach(source=>{
+   const other=mSources.get(source?.id);
+   if(!other)return;
+   for(const field of ["publisher","source_url","licence_id","licence_url","rights_review_status","commercial_use_allowed","database_rights_reviewed","redistribution_allowed"])
+    if(other[field]!==source[field])crossIssues.push("source "+source.id+": Membership/Statistics ไม่ตรงกันที่ "+field);
+  });
+  const all=[...(m?.issues||[]),...(s?.issues||[]),...crossIssues];
   const readyM=!!m&&!m.issues.length&&mRows>0,readyS=!!s&&!s.issues.length&&sRows>0,blocked=all.length>0||!readyM||!readyS;
   const sources=[...(m?.sources||[]),...(s?.sources||[])];
   $("playerResearchIntakeSummary").innerHTML=[["Membership",mRows],["Statistics",sRows],["แหล่งข้อมูล",new Set(sources.map(x=>x.id)).size]].map(([a,b])=>'<div class="db-kpi"><b>'+b+'</b><span>'+a+'</span></div>').join("");
@@ -71,7 +85,7 @@
   const leagueCounts=Object.fromEntries(Object.entries(leagues).map(([id,name])=>[id,{name,memberships:0,statistics:0}]));
   (m?.rows||[]).forEach(row=>{if(leagueCounts[row.league_id])leagueCounts[row.league_id].memberships++;});
   (s?.rows||[]).forEach(row=>{if(leagueCounts[row.league_id])leagueCounts[row.league_id].statistics++;});
-  state.report={type:"player-research-intake-validation",preview_only:true,supported_leagues:leagues,league_counts:leagueCounts,season:"2026/27",membership:{rows:mRows,status:m?.status||"not_selected",issues:m?.issues||[]},statistics:{rows:sRows,status:s?.status||"not_selected",issues:s?.issues||[]},production_import:false,provider_api_calls:0,notice:"Local validation only. Not legal approval and not a Production import."};
+  state.report={type:"player-research-intake-validation",preview_only:true,supported_leagues:leagues,league_counts:leagueCounts,season:"2026/27",membership:{rows:mRows,status:m?.status||"not_selected",issues:m?.issues||[]},statistics:{rows:sRows,status:s?.status||"not_selected",issues:s?.issues||[]},cross_manifest_issues:crossIssues,production_import:false,provider_api_calls:0,notice:"Local validation only. Not legal approval and not a Production import."};
  }
  async function load(kind,file){
   if(!file)return;
