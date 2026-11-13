@@ -6,7 +6,7 @@
  const state={rows:[],league:"ALL",team:"ALL",position:"ALL",query:"",selected:null,tab:"overview",page:0,pageSize:50};
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const first=(r,keys)=>{for(const k of keys)if(r[k]!==undefined&&r[k]!==null&&String(r[k]).trim()!=="")return r[k];return "";};
- const leagueOf=r=>String(first(r,["league_id","leagueId","league"])||"").split(";")[0].trim();
+ const leagueOf=r=>String(first(r,["league_ids","league_id","leagueId","league"])||"").split(";")[0].trim();
  const teamIdOf=r=>String(first(r,["provider_team_ids","provider_team_id","team_id","teamId"])||"").split(";")[0].trim();
  const teamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();
  const positionOf=r=>String(first(r,["position_group","positionGroup","position"])||"").toUpperCase();
