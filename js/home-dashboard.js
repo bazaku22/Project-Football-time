@@ -41,10 +41,11 @@
     const today = bangkokDate();
     $("homeTodayDate").textContent = dateLabel(today);
     const teams = new Map(database.teams.map((team) => [String(team.id),team]));
-    const matches = database.matches.filter((match) =>
-      CORE_LEAGUES.has(String(match.leagueId)) && match.utcDate &&
-      bangkokDate(new Date(match.utcDate)) === today
-    );
+    const matches = database.matches.filter((match) => {
+      if (!CORE_LEAGUES.has(String(match.leagueId)) || !match.utcDate) return false;
+      const kickoff = new Date(match.utcDate);
+      return Number.isFinite(kickoff.getTime()) && bangkokDate(kickoff) === today;
+    });
     const counts = {live:0,upcoming:0,finished:0};
     matches.forEach((match) => counts[kindOf(match)]++);
     $("homeLiveCount").textContent = String(counts.live);
