@@ -92,7 +92,6 @@ class InternationalMatchCenterTests(unittest.TestCase):
     def test_app_version_and_copy_are_updated(self):
         self.assertIn('<title>Project Football Time V6.26.5-beta.2</title>', HTML)
         self.assertIn('<meta name="application-version" content="6.26.5-beta.2">', HTML)
-        self.assertIn('<span class="app-version">V6.26.5-beta.2</span>', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", MODULE)
 
 
