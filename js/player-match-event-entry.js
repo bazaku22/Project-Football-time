@@ -82,6 +82,7 @@
     $("pmeLineupTeam").innerHTML='<option value="'+esc(draft.home_team.team_id)+'">'+esc(draft.home_team.name)+' (เหย้า)</option><option value="'+esc(draft.away_team.team_id)+'">'+esc(draft.away_team.name)+' (เยือน)</option>';
     ["pmeSourceName","pmeSourceUrl","pmePermissionBasis","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeEventMinute"].forEach(id=>{if($(id))$(id).value="";});
     ["pmeIdentityConfirmed","pmeReviewedConfirm"].forEach(id=>{if($(id))$(id).checked=false;});
+    ["pmeLineupSources","pmeEventSources"].forEach(id=>{if($(id))Array.from($(id).options).forEach(option=>{option.selected=false;});});
     $("pmePlayerRole").value="starting_xi";$("pmeEventType").value="goal";$("pmeSourceRights").value="pending";
     renderAll();renderEventFields();setStatus(old?"เปิดข้อมูลที่บันทึกไว้เพื่อแก้ไข · ต้องยืนยันการตรวจสอบใหม่":"เลือกแมตช์แล้ว เริ่มเพิ่มแหล่งข้อมูล รายชื่อ และเหตุการณ์ได้","info");
   }
@@ -114,7 +115,7 @@
     const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:sourceIds};
     if(type==="substitution"){
       const on=findLineup($("pmePlayerOn").value),off=findLineup($("pmePlayerOff").value);
-      if(!on||!off||on.team_id!==team||off.team_id!==team||on.player.observed_name===off.player.observed_name)return setStatus("เลือกผู้เล่นที่ลงและออกจากทีมเดียวกันให้ครบ","error");
+      if(!on||!off||on.team_id!==team||off.team_id!==team||on===off||(on.player.ft_player_id&&on.player.ft_player_id===off.player.ft_player_id))return setStatus("เลือกผู้เล่นที่ลงและออกจากทีมเดียวกันให้ครบ และต้องเป็นคนละคน","error");
       e.player_on=on.player;e.player_off=off.player;
     }
     else{
