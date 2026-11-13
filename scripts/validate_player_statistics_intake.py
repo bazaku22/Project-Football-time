@@ -90,6 +90,8 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
             errors.append(f"row {rid} rights_status is not approved")
         if not str(row.get("observed_at", "")):
             errors.append(f"row {rid} missing observed_at")
+        if not str(row.get("evidence_url", "")).startswith("https://"):
+            errors.append(f"row {rid} requires HTTPS evidence_url")
         source = source_map.get(row.get("source_id"))
         if source is None:
             errors.append(f"row {rid} references an unknown source")

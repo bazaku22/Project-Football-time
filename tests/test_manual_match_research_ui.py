@@ -20,7 +20,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v85"', sw)
+        self.assertIn('const CACHE = "football-time-v86"', sw)
 
     def test_ui_requires_validation_before_import_and_keeps_data_local(self):
         source = (ROOT / "js/manual-match-research.js").read_text(encoding="utf-8")
