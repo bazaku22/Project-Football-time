@@ -23,9 +23,11 @@
   const expectedMatchIds=()=>matches.map(m=>String(m.providerMatchId));
   function newDraft(m){return {match_id:m.providerMatchId,competition_code:m.leagueId,season:"2026/27",match_status:"FINISHED",home_team:{team_id:String(m.homeTeamId),name:m.homeTeamName||String(m.homeTeamId)},away_team:{team_id:String(m.awayTeamId),name:m.awayTeamName||String(m.awayTeamId)},lineup_coverage:"unknown",event_coverage:"unknown",review_status:"unverified",sources:[],lineups:[],events:[]};}
   const currentRecord=()=>draft||(selectedMatch?newDraft(selectedMatch):null);
-  function playerOptions(teamId){const row=currentRecord();return row?row.lineups.filter(x=>!teamId||x.team_id===teamId).map(x=>x.player):[];}
-  function playerSelect(id,teamId,placeholder){return '<select id="'+id+'" class="pme-control"><option value="">'+esc(placeholder)+'</option>'+playerOptions(teamId).map(p=>{const key=p.ft_player_id||"name:"+p.observed_name;return '<option value="'+esc(key)+'">'+esc(p.observed_name)+(p.identity_status==="unresolved"?" · ยังไม่ยืนยัน ID":"")+'</option>';}).join("")+'</select>';}
-  function findLineup(key){if(!key)return null;return currentRecord()?.lineups.find(x=>(x.player.ft_player_id||"name:"+x.player.observed_name)===key)||null;}
+  function playerOptions(teamId){const row=currentRecord();return row?row.lineups.map((item,index)=>({item,index})).filter(x=>!teamId||x.item.team_id===teamId):[];}
+  function playerSelect(id,teamId,placeholder){const row=currentRecord();return '<select id="'+id+'" class="pme-control"><option value="">'+esc(placeholder)+'</option>'+playerOptions(teamId).map(({item,index})=>'<option value="'+index+'">'+esc(item.player.observed_name)+' · '+esc(item.team_id===row.home_team.team_id?row.home_team.name:row.away_team.name)+(item.player.identity_status==="unresolved"?" · ยังไม่ยืนยัน ID":"")+'</option>').join("")+'</select>';}
+  function findLineup(key){if(key==null||key==="")return null;const index=Number(key),row=currentRecord();return Number.isInteger(index)&&index>=0&&row?.lineups[index]?row.lineups[index]:null;}
+  function selectedSourceIds(id){return Array.from($(id)?.selectedOptions||[]).map(option=>option.value).filter(Boolean);}
+  function renderEvidenceSourceOptions(){const row=currentRecord();["pmeLineupSources","pmeEventSources"].forEach(id=>{const el=$(id);if(!el)return;const previous=new Set(selectedSourceIds(id));el.innerHTML=(row?.sources||[]).map(source=>'<option value="'+esc(source.source_id)+'">'+esc(source.name)+'</option>').join("");Array.from(el.options).forEach(option=>{option.selected=previous.has(option.value);});});}
   function findPlayer(key){return findLineup(key)?.player||null;}
 
   function renderMatchOptions(){
@@ -40,18 +42,20 @@
   }
   function renderLineups(){
     const row=currentRecord(),root=$("pmeLineupList");
-    root.innerHTML=!row||!row.lineups.length?'<div class="pme-empty">ยังไม่มีรายชื่อผู้เล่นในแมตช์นี้</div>':row.lineups.map((item,i)=>'<div class="pme-list-row"><div><b>'+esc(item.player.observed_name)+'</b><small>'+esc(item.team_id===row.home_team.team_id?row.home_team.name:row.away_team.name)+' · '+(item.role==="starting_xi"?"ตัวจริง":"ตัวสำรอง")+' · '+(item.player.ft_player_id?esc(item.player.ft_player_id):"Identity ยังไม่ยืนยัน")+'</small></div><button type="button" class="pme-remove" data-remove-lineup="'+i+'">ลบ</button></div>').join("");
+    root.innerHTML=!row||!row.lineups.length?'<div class="pme-empty">ยังไม่มีรายชื่อผู้เล่นในแมตช์นี้</div>':row.lineups.map((item,i)=>{const evidence=(item.source_ids||[]).map(id=>row.sources.find(source=>source.source_id===id)?.name||id).join(", ");return '<div class="pme-list-row"><div><b>'+esc(item.player.observed_name)+'</b><small>'+esc(item.team_id===row.home_team.team_id?row.home_team.name:row.away_team.name)+' · '+(item.role==="starting_xi"?"ตัวจริง":"ตัวสำรอง")+' · '+(item.player.ft_player_id?esc(item.player.ft_player_id):"Identity ยังไม่ยืนยัน")+' · หลักฐาน: '+esc(evidence||"ไม่ระบุ")+'</small></div><button type="button" class="pme-remove" data-remove-lineup="'+i+'">ลบ</button></div>';}).join("");
   }
   function renderSources(){
     const row=currentRecord();
-    $("pmeSourceList").innerHTML=row?.sources.length?row.sources.map((s,i)=>'<div class="pme-list-row"><div><b>'+esc(s.name)+'</b><small>'+esc(s.source_type)+' · สิทธิ์ '+esc(s.reuse_rights)+' · <a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">เปิดแหล่งข้อมูล</a></small></div><button type="button" class="pme-remove" data-remove-source="'+i+'">ลบ</button></div>').join(""):'<div class="pme-empty">ต้องเพิ่มแหล่งอ้างอิงก่อนบันทึกแมตช์</div>';
+    $("pmeSourceList").innerHTML=row?.sources.length?row.sources.map((s,i)=>'<div class="pme-list-row"><div><b>'+esc(s.name)+'</b><small>'+esc(s.source_type)+' · สิทธิ์ '+esc(s.reuse_rights)+' · Source ID '+esc(s.source_id)+' · <a href="'+esc(s.url)+'" target="_blank" rel="noopener noreferrer">เปิดแหล่งข้อมูล</a></small></div><button type="button" class="pme-remove" data-remove-source="'+i+'">ลบ</button></div>').join(""):'<div class="pme-empty">ต้องเพิ่มแหล่งอ้างอิงก่อนบันทึกแมตช์</div>';
+    renderEvidenceSourceOptions();
   }
   function renderEvents(){
     const row=currentRecord();
     $("pmeEventList").innerHTML=row?.events.length?row.events.map((e,i)=>{
       let detail=e.type==="substitution"?"เปลี่ยนตัว: "+e.player_off.observed_name+" → "+e.player_on.observed_name:e.goal_type==="own_goal"?"ทำเข้าประตูตัวเอง: "+e.own_goal_player.observed_name:"ประตู: "+e.scorer.observed_name+(e.goal_type==="penalty"?" (จุดโทษ)":"");
       if(e.type==="goal"&&e.assist_status==="explicit")detail+=" · แอสซิสต์ "+e.assist_player.observed_name;
-      return '<div class="pme-list-row"><div><b>'+esc(e.minute)+'′ · '+esc(detail)+'</b><small>'+esc(e.team_id===row.home_team.team_id?row.home_team.name:row.away_team.name)+' · '+(e.type==="goal"?"Goal event":"Substitution")+'</small></div><button type="button" class="pme-remove" data-remove-event="'+i+'">ลบ</button></div>';
+      const evidence=(e.source_ids||[]).map(id=>row.sources.find(source=>source.source_id===id)?.name||id).join(", ");
+      return '<div class="pme-list-row"><div><b>'+esc(e.minute)+'′ · '+esc(detail)+'</b><small>'+esc(e.team_id===row.home_team.team_id?row.home_team.name:row.away_team.name)+' · '+(e.type==="goal"?"Goal event":"Substitution")+' · หลักฐาน: '+esc(evidence||"ไม่ระบุ")+'</small></div><button type="button" class="pme-remove" data-remove-event="'+i+'">ลบ</button></div>';
     }).join(""):'<div class="pme-empty">ยังไม่มีเหตุการณ์ในแมตช์นี้</div>';
   }
   function renderEventFields(){
@@ -62,7 +66,7 @@
     $("pmeGoalType").addEventListener("change",syncGoalFields);$("pmeAssistStatus").addEventListener("change",syncGoalFields);syncGoalFields();
   }
   function syncGoalFields(){const own=$("pmeGoalType")?.value==="own_goal",explicit=$("pmeAssistStatus")?.value==="explicit";$("pmeScorerWrap").hidden=own;$("pmeOwnGoalWrap").hidden=!own;$("pmeAssistWrap").hidden=!explicit;if(own&&explicit)$("pmeAssistStatus").value="unknown";}
-  function renderReviewState(){const r=currentRecord();$("pmeLineupCoverage").value=r?.lineup_coverage||"unknown";$("pmeEventCoverage").value=r?.event_coverage||"unknown";$("pmeReviewedConfirm").checked=r?.review_status==="verified";$("pmeReviewState").textContent=r?.review_status==="verified"?"ยืนยันตรวจสอบแล้ว":"ยังไม่ผ่านการยืนยัน";}
+  function renderReviewState(){const r=currentRecord();$("pmeLineupCoverage").value=r?.lineup_coverage||"unknown";$("pmeEventCoverage").value=r?.event_coverage||"unknown";$("pmeReviewedConfirm").checked=false;$("pmeReviewState").textContent=r?.review_status==="verified"?"ข้อมูลนี้เคยผ่านการตรวจสอบแล้ว · กรุณาตรวจใหม่และยืนยันอีกครั้งก่อนบันทึก":"ยังไม่ผ่านการยืนยัน";}
   function renderAll(){renderHeader();renderLineups();renderSources();renderEvents();renderReviewState();renderStoredSummary();}
   function renderStoredSummary(){
     const data=loadStored(),rows=data.records,events=rows.reduce((n,r)=>n+r.events.length,0),players=rows.reduce((n,r)=>n+r.lineups.length,0),expected=expectedMatchIds(),recorded=new Set(rows.map(r=>String(r.match_id)));
@@ -76,7 +80,10 @@
     const old=loadStored().records.find(r=>String(r.match_id)===String(id));
     draft=old?JSON.parse(JSON.stringify(old)):newDraft(selectedMatch);
     $("pmeLineupTeam").innerHTML='<option value="'+esc(draft.home_team.team_id)+'">'+esc(draft.home_team.name)+' (เหย้า)</option><option value="'+esc(draft.away_team.team_id)+'">'+esc(draft.away_team.name)+' (เยือน)</option>';
-    renderAll();renderEventFields();setStatus(old?"เปิดข้อมูลที่บันทึกไว้เพื่อแก้ไข":"เลือกแมตช์แล้ว เริ่มเพิ่มแหล่งข้อมูล รายชื่อ และเหตุการณ์ได้","info");
+    ["pmeSourceName","pmeSourceUrl","pmePermissionBasis","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeEventMinute"].forEach(id=>{if($(id))$(id).value="";});
+    ["pmeIdentityConfirmed","pmeReviewedConfirm"].forEach(id=>{if($(id))$(id).checked=false;});
+    $("pmePlayerRole").value="starting_xi";$("pmeEventType").value="goal";$("pmeSourceRights").value="pending";
+    renderAll();renderEventFields();setStatus(old?"เปิดข้อมูลที่บันทึกไว้เพื่อแก้ไข · ต้องยืนยันการตรวจสอบใหม่":"เลือกแมตช์แล้ว เริ่มเพิ่มแหล่งข้อมูล รายชื่อ และเหตุการณ์ได้","info");
   }
   function addLineup(){
     const r=currentRecord();if(!r)return setStatus("กรุณาเลือกแมตช์ก่อน","error");
@@ -86,7 +93,9 @@
     if(!confirmed&&id)return setStatus("หากยังไม่ยืนยันตัวตน กรุณาล้าง FT Player ID","error");
     const player={observed_name:name,identity_status:confirmed?"verified":"unresolved",ft_player_id:confirmed?id:null};
     if(r.lineups.some(x=>x.team_id===team&&(x.player.ft_player_id?x.player.ft_player_id===player.ft_player_id:x.player.observed_name.toLowerCase()===name.toLowerCase())))return setStatus("พบผู้เล่นซ้ำในรายชื่อทีมนี้แล้ว","error");
-    r.lineups.push({team_id:team,role,player,shirt_number:shirt?Number(shirt):null,source_ids:r.sources.length?[r.sources[0].source_id]:[]});
+    if(confirmed&&r.lineups.some(x=>x.team_id!==team&&x.player.ft_player_id===id))return setStatus("FT Player ID นี้ถูกผูกกับผู้เล่นอีกทีมในแมตช์เดียวกันแล้ว กรุณาตรวจสอบตัวตน","error");
+    const sourceIds=selectedSourceIds("pmeLineupSources");if(!sourceIds.length)return setStatus("เลือกรายการแหล่งอ้างอิงของผู้เล่นอย่างน้อย 1 แหล่ง","error");
+    r.lineups.push({team_id:team,role,player,shirt_number:shirt?Number(shirt):null,source_ids:sourceIds});
     $("pmePlayerName").value="";$("pmeShirtNumber").value="";$("pmePlayerId").value="";$("pmeIdentityConfirmed").checked=false;renderAll();renderEventFields();
   }
   function addSource(){
@@ -95,14 +104,14 @@
     if(!name||!/^https:\/\//i.test(url))return setStatus("กรุณาระบุชื่อแหล่งข้อมูลและ URL แบบ HTTPS","error");
     if(r.sources.some(s=>s.url===url))return setStatus("URL แหล่งข้อมูลนี้ถูกเพิ่มแล้ว","error");
     r.sources.push({source_id:"source-"+Date.now()+"-"+(r.sources.length+1),name,url,source_type:$("pmeSourceType").value,checked_at:new Date().toISOString(),reuse_rights:$("pmeSourceRights").value,permission_basis:$("pmePermissionBasis").value.trim()||null});
-    const first=r.sources[0].source_id;r.lineups.forEach(x=>{if(!x.source_ids.length)x.source_ids=[first];});r.events.forEach(x=>{if(!x.source_ids.length)x.source_ids=[first];});
     $("pmeSourceName").value="";$("pmeSourceUrl").value="";$("pmePermissionBasis").value="";renderAll();
   }
   function addEvent(){
     const r=currentRecord();if(!r)return setStatus("กรุณาเลือกแมตช์ก่อน","error");if(!r.sources.length)return setStatus("เพิ่มแหล่งอ้างอิงก่อนบันทึกเหตุการณ์","error");
     const type=$("pmeEventType").value,minute=$("pmeEventMinute").value.trim(),team=type==="goal"?$("pmeGoalTeam").value:$("pmeLineupTeam").value;
     if(!/^[0-9]{1,3}(\+[0-9]{1,2})?$/.test(minute))return setStatus("นาทีต้องเป็นตัวเลข เช่น 45 หรือ 90+3","error");
-    const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:r.sources.length?[r.sources[0].source_id]:[]};
+    const sourceIds=selectedSourceIds("pmeEventSources");if(!sourceIds.length)return setStatus("เลือกแหล่งอ้างอิงของเหตุการณ์อย่างน้อย 1 แหล่ง","error");
+    const e={event_id:"event-"+Date.now()+"-"+(r.events.length+1),type,minute,team_id:team,source_ids:sourceIds};
     if(type==="substitution"){
       const on=findLineup($("pmePlayerOn").value),off=findLineup($("pmePlayerOff").value);
       if(!on||!off||on.team_id!==team||off.team_id!==team||on.player.observed_name===off.player.observed_name)return setStatus("เลือกผู้เล่นที่ลงและออกจากทีมเดียวกันให้ครบ","error");
@@ -140,7 +149,8 @@
     const identities=people.every(p=>p.identity_status==="verified"&&/^FT-P-[0-9]{6}$/.test(p.ft_player_id||""));
     const startersHome=r.lineups.filter(x=>x.team_id===r.home_team.team_id&&x.role==="starting_xi").length;
     const startersAway=r.lineups.filter(x=>x.team_id===r.away_team.team_id&&x.role==="starting_xi").length;
-    const verified=r.sources.length>=2&&r.sources.every(s=>s.reuse_rights==="confirmed"&&Boolean(s.permission_basis))&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&startersHome===11&&startersAway===11&&identities&&$("pmeReviewedConfirm").checked;
+    const authoritativeSources=r.sources.filter(s=>["official_competition","federation","licensed_provider"].includes(s.source_type));
+    const verified=r.sources.length>=2&&authoritativeSources.length>=1&&r.sources.every(s=>s.reuse_rights==="confirmed"&&Boolean(s.permission_basis))&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&startersHome===11&&startersAway===11&&identities&&$("pmeReviewedConfirm").checked;
     r.review_status=verified?"verified":"needs_review";
     const next=loadStored(),i=next.records.findIndex(x=>String(x.match_id)===String(r.match_id));if(i>=0)next.records[i]=r;else next.records.push(r);
     next.records.sort((a,b)=>String(a.match_id).localeCompare(String(b.match_id),undefined,{numeric:true}));next.expected_finished_match_ids=expectedMatchIds();next.dataset_status=next.records.length?"research_records_present":"research_intake_empty";next.updated_at=new Date().toISOString();
