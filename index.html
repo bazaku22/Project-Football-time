@@ -441,7 +441,11 @@ if(primaryDatabaseNav&&!document.getElementById("dbSubnavSecondary")){
  secondary.setAttribute("aria-label","หมวดข้อมูลย่อย");
  primaryDatabaseNav.insertAdjacentElement("afterend",secondary);
 }
-document.querySelectorAll("[data-db-tab]").forEach(b=>b.onclick=()=>{switchDatabaseTab(b.dataset.dbTab);window.scrollTo(0,0);});
+document.addEventListener("click",event=>{
+ const button=event.target.closest("[data-db-tab]");
+ if(!button)return;
+ switchDatabaseTab(button.dataset.dbTab);window.scrollTo(0,0);
+});
 document.addEventListener("click",event=>{
  const button=event.target.closest("[data-db-subtab]");
  if(!button)return;
