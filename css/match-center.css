@@ -144,3 +144,5 @@
 .mc-intl-details>div,.mc-intl-details>p{line-height:1.65}
 .mc-match-card-international .mc-score{font-size:1.35rem}
 @media(max-width:380px){.mc-research-event{grid-template-columns:48px 1fr;gap:5px}.mc-research-event>b{grid-column:2;text-align:left}.mc-research-event>small{grid-column:2;text-align:left}}
+
+.mc-canonical-player-link{display:inline-block;margin-top:3px;padding:3px 7px;border:1px solid rgba(100,190,170,.45);border-radius:7px;background:rgba(35,140,131,.14);color:#aee8d8;font-size:9px}

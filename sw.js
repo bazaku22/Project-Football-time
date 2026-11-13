@@ -1,4 +1,4 @@
-const CACHE = "football-time-v78";
+const CACHE = "football-time-v79";
 
 const ASSETS = [
   "./",
@@ -44,7 +44,7 @@ const ASSETS = [
   "./js/notification-center.js",
   "./js/manual-match-research.js",
   "./css/manual-match-research.css?v=1",
-  "./css/player-hub.css",
+  "./css/player-hub.css?v=2",
   "./js/research-insight.js",
   "./js/player-cloud.js",
   "./js/reep-alias-pilot.js",

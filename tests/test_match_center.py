@@ -70,7 +70,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v78", WORKER)
+        self.assertIn("football-time-v79", WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
         self.assertIn('"./css/match-center.css?v=4"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
@@ -149,8 +149,16 @@ class MatchCenterTests(unittest.TestCase):
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
-        self.assertIn('football-time-v78', WORKER)
+        self.assertIn('football-time-v79', WORKER)
 
+
+
+    def test_manual_match_events_only_link_to_exact_reviewed_canonical_ids(self):
+        self.assertIn("canonical_player_id", MODULE)
+        self.assertIn("data-canonical-player-ref", MODULE)
+        self.assertIn("pft-open-canonical-player", MODULE)
+        self.assertIn("ยังไม่เชื่อม Canonical Player ID", MODULE)
+        self.assertIn("mc-canonical-player-link", CSS)
 
 if __name__ == "__main__":
     unittest.main()

@@ -17,8 +17,9 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
     def test_canonical_membership_rows_are_scoped_to_matching_statistics(self):
         cloud = (ROOT / "js/player-cloud.js").read_text()
         self.assertIn('flatMap(p=>', cloud)
-        self.assertIn('x.season===m?.season&&x.team_id===m?.team_id&&x.squad_level===m?.squad_level', cloud)
-        self.assertIn('statistics:stat?.stats||{}', cloud)
+        self.assertIn('playerStats.filter(x=>!m||(x.season===m.season&&x.team_id===m.team_id&&x.squad_level===m.squad_level))', cloud)
+        self.assertIn('statistics:seasonStat?.stats||{}', cloud)
+        self.assertIn('statisticsRows:scopedStats.map(x=>', cloud)
 
     def test_research_pilot_remains_separate_and_has_no_fabricated_statistics(self):
         data = json.loads((ROOT / "data/player-position-pilot-2026-27.json").read_text())

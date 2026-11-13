@@ -52,6 +52,70 @@
   if(state.tab==="matches")return '<div class="player-hub-section"><h4>ประวัติการแข่งขัน</h4><div class="player-hub-empty">ยังไม่มีข้อมูลสถิติรายนัดที่เชื่อมกับตัวตนนักเตะที่ยืนยันแล้ว</div></div>';
   return '<div class="player-hub-section"><h4>แนวโน้มผลงาน</h4><div class="player-hub-empty">กราฟผลงานจะแสดงเมื่อมีข้อมูลรายนัดที่ตรวจสอบแหล่งที่มาและตัวตนนักเตะแล้ว</div></div>';
  }
+
+ const canonicalState={players:[],rows:[],selected:null,tab:"overall",query:""};
+ const COMPETITION_NAMES={PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1",UNL:"UEFA Nations League"};
+ const CLUB_COMPETITIONS=new Set(["PL","PD","BL1","SA","FL1"]);
+ const NATIONAL_COMPETITIONS=new Set(["UNL","WC","EURO","EC"]);
+ const canonicalEsc=esc;
+ function canonicalCategory(code){if(CLUB_COMPETITIONS.has(String(code)))return "club";if(NATIONAL_COMPETITIONS.has(String(code)))return "national";return "unclassified";}
+ function canonicalStatRows(playerId){return canonicalState.rows.filter(row=>String(row.player?.id||"")===String(playerId));}
+ function canonicalMetricEntries(stats){return Object.entries(stats||{}).filter(([,value])=>value!==null&&value!==undefined&&typeof value!=="object");}
+ function canonicalRosterRender(){
+  const root=$("playerCanonicalRoster"),profile=$("playerCanonicalProfile"),statusEl=$("playerCanonicalStatus");
+  if(!root||!statusEl)return;
+  const q=canonicalState.query.trim().toLocaleLowerCase();
+  const players=canonicalState.players.filter(p=>!q||[p.display_name,p.id,p.canonical_player_key].join(" ").toLocaleLowerCase().includes(q));
+  statusEl.textContent=canonicalState.players.length
+   ? "Canonical players "+canonicalState.players.length+" ราย · สถิติ "+canonicalState.rows.length+" แถวที่อ่านได้จากบัญชีนี้"
+   : "ไม่พบ Canonical Player ในบัญชีนี้ หรือยังไม่ได้เข้าสู่ระบบ";
+  root.innerHTML=players.length?players.map(p=>{
+   const rows=canonicalStatRows(p.id),competitions=new Set(rows.filter(r=>r.source?.rights_status==="approved").map(r=>r.competition));
+   return '<button type="button" class="player-canonical-player" data-canonical-player="'+canonicalEsc(p.id)+'"><span class="player-hub-avatar">'+canonicalEsc(String(p.display_name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase())+'</span><span class="player-canonical-player-main"><b>'+canonicalEsc(p.display_name||"ไม่ระบุชื่อ")+'</b><small>'+canonicalEsc(p.position||"ไม่ระบุตำแหน่ง")+' · '+canonicalEsc(p.nationality||"ไม่ระบุสัญชาติ")+' · '+competitions.size+' รายการแข่งขัน</small><span class="player-canonical-id">Canonical ID: '+canonicalEsc(p.id)+'</span></span><span class="player-hub-chevron">›</span></button>';
+  }).join(""):'<div class="player-hub-empty">'+(canonicalState.players.length?"ไม่พบนักเตะที่ตรงกับคำค้น":"ยังไม่มีข้อมูล Canonical ที่แสดงได้")+'</div>';
+  root.querySelectorAll("[data-canonical-player]").forEach(button=>button.addEventListener("click",()=>{canonicalState.selected=button.dataset.canonicalPlayer;canonicalState.tab="overall";canonicalProfileRender();profile.scrollIntoView({behavior:"smooth",block:"start"});}));
+  if(canonicalState.selected)canonicalProfileRender();else profile.hidden=true;
+ }
+ function canonicalProfileRender(){
+  const root=$("playerCanonicalProfile"),player=canonicalState.players.find(p=>String(p.id)===String(canonicalState.selected));
+  if(!root||!player){if(root)root.hidden=true;return;}
+  root.hidden=false;
+  const rows=canonicalStatRows(player.id),eligible=rows.filter(r=>r.source?.rights_status==="approved");
+  const grouped=eligible.filter(r=>r.statisticsScope==="competition"||r.statisticsScope==="season"||r.statisticsScope==="match");
+  const categoryRows=canonicalState.tab==="club"?grouped.filter(r=>canonicalCategory(r.competition)==="club"):canonicalState.tab==="national"?grouped.filter(r=>canonicalCategory(r.competition)==="national"):grouped.filter(r=>canonicalCategory(r.competition)!=="unclassified");
+  const sorted=categoryRows.slice().sort((a,b)=>String(b.season||"").localeCompare(String(a.season||""))||String(a.competition||"").localeCompare(String(b.competition||""))||String(a.statisticsScope||"").localeCompare(String(b.statisticsScope||"")));
+  const labels={overall:"ภาพรวม",club:"สโมสร",national:"ทีมชาติ"};
+  const statusLabel={verified:"ตรวจสอบแล้ว",pending:"รอตรวจสอบ",disputed:"มีข้อโต้แย้ง"};
+  const metricLabel={appearances:"ลงเล่น",matches_played:"ลงเล่น",starts:"ตัวจริง",minutes:"นาที",goals:"ประตู",assists:"แอสซิสต์",yellow_cards:"ใบเหลือง",red_cards:"ใบแดง",shots:"ยิง",shots_on_target:"ยิงตรงกรอบ",xg:"xG",xa:"xA"};
+  const records=sorted.map(row=>{
+   const metrics=canonicalMetricEntries(row.stats),source=row.source||{},metricHtml=metrics.length?'<div class="player-canonical-metrics">'+metrics.map(([key,value])=>'<div><b>'+canonicalEsc(metricLabel[key]||key)+':</b> '+canonicalEsc(value)+'</div>').join("")+'</div>':'<p>ไม่มีข้อมูลสถิติในรายการนี้</p>';
+   const sourceUrl=/^https:\/\//i.test(String(source.source_url||""))?String(source.source_url):"";
+   const link=sourceUrl?'<a class="player-canonical-link" href="'+canonicalEsc(sourceUrl)+'" target="_blank" rel="noopener noreferrer">เปิดแหล่งข้อมูล · '+canonicalEsc(source.source_name||"Source")+'</a>':'<span class="player-canonical-link">ไม่มี URL HTTPS ที่ตรวจสอบได้</span>';
+   return '<article class="player-canonical-record"><h5>'+canonicalEsc(COMPETITION_NAMES[row.competition]||row.competition||"รายการไม่ระบุ")+' · '+canonicalEsc(row.season||"ไม่ระบุฤดูกาล")+'</h5><p>ทีม: '+canonicalEsc(row.teamId||"ไม่ระบุ")+' · ระดับ: '+canonicalEsc(row.squadLevel||"ไม่ระบุ")+' · Scope: '+canonicalEsc(row.statisticsScope)+'</p><p class="player-canonical-status '+(row.verificationStatus==="verified"?"verified":"")+'">สถานะข้อมูล: '+canonicalEsc(statusLabel[row.verificationStatus]||row.verificationStatus||"ไม่ระบุ")+' · สิทธิ์: approved</p>'+metricHtml+'<p>'+link+'</p><p>ตรวจแหล่งข้อมูลล่าสุด: '+canonicalEsc(source.source_updated_at||source.collected_at||"ไม่ระบุ")+'</p></article>';
+  }).join("");
+  const unclassified=eligible.filter(r=>canonicalCategory(r.competition)==="unclassified").length;
+  const overallSummary='<div class="player-hub-section"><h4>ภาพรวมข้อมูลที่มี</h4><div class="player-hub-stat-grid"><div><b>'+eligible.length+'</b><small>แถวที่สิทธิ์อนุญาต</small></div><div><b>'+new Set(eligible.map(r=>r.competition)).size+'</b><small>รายการแข่งขัน</small></div><div><b>'+new Set(eligible.map(r=>r.season)).size+'</b><small>ฤดูกาล</small></div><div><b>'+unclassified+'</b><small>รายการรอจัดหมวด</small></div></div><p>ภาพรวมนี้เป็นจำนวนชุดข้อมูล ไม่ใช่ผลรวมสถิติการแข่งขัน เพื่อป้องกันการบวกข้อมูลซ้ำระหว่างระดับฤดูกาล รายการแข่งขัน และรายนัด</p></div>';
+  root.innerHTML='<div class="player-hub-profile-head"><button type="button" id="playerCanonicalClose" aria-label="ปิดโปรไฟล์">×</button><div class="player-hub-avatar large">'+canonicalEsc(String(player.display_name||"?").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase())+'</div><div><h3>'+canonicalEsc(player.display_name||"ไม่ระบุชื่อ")+'</h3><p>'+canonicalEsc(player.position||"ไม่ระบุตำแหน่ง")+' · '+canonicalEsc(player.nationality||"ไม่ระบุสัญชาติ")+'</p><span class="player-canonical-id">Canonical Player ID: '+canonicalEsc(player.id)+'</span></div></div><div class="player-canonical-tabs"><button type="button" data-canonical-tab="overall" class="'+(canonicalState.tab==="overall"?"active":"")+'">ภาพรวม</button><button type="button" data-canonical-tab="club" class="'+(canonicalState.tab==="club"?"active":"")+'">สโมสร</button><button type="button" data-canonical-tab="national" class="'+(canonicalState.tab==="national"?"active":"")+'">ทีมชาติ</button></div><div class="player-hub-profile-body">'+(canonicalState.tab==="overall"?overallSummary:'<h4>'+labels[canonicalState.tab]+'</h4>')+(records||'<div class="player-hub-empty">No data · ยังไม่มีข้อมูลที่ได้รับอนุญาตในหมวดนี้</div>')+'</div>';
+  $("playerCanonicalClose").addEventListener("click",()=>{canonicalState.selected=null;root.hidden=true;});
+  root.querySelectorAll("[data-canonical-tab]").forEach(button=>button.addEventListener("click",()=>{canonicalState.tab=button.dataset.canonicalTab;canonicalProfileRender();}));
+ }
+ window.addEventListener("pft-open-canonical-player",event=>{
+  const playerId=String(event.detail?.canonicalPlayerId||"");
+  if(!playerId||!canonicalState.players.some(player=>String(player.id)===playerId))return;
+  canonicalState.selected=playerId;canonicalState.tab="overall";canonicalProfileRender();
+  $("playerCanonicalProfile")?.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+ window.addEventListener("pft-player-directory-data",event=>{
+  const list=Array.isArray(event.detail?.players)?event.detail.players:[];
+  const map=new Map();list.forEach(row=>{if(row?.id&&!map.has(row.id))map.set(row.id,{id:row.id,display_name:row.display_name,position:row.position,nationality:row.nationality});});
+  canonicalState.players=[...map.values()];canonicalRosterRender();
+ });
+ window.addEventListener("pft-player-stats-data",event=>{
+  canonicalState.rows=Array.isArray(event.detail?.rows)?event.detail.rows:[];
+  if(event.detail?.status)$("playerCanonicalStatus").textContent=event.detail.status;
+  canonicalRosterRender();
+ });
+ $("playerCanonicalSearch")?.addEventListener("input",event=>{canonicalState.query=event.target.value||"";canonicalRosterRender();});
  $("playerHubLeagues")?.addEventListener("click",e=>{const b=e.target.closest("[data-hub-league]");if(!b)return;state.league=b.dataset.hubLeague;state.team="ALL";state.selected=null;state.page=0;render();});
  $("playerHubTeams")?.addEventListener("click",e=>{const b=e.target.closest("[data-hub-team]");if(!b)return;state.team=state.team===b.dataset.hubTeam?"ALL":b.dataset.hubTeam;state.selected=null;state.page=0;render();});
  $("playerHubRoster")?.addEventListener("click",e=>{const b=e.target.closest("[data-hub-player]");if(!b)return;state.selected=b.dataset.hubPlayer;state.tab="overview";render();$("playerHubProfile").scrollIntoView({behavior:"smooth",block:"start"});});

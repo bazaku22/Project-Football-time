@@ -29,7 +29,9 @@ class PlayerDatabaseWorkspaceTests(unittest.TestCase):
         self.assertIn('supabase.from("ft_players")', cloud)
         self.assertIn('new CustomEvent("pft-player-directory-data"', cloud)
         self.assertIn("(playersRes.data||[]).flatMap(p=>", cloud)
-        self.assertIn("statistics:stat?.stats||{}", cloud)
+        self.assertIn("statisticsRows:scopedStats.map", cloud)
+        self.assertIn("const statsByPlayer=new Map()", cloud)
+        self.assertNotIn(".find(x=>x.player_id===p.id", cloud)
 
     def test_advanced_tools_are_collapsed_and_primary_list_is_singular(self):
         html = (ROOT / "index.html").read_text()
