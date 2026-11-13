@@ -39,6 +39,9 @@ class PlayerResearchBundleTests(unittest.TestCase):
         m=membership_fixture();m["sources"][0]["rights_review_status"]="pending"
         self.assertTrue(any("rights review is not approved" in e for e in validate_bundle(m,statistics_fixture())))
 
+    def test_rejects_cross_manifest_source_licence_review_date_disagreement(self):
+        s=statistics_fixture();s["sources"][0]["licence_reviewed_at"]="2026-11-12"
+        self.assertTrue(any("disagree on licence_reviewed_at" in e for e in validate_bundle(membership_fixture(),s)))
     def test_rejects_statistics_without_direct_evidence_url(self):
         s=statistics_fixture();del s["statistics"][0]["evidence_url"]
         self.assertTrue(any("requires HTTPS evidence_url" in e for e in validate_bundle(membership_fixture(),s)))
