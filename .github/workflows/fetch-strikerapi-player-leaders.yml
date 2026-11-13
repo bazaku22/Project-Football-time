@@ -1,0 +1,53 @@
+name: Fetch StrikerAPI 2026/27 player leaders to staging
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: strikerapi-player-leaders-2026-27
+  cancel-in-progress: false
+jobs:
+  fetch-and-stage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install HTTP dependency
+        run: python -m pip install requests
+      - name: Fetch current-season player leaders (250 credits maximum)
+        env:
+          STRIKERAPI_API_KEY: \${{ secrets.STRIKERAPI_API_KEY }}
+        run: |
+          test -n "$STRIKERAPI_API_KEY" || { echo "::error::STRIKERAPI_API_KEY secret is missing."; exit 1; }
+          python scripts/strikerapi_player_leaders_intake.py --fetch
+      - name: Validate staging output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("data/staging/strikerapi-player-leaders-2026-27.json")
+          data = json.loads(path.read_text(encoding="utf-8"))
+          assert data["status"] == "staging_only"
+          assert data["season"] == "2026/27"
+          assert data["season_start_year"] == 2026
+          assert data["production_import"] is False
+          assert data["provider_api_calls"] == 50
+          assert data["estimated_credits"] == 250
+          assert data["canonical_ids_assigned"] == 0
+          assert data["supabase_writes"] == 0
+          assert data["coverage"]["all_five_leagues_present"] is True
+          assert len(data["scope"]["stat_categories"]) == 10
+          print("Validated unique current-season player leaders:", data["coverage"]["unique_provider_players"])
+          PY
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: strikerapi-player-leaders-2026-27
+          path: data/staging/strikerapi-player-leaders-2026-27.json
+          if-no-files-found: error
+          retention-days: 14
