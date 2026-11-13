@@ -86,10 +86,13 @@ def validate(data: dict) -> dict:
                 errors.append(f"{label}: verified records require two direct sources including an organiser, federation, or licensed provider")
             if any(source.get("reuse_rights") != "confirmed" for source in sources):
                 errors.append(f"{label}: verified records require confirmed reuse rights")
+            if any(not str(source.get("permission_basis") or "").strip() for source in sources):
+                errors.append(f"{label}: verified records require a documented permission basis for every source")
             if row.get("lineup_coverage") != "complete" or row.get("event_coverage") != "complete":
                 errors.append(f"{label}: verified records require complete lineup and event coverage")
 
         lineup_keys = set()
+        canonical_player_teams = {}
         for item in row.get("lineups") or []:
             player = item.get("player")
             _valid_player(player, errors, label)
@@ -101,6 +104,11 @@ def validate(data: dict) -> dict:
             if key in lineup_keys:
                 errors.append(f"{label}: duplicate player in a team's lineup")
             lineup_keys.add(key)
+            player_id = (player or {}).get("ft_player_id")
+            if player_id:
+                previous_team = canonical_player_teams.setdefault(player_id, item.get("team_id"))
+                if previous_team != item.get("team_id"):
+                    errors.append(f"{label}: one FT Player ID cannot belong to both teams in the same match")
             if not item.get("source_ids") or any(sid not in source_ids for sid in item.get("source_ids", [])):
                 errors.append(f"{label}: lineup evidence must reference known source_ids")
 
