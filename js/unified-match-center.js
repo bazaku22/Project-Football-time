@@ -64,11 +64,23 @@
     const prob = values(data.probabilities || data.probability_1x2);
     const hasProb = ["home","draw","away"].some((key) => prob[key] != null);
     const probability = hasProb ? '<div class="mc-detail-kpis">' + [["เจ้าบ้าน",prob.home],["เสมอ",prob.draw],["ทีมเยือน",prob.away]].map(([name,value]) => '<div class="mc-detail-kpi"><b>' + (value == null ? "—" : esc(Number(value).toFixed(1)) + "%") + '</b><span>' + name + '</span></div>').join("") + '</div>' : empty("ยังไม่มีผลวิเคราะห์ก่อนแข่งขันที่ผูกกับคู่นี้");
+    const handicap = values(data.handicap);
+    const handicapReady = handicap.status === "ready" && Number.isFinite(Number(handicap.line));
+    const lineLabel = handicapReady ? (Number(handicap.line) > 0 ? "+" : "") + Number(handicap.line).toFixed(2) : "ยังไม่มีเส้นอ้างอิง";
+    const asPercent = (value) => value == null ? "—" : (Number(value) * (Number(value) <= 1 ? 100 : 1)).toFixed(1) + "%";
+    const handicapRows = handicapReady ? [
+      ["เส้น Handicap เจ้าบ้าน",lineLabel],
+      ["โอกาสผ่านราคา (ชนะเต็ม + ครึ่ง)",asPercent(handicap.winSide)],
+      ["โอกาสคืนทุน",asPercent(handicap.push)]
+    ] : [["สถานะ Handicap",handicap.status === "stale" ? "ข้อมูลอ้างอิงเก่า · งดคำนวณ" : "ยังไม่มีข้อมูลที่พร้อมคำนวณ"]];
+    const handicapMarkup = '<div class="mc-detail-list">' + handicapRows.map(([label,value]) => '<div class="mc-detail-row"><span>' + esc(label) + '</span><b>' + esc(value) + '</b></div>').join("") + '</div>';
+    const scoreMatrix = data.scoreMatrix || data.score_matrix || data.scoreDistribution;
+    const scoreMatrixMarkup = scoreMatrix ? '<pre class="mc-detail-muted mc-analysis-data">' + esc(JSON.stringify(scoreMatrix,null,2)) + '</pre>' : empty("ยังไม่มี Score Matrix ที่ตรวจสอบได้");
     const insight = data.insight || data.analysisInsight;
     const insightMarkup = insight ? '<p class="mc-detail-muted">' + esc(typeof insight === "string" ? insight : insight.summary || JSON.stringify(insight)) + '</p>' : empty("ยังไม่มี Analysis Insight ที่อ้างอิงหลักฐานของคู่นี้");
     const evaluation = data.evaluation || data.predictionVsActual;
     const evaluationMarkup = evaluation ? '<pre class="mc-detail-muted">' + esc(JSON.stringify(evaluation,null,2)) + '</pre>' : empty("Prediction vs Actual จะแสดงเมื่อมี Snapshot ก่อนแข่งและผลจริงที่ตรวจสอบได้");
-    return card("1X2 · Handicap · Score Matrix",probability) + card("Tactical Analysis & Analysis Insight",insightMarkup) + card("Prediction vs Actual · Model Evaluation",evaluationMarkup);
+    return card("1X2 Probability",probability) + card("Handicap Probability",handicapMarkup) + card("Score Matrix",scoreMatrixMarkup) + card("Tactical Analysis & Analysis Insight",insightMarkup) + card("Prediction vs Actual · Model Evaluation",evaluationMarkup);
   }
   function renderPanel() {
     if (!selectedMatch) return;
