@@ -6,13 +6,14 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PlayerDirectoryRefreshTests(unittest.TestCase):
-    def test_player_directory_has_separate_current_archive_and_research_views(self):
+    def test_legacy_player_views_are_not_rendered_or_loaded(self):
         js = (ROOT / "js/player-database.js").read_text()
+        html = (ROOT / "index.html").read_text()
         self.assertIn('CURRENT_SEASON="2026/27"', js)
-        self.assertIn('data-player-view="current"', (ROOT / "index.html").read_text())
-        self.assertIn('data-player-view="archive"', (ROOT / "index.html").read_text())
-        self.assertIn('data-player-view="research"', (ROOT / "index.html").read_text())
         self.assertIn('view==="archive"?p.season!==CURRENT_SEASON:p.season===CURRENT_SEASON', js)
+        for marker in ('data-player-view="current"', 'data-player-view="archive"', 'data-player-view="research"'):
+            self.assertNotIn(marker, html)
+        self.assertNotIn("./js/player-database.js", html)
 
     def test_canonical_membership_rows_are_scoped_to_matching_statistics(self):
         cloud = (ROOT / "js/player-cloud.js").read_text()
@@ -30,14 +31,15 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertTrue(all(p["season_statistics"] == {} for p in data["players"]))
         self.assertTrue(all(p["rights_status"] == "pending_review" for p in data["players"]))
 
-    def test_current_five_league_research_dataset_is_rendered_with_real_membership_metadata(self):
+    def test_current_five_league_research_dataset_is_retained_but_not_loaded(self):
         js = (ROOT / "js/player-database.js").read_text()
         sw = (ROOT / "sw.js").read_text()
+        html = (ROOT / "index.html").read_text()
         self.assertIn("current-player-squads-2026-27.json", js)
-        self.assertIn("current-player-squads-2026-27.json", sw)
+        self.assertNotIn("current-player-squads-2026-27.json", sw)
+        self.assertNotIn("./js/player-database.js", html)
         self.assertIn("source.league_name", js)
         self.assertIn("source.url", js)
-        self.assertNotIn('teamName:"Manchester United"', js)
         data = json.loads((ROOT / "data/current-player-squads-2026-27.json").read_text())
         self.assertEqual(data["records_count"], 25)
         self.assertEqual(len(data["players"]), 25)
@@ -52,24 +54,24 @@ class PlayerDirectoryRefreshTests(unittest.TestCase):
         self.assertIn("ดูแหล่งที่มาและเงื่อนไข", js)
         self.assertIn("สิทธิส่วนบุคคล", js)
         html = (ROOT / "index.html").read_text()
-        self.assertIn("ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น", html)
+        self.assertNotIn("ได้รับอนุญาตและผ่านการตรวจสอบแหล่งที่มาเท่านั้น", html)
 
-    def test_legacy_archive_is_non_destructive_and_tools_are_preserved(self):
+    def test_legacy_player_data_files_are_retained_without_active_ui(self):
         html = (ROOT / "index.html").read_text()
-        self.assertIn("ข้อมูลเก่า / Archive", html)
-        self.assertIn('<details class="card">', html)
-        self.assertIn('id="playerIdentityReviewPanel"', html)
-        self.assertIn('id="playerStatsImportPanel"', html)
-        self.assertIn('id="playerCloudAuth"', html)
-        self.assertIn('id="playerImportButton"', html)
+        self.assertNotIn("ข้อมูลเก่า / Archive", html)
+        self.assertNotIn('id="playerIdentityReviewPanel"', html)
+        self.assertNotIn('id="playerStatsImportPanel"', html)
+        self.assertNotIn('id="playerCloudAuth"', html)
+        self.assertNotIn('id="playerImportButton"', html)
+        self.assertTrue((ROOT / "data/current-player-squads-2026-27.json").exists())
         self.assertNotIn("supabase.from(\"player_records\").delete", (ROOT / "js/player-cloud.js").read_text())
 
-    def test_visual_styles_are_loaded_and_cached(self):
+    def test_legacy_player_styles_remain_archived_but_are_not_loaded(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
         css = (ROOT / "css/player-directory.css").read_text()
-        self.assertIn('href="./css/player-directory.css?v=1"', html)
-        self.assertIn('./css/player-directory.css?v=1', sw)
+        self.assertNotIn('href="./css/player-directory.css?v=1"', html)
+        self.assertNotIn('./css/player-directory.css?v=1', sw)
         for marker in (".player-directory-hero", ".player-card", ".player-avatar-wrap", ".player-metrics"):
             self.assertIn(marker, css)
 
