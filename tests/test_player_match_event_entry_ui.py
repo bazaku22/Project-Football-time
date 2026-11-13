@@ -72,7 +72,7 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
         self.assertIn('./js/player-match-event-entry.js', html)
         self.assertIn('./css/player-match-event-entry.css?v=1', sw)
         self.assertIn('./js/player-match-event-entry.js', sw)
-        self.assertIn('const CACHE = "football-time-v92"', sw)
+        self.assertIn('const CACHE = "football-time-v93"', sw)
 
 
 if __name__ == "__main__":
