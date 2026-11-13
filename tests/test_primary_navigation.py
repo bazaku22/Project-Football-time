@@ -15,6 +15,11 @@ class PrimaryNavigationTests(unittest.TestCase):
         for target in ("summary", "analysis", "archive", "advanced"):
             self.assertIn('["' + target + '"', source)
 
+    def test_player_operations_center_route_targets_mounted_page(self):
+        source = (ROOT / "js/primary-navigation.js").read_text()
+        self.assertIn('target === "playerOperations"', source)
+        self.assertIn('activate("playerOperationsPage", null, "")', source)
+
     def test_legacy_player_database_route_is_removed(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         html = (ROOT / "index.html").read_text()
