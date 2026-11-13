@@ -2,6 +2,7 @@
 (() => {
  const REGISTRY_URL="./data/player-team-name-registry-2026-27.json";
  const LEDGER_KEY="pft_player_match_event_ledger_2026_27_v1";
+ const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1";
  const LEAGUES=[["PL","Premier League"],["PD","La Liga"],["BL1","Bundesliga"],["SA","Serie A"],["FL1","Ligue 1"]];
  const FT_ID=/^FT-P-[0-9]{6}$/;
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -22,6 +23,7 @@
   }catch(_){}
   return {dataset_id:"player-match-event-ledger-2026-27",season:"2026/27",records:[],expected_finished_match_ids:[]};
  }
+ function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return value&&typeof value==="object"&&!Array.isArray(value)?value:{}}catch(_){return {};}}
  function recordVerified(record){
   if(!record||record.review_status!=="verified"||record.lineup_coverage!=="complete"||record.event_coverage!=="complete")return false;
   const sources=Array.isArray(record.sources)?record.sources:[];
@@ -31,8 +33,11 @@
  function validPlayer(player){return !!player&&player.identity_status==="verified"&&typeof player.ft_player_id==="string"&&FT_ID.test(player.ft_player_id)&&typeof player.observed_name==="string"&&player.observed_name.trim().length>0;}
  function teamLedger(teamId){
   const data=loadLedger(),verified=new Map(),pending=new Map();let verifiedMatches=0,pendingMatches=0;
+  const aliasKey=[selectedLeague?.[0]||"",String(teamId)].join("|"),decision=loadTeamAliases()[aliasKey];
+  const canonicalTeamId=decision?.status==="approved"&&typeof decision.canonical_team_id==="string"&&decision.canonical_team_id.startsWith("football-data:")?decision.canonical_team_id:null;
+  if(!canonicalTeamId)return {verified:[],pending:[],verifiedMatches:0,pendingMatches:0,season:data.season||"2026/27",teamMappingPending:true};
   const pendingAdd=(player,teamId,reason)=>{
-   if(!player||!teamId||String(teamId)!==String(selectedTeam?.id))return;
+   if(!player||!teamId||String(teamId)!==String(canonicalTeamId))return;
    const name=typeof player.observed_name==="string"&&player.observed_name.trim()?player.observed_name.trim():"ไม่ระบุชื่อ";
    const key=validPlayer(player)?player.ft_player_id:"pending:"+String(teamId)+":"+name.toLocaleLowerCase();
    if(verified.has(key))return;
@@ -40,7 +45,7 @@
   };
   const getVerified=(player,teamId)=>{
    if(!validPlayer(player)){pendingAdd(player,teamId,"ยังไม่ยืนยัน FT Player ID");return null;}
-   if(String(teamId)!==String(selectedTeam?.id))return null;
+   if(String(teamId)!==String(canonicalTeamId))return null;
    const id=player.ft_player_id;
    if(!verified.has(id))verified.set(id,{id,name:player.observed_name,team_id:String(teamId),appearances:0,goals:0,assists:0,_apps:new Set()});
    return verified.get(id);
@@ -93,7 +98,7 @@
   const verifiedIds=new Set(verifiedRows.map(p=>p.id));
   const pendingRows=Array.from(pending.values()).filter(p=>!p.id||!verifiedIds.has(p.id)).sort((a,b)=>a.name.localeCompare(b.name));
   verifiedRows.forEach(p=>delete p._apps);
-  return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27"};
+  return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
  }
  function render(){
   if(!registry){content().innerHTML='<div class="pdb-empty">ไม่สามารถโหลดทะเบียนทีมได้ กรุณาลองใหม่ภายหลัง</div>';return;}
@@ -105,6 +110,7 @@
   }
   if(selectedTeam){
    const data=teamLedger(selectedTeam.id);
+   if(data.teamMappingPending){content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-team-hero"><span class="pdb-team-mark">'+esc(selectedTeam.name.slice(0,2).toUpperCase())+'</span><div><h3>'+esc(selectedTeam.name)+'</h3><p>'+esc(selectedLeague[1])+' · ฤดูกาล 2026/27</p></div></div><div class="pdb-empty pdb-no-data"><strong>รอยืนยัน Team ID Mapping</strong><span>ยังไม่มีการยืนยันความเชื่อมโยงระหว่าง StrikerAPI Team ID กับ football-data.org Team ID ในอุปกรณ์นี้ จึงยังไม่เชื่อมข้อมูลหรือแสดงสถิติ เพื่อป้องกันการจับคู่ผิดสโมสร</span></div>';return;}
    content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-team-hero"><span class="pdb-team-mark">'+esc(selectedTeam.name.slice(0,2).toUpperCase())+'</span><div><h3>'+esc(selectedTeam.name)+'</h3><p>'+esc(selectedLeague[1])+' · ฤดูกาล 2026/27</p></div></div><div class="pdb-ledger-toolbar"><span>ข้อมูลจาก Match Event Ledger ในอุปกรณ์นี้</span><button type="button" data-refresh-ledger>รีเฟรช</button></div><div class="pdb-count-grid"><div><b>'+data.verified.length+'</b><span>ผู้เล่น Verified</span></div><div><b>'+data.pending.length+'</b><span>รอตรวจสอบ</span></div></div><section class="pdb-player-section"><h4>Verified Players</h4><p>ยืนยันตัวตนและนับเฉพาะแมตช์ที่ผ่านเกณฑ์ตรวจสอบครบถ้วน</p>'+(data.verified.length?'<div class="pdb-player-list">'+data.verified.map(p=>'<button class="pdb-player-row" data-player="'+esc(p.id)+'"><span><b>'+esc(p.name)+'</b><small>'+esc(p.id)+' · ลงสนาม '+p.appearances+' · '+p.goals+' ประตู · '+p.assists+' แอสซิสต์</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div>':'<div class="pdb-empty">ยังไม่มีผู้เล่นที่ผ่านเกณฑ์ Verified ในทีมนี้</div>')+'</section><section class="pdb-player-section"><h4>Pending Verification</h4><p>แสดงชื่อจากหลักฐานที่บันทึกไว้เท่านั้น ยังไม่นำมาคำนวณสถิติ</p>'+(data.pending.length?'<div class="pdb-player-list">'+data.pending.map(p=>'<div class="pdb-player-row pdb-pending-row"><span><b>'+esc(p.name)+'</b><small>'+(p.id?esc(p.id)+" · ":"")+esc(p.reason)+'</small></span><span class="pdb-pending-tag">รอตรวจ</span></div>').join("")+'</div>':'<div class="pdb-empty">ไม่มีรายการรอตรวจสอบจาก Ledger สำหรับทีมนี้</div>')+'</section><p class="pdb-data-note">Ledger ครอบคลุมเฉพาะแมตช์ที่มีการบันทึกใน 5 ลีกหลัก และอาจยังไม่ครบทุกนัดหรือทุกรายการแข่งขัน สถิติที่แสดงจึงไม่ใช่ยอดรวมฤดูกาลทั้งหมด</p>';
    return;
   }
@@ -128,5 +134,5 @@
   if(data.status!=="provider_display_names_verified"||data.production_import!==false||count!==96)throw Error("ทะเบียนทีมไม่ผ่านการตรวจสอบ");
   registry=data;render();
  }).catch(error=>{content().innerHTML='<div class="pdb-empty">โหลดทะเบียนทีมไม่สำเร็จ ('+esc(error.message)+')</div>';});
- window.FootballTimePlayerDatabase={loadLedger,recordVerified,teamLedger};
+ window.FootballTimePlayerDatabase={loadLedger,loadTeamAliases,recordVerified,teamLedger};
 })();
