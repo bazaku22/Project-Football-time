@@ -31,7 +31,7 @@ Open it from Match Center → เครื่องมือเพิ่มเ�
 
 ## Local data and limits
 
-The browser stores records under `pft_player_match_event_ledger_2026_27_v1`. Data does not sync to another device, upload to a server, or change Match Center results. Export the JSON to move or back up the dataset. Clearing the local ledger is destructive for this device, so export first.
+The browser stores records under `pft_player_match_event_ledger_2026_27_v1`. Data does not sync to another device, upload to a server, or change Match Center results. Export the JSON regularly to back up the dataset; this first UI slice does not yet provide an import/restore control. Clearing the local ledger is destructive for this device, so export first.
 
 The match list is limited to the fixtures currently available in the app's central database. The page does not discover every registered squad member; non-appearing players still require a separate rights-cleared roster source. A match report or manual transcription is not itself a reuse licence. Do not mark source rights confirmed without a real basis.
 
