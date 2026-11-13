@@ -53,18 +53,19 @@ A source can be approved for identity only while remaining blocked for membershi
 7. **Preview locally:** validate JSON/CSV offline, show rejected rows and reasons, and store reviewer decisions on the device only until a separately approved import.
 8. **Promote:** only rights-cleared and verified rows may be proposed for Production. Production import is a separate approval and must be additive, auditable and idempotent.
 
-## 5. First pilot: Premier League 2026/27
+## 5. Five-league research rollout: 2026/27
 
-Use the Premier League as the first **workflow pilot**, not as an assumption that its data is already reusable. It has a clear season-specific squad-list discovery surface and a defined set of 20 clubs, making it practical to measure research coverage.
+Support all five competitions from the start using one shared manifest and league-specific evidence: Premier League (PL), La Liga (PD), Bundesliga (BL1), Serie A (SA) and Ligue 1 (FL1). Google may be used as a discovery interface; every captured fact must point to a direct underlying source and a dated evidence record. Google snippets, cached extracts and result cards are discovery hints, not authoritative evidence by themselves.
 
-Pilot stages:
-- Start with one representative club and then expand to a small cohort only after the source-rights gate is cleared.
-- Record roster scope (submitted senior list, eligible U21, academy, loaned-out, injured/unregistered) separately; do not conflate a published squad list with full player membership.
-- Capture only facts that are permitted for the intended in-app use.
-- Keep all rows Research Only until both source rights and player/team identity are reviewed.
-- If written permission is not available, do not copy roster rows. Use the pilot to validate the evidence ledger and leave the dataset empty rather than substituting scraped or unlicensed data.
+Rollout stages:
+- Enable the same offline research workflow for all five league IDs; do not create one manifest or database per league.
+- Research league tables, fixtures/results, club rosters, player season/competition totals and match-level statistics as separate data scopes.
+- Keep source permissions independent by publisher, field/category, intended use, commercial use, database rights, redistribution and attribution.
+- Record each league's competition/season IDs, canonical club mapping, source-native player IDs, metric definitions, observed timestamp and reviewer decisions.
+- Do not assume the five leagues share registration rules, squad definitions, season boundaries or metric definitions.
+- Keep every row Research Only until its source rights and player/team identity are reviewed. If rights remain pending, retain the evidence ledger but do not promote copied records to the app dataset.
 
-After the first pilot passes, repeat the same process for La Liga, Bundesliga, Serie A and Ligue 1. Do not assume the five leagues share the same registration rules or data definitions.
+Daily maintenance is a human-operated research task: review changes after matchdays and on daily checks, record what changed and when it was observed, and preserve prior observations for audit. This PR adds validation support only; it does not schedule research or automatically collect Google/provider data.
 
 ## 6. Acceptance criteria before reducing API sync
 
@@ -101,8 +102,8 @@ These are proposed engineering gates for the pilot, not claims about current cov
 
 ## 9. Implementation update — local research intake gate
 
-The follow-on implementation adds a local-only **Research Intake Gate** inside the existing advanced Player Database tools. It accepts the two existing JSON manifest formats (membership and statistics), checks that the pilot rows are PL-only, validates source IDs and evidence fields, and blocks non-approved commercial/database/redistribution rights. A JSON validation report can be exported locally. The UI does not upload files, call providers, write Local Storage, call Supabase, or import records.
+The follow-on implementation adds a local-only **Research Intake Gate** inside the existing advanced Player Database tools. It accepts the two existing JSON manifest formats (membership and statistics), checks that rows use one of the five supported league IDs (PL, PD, BL1, SA, FL1), validates source IDs and evidence fields, and blocks non-approved commercial/database/redistribution rights. A JSON validation report can be exported locally. The UI does not upload files, call providers, write Local Storage, call Supabase, or import records.
 
 A matching offline bundle validator, `scripts/validate_player_research_bundle.py`, composes the two existing manifest validators and checks cross-manifest source-rights consistency. Existing CSV preflight, canonical identity review, and team alias review remain the supporting stages; PR #137/#140 are not merged or copied wholesale because their functionality overlaps current main.
 
-The checked-in manifests remain empty drafts, so the Premier League pilot correctly remains **BLOCKED / EMPTY DRAFT** until a source is separately cleared and lawful evidence is available. This implementation does not create sample player records or imply that official league pages are reusable.
+The checked-in manifests remain empty drafts, so the five-league research bundle correctly remains **BLOCKED / EMPTY DRAFT** until a source is separately cleared and lawful evidence is available. This implementation does not create sample player records or imply that official league pages are reusable.
