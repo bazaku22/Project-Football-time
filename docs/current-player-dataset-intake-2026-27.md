@@ -250,3 +250,9 @@ The Atlético Madrid, Celta Vigo and Málaga pages include entries whose club as
 - Provider API calls: **0**.
 
 The roster intake validator is at `scripts/validate_footballsquads_roster_intake.py`. This partial research file is not wired into the app and cannot be marked complete or released. The release gate remains all 96 manually reviewed club pages, cross-check and canonical team mapping, plus passing validation and CI.
+
+### Intake safeguards added
+
+- `scripts/validate_footballsquads_roster_intake.py` validates source provenance, manual-only collection, observation/boundary metadata, required attribution, duplicate memberships, and the no-provider-ID/no-statistics/no-photo gates.
+- `tests/test_footballsquads_roster_intake_validator.py` adds six regression tests, including rejection of premature complete status, Production import, automated extraction, invented provider IDs/statistics, and duplicate memberships.
+- A structural check against the current JSON passed: 4 distinct source clubs, 148 memberships, unique membership IDs/keys, all rows still pending cross-check, and no provider IDs/statistics/photos. The Python test suite and repository CI have **not** yet been run; no PR has been opened because the 96-club completion gate is not met.
