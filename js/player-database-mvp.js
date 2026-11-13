@@ -3,10 +3,11 @@
  const REGISTRY_URL="./data/player-team-name-registry-2026-27.json";
  const LEDGER_KEY="pft_player_match_event_ledger_2026_27_v1";
  const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1";
+ const TEAM_ALIAS_URL="./data/player-team-alias-decisions-2026-27.json";
  const LEAGUES=[["PL","Premier League"],["PD","La Liga"],["BL1","Bundesliga"],["SA","Serie A"],["FL1","Ligue 1"]];
  const FT_ID=/^FT-P-[0-9]{6}$/;
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
- let registry=null, selectedLeague=null, selectedTeam=null, selectedPlayer=null, query="";
+ let registry=null, bundledTeamAliases={}, selectedLeague=null, selectedTeam=null, selectedPlayer=null, query="";
  const root=document.createElement("section");root.id="dbtab-playerDatabase";root.className="db-panel";
  root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อดูข้อมูลจาก Match Event Ledger ที่ตรวจสอบแล้ว</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
  const fixtures=document.querySelector("#fixtures"),databaseNav=document.querySelector(".db-subnav");
@@ -23,7 +24,7 @@
   }catch(_){}
   return {dataset_id:"player-match-event-ledger-2026-27",season:"2026/27",records:[],expected_finished_match_ids:[]};
  }
- function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return value&&typeof value==="object"&&!Array.isArray(value)?value:{}}catch(_){return {};}}
+ function loadTeamAliases(){try{const value=JSON.parse(localStorage.getItem(TEAM_ALIAS_KEY)||"{}");return {...bundledTeamAliases,...(value&&typeof value==="object"&&!Array.isArray(value)?value:{})}}catch(_){return {...bundledTeamAliases};}}
  function recordVerified(record){
   if(!record||record.season!=="2026/27"||record.review_status!=="verified"||record.lineup_coverage!=="complete"||record.event_coverage!=="complete")return false;
   const sources=Array.isArray(record.sources)?record.sources:[];
@@ -129,9 +130,20 @@
   if(e.target.closest("[data-refresh-ledger]")){render();return;}
   const back=e.target.closest("[data-back]");if(back){if(back.dataset.back==="leagues")selectedLeague=null;else if(back.dataset.back==="teams")selectedPlayer=null;else selectedTeam=null;query="";render();}
  });
- fetch(REGISTRY_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}).then(data=>{
+ Promise.all([
+  fetch(REGISTRY_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}),
+  fetch(TEAM_ALIAS_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}).catch(()=>null)
+ ]).then(([data,aliases])=>{
   const count=Object.values(data.lookup||{}).reduce((sum,league)=>sum+Object.keys(league).length,0);
   if(data.status!=="provider_display_names_verified"||data.production_import!==false||count!==96)throw Error("ทะเบียนทีมไม่ผ่านการตรวจสอบ");
+  if(aliases&&aliases.status==="reviewed_approved"&&aliases.production_import===false&&aliases.season==="2026/27"&&Array.isArray(aliases.decisions)){
+   aliases.decisions.forEach(item=>{
+    if(item&&item.status==="approved"&&item.review_required===false&&typeof item.league_id==="string"&&typeof item.provider_team_id==="string"&&/^football-data:[0-9]+$/.test(item.canonical_team_id||"")){
+     const providerName=data.lookup?.[item.league_id]?.[item.provider_team_id];
+     if(providerName===item.provider_team_name)bundledTeamAliases[[item.league_id,item.provider_team_id].join("|")]={status:"approved",canonical_team_id:item.canonical_team_id,source:"reviewed bundled crosswalk"};
+    }
+   });
+  }
   registry=data;render();
  }).catch(error=>{content().innerHTML='<div class="pdb-empty">โหลดทะเบียนทีมไม่สำเร็จ ('+esc(error.message)+')</div>';});
  window.FootballTimePlayerDatabase={loadLedger,loadTeamAliases,recordVerified,teamLedger};
