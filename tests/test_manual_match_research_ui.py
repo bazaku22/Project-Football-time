@@ -15,12 +15,12 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.22.0-beta.1"', html)
+        self.assertIn('content="6.23.0-beta.1"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v77"', sw)
+        self.assertIn('const CACHE = "football-time-v78"', sw)
 
     def test_ui_requires_validation_before_import_and_keeps_data_local(self):
         source = (ROOT / "js/manual-match-research.js").read_text(encoding="utf-8")

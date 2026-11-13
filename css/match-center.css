@@ -126,3 +126,21 @@
 
 /* Phase 6 — one-tap access to yesterday results on the Bangkok calendar. */
 .mc-calendar-yesterday{min-width:40px;min-height:40px;padding:0 10px;border:1px solid rgba(229,201,140,.32);border-radius:10px;background:#142b3d;color:#e5c98c;font-weight:750}
+
+/* Manual match research results integrated into Match Center */
+.mc-research-result{display:grid;gap:9px;margin-top:12px;padding:12px;border:1px solid rgba(114,226,191,.2);border-radius:12px;background:rgba(8,25,39,.48)}
+.mc-research-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:.78rem;font-weight:750}
+.mc-research-status{padding:4px 8px;border-radius:999px;background:rgba(230,189,114,.14);color:#f0d49a;font-size:.68rem}
+.mc-research-score{text-align:center;font-size:1.65rem;font-weight:850;letter-spacing:.04em;font-variant-numeric:tabular-nums;color:var(--ft-text,#f5f8fc)}
+.mc-research-events{display:grid;gap:6px;padding-top:8px;border-top:1px solid rgba(132,169,198,.14)}
+.mc-research-events>b{font-size:.74rem}
+.mc-research-event{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:7px;padding:7px 0;border-bottom:1px solid rgba(132,169,198,.1);font-size:.72rem}
+.mc-research-event>span:first-child{color:var(--ft-text-muted,#a9bacb);font-variant-numeric:tabular-nums}
+.mc-research-event>span:nth-child(2){color:var(--ft-text-muted,#a9bacb)}
+.mc-research-event>b{font-size:.73rem;text-align:right}
+.mc-research-event>small{grid-column:2/-1;color:var(--ft-text-muted,#a9bacb);text-align:right}
+.mc-research-muted{margin:0;color:var(--ft-text-muted,#a9bacb);font-size:.7rem;line-height:1.6}
+.mc-intl-details{margin-top:6px}
+.mc-intl-details>div,.mc-intl-details>p{line-height:1.65}
+.mc-match-card-international .mc-score{font-size:1.35rem}
+@media(max-width:380px){.mc-research-event{grid-template-columns:48px 1fr;gap:5px}.mc-research-event>b{grid-column:2;text-align:left}.mc-research-event>small{grid-column:2;text-align:left}}

@@ -14,6 +14,7 @@
   let selectedDate = "";
   let calendarAnchorDate = "";
   let internationalFixtures = [];
+  let internationalFixtureReference = [];
   let internationalLoadState = "กำลังโหลดโปรแกรมทีมชาติชุดทดลอง";
   let internationalLoadError = "";
   let internationalHandicapSnapshots = new Map();
@@ -39,14 +40,35 @@
     return '<span class="mc-flag" role="img" aria-label="ธงชาติ' + esc(label) + '"><span aria-hidden="true">' +
       esc(countryFlag(code)) + '</span><small>' + esc(code) + '</small></span>';
   }
-  function toInternationalMatch(fixture) {
+  const MANUAL_RESEARCH_STORAGE_KEY = "pft_manual_match_research_2026_27_v1";
+  function loadManualResearchRecords() {
+    try {
+      const stored = JSON.parse(localStorage.getItem(MANUAL_RESEARCH_STORAGE_KEY) || "null");
+      return Array.isArray(stored?.records) ? stored.records : [];
+    } catch (_) {
+      return [];
+    }
+  }
+  function applyManualResearchResults() {
+    const records = new Map(loadManualResearchRecords()
+      .filter((record) => record?.competition_code === "UNL" && record?.fixture_ref?.international_fixture_id)
+      .map((record) => [String(record.fixture_ref.international_fixture_id),record]));
+    internationalFixtures = internationalFixtureReference.map((fixture) =>
+      toInternationalMatch(fixture,records.get(String(fixture.id)) || null)
+    );
+  }
+  function toInternationalMatch(fixture, researchRecord = null) {
+    const score = researchRecord?.score || null;
     return {
       id:fixture.id,isInternational:true,utcDate:fixture.kickoff_utc,localDate:fixture.local_date,
       homeTeamName:fixture.home_team,awayTeamName:fixture.away_team,
       homeCountryCode:fixture.home_country_code,awayCountryCode:fixture.away_country_code,
-      homeScore:null,awayScore:null,status:String(fixture.match_status || "scheduled").toUpperCase(),
+      homeScore:Number.isInteger(score?.home) ? score.home : null,
+      awayScore:Number.isInteger(score?.away) ? score.away : null,
+      status:String(researchRecord?.match_status || fixture.match_status || "scheduled").toUpperCase(),
       leagueId:"INTL",competitionName:fixture.competition,neutralVenue:fixture.neutral_venue,
-      dataStatus:fixture.data_status,sourceNames:fixture.source_names || [],sourceUrls:fixture.source_urls || []
+      dataStatus:fixture.data_status,sourceNames:fixture.source_names || [],sourceUrls:fixture.source_urls || [],
+      researchRecord
     };
   }
   async function loadInternationalFixtures() {
@@ -57,10 +79,11 @@
       if (payload.dataset_status !== "experimental_fixture_reference" || !Array.isArray(payload.fixtures)) {
         throw new Error("รูปแบบชุดข้อมูลไม่ถูกต้อง");
       }
-      internationalFixtures = payload.fixtures.filter((fixture) =>
+      internationalFixtureReference = payload.fixtures.filter((fixture) =>
         fixture.id && fixture.home_team && fixture.away_team && fixture.home_country_code &&
         fixture.away_country_code && fixture.local_date
-      ).map(toInternationalMatch);
+      );
+      applyManualResearchResults();
       internationalLoadState = "โปรแกรมทีมชาติชุดทดลอง " + internationalFixtures.length + " นัด";
       internationalLoadError = "";
     } catch (error) {
@@ -328,16 +351,44 @@
   function renderInternationalDetails(match) {
     const sources = (match.sourceUrls || []).map((url,index) =>
       '<a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' +
-      esc((match.sourceNames || [])[index] || "แหล่งข้อมูลทางการ") + '</a>'
+      esc((match.sourceNames || [])[index] || "แหล่งข้อมูลโปรแกรม") + '</a>'
     ).join(" · ");
+    const record = match.researchRecord;
+    const researchSources = (record?.sources || []).map((source) =>
+      '<a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">' +
+      esc(source.name || "แหล่งข้อมูลผลการแข่งขัน") + '</a>'
+    ).join(" · ");
+    const eventLabels = {goal:"ประตู",assist:"แอสซิสต์",yellow_card:"ใบเหลือง",red_card:"ใบแดง",own_goal:"ทำเข้าประตูตัวเอง",penalty_goal:"จุดโทษ"};
+    const events = (record?.events || []).slice().sort((a,b) => Number(a.minute ?? 999)-Number(b.minute ?? 999));
+    const eventMarkup = events.length
+      ? '<div class="mc-research-events"><b>เหตุการณ์การแข่งขัน</b>' + events.map((item) => {
+          const minute = item.minute !== undefined && item.minute !== null ? esc(item.minute) + "'" : "ไม่ระบุนาที";
+          const player = item.player?.name || "ไม่ระบุผู้เล่น";
+          const team = item.team || "";
+          return '<div class="mc-research-event"><span>' + minute + '</span><span>' +
+            esc(eventLabels[item.type] || item.type || "เหตุการณ์") + '</span><b>' +
+            esc(player) + '</b><small>' + esc(team) + '</small></div>';
+        }).join("") + '</div>'
+      : '<p class="mc-research-muted">ยังไม่มีข้อมูลเหตุการณ์ที่นำเข้า</p>';
+    const verification = record?.verification_status === "verified" ? "ตรวจสอบแล้ว" :
+      record?.verification_status === "unverified" ? "ยังไม่ยืนยัน" : "รอตรวจสอบ";
+    const rightsPending = (record?.sources || []).some((source) => source.reuse_rights === "pending");
     const venue = match.neutralVenue === true ? "สนามกลาง" :
       match.neutralVenue === false ? "ระบุเจ้าบ้านตามประกาศ" : "ยังไม่ยืนยันสนาม";
     const timeNote = match.utcDate ? "เวลาไทย " + formatThaiTime(match.utcDate) :
       "ยังไม่ประกาศเวลาแข่งขัน · แสดงวันที่ตามประกาศต้นทาง";
-    return '<details class="mc-intl-details"><summary>รายละเอียดโปรแกรมทีมชาติ</summary>' +
+    const resultMarkup = record
+      ? '<section class="mc-research-result"><div class="mc-research-heading">ผลการแข่งขันที่นำเข้าในเครื่อง <span class="mc-research-status">' + esc(verification) + '</span></div>' +
+        '<div class="mc-research-score">' + esc(record.score?.home ?? "—") + ' – ' + esc(record.score?.away ?? "—") + '</div>' +
+        eventMarkup + '<div class="mc-intl-source">แหล่งข้อมูลผลการแข่งขัน: ' + (researchSources || "ไม่ระบุ") + '</div>' +
+        (rightsPending ? '<p class="mc-research-muted">สิทธิ์การนำข้อมูลต้นทางไปใช้ซ้ำยังรอยืนยัน · แสดงเป็นข้อมูลทดลองเฉพาะอุปกรณ์นี้</p>' : '') +
+        '</section>'
+      : '<p class="mc-research-muted">ยังไม่มีผลการแข่งขันที่นำเข้าในอุปกรณ์นี้</p>';
+    return '<details class="mc-intl-details"><summary>' + (record ? "ดูรายละเอียดผลการแข่งขัน" : "รายละเอียดโปรแกรมทีมชาติ") + '</summary>' +
       '<div>รายการ: ' + esc(match.competitionName) + '</div><div>' + esc(venue) + '</div>' +
-      '<div>' + esc(timeNote) + '</div><div class="mc-intl-source">แหล่งข้อมูล: ' + (sources || "ไม่ระบุ") + '</div>' +
-      '<p>โปรแกรมและการวิเคราะห์ทีมชาติเป็นชุดทดลองแบบอ่านอย่างเดียว · แยกจากฐานข้อมูลสโมสร · สิทธิ์เผยแพร่ต่อของข้อมูลต้นทางยังไม่ได้รับการยืนยัน</p></details>';
+      '<div>' + esc(timeNote) + '</div>' + resultMarkup +
+      '<div class="mc-intl-source">แหล่งข้อมูลโปรแกรม: ' + (sources || "ไม่ระบุ") + '</div>' +
+      '<p>ข้อมูลวิจัยที่นำเข้าจะอ่านจาก Local Storage ของอุปกรณ์นี้เท่านั้น · ไม่เขียนลงฐานข้อมูลหลักหรือ Supabase</p></details>';
   }
   function renderCard(match) {
     const isInternational = match.isInternational === true;
@@ -518,6 +569,11 @@
     $("matchCenterMatches")?.addEventListener("click",(event) => {
       const button = event.target.closest("[data-open-match]");
       if (button) openInDatabase(button);
+    });
+    window.addEventListener("pft-manual-match-research-updated",() => {
+      applyManualResearchResults();
+      renderLeagues();
+      render();
     });
     const existing = window.FootballTimeAppContext?.getDatabase?.();
     if (existing) setDatabase(existing);

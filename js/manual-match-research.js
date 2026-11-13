@@ -256,6 +256,7 @@
       $("mrPreview").textContent = "นำเข้าข้อมูลเรียบร้อย";
       setMessage("นำเข้า " + incoming.length + " รายการแล้ว ข้อมูลถูกเก็บเฉพาะในอุปกรณ์นี้","success");
       renderStoredSummary();
+      window.dispatchEvent(new CustomEvent("pft-manual-match-research-updated"));
     } catch (_) {
       setMessage("พื้นที่จัดเก็บในอุปกรณ์ไม่เพียงพอ ไม่ได้บันทึกข้อมูล","error");
     }
@@ -277,6 +278,7 @@
     $("mrClearButton").addEventListener("click",() => {
       if (!window.confirm("ต้องการลบข้อมูล Manual Research ที่เก็บไว้ในอุปกรณ์นี้ทั้งหมดหรือไม่?")) return;
       localStorage.removeItem(STORAGE_KEY);
+      window.dispatchEvent(new CustomEvent("pft-manual-match-research-updated"));
       pendingDataset = null;
       $("mrImportButton").disabled = true;
       renderStoredSummary();
