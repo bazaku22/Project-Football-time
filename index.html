@@ -1145,7 +1145,7 @@ async function loadFootballDatabase(){
   document.getElementById("dbUpdated").textContent=dateTime(data.source?.lastSuccessfulSync||data.generatedAt);
   document.getElementById("dbSource").textContent="แหล่งข้อมูล: "+(data.source?.provider||"ไม่ระบุ")+" · schema "+(data.schemaVersion||"—");
   status.textContent=footballDBDelivery==="cache"?"ใช้ข้อมูลจากแคช (อาจไม่ใช่ข้อมูลล่าสุด)":footballDBDelivery==="network"?"รับข้อมูลจากเครือข่าย":"โหลดข้อมูลสำเร็จ (ไม่ทราบแหล่ง)";
-  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready"));
+  recordUpcomingProbabilities();renderLeagueSelector();renderLeagueData();renderTeamForm();renderTeamProfile();renderHomeAwayAnalysis();renderHeadToHead(true);renderLeagueAnalytics();renderProbabilityAnalysis();renderProbabilityAccuracy();p5Render(true);if(testFixturesData)renderTestFixtures();window.dispatchEvent(new CustomEvent("pft-football-database-ready",{detail:{generatedAt:data.generatedAt||"",lastSuccessfulSync:data.source?.lastSuccessfulSync||"",provider:data.source?.provider||"",delivery:footballDBDelivery}}));
  }catch(error){
   status.textContent="โหลดข้อมูลไม่สำเร็จ";
   document.getElementById("dbUpdated").textContent="ไม่สามารถโหลดฐานข้อมูลได้";
