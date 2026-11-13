@@ -10,7 +10,6 @@
     ["summary","สรุปผลโมเดลทดลอง"],
     ["analysis","หลักการวิเคราะห์"],
     ["archive","คลัง Legacy"],
-    ["players","ฐานข้อมูลนักเตะ"],
     ["advanced","วิเคราะห์เชิงลึก"],
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"]
@@ -92,9 +91,6 @@
       const target = button.dataset.secondaryRoute;
       if (target === "internationalHandicap") {
         activate("internationalHandicap", null, "");
-        document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
-      } else if (target === "players") {
-        activate("fixtures", "players", "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "advanced") {
         activate("fixtures", "advanced", "");
