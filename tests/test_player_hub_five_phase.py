@@ -20,7 +20,7 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("player-team-name-registry-2026-27.json",JS)
   self.assertIn("provider_display_names_verified",JS)
  def test_service_worker_does_not_precache_legacy_hub_assets(self):
-  self.assertIn("football-time-v92",SW)
+  self.assertIn("football-time-v93",SW)
   self.assertNotIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertNotIn("./js/player-hub.js",SW)
 
