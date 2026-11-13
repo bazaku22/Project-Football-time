@@ -1,0 +1,5 @@
+.player-research-intake{border-color:#37556a;background:linear-gradient(145deg,rgba(20,39,54,.92),rgba(13,25,36,.96))}
+.research-intake-findings{padding-left:20px;margin:10px 0;color:#e7bd72;font-size:11px;line-height:1.75;overflow-wrap:anywhere}
+.research-intake-findings li{margin:3px 0}
+.player-research-intake .form-actions{display:flex;gap:8px;flex-wrap:wrap}
+.player-research-intake button:disabled{opacity:.45;cursor:not-allowed}

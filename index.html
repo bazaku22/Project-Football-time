@@ -67,6 +67,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
 <link rel="stylesheet" href="./css/international-handicap.css?v=1">
 <link rel="stylesheet" href="./css/player-identity-review.css?v=1">
+<link rel="stylesheet" href="./css/player-research-intake.css?v=1">
 <link rel="stylesheet" href="./css/notification-center.css?v=1">
 <link rel="stylesheet" href="./css/manual-match-research.css?v=1">
 <script src="./js/asian-handicap.js"></script>
@@ -284,6 +285,16 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div class="card" id="playerStatsImportPanel"><div class="topline"><b>นำเข้าสถิติ CSV — Preview เท่านั้น</b><span class="tag">OFFLINE PREFLIGHT</span></div><p class="profile-note">ตรวจไฟล์ในอุปกรณ์ ไม่อัปโหลดและไม่บันทึกฐานข้อมูล</p>
    <div class="field"><label for="playerStatsCsv">ไฟล์สถิติ CSV</label><input id="playerStatsCsv" class="filter" type="file" accept=".csv,text/csv"></div><div class="field"><label for="playerStatsMappingCsv">ไฟล์ mapping CSV</label><input id="playerStatsMappingCsv" class="filter" type="file" accept=".csv,text/csv"></div><button class="primary" id="playerStatsBuildPreview" type="button">ตรวจสอบและสร้าง Preview</button><div id="playerStatsImportStatus" class="small" role="status">ยังไม่มีการเลือกไฟล์</div><div id="playerStatsImportSummary"></div><div id="playerStatsImportRows"></div>
    <div id="playerStatsImportDownloads" hidden><div class="form-actions"><button class="secondary" id="playerStatsDownloadJson" type="button">ส่งออก Preview JSON</button><button class="secondary" id="playerStatsDownloadCsv" type="button">ส่งออกรายงาน CSV</button></div></div><button class="secondary" id="playerStatsReset" type="button">ล้างไฟล์และ Preview</button>
+  </div>
+ 
+  <div class="card player-research-intake" id="playerResearchIntakePanel"><div class="topline"><b>Research Intake Gate — Premier League 2026/27</b><span class="tag">LOCAL · RIGHTS GATED</span></div>
+   <p class="identity-review-intro">ตรวจ manifest นักเตะและสถิติแบบออฟไลน์ แยกสิทธิ์แหล่งข้อมูลออกจากสิทธิ์ใช้ข้อมูลแต่ละประเภท ข้อมูลที่ยังไม่ผ่านสิทธิ์หรือหลักฐานจะถูก BLOCKED และไม่มีการส่งขึ้น Cloud</p>
+   <div class="field"><label for="playerResearchMembershipFile">Membership manifest (JSON)</label><input id="playerResearchMembershipFile" class="filter" type="file" accept=".json,application/json"></div>
+   <div class="field"><label for="playerResearchStatsFile">Statistics manifest (JSON)</label><input id="playerResearchStatsFile" class="filter" type="file" accept=".json,application/json"></div>
+   <div id="playerResearchIntakeStatus" class="small" role="status" aria-live="polite">ยังไม่ได้เลือก manifest · Pilot เริ่มต้นที่ Premier League เท่านั้น</div>
+   <div id="playerResearchIntakeSummary" class="identity-review-summary"></div><div id="playerResearchIntakeFindings"></div>
+   <div class="form-actions"><button class="secondary" id="playerResearchIntakeExport" type="button" disabled>ส่งออกรายงานตรวจสอบ</button><button class="secondary" id="playerResearchIntakeReset" type="button">ล้างไฟล์</button></div>
+   <div class="quality-note">แม้ผ่านการตรวจไฟล์ก็เป็นเพียง Local Preview ไม่ใช่การอนุมัติทางกฎหมายหรือคำสั่ง Import · Production import ต้องได้รับอนุมัติแยกต่างหาก</div>
   </div>
  </details>
 </div>
@@ -1211,6 +1222,7 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/home-dashboard.js"></script>
 <script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/player-stats-import.js"></script>
+<script src="./js/player-research-intake.js"></script>
 <script src="./js/player-identity-review.js"></script>
 <script src="./js/player-team-alias-review.js"></script>
 <script src="./js/research-insight.js"></script>

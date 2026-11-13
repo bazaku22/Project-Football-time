@@ -97,3 +97,12 @@ These are proposed engineering gates for the pilot, not claims about current cov
 - No changes to 2025/26 history or existing legacy player records.
 - No change to the existing five-league API schedule until the acceptance criteria are measured and the user separately approves the cutover.
 - Feature branch + PR only. Merge and deployment require separate explicit approval.
+
+
+## 9. Implementation update — local research intake gate
+
+The follow-on implementation adds a local-only **Research Intake Gate** inside the existing advanced Player Database tools. It accepts the two existing JSON manifest formats (membership and statistics), checks that the pilot rows are PL-only, validates source IDs and evidence fields, and blocks non-approved commercial/database/redistribution rights. A JSON validation report can be exported locally. The UI does not upload files, call providers, write Local Storage, call Supabase, or import records.
+
+A matching offline bundle validator, `scripts/validate_player_research_bundle.py`, composes the two existing manifest validators and checks cross-manifest source-rights consistency. Existing CSV preflight, canonical identity review, and team alias review remain the supporting stages; PR #137/#140 are not merged or copied wholesale because their functionality overlaps current main.
+
+The checked-in manifests remain empty drafts, so the Premier League pilot correctly remains **BLOCKED / EMPTY DRAFT** until a source is separately cleared and lawful evidence is available. This implementation does not create sample player records or imply that official league pages are reusable.
