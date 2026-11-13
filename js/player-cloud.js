@@ -31,7 +31,9 @@ async function loadPlayerStatistics(){
    const playerStats=statsByPlayer.get(p.id)||[];
    return memberships.map(m=>{
     const scopedStats=playerStats.filter(x=>!m||(x.season===m.season&&x.team_id===m.team_id&&x.squad_level===m.squad_level));
-    return {id:p.id,canonicalPlayerId:p.id,display_name:p.display_name,position:p.position,nationality:p.nationality,team_id:m?.team_id||null,teamName:m?.team_id||null,season:m?.season||null,squad_level:m?.squad_level||null,statisticsRows:scopedStats.map(x=>({id:x.id,season:x.season,competition:x.competition_id,teamId:x.team_id,squadLevel:x.squad_level,statisticsScope:x.statistics_scope,matchId:x.match_id,statDate:x.stat_date,stats:x.stats||{},verificationStatus:x.verification_status,sourceRecordId:x.selected_source_record_id})),photoUrl:null};
+    const seasonStat=scopedStats.find(x=>x.statistics_scope==="season")||null;
+    const competitionStat=scopedStats.find(x=>x.statistics_scope==="competition")||seasonStat;
+    return {id:p.id,canonicalPlayerId:p.id,name:p.display_name,display_name:p.display_name,position:p.position,positionGroup:p.position,nationality:p.nationality,team_id:m?.team_id||null,teamId:m?.team_id||null,teamName:m?.team_id||null,leagueId:competitionStat?.competition_id||null,leagueName:competitionStat?.competition_id||null,season:m?.season||seasonStat?.season||null,squad_level:m?.squad_level||null,statistics:seasonStat?.stats||{},verificationStatus:seasonStat?.verification_status||"identity_only",statisticsRows:scopedStats.map(x=>({id:x.id,season:x.season,competition:x.competition_id,teamId:x.team_id,squadLevel:x.squad_level,statisticsScope:x.statistics_scope,matchId:x.match_id,statDate:x.stat_date,stats:x.stats||{},verificationStatus:x.verification_status,sourceRecordId:x.selected_source_record_id})),photoUrl:null};
    });
   });
   window.dispatchEvent(new CustomEvent("pft-player-directory-data",{detail:{players:directory,status:"อ่านรายชื่อนักเตะ Canonical จาก ft_players ตามสิทธิ์บัญชีแล้ว"}}));
