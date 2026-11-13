@@ -17,10 +17,13 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
         for marker in [
             'id="pmeCompetition"', 'id="pmeMatch"', 'id="pmeLineupTeam"',
             'id="pmePlayerRole"', 'id="pmeSourceUrl"', 'id="pmeSourceRights"',
-            'id="pmeEventType"', 'id="pmeGoalType"', 'id="pmeAssistStatus"',
-            'id="pmeLineupCoverage"', 'id="pmeEventCoverage"', 'id="pmeExport"'
+            'id="pmeEventType"', 'id="pmeLineupCoverage"', 'id="pmeEventCoverage"',
+            'id="pmeExport"'
         ]:
             self.assertIn(marker, nav)
+        entry = (ROOT / "js/player-match-event-entry.js").read_text(encoding="utf-8")
+        self.assertIn('id="pmeGoalType"', entry)
+        self.assertIn('id="pmeAssistStatus"', entry)
 
     def test_entry_module_is_local_only_and_uses_canonical_finished_matches(self):
         source = (ROOT / "js/player-match-event-entry.js").read_text(encoding="utf-8")
