@@ -12,6 +12,9 @@ on:
       - "js/player-team-alias-review.js"
       - "css/player-identity-review.css"
       - "css/player-directory.css"
+      - "css/player-hub.css"
+      - "js/player-hub.js"
+      - "tests/test_player_hub_five_phase.py"
       - "tests/test_player_directory_refresh.py"
       - "tests/test_player_identity_review_ui.py"
       - "js/reep-alias-pilot.js"
@@ -219,7 +222,8 @@ jobs:
           print("Experiment summary tab and automatic API handicap UI markers are valid.")
           PY
           node --check js/player-database.js
-          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py tests/test_player_identity_review_ui.py -v
+          node --check js/player-hub.js
+          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py tests/test_player_identity_review_ui.py tests/test_player_hub_five_phase.py -v
           python3 -m py_compile scripts/validate_current_player_squads.py
           python3 scripts/validate_current_player_squads.py
           python3 -m unittest tests/test_current_player_squad_validator.py -v

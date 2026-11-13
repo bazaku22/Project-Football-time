@@ -9,7 +9,7 @@ WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
 class ProvisionalPlayerDirectoryTests(unittest.TestCase):
     def test_directory_is_inside_current_player_database(self):
         panel = HTML[HTML.index('id="dbtab-players"'):HTML.index('id="dbtab-accuracy"')]
-        for marker in ("provisionalPlayerDirectory", "provisionalDirectoryFile", "provisionalDirectoryRows", "provisionalDirectorySearch"):
+        for marker in ('id="playerHub"', 'id="playerHubLeagues"', 'id="playerHubTeams"', 'id="playerHubRoster"'):
             self.assertIn(marker, panel)
         self.assertIn("./js/provisional-player-directory.js", HTML)
 
@@ -22,7 +22,7 @@ class ProvisionalPlayerDirectoryTests(unittest.TestCase):
         self.assertIn("Provider Player ID ซ้ำ", MODULE)
 
     def test_service_worker_caches_directory_script_and_bumps_version(self):
-        self.assertIn("football-time-v70", WORKER)
+        self.assertIn("football-time-v71", WORKER)
         self.assertIn("./js/provisional-player-directory.js", WORKER)
 
 if __name__ == "__main__":

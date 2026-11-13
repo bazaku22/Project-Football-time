@@ -11,6 +11,9 @@ on:
       - "tests/test_player_identity_review_ui.py"
       - "js/player-cloud.js"
       - "js/player-database.js"
+      - "js/player-hub.js"
+      - "css/player-hub.css"
+      - "tests/test_player_hub_five_phase.py"
       - "sw.js"
       - "js/match-center.js"
       - "js/primary-navigation.js"
@@ -60,12 +63,13 @@ jobs:
         run: |
           node --check js/player-cloud.js
           node --check js/player-database.js
+          node --check js/player-hub.js
           node --check js/player-stats-import.js
           node --check js/player-identity-review.js
           node --check js/provisional-player-directory.js
           node --check js/match-center.js
           node --check js/primary-navigation.js
-          python -m unittest tests/test_player_statistics_import_ui.py tests/test_player_identity_review_ui.py tests/test_provisional_player_directory.py tests/test_match_center.py tests/test_primary_navigation.py -v
+          python -m unittest tests/test_player_statistics_import_ui.py tests/test_player_identity_review_ui.py tests/test_provisional_player_directory.py tests/test_player_hub_five_phase.py tests/test_match_center.py tests/test_primary_navigation.py -v
       - name: Check additive schema draft and pgTAP plan
         run: |
           python - <<'PY'
