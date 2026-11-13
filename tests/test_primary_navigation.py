@@ -59,6 +59,17 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('Project Football Time V6.26.5-beta.2', html)
         self.assertIn('football-time-v89', sw)
 
+    def test_visible_app_version_matches_release_metadata_and_title(self):
+        html = (ROOT / "index.html").read_text()
+        metadata = re.search(r'<meta name="application-version" content="([^"]+)"', html)
+        title = re.search(r'<title>Project Football Time V([^<]+)</title>', html)
+        visible = re.search(r'<span class="app-version">V([^<]+)</span>', html)
+        self.assertIsNotNone(metadata)
+        self.assertIsNotNone(title)
+        self.assertIsNotNone(visible)
+        self.assertEqual(visible.group(1), metadata.group(1))
+        self.assertEqual(title.group(1), metadata.group(1))
+
     def test_discovery_team_shortcuts_route_into_grouped_team_subtabs(self):
         source = (ROOT / "js/football-discovery.js").read_text()
         self.assertIn('profile:"team",form:"team",homeaway:"team"', source)
