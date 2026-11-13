@@ -12,7 +12,8 @@
     ["archive","คลัง Legacy"],
     ["advanced","วิเคราะห์เชิงลึก"],
     ["internationalHandicap","ทีมชาติ AH"],
-    ["matchResearch","นำเข้าผลและสถิติ"]
+    ["matchResearch","นำเข้าผลและสถิติ"],
+    ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"]
   ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey) {
@@ -59,6 +60,39 @@
         '<div class="mr-panel"><h3>ข้อกำหนดการตรวจสอบ</h3><ul class="mr-note"><li>รายการ VERIFIED ต้องมีแหล่งข้อมูลโดยตรงอย่างน้อย 2 แหล่ง รวมผู้จัดการแข่งขัน สมาคม หรือผู้ให้บริการที่ได้รับอนุญาต</li><li>ต้องยืนยันสิทธิ์การใช้ข้อมูลทุกแหล่งก่อนระบุ VERIFIED</li><li>เก็บ Provider Match ID เดิมของสโมสรและ International Fixture ID เดิมของ Nations League</li><li>เรตติ้งแยกตามผู้ให้คะแนน ไม่เฉลี่ยข้ามผู้ให้บริการ</li><li>ข้อมูลที่ไม่ครบหรือขัดแย้งต้องใช้ needs_review หรือ unverified</li></ul></div>';
       $("main")?.appendChild(researchPage);
     }
+    if (!$("#playerMatchEventEntryPage")) {
+      const page = document.createElement("section");
+      page.id = "playerMatchEventEntryPage";
+      page.className = "page";
+      page.innerHTML =
+        '<div class="sectionhead"><h2>บันทึกเหตุการณ์ผู้เล่น</h2><span class="small">LOCAL MATCH LEDGER</span></div>' +
+        '<p class="pme-intro">บันทึก Starting XI, ตัวสำรอง, การเปลี่ยนตัว, ประตู และแอสซิสต์จากหลักฐานการแข่งขัน เพื่อคำนวณสถิติผู้เล่นในฤดูกาล 2026/27 โดยข้อมูลอยู่ในอุปกรณ์นี้เท่านั้น</p>' +
+        '<div class="pme-status pme-status-info">หน้านี้ไม่เรียก Provider API ไม่เขียน Supabase และไม่ส่งข้อมูลขึ้นเซิร์ฟเวอร์ · เพิ่มข้อมูลเฉพาะเมื่อมีแหล่งอ้างอิงที่ตรวจสอบได้</div>' +
+        '<section class="pme-panel"><h3>1. เลือกแมตช์จากฐานข้อมูลหลัก</h3><div class="pme-grid">' +
+        '<label class="pme-field">ลีก<select id="pmeCompetition" class="pme-control"><option value="all">ทุกลีก</option><option value="PL">Premier League</option><option value="PD">La Liga</option><option value="BL1">Bundesliga</option><option value="SA">Serie A</option><option value="FL1">Ligue 1</option></select></label>' +
+        '<label class="pme-field">แมตช์<select id="pmeMatch" class="pme-control"><option value="">กำลังโหลดแมตช์…</option></select></label></div>' +
+        '<div id="pmeMatchSummary" class="pme-match-summary"><div class="pme-empty">รอฐานข้อมูลฟุตบอลหลัก</div></div><div class="pme-actions"><button type="button" class="secondary" id="pmeReloadMatches">โหลดรายการใหม่</button><span id="pmeMatchCount" class="pme-note">—</span></div></section>' +
+        '<section id="pmeEditor" class="pme-panel"><h3>2. แหล่งข้อมูลและสิทธิ์การใช้</h3><p class="pme-note">เพิ่ม URL แหล่งอ้างอิงโดยตรง ระบุสถานะสิทธิ์ตามหลักฐานจริง ค่าเริ่มต้นเป็น PENDING และจะไม่ถือว่าเผยแพร่ได้โดยอัตโนมัติ</p>' +
+        '<div class="pme-grid"><label class="pme-field">ชื่อแหล่งข้อมูล<input id="pmeSourceName" class="pme-control" placeholder="เช่น Official Match Centre"></label><label class="pme-field">URL HTTPS<input id="pmeSourceUrl" type="url" class="pme-control" placeholder="https://…"></label>' +
+        '<label class="pme-field">ประเภทแหล่งข้อมูล<select id="pmeSourceType" class="pme-control"><option value="official_competition">ผู้จัดการแข่งขัน</option><option value="federation">สมาคม / สหพันธ์</option><option value="licensed_provider">ผู้ให้บริการที่ได้รับอนุญาต</option><option value="other">อื่น ๆ</option></select></label>' +
+        '<label class="pme-field">สิทธิ์การนำข้อมูลกลับมาใช้<select id="pmeSourceRights" class="pme-control"><option value="pending">ยังไม่ยืนยัน (PENDING)</option><option value="confirmed">ยืนยันแล้ว (CONFIRMED)</option><option value="prohibited">ห้ามใช้ (PROHIBITED)</option></select></label></div>' +
+        '<label class="pme-field">หลักฐาน/ฐานสิทธิ์<input id="pmePermissionBasis" class="pme-control" placeholder="เช่น หนังสืออนุญาตหรือเลขที่สัญญา (ถ้ามี)"></label><button type="button" class="secondary" id="pmeAddSource">เพิ่มแหล่งข้อมูล</button><div id="pmeSourceList"></div></section>' +
+        '<section class="pme-panel"><h3>3. รายชื่อผู้เล่น</h3><p class="pme-note">บันทึกทั้ง Starting XI และตัวสำรอง ผู้เล่นที่ยังยืนยันตัวตนไม่ได้จะถูกเก็บเป็น unresolved และไม่รวมยอดสถิติภายใต้ FT Player ID</p>' +
+        '<div class="pme-grid"><label class="pme-field">ทีม<select id="pmeLineupTeam" class="pme-control"><option value="">เลือกแมตช์ก่อน</option></select></label><label class="pme-field">บทบาท<select id="pmePlayerRole" class="pme-control"><option value="starting_xi">ตัวจริง (Starting XI)</option><option value="substitute">ตัวสำรอง</option></select></label>' +
+        '<label class="pme-field">ชื่อผู้เล่น<input id="pmePlayerName" class="pme-control" autocomplete="off" placeholder="ชื่อผู้เล่นตามแหล่งข้อมูล"></label><label class="pme-field">หมายเลขเสื้อ (ถ้ามี)<input id="pmeShirtNumber" type="number" min="1" max="99" class="pme-control" placeholder="เช่น 10"></label>' +
+        '<label class="pme-field">FT Player ID<input id="pmePlayerId" class="pme-control" placeholder="FT-P-000001"></label></div>' +
+        '<label class="pme-check"><input id="pmeIdentityConfirmed" type="checkbox"> ยืนยันตัวตนผู้เล่นแล้วและตรวจสอบ FT Player ID ถูกต้อง</label><button type="button" class="secondary" id="pmeAddLineup">เพิ่มผู้เล่นในรายชื่อ</button><div id="pmeLineupList"></div></section>' +
+        '<section class="pme-panel"><h3>4. เหตุการณ์การแข่งขัน</h3><p class="pme-note">ลงนาทีจริง รวมเวลาทด เช่น 45+2 หรือ 90+4 · แอสซิสต์นับเฉพาะเมื่อแหล่งข้อมูลระบุชัดเจน · Own Goal ไม่เพิ่มประตูให้ผู้เล่นที่ทำเข้าประตูตัวเอง</p>' +
+        '<div class="pme-grid"><label class="pme-field">ประเภทเหตุการณ์<select id="pmeEventType" class="pme-control"><option value="goal">ประตู</option><option value="substitution">เปลี่ยนตัว</option></select></label><label class="pme-field">นาที<input id="pmeEventMinute" class="pme-control" placeholder="เช่น 67 หรือ 90+3"></label></div>' +
+        '<div id="pmeSubFields"></div><div id="pmeGoalFields"></div><button type="button" class="secondary" id="pmeAddEvent">เพิ่มเหตุการณ์</button><div id="pmeEventList"></div></section>' +
+        '<section class="pme-panel"><h3>5. ตรวจสอบความครบถ้วนและบันทึก</h3><div class="pme-grid">' +
+        '<label class="pme-field">ความครบถ้วนของไลน์อัป<select id="pmeLineupCoverage" class="pme-control"><option value="unknown">ยังไม่ทราบ</option><option value="partial">บางส่วน</option><option value="complete">ครบถ้วน</option></select></label>' +
+        '<label class="pme-field">ความครบถ้วนของเหตุการณ์<select id="pmeEventCoverage" class="pme-control"><option value="unknown">ยังไม่ทราบ</option><option value="partial">บางส่วน</option><option value="complete">ครบถ้วน</option></select></label></div>' +
+        '<label class="pme-check"><input id="pmeReviewedConfirm" type="checkbox"> ยืนยันว่าตรวจสอบหลักฐานและความครบถ้วนของแมตช์นี้แล้ว</label><p id="pmeReviewState" class="pme-note">ยังไม่ผ่านการยืนยัน</p>' +
+        '<div class="pme-actions"><button type="button" class="primary" id="pmeSave">บันทึกในอุปกรณ์นี้</button><button type="button" class="secondary" id="pmeExport">ส่งออก JSON</button></div><div id="pmeStatus" class="pme-status pme-status-info" role="status" aria-live="polite">รอเลือกแมตช์</div></section>' +
+        '<section class="pme-panel"><h3>6. ข้อมูลที่บันทึกไว้ในอุปกรณ์นี้</h3><div id="pmeSummary"></div><div id="pmeSavedList"></div><div class="pme-actions"><button type="button" class="secondary" id="pmeRenderStats">คำนวณสถิติจากข้อมูลในเครื่อง</button><button type="button" class="secondary" id="pmeClear">ล้างข้อมูลในอุปกรณ์นี้</button></div><p id="pmeStatsStatus" class="pme-note">ยังไม่มีสถิติให้คำนวณ</p><div id="pmeStatsTable"></div><p class="pme-note">ข้อมูล Local Storage จะไม่ซิงก์ข้ามอุปกรณ์โดยอัตโนมัติ โปรดส่งออก JSON เพื่อสำรองข้อมูลก่อนเปลี่ยนอุปกรณ์ การส่งออกไม่ได้เป็นการอนุญาตให้เผยแพร่ข้อมูล</p></section>';
+      $("#main")?.appendChild(page);
+    }
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [
@@ -94,6 +128,9 @@
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "advanced") {
         activate("fixtures", "advanced", "");
+        document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
+      } else if (target === "playerMatchEvents") {
+        activate("playerMatchEventEntryPage", null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "matchResearch") {
         activate("manualMatchResearchPage", null, "");
