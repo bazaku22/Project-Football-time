@@ -22,6 +22,7 @@ class UnifiedMatchCenterTests(unittest.TestCase):
 
     def test_club_and_international_matches_open_the_same_detail(self):
         self.assertIn('data-unified-match=', MATCH_JS)
+        self.assertNotIn('data-open-match=', MATCH_JS)
         self.assertIn('getMatchById(id)', MATCH_JS)
         self.assertIn('data-unified-match', UNIFIED_JS)
 
