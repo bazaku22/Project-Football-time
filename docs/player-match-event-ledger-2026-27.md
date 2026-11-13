@@ -53,7 +53,7 @@ This is an engineering gate, not legal advice. The previous five-league audit fo
 
 ## 6. Coverage and interpretation
 
-The dataset carries the expected finished-match IDs from the existing fixture database. The derivation reports missing match IDs and counts of matches with complete lineups/events. Unless the expected fixture set is fully represented and all relevant match records have complete lineups/events, season totals are explicitly marked as lower bounds.
+The dataset carries the expected finished-match IDs from the existing fixture database. The derivation reports missing match IDs and counts of matches with complete lineups/events. Unless the expected fixture set is fully represented, all relevant match records have complete lineups/events, and every player observation is resolved to a verified FT Player ID, season totals are explicitly marked as lower bounds.
 
 A match not yet researched is unknown, not a zero-appearance match. A player absent from a complete match lineup may be recorded as having no appearance in that match; a player absent from an incomplete lineup must not be assigned a zero from that record.
 
