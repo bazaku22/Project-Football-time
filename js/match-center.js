@@ -297,7 +297,7 @@
       const line = analysis.handicap?.status === "ready"
         ? '<div class="mc-analysis-handicap">เส้นอ้างอิงเจ้าบ้าน <b>' + esc(String(Number(analysis.handicap.line))) + '</b> · ยังไม่มีข้อมูลสถิติพอคำนวณเปอร์เซ็นต์</div>'
         : '<div class="mc-analysis-handicap">ยังไม่มีข้อมูลสถิติพอคำนวณความน่าจะเป็น</div>';
-      return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div>' + line + '</section>';
+      return '<section class="mc-analysis-summary"><div class="mc-analysis-title">คาดการณ์ก่อนแข่ง</div>' + line + '</section>';
     }
     const p=analysis.probabilities;
     const outcome=(label,value)=>'<div class="mc-analysis-outcome"><span>'+label+'</span><b>'+Number(value).toFixed(1)+'%</b><small>'+probabilityBand(Number(value))+'</small></div>';
@@ -313,7 +313,7 @@
     }else{
       handicapMarkup='<div class="mc-analysis-handicap mc-analysis-muted">เส้น Handicap ยังไม่พร้อมคำนวณ</div>';
     }
-    return '<section class="mc-analysis-summary"><div class="mc-analysis-title">สรุปการวิเคราะห์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
+    return '<section class="mc-analysis-summary"><div class="mc-analysis-title">คาดการณ์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
   }
   function renderInternationalAnalysisSummary(match) {
     const snapshot = internationalHandicapSnapshots.get(String(match.id || ""));
@@ -461,7 +461,7 @@
       '<div class="mc-team">' + homeMark + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + awayMark + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
-      '</div>' + renderMatchStats(match) + (isInternational ? renderInternationalAnalysisSummary(match) : renderAnalysisSummary(match,cardAnalysis)) +
+      '</div>' + (isInternational ? renderInternationalAnalysisSummary(match) : renderAnalysisSummary(match,cardAnalysis)) +
       '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' +
       (isInternational && match.neutralVenue === true ? 'สนามกลาง' : esc(statusLabel(match))) +
       '</span>' + bottom + '</div></article>';
