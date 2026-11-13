@@ -31,7 +31,7 @@ def validate_bundle(membership: dict, statistics: dict) -> list[str]:
     membership_sources={x.get("id"):x for x in membership.get("sources",[]) if isinstance(x,dict) and x.get("id")}
     statistics_sources={x.get("id"):x for x in statistics.get("sources",[]) if isinstance(x,dict) and x.get("id")}
     for source_id in sorted(set(membership_sources)&set(statistics_sources)):
-        for field in ("publisher","source_url","licence_id","licence_url","rights_review_status","commercial_use_allowed","database_rights_reviewed","redistribution_allowed"):
+        for field in ("publisher","source_scope","source_url","licence_id","licence_url","licence_reviewed_at","rights_review_status","commercial_use_allowed","database_rights_reviewed","redistribution_allowed","attribution_required","attribution_text"):
             if membership_sources[source_id].get(field)!=statistics_sources[source_id].get(field):
                 errors.append(f"source {source_id}: membership/statistics manifests disagree on {field}")
     return errors
