@@ -36,11 +36,11 @@ The following matrix distinguishes official league sources from possible open/co
 
 | League | Official organiser source | Identity source | Fixtures/results candidates | Player memberships (2026/27) | Player season/match statistics |
 |---|---|---|---|---|---|
-| Premier League (PL) | Premier League terms reserve rights and prohibit reuse/redistribution, including creating a database from website material, without prior written approval: [Terms](https://www.premierleague.com/en/terms-and-conditions) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | `written_permission_required` for official-site material; no rights-cleared complete roster source verified | `not_verified`; no rights-cleared complete 2026/27 player-statistics source verified |
-| La Liga (PD) | LALIGA grants a limited access/view licence and restricts exploitation/reproduction of content: [Legal notice](https://www.laliga.com/en-ES/legal/legal-web) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | `written_permission_required` for official-site material; no rights-cleared complete roster source verified | `not_verified`; no rights-cleared complete 2026/27 player-statistics source verified |
-| Bundesliga (BL1) | Bundesliga terms reserve IP rights and text/data mining; official legal terms must be reviewed for the exact proposed extraction: [Terms](https://www.bundesliga.com/en/bundesliga/info/terms-of-use-services) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | `written_permission_required` pending permission/legal basis for copying official directory data | `not_verified`; no rights-cleared complete 2026/27 player-statistics source verified |
-| Serie A (SA) | Lega Serie A terms updated 2025-12-01 prohibit extracting/using content, including data compilations, without express written consent and prohibit data-mining/robots: [Terms](https://en.legaseriea.it/terms-and-conditions) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | `written_permission_required` for official-platform content | `not_verified`; no rights-cleared complete 2026/27 player-statistics source verified |
-| Ligue 1 (FL1) | LFP/Ligue 1 site terms restrict reproduction and reuse; obtain permission or specific legal review before extracting official content: [Legal terms](https://ligue1.com/en/legal/cgu) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | `written_permission_required` pending permission/legal basis | `not_verified`; no rights-cleared complete 2026/27 player-statistics source verified |
+| Premier League (PL) | Premier League terms reserve rights and prohibit reuse/redistribution, including creating a database from website material, without prior written approval: [Terms](https://www.premierleague.com/en/terms-and-conditions) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | StrikerAPI current-squad endpoint (conditional provider terms); FootballSquads manual cross-check (non-commercial with credit); official list is view-only absent permission | StrikerAPI season/player stats (conditional provider terms; per-field validation required); TeleStats/DataMB discovery only |
+| La Liga (PD) | LALIGA grants a limited access/view licence and restricts exploitation/reproduction of content: [Legal notice](https://www.laliga.com/en-ES/legal/legal-web) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | StrikerAPI current-squad endpoint (conditional provider terms); FootballSquads manual cross-check (non-commercial with credit) | StrikerAPI season/player stats (conditional provider terms; per-field validation required); TeleStats/DataMB discovery only |
+| Bundesliga (BL1) | Bundesliga terms reserve IP rights and text/data mining; official legal terms must be reviewed for the exact proposed extraction: [Terms](https://www.bundesliga.com/en/bundesliga/info/terms-of-use-services) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | StrikerAPI current-squad endpoint (conditional provider terms); FootballSquads manual cross-check (non-commercial with credit) | StrikerAPI season/player stats (conditional provider terms; per-field validation required); TeleStats/DataMB discovery only |
+| Serie A (SA) | Lega Serie A terms updated 2025-12-01 prohibit extracting/using content, including data compilations, without express written consent and prohibit data-mining/robots: [Terms](https://en.legaseriea.it/terms-and-conditions) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | StrikerAPI current-squad endpoint (conditional provider terms); FootballSquads manual cross-check (non-commercial with credit) | StrikerAPI season/player stats (conditional provider terms; per-field validation required); TeleStats/DataMB discovery only |
+| Ligue 1 (FL1) | LFP/Ligue 1 site terms restrict reproduction and reuse; obtain permission or specific legal review before extracting official content: [Legal terms](https://ligue1.com/en/legal/cgu) | OpenFootball Players / Reep / Wikidata (identity only) | OpenFootball Leagues / OpenLigaDB (verify season coverage); Open Matchday discovery only | StrikerAPI current-squad endpoint (conditional provider terms); FootballSquads manual cross-check (non-commercial with credit) | StrikerAPI season/player stats (conditional provider terms; per-field validation required); TeleStats/DataMB discovery only |
 
 
 ### Exact 2026/27 coverage verification (checked 2026-11-13)
@@ -78,6 +78,30 @@ No 2026/27 Serie A or Ligue 1 entry appeared in that official season overview. A
 
 The OpenLigaDB official league page shows a community-maintained catalogue, not a completeness guarantee. Its quality index is provider metadata, not independent verification. The provider states that records are user-entered, not editorially reviewed, and that completeness/timeliness vary by league and season. No API endpoints were called as part of this review.
 
+
+
+### Player memberships and statistics sources (checked 2026-11-13)
+
+| Source | 2026/27 coverage evidence | Rights / terms evidence | Assessment | Project decision |
+|---|---|---|---|---|
+| StrikerAPI | Official docs list all five leagues (Premier League, La Liga, Serie A, Bundesliga, Ligue 1). The get_squad endpoint returns current club/league squad with provider player ID, name, position, shirt number, DOB, citizenship, physical fields and updated_at. The get_player endpoint returns profile, per-season totals/per-90 and recent matches. Docs show refreshed data 2026-11-12. | Provider's Data Timing and Rights page permits storing and using data in apps, including commercial apps and individual data points, while account remains open. It prohibits redistributing the data as a dataset/feed/API and does not grant underlying league rights or identify all upstream sources. | conditional_open_license (provider contractual permission; not an open-data licence) | Strongest current technical candidate for all five leagues and aligns with the existing StrikerAPI identity/master-data decision. Before any API use, explicitly authorize credits and inspect the actual account/plan terms. Keep raw feed private; display individual stats only; preserve provider IDs, updated_at, metric definitions and provenance. Do not imply official league endorsement. Verify 2026/27 values and field completeness per league before production use. |
+| TeleStats | Public coverage page lists 2026/27 player seasons and all five leagues; page-level dataset timestamp is 2026-09-16. It says statistics are compiled from official league/competition sources. | No sufficiently clear data reuse licence or app/database permission was found in the reviewed public material. | not_verified for intake | Research and comparison only. Ask provider for written terms and source-level provenance before copying or storing records. |
+| DataMB | Guide states the 2026/27 season is available across the platform from 2026-09-08; coverage page lists all five leagues. Page update shown as 2026-09-15; Pro features require subscription. | Public guide confirms subscription/Terms of Service flow, but this review did not establish a licence allowing extraction, local database creation or reuse in Football Time. | not_verified for intake | Research/visual comparison only. Do not scrape or copy. Obtain and review Terms of Service and written permission for any persistent app use. |
+| FootballSquads | News page reports 2026/27 squad updates for PL, La Liga, Bundesliga, Serie A and Ligue 1 during Aug 2026. | Site Terms say non-commercial use is allowed with source credit, but site content and related graphics are owned by FootballSquads; commercial use requires express permission. | conditional_open_license (limited non-commercial site permission; not blanket open data) | Candidate for manual, personal-use squad cross-check with attribution. Do not automate scraping or republish the site’s tables/graphics. Keep independent direct evidence and review whether persistent local structured extraction is within the permitted non-commercial use. |
+| Official league squad pages | Premier League published a 2026/27 submitted 25-player list plus eligible U21 players on 2026-09-03. | Premier League terms allow reasonable private/personal viewing/downloading but prohibit reuse, redistribution and creating a database from website content without prior written approval. Other league terms also require separate review. | written_permission_required for structured intake | Use as a human verification reference only; do not populate the app database from copied official-site lists absent permission or a documented legal basis. |
+
+#### StrikerAPI endpoint and credit notes (documentation only; no calls made)
+
+- list_teams: 1 credit/call.
+- get_squad: 2 credits for one club, or 10 credits for all clubs in a league.
+- get_player: 5 credits/player; returns season totals and per-90 metrics.
+- The API documentation lists the five target leagues and uses season-start year values (2026 = 2026/27).
+- A five-league all-squad snapshot would nominally cost 50 credits (5 leagues × 10 credits), before any player-stat detail calls. This is a planning estimate only, not authorization to call the API.
+- Provider docs show 500 monthly free credits, but actual account balance, plan, key permissions and terms must be checked by the user before use.
+- The provider's terms say stored data can be used while the account remains open; after cancellation, stored data is limited to internal purposes and cannot continue powering a served product.
+- Do not collect betting odds/props from this provider; they are outside Football Time's scope.
+
+
 ## 4. Direct source links and review notes
 
 - Premier League terms: https://www.premierleague.com/en/terms-and-conditions
@@ -91,6 +115,14 @@ The OpenLigaDB official league page shows a community-maintained catalogue, not 
 - Reep register: https://github.com/reep-project/reep
 - OpenLigaDB licence (ODbL 1.0): https://www.openligadb.de/en/license
 - OpenLigaDB API terms: https://www.openligadb.de/en/terms-of-use
+- StrikerAPI squad endpoint: https://strikerapi.com/docs/get-squad
+- StrikerAPI player endpoint: https://strikerapi.com/docs/get-player
+- StrikerAPI data timing and rights: https://strikerapi.com/docs/timing-and-rights
+- TeleStats coverage: https://telestats.net/tools/data
+- DataMB guide: https://datamb.football/guide/
+- FootballSquads 2026 updates: https://www.footballsquads.co.uk/
+- FootballSquads terms: https://footballsquads.co.uk/tou.htm
+- Premier League 2026/27 squad lists: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
 - Open Matchday (non-commercial compilation and upstream disclaimer): https://github.com/oladeeayo/open-matchday
 - StatsBomb Open Data: https://github.com/hudl/open-data
 - football-data.co.uk help/data context: https://football-data.co.uk/help_footballdata.php
@@ -123,10 +155,12 @@ No source approval should be inherited across fields. A source can be acceptable
 ## 6. Next research actions
 
 1. Re-check OpenFootball and OpenLigaDB freshness/coverage before each use; do not rely on stale result rows or infer missing scores.
-2. Verify whether any source offers 2026/27 player membership and statistics under an explicit licence suitable for a private local app.
-3. For Open Matchday, map each league/field to the actual upstream provider, then review each provider's current terms before considering even local storage.
-4. Keep the existing 25-row sample in `data/current-player-squads-2026-27.json` marked research-only and rights-pending; do not promote it or infer it is a cleared roster.
-5. Add only rows that pass source rights, direct evidence, identity and metric checks to the existing offline intake manifests.
+2. Treat StrikerAPI as the leading candidate for all-five-league membership/statistics, but obtain explicit user approval before any API call or credit use; validate returned 2026/27 data field-by-field.
+3. Request or inspect explicit reuse terms for TeleStats and DataMB; keep both discovery-only until permitted use is clear.
+4. Use FootballSquads only for manual non-commercial cross-checks with attribution unless a more specific permission is obtained.
+5. For Open Matchday, map each league/field to the actual upstream provider, then review each provider's current terms before considering even local storage.
+6. Keep the existing 25-row sample in `data/current-player-squads-2026-27.json` marked research-only and rights-pending; do not promote it or infer it is a cleared roster.
+7. Add only rows that pass source rights, direct evidence, identity and metric checks to the existing offline intake manifests.
 
 ## 7. Safety and implementation boundary
 
