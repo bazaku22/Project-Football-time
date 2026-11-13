@@ -1,4 +1,4 @@
-const CACHE = "football-time-v89";
+const CACHE = "football-time-v90";
 
 const ASSETS = [
   "./",

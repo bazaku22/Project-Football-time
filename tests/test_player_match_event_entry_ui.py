@@ -12,6 +12,10 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
         self.assertIn('target === "playerMatchEvents"', nav)
         self.assertIn('activate("playerMatchEventEntryPage", null, "")', nav)
 
+    def test_dynamic_page_mount_container_exists_exactly_once(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertEqual(html.count('<main id="main">'), 1)
+
     def test_page_supports_match_lineup_sources_and_goal_substitution_events(self):
         nav = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
         for marker in [
@@ -57,12 +61,15 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
     def test_styles_and_scripts_are_cached_and_app_version_is_bumped(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.2"', html)
+        self.assertIn('content="6.26.5-beta.3"', html)
+        self.assertIn('<span class="app-version">V6.26.5-beta.3</span>', html)
+        self.assertIn('<main id="main">', html)
+        self.assertEqual(html.count('<main id="main">'), 1)
         self.assertIn('./css/player-match-event-entry.css?v=1', html)
         self.assertIn('./js/player-match-event-entry.js', html)
         self.assertIn('./css/player-match-event-entry.css?v=1', sw)
         self.assertIn('./js/player-match-event-entry.js', sw)
-        self.assertIn('const CACHE = "football-time-v89"', sw)
+        self.assertIn('const CACHE = "football-time-v90"', sw)
 
 
 if __name__ == "__main__":
