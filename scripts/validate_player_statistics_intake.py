@@ -20,8 +20,23 @@ METRICS = {
 }
 
 
+def _non_empty_string(value: object) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _https_url(value: object) -> bool:
+    return isinstance(value, str) and value.startswith("https://")
+
+
+def _valid_metric_number(value: object) -> bool:
+    return (isinstance(value, (int, float)) and not isinstance(value, bool)
+            and math.isfinite(value) and value >= 0)
+
+
 def validate(data: dict, season: str = "2026/27") -> list[str]:
     errors: list[str] = []
+    if not isinstance(data, dict):
+        return ["manifest must be an object"]
     if data.get("schemaVersion") != 1:
         errors.append("schemaVersion must equal 1")
     if data.get("season") != season:
@@ -40,40 +55,47 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
     if not isinstance(rows, list):
         errors.append("statistics must be a list")
         rows = []
+
     source_map: dict[str, dict] = {}
     for source in sources:
         if not isinstance(source, dict):
             errors.append("every source must be an object")
             continue
         sid = source.get("id")
-        if not sid or sid in source_map:
+        if not _non_empty_string(sid):
+            errors.append("source id must be a non-empty string")
+            continue
+        if sid in source_map:
             errors.append(f"source id missing or duplicated: {sid}")
             continue
         source_map[sid] = source
-        for field in ("publisher", "source_scope", "licence_id", "metric_definitions"):
-            if not source.get(field):
-                errors.append(f"source {sid} missing {field}")
+        for field in ("publisher", "source_scope", "licence_id"):
+            if not _non_empty_string(source.get(field)):
+                errors.append(f"source {sid} missing or invalid {field}")
+        definitions = source.get("metric_definitions")
+        if not isinstance(definitions, dict) or not definitions:
+            errors.append(f"source {sid} missing or invalid metric_definitions")
         for field in ("source_url", "licence_url"):
-            if not str(source.get(field, "")).startswith("https://"):
+            if not _https_url(source.get(field)):
                 errors.append(f"source {sid} requires HTTPS {field}")
         if source.get("rights_review_status") != "approved":
             errors.append(f"source {sid} rights review is not approved")
         for field in ("commercial_use_allowed", "database_rights_reviewed", "redistribution_allowed"):
             if source.get(field) is not True:
                 errors.append(f"source {sid} must have {field}=true")
-        if not source.get("licence_reviewed_at"):
+        if not _non_empty_string(source.get("licence_reviewed_at")):
             errors.append(f"source {sid} missing licence_reviewed_at")
-        if source.get("attribution_required") is True and not source.get("attribution_text"):
+        if source.get("attribution_required") is True and not _non_empty_string(source.get("attribution_text")):
             errors.append(f"source {sid} requires attribution_text")
 
-    seen = set()
+    seen: set[str] = set()
     for row in rows:
         if not isinstance(row, dict):
             errors.append("every statistics row must be an object")
             continue
         rid = row.get("id")
-        if not rid:
-            errors.append("statistics row missing id")
+        if not _non_empty_string(rid):
+            errors.append("statistics row id must be a non-empty string")
             continue
         if rid in seen:
             errors.append(f"duplicate statistics row id: {rid}")
@@ -83,41 +105,49 @@ def validate(data: dict, season: str = "2026/27") -> list[str]:
         if row.get("league_id") not in LEAGUES:
             errors.append(f"row {rid} has an unsupported league")
         for field in ("canonical_player_key", "provider_player_id", "club_id", "club_name", "competition_id"):
-            if not row.get(field):
-                errors.append(f"row {rid} missing {field}")
+            if not _non_empty_string(row.get(field)):
+                errors.append(f"row {rid} missing or invalid {field}")
         if row.get("identity_match_status") != "exact":
             errors.append(f"row {rid} requires exact player identity mapping")
         if row.get("rights_status") != "approved":
             errors.append(f"row {rid} rights_status is not approved")
-        if not str(row.get("observed_at", "")):
+        if not _non_empty_string(row.get("observed_at")):
             errors.append(f"row {rid} missing observed_at")
-        if not str(row.get("evidence_url", "")).startswith("https://"):
+        if not _https_url(row.get("evidence_url")):
             errors.append(f"row {rid} requires HTTPS evidence_url")
-        source = source_map.get(row.get("source_id"))
+        source_id = row.get("source_id")
+        source = source_map.get(source_id) if _non_empty_string(source_id) else None
         if source is None:
             errors.append(f"row {rid} references an unknown source")
         elif source.get("rights_review_status") != "approved":
             errors.append(f"row {rid} uses a source without approved rights")
+
         stats = row.get("metrics")
         if not isinstance(stats, dict) or not stats:
             errors.append(f"row {rid} must include at least one metric")
             continue
+        valid_values: dict[str, int | float] = {}
+        definitions = source.get("metric_definitions") if source and isinstance(source.get("metric_definitions"), dict) else {}
         for metric, value in stats.items():
-            if metric not in METRICS:
+            if not isinstance(metric, str) or metric not in METRICS:
                 errors.append(f"row {rid} has unsupported metric {metric}")
-            if (isinstance(value, bool) or not isinstance(value, (int, float))
-                    or not math.isfinite(value) or value < 0):
+            if not _valid_metric_number(value):
                 errors.append(f"row {rid} metric {metric} must be a finite non-negative number")
-        for metric in stats:
-            if metric not in (source.get("metric_definitions") or {}):
+            else:
+                valid_values[metric] = value
+            if metric not in definitions:
                 errors.append(f"row {rid} metric {metric} has no source definition")
-        if all(isinstance(stats.get(k), (int, float)) and not isinstance(stats.get(k), bool)
-               for k in ("appearances", "starts") if k in stats):
-            if stats.get("starts", 0) > stats.get("appearances", stats.get("starts", 0)):
-                errors.append(f"row {rid} starts cannot exceed appearances")
-        if "minutes" in stats and "appearances" in stats and stats["minutes"] > stats["appearances"] * 150:
+
+        appearances = valid_values.get("appearances")
+        starts = valid_values.get("starts")
+        if appearances is not None and starts is not None and starts > appearances:
+            errors.append(f"row {rid} starts cannot exceed appearances")
+        minutes = valid_values.get("minutes")
+        if minutes is not None and appearances is not None and minutes > appearances * 150:
             errors.append(f"row {rid} minutes exceed a conservative 150-minute-per-appearance sanity bound")
-        if "shots_on_target" in stats and "shots" in stats and stats["shots_on_target"] > stats["shots"]:
+        shots = valid_values.get("shots")
+        shots_on_target = valid_values.get("shots_on_target")
+        if shots is not None and shots_on_target is not None and shots_on_target > shots:
             errors.append(f"row {rid} shots_on_target cannot exceed shots")
 
     if data.get("records_count") != len(rows):
