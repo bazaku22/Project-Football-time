@@ -191,3 +191,15 @@ Required attribution for the eventual non-commercial app and documentation:
 
 Terms reference: https://footballsquads.co.uk/tou.htm (non-commercial use permitted with source credit; commercial use requires express permission). Re-check the terms before release and whenever the app's distribution or monetization model changes.
 
+## Independent Premier League cross-check — 2026-11-14
+
+A current official Premier League squad reference was located during review:
+
+- [2026/27 submitted squad lists](https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists), published 2026-09-03. The page describes the submitted first-team squad lists and separately identifies eligible U21 players.
+- [All 20 clubs' 2026/27 squad numbers](https://www.premierleague.com/en/news/4725682/all-20-premier-league-clubs-squad-numbers-for-202627-season), published 2026-09-22. The page includes first-team squad numbers and academy players who have appeared or may appear in first-team squads.
+
+These pages independently corroborate several player/club combinations that initially looked unusual on the FootballSquads Arsenal and Aston Villa pages. Such entries must not be rejected based on intuition alone; record a conflict only when the source evidence actually disagrees.
+
+This official Premier League material is a **cross-check reference only** for this intake. It does not replace the approved FootballSquads manual-transcription source, and it is not an authorization to copy or republish Premier League content. Continue to use the approved FootballSquads terms and required attribution for roster transcription. The official squad-list scope is also not identical to the project's agreed scope: the project includes every named player in the current FootballSquads club roster regardless of age and excludes its separate departed-player section.
+
+No roster records were added or changed by this cross-check. Individual club-page transcription remains incomplete; the 96/96 index count must not be described as 96/96 completed rosters.
