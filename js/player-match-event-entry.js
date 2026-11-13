@@ -86,7 +86,7 @@
     if(!confirmed&&id)return setStatus("หากยังไม่ยืนยันตัวตน กรุณาล้าง FT Player ID","error");
     const player={observed_name:name,identity_status:confirmed?"verified":"unresolved",ft_player_id:confirmed?id:null};
     if(r.lineups.some(x=>x.team_id===team&&(x.player.ft_player_id?x.player.ft_player_id===player.ft_player_id:x.player.observed_name.toLowerCase()===name.toLowerCase())))return setStatus("พบผู้เล่นซ้ำในรายชื่อทีมนี้แล้ว","error");
-    r.lineups.push({team_id:team,role,player,shirt_number:shirt?Number(shirt):null,source_ids:r.sources.map(s=>s.source_id)});
+    r.lineups.push({team_id:team,role,player,shirt_number:shirt?Number(shirt):null,source_ids:r.sources.length?[r.sources[0].source_id]:[]});
     $("pmePlayerName").value="";$("pmeShirtNumber").value="";$("pmePlayerId").value="";$("pmeIdentityConfirmed").checked=false;renderAll();renderEventFields();
   }
   function addSource(){
@@ -95,7 +95,7 @@
     if(!name||!/^https:\/\//i.test(url))return setStatus("กรุณาระบุชื่อแหล่งข้อมูลและ URL แบบ HTTPS","error");
     if(r.sources.some(s=>s.url===url))return setStatus("URL แหล่งข้อมูลนี้ถูกเพิ่มแล้ว","error");
     r.sources.push({source_id:"source-"+Date.now()+"-"+(r.sources.length+1),name,url,source_type:$("pmeSourceType").value,checked_at:new Date().toISOString(),reuse_rights:$("pmeSourceRights").value,permission_basis:$("pmePermissionBasis").value.trim()||null});
-    const ids=r.sources.map(s=>s.source_id);r.lineups.forEach(x=>x.source_ids=ids);r.events.forEach(x=>x.source_ids=ids);
+    const first=r.sources[0].source_id;r.lineups.forEach(x=>{if(!x.source_ids.length)x.source_ids=[first];});r.events.forEach(x=>{if(!x.source_ids.length)x.source_ids=[first];});
     $("pmeSourceName").value="";$("pmeSourceUrl").value="";$("pmePermissionBasis").value="";renderAll();
   }
   function addEvent(){
@@ -121,24 +121,26 @@
         e.scorer=scorer.player;
       }
       const assist=e.assist_status==="explicit"?findLineup($("pmeAssistPlayer").value):null;
-      if(e.assist_status==="explicit"&&(!assist||assist.team_id!==team||assist.player.ft_player_id===e.scorer?.ft_player_id))return setStatus("ผู้แอสซิสต์ต้องอยู่ทีมเดียวกับผู้ทำประตูและต้องไม่ใช่ผู้ทำประตูเอง","error");
+      if(e.assist_status==="explicit"&&(!assist||assist.team_id!==team||(assist.player.ft_player_id&&assist.player.ft_player_id===e.scorer?.ft_player_id)||assist.player.observed_name===e.scorer?.observed_name))return setStatus("ผู้แอสซิสต์ต้องอยู่ทีมเดียวกับผู้ทำประตูและต้องไม่ใช่ผู้ทำประตูเอง","error");
       e.assist_player=assist?.player||null;
     }
     r.events.push(e);$("pmeEventMinute").value="";renderAll();renderEventFields();
   }
   function removeItem(key,index){
     const r=currentRecord();if(!r)return;r[key].splice(index,1);
-    if(key==="sources"){const ids=r.sources.map(s=>s.source_id);r.lineups.forEach(x=>x.source_ids=ids);r.events.forEach(x=>x.source_ids=ids);}
+    if(key==="sources"){const ids=new Set(r.sources.map(s=>s.source_id));r.lineups.forEach(x=>x.source_ids=x.source_ids.filter(id=>ids.has(id)));r.events.forEach(x=>x.source_ids=x.source_ids.filter(id=>ids.has(id)));}
     renderAll();if(key==="lineups")renderEventFields();
   }
   function saveRecord(){
     const r=currentRecord();if(!r)return setStatus("กรุณาเลือกแมตช์","error");if(!r.sources.length)return setStatus("ต้องมีแหล่งอ้างอิงอย่างน้อย 1 แหล่ง","error");
+    const knownSources=new Set(r.sources.map(s=>s.source_id));
+    if(r.lineups.some(x=>!x.source_ids.length||x.source_ids.some(id=>!knownSources.has(id)))||r.events.some(x=>!x.source_ids.length||x.source_ids.some(id=>!knownSources.has(id))))return setStatus("มีรายชื่อหรือเหตุการณ์ที่ยังไม่ได้ผูกกับแหล่งอ้างอิง กรุณาเพิ่มแหล่งข้อมูลก่อนบันทึก","error");
     r.lineup_coverage=$("pmeLineupCoverage").value;r.event_coverage=$("pmeEventCoverage").value;
     const people=[...r.lineups.map(x=>x.player),...r.events.flatMap(e=>e.type==="substitution"?[e.player_on,e.player_off]:[e.scorer,e.own_goal_player,e.assist_player].filter(Boolean))];
     const identities=people.every(p=>p.identity_status==="verified"&&/^FT-P-[0-9]{6}$/.test(p.ft_player_id||""));
     const startersHome=r.lineups.filter(x=>x.team_id===r.home_team.team_id&&x.role==="starting_xi").length;
     const startersAway=r.lineups.filter(x=>x.team_id===r.away_team.team_id&&x.role==="starting_xi").length;
-    const verified=r.sources.length>=2&&r.sources.every(s=>s.reuse_rights==="confirmed")&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&startersHome===11&&startersAway===11&&identities&&$("pmeReviewedConfirm").checked;
+    const verified=r.sources.length>=2&&r.sources.every(s=>s.reuse_rights==="confirmed"&&Boolean(s.permission_basis))&&r.lineup_coverage==="complete"&&r.event_coverage==="complete"&&startersHome===11&&startersAway===11&&identities&&$("pmeReviewedConfirm").checked;
     r.review_status=verified?"verified":"needs_review";
     const next=loadStored(),i=next.records.findIndex(x=>String(x.match_id)===String(r.match_id));if(i>=0)next.records[i]=r;else next.records.push(r);
     next.records.sort((a,b)=>String(a.match_id).localeCompare(String(b.match_id),undefined,{numeric:true}));next.expected_finished_match_ids=expectedMatchIds();next.dataset_status=next.records.length?"research_records_present":"research_intake_empty";next.updated_at=new Date().toISOString();
