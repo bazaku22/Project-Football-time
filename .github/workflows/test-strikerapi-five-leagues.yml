@@ -1,4 +1,4 @@
-name: Test StrikerAPI Five Major Leagues (Safe)
+name: Test StrikerAPI Six Clubs (Safe)
 
 on:
   workflow_dispatch:
@@ -7,9 +7,9 @@ permissions:
   contents: read
 
 jobs:
-  test-five-leagues:
+  test-six-clubs:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 7
     steps:
       - name: Validate secret exists
         env:
@@ -20,12 +20,13 @@ jobs:
             exit 1
           fi
 
-      - name: Test one club in each major league (10 credits maximum)
+      - name: Test six clubs across five major leagues (12 credits maximum)
         env:
           STRIKERAPI_API_KEY: ${{ secrets.STRIKERAPI_API_KEY }}
         run: |
           set +e
           failures=0
+          passed=0
 
           test_squad() {
             league="$1"
@@ -55,18 +56,20 @@ jobs:
             else
               RESULT=$(jq -c '(.data // .) as $d | {team:($d.team_name // $d.team // "unknown"),season:($d.season // null),players_returned:($d.players|length)}' response.json)
               echo "RESULT: PASS — HTTP 200 — $RESULT"
+              passed=$((passed + 1))
             fi
             echo "::endgroup::"
           }
 
-          # One squad per league; 2 credits each, 10 credits maximum.
+          # One squad request per club; 2 credits each, 12 credits maximum.
           test_squad "soccer" "Arsenal" "Premier League"
+          test_squad "soccer" "Manchester United" "Premier League"
           test_squad "laliga" "Real Madrid" "La Liga"
           test_squad "bundesliga" "Bayern Munich" "Bundesliga"
           test_squad "seriea" "Inter" "Serie A"
           test_squad "ligue1" "Paris Saint-Germain" "Ligue 1"
 
-          echo "Summary: $((5 - failures))/5 leagues passed."
+          echo "Summary: $passed/6 clubs passed."
           echo "No player records were saved or sent to the app database."
           if [ "$failures" -ne 0 ]; then
             exit 1
