@@ -131,3 +131,26 @@ This is a product intake risk-control review, not legal advice or a final legal 
 ### Next permitted data-discovery route
 
 Prioritize independently licensed/open datasets (for example, a source with an explicit CC0 or compatible database licence) and verify its coverage, update cadence, season membership and attribution requirements before adding records. Wikidata may be investigated as a discovery lead, but its current-club membership statements must be checked for freshness and provenance; it is not assumed to provide complete or current squad coverage. Do not substitute another aggregator whose terms prohibit reuse.
+
+
+## Updated roster intake scope and source decision — 2026-11-14
+
+The project owner confirmed that the app is non-commercial and approved FootballSquads for manual roster transcription under its published non-commercial terms, with the required attribution. See the source assessment for the terms URL, exact attribution and limitations.
+
+### Membership scope
+
+- Season: 2026/27.
+- Target: every club in the five major leagues (96 clubs in total: PL 20, La Liga 20, Bundesliga 18, Serie A 20, Ligue 1 18).
+- Include every player name in the current club squad roster, regardless of age; do not split U21, U18, reserve or youth labels into separate user-facing categories.
+- Exclude every entry in the source page's “Players no longer at this club” section and any player with clear source evidence of having left the club.
+- Preserve source URL and observation date per club. Do not silently infer an identity, position, provider ID, eligibility, or statistic from a name-only match.
+- Roster membership is not proof of league registration, match eligibility, or appearance. Statistics remain empty/unavailable until independently supported by verified match and competition evidence.
+
+### Collection and release rules
+
+- Manual transcription only. Do not scrape, crawl, automate extraction, call a provider API, or use credits.
+- Display the publisher-required attribution in the app and keep it in the dataset documentation.
+- One release only after all 96 club pages are reviewed and validated; no league-by-league partial release.
+- Keep `production_import: false`. This repository/UI release does not authorize Production Supabase writes, migrations, or data imports.
+- Do not reuse the old 25 research-only rows or the 29 Arsenal 2025/26 canonical records as current 2026/27 roster data without fresh source verification.
+- Preserve all existing local app data and the Match Event Ledger; do not clear user cache/data.
