@@ -98,6 +98,12 @@
   $("playerCanonicalClose").addEventListener("click",()=>{canonicalState.selected=null;root.hidden=true;});
   root.querySelectorAll("[data-canonical-tab]").forEach(button=>button.addEventListener("click",()=>{canonicalState.tab=button.dataset.canonicalTab;canonicalProfileRender();}));
  }
+ window.addEventListener("pft-open-canonical-player",event=>{
+  const playerId=String(event.detail?.canonicalPlayerId||"");
+  if(!playerId||!canonicalState.players.some(player=>String(player.id)===playerId))return;
+  canonicalState.selected=playerId;canonicalState.tab="overall";canonicalProfileRender();
+  $("playerCanonicalProfile")?.scrollIntoView({behavior:"smooth",block:"start"});
+ });
  window.addEventListener("pft-player-directory-data",event=>{
   const list=Array.isArray(event.detail?.players)?event.detail.players:[];
   const map=new Map();list.forEach(row=>{if(row?.id&&!map.has(row.id))map.set(row.id,{id:row.id,display_name:row.display_name,position:row.position,nationality:row.nationality});});
