@@ -12,6 +12,11 @@ class PlayerOperationsCenterTests(unittest.TestCase):
         self.assertIn('id = "playerOperationsPage"', script)
         self.assertIn('button.dataset.secondaryRoute = "playerOperations"', script)
 
+    def test_operations_route_is_handled_by_primary_navigation(self):
+        navigation = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
+        self.assertIn('target === "playerOperations"', navigation)
+        self.assertIn('activate("playerOperationsPage", null, "")', navigation)
+
     def test_six_phases_are_visible_and_evidence_based(self):
         script = (ROOT / "js/player-operations-center.js").read_text(encoding="utf-8")
         for marker in [
@@ -36,7 +41,7 @@ class PlayerOperationsCenterTests(unittest.TestCase):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("6.26.5-beta.5", index)
-        self.assertIn("football-time-v92", sw)
+        self.assertIn("football-time-v93", sw)
         self.assertIn("./js/player-operations-center.js", sw)
         self.assertIn("./css/player-operations-center.css", sw)
 

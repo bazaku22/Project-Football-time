@@ -129,6 +129,9 @@
       } else if (target === "advanced") {
         activate("fixtures", "advanced", "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
+      } else if (target === "playerOperations") {
+        activate("playerOperationsPage", null, "");
+        document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "playerMatchEvents") {
         activate("playerMatchEventEntryPage", null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));

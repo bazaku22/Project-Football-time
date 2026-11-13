@@ -49,7 +49,7 @@ class PlayerIdentityReviewUITests(unittest.TestCase):
         self.assertNotIn("supabase", alias_module.lower())
 
     def test_service_worker_no_longer_precaches_legacy_identity_tools(self):
-        self.assertIn("football-time-v92", WORKER)
+        self.assertIn("football-time-v93", WORKER)
         self.assertNotIn('"./css/player-identity-review.css?v=1"', WORKER)
         self.assertNotIn('"./js/player-identity-review.js"', WORKER)
         self.assertNotIn('"./js/player-team-alias-review.js"', WORKER)
