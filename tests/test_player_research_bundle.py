@@ -14,7 +14,7 @@ def membership_fixture():
 def statistics_fixture():
     return {"schemaVersion":1,"season":"2026/27","status":"research_only","production_import":False,"provider_api_calls":0,"records_count":1,
       "sources":[{"id":"source-a","publisher":"Publisher","source_scope":"2026/27 player statistics","licence_id":"CC0-1.0","source_url":"https://example.test/source","licence_url":"https://example.test/licence","licence_reviewed_at":"2026-11-13","rights_review_status":"approved","commercial_use_allowed":True,"database_rights_reviewed":True,"redistribution_allowed":True,"attribution_required":False,"metric_definitions":{"appearances":"League appearances"}}],
-      "statistics":[{"id":"s-1","season":"2026/27","league_id":"PL","canonical_player_key":"player:1","provider_player_id":"p-1","club_id":"club-1","club_name":"Test FC","competition_id":"PL","identity_match_status":"exact","rights_status":"approved","source_id":"source-a","observed_at":"2026-11-13","metrics":{"appearances":2}}]}
+      "statistics":[{"id":"s-1","season":"2026/27","league_id":"PL","canonical_player_key":"player:1","provider_player_id":"p-1","club_id":"club-1","club_name":"Test FC","competition_id":"PL","identity_match_status":"exact","rights_status":"approved","source_id":"source-a","observed_at":"2026-11-13","evidence_url":"https://example.test/player/stats","metrics":{"appearances":2}}]}
 
 class PlayerResearchBundleTests(unittest.TestCase):
     def test_checked_in_empty_templates_are_valid_drafts(self):
@@ -38,5 +38,12 @@ class PlayerResearchBundleTests(unittest.TestCase):
     def test_rejects_pending_rights(self):
         m=membership_fixture();m["sources"][0]["rights_review_status"]="pending"
         self.assertTrue(any("rights review is not approved" in e for e in validate_bundle(m,statistics_fixture())))
+
+    def test_rejects_statistics_without_direct_evidence_url(self):
+        s=statistics_fixture();del s["statistics"][0]["evidence_url"]
+        self.assertTrue(any("requires HTTPS evidence_url" in e for e in validate_bundle(membership_fixture(),s)))
+    def test_rejects_statistics_metric_without_source_definition(self):
+        s=statistics_fixture();s["statistics"][0]["metrics"]["goals"]=1
+        self.assertTrue(any("metric goals has no source definition" in e for e in validate_bundle(membership_fixture(),s)))
 
 if __name__=="__main__":unittest.main()
