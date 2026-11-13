@@ -11,6 +11,7 @@
     "dataset_status": {"enum": ["research_intake_empty", "research_records_present"]},
     "scope": {"type": "object", "required": ["competitions"], "properties": {"competitions": {"const": ["PL", "PD", "BL1", "SA", "FL1"]}}},
     "expected_finished_match_ids": {"type": "array", "uniqueItems": true, "items": {"type": ["string", "integer"]}},
+    "updated_at": {"type": ["string", "null"], "format": "date-time"},
     "records": {"type": "array", "items": {"$ref": "#/$defs/match"}}
   },
   "$defs": {
