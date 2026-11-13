@@ -13,9 +13,16 @@
     try { const value=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null"); if(value&&value.dataset_id==="player-match-event-ledger-2026-27"&&Array.isArray(value.records)) return {...emptyDataset(),...value}; } catch (_) {}
     return emptyDataset();
   }
+  function normalizeSeason(value) {
+    const raw=String(value??"").trim();
+    const match=raw.match(/^(\d{4})\s*[-/]\s*(\d{2}|\d{4})$/);
+    if(!match)return raw;
+    const start=Number(match[1]),end=Number(match[2].length===2?String(start+1).slice(-2):match[2]);
+    return end===start+1?String(start)+"/"+String(end).slice(-2):raw;
+  }
   function getMatches() {
     const db=window.FootballTimeAppContext?.getDatabase?.();
-    return (Array.isArray(db?.matches)?db.matches:[]).filter(row=>COMPETITIONS.includes(row.leagueId)&&String(row.season)==="2026/27"&&String(row.status||"").toUpperCase()==="FINISHED"&&row.providerMatchId!=null)
+    return (Array.isArray(db?.matches)?db.matches:[]).filter(row=>COMPETITIONS.includes(row.leagueId)&&normalizeSeason(row.season)==="2026/27"&&String(row.status||"").toUpperCase()==="FINISHED"&&row.providerMatchId!=null)
       .sort((a,b)=>String(b.utcDate||"").localeCompare(String(a.utcDate||"")));
   }
   const competitionName=id=>({PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1"})[id]||id;
@@ -212,5 +219,5 @@
     }
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",mount,{once:true});else mount();
-  window.FootballTimePlayerMatchEventEntry={storageKey:STORAGE_KEY,loadStored,getMatches};
+  window.FootballTimePlayerMatchEventEntry={storageKey:STORAGE_KEY,loadStored,getMatches,normalizeSeason};
 })();

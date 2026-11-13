@@ -23,7 +23,7 @@ class ProvisionalPlayerDirectoryTests(unittest.TestCase):
         self.assertIn("Provider Player ID ซ้ำ", MODULE)
 
     def test_service_worker_no_longer_precaches_legacy_directory_script(self):
-        self.assertIn("football-time-v90", WORKER)
+        self.assertIn("football-time-v91", WORKER)
         self.assertNotIn("./js/provisional-player-directory.js", WORKER)
 
 if __name__ == "__main__":
