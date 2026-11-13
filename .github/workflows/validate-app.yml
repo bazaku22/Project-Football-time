@@ -102,6 +102,11 @@ on:
       - "tests/test_asian_handicap.js"
       - "sw.js"
       - "tests/test_match_center.py"
+      - "docs/manual-match-research-pipeline-2026-27.md"
+      - "data/manual-match-research-2026-27.json"
+      - "data/manual-match-research-2026-27.schema.json"
+      - "scripts/validate_manual_match_research.py"
+      - "tests/test_manual_match_research.py"
       - "docs/phase-6-5-match-calendar-filters.md"
       - "tests/test_football_database_sync.py"
       - "js/football-discovery.js"
@@ -365,6 +370,12 @@ jobs:
           python3 -m py_compile scripts/build_football_research.py
           node --check js/research-insight.js
           python3 -m unittest tests/test_build_football_research.py -v
+
+      - name: Validate manual match research intake contract
+        run: |
+          python3 -m py_compile scripts/validate_manual_match_research.py
+          python3 -m unittest tests/test_manual_match_research.py -v
+          python3 scripts/validate_manual_match_research.py
 
       - name: Validate Phase 6 league catalogue and database scripts
         run: |

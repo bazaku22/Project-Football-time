@@ -1,0 +1,25 @@
+{
+  "schema_version": "1.0.0",
+  "dataset_id": "manual-match-research-2026-27",
+  "season": "2026/27",
+  "dataset_status": "research_intake_empty",
+  "scope": {
+    "club_competitions": [
+      "PL",
+      "PD",
+      "BL1",
+      "SA",
+      "FL1"
+    ],
+    "international_competitions": [
+      "UNL"
+    ],
+    "excluded": [
+      "friendlies",
+      "other_national_competitions"
+    ]
+  },
+  "timezone": "Asia/Bangkok",
+  "updated_at": null,
+  "records": []
+}
