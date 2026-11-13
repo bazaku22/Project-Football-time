@@ -149,7 +149,7 @@ class MatchCenterTests(unittest.TestCase):
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
-        self.assertIn('football-time-v74', WORKER)
+        self.assertIn('football-time-v75', WORKER)
 
 
 if __name__ == "__main__":
