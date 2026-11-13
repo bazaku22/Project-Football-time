@@ -203,3 +203,11 @@ These pages independently corroborate several player/club combinations that init
 This official Premier League material is a **cross-check reference only** for this intake. It does not replace the approved FootballSquads manual-transcription source, and it is not an authorization to copy or republish Premier League content. Continue to use the approved FootballSquads terms and required attribution for roster transcription. The official squad-list scope is also not identical to the project's agreed scope: the project includes every named player in the current FootballSquads club roster regardless of age and excludes its separate departed-player section.
 
 No roster records were added or changed by this cross-check. Individual club-page transcription remains incomplete; the 96/96 index count must not be described as 96/96 completed rosters.
+
+## Premier League club-page boundary audit — 2026-11-14
+
+All 20 individual Premier League club pages linked from the 2026/27 FootballSquads index have now been opened in this review (Arsenal, Aston Villa, Bournemouth, Brentford, Brighton & Hove Albion, Chelsea, Coventry City, Crystal Palace, Everton, Fulham, Hull City, Ipswich Town, Leeds United, Liverpool, Manchester City, Manchester United, Newcastle United, Nottingham Forest, Sunderland and Tottenham Hotspur).
+
+For the 18 pages newly opened in this pass, the explicit "Players no longer at this club" boundary was located and checked. The section is separate from the current roster table; examples include Bournemouth (page line 70), Brentford (line 82), Brighton (line 91), Chelsea (line 83), Crystal Palace (line 98), Liverpool (line 90), Manchester City (line 85), Manchester United (line 107), Newcastle United (line 87), and Tottenham Hotspur (line 80). Rows below that heading are not current-roster memberships and must be excluded.
+
+This is a page-opening and section-boundary audit, **not** a completed player-by-player transcription. Empty shirt-number rows are still excluded. No roster dataset rows were added or changed in this pass. Individual roster transcription and conflict review remain outstanding for all 20 Premier League clubs; do not count these pages as completed roster records.
