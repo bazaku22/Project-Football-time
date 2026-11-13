@@ -1,0 +1,25 @@
+.poc-intro{color:#b8c8d2;line-height:1.65;font-size:13px}
+.poc-snapshot,.poc-phase,.poc-gate{background:#142331;border:1px solid #2b4050;border-radius:14px;padding:13px;margin:10px 0}
+.poc-snapshot-head,.poc-section-title,.poc-phase-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.poc-snapshot-head span,.poc-section-title span,.poc-footnote,.poc-phase small,.poc-gate p{color:#9eb0bc;font-size:11px}
+.poc-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.poc-kpis div{background:#1b3040;border:1px solid #30495a;border-radius:10px;padding:10px}
+.poc-kpis b{display:block;font-size:23px;color:#f3f7fa;font-variant-numeric:tabular-nums}
+.poc-kpis span{font-size:11px;color:#afc0ca}
+.poc-footnote{line-height:1.6;margin:12px 0 0}
+.poc-section-title{margin:19px 0 8px}
+.poc-phase{margin:8px 0}
+.poc-phase-top{justify-content:flex-start}
+.poc-phase-top>b{flex:1;min-width:150px;font-size:13px}
+.poc-phase-num{display:grid;place-items:center;width:29px;height:29px;border-radius:9px;background:#203b50;color:#b9d9ed;font-size:12px;font-weight:800}
+.poc-state{font-size:10px;padding:5px 8px;border-radius:7px;white-space:nowrap}
+.poc-success{background:#174735;color:#9be2bd}.poc-warning{background:#4a3a1e;color:#f2cf8a}
+.poc-phase p{font-size:12px;line-height:1.65;color:#c5d1d8;margin:10px 0 7px}
+.poc-phase small{display:block;line-height:1.55}
+.poc-tools{display:grid;grid-template-columns:1fr;gap:8px}
+.poc-tools a{display:block;text-decoration:none;color:#eaf2f6;background:#142331;border:1px solid #2b4050;border-radius:11px;padding:11px}
+.poc-tools a b,.poc-tools a span{display:block}.poc-tools a b{font-size:13px}.poc-tools a span{font-size:11px;color:#aabcc7;margin-top:4px;line-height:1.5}
+.poc-gate{border-color:#66532e;background:#292518}
+.poc-gate>b{color:#f0cf8c}.poc-gate ul{padding-left:19px;color:#d9d2bd;font-size:12px;line-height:1.75}
+.poc-gate p{line-height:1.6;margin-bottom:0}
+@media(min-width:560px){.poc-kpis{grid-template-columns:repeat(4,minmax(0,1fr))}.poc-tools{grid-template-columns:repeat(2,minmax(0,1fr))}}
