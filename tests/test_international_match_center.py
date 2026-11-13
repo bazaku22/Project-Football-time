@@ -85,14 +85,14 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v80", WORKER)
+        self.assertIn("football-time-v81", WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
     def test_app_version_and_copy_are_updated(self):
-        self.assertIn('<title>Project Football Time V6.24.0-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.24.0-beta.1">', HTML)
-        self.assertIn('<span class="app-version">V6.24.0-beta.1</span>', HTML)
+        self.assertIn('<title>Project Football Time V6.25.0-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.25.0-beta.1">', HTML)
+        self.assertIn('<span class="app-version">V6.25.0-beta.1</span>', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", HTML)
 
 

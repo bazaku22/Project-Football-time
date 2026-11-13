@@ -10,17 +10,16 @@ WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
 
 
 class MatchCenterMockupTests(unittest.TestCase):
-    def test_mockup_is_separate_and_linked_from_match_center(self):
-        self.assertIn('href="./match-center-mockup.html"', APP)
-        self.assertIn("ข้อมูลจำลอง", APP)
+    def test_mockup_remains_standalone_and_is_not_a_second_match_center_entry(self):
+        self.assertNotIn('href="./match-center-mockup.html"', APP)
         self.assertIn('class="mm-demo-banner"', HTML)
         self.assertIn("ไม่ได้ดึงจากการแข่งขันจริง", HTML)
 
     def test_version_and_service_worker_cache_are_bumped(self):
-        self.assertIn('content="6.24.0-beta.1"', APP)
-        self.assertIn("V6.24.0-beta.1", APP)
+        self.assertIn('content="6.25.0-beta.1"', APP)
+        self.assertIn("V6.25.0-beta.1", APP)
         self.assertIn('content="6.24.0-beta.1"', HTML)
-        self.assertIn("football-time-v80", WORKER)
+        self.assertIn("football-time-v81", WORKER)
         for asset in ("./match-center-mockup.html", "./css/match-center-mockup.css?v=1", "./js/match-center-mockup.js"):
             self.assertIn(asset, WORKER)
 
