@@ -17,7 +17,10 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("ยังไม่มีสถิติฤดูกาล",JS)
   self.assertIn("ยังไม่มีข้อมูลสถิติรายนัด",JS)
   self.assertIn("PROVISIONAL",JS)
+  self.assertIn("player-team-name-registry-2026-27.json",JS)
+  self.assertIn("provider_display_names_verified",JS)
  def test_service_worker_cache(self):
-  self.assertIn("football-time-v71",SW)
+  self.assertIn("football-time-v72",SW)
+  self.assertIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertIn("./js/player-hub.js",SW)
 if __name__=="__main__":unittest.main()

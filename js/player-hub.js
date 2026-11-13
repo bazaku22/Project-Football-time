@@ -3,12 +3,13 @@
  const STORAGE_KEY="pft_provisional_player_directory_2026_27_v1";
  const LEAGUES={PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1"};
  const $=id=>document.getElementById(id);
- const state={rows:[],league:"ALL",team:"ALL",position:"ALL",query:"",selected:null,tab:"overview",page:0,pageSize:50};
+ const state={rows:[],teamNames:{},league:"ALL",team:"ALL",position:"ALL",query:"",selected:null,tab:"overview",page:0,pageSize:50};
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const first=(r,keys)=>{for(const k of keys)if(r[k]!==undefined&&r[k]!==null&&String(r[k]).trim()!=="")return r[k];return "";};
  const leagueOf=r=>String(first(r,["league_ids","league_id","leagueId","league"])||"").split(";")[0].trim();
  const teamIdOf=r=>String(first(r,["provider_team_ids","provider_team_id","team_id","teamId"])||"").split(";")[0].trim();
- const teamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();
+ const rawTeamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();
+ const teamNameOf=r=>state.teamNames[leagueOf(r)]?.[teamIdOf(r)]||rawTeamNameOf(r)||("ทีม Provider #"+teamIdOf(r));
  const positionOf=r=>String(first(r,["position_group","positionGroup","position"])||"").toUpperCase();
  const positionLabel=p=>({GK:"ผู้รักษาประตู",GOALKEEPER:"ผู้รักษาประตู",DF:"กองหลัง",DEFENDER:"กองหลัง",MF:"กองกลาง",MIDFIELDER:"กองกลาง",FW:"กองหน้า",FORWARD:"กองหน้า",ATTACKER:"กองหน้า"}[p]||p||"ยังไม่ระบุ");
  const normPosition=p=>({GK:"GOALKEEPER",DF:"DEFENDER",MF:"MIDFIELDER",FW:"FORWARD"}[p]||p||"UNKNOWN");
@@ -46,6 +47,6 @@
  $("playerHubPosition")?.addEventListener("change",e=>{state.position=e.target.value;state.page=0;render();});
  $("playerHubSearch")?.addEventListener("input",e=>{state.query=e.target.value;state.selected=null;state.page=0;render();});
  $("playerHubPrev")?.addEventListener("click",()=>{state.page=Math.max(0,state.page-1);render();});$("playerHubNext")?.addEventListener("click",()=>{state.page++;render();});
- function load(){try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved?.schemaVersion===1&&saved.season==="2026/27"&&Array.isArray(saved.records))state.rows=saved.records.filter(r=>r&&r.provider==="strikerapi"&&r.season==="2026/27"&&r.review_status==="provisional_needs_manual_verification");}catch(e){status("อ่านข้อมูลในเครื่องไม่ได้: "+e.message);return;}if(!state.rows.length){status("ยังไม่พบข้อมูล Provisional ในอุปกรณ์นี้ · นำเข้า CSV จากส่วนเครื่องมือขั้นสูง");render();return;}status("ข้อมูลจากอุปกรณ์นี้ "+state.rows.length.toLocaleString()+" รายการ · ฤดูกาล 2026/27 · สถานะรอตรวจสอบทั้งหมด");render();}
+ async function load(){try{const refResponse=await fetch("./data/player-team-name-registry-2026-27.json?v=1",{cache:"no-store"});if(refResponse.ok){const refData=await refResponse.json();if(refData.provider==="strikerapi"&&refData.season==="2026/27"&&refData.status==="provider_display_names_verified")state.teamNames=refData.lookup||{};}const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||"null");if(saved?.schemaVersion===1&&saved.season==="2026/27"&&Array.isArray(saved.records))state.rows=saved.records.filter(r=>r&&r.provider==="strikerapi"&&r.season==="2026/27"&&r.review_status==="provisional_needs_manual_verification");}catch(e){status("อ่านข้อมูลในเครื่องไม่ได้: "+e.message);return;}if(!state.rows.length){status("ยังไม่พบข้อมูล Provisional ในอุปกรณ์นี้ · นำเข้า CSV จากส่วนเครื่องมือขั้นสูง");render();return;}status("ข้อมูลจากอุปกรณ์นี้ "+state.rows.length.toLocaleString()+" รายการ · ฤดูกาล 2026/27 · สถานะรอตรวจสอบทั้งหมด");render();}
  window.addEventListener("storage",e=>{if(e.key===STORAGE_KEY)load();});load();
 })();
