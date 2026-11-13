@@ -23,4 +23,18 @@ class PlayerHubFivePhaseTests(unittest.TestCase):
   self.assertIn("football-time-v79",SW)
   self.assertIn("./data/player-team-name-registry-2026-27.json",SW)
   self.assertIn("./js/player-hub.js",SW)
+
+    def test_canonical_competition_views_are_separate_from_provisional_directory(self):
+        self.assertIn('id="playerCanonicalHub"', HTML)
+        self.assertIn('id="playerCanonicalProfile"', HTML)
+        self.assertIn("pft-player-directory-data", JS)
+        self.assertIn("pft-player-stats-data", JS)
+        self.assertIn('data-canonical-tab="overall"', JS)
+        self.assertIn('data-canonical-tab="club"', JS)
+        self.assertIn('data-canonical-tab="national"', JS)
+        self.assertIn('rights_status==="approved"', JS)
+        self.assertIn('No data', JS)
+        self.assertIn("pft-open-canonical-player", JS)
+        self.assertIn("football-time-v79", SW)
+
 if __name__=="__main__":unittest.main()
