@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "season": "2026/27",
+  "status": "reviewed_approved",
+  "production_import": false,
+  "reviewer": "delegated_project_review",
+  "reviewed_at": "2026-11-14",
+  "policy": "Exact provider IDs and league scope must agree across the StrikerAPI team registry, the curated alias candidate artifact, and the local football-data.org team database. No name-only matching.",
+  "sources": [
+    "data/player-team-name-registry-2026-27.json",
+    "data/player-team-alias-candidates-2026-27.json",
+    "data/football-database.json (provider=football-data.org)"
+  ],
+  "decisions": [
+    {
+      "league_id": "FL1",
+      "provider": "strikerapi",
+      "provider_team_id": "167",
+      "provider_team_name": "Lyon",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:523",
+      "canonical_team_name": "Olympique Lyonnais",
+      "country": "France",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "PD",
+      "provider": "strikerapi",
+      "provider_team_id": "1068",
+      "provider_team_name": "Atlético Madrid",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:78",
+      "canonical_team_name": "Club Atlético de Madrid",
+      "country": "Spain",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "PD",
+      "provider": "strikerapi",
+      "provider_team_id": "83",
+      "provider_team_name": "Barcelona",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:81",
+      "canonical_team_name": "FC Barcelona",
+      "country": "Spain",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "PD",
+      "provider": "strikerapi",
+      "provider_team_id": "87",
+      "provider_team_name": "Racing Santander",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:5335",
+      "canonical_team_name": "Real Racing Club de Santander",
+      "country": "Spain",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "PL",
+      "provider": "strikerapi",
+      "provider_team_id": "360",
+      "provider_team_name": "Manchester United",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:66",
+      "canonical_team_name": "Manchester United FC",
+      "country": "England",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "PL",
+      "provider": "strikerapi",
+      "provider_team_id": "393",
+      "provider_team_name": "Nottingham Forest",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:351",
+      "canonical_team_name": "Nottingham Forest FC",
+      "country": "England",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    },
+    {
+      "league_id": "SA",
+      "provider": "strikerapi",
+      "provider_team_id": "2572",
+      "provider_team_name": "Como",
+      "canonical_provider": "football-data.org",
+      "canonical_team_id": "football-data:7397",
+      "canonical_team_name": "Como 1907",
+      "country": "Italy",
+      "status": "approved",
+      "review_required": false,
+      "evidence": [
+        "provider_team_id_and_name_exact_registry_match",
+        "candidate_artifact_exact_canonical_id",
+        "football_database_exact_canonical_id_and_name"
+      ]
+    }
+  ]
+}
