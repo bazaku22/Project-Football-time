@@ -12,7 +12,8 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn("function loadLedger()", source)
         self.assertNotIn("supabase", source.lower())
         self.assertNotIn("XMLHttpRequest", source)
-        self.assertNotIn("fetch(", source)
+        self.assertEqual(source.count("fetch("), 1)
+        self.assertIn("fetch(REGISTRY_URL", source)
 
     def test_verified_statistics_require_complete_review_and_rights_gates(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
