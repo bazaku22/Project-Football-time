@@ -3,12 +3,12 @@
  const STORAGE_KEY="pft_provisional_player_directory_2026_27_v1";
  const LEAGUES={PL:"Premier League",PD:"La Liga",BL1:"Bundesliga",SA:"Serie A",FL1:"Ligue 1"};
  const $=id=>document.getElementById(id);
- const state={rows:[],league:"ALL",team:"ALL",position:"ALL",query:"",selected:null,tab:"overview",page:0,pageSize:50};
+ const state={rows:[],teamNames:{},league:"ALL",team:"ALL",position:"ALL",query:"",selected:null,tab:"overview",page:0,pageSize:50};
  const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  const first=(r,keys)=>{for(const k of keys)if(r[k]!==undefined&&r[k]!==null&&String(r[k]).trim()!=="")return r[k];return "";};
  const leagueOf=r=>String(first(r,["league_ids","league_id","leagueId","league"])||"").split(";")[0].trim();
  const teamIdOf=r=>String(first(r,["provider_team_ids","provider_team_id","team_id","teamId"])||"").split(";")[0].trim();
- const teamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();
+ const rawTeamNameOf=r=>String(first(r,["provider_team_names","provider_team_name","team_name","teamName","team"])||"").split(";")[0].trim();\n const teamNameOf=r=>state.teamNames[leagueOf(r)]?.[teamIdOf(r)]||rawTeamNameOf(r)||("ทีม Provider #"+teamIdOf(r));
  const positionOf=r=>String(first(r,["position_group","positionGroup","position"])||"").toUpperCase();
  const positionLabel=p=>({GK:"ผู้รักษาประตู",GOALKEEPER:"ผู้รักษาประตู",DF:"กองหลัง",DEFENDER:"กองหลัง",MF:"กองกลาง",MIDFIELDER:"กองกลาง",FW:"กองหน้า",FORWARD:"กองหน้า",ATTACKER:"กองหน้า"}[p]||p||"ยังไม่ระบุ");
  const normPosition=p=>({GK:"GOALKEEPER",DF:"DEFENDER",MF:"MIDFIELDER",FW:"FORWARD"}[p]||p||"UNKNOWN");
