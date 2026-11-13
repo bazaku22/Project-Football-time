@@ -31,6 +31,7 @@ class PlayerStatisticsIntakeTests(unittest.TestCase):
             "club_id": "club-a", "club_name": "Example FC", "competition_id": "PL",
             "identity_match_status": "exact", "rights_status": "approved",
             "source_id": "source-a", "observed_at": "2026-11-13",
+            "evidence_url": "https://example.test/player/123/stats",
             "metrics": {"appearances": 3}
         }]
         data["records_count"] = 1
@@ -59,6 +60,7 @@ class PlayerStatisticsIntakeTests(unittest.TestCase):
             "club_id": "c", "club_name": "Club", "competition_id": "PL",
             "identity_match_status": "exact", "rights_status": "approved",
             "source_id": "s", "observed_at": "2026-11-13",
+            "evidence_url": "https://example.test/player/p/stats",
             "metrics": {"appearances": 2, "starts": 3, "shots": 1, "shots_on_target": 2, "goals": -1}
         }]
         data["records_count"] = 1
