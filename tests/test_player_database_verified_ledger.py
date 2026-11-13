@@ -19,6 +19,7 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
     def test_verified_statistics_require_complete_review_and_rights_gates(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
         for marker in [
+            'record.season!=="2026/27"',
             'record.review_status!=="verified"',
             'record.lineup_coverage!=="complete"',
             'record.event_coverage!=="complete"',
