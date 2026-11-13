@@ -417,7 +417,10 @@
     const topLabel = isInternational ? match.competitionName : (league?.name || match.leagueId);
     const bottom = (isInternational
       ? '<span class="mc-intl-tag">ทีมชาติ · ชุดทดลอง</span>' + renderInternationalDetails(match)
-      : '') + '<button type="button" class="mc-open-match" data-unified-match="' + esc(matchId(match)) + '">' + actionLabel + '</button>';
+      : '') + '<button type="button" class="mc-open-match" data-unified-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) +
+        '" data-match-league="' + esc(match.leagueId) +
+        '" data-provider-match-id="' + esc(providerMatchId) +
+        '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button>';
     return '<article class="mc-match-card' + (isInternational ? ' mc-match-card-international' : '') + '">' +
       '<div class="mc-match-top"><span class="mc-league-name">' + esc(topLabel) + '</span>' +
       '<span class="mc-status mc-status-' + kind + '">' + esc(statusLabel(match)) + '</span></div>' +
