@@ -39,7 +39,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('applyManualResearchResults()', MODULE)
         self.assertIn('researchRecord', MODULE)
         self.assertIn('record.score?.home', MODULE)
-        self.assertIn('record.events', MODULE)
+        self.assertIn('record?.events', MODULE)
         self.assertIn('pft-manual-match-research-updated', MODULE)
         self.assertIn('mc-research-status', CSS)
         self.assertIn('ไม่เขียนลงฐานข้อมูลหลักหรือ Supabase', MODULE)
