@@ -394,6 +394,39 @@
       '<div class="mc-intl-source">แหล่งข้อมูลโปรแกรม: ' + (sources || "ไม่ระบุ") + '</div>' +
       '<p>ข้อมูลวิจัยที่นำเข้าจะอ่านจาก Local Storage ของอุปกรณ์นี้เท่านั้น · ไม่เขียนลงฐานข้อมูลหลักหรือ Supabase</p></details>';
   }
+
+  function renderMatchStats(match) {
+    const stats = match?.statistics || match?.stats || null;
+    if (!stats || typeof stats !== "object") return "";
+    const definitions = [
+      ["ครองบอล", ["possession", "ballPossession"], "%"],
+      ["ยิงทั้งหมด", ["shots", "totalShots"], ""],
+      ["ยิงเข้ากรอบ", ["shotsOnTarget", "shots_on_target"], ""],
+      ["เตะมุม", ["corners", "cornerKicks"], ""]
+    ];
+    const readPair = (value) => {
+      if (Array.isArray(value) && value.length >= 2) return [value[0], value[1]];
+      if (value && typeof value === "object") {
+        const home = value.home ?? value.homeTeam ?? value.host;
+        const away = value.away ?? value.awayTeam ?? value.guest;
+        if (home !== undefined && away !== undefined) return [home, away];
+      }
+      return null;
+    };
+    const rows = definitions.map(([label, keys, suffix]) => {
+      const key = keys.find((candidate) => stats[candidate] !== undefined);
+      if (!key) return "";
+      const pair = readPair(stats[key]);
+      if (!pair || pair.some((value) => value === null || value === "" || !Number.isFinite(Number(value)))) return "";
+      return '<div class="mc-match-stat"><span>' + label + '</span><b>' +
+        esc(String(pair[0]) + suffix) + '</b><i aria-hidden="true"></i><b>' +
+        esc(String(pair[1]) + suffix) + '</b></div>';
+    }).filter(Boolean);
+    if (!rows.length) return "";
+    return '<section class="mc-match-stats" aria-label="สถิติการแข่งขัน"><div class="mc-match-stats-heading">สถิติการแข่งขัน</div><div class="mc-match-stats-grid">' +
+      rows.join("") + '</div></section>';
+  }
+
   function renderCard(match) {
     const isInternational = match.isInternational === true;
     const home = isInternational ? null : teamFor(match.homeTeamId);
@@ -428,7 +461,7 @@
       '<div class="mc-team">' + homeMark + '<span>' + esc(match.homeTeamName || home?.name || "เจ้าบ้าน") + '</span></div>' +
       '<div class="mc-score">' + score + '</div>' +
       '<div class="mc-team mc-team-away">' + awayMark + '<span>' + esc(match.awayTeamName || away?.name || "ทีมเยือน") + '</span></div>' +
-      '</div>' + (isInternational ? renderInternationalAnalysisSummary(match) : renderAnalysisSummary(match,cardAnalysis)) +
+      '</div>' + renderMatchStats(match) + (isInternational ? renderInternationalAnalysisSummary(match) : renderAnalysisSummary(match,cardAnalysis)) +
       '<div class="mc-match-bottom"><span>' + esc(time) + '</span><span>' +
       (isInternational && match.neutralVenue === true ? 'สนามกลาง' : esc(statusLabel(match))) +
       '</span>' + bottom + '</div></article>';

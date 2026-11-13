@@ -36,11 +36,17 @@ class UnifiedMatchCenterTests(unittest.TestCase):
             self.assertIn(phrase, UNIFIED_JS)
 
     def test_version_and_worker_cache_are_bumped(self):
-        self.assertIn('content="6.25.0-beta.1"', APP)
-        self.assertIn("V6.25.0-beta.1", APP)
-        self.assertIn("football-time-v81", WORKER)
+        self.assertIn('content="6.26.0-beta.1"', APP)
+        self.assertIn("V6.26.0-beta.1", APP)
+        self.assertIn("football-time-v82", WORKER)
         self.assertIn("./js/unified-match-center.js", WORKER)
-        self.assertIn("./css/match-center.css?v=5", WORKER)
+        self.assertIn("./css/match-center.css?v=6", WORKER)
+
+    def test_match_card_places_real_statistics_before_prediction_summary(self):
+        self.assertIn("renderMatchStats(match)", MATCH_JS)
+        self.assertIn("match?.statistics || match?.stats", MATCH_JS)
+        self.assertIn(".mc-match-stats-grid", CSS)
+        self.assertIn("renderMatchStats(match) + (isInternational ? renderInternationalAnalysisSummary(match)", MATCH_JS)
 
     def test_responsive_detail_styles_exist(self):
         self.assertIn(".mc-detail-tabs", CSS)
