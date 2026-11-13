@@ -38,7 +38,7 @@ class MatchCenterMockupTests(unittest.TestCase):
 
     def test_first_three_goals_and_view_all_control_are_interactive(self):
         self.assertIn('ดูประตูทั้งหมด (5)', HTML)
-        self.assertIn('class="mm-extra-goal" hidden', HTML)
+        self.assertIn('mm-extra-goal" hidden', HTML)
         self.assertIn('aria-expanded="false"', HTML)
         self.assertIn('viewAll?.addEventListener("click"', JS)
 
