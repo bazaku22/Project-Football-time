@@ -34,73 +34,105 @@
  }
  function validPlayer(player){return !!player&&player.identity_status==="verified"&&typeof player.ft_player_id==="string"&&FT_ID.test(player.ft_player_id)&&typeof player.observed_name==="string"&&player.observed_name.trim().length>0;}
  function teamLedger(teamId){
-  const data=loadLedger(),verified=new Map(),pending=new Map();let verifiedMatches=0,pendingMatches=0;
+  const data=loadLedger(),verified=new Map(),pending=new Map(),provisional=new Map();let verifiedMatches=0,pendingMatches=0;
   const aliasKey=[selectedLeague?.[0]||"",String(teamId)].join("|"),decision=loadTeamAliases()[aliasKey];
   const canonicalTeamId=decision?.status==="approved"&&typeof decision.canonical_team_id==="string"&&decision.canonical_team_id.startsWith("football-data:")?decision.canonical_team_id:null;
-  if(!canonicalTeamId)return {verified:[],pending:[],verifiedMatches:0,pendingMatches:0,season:data.season||"2026/27",teamMappingPending:true};
-  const pendingAdd=(player,teamId,reason)=>{
-   if(!player||!teamId||String(teamId)!==String(canonicalTeamId))return;
+  if(!canonicalTeamId)return {verified:[],pending:[],provisional:[],verifiedMatches:0,pendingMatches:0,season:data.season||"2026/27",teamMappingPending:true};
+  const pendingAdd=(player,tid,reason)=>{
+   if(!player||!tid||String(tid)!==String(canonicalTeamId))return;
    const name=typeof player.observed_name==="string"&&player.observed_name.trim()?player.observed_name.trim():"ไม่ระบุชื่อ";
-   const key=validPlayer(player)?player.ft_player_id:"pending:"+String(teamId)+":"+name.toLocaleLowerCase();
+   const key=validPlayer(player)?player.ft_player_id:"pending:"+String(tid)+":"+normalizePlayerName(name);
    if(verified.has(key))return;
-   if(!pending.has(key))pending.set(key,{id:validPlayer(player)?player.ft_player_id:null,name,team_id:String(teamId),reason});
+   if(!pending.has(key))pending.set(key,{id:validPlayer(player)?player.ft_player_id:null,name,team_id:String(tid),reason});
   };
-  const getVerified=(player,teamId)=>{
-   if(!validPlayer(player)){pendingAdd(player,teamId,"ยังไม่ยืนยัน FT Player ID");return null;}
-   if(String(teamId)!==String(canonicalTeamId))return null;
+  const getVerified=(player,tid)=>{
+   if(!validPlayer(player)){pendingAdd(player,tid,"ยังไม่ยืนยัน FT Player ID");return null;}
+   if(String(tid)!==String(canonicalTeamId))return null;
    const id=player.ft_player_id;
-   if(!verified.has(id))verified.set(id,{id,name:player.observed_name,team_id:String(teamId),appearances:0,goals:0,assists:0,_apps:new Set()});
+   if(!verified.has(id))verified.set(id,{id,name:player.observed_name,team_id:String(tid),appearances:0,goals:0,assists:0,_apps:new Set()});
    return verified.get(id);
   };
-  const markAppearance=(player,teamId,matchId)=>{
-   const item=getVerified(player,teamId);if(!item)return;
+  const markAppearance=(player,tid,matchId)=>{
+   const item=getVerified(player,tid);if(!item)return;
    const key=String(matchId)+":"+item.id;if(!item._apps.has(key)){item._apps.add(key);item.appearances+=1;}
+  };
+  const getProvisional=(player,tid)=>{
+   if(!player||String(tid)!==String(canonicalTeamId)||player.identity_status!=="unresolved"||player.ft_player_id!=null)return null;
+   const name=typeof player.observed_name==="string"?player.observed_name.trim():"",key=normalizePlayerName(name);
+   if(!name||!key)return null;
+   if(!provisional.has(key))provisional.set(key,{id:null,name,team_id:String(tid),appearances:0,goals:0,assists:0,_apps:new Set()});
+   return provisional.get(key);
+  };
+  const markProvisionalAppearance=(player,tid,matchId)=>{
+   const item=getProvisional(player,tid);if(!item)return;
+   const key=String(matchId)+":"+normalizePlayerName(item.name);if(!item._apps.has(key)){item._apps.add(key);item.appearances+=1;}
   };
   (Array.isArray(data.records)?data.records:[]).forEach(record=>{
    if(!record||record.season!=="2026/27"||record.competition_code!==selectedLeague?.[0]||!Array.isArray(record.lineups)||!Array.isArray(record.events))return;
-   const trusted=recordVerified(record);
+   const trusted=recordVerified(record),researchPreview=!trusted&&record.review_status==="needs_review"&&record.lineup_coverage==="complete";
    if(trusted)verifiedMatches++;else pendingMatches++;
    const home=record.home_team?.team_id,away=record.away_team?.team_id,matchId=String(record.match_id??"");
-   const lineupTeamById=new Map();
+   const lineupTeamById=new Map(),lineupTeamByName=new Map();
    record.lineups.forEach(lineup=>{
     const player=lineup?.player,tid=lineup?.team_id;
     if(!player||!tid)return;
+    const nameKey=normalizePlayerName(player.observed_name);
     if(validPlayer(player))lineupTeamById.set(player.ft_player_id,String(tid));
-    if(String(tid)===String(teamId)){
+    if(nameKey)lineupTeamByName.set(nameKey,String(tid));
+    if(String(tid)===String(canonicalTeamId)){
      if(!trusted)pendingAdd(player,tid,"แมตช์หรือหลักฐานยังไม่ผ่านการตรวจสอบ");
      else if(!validPlayer(player))pendingAdd(player,tid,"ยังไม่ยืนยัน FT Player ID");
      else getVerified(player,tid);
     }
     if(trusted&&lineup.role==="starting_xi")markAppearance(player,tid,matchId);
+    if(researchPreview&&String(tid)===String(canonicalTeamId)&&lineup.role==="starting_xi")markProvisionalAppearance(player,tid,matchId);
    });
-   if(!trusted)return;
-   record.events.forEach(event=>{
-    if(!event||!event.type)return;
-    const addEventPlayer=(player,tid,kind)=>{
-     if(!player||!tid)return;
-     const targetTeam=lineupTeamById.get(player.ft_player_id)||String(tid);
-     if(kind==="appearance")markAppearance(player,targetTeam,matchId);
-     else{
-      const item=getVerified(player,targetTeam);
-      if(item){if(kind==="goal")item.goals+=1;if(kind==="assist")item.assists+=1;markAppearance(player,targetTeam,matchId);}
+   if(trusted){
+    record.events.forEach(event=>{
+     if(!event||!event.type)return;
+     const addEventPlayer=(player,tid,kind)=>{
+      if(!player||!tid)return;
+      const targetTeam=lineupTeamById.get(player.ft_player_id)||String(tid);
+      if(kind==="appearance")markAppearance(player,targetTeam,matchId);
+      else{const item=getVerified(player,targetTeam);if(item){if(kind==="goal")item.goals+=1;if(kind==="assist")item.assists+=1;markAppearance(player,targetTeam,matchId);}}
+     };
+     if(event.type==="substitution"){addEventPlayer(event.player_off,event.team_id,"appearance");addEventPlayer(event.player_on,event.team_id,"appearance");}
+     if(event.type==="goal"){
+      if(event.goal_type==="normal"||event.goal_type==="penalty")addEventPlayer(event.scorer,event.team_id,"goal");
+      if(event.goal_type==="own_goal"){const ownTeam=String(event.team_id)===String(home)?away:home;addEventPlayer(event.own_goal_player,ownTeam,"appearance");}
+      if(event.assist_status==="explicit")addEventPlayer(event.assist_player,event.team_id,"assist");
      }
-    };
-    if(event.type==="substitution"){addEventPlayer(event.player_off,event.team_id,"appearance");addEventPlayer(event.player_on,event.team_id,"appearance");}
-    if(event.type==="goal"){
-     if(event.goal_type==="normal"||event.goal_type==="penalty")addEventPlayer(event.scorer,event.team_id,"goal");
-     if(event.goal_type==="own_goal"){
-      const ownTeam=String(event.team_id)===String(home)?away:home;
-      addEventPlayer(event.own_goal_player,ownTeam,"appearance");
+    });
+   }else if(researchPreview){
+    record.events.forEach(event=>{
+     if(!event||!event.type)return;
+     const teamFor=(player,fallback)=>lineupTeamByName.get(normalizePlayerName(player?.observed_name))||String(fallback||"");
+     if(event.type==="substitution"){
+      markProvisionalAppearance(event.player_off,teamFor(event.player_off,event.team_id),matchId);
+      markProvisionalAppearance(event.player_on,teamFor(event.player_on,event.team_id),matchId);
      }
-     if(event.assist_status==="explicit")addEventPlayer(event.assist_player,event.team_id,"assist");
-    }
-   });
+     if(event.type==="goal"){
+      if(event.goal_type==="normal"||event.goal_type==="penalty"){
+       const tid=teamFor(event.scorer,event.team_id),item=getProvisional(event.scorer,tid);
+       if(item){item.goals+=1;markProvisionalAppearance(event.scorer,tid,matchId);}
+      }else if(event.goal_type==="own_goal"){
+       const ownTeam=String(event.team_id)===String(home)?away:home;
+       markProvisionalAppearance(event.own_goal_player,ownTeam,matchId);
+      }
+      if(event.assist_status==="explicit"){
+       const tid=teamFor(event.assist_player,event.team_id),item=getProvisional(event.assist_player,tid);
+       if(item){item.assists+=1;markProvisionalAppearance(event.assist_player,tid,matchId);}
+      }
+     }
+    });
+   }
   });
-  const verifiedRows=Array.from(verified.values()).map(p=>({...p,appearances:p.appearances,goals:p.goals,assists:p.assists})).sort((a,b)=>a.name.localeCompare(b.name));
+  const verifiedRows=Array.from(verified.values()).map(p=>({...p})).sort((a,b)=>a.name.localeCompare(b.name));
   const verifiedIds=new Set(verifiedRows.map(p=>p.id));
   const pendingRows=Array.from(pending.values()).filter(p=>!p.id||!verifiedIds.has(p.id)).sort((a,b)=>a.name.localeCompare(b.name));
-  verifiedRows.forEach(p=>delete p._apps);
-  return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
+  const provisionalRows=Array.from(provisional.values()).map(p=>({...p,source_status:"needs_review_name_only"})).sort((a,b)=>a.name.localeCompare(b.name));
+  verifiedRows.forEach(p=>delete p._apps);provisionalRows.forEach(p=>delete p._apps);
+  return {verified:verifiedRows,pending:pendingRows,provisional:provisionalRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
  }
  function normalizePlayerName(value){
   return String(value??"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("en")
@@ -112,9 +144,13 @@
   if(ledger.teamMappingPending)return {status:"team_mapping_pending",stats:null};
   const target=normalizePlayerName(rosterPlayer?.name);
   if(!target)return {status:"no_match",stats:null};
-  const matches=ledger.verified.filter(row=>normalizePlayerName(row.name)===target);
-  if(matches.length!==1)return {status:matches.length>1?"ambiguous_name_match":"no_match",stats:null};
-  return {status:"provisional_name_match",stats:matches[0],verifiedMatches:ledger.verifiedMatches,scope:"recorded_verified_matches_only"};
+  const verified=ledger.verified.filter(row=>normalizePlayerName(row.name)===target);
+  if(verified.length===1)return {status:"provisional_name_match",stats:verified[0],verifiedMatches:ledger.verifiedMatches,scope:"recorded_verified_matches_only"};
+  if(verified.length>1)return {status:"ambiguous_name_match",stats:null};
+  const research=ledger.provisional.filter(row=>normalizePlayerName(row.name)===target);
+  if(research.length===1)return {status:"provisional_research_match",stats:research[0],pendingMatches:ledger.pendingMatches,scope:"local_needs_review_records_only"};
+  if(research.length>1)return {status:"ambiguous_name_match",stats:null};
+  return {status:"no_match",stats:null};
  }
  function attributionMarkup(){return '<p class="pdb-attribution">Source of Material is <a href="https://www.footballsquads.com/" target="_blank" rel="noopener noreferrer">http://www.footballsquads.com</a>. Material: © FootballSquads.com, 1999 - , All Rights Reserved</p>';}
  function render(){
@@ -125,7 +161,13 @@
    if(!source||!player){selectedPlayer=null;render();return;}
    const provisional=provisionalNameStats(player,selectedTeam.id);
    const statMarkup=provisional.stats
-    ? '<div class="pdb-profile-status"><b>จับคู่ด้วยชื่อเต็มตรงกัน · provisional</b><span>ตัวเลขด้านล่างมาจาก Match Event Ledger ที่ผ่านการตรวจสอบ แต่การเชื่อมกับรายชื่อสโมสรใช้ชื่อเต็มที่ Normalize แล้วเพียงอย่างเดียว จึงยังไม่ใช่การยืนยันตัวตนถาวร</span></div><div class="pdb-stat-grid"><div><b>'+provisional.stats.appearances+'</b><span>ลงสนาม</span></div><div><b>'+provisional.stats.goals+'</b><span>ประตู</span></div><div><b>'+provisional.stats.assists+'</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">สถิติครอบคลุมเฉพาะแมตช์ที่บันทึกไว้และผ่านการตรวจสอบใน Match Event Ledger ฤดูกาล 2026/27 ของลีกนี้เท่านั้น ไม่ใช่ยอดรวมทุกการแข่งขันหรือทั้งฤดูกาล และชื่อที่ตรงกันยังอาจเป็นคนละบุคคลได้</p>'
+    ? (provisional.status==="provisional_research_match"
+      ? '<div class="pdb-profile-status"><b>จับคู่ด้วยชื่อเต็มตรงกัน · provisional research</b><span>ตัวเลขนี้คำนวณจากข้อมูลแมตช์ที่นำเข้าไว้ในอุปกรณ์และยังอยู่สถานะ needs_review; ผู้เล่นยังไม่มี FT Player ID และยังไม่ยืนยันตัวตนถาวร</span></div>'
+      : '<div class="pdb-profile-status"><b>จับคู่ด้วยชื่อเต็มตรงกัน · provisional</b><span>ตัวเลขมาจาก Match Event Ledger ที่ผ่านการตรวจสอบ แต่การเชื่อมรายชื่อใช้ชื่อเต็มที่ Normalize แล้วเท่านั้น จึงยังไม่ใช่การยืนยันตัวตนถาวร</span></div>')
+      + '<div class="pdb-stat-grid"><div><b>'+provisional.stats.appearances+'</b><span>ลงสนาม</span></div><div><b>'+provisional.stats.goals+'</b><span>ประตู</span></div><div><b>'+provisional.stats.assists+'</b><span>แอสซิสต์</span></div></div>'
+      + (provisional.status==="provisional_research_match"
+        ? '<p class="pdb-data-note">เป็นยอดขั้นต่ำจากรายการวิจัยที่ยังไม่ผ่านการตรวจสอบสิทธิ์แหล่งข้อมูลและตัวตนผู้เล่น แอสซิสต์ที่ไม่มีหลักฐานชัดเจนจะไม่นับ ตัวเลขนี้ใช้ทดสอบภายในเท่านั้น ไม่ใช่สถิติยืนยันหรือข้อมูลสำหรับ Production</p>'
+        : '<p class="pdb-data-note">สถิติครอบคลุมเฉพาะแมตช์ที่บันทึกไว้และผ่านการตรวจสอบใน Match Event Ledger ฤดูกาล 2026/27 ของลีกนี้เท่านั้น ไม่ใช่ยอดรวมทุกการแข่งขันหรือทั้งฤดูกาล และชื่อที่ตรงกันยังอาจเป็นคนละบุคคลได้</p>')
     : '<div class="pdb-profile-status"><b>Source-listed · รอตรวจสอบ</b><span>ชื่อนี้ถอดจากหน้ารายชื่อสโมสร ยังไม่ยืนยันตัวตนหรือสถานะการลงทะเบียน</span></div><div class="pdb-stat-grid"><div><b>—</b><span>ลงสนาม</span></div><div><b>—</b><span>ประตู</span></div><div><b>—</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">'+(provisional.status==="ambiguous_name_match"?"พบผู้เล่นใน Ledger มากกว่าหนึ่งรายการที่ชื่อ Normalize ตรงกัน จึงไม่แสดงสถิติเพื่อป้องกันการจับคู่ผิด":provisional.status==="team_mapping_pending"?"ยังไม่มีการยืนยัน mapping ของทีมสำหรับเชื่อมสถิติ":"ยังไม่พบชื่อเต็มที่ตรงกันในสถิติที่ผ่านการตรวจสอบ หรือยังไม่มีข้อมูลแมตช์ที่ครอบคลุมผู้เล่นรายนี้ จึงไม่แสดงตัวเลขแทนค่าจริง")+'</p>';
    content().innerHTML='<button class="pdb-back" data-back="players">‹ กลับไปยังรายชื่อนักเตะ</button><div class="pdb-team-hero"><span class="pdb-team-mark">FT</span><div><h3>'+esc(player.name)+'</h3><p>'+esc(selectedTeam.name)+' · '+esc(selectedLeague[1])+' · '+esc(player.season)+'</p></div></div>'+statMarkup+'<div class="pdb-source-card"><b>แหล่งที่มาของรายชื่อ</b><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">เปิดหน้ารายชื่อ '+esc(selectedTeam.name)+' บน FootballSquads ↗</a><small>ตรวจข้อมูลเมื่อ '+esc(source.observed_at)+' · '+esc(source.current_roster_boundary)+'</small></div>'+attributionMarkup();
    return;
