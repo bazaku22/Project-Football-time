@@ -13,7 +13,7 @@ CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
 class InternationalMatchCenterTests(unittest.TestCase):
     def test_fixture_read_model_is_isolated_and_complete(self):
         self.assertEqual(DATA["dataset_status"], "experimental_fixture_reference")
-        self.assertEqual(len(DATA["fixtures"]), 15)
+        self.assertEqual(len(DATA["fixtures"]), 16)
         ids = [row["id"] for row in DATA["fixtures"]]
         self.assertEqual(len(ids), len(set(ids)))
         self.assertEqual(sum(bool(row["kickoff_utc"]) for row in DATA["fixtures"]), 14)
@@ -85,7 +85,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn("ยังไม่ประกาศเวลาแข่งขัน", MODULE)
 
     def test_service_worker_caches_fixture_file_and_bumps_version(self):
-        self.assertIn("football-time-v97", WORKER)
+        self.assertIn('const CACHE = "football-time-v98"', WORKER)
         self.assertIn('"./data/international-match-fixtures-r1.json"', WORKER)
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
