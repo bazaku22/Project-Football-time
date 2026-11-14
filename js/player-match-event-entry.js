@@ -168,6 +168,98 @@
     const data=loadStored();data.expected_finished_match_ids=expectedMatchIds();data.dataset_status=data.records.length?"research_records_present":"research_intake_empty";data.updated_at=new Date().toISOString();
     const blob=new Blob([JSON.stringify(data,null,2)+"\n"],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="football-time-player-match-event-ledger-2026-27.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
   }
+  function validateImport(data){
+    const errors=[];
+    if(!data||data.schema_version!=="1.0.0"||data.dataset_id!=="player-match-event-ledger-2026-27"||data.season!=="2026/27"||!Array.isArray(data.records))return ["รูปแบบไฟล์หรือฤดูกาลไม่ถูกต้อง"];
+    if(JSON.stringify(data.scope?.competitions)!==JSON.stringify(COMPETITIONS))errors.push("ขอบเขตการแข่งขันไม่ตรงกับ 5 ลีกหลัก");
+    if(data.dataset_status!==(data.records.length?"research_records_present":"research_intake_empty"))errors.push("สถานะ Dataset ไม่ตรงกับจำนวนแมตช์");
+    if(!Array.isArray(data.expected_finished_match_ids))errors.push("รายการ Expected Match ID ไม่ถูกต้อง");
+    const expectedIds=new Set((data.expected_finished_match_ids||[]).map(String));
+    if(expectedIds.size!==(data.expected_finished_match_ids||[]).length)errors.push("Expected Match ID ซ้ำ");
+    const fixtures=new Map(matches.map(m=>[String(m.providerMatchId),m])),seen=new Set();
+    const validPlayer=(p,label)=>{
+      if(!p||typeof p!=="object"||!String(p.observed_name||"").trim()||!["verified","unresolved"].includes(p.identity_status)){errors.push(label+"ข้อมูลผู้เล่นไม่ถูกต้อง");return;}
+      if(p.identity_status==="verified"&&!/^FT-P-[0-9]{6}$/.test(p.ft_player_id||""))errors.push(label+"ผู้เล่น VERIFIED ต้องมี FT Player ID ตามรูปแบบ");
+      if(p.identity_status==="unresolved"&&p.ft_player_id!=null)errors.push(label+"ผู้เล่น unresolved ต้องไม่มี FT Player ID");
+    };
+    data.records.forEach((r,i)=>{
+      const label="แมตช์ "+(i+1)+":";
+      if(!r||typeof r!=="object"){errors.push(label+"รูปแบบ Record ไม่ถูกต้อง");return;}
+      const matchId=String(r.match_id??""),fixture=fixtures.get(matchId);
+      if(!matchId||seen.has(matchId))errors.push(label+"Match ID ว่างหรือซ้ำ");
+      seen.add(matchId);
+      if(!fixture)errors.push(label+"ไม่พบ Match ID นี้ในฐานข้อมูลที่โหลดอยู่");
+      if(r.match_status!=="FINISHED"||!COMPETITIONS.includes(r.competition_code)||r.season!=="2026/27")errors.push(label+"สถานะ/ลีก/ฤดูกาลไม่ถูกต้อง");
+      if(fixture&&(r.competition_code!==fixture.leagueId||String(r.home_team?.team_id)!==String(fixture.homeTeamId)||String(r.away_team?.team_id)!==String(fixture.awayTeamId)))errors.push(label+"ทีมเหย้า/เยือนหรือรหัสลีกไม่ตรงกับ Fixture");
+      if(!r.home_team?.team_id||!r.away_team?.team_id||String(r.home_team.team_id)===String(r.away_team.team_id)||!Array.isArray(r.sources)||!r.sources.length||!Array.isArray(r.lineups)||!Array.isArray(r.events))errors.push(label+"ข้อมูลทีม แหล่งอ้างอิง รายชื่อ หรือเหตุการณ์ไม่ครบ");
+      if(!["complete","partial","unknown"].includes(r.lineup_coverage)||!["complete","partial","unknown"].includes(r.event_coverage)||!["verified","needs_review","unverified"].includes(r.review_status))errors.push(label+"สถานะ Coverage/Review ไม่ถูกต้อง");
+      const sourceIds=new Set(),sourceTypes=new Set();
+      (r.sources||[]).forEach(s=>{
+        if(!s||!s.source_id||sourceIds.has(s.source_id)||!s.name||!/^https:\/\//i.test(s.url||"")||!["official_competition","federation","licensed_provider","other"].includes(s.source_type)||!["confirmed","pending","prohibited"].includes(s.reuse_rights)||!s.checked_at||Number.isNaN(Date.parse(s.checked_at)))errors.push(label+"Source record ไม่ถูกต้อง");
+        if(s?.source_id)sourceIds.add(s.source_id);
+        if(["official_competition","federation","licensed_provider"].includes(s?.source_type))sourceTypes.add(s.source_type);
+      });
+      const validEvidence=(ids)=>Array.isArray(ids)&&ids.length>0&&ids.every(id=>sourceIds.has(id));
+      const lineupKeys=new Set(),teamByPlayer=new Map();
+      (r.lineups||[]).forEach(p=>{
+        validPlayer(p?.player,label);
+        if(!p?.team_id||![String(r.home_team?.team_id),String(r.away_team?.team_id)].includes(String(p.team_id))||!["starting_xi","substitute"].includes(p.role)||!validEvidence(p.source_ids))errors.push(label+"Lineup record ไม่ถูกต้องหรือไม่มีหลักฐาน");
+        const person=p?.player||{},key=String(p?.team_id)+":"+(person.ft_player_id||String(person.observed_name||"").trim().toLocaleLowerCase());
+        if(lineupKeys.has(key))errors.push(label+"พบผู้เล่นซ้ำใน Lineup");
+        lineupKeys.add(key);
+        if(person.ft_player_id){const prior=teamByPlayer.get(person.ft_player_id);if(prior&&prior!==String(p.team_id))errors.push(label+"FT Player ID เดียวกันถูกผูกกับสองทีม");teamByPlayer.set(person.ft_player_id,String(p.team_id));}
+      });
+      const eventIds=new Set(),eventPeople=[];
+      (r.events||[]).forEach(e=>{
+        if(!e||!e.event_id||eventIds.has(e.event_id)||!["goal","substitution"].includes(e.type)||!/^\d{1,3}(\+\d{1,2})?$/.test(String(e.minute||""))||![String(r.home_team?.team_id),String(r.away_team?.team_id)].includes(String(e.team_id))||!validEvidence(e.source_ids))errors.push(label+"Event record ไม่มีหลักฐานครบหรือรูปแบบไม่ถูกต้อง");
+        if(e?.event_id)eventIds.add(e.event_id);
+        if(e?.type==="substitution"){
+          validPlayer(e.player_on,label);validPlayer(e.player_off,label);eventPeople.push([e.player_on,e.team_id],[e.player_off,e.team_id]);
+          if(!e.player_on?.observed_name||!e.player_off?.observed_name||e.player_on?.ft_player_id&&e.player_on.ft_player_id===e.player_off?.ft_player_id)errors.push(label+"Substitution ต้องมีผู้เล่นเข้าและออกคนละคน");
+        }
+        if(e?.type==="goal"){
+          if(!["normal","penalty","own_goal"].includes(e.goal_type)||!["explicit","none_confirmed","unknown"].includes(e.assist_status))errors.push(label+"Goal/assist status ไม่ถูกต้อง");
+          if(e.goal_type==="own_goal"){
+            validPlayer(e.own_goal_player,label);eventPeople.push([e.own_goal_player,null]);
+            if(!e.own_goal_player?.observed_name||e.scorer!=null||e.assist_status==="explicit")errors.push(label+"Own Goal ห้ามให้เครดิตประตูหรือแอสซิสต์แก่ผู้เล่น");
+          }else{
+            validPlayer(e.scorer,label);eventPeople.push([e.scorer,e.team_id]);
+            if(!e.scorer?.observed_name)errors.push(label+"ไม่มีชื่อผู้ทำประตู");
+          }
+          if(e.assist_status==="explicit"){validPlayer(e.assist_player,label);eventPeople.push([e.assist_player,e.team_id]);if(!e.assist_player?.observed_name)errors.push(label+"ระบุ Explicit Assist แต่ไม่มีชื่อผู้แอสซิสต์");}
+          else if(e.assist_player!=null)errors.push(label+"สถานะแอสซิสต์ที่ไม่ใช่ explicit ต้องไม่มีผู้เล่นแอสซิสต์");
+        }
+      });
+      eventPeople.forEach(([person,team])=>{if(person?.ft_player_id&&teamByPlayer.has(person.ft_player_id)&&team&&teamByPlayer.get(person.ft_player_id)!==String(team))errors.push(label+"ทีมของผู้เล่นใน Event ไม่ตรงกับ Lineup");});
+      if(r.review_status==="verified"){
+        const startersHome=(r.lineups||[]).filter(p=>String(p.team_id)===String(r.home_team.team_id)&&p.role==="starting_xi").length;
+        const startersAway=(r.lineups||[]).filter(p=>String(p.team_id)===String(r.away_team.team_id)&&p.role==="starting_xi").length;
+        const people=[...(r.lineups||[]).map(p=>p.player),...eventPeople.map(x=>x[0]).filter(Boolean)];
+        const identities=people.every(p=>p?.identity_status==="verified"&&/^FT-P-[0-9]{6}$/.test(p.ft_player_id||""));
+        if((r.sources||[]).length<2||sourceTypes.size<1||(r.sources||[]).some(s=>s.reuse_rights!=="confirmed"||!String(s.permission_basis||"").trim())||r.lineup_coverage!=="complete"||r.event_coverage!=="complete"||startersHome!==11||startersAway!==11||!identities)errors.push(label+"ไม่ผ่านเงื่อนไข VERIFIED: แหล่งข้อมูล/สิทธิ์/Coverage/11 ตัวจริง/Identity");
+      }
+    });
+    if(expectedIds.size&&[...seen].some(id=>!expectedIds.has(id)))errors.push("มี Match ID ที่ไม่อยู่ใน Expected Match ID");
+    return errors;
+  }
+  async function importData(){
+    const file=$("pmeImportFile").files?.[0],status=$("pmeImportStatus");
+    if(!file){status.textContent="กรุณาเลือกไฟล์ JSON ก่อน";return;}
+    if(file.size>2*1024*1024){status.textContent="ไฟล์ใหญ่เกิน 2 MB";return;}
+    try{
+      const data=JSON.parse(await file.text()),errors=validateImport(data);
+      if(errors.length){status.textContent="นำเข้าไม่ได้: "+errors.slice(0,5).join(" · ");return;}
+      const rightsPending=data.records.some(r=>r.sources.some(s=>s.reuse_rights!=="confirmed"));
+      const verifiedCount=data.records.filter(r=>r.review_status==="verified").length;
+      const message="ตรวจไฟล์ผ่าน "+data.records.length+" แมตช์ · VERIFIED "+verifiedCount+" · "+(rightsPending?"มีแหล่งข้อมูลที่สิทธิ์ยังไม่ยืนยัน":"ทุกแหล่งระบุสิทธิ์ confirmed")+"\n\nการนำเข้าจะแทนที่ Ledger ในอุปกรณ์นี้ ไม่เขียนฐานข้อมูลส่วนกลางหรือ Production ต้องการดำเนินการหรือไม่?";
+      if(!window.confirm(message))return;
+      const next={...data,dataset_status:data.records.length?"research_records_present":"research_intake_empty",updated_at:new Date().toISOString(),expected_finished_match_ids:expectedMatchIds()};
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
+      draft=selectedMatch?JSON.parse(JSON.stringify(next.records.find(r=>String(r.match_id)===String(selectedMatch.providerMatchId))||newDraft(selectedMatch))):null;
+      renderAll();renderStatsTable();status.textContent="นำเข้าในอุปกรณ์นี้แล้ว "+next.records.length+" แมตช์ · สถิติยังเป็น Lower bound จนกว่าจะครบ Coverage และ Identity";
+      setStatus("นำเข้า Ledger JSON สำเร็จในอุปกรณ์นี้เท่านั้น","success");
+    }catch(error){status.textContent="อ่านไฟล์ไม่สำเร็จ: "+error.message;}
+  }
   function renderStatsTable(){
     const data=loadStored(),players=new Map(),appearances=new Set();let unresolved=false;
     const ensure=p=>{if(!p||p.identity_status!=="verified"||!p.ft_player_id){unresolved=true;return null;}if(!players.has(p.ft_player_id))players.set(p.ft_player_id,{id:p.ft_player_id,name:p.observed_name,apps:0,goals:0,assists:0});return players.get(p.ft_player_id);};
@@ -182,7 +274,7 @@
   function mount(){
     const page=$("playerMatchEventEntryPage");
     if(!page||page.dataset.mounted==="true")return false;
-    const required=["pmeCompetition","pmeMatch","pmeMatchSummary","pmeMatchCount","pmeReloadMatches","pmeLineupTeam","pmePlayerRole","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeLineupSources","pmeIdentityConfirmed","pmeAddLineup","pmeSourceName","pmeSourceUrl","pmeSourceType","pmeSourceRights","pmePermissionBasis","pmeAddSource","pmeSourceList","pmeLineupList","pmeEventType","pmeEventMinute","pmeSubFields","pmeGoalFields","pmeEventSources","pmeAddEvent","pmeEventList","pmeLineupCoverage","pmeEventCoverage","pmeReviewedConfirm","pmeReviewState","pmeSave","pmeExport","pmeStatus","pmeSummary","pmeSavedList","pmeClear","pmeRenderStats","pmeStatsStatus","pmeStatsTable"];
+    const required=["pmeCompetition","pmeMatch","pmeMatchSummary","pmeMatchCount","pmeReloadMatches","pmeLineupTeam","pmePlayerRole","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeLineupSources","pmeIdentityConfirmed","pmeAddLineup","pmeSourceName","pmeSourceUrl","pmeSourceType","pmeSourceRights","pmePermissionBasis","pmeAddSource","pmeSourceList","pmeLineupList","pmeEventType","pmeEventMinute","pmeSubFields","pmeGoalFields","pmeEventSources","pmeAddEvent","pmeEventList","pmeLineupCoverage","pmeEventCoverage","pmeReviewedConfirm","pmeReviewState","pmeSave","pmeExport","pmeStatus","pmeSummary","pmeSavedList","pmeClear","pmeRenderStats","pmeStatsStatus","pmeStatsTable","pmeImportFile","pmeImport","pmeImportStatus"];
     const missing=required.filter(id=>!$(id)||!page.contains($(id)));
     if(missing.length){
       console.error("Player Match Event Entry mount deferred; missing page controls:",missing);
@@ -200,7 +292,7 @@
       $("pmeLineupList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-lineup]");if(b)removeItem("lineups",Number(b.dataset.removeLineup));});
       $("pmeSourceList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-source]");if(b)removeItem("sources",Number(b.dataset.removeSource));});
       $("pmeEventList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-event]");if(b)removeItem("events",Number(b.dataset.removeEvent));});
-      $("pmeRenderStats").addEventListener("click",renderStatsTable);
+      $("pmeRenderStats").addEventListener("click",renderStatsTable);$("pmeImport").addEventListener("click",importData);
       window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderHeader();renderStoredSummary();renderStatsTable();});
       renderMatchOptions();renderAll();renderEventFields();renderStatsTable();
       page.dataset.mounted="true";

@@ -70,14 +70,14 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v99", WORKER)
+        self.assertIn("football-time-v100", WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
         self.assertIn('"./css/match-center.css?v=7"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.26.5-beta.8</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.26.5-beta.8">', HTML)
+        self.assertIn('<title>Project Football Time V6.26.5-beta.9</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.26.5-beta.9">', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
@@ -148,7 +148,7 @@ class MatchCenterTests(unittest.TestCase):
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
-        self.assertIn('football-time-v99', WORKER)
+        self.assertIn('football-time-v100', WORKER)
 
 
 
