@@ -172,6 +172,18 @@ def statement_id_from_uri(value: str) -> str | None:
     return match.group(1) if match else None
 
 
+def sparql_date(value: str) -> str | None:
+    if not value:
+        return None
+    raw = value.strip()
+    if raw.startswith("+"):
+        raw = raw[1:]
+    try:
+        return date.fromisoformat(raw[:10]).isoformat()
+    except ValueError:
+        return None
+
+
 def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
     """Normalize one-club WDQS SPARQL JSON while retaining exact statement provenance."""
     if not isinstance(payload, dict) or not isinstance(payload.get("results", {}).get("bindings"), list):
@@ -198,12 +210,12 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         })
         rank_uri = binding_value(row, "rank")
         rank = rank_uri.rsplit("#", 1)[-1].replace("Rank", "").lower() if rank_uri else "unknown"
-        start = binding_value(row, "start") or None
-        end = binding_value(row, "end") or None
-        if start:
-            start = start[:10]
-        if end:
-            end = end[:10]
+        start_raw = binding_value(row, "start")
+        end_raw = binding_value(row, "end")
+        start = sparql_date(start_raw) if start_raw else None
+        end = sparql_date(end_raw) if end_raw else None
+        if start_raw and start is None or end_raw and end is None:
+            raise ValueError(f"statement {statement_id}: invalid P580/P582 date qualifier")
         key = f"{player_qid}|{statement_id}"
         statement = statements.get(key)
         if statement is None:
