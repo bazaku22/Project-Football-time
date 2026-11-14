@@ -5,13 +5,15 @@
 # P54 is historical membership evidence, not proof of current registration.
 # Keep every statement GUID, rank, qualifier and reference row in the export.
 
-SELECT ?player ?playerLabel ?team ?teamLabel ?statement ?rank ?start ?end
+SELECT ?player ?playerLabel ?occupation ?team ?teamLabel ?statement ?rank ?start ?end
        ?reference ?referenceUrl ?referenceSource ?retrieved
 WHERE {
   VALUES ?team { wd:Q9617 }
 
   ?player wdt:P31 wd:Q5 ;
+          wdt:P106 ?occupation ;
           p:P54 ?statement .
+  FILTER(?occupation = wd:Q937857)
   ?statement ps:P54 ?team ;
              wikibase:rank ?rank .
 
