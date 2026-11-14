@@ -30,7 +30,7 @@ class PlayerDatabaseNavigationTests(unittest.TestCase):
         self.assertIn("./js/player-database-mvp.js", index)
         self.assertIn("./data/player-team-name-registry-2026-27.json", script)
         self.assertIn("./data/player-team-name-registry-2026-27.json", sw)
-        self.assertIn('const CACHE = "football-time-v95";', sw)
+        self.assertIn('const CACHE = "football-time-v96";', sw)
 
 
 if __name__ == "__main__":
