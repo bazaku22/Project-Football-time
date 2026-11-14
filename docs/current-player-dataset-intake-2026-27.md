@@ -277,3 +277,22 @@ All records remain research-only, pending independent cross-check, name-only/unv
 The latest structural check reports 49 distinct source clubs, 1,895 membership rows, no duplicate membership IDs, no orphan source references, all records pending cross-check, empty statistics, production_import=false, and zero provider API calls. Python validator/tests, CI, app integration, PR, deployment and Android runtime verification remain outstanding.
 
 The 20 Premier League page boundary audit above is still valid, but the former statement that no Premier League roster rows had been added is superseded by this update.
+
+## Updated manual roster transcription progress — 2026-11-14 (latest)
+
+The previous 49-club / 1,895-name snapshot is superseded. Manual transcription of all currently clear club pages is complete; the remaining ten pages are held for ambiguity review.
+
+| League | Transcribed | Target | Held for review |
+|---|---:|---:|---:|
+| Premier League | 18 | 20 | 2 |
+| La Liga | 15 | 20 | 5 |
+| Bundesliga | 17 | 18 | 1 |
+| Serie A | 19 | 20 | 1 |
+| Ligue 1 | 17 | 18 | 1 |
+| **Total** | **86** | **96** | **10** |
+
+The intake contains **3,043 source-listed name observations** across 86 club pages. The ten held pages are Chelsea and Brighton & Hove Albion (re-registration conflicts), five La Liga pages (Real Madrid, Deportivo de A Coruña, Real Sociedad, Sevilla, Villarreal), RB Leipzig (mixed-club heading), Como (re-registration conflict), and Strasbourg (re-registration conflict). These are not counted as transcribed clubs.
+
+All 3,043 rows remain research-only and pending independent cross-check. They are name-only observations, with no provider player IDs, statistics or photos. No claim is made that they represent league registrations, eligibility or match appearances.
+
+Latest structural check: 86 source pages, 3,043 rows, no duplicate membership IDs or club/name keys, no orphan source references, all rows pending cross-check, all statistics empty, production_import=false, and provider_api_calls=0. Python validator/test suite and CI remain to be run; no app integration, PR, deployment or Android runtime test has occurred.
