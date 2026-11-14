@@ -42,6 +42,7 @@ const ASSETS = [
   "./js/player-operations-center.js",
   "./js/player-database-mvp.js",
   "./data/player-team-name-registry-2026-27.json",
+  "./data/footballsquads-roster-intake-2026-27.json",
   "./css/manual-match-research.css?v=1",
   "./css/player-match-event-entry.css?v=1",
   "./css/player-operations-center.css?v=1",
