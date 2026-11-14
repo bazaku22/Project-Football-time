@@ -102,6 +102,20 @@
   verifiedRows.forEach(p=>delete p._apps);
   return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
  }
+ function normalizePlayerName(value){
+  return String(value??"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("en")
+   .replace(/[ø]/g,"o").replace(/[ł]/g,"l").replace(/[đ]/g,"d").replace(/[æ]/g,"ae").replace(/[œ]/g,"oe").replace(/[ß]/g,"ss")
+   .replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
+ }
+ function provisionalNameStats(rosterPlayer,teamId){
+  const ledger=teamLedger(teamId);
+  if(ledger.teamMappingPending)return {status:"team_mapping_pending",stats:null};
+  const target=normalizePlayerName(rosterPlayer?.name);
+  if(!target)return {status:"no_match",stats:null};
+  const matches=ledger.verified.filter(row=>normalizePlayerName(row.name)===target);
+  if(matches.length!==1)return {status:matches.length>1?"ambiguous_name_match":"no_match",stats:null};
+  return {status:"provisional_name_match",stats:matches[0],verifiedMatches:ledger.verifiedMatches,scope:"recorded_verified_matches_only"};
+ }
  function attributionMarkup(){return '<p class="pdb-attribution">Source of Material is <a href="https://www.footballsquads.com/" target="_blank" rel="noopener noreferrer">http://www.footballsquads.com</a>. Material: © FootballSquads.com, 1999 - , All Rights Reserved</p>';}
  function render(){
   if(!registry||!rosterData){content().innerHTML='<div class="pdb-empty">กำลังโหลดข้อมูลผู้เล่น…</div>';return;}
@@ -109,7 +123,11 @@
    const source=rosterData.sources.find(s=>s.league_id===selectedLeague?.[0]&&String(s.provider_team_id)===String(selectedTeam?.id));
    const player=rosterData.memberships.find(p=>p.id===selectedPlayer.id&&p.source_id===source?.id);
    if(!source||!player){selectedPlayer=null;render();return;}
-   content().innerHTML='<button class="pdb-back" data-back="players">‹ กลับไปยังรายชื่อนักเตะ</button><div class="pdb-team-hero"><span class="pdb-team-mark">FT</span><div><h3>'+esc(player.name)+'</h3><p>'+esc(selectedTeam.name)+' · '+esc(selectedLeague[1])+' · '+esc(player.season)+'</p></div></div><div class="pdb-profile-status"><b>Source-listed · รอตรวจสอบ</b><span>ชื่อนี้ถอดจากหน้ารายชื่อสโมสร ยังไม่ยืนยันตัวตนหรือสถานะการลงทะเบียน</span></div><div class="pdb-stat-grid"><div><b>—</b><span>ลงสนาม</span></div><div><b>—</b><span>ประตู</span></div><div><b>—</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">ยังไม่มีสถิติฤดูกาล 2026/27 ที่ผ่านการตรวจสอบและยืนยันแหล่งข้อมูลสำหรับผู้เล่นรายนี้ จึงไม่แสดงตัวเลขแทนค่าจริง</p><div class="pdb-source-card"><b>แหล่งที่มาของรายชื่อ</b><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">เปิดหน้ารายชื่อ '+esc(selectedTeam.name)+' บน FootballSquads ↗</a><small>ตรวจข้อมูลเมื่อ '+esc(source.observed_at)+' · '+esc(source.current_roster_boundary)+'</small></div>'+attributionMarkup();
+   const provisional=provisionalNameStats(player,selectedTeam.id);
+   const statMarkup=provisional.stats
+    ? '<div class="pdb-profile-status"><b>จับคู่ด้วยชื่อเต็มตรงกัน · provisional</b><span>ตัวเลขด้านล่างมาจาก Match Event Ledger ที่ผ่านการตรวจสอบ แต่การเชื่อมกับรายชื่อสโมสรใช้ชื่อเต็มที่ Normalize แล้วเพียงอย่างเดียว จึงยังไม่ใช่การยืนยันตัวตนถาวร</span></div><div class="pdb-stat-grid"><div><b>'+provisional.stats.appearances+'</b><span>ลงสนาม</span></div><div><b>'+provisional.stats.goals+'</b><span>ประตู</span></div><div><b>'+provisional.stats.assists+'</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">สถิติครอบคลุมเฉพาะแมตช์ที่บันทึกไว้และผ่านการตรวจสอบใน Match Event Ledger ฤดูกาล 2026/27 ของลีกนี้เท่านั้น ไม่ใช่ยอดรวมทุกการแข่งขันหรือทั้งฤดูกาล และชื่อที่ตรงกันยังอาจเป็นคนละบุคคลได้</p>'
+    : '<div class="pdb-profile-status"><b>Source-listed · รอตรวจสอบ</b><span>ชื่อนี้ถอดจากหน้ารายชื่อสโมสร ยังไม่ยืนยันตัวตนหรือสถานะการลงทะเบียน</span></div><div class="pdb-stat-grid"><div><b>—</b><span>ลงสนาม</span></div><div><b>—</b><span>ประตู</span></div><div><b>—</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">'+(provisional.status==="ambiguous_name_match"?"พบผู้เล่นใน Ledger มากกว่าหนึ่งรายการที่ชื่อ Normalize ตรงกัน จึงไม่แสดงสถิติเพื่อป้องกันการจับคู่ผิด":provisional.status==="team_mapping_pending"?"ยังไม่มีการยืนยัน mapping ของทีมสำหรับเชื่อมสถิติ":"ยังไม่พบชื่อเต็มที่ตรงกันในสถิติที่ผ่านการตรวจสอบ หรือยังไม่มีข้อมูลแมตช์ที่ครอบคลุมผู้เล่นรายนี้ จึงไม่แสดงตัวเลขแทนค่าจริง")+'</p>';
+   content().innerHTML='<button class="pdb-back" data-back="players">‹ กลับไปยังรายชื่อนักเตะ</button><div class="pdb-team-hero"><span class="pdb-team-mark">FT</span><div><h3>'+esc(player.name)+'</h3><p>'+esc(selectedTeam.name)+' · '+esc(selectedLeague[1])+' · '+esc(player.season)+'</p></div></div>'+statMarkup+'<div class="pdb-source-card"><b>แหล่งที่มาของรายชื่อ</b><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">เปิดหน้ารายชื่อ '+esc(selectedTeam.name)+' บน FootballSquads ↗</a><small>ตรวจข้อมูลเมื่อ '+esc(source.observed_at)+' · '+esc(source.current_roster_boundary)+'</small></div>'+attributionMarkup();
    return;
   }
   if(selectedTeam){

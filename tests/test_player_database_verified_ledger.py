@@ -33,25 +33,26 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         ]:
             self.assertIn(marker, source)
 
-    def test_roster_memberships_are_not_name_matched_to_the_verified_ledger(self):
+    def test_roster_profile_uses_unique_exact_normalized_name_match_as_provisional_only(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
         self.assertIn("function teamLedger(teamId)", source)
-        self.assertIn("function loadTeamAliases()", source)
-        self.assertIn('decision?.status==="approved"', source)
-        self.assertIn('decision.canonical_team_id.startsWith("football-data:")', source)
+        self.assertIn("function provisionalNameStats(rosterPlayer,teamId)", source)
+        self.assertIn("function normalizePlayerName(value)", source)
+        self.assertIn('matches.length!==1', source)
+        self.assertIn('"provisional_name_match"', source)
+        self.assertIn("scope:\"recorded_verified_matches_only\"", source)
+        self.assertIn("จับคู่ด้วยชื่อเต็มตรงกัน · provisional", source)
         self.assertIn("teamMappingPending:true", source)
-        self.assertIn('data-roster-player=', source)
-        self.assertIn("selectedPlayer={id:player.dataset.rosterPlayer}", source)
         self.assertIn("rosterData.memberships.find(p=>p.id===selectedPlayer.id", source)
-        self.assertIn("Source-listed · รอตรวจสอบ", source)
-        self.assertNotIn("p.name===selectedPlayer.name", source)
+        self.assertIn("ไม่ใช่ยอดรวมทุกการแข่งขันหรือทั้งฤดูกาล", source)
 
-    def test_roster_profile_does_not_show_unverified_statistics_as_zero(self):
+    def test_roster_profile_never_fabricates_zero_for_missing_or_ambiguous_data(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
-        self.assertIn("ยังไม่มีสถิติฤดูกาล 2026/27 ที่ผ่านการตรวจสอบ", source)
         self.assertIn("<b>—</b>", source)
         self.assertIn("source.current_roster_boundary", source)
         self.assertIn("appearances:0,goals:0,assists:0", source)
+        self.assertIn('provisional.status==="ambiguous_name_match"', source)
+        self.assertIn('provisional.status==="team_mapping_pending"', source)
 
     def test_existing_five_league_registry_navigation_is_preserved(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
