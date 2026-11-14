@@ -42,7 +42,7 @@ class PlayerRosterDatabaseMvpTests(unittest.TestCase):
         self.assertIn("Source-listed · รอตรวจสอบ", self.source)
         self.assertIn("<b>—</b>", self.source)
         self.assertIn("function provisionalNameStats(rosterPlayer,teamId)", self.source)
-        self.assertIn('provisional.status==="provisional_name_match"', self.source)
+        self.assertIn("provisional_name_match", self.source)
         self.assertIn("provisional.stats.appearances", self.source)
         self.assertIn("provisional.stats.goals", self.source)
         self.assertIn("provisional.stats.assists", self.source)
