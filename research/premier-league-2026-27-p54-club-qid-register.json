@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "season": "2026/27",
+  "league_id": "PL",
+  "league_name": "Premier League",
+  "catalogue_source": "https://www.premierleague.com/en/news/4365156",
+  "purpose": "Research-only Wikidata P54 export preparation; one club per query.",
+  "status": "partial_qid_register",
+  "clubs": [
+    {"club_name":"AFC Bournemouth","wikidata_qid":null,"qid_status":"pending_manual_resolution"},
+    {"club_name":"Arsenal","wikidata_qid":"Q9617","qid_status":"resolved","qid_source":"user_supplied_P54_export"},
+    {"club_name":"Aston Villa","wikidata_qid":"Q18711","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q18711"},
+    {"club_name":"Brentford","wikidata_qid":"Q19571","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q19571"},
+    {"club_name":"Brighton & Hove Albion","wikidata_qid":"Q19453","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q19453"},
+    {"club_name":"Chelsea","wikidata_qid":"Q9616","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q9616"},
+    {"club_name":"Coventry City","wikidata_qid":"Q19580","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q19580"},
+    {"club_name":"Crystal Palace","wikidata_qid":null,"qid_status":"pending_manual_resolution"},
+    {"club_name":"Everton","wikidata_qid":"Q5794","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q5794"},
+    {"club_name":"Fulham","wikidata_qid":"Q18708","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q18708"},
+    {"club_name":"Hull City","wikidata_qid":"Q19477","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q19477"},
+    {"club_name":"Ipswich Town","wikidata_qid":"Q9653","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q9653"},
+    {"club_name":"Leeds United","wikidata_qid":"Q1128631","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q1128631"},
+    {"club_name":"Liverpool","wikidata_qid":"Q1130849","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q1130849"},
+    {"club_name":"Manchester City","wikidata_qid":null,"qid_status":"pending_manual_resolution"},
+    {"club_name":"Manchester United","wikidata_qid":null,"qid_status":"pending_manual_resolution"},
+    {"club_name":"Newcastle United","wikidata_qid":"Q18716","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q18716"},
+    {"club_name":"Nottingham Forest","wikidata_qid":"Q19490","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q19490"},
+    {"club_name":"Sunderland","wikidata_qid":"Q18739","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q18739"},
+    {"club_name":"Tottenham Hotspur","wikidata_qid":"Q18741","qid_status":"resolved","qid_source":"https://www.wikidata.org/wiki/Q18741"}
+  ],
+  "summary": {
+    "official_league_club_count": 20,
+    "qid_resolved_count": 16,
+    "qid_pending_count": 4,
+    "p54_exports_processed_in_this_register": 0,
+    "p54_exports_processed_overall_including_arsenal": 1
+  },
+  "safety": {
+    "research_only": true,
+    "p54_queries_executed": false,
+    "provider_api_calls": 0,
+    "supabase_reads": 0,
+    "supabase_writes": 0,
+    "production_import": false,
+    "statistics_attribution": false,
+    "qid_resolution_policy": "Do not infer or guess QIDs from club names. Resolve pending entries against the exact Wikidata item and confirm its description before querying."
+  },
+  "limitations": [
+    "A club QID is an entity lookup, not proof of current league registration or squad membership.",
+    "P54 is historical team-membership evidence, not proof of 2026/27 registration.",
+    "Only Arsenal currently has a supplied P54 export and completed name audit.",
+    "Each club must be queried and audited separately; no all-club P54 query is implied."
+  ]
+}
