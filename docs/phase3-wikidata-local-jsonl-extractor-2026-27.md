@@ -1,6 +1,6 @@
 # Phase 3 — Wikidata P54 offline evidence extractor (2026/27)
 
-**Status:** supports local JSONL dumps and one-club Wikidata Query Service (WDQS) SPARQL JSON exports. No live player export is bundled or claimed to have been processed.  
+**Status:** supports local JSONL dumps, standard WDQS SPARQL JSON envelopes (`results.bindings`), and flat WDQS JSON arrays. No live player export is bundled or claimed to have been processed.  
 **Review date:** 2026-11-14.
 
 ## Purpose
@@ -12,7 +12,21 @@ Convert either an already staged Wikidata JSONL dump or a manually exported, nar
 1. Confirm the club's exact Wikidata QID from its Wikidata item page. Example checked: Arsenal F.C. is Q9617.
 2. Open `scripts/queries/wikidata_p54_candidates.sparql` and replace the example QID with the confirmed target club QID.
 3. Run the query once in the official Wikidata Query Service UI and export SPARQL JSON.
-4. Run the local normalizer:
+4. Run the local normalizer. The `sparql-json` input mode accepts both the standard WDQS envelope and the simplified flat-array export; the latter may use lowercase `q` statement subjects and `-` instead of `# Phase 3 — Wikidata P54 offline evidence extractor (2026/27)
+
+**Status:** supports local JSONL dumps, standard WDQS SPARQL JSON envelopes (`results.bindings`), and flat WDQS JSON arrays. No live player export is bundled or claimed to have been processed.  
+**Review date:** 2026-11-14.
+
+## Purpose
+
+Convert either an already staged Wikidata JSONL dump or a manually exported, narrowly scoped WDQS SPARQL JSON result into an intermediate Research Only evidence file. The extractor is offline: it does not make network requests, call football providers, or write to Supabase.
+
+## Option A — one-club WDQS export (preferred for the pilot)
+
+1. Confirm the club's exact Wikidata QID from its Wikidata item page. Example checked: Arsenal F.C. is Q9617.
+2. Open `scripts/queries/wikidata_p54_candidates.sparql` and replace the example QID with the confirmed target club QID.
+3. Run the query once in the official Wikidata Query Service UI and export SPARQL JSON.
+4.  before the GUID.
 
 ```sh
 python3 -m py_compile scripts/wikidata_p54_jsonl_extractor.py
@@ -24,7 +38,7 @@ python3 scripts/wikidata_p54_jsonl_extractor.py \
   --output /tmp/wikidata-p54-Q9617-review.json
 ```
 
-The parser verifies player/occupation/team/statement QIDs, rejects rows for a different club, groups repeated reference rows by exact statement GUID, and preserves rank, dates, source URLs, source item QIDs and retrieval dates. Missing references remain missing; they are not inferred.
+The parser verifies player/occupation/team/statement QIDs, verifies that the statement subject matches the player, rejects rows for a different club, groups repeated reference rows by exact statement GUID, and preserves rank, date values, source URLs, source item QIDs and retrieval dates. Blank-node date values remain unresolved rather than being interpreted as dates. Missing references remain missing; they are not inferred.
 
 ## Option B — local JSONL dump
 
