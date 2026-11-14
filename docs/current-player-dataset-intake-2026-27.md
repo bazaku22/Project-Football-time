@@ -326,6 +326,6 @@ The five-league research roster is now wired into the Player Database UI as an i
 - All names remain source_listed_pending_independent_crosscheck / name_only_unverified. The UI does not assign canonical player IDs or infer registration, eligibility or appearances.
 - No verified current-season all-club-competition statistics or cleared player photos are present in this intake. The profile therefore displays unavailable markers rather than fabricated zeros or statistics.
 - The required FootballSquads attribution is visible in the landing, club and profile views.
-- The roster JSON is included in the service-worker asset list for offline use. Keep the existing football-time-v96 cache baseline until the final release gate and all updated CI checks pass; the planned release cache is football-time-v97.
+- The roster JSON is included in the service-worker asset list for offline use. The final release candidate now uses app version 6.26.5-beta.7 and service-worker cache football-time-v97. The updated CI run must pass on this exact revision before merge.
 
 This integration does not read or write Production Supabase, call Provider APIs, modify pft_matches_v1, change the Match Event Ledger, or alter the existing 156 player database records. It is not yet an Android runtime verification. The final release still requires CI to pass on the complete PR, followed by deployment and user confirmation from Android.
