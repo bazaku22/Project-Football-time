@@ -174,6 +174,34 @@ class WikidataP54ExtractorTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "team-qid"):
             normalize_sparql_json({"results": {"bindings": []}}, "Arsenal")
 
+    def test_accepts_flat_json_array_and_hyphen_statement_guid_with_lowercase_q(self):
+        row = sparql_row(statement="q123-guid-01")
+        flat = {key: value["value"] for key, value in row.items()}
+        flat["start"] = "https://www.wikidata.org/.well-known/genid/abc"
+        report = normalize_sparql_json([flat], "Q9617")
+        self.assertEqual(report["input_rows_scanned"], 1)
+        candidate = report["candidates"][0]
+        self.assertEqual(candidate["wikidata_item_id"], "Q123")
+        statement = candidate["p54_statements"][0]
+        self.assertEqual(statement["statement_id"], "Q123-guid-01")
+        self.assertIsNone(statement["qualifiers"]["start_time"])
+        self.assertEqual(statement["qualifier_observations"]["start_times"], [])
+
+    def test_rejects_statement_subject_that_does_not_match_player(self):
+        row = sparql_row(statement="Q999$wrong-subject")
+        with self.assertRaisesRegex(ValueError, "statement subject"):
+            normalize_sparql_json({"results": {"bindings": [row]}}, "Q9617")
+
+    def test_flat_json_preserves_rows_without_reference_or_date(self):
+        row = sparql_row(reference="", reference_url="", source="", retrieved="", statement="Q123-guid-02")
+        flat = {key: value["value"] for key, value in row.items()}
+        flat.pop("start", None)
+        report = normalize_sparql_json([flat], "Q9617")
+        statement = report["candidates"][0]["p54_statements"][0]
+        self.assertEqual(statement["reference_count"], 0)
+        self.assertEqual(statement["references"], [])
+        self.assertIsNone(statement["qualifiers"]["start_time"])
+
 
 if __name__ == "__main__":
     unittest.main()
