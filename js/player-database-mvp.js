@@ -134,7 +134,7 @@
   const team=e.target.closest("[data-team]");if(team){const source=rosterData.sources.find(s=>s.league_id===selectedLeague[0]&&String(s.provider_team_id)===String(team.dataset.team));const name=source?.provider_team_name||registry.lookup[selectedLeague[0]][team.dataset.team];selectedTeam={id:team.dataset.team,name};selectedPlayer=null;playerQuery="";render();return;}
   const player=e.target.closest("[data-roster-player]");if(player){selectedPlayer={id:player.dataset.rosterPlayer};render();return;}
   if(e.target.closest("[data-refresh-ledger]")){render();return;}
-  const back=e.target.closest("[data-back]");if(back){if(back.dataset.back==="leagues")selectedLeague=null;else if(back.dataset.back==="teams")selectedPlayer=null;else selectedTeam=null;query="";playerQuery="";render();}
+  const back=e.target.closest("[data-back]");if(back){if(back.dataset.back==="leagues"){selectedLeague=null;selectedTeam=null;selectedPlayer=null;query="";playerQuery="";}else if(back.dataset.back==="teams"){selectedTeam=null;selectedPlayer=null;query="";playerQuery="";}else if(back.dataset.back==="players"){selectedPlayer=null;}render();}
  });
  Promise.all([
   fetch(REGISTRY_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}),
