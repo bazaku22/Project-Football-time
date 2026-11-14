@@ -168,6 +168,51 @@
     const data=loadStored();data.expected_finished_match_ids=expectedMatchIds();data.dataset_status=data.records.length?"research_records_present":"research_intake_empty";data.updated_at=new Date().toISOString();
     const blob=new Blob([JSON.stringify(data,null,2)+"\n"],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="football-time-player-match-event-ledger-2026-27.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
   }
+  function validateImport(data){
+    const errors=[];
+    if(!data||data.schema_version!=="1.0.0"||data.dataset_id!=="player-match-event-ledger-2026-27"||data.season!=="2026/27"||!Array.isArray(data.records))return ["รูปแบบไฟล์หรือฤดูกาลไม่ถูกต้อง"];
+    if(JSON.stringify(data.scope?.competitions)!==JSON.stringify(COMPETITIONS))errors.push("ขอบเขตการแข่งขันไม่ตรงกับ 5 ลีกหลัก");
+    const expected=new Set(expectedMatchIds()),seen=new Set();
+    data.records.forEach((r,i)=>{
+      const label="แมตช์ "+(i+1)+":";
+      if(!r||r.match_status!=="FINISHED"||!COMPETITIONS.includes(r.competition_code)||r.season!=="2026/27")errors.push(label+"สถานะ/ลีก/ฤดูกาลไม่ถูกต้อง");
+      if(!expected.has(String(r.match_id)))errors.push(label+"ไม่พบ Match ID นี้ในฐานข้อมูลที่โหลดอยู่");
+      if(seen.has(String(r.match_id)))errors.push(label+"Match ID ซ้ำ");
+      seen.add(String(r.match_id));
+      if(!r.home_team?.team_id||!r.away_team?.team_id||!Array.isArray(r.sources)||!r.sources.length||!Array.isArray(r.lineups)||!Array.isArray(r.events))errors.push(label+"ข้อมูลทีม แหล่งอ้างอิง รายชื่อ หรือเหตุการณ์ไม่ครบ");
+      const sourceIds=new Set((r.sources||[]).map(s=>s.source_id));
+      if(sourceIds.size!==(r.sources||[]).length)errors.push(label+"Source ID ซ้ำ");
+      (r.sources||[]).forEach(s=>{if(!s.source_id||!s.name||!/^https:\/\//i.test(s.url||"")||!["confirmed","pending","prohibited"].includes(s.reuse_rights)||!s.checked_at)errors.push(label+"Source record ไม่ถูกต้อง");});
+      (r.lineups||[]).forEach(p=>{if(!p.team_id||!["starting_xi","substitute"].includes(p.role)||!p.player?.observed_name||!["verified","unresolved"].includes(p.player.identity_status)||!Array.isArray(p.source_ids)||!p.source_ids.length||p.source_ids.some(id=>!sourceIds.has(id)))errors.push(label+"Lineup record ไม่ถูกต้องหรือไม่มีหลักฐาน");});
+      (r.events||[]).forEach(e=>{
+        if(!e.event_id||!["goal","substitution"].includes(e.type)||!Array.isArray(e.source_ids)||!e.source_ids.length||e.source_ids.some(id=>!sourceIds.has(id)))errors.push(label+"Event record ไม่มีหลักฐานหรือรูปแบบไม่ถูกต้อง");
+        if(e.type==="substitution"&&(!e.player_on?.observed_name||!e.player_off?.observed_name))errors.push(label+"Substitution ต้องมีผู้เล่นเข้าและออก");
+        if(e.type==="goal"&&(!["normal","penalty","own_goal"].includes(e.goal_type)||!["explicit","none_confirmed","unknown"].includes(e.assist_status)))errors.push(label+"Goal/assist status ไม่ถูกต้อง");
+        if(e.type==="goal"&&e.goal_type!=="own_goal"&&!e.scorer?.observed_name)errors.push(label+"ไม่มีชื่อผู้ทำประตู");
+        if(e.type==="goal"&&e.goal_type==="own_goal"&&!e.own_goal_player?.observed_name)errors.push(label+"ไม่มีชื่อผู้ทำ Own Goal");
+        if(e.type==="goal"&&e.assist_status==="explicit"&&!e.assist_player?.observed_name)errors.push(label+"ระบุ Explicit Assist แต่ไม่มีชื่อผู้แอสซิสต์");
+      });
+    });
+    return errors;
+  }
+  async function importData(){
+    const file=$("pmeImportFile").files?.[0],status=$("pmeImportStatus");
+    if(!file){status.textContent="กรุณาเลือกไฟล์ JSON ก่อน";return;}
+    if(file.size>2*1024*1024){status.textContent="ไฟล์ใหญ่เกิน 2 MB";return;}
+    try{
+      const data=JSON.parse(await file.text()),errors=validateImport(data);
+      if(errors.length){status.textContent="นำเข้าไม่ได้: "+errors.slice(0,5).join(" · ");return;}
+      const rightsPending=data.records.some(r=>r.sources.some(s=>s.reuse_rights!=="confirmed"));
+      const verifiedCount=data.records.filter(r=>r.review_status==="verified").length;
+      const message="ตรวจไฟล์ผ่าน "+data.records.length+" แมตช์ · VERIFIED "+verifiedCount+" · "+(rightsPending?"มีแหล่งข้อมูลที่สิทธิ์ยังไม่ยืนยัน":"ทุกแหล่งระบุสิทธิ์ confirmed")+"\n\nการนำเข้าจะแทนที่ Ledger ในอุปกรณ์นี้ ไม่ได้เขียน Supabase หรือ Production ต้องการดำเนินการหรือไม่?";
+      if(!window.confirm(message))return;
+      const next={...data,dataset_status:data.records.length?"research_records_present":"research_intake_empty",updated_at:new Date().toISOString(),expected_finished_match_ids:expectedMatchIds()};
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
+      draft=selectedMatch?JSON.parse(JSON.stringify(next.records.find(r=>String(r.match_id)===String(selectedMatch.providerMatchId))||newDraft(selectedMatch))):null;
+      renderAll();renderStatsTable();status.textContent="นำเข้าในอุปกรณ์นี้แล้ว "+next.records.length+" แมตช์ · สถิติยังเป็น Lower bound จนกว่าจะครบ Coverage และ Identity";
+      setStatus("นำเข้า Ledger JSON สำเร็จในอุปกรณ์นี้เท่านั้น","success");
+    }catch(error){status.textContent="อ่านไฟล์ไม่สำเร็จ: "+error.message;}
+  }
   function renderStatsTable(){
     const data=loadStored(),players=new Map(),appearances=new Set();let unresolved=false;
     const ensure=p=>{if(!p||p.identity_status!=="verified"||!p.ft_player_id){unresolved=true;return null;}if(!players.has(p.ft_player_id))players.set(p.ft_player_id,{id:p.ft_player_id,name:p.observed_name,apps:0,goals:0,assists:0});return players.get(p.ft_player_id);};
@@ -182,7 +227,7 @@
   function mount(){
     const page=$("playerMatchEventEntryPage");
     if(!page||page.dataset.mounted==="true")return false;
-    const required=["pmeCompetition","pmeMatch","pmeMatchSummary","pmeMatchCount","pmeReloadMatches","pmeLineupTeam","pmePlayerRole","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeLineupSources","pmeIdentityConfirmed","pmeAddLineup","pmeSourceName","pmeSourceUrl","pmeSourceType","pmeSourceRights","pmePermissionBasis","pmeAddSource","pmeSourceList","pmeLineupList","pmeEventType","pmeEventMinute","pmeSubFields","pmeGoalFields","pmeEventSources","pmeAddEvent","pmeEventList","pmeLineupCoverage","pmeEventCoverage","pmeReviewedConfirm","pmeReviewState","pmeSave","pmeExport","pmeStatus","pmeSummary","pmeSavedList","pmeClear","pmeRenderStats","pmeStatsStatus","pmeStatsTable"];
+    const required=["pmeCompetition","pmeMatch","pmeMatchSummary","pmeMatchCount","pmeReloadMatches","pmeLineupTeam","pmePlayerRole","pmePlayerName","pmeShirtNumber","pmePlayerId","pmeLineupSources","pmeIdentityConfirmed","pmeAddLineup","pmeSourceName","pmeSourceUrl","pmeSourceType","pmeSourceRights","pmePermissionBasis","pmeAddSource","pmeSourceList","pmeLineupList","pmeEventType","pmeEventMinute","pmeSubFields","pmeGoalFields","pmeEventSources","pmeAddEvent","pmeEventList","pmeLineupCoverage","pmeEventCoverage","pmeReviewedConfirm","pmeReviewState","pmeSave","pmeExport","pmeStatus","pmeSummary","pmeSavedList","pmeClear","pmeRenderStats","pmeStatsStatus","pmeStatsTable","pmeImportFile","pmeImport","pmeImportStatus"];
     const missing=required.filter(id=>!$(id)||!page.contains($(id)));
     if(missing.length){
       console.error("Player Match Event Entry mount deferred; missing page controls:",missing);
@@ -200,7 +245,7 @@
       $("pmeLineupList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-lineup]");if(b)removeItem("lineups",Number(b.dataset.removeLineup));});
       $("pmeSourceList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-source]");if(b)removeItem("sources",Number(b.dataset.removeSource));});
       $("pmeEventList").addEventListener("click",e=>{const b=e.target.closest("[data-remove-event]");if(b)removeItem("events",Number(b.dataset.removeEvent));});
-      $("pmeRenderStats").addEventListener("click",renderStatsTable);
+      $("pmeRenderStats").addEventListener("click",renderStatsTable);$("pmeImport").addEventListener("click",importData);
       window.addEventListener("pft-football-database-ready",()=>{matches=getMatches();renderMatchOptions();renderHeader();renderStoredSummary();renderStatsTable();});
       renderMatchOptions();renderAll();renderEventFields();renderStatsTable();
       page.dataset.mounted="true";
