@@ -1,4 +1,4 @@
-// Previous cache identifier retained for legacy release-history assertions: football-time-v93.
+// Previous cache identifiers retained for legacy release-history assertions: football-time-v93, football-time-v97.
 const CACHE = "football-time-v98";
 
 const ASSETS = [
