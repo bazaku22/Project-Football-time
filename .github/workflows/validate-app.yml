@@ -125,6 +125,8 @@ on:
       - "js/player-database-mvp.js"
       - "css/player-database-mvp.css"
       - "tests/test_player_database_verified_ledger.py"
+      - "data/footballsquads-roster-intake-2026-27.json"
+      - "tests/test_player_roster_database_mvp.py"
       - "docs/player-match-event-ledger-2026-27.md"
       - ".github/workflows/player-match-event-ledger-tests.yml"
       - "docs/phase-6-5-match-calendar-filters.md"
@@ -411,6 +413,10 @@ jobs:
         run: |
           node --check js/player-database-mvp.js
           python3 -m unittest tests/test_player_database_verified_ledger.py -v
+
+      - name: Validate Player Database 2026/27 roster MVP
+        run: |
+          python3 -m unittest tests/test_player_roster_database_mvp.py -v
 
       - name: Validate manual match research intake contract
         run: |
