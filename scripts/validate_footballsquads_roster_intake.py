@@ -110,6 +110,12 @@ def validate(data: dict) -> list[str]:
         covered = {league for league, _ in clubs}
         if covered != set(EXPECTED_LEAGUE_COUNTS):
             errors.append("complete status requires all five leagues")
+        club_counts = {
+            league: len({team_id for league_id, team_id in clubs if league_id == league})
+            for league in EXPECTED_LEAGUE_COUNTS
+        }
+        if club_counts != EXPECTED_LEAGUE_COUNTS:
+            errors.append(f"complete status requires exact league club counts: {EXPECTED_LEAGUE_COUNTS}")
     return errors
 
 
