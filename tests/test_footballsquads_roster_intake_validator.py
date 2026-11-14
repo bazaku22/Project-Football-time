@@ -24,7 +24,7 @@ class FootballSquadsRosterIntakeValidatorTests(unittest.TestCase):
                 capture_output=True, text=True, check=False,
             )
 
-    def test_partial_manual_intake_is_valid_but_not_complete(self):
+    def test_all_96_manual_pages_are_valid_but_rows_remain_unverified(self):
         result = subprocess.run(
             [sys.executable, str(VALIDATOR), str(DATA)],
             capture_output=True, text=True, check=False,
@@ -33,7 +33,9 @@ class FootballSquadsRosterIntakeValidatorTests(unittest.TestCase):
         self.assertEqual(self.data["club_pages_reviewed"], len(self.data["sources"]))
         self.assertEqual(self.data["roster_memberships_count"], len(self.data["memberships"]))
         self.assertLessEqual(self.data["club_pages_reviewed"], 96)
-        self.assertEqual(self.data["status"], "partial_research_only")
+        self.assertEqual(self.data["status"], "complete_research_only")
+        self.assertEqual(self.data["club_pages_reviewed"], 96)
+        self.assertTrue(all(row["membership_status"] == "source_listed_pending_independent_crosscheck" for row in self.data["memberships"]))
         self.assertFalse(self.data["production_import"])
 
     def test_rejects_complete_status_before_all_96_club_pages(self):
