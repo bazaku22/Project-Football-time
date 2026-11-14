@@ -53,7 +53,7 @@ def validate(data: dict) -> list[str]:
         source_by_id[source_id] = source
         if source.get("league_id") not in EXPECTED_LEAGUE_COUNTS:
             errors.append(f"source {source_id} has unsupported league")
-        if not str(source.get("url", "")).startswith("https://www.footballsquads.co.uk/"):
+        if not (str(source.get("url", "")).startswith("https://www.footballsquads.co.uk/") or str(source.get("url", "")).startswith("https://footballsquads.co.uk/")):
             errors.append(f"source {source_id} must use a FootballSquads HTTPS page")
         if source.get("collection_method") != "manual_transcription":
             errors.append(f"source {source_id} must be manually transcribed")
