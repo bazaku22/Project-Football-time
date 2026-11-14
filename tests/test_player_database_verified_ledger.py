@@ -129,5 +129,49 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         palace = by_id["560635"]
         self.assertEqual(next(event["minute"] for event in palace["events"] if event["type"] == "substitution" and event["player_on"]["observed_name"] == "Joe Gomez"), "90+1")
 
+    def test_exact_name_research_preview_has_expected_lower_bound_for_mapped_pilot_clubs(self):
+        import json, re, unicodedata
+        roster = json.loads((ROOT / "data/footballsquads-roster-intake-2026-27.json").read_text(encoding="utf-8"))
+        data = json.loads((ROOT / "data/research-intake/premier-league-matchweek-10-2026-27.json").read_text(encoding="utf-8"))
+        def norm(value):
+            value = unicodedata.normalize("NFKD", str(value or ""))
+            value = "".join(ch for ch in value if not unicodedata.combining(ch)).lower()
+            for old, new in (("ø","o"),("ł","l"),("đ","d"),("æ","ae"),("œ","oe"),("ß","ss")):
+                value = value.replace(old,new)
+            return " ".join(re.sub(r"[^a-z0-9]+"," ",value).split())
+        def aggregate(club, canonical_id):
+            matches = [r for r in data["records"] if r["home_team"]["team_id"] == canonical_id or r["away_team"]["team_id"] == canonical_id]
+            stats = {}
+            def row(player):
+                name = player["observed_name"]
+                key = norm(name)
+                stats.setdefault(key, {"name":name,"appearances":set(),"goals":0,"assists":0})
+                return stats[key]
+            for record in matches:
+                for lineup in record["lineups"]:
+                    if lineup["team_id"] == canonical_id and lineup["role"] == "starting_xi":
+                        row(lineup["player"])["appearances"].add(str(record["match_id"]))
+                by_name = {norm(x["player"]["observed_name"]):x["team_id"] for x in record["lineups"]}
+                for event in record["events"]:
+                    if event["type"] == "substitution":
+                        for player in (event["player_on"], event["player_off"]):
+                            if by_name.get(norm(player["observed_name"])) == canonical_id:
+                                row(player)["appearances"].add(str(record["match_id"]))
+                    elif event["type"] == "goal":
+                        scorer = event.get("scorer")
+                        if scorer and by_name.get(norm(scorer["observed_name"])) == canonical_id:
+                            row(scorer)["goals"] += 1
+                            row(scorer)["appearances"].add(str(record["match_id"]))
+                        assist = event.get("assist_player")
+                        if event["assist_status"] == "explicit" and assist and by_name.get(norm(assist["observed_name"])) == canonical_id:
+                            row(assist)["assists"] += 1
+                            row(assist)["appearances"].add(str(record["match_id"]))
+            roster_names = {norm(x["name"]) for x in roster["memberships"] if x["club_name"] == club}
+            return {key:value for key,value in stats.items() if key in roster_names}
+        man_utd = aggregate("Manchester United","football-data:66")
+        forest = aggregate("Nottingham Forest","football-data:351")
+        self.assertEqual((len(man_utd),sum(len(x["appearances"]) for x in man_utd.values()),sum(x["goals"] for x in man_utd.values()),sum(x["assists"] for x in man_utd.values())),(16,16,4,3))
+        self.assertEqual((len(forest),sum(len(x["appearances"]) for x in forest.values()),sum(x["goals"] for x in forest.values()),sum(x["assists"] for x in forest.values())),(15,15,3,1))
+
 if __name__ == "__main__":
     unittest.main()

@@ -3361,8 +3361,12 @@
           "minute": "18",
           "team_id": "football-data:351",
           "goal_type": "normal",
-          "assist_status": "unknown",
-          "assist_player": null,
+          "assist_status": "explicit",
+          "assist_player": {
+            "observed_name": "Xaver Schlager",
+            "identity_status": "unresolved",
+            "ft_player_id": null
+          },
           "source_ids": [
             "sky-560641",
             "club-560641"
