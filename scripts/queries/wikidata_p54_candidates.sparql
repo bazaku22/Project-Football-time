@@ -1,0 +1,30 @@
+# Wikidata P54 evidence query template — one selected club at a time.
+# Replace Q9617 with the reviewed Wikidata QID for the target club.
+# Export results as SPARQL JSON. Do not run broad all-player or all-club queries.
+#
+# P54 is historical membership evidence, not proof of current registration.
+# Keep every statement GUID, rank, qualifier and reference row in the export.
+
+SELECT ?player ?playerLabel ?team ?teamLabel ?statement ?rank ?start ?end
+       ?reference ?referenceUrl ?referenceSource ?retrieved
+WHERE {
+  VALUES ?team { wd:Q9617 }
+
+  ?player wdt:P31 wd:Q5 ;
+          p:P54 ?statement .
+  ?statement ps:P54 ?team ;
+             wikibase:rank ?rank .
+
+  OPTIONAL { ?statement pq:P580 ?start . }
+  OPTIONAL { ?statement pq:P582 ?end . }
+
+  OPTIONAL {
+    ?statement prov:wasDerivedFrom ?reference .
+    OPTIONAL { ?reference pr:P854 ?referenceUrl . }
+    OPTIONAL { ?reference pr:P248 ?referenceSource . }
+    OPTIONAL { ?reference pr:P813 ?retrieved . }
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+ORDER BY ?player ?statement ?reference
