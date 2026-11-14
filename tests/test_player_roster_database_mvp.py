@@ -27,6 +27,7 @@ class PlayerRosterDatabaseMvpTests(unittest.TestCase):
             self.assertEqual(sum(1 for source in self.data["sources"] if source["league_id"] == league), count)
         self.assertIn('data-roster-player', self.source)
         self.assertIn('id:team.dataset.team,name', self.source)
+        self.assertIn("source?.provider_team_name||registryName", self.source)
 
     def test_player_list_uses_exact_source_membership_and_has_search(self):
         self.assertIn('rosterData.memberships.filter(p=>p.source_id===source.id)', self.source)
