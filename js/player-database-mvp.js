@@ -1,15 +1,16 @@
 "use strict";
 (() => {
  const REGISTRY_URL="./data/player-team-name-registry-2026-27.json";
+ const ROSTER_URL="./data/footballsquads-roster-intake-2026-27.json";
  const LEDGER_KEY="pft_player_match_event_ledger_2026_27_v1";
  const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1";
  const TEAM_ALIAS_URL="./data/player-team-alias-decisions-2026-27.json";
  const LEAGUES=[["PL","Premier League"],["PD","La Liga"],["BL1","Bundesliga"],["SA","Serie A"],["FL1","Ligue 1"]];
  const FT_ID=/^FT-P-[0-9]{6}$/;
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
- let registry=null, bundledTeamAliases={}, selectedLeague=null, selectedTeam=null, selectedPlayer=null, query="";
+ let registry=null, rosterData=null, bundledTeamAliases={}, selectedLeague=null, selectedTeam=null, selectedPlayer=null, query="", playerQuery="";
  const root=document.createElement("section");root.id="dbtab-playerDatabase";root.className="db-panel";
- root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อดูข้อมูลจาก Match Event Ledger ที่ตรวจสอบแล้ว</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
+ root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อดูรายชื่อผู้เล่นฤดูกาล 2026/27</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
  const fixtures=document.querySelector("#fixtures"),databaseNav=document.querySelector(".db-subnav");
  if(fixtures&&databaseNav){fixtures.appendChild(root);const tab=document.createElement("button");tab.type="button";tab.dataset.dbTab="playerDatabase";tab.textContent="ข้อมูลผู้เล่น";databaseNav.appendChild(tab);}
  else{root.id="playerDatabasePage";root.className="page";document.querySelector("#main")?.appendChild(root);}
@@ -101,41 +102,49 @@
   verifiedRows.forEach(p=>delete p._apps);
   return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
  }
+ function attributionMarkup(){return '<p class="pdb-attribution">Source of Material is <a href="https://www.footballsquads.com/" target="_blank" rel="noopener noreferrer">http://www.footballsquads.com</a>. Material: © FootballSquads.com, 1999 - , All Rights Reserved</p>';}
  function render(){
-  if(!registry){content().innerHTML='<div class="pdb-empty">ไม่สามารถโหลดทะเบียนทีมได้ กรุณาลองใหม่ภายหลัง</div>';return;}
+  if(!registry||!rosterData){content().innerHTML='<div class="pdb-empty">กำลังโหลดข้อมูลผู้เล่น…</div>';return;}
   if(selectedPlayer){
-   const data=teamLedger(selectedTeam.id),player=data.verified.find(p=>p.id===selectedPlayer.id);
-   if(!player){selectedPlayer=null;render();return;}
-   content().innerHTML='<button class="pdb-back" data-back="players">‹ กลับไปยังรายชื่อนักเตะ</button><div class="pdb-team-hero"><span class="pdb-team-mark">FT</span><div><h3>'+esc(player.name)+'</h3><p>'+esc(selectedTeam.name)+' · '+esc(selectedLeague[1])+' · '+esc(data.season)+'</p></div></div><div class="pdb-profile-id">FT Player ID · <b>'+esc(player.id)+'</b></div><div class="pdb-stat-grid"><div><b>'+player.appearances+'</b><span>ลงสนาม</span></div><div><b>'+player.goals+'</b><span>ประตู</span></div><div><b>'+player.assists+'</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">แสดงเฉพาะสถิติจากแมตช์ที่ผ่านการตรวจสอบครบถ้วนใน Match Event Ledger ไม่ใช่ยอดรวมทุกการแข่งขันของฤดูกาล</p><div class="pdb-verification"><b>สถานะ: Verified</b><span>แมตช์ที่ผ่านการตรวจสอบใน Ledger: '+data.verifiedMatches+' นัด</span></div>';
+   const source=rosterData.sources.find(s=>s.league_id===selectedLeague?.[0]&&String(s.provider_team_id)===String(selectedTeam?.id));
+   const player=rosterData.memberships.find(p=>p.id===selectedPlayer.id&&p.source_id===source?.id);
+   if(!source||!player){selectedPlayer=null;render();return;}
+   content().innerHTML='<button class="pdb-back" data-back="players">‹ กลับไปยังรายชื่อนักเตะ</button><div class="pdb-team-hero"><span class="pdb-team-mark">FT</span><div><h3>'+esc(player.name)+'</h3><p>'+esc(selectedTeam.name)+' · '+esc(selectedLeague[1])+' · '+esc(player.season)+'</p></div></div><div class="pdb-profile-status"><b>Source-listed · รอตรวจสอบ</b><span>ชื่อนี้ถอดจากหน้ารายชื่อสโมสร ยังไม่ยืนยันตัวตนหรือสถานะการลงทะเบียน</span></div><div class="pdb-stat-grid"><div><b>—</b><span>ลงสนาม</span></div><div><b>—</b><span>ประตู</span></div><div><b>—</b><span>แอสซิสต์</span></div></div><p class="pdb-data-note">ยังไม่มีสถิติฤดูกาล 2026/27 ที่ผ่านการตรวจสอบและยืนยันแหล่งข้อมูลสำหรับผู้เล่นรายนี้ จึงไม่แสดงตัวเลขแทนค่าจริง</p><div class="pdb-source-card"><b>แหล่งที่มาของรายชื่อ</b><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">เปิดหน้ารายชื่อ '+esc(selectedTeam.name)+' บน FootballSquads ↗</a><small>ตรวจข้อมูลเมื่อ '+esc(source.observed_at)+' · '+esc(source.current_roster_boundary)+'</small></div>'+attributionMarkup();
    return;
   }
   if(selectedTeam){
-   const data=teamLedger(selectedTeam.id);
-   if(data.teamMappingPending){content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-team-hero"><span class="pdb-team-mark">'+esc(selectedTeam.name.slice(0,2).toUpperCase())+'</span><div><h3>'+esc(selectedTeam.name)+'</h3><p>'+esc(selectedLeague[1])+' · ฤดูกาล 2026/27</p></div></div><div class="pdb-empty pdb-no-data"><strong>รอยืนยัน Team ID Mapping</strong><span>ยังไม่มีการยืนยันความเชื่อมโยงระหว่าง StrikerAPI Team ID กับ football-data.org Team ID ในอุปกรณ์นี้ จึงยังไม่เชื่อมข้อมูลหรือแสดงสถิติ เพื่อป้องกันการจับคู่ผิดสโมสร</span></div>';return;}
-   content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-team-hero"><span class="pdb-team-mark">'+esc(selectedTeam.name.slice(0,2).toUpperCase())+'</span><div><h3>'+esc(selectedTeam.name)+'</h3><p>'+esc(selectedLeague[1])+' · ฤดูกาล 2026/27</p></div></div><div class="pdb-ledger-toolbar"><span>ข้อมูลจาก Match Event Ledger ในอุปกรณ์นี้</span><button type="button" data-refresh-ledger>รีเฟรช</button></div><div class="pdb-count-grid"><div><b>'+data.verified.length+'</b><span>ผู้เล่น Verified</span></div><div><b>'+data.pending.length+'</b><span>รอตรวจสอบ</span></div></div><section class="pdb-player-section"><h4>Verified Players</h4><p>ยืนยันตัวตนและนับเฉพาะแมตช์ที่ผ่านเกณฑ์ตรวจสอบครบถ้วน</p>'+(data.verified.length?'<div class="pdb-player-list">'+data.verified.map(p=>'<button class="pdb-player-row" data-player="'+esc(p.id)+'"><span><b>'+esc(p.name)+'</b><small>'+esc(p.id)+' · ลงสนาม '+p.appearances+' · '+p.goals+' ประตู · '+p.assists+' แอสซิสต์</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div>':'<div class="pdb-empty">ยังไม่มีผู้เล่นที่ผ่านเกณฑ์ Verified ในทีมนี้</div>')+'</section><section class="pdb-player-section"><h4>Pending Verification</h4><p>แสดงชื่อจากหลักฐานที่บันทึกไว้เท่านั้น ยังไม่นำมาคำนวณสถิติ</p>'+(data.pending.length?'<div class="pdb-player-list">'+data.pending.map(p=>'<div class="pdb-player-row pdb-pending-row"><span><b>'+esc(p.name)+'</b><small>'+(p.id?esc(p.id)+" · ":"")+esc(p.reason)+'</small></span><span class="pdb-pending-tag">รอตรวจ</span></div>').join("")+'</div>':'<div class="pdb-empty">ไม่มีรายการรอตรวจสอบจาก Ledger สำหรับทีมนี้</div>')+'</section><p class="pdb-data-note">Ledger ครอบคลุมเฉพาะแมตช์ที่มีการบันทึกใน 5 ลีกหลัก และอาจยังไม่ครบทุกนัดหรือทุกรายการแข่งขัน สถิติที่แสดงจึงไม่ใช่ยอดรวมฤดูกาลทั้งหมด</p>';
+   const source=rosterData.sources.find(s=>s.league_id===selectedLeague?.[0]&&String(s.provider_team_id)===String(selectedTeam.id));
+   if(!source){content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-empty">ยังไม่พบแหล่งรายชื่อของสโมสรนี้</div>'+attributionMarkup();return;}
+   const allPlayers=rosterData.memberships.filter(p=>p.source_id===source.id).sort((a,b)=>a.name.localeCompare(b.name));
+   const players=allPlayers.filter(p=>p.name.toLocaleLowerCase().includes(playerQuery.toLocaleLowerCase()));
+   content().innerHTML='<button class="pdb-back" data-back="teams">‹ กลับไปยังทีม</button><div class="pdb-team-hero"><span class="pdb-team-mark">'+esc(selectedTeam.name.slice(0,2).toUpperCase())+'</span><div><h3>'+esc(selectedTeam.name)+'</h3><p>'+esc(selectedLeague[1])+' · ฤดูกาล 2026/27</p></div></div><div class="pdb-roster-summary"><b>'+allPlayers.length+'</b><span>รายชื่อที่พบในแหล่งข้อมูลของสโมสร</span><em>รอตรวจสอบอิสระ</em></div><label class="pdb-search"><span>ค้นหาผู้เล่น</span><input id="pdb-player-search" type="search" value="'+esc(playerQuery)+'" placeholder="พิมพ์ชื่อนักเตะ…" autocomplete="off"></label><div class="pdb-player-list">'+(players.length?players.map(p=>'<button class="pdb-player-row" data-roster-player="'+esc(p.id)+'"><span><b>'+esc(p.name)+'</b><small>Source-listed · รอตรวจสอบตัวบุคคลและสังกัด</small></span><span class="pdb-chevron">›</span></button>').join(""):'<div class="pdb-empty">ไม่พบผู้เล่นที่ตรงกับคำค้นหา</div>')+'</div><div class="pdb-source-card"><b>แหล่งข้อมูล</b><a href="'+esc(source.url)+'" target="_blank" rel="noopener noreferrer">FootballSquads · '+esc(selectedTeam.name)+' ↗</a><small>ตรวจข้อมูลเมื่อ '+esc(source.observed_at)+' · ไม่รวมส่วนผู้เล่นที่ย้ายออกแล้ว</small></div><p class="pdb-data-note">รายชื่อนี้เป็นข้อมูลที่ถอดจากแหล่งข้อมูล ไม่ได้ยืนยันว่าเป็นผู้เล่นที่ลงทะเบียนกับลีก มีสิทธิ์ลงแข่งขัน หรือได้ลงสนามแล้ว</p>'+attributionMarkup();
+   const input=root.querySelector("#pdb-player-search");input?.addEventListener("input",e=>{playerQuery=e.target.value;const pos=e.target.selectionStart;render();const next=root.querySelector("#pdb-player-search");next?.focus();next?.setSelectionRange(pos,pos);});
    return;
   }
   if(selectedLeague){
-   const teams=Object.entries(registry.lookup[selectedLeague[0]]||{}).map(([id,name])=>({id,name})).filter(t=>t.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())).sort((a,b)=>a.name.localeCompare(b.name));
-   content().innerHTML='<button class="pdb-back" data-back="leagues">‹ กลับไปยังลีก</button><div class="pdb-section-title"><div><h3>'+esc(selectedLeague[1])+'</h3><p>'+teams.length+' ทีมในรายการ</p></div><span class="pdb-count">'+Object.keys(registry.lookup[selectedLeague[0]]||{}).length+' ทีม</span></div><label class="pdb-search"><span>ค้นหาทีม</span><input id="pdb-team-search" type="search" value="'+esc(query)+'" placeholder="พิมพ์ชื่อทีม…" autocomplete="off"></label><div class="pdb-team-list">'+teams.map(t=>'<button class="pdb-team-row" data-team="'+esc(t.id)+'"><span class="pdb-team-mark">'+esc(t.name.slice(0,2).toUpperCase())+'</span><span><b>'+esc(t.name)+'</b><small>เปิดดูผู้เล่นและสถานะข้อมูลจาก Ledger</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div>';
+   const teams=Object.entries(registry.lookup[selectedLeague[0]]||{}).map(([id,registryName])=>{const source=rosterData.sources.find(s=>s.league_id===selectedLeague[0]&&String(s.provider_team_id)===String(id));return {id,name:source?.provider_team_name||registryName};}).filter(t=>t.name.toLocaleLowerCase().includes(query.toLocaleLowerCase())).sort((a,b)=>a.name.localeCompare(b.name));
+   content().innerHTML='<button class="pdb-back" data-back="leagues">‹ กลับไปยังลีก</button><div class="pdb-section-title"><div><h3>'+esc(selectedLeague[1])+'</h3><p>'+teams.length+' ทีมในรายการ</p></div><span class="pdb-count">'+Object.keys(registry.lookup[selectedLeague[0]]||{}).length+' ทีม</span></div><label class="pdb-search"><span>ค้นหาทีม</span><input id="pdb-team-search" type="search" value="'+esc(query)+'" placeholder="พิมพ์ชื่อทีม…" autocomplete="off"></label><div class="pdb-team-list">'+teams.map(t=>'<button class="pdb-team-row" data-team="'+esc(t.id)+'"><span class="pdb-team-mark">'+esc(t.name.slice(0,2).toUpperCase())+'</span><span><b>'+esc(t.name)+'</b><small>'+rosterData.memberships.filter(p=>p.league_id===selectedLeague[0]&&p.club_id==='provider-display:'+selectedLeague[0]+':'+t.id).length+' รายชื่อ · เปิดดูข้อมูลผู้เล่น</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div>'+attributionMarkup();
    const input=root.querySelector("#pdb-team-search");input?.addEventListener("input",e=>{query=e.target.value;const pos=e.target.selectionStart;render();const next=root.querySelector("#pdb-team-search");next?.focus();next?.setSelectionRange(pos,pos);});
    return;
   }
-  content().innerHTML='<div class="pdb-intro"><strong>เลือกลีก</strong><span>ครอบคลุมทุกทีมจาก 5 ลีกใหญ่</span></div><div class="pdb-league-grid">'+LEAGUES.map(([id,name])=>'<button class="pdb-league-card" data-league="'+id+'"><span class="pdb-league-symbol">'+id+'</span><span><b>'+name+'</b><small>'+Object.keys(registry.lookup[id]||{}).length+' ทีม</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div><div class="pdb-total"><b>96</b><span>ทีมทั้งหมดใน 5 ลีกใหญ่</span></div>';
+  content().innerHTML='<div class="pdb-intro"><strong>เลือกลีก</strong><span>รายชื่อสโมสรฤดูกาล 2026/27</span></div><div class="pdb-league-grid">'+LEAGUES.map(([id,name])=>'<button class="pdb-league-card" data-league="'+id+'"><span class="pdb-league-symbol">'+id+'</span><span><b>'+name+'</b><small>'+Object.keys(registry.lookup[id]||{}).length+' ทีม</small></span><span class="pdb-chevron">›</span></button>').join("")+'</div><div class="pdb-total"><b>96</b><span>ทีมทั้งหมดใน 5 ลีกใหญ่ · '+rosterData.memberships.length+' source-listed names</span></div><p class="pdb-data-note">รายชื่อผู้เล่นทุกคนอยู่ในสถานะรอตรวจสอบอิสระ สถิติจะปรากฏเมื่อมีหลักฐานที่ตรวจสอบได้เท่านั้น</p>'+attributionMarkup();
  }
  root.addEventListener("click",e=>{
-  const league=e.target.closest("[data-league]");if(league){selectedLeague=LEAGUES.find(x=>x[0]===league.dataset.league);selectedTeam=null;selectedPlayer=null;query="";render();return;}
-  const team=e.target.closest("[data-team]");if(team){const name=registry.lookup[selectedLeague[0]][team.dataset.team];selectedTeam={id:team.dataset.team,name};selectedPlayer=null;render();return;}
-  const player=e.target.closest("[data-player]");if(player){const data=teamLedger(selectedTeam.id);selectedPlayer=data.verified.find(p=>p.id===player.dataset.player)||null;render();return;}
+  const league=e.target.closest("[data-league]");if(league){selectedLeague=LEAGUES.find(x=>x[0]===league.dataset.league);selectedTeam=null;selectedPlayer=null;query="";playerQuery="";render();return;}
+  const team=e.target.closest("[data-team]");if(team){const source=rosterData.sources.find(s=>s.league_id===selectedLeague[0]&&String(s.provider_team_id)===String(team.dataset.team));const name=source?.provider_team_name||registry.lookup[selectedLeague[0]][team.dataset.team];selectedTeam={id:team.dataset.team,name};selectedPlayer=null;playerQuery="";render();return;}
+  const player=e.target.closest("[data-roster-player]");if(player){selectedPlayer={id:player.dataset.rosterPlayer};render();return;}
   if(e.target.closest("[data-refresh-ledger]")){render();return;}
-  const back=e.target.closest("[data-back]");if(back){if(back.dataset.back==="leagues")selectedLeague=null;else if(back.dataset.back==="teams")selectedPlayer=null;else selectedTeam=null;query="";render();}
+  const back=e.target.closest("[data-back]");if(back){if(back.dataset.back==="leagues"){selectedLeague=null;selectedTeam=null;selectedPlayer=null;query="";playerQuery="";}else if(back.dataset.back==="teams"){selectedTeam=null;selectedPlayer=null;query="";playerQuery="";}else if(back.dataset.back==="players"){selectedPlayer=null;}render();}
  });
  Promise.all([
   fetch(REGISTRY_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}),
+  fetch(ROSTER_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}),
   fetch(TEAM_ALIAS_URL,{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("HTTP "+r.status);return r.json();}).catch(()=>null)
- ]).then(([data,aliases])=>{
+ ]).then(([data,roster,aliases])=>{
   const count=Object.values(data.lookup||{}).reduce((sum,league)=>sum+Object.keys(league).length,0);
   if(data.status!=="provider_display_names_verified"||data.production_import!==false||count!==96)throw Error("ทะเบียนทีมไม่ผ่านการตรวจสอบ");
+  const sourceIds=new Set((roster.sources||[]).map(source=>source.id));
+  if(roster.status!=="complete_research_only"||roster.season!=="2026/27"||roster.production_import!==false||roster.club_pages_reviewed!==96||roster.sources?.length!==96||roster.memberships?.length!==roster.roster_memberships_count||roster.memberships.some(row=>!sourceIds.has(row.source_id)||row.membership_status!=="source_listed_pending_independent_crosscheck"||row.identity_status!=="name_only_unverified"))throw Error("ชุดข้อมูลรายชื่อผู้เล่นไม่ผ่านการตรวจสอบ");
   if(aliases&&aliases.status==="reviewed_approved"&&aliases.production_import===false&&aliases.season==="2026/27"&&Array.isArray(aliases.decisions)){
    aliases.decisions.forEach(item=>{
     if(item&&item.status==="approved"&&item.review_required===false&&typeof item.league_id==="string"&&typeof item.provider_team_id==="string"&&/^football-data:[0-9]+$/.test(item.canonical_team_id||"")){
@@ -144,7 +153,7 @@
     }
    });
   }
-  registry=data;render();
- }).catch(error=>{content().innerHTML='<div class="pdb-empty">โหลดทะเบียนทีมไม่สำเร็จ ('+esc(error.message)+')</div>';});
+  registry=data;rosterData=roster;render();
+ }).catch(error=>{content().innerHTML='<div class="pdb-empty">โหลดทะเบียนผู้เล่นไม่สำเร็จ ('+esc(error.message)+')</div>';});
  window.FootballTimePlayerDatabase={loadLedger,loadTeamAliases,recordVerified,teamLedger};
 })();

@@ -60,9 +60,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.5-beta.6"', html)
-        self.assertIn('Project Football Time V6.26.5-beta.6', html)
-        self.assertIn('football-time-v96', sw)
+        self.assertIn('content="6.26.5-beta.7"', html)
+        self.assertIn('Project Football Time V6.26.5-beta.7', html)
+        self.assertIn('football-time-v97', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
