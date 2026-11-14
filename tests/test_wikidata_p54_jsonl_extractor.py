@@ -26,6 +26,7 @@ def sparql_row(reference="https://www.wikidata.org/entity/reference/R1",
                team="Q9617", statement="Q123$abc"):
     row = {
         "player": binding("http://www.wikidata.org/entity/Q123"),
+        "occupation": binding("http://www.wikidata.org/entity/Q937857"),
         "playerLabel": binding("Test Player", "literal"),
         "team": binding(f"http://www.wikidata.org/entity/{team}"),
         "statement": binding(f"http://www.wikidata.org/entity/statement/{statement}"),
@@ -155,6 +156,18 @@ class WikidataP54ExtractorTests(unittest.TestCase):
         second["start"] = binding("2025-07-01T00:00:00Z", "literal")
         with self.assertRaisesRegex(ValueError, "conflicting rank/date"):
             normalize_sparql_json({"results": {"bindings": [first, second]}}, "Q9617")
+
+    def test_normalizes_plus_prefixed_wikidata_date_time(self):
+        item = sparql_row()
+        item["start"] = binding("+2026-08-01T00:00:00Z", "literal")
+        report = normalize_sparql_json({"results": {"bindings": [item]}}, "Q9617")
+        self.assertEqual(report["candidates"][0]["p54_statements"][0]["qualifiers"]["start_time"], "2026-08-01")
+
+    def test_rejects_non_football_occupation_binding(self):
+        item = sparql_row()
+        item["occupation"] = binding("http://www.wikidata.org/entity/Q5")
+        with self.assertRaisesRegex(ValueError, "occupation"):
+            normalize_sparql_json({"results": {"bindings": [item]}}, "Q9617")
 
     def test_rejects_invalid_team_qid(self):
         with self.assertRaisesRegex(ValueError, "team-qid"):
