@@ -204,7 +204,7 @@
       if(errors.length){status.textContent="นำเข้าไม่ได้: "+errors.slice(0,5).join(" · ");return;}
       const rightsPending=data.records.some(r=>r.sources.some(s=>s.reuse_rights!=="confirmed"));
       const verifiedCount=data.records.filter(r=>r.review_status==="verified").length;
-      const message="ตรวจไฟล์ผ่าน "+data.records.length+" แมตช์ · VERIFIED "+verifiedCount+" · "+(rightsPending?"มีแหล่งข้อมูลที่สิทธิ์ยังไม่ยืนยัน":"ทุกแหล่งระบุสิทธิ์ confirmed")+"\n\nการนำเข้าจะแทนที่ Ledger ในอุปกรณ์นี้ ไม่ได้เขียน Supabase หรือ Production ต้องการดำเนินการหรือไม่?";
+      const message="ตรวจไฟล์ผ่าน "+data.records.length+" แมตช์ · VERIFIED "+verifiedCount+" · "+(rightsPending?"มีแหล่งข้อมูลที่สิทธิ์ยังไม่ยืนยัน":"ทุกแหล่งระบุสิทธิ์ confirmed")+"\n\nการนำเข้าจะแทนที่ Ledger ในอุปกรณ์นี้ ไม่เขียนฐานข้อมูลส่วนกลางหรือ Production ต้องการดำเนินการหรือไม่?";
       if(!window.confirm(message))return;
       const next={...data,dataset_status:data.records.length?"research_records_present":"research_intake_empty",updated_at:new Date().toISOString(),expected_finished_match_ids:expectedMatchIds()};
       localStorage.setItem(STORAGE_KEY,JSON.stringify(next));
