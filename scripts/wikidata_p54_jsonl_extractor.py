@@ -228,7 +228,7 @@ def normalize_sparql_json(payload: object, team_qid: str) -> dict:
             binding_value(row, "statement"), expected_player_qid=player_qid
         ) if player_qid else None
         if not player_qid or not found_team_qid or not statement_id or occupation_qid != "Q937857":
-            raise ValueError(f"row {line_number}: invalid player, team, statement subject, or occupation binding")
+            raise ValueError(f"row {line_number}: invalid player, team, or statement binding (including statement subject) / occupation binding")
         if found_team_qid != team_qid:
             raise ValueError(f"row {line_number}: team {found_team_qid} does not match requested {team_qid}")
 
