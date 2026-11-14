@@ -196,3 +196,33 @@ For any later expansion:
 5. keep all unresolved records in Research Only until the existing rights-cleared intake validator accepts them.
 
 This pilot is an engineering source-discovery review, not legal advice. The existing official-source rights gate remains unchanged. No app/UI/version, player data file, manifest, Supabase table or Production state was changed.
+
+
+## FootballSquads non-commercial manual-use decision — 2026-11-14
+
+The project owner confirmed that Project Football Time is non-commercial: it does not sell services or generate revenue. The owner also approved using an alternative source with reuse terms that permit non-commercial use, and selected manual transcription from current club squad pages rather than scraping or automated import.
+
+### Terms checked
+
+- Source: [FootballSquads](https://www.footballsquads.co.uk/)
+- Published terms: [Terms of Use](https://footballsquads.co.uk/tou.htm)
+- Terms reviewed: 2026-11-14
+- The terms state that non-commercial use is permitted provided the site is credited. They require this attribution notice:
+
+  `Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved`
+
+- The terms require express permission for commercial use, including sale or resale. This project must remain non-commercial for this source basis to apply. Re-review before any change in distribution model or monetization.
+
+### Approved engineering use and limitations
+
+- Approved for this project: manually transcribe player names from current 2026/27 club squad pages, retain each page URL and observation date, and display the required attribution in the app and dataset documentation.
+- Do not scrape, crawl, bulk-download, or automate extraction. No provider API calls are needed or permitted for this task.
+- Include only entries before the source page's “Players no longer at this club” heading. Exclude that departed-player section.
+- Apply the project owner's confirmed scope consistently across the five leagues: include all names shown in the current club squad roster without splitting U21/youth categories; do not infer competition registration, match eligibility, or playing statistics from roster presence alone.
+- Record source-native details only where useful; do not infer missing positions, dates, IDs, or statistics. Keep statistics empty until supported by verified match/competition evidence.
+- This is an operational interpretation of the publisher's published terms, not legal advice. The source itself disclaims guarantees of accuracy/completeness; preserve source URL and observed date and flag conflicts rather than guessing.
+- No Production Supabase writes, migrations, provider API calls, scraping, or automated imports are authorized by this decision.
+
+### Coverage gate
+
+The 2026/27 five-league club pages identify 96 target clubs (Premier League 20, La Liga 20, Bundesliga 18, Serie A 20, Ligue 1 18). A release must not claim complete roster coverage until all 96 club pages have been manually reviewed, canonical team mappings have been checked, departed-player sections excluded, and validation/tests confirm coverage. The existing StrikerAPI display-name registry is not itself proof of league membership; reconcile every club against the league's 2026/27 FootballSquads index before accepting a roster.

@@ -131,3 +131,187 @@ This is a product intake risk-control review, not legal advice or a final legal 
 ### Next permitted data-discovery route
 
 Prioritize independently licensed/open datasets (for example, a source with an explicit CC0 or compatible database licence) and verify its coverage, update cadence, season membership and attribution requirements before adding records. Wikidata may be investigated as a discovery lead, but its current-club membership statements must be checked for freshness and provenance; it is not assumed to provide complete or current squad coverage. Do not substitute another aggregator whose terms prohibit reuse.
+
+
+## Updated roster intake scope and source decision — 2026-11-14
+
+The project owner confirmed that the app is non-commercial and approved FootballSquads for manual roster transcription under its published non-commercial terms, with the required attribution. See the source assessment for the terms URL, exact attribution and limitations.
+
+### Membership scope
+
+- Season: 2026/27.
+- Target: every club in the five major leagues (96 clubs in total: PL 20, La Liga 20, Bundesliga 18, Serie A 20, Ligue 1 18).
+- Include every player name in the current club squad roster, regardless of age; do not split U21, U18, reserve or youth labels into separate user-facing categories.
+- Exclude every entry in the source page's “Players no longer at this club” section and any player with clear source evidence of having left the club.
+- Preserve source URL and observation date per club. Do not silently infer an identity, position, provider ID, eligibility, or statistic from a name-only match.
+- Roster membership is not proof of league registration, match eligibility, or appearance. Statistics remain empty/unavailable until independently supported by verified match and competition evidence.
+
+### Collection and release rules
+
+- Manual transcription only. Do not scrape, crawl, automate extraction, call a provider API, or use credits.
+- Display the publisher-required attribution in the app and keep it in the dataset documentation.
+- One release only after all 96 club pages are reviewed and validated; no league-by-league partial release.
+- Keep `production_import: false`. This repository/UI release does not authorize Production Supabase writes, migrations, or data imports.
+- Do not reuse the old 25 research-only rows or the 29 Arsenal 2025/26 canonical records as current 2026/27 roster data without fresh source verification.
+- Preserve all existing local app data and the Match Event Ledger; do not clear user cache/data.
+
+## FootballSquads source-index verification — 2026-11-14
+
+The current-season index pages were opened and checked as the manual collection entry points. They list the following club counts:
+
+| League | Source index | Listed clubs | Target |
+|---|---|---:|---:|
+| Premier League | https://www.footballsquads.co.uk/eng/2026-2027/engprem.htm | 20 | 20 |
+| La Liga | https://www.footballsquads.co.uk/spain/2026-2027/spalali.htm | 20 | 20 |
+| Bundesliga | https://www.footballsquads.co.uk/ger/2026-2027/gerbun.htm | 18 | 18 |
+| Serie A | https://www.footballsquads.co.uk/italy/2026-2027/seriea.htm | 20 | 20 |
+| Ligue 1 | https://www.footballsquads.co.uk/france/2026-2027/fralig1.htm | 18 | 18 |
+| **Total** | | **96** | **96** |
+
+This verifies the index-level club count only. It does **not** mean that any of the 96 individual roster pages has passed player-by-player transcription or departure-section review. Individual pages must still be opened and checked; the current roster table ends before the explicit “Players no longer at this club” section. Empty shirt-number rows are not player records.
+
+### First individual-page review observations
+
+- Arsenal and Aston Villa 2026/27 pages were opened. Both show a current roster table followed by a separate “Players no longer at this club” section.
+- The pages contain many academy-age entries, consistent with the approved scope to include every named player in the current roster regardless of age.
+- Some displayed player/club combinations appear unusual. Preserve the page as the cited source, but flag any conflict for independent review rather than silently correcting or inferring.
+- The FootballSquads site itself disclaims accuracy and completeness. Every club record therefore retains its exact page URL and observation date, and no claim of registration, eligibility or appearance may be inferred from roster presence.
+
+### Current collection gate
+
+- Index-level club coverage: 96/96 listed.
+- Individual roster pages fully transcribed and checked: **not yet complete**.
+- Verified player memberships added to the production app: **0**.
+- Provider API calls: 0.
+- Production Supabase writes/migrations: 0.
+
+Required attribution for the eventual non-commercial app and documentation:
+
+> Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved
+
+Terms reference: https://footballsquads.co.uk/tou.htm (non-commercial use permitted with source credit; commercial use requires express permission). Re-check the terms before release and whenever the app's distribution or monetization model changes.
+
+## Independent Premier League cross-check — 2026-11-14
+
+A current official Premier League squad reference was located during review:
+
+- [2026/27 submitted squad lists](https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists), published 2026-09-03. The page describes the submitted first-team squad lists and separately identifies eligible U21 players.
+- [All 20 clubs' 2026/27 squad numbers](https://www.premierleague.com/en/news/4725682/all-20-premier-league-clubs-squad-numbers-for-202627-season), published 2026-09-22. The page includes first-team squad numbers and academy players who have appeared or may appear in first-team squads.
+
+These pages independently corroborate several player/club combinations that initially looked unusual on the FootballSquads Arsenal and Aston Villa pages. Such entries must not be rejected based on intuition alone; record a conflict only when the source evidence actually disagrees.
+
+This official Premier League material is a **cross-check reference only** for this intake. It does not replace the approved FootballSquads manual-transcription source, and it is not an authorization to copy or republish Premier League content. Continue to use the approved FootballSquads terms and required attribution for roster transcription. The official squad-list scope is also not identical to the project's agreed scope: the project includes every named player in the current FootballSquads club roster regardless of age and excludes its separate departed-player section.
+
+No roster records were added or changed by this cross-check. Individual club-page transcription remains incomplete; the 96/96 index count must not be described as 96/96 completed rosters.
+
+## Premier League club-page boundary audit — 2026-11-14
+
+All 20 individual Premier League club pages linked from the 2026/27 FootballSquads index have now been opened in this review (Arsenal, Aston Villa, Bournemouth, Brentford, Brighton & Hove Albion, Chelsea, Coventry City, Crystal Palace, Everton, Fulham, Hull City, Ipswich Town, Leeds United, Liverpool, Manchester City, Manchester United, Newcastle United, Nottingham Forest, Sunderland and Tottenham Hotspur).
+
+For the 18 pages newly opened in this pass, the explicit "Players no longer at this club" boundary was located and checked. The section is separate from the current roster table; examples include Bournemouth (page line 70), Brentford (line 82), Brighton (line 91), Chelsea (line 83), Crystal Palace (line 98), Liverpool (line 90), Manchester City (line 85), Manchester United (line 107), Newcastle United (line 87), and Tottenham Hotspur (line 80). Rows below that heading are not current-roster memberships and must be excluded.
+
+This is a page-opening and section-boundary audit, **not** a completed player-by-player transcription. Empty shirt-number rows are still excluded. No roster dataset rows were added or changed in this pass. Individual roster transcription and conflict review remain outstanding for all 20 Premier League clubs; do not count these pages as completed roster records.
+
+## Manual roster transcription progress — 2026-11-14
+
+The current-season FootballSquads directory was reopened and its four remaining league indexes were checked directly:
+
+- La Liga: 20 club links (index: https://www.footballsquads.co.uk/spain/2026-2027/spalali.htm).
+- Bundesliga: 18 club links (index: https://www.footballsquads.co.uk/ger/2026-2027/gerbun.htm).
+- Serie A: 20 club links (index: https://www.footballsquads.co.uk/italy/2026-2027/seriea.htm).
+- Ligue 1: 18 club links (index: https://www.footballsquads.co.uk/france/2026-2027/fralig1.htm).
+
+These confirm the 96-club target count at index level when combined with the Premier League's 20 clubs. They do not constitute roster transcription.
+
+### Player rows manually transcribed
+
+The separate file `data/footballsquads-roster-intake-2026-27.json` now contains source-listed name observations for four La Liga club pages:
+
+| Club | Source current-roster boundary | Names transcribed |
+|---|---|---:|
+| Barcelona | Lines 18–58; departed section begins at line 59 | 37 |
+| Atlético Madrid | Lines 16–72; departed section begins at line 73 | 47 |
+| Celta Vigo | Lines 16–55; departed section begins at line 56 | 34 |
+| Málaga | Lines 18–57; departed section begins at line 58 | 30 |
+| **Total** | **32/96 club pages** | **990** |
+
+The manual intake retains each club's source URL, observation date, roster/departed-section boundary and provider display-name lookup reference. All memberships remain `source_listed_pending_independent_crosscheck` and `name_only_unverified`; they have no provider player IDs, statistics or photographs. The provider team IDs are explicitly marked as display-name lookup keys, **not canonical team IDs**.
+
+The Atlético Madrid, Celta Vigo and Málaga pages include entries whose club association or status warrants additional checking. They have been preserved as source observations rather than silently corrected or promoted to verified membership. The Real Madrid page was opened but not transcribed because the source page contains material requiring further review; it is not counted in the four completed transcriptions.
+
+### Current completion gate
+
+- League index club count confirmed: 96/96.
+- Individual club pages manually transcribed: **32/96**.
+- Source-listed player-name observations: **990**.
+- Independent membership cross-check complete: **0/96**.
+- App integration: **not started**.
+- Production imports/writes: **0**.
+- Provider API calls: **0**.
+
+The roster intake validator is at `scripts/validate_footballsquads_roster_intake.py`. This partial research file is not wired into the app and cannot be marked complete or released. The release gate remains all 96 manually reviewed club pages, cross-check and canonical team mapping, plus passing validation and CI.
+
+### Intake safeguards added
+
+- `scripts/validate_footballsquads_roster_intake.py` validates source provenance, manual-only collection, observation/boundary metadata, required attribution, duplicate memberships, and the no-provider-ID/no-statistics/no-photo gates.
+- `tests/test_footballsquads_roster_intake_validator.py` adds six regression tests, including rejection of premature complete status, Production import, automated extraction, invented provider IDs/statistics, and duplicate memberships.
+- A structural check against the current JSON passed: 4 distinct source clubs, 990 memberships, unique membership IDs/keys, all rows still pending cross-check, and no provider IDs/statistics/photos. The Python test suite and repository CI have **not** yet been run; no PR has been opened because the 96-club completion gate is not met.
+
+## Updated manual roster transcription progress — 2026-11-14 (continued)
+
+The previous progress snapshot of 32 clubs / 990 names is superseded by the latest intake file.
+
+| League | Club pages manually transcribed | Target |
+|---|---:|---:|
+| Premier League | 17 | 20 |
+| La Liga | 15 | 20 |
+| Bundesliga | 17 | 18 |
+| Serie A | 0 | 20 |
+| Ligue 1 | 0 | 18 |
+| **Total** | **49** | **96** |
+
+The intake currently contains **1,895 source-listed name observations**. Premier League transcription now covers Arsenal, Bournemouth, Brentford, Coventry City, Crystal Palace, Everton, Fulham, Hull City, Ipswich Town, Leeds United, Liverpool, Manchester City, Manchester United, Newcastle United, Nottingham Forest, Sunderland and Tottenham Hotspur. Chelsea and Brighton & Hove Albion were deferred because their source pages contain explicit re-registration conflicts that need separate review. The prior La Liga deferrals and RB Leipzig remain deferred.
+
+All records remain research-only, pending independent cross-check, name-only/unverified, without provider player IDs, statistics or photographs. This count is a manual transcription progress measure, not verified club membership or registration coverage.
+
+The latest structural check reports 49 distinct source clubs, 1,895 membership rows, no duplicate membership IDs, no orphan source references, all records pending cross-check, empty statistics, production_import=false, and zero provider API calls. Python validator/tests, CI, app integration, PR, deployment and Android runtime verification remain outstanding.
+
+The 20 Premier League page boundary audit above is still valid, but the former statement that no Premier League roster rows had been added is superseded by this update.
+
+## Updated manual roster transcription progress — 2026-11-14 (latest)
+
+The previous 49-club / 1,895-name snapshot is superseded. Manual transcription of all currently clear club pages is complete; the remaining ten pages are held for ambiguity review.
+
+| League | Transcribed | Target | Held for review |
+|---|---:|---:|---:|
+| Premier League | 18 | 20 | 2 |
+| La Liga | 15 | 20 | 5 |
+| Bundesliga | 17 | 18 | 1 |
+| Serie A | 19 | 20 | 1 |
+| Ligue 1 | 17 | 18 | 1 |
+| **Total** | **86** | **96** | **10** |
+
+The intake contains **3,043 source-listed name observations** across 86 club pages. The ten held pages are Chelsea and Brighton & Hove Albion (re-registration conflicts), five La Liga pages (Real Madrid, Deportivo de A Coruña, Real Sociedad, Sevilla, Villarreal), RB Leipzig (mixed-club heading), Como (re-registration conflict), and Strasbourg (re-registration conflict). These are not counted as transcribed clubs.
+
+All 3,043 rows remain research-only and pending independent cross-check. They are name-only observations, with no provider player IDs, statistics or photos. No claim is made that they represent league registrations, eligibility or match appearances.
+
+Latest structural check: 86 source pages, 3,043 rows, no duplicate membership IDs or club/name keys, no orphan source references, all rows pending cross-check, all statistics empty, production_import=false, and provider_api_calls=0. Python validator/test suite and CI remain to be run; no app integration, PR, deployment or Android runtime test has occurred.
+
+## Final source-page transcription milestone — 2026-11-14
+
+Manual transcription now covers **all 96 of 96 club pages** across the five target leagues, with **3,415 source-listed name observations**.
+
+| League | Pages transcribed | Target | Source-listed names |
+|---|---:|---:|---:|
+| Premier League | 20 | 20 | 1,093 |
+| La Liga | 20 | 20 | 652 |
+| Bundesliga | 18 | 18 | 527 |
+| Serie A | 20 | 20 | 642 |
+| Ligue 1 | 18 | 18 | 501 |
+| **Total** | **96** | **96** | **3,415** |
+
+All ten previously held club pages have now been reviewed. Real Madrid, Deportivo de A Coruña, Real Sociedad, Sevilla, Villarreal, RB Leipzig, Chelsea, Brighton & Hove Albion, Como and Strasbourg were added after source boundaries were resolved or the relevant re-registration/mixed-heading conflict was corroborated against official league or club squad evidence. Their source records retain the cross-check URLs and observations.
+
+**Important distinction:** complete_research_only means all 96 source pages have been transcribed. It does not mean 3,415 identities or club memberships are verified. Every membership remains source_listed_pending_independent_crosscheck / name_only_unverified. Statistics and photos remain empty. The data is not integrated into the app and must not be imported to Production until row-level verification, canonical team/player mapping, validator tests, and CI pass.
+
+Production import remains false and provider API calls remain zero. No Production Supabase changes, app integration, version/cache bump, PR, deployment or Android test have occurred.
