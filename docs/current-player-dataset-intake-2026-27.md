@@ -315,3 +315,17 @@ All ten previously held club pages have now been reviewed. Real Madrid, Deportiv
 **Important distinction:** complete_research_only means all 96 source pages have been transcribed. It does not mean 3,415 identities or club memberships are verified. Every membership remains source_listed_pending_independent_crosscheck / name_only_unverified. Statistics and photos remain empty. The data is not integrated into the app and must not be imported to Production until row-level verification, canonical team/player mapping, validator tests, and CI pass.
 
 Production import remains false and provider API calls remain zero. No Production Supabase changes, app integration, version/cache bump, PR, deployment or Android test have occurred.
+
+## Player Database roster MVP integration — 2026-11-14
+
+The five-league research roster is now wired into the Player Database UI as an independent source of club/player names, separate from the Match Event Ledger.
+
+- User flow: Player Data landing page → select one of five leagues → select a club → searchable source-listed player list → player profile.
+- The club list uses the 96-club display-name registry, with the FootballSquads club display name taking precedence where the two labels differ. All 96 registry keys have a matching source club key.
+- Player profiles show the source-listed name, club, league, season, source page, observation date and roster/departed-section boundary.
+- All names remain source_listed_pending_independent_crosscheck / name_only_unverified. The UI does not assign canonical player IDs or infer registration, eligibility or appearances.
+- No verified current-season all-club-competition statistics or cleared player photos are present in this intake. The profile therefore displays unavailable markers rather than fabricated zeros or statistics.
+- The required FootballSquads attribution is visible in the landing, club and profile views.
+- The roster JSON is included in the service-worker asset list for offline use. Keep the existing football-time-v96 cache baseline until the final release gate and all updated CI checks pass; the planned release cache is football-time-v97.
+
+This integration does not read or write Production Supabase, call Provider APIs, modify pft_matches_v1, change the Match Event Ledger, or alter the existing 156 player database records. It is not yet an Android runtime verification. The final release still requires CI to pass on the complete PR, followed by deployment and user confirmation from Android.
