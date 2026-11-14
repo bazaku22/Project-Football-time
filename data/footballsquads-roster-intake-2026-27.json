@@ -2,14 +2,14 @@
   "schema_version": 1,
   "season": "2026/27",
   "generated_at": "2026-11-14",
-  "status": "partial_research_only",
+  "status": "complete_research_only",
   "production_import": false,
   "provider_api_calls": 0,
   "club_pages_target": 96,
   "club_pages_reviewed": 96,
   "roster_memberships_count": 3415,
   "attribution": "Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved",
-  "notes": "Manual transcription only. Partial research dataset; not complete and not wired into the app. Names are source-listed observations, not verified identities, league registrations, match eligibility, or statistics. Independently cross-check conflicts before release. Pages with mixed-club headings or re-registration conflicts are deferred for separate review.",
+  "notes": "Complete manual transcription of all 96 FootballSquads club pages for 2026/27. The 3,415 names are source-listed observations only, not verified identities, league registrations, match eligibility, or statistics. Dataset remains research-only and is not wired into the app. A small number of source re-registration or mixed-heading conflicts have been corroborated against official league/club sources; all membership rows nevertheless remain pending row-level independent cross-check before any release. Retain source URLs, observation dates, exact roster boundaries, and required publisher attribution.",
   "sources": [
     {
       "id": "PD-barcelona-2026-27",
