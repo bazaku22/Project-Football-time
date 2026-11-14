@@ -315,6 +315,12 @@ jobs:
           python3 scripts/validate_player_statistics_intake.py
           python3 -m unittest tests/test_player_statistics_intake.py -v
 
+      - name: Validate FootballSquads 2026/27 96-club roster intake
+        run: |
+          python3 -m py_compile scripts/validate_footballsquads_roster_intake.py
+          python3 -m unittest tests/test_footballsquads_roster_intake_validator.py -v
+          python3 scripts/validate_footballsquads_roster_intake.py
+
       - name: Validate five-league 2026/27 player coverage register
         run: |
           python3 -m py_compile scripts/validate_player_coverage.py
