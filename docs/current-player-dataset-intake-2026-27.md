@@ -296,3 +296,22 @@ The intake contains **3,043 source-listed name observations** across 86 club pag
 All 3,043 rows remain research-only and pending independent cross-check. They are name-only observations, with no provider player IDs, statistics or photos. No claim is made that they represent league registrations, eligibility or match appearances.
 
 Latest structural check: 86 source pages, 3,043 rows, no duplicate membership IDs or club/name keys, no orphan source references, all rows pending cross-check, all statistics empty, production_import=false, and provider_api_calls=0. Python validator/test suite and CI remain to be run; no app integration, PR, deployment or Android runtime test has occurred.
+
+## Final source-page transcription milestone — 2026-11-14
+
+Manual transcription now covers **all 96 of 96 club pages** across the five target leagues, with **3,415 source-listed name observations**.
+
+| League | Pages transcribed | Target | Source-listed names |
+|---|---:|---:|---:|
+| Premier League | 20 | 20 | 1,093 |
+| La Liga | 20 | 20 | 652 |
+| Bundesliga | 18 | 18 | 527 |
+| Serie A | 20 | 20 | 642 |
+| Ligue 1 | 18 | 18 | 501 |
+| **Total** | **96** | **96** | **3,415** |
+
+All ten previously held club pages have now been reviewed. Real Madrid, Deportivo de A Coruña, Real Sociedad, Sevilla, Villarreal, RB Leipzig, Chelsea, Brighton & Hove Albion, Como and Strasbourg were added after source boundaries were resolved or the relevant re-registration/mixed-heading conflict was corroborated against official league or club squad evidence. Their source records retain the cross-check URLs and observations.
+
+**Important distinction:** complete_research_only means all 96 source pages have been transcribed. It does not mean 3,415 identities or club memberships are verified. Every membership remains source_listed_pending_independent_crosscheck / name_only_unverified. Statistics and photos remain empty. The data is not integrated into the app and must not be imported to Production until row-level verification, canonical team/player mapping, validator tests, and CI pass.
+
+Production import remains false and provider API calls remain zero. No Production Supabase changes, app integration, version/cache bump, PR, deployment or Android test have occurred.
