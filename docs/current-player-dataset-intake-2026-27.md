@@ -256,3 +256,24 @@ The roster intake validator is at `scripts/validate_footballsquads_roster_intake
 - `scripts/validate_footballsquads_roster_intake.py` validates source provenance, manual-only collection, observation/boundary metadata, required attribution, duplicate memberships, and the no-provider-ID/no-statistics/no-photo gates.
 - `tests/test_footballsquads_roster_intake_validator.py` adds six regression tests, including rejection of premature complete status, Production import, automated extraction, invented provider IDs/statistics, and duplicate memberships.
 - A structural check against the current JSON passed: 4 distinct source clubs, 990 memberships, unique membership IDs/keys, all rows still pending cross-check, and no provider IDs/statistics/photos. The Python test suite and repository CI have **not** yet been run; no PR has been opened because the 96-club completion gate is not met.
+
+## Updated manual roster transcription progress — 2026-11-14 (continued)
+
+The previous progress snapshot of 32 clubs / 990 names is superseded by the latest intake file.
+
+| League | Club pages manually transcribed | Target |
+|---|---:|---:|
+| Premier League | 17 | 20 |
+| La Liga | 15 | 20 |
+| Bundesliga | 17 | 18 |
+| Serie A | 0 | 20 |
+| Ligue 1 | 0 | 18 |
+| **Total** | **49** | **96** |
+
+The intake currently contains **1,895 source-listed name observations**. Premier League transcription now covers Arsenal, Bournemouth, Brentford, Coventry City, Crystal Palace, Everton, Fulham, Hull City, Ipswich Town, Leeds United, Liverpool, Manchester City, Manchester United, Newcastle United, Nottingham Forest, Sunderland and Tottenham Hotspur. Chelsea and Brighton & Hove Albion were deferred because their source pages contain explicit re-registration conflicts that need separate review. The prior La Liga deferrals and RB Leipzig remain deferred.
+
+All records remain research-only, pending independent cross-check, name-only/unverified, without provider player IDs, statistics or photographs. This count is a manual transcription progress measure, not verified club membership or registration coverage.
+
+The latest structural check reports 49 distinct source clubs, 1,895 membership rows, no duplicate membership IDs, no orphan source references, all records pending cross-check, empty statistics, production_import=false, and zero provider API calls. Python validator/tests, CI, app integration, PR, deployment and Android runtime verification remain outstanding.
+
+The 20 Premier League page boundary audit above is still valid, but the former statement that no Premier League roster rows had been added is superseded by this update.
