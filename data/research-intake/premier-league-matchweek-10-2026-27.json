@@ -1472,9 +1472,9 @@
         },
         {
           "source_id": "club-560640",
-          "name": "Official club match report",
-          "url": "https://www.skysports.com/football/arsenal-vs-hull-city/report/559534",
-          "source_type": "other",
+          "name": "Premier League official matchweek report",
+          "url": "https://www.premierleague.com/en/news/4757016",
+          "source_type": "official_competition",
           "checked_at": "2026-11-14T16:42:00Z",
           "reuse_rights": "pending",
           "permission_basis": null
@@ -2149,7 +2149,7 @@
         {
           "source_id": "club-560633",
           "name": "Official club match report",
-          "url": "https://www.nufc.com/2026-27html/2026-11-07fulham-a.html",
+          "url": "https://www.newcastleunited.com/en/news/fulham-a-2627-match-report",
           "source_type": "other",
           "checked_at": "2026-11-14T16:42:00Z",
           "reuse_rights": "pending",
