@@ -28,6 +28,8 @@ class PlayerRosterDatabaseMvpTests(unittest.TestCase):
         self.assertIn('data-roster-player', self.source)
         self.assertIn('id:team.dataset.team,name', self.source)
         self.assertIn("source?.provider_team_name||registryName", self.source)
+        self.assertIn('else if(back.dataset.back==="teams"){selectedTeam=null;selectedPlayer=null;', self.source)
+        self.assertIn('else if(back.dataset.back==="players"){selectedPlayer=null;}', self.source)
 
     def test_player_list_uses_exact_source_membership_and_has_search(self):
         self.assertIn('rosterData.memberships.filter(p=>p.source_id===source.id)', self.source)
