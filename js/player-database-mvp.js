@@ -10,7 +10,7 @@
  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
  let registry=null, rosterData=null, bundledTeamAliases={}, selectedLeague=null, selectedTeam=null, selectedPlayer=null, query="", playerQuery="";
  const root=document.createElement("section");root.id="dbtab-playerDatabase";root.className="db-panel";
- root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อดูข้อมูลจาก Match Event Ledger ที่ตรวจสอบแล้ว</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
+ root.innerHTML='<div class="pdb-head"><div><div class="pdb-eyebrow">FOOTBALL TIME · PLAYER DATABASE</div><h2>หมวดข้อมูลผู้เล่น</h2><p>เลือกลีกและทีมเพื่อดูรายชื่อผู้เล่นฤดูกาล 2026/27</p></div><span class="pdb-season">2026/27</span></div><div id="pdb-content"><div class="pdb-empty">กำลังโหลดทะเบียนทีม…</div></div>';
  const fixtures=document.querySelector("#fixtures"),databaseNav=document.querySelector(".db-subnav");
  if(fixtures&&databaseNav){fixtures.appendChild(root);const tab=document.createElement("button");tab.type="button";tab.dataset.dbTab="playerDatabase";tab.textContent="ข้อมูลผู้เล่น";databaseNav.appendChild(tab);}
  else{root.id="playerDatabasePage";root.className="page";document.querySelector("#main")?.appendChild(root);}
