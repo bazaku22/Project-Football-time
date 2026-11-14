@@ -13,8 +13,9 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn('const TEAM_ALIAS_KEY="pft_player_team_alias_decisions_2026_27_v1"', source)
         self.assertNotIn("supabase", source.lower())
         self.assertNotIn("XMLHttpRequest", source)
-        self.assertEqual(source.count("fetch("), 2)
+        self.assertEqual(source.count("fetch("), 3)
         self.assertIn("fetch(REGISTRY_URL", source)
+        self.assertIn("fetch(ROSTER_URL", source)
         self.assertIn("fetch(TEAM_ALIAS_URL", source)
         self.assertIn("reviewed bundled crosswalk", source)
 
