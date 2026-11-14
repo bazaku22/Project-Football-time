@@ -40,10 +40,18 @@ class FootballSquadsRosterIntakeValidatorTests(unittest.TestCase):
 
     def test_rejects_complete_status_before_all_96_club_pages(self):
         payload = copy.deepcopy(self.data)
+        removed_source = payload["sources"].pop()
+        payload["memberships"] = [
+            row for row in payload["memberships"]
+            if row["source_id"] != removed_source["id"]
+        ]
+        payload["club_pages_reviewed"] -= 1
+        payload["roster_memberships_count"] = len(payload["memberships"])
         payload["status"] = "complete_research_only"
         result = self.run_validator(payload)
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("complete status requires all 96 club pages", result.stderr)
+        self.assertIn("complete status requires exact league club counts", result.stderr)
 
     def test_rejects_production_import(self):
         payload = copy.deepcopy(self.data)
