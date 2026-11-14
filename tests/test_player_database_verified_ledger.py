@@ -115,5 +115,19 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn('researchPreview=!trusted&&record.review_status==="needs_review"', source)
         self.assertIn('source_status:"needs_review_name_only"', source)
 
+    def test_matchweek_10_research_intake_preserves_verified_report_event_times(self):
+        import json
+        data = json.loads((ROOT / "data/research-intake/premier-league-matchweek-10-2026-27.json").read_text(encoding="utf-8"))
+        self.assertEqual(sum(len(record["lineups"]) for record in data["records"]), 313)
+        self.assertEqual(sum(len(record["events"]) for record in data["records"]), 123)
+        by_id = {str(record["match_id"]): record for record in data["records"]}
+        fulham = by_id["560633"]
+        self.assertEqual(fulham["sources"][1]["url"], "https://www.fulhamfc.com/news/2026/november/07/fulham-1-1-newcastle-united/")
+        self.assertEqual(next(event["minute"] for event in fulham["events"] if event["type"] == "substitution" and event["player_on"]["observed_name"] == "César Palacios"), "71")
+        brighton = by_id["560638"]
+        self.assertEqual(next(event["minute"] for event in brighton["events"] if event["type"] == "goal" and event["scorer"]["observed_name"] == "Pascal Groß"), "40")
+        palace = by_id["560635"]
+        self.assertEqual(next(event["minute"] for event in palace["events"] if event["type"] == "substitution" and event["player_on"]["observed_name"] == "Joe Gomez"), "90+1")
+
 if __name__ == "__main__":
     unittest.main()
