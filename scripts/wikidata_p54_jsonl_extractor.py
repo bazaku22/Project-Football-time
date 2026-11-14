@@ -199,7 +199,7 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         found_team_qid = qid_from_uri(binding_value(row, "team"))
         statement_id = statement_id_from_uri(binding_value(row, "statement"))
         if not player_qid or not found_team_qid or not statement_id or occupation_qid != "Q937857":
-            raise ValueError(f"row {line_number}: invalid player, occupation, team, or statement URI")
+            raise ValueError(f"row {line_number}: invalid player, team, or statement URI / occupation binding")
         if found_team_qid != team_qid:
             raise ValueError(f"row {line_number}: team {found_team_qid} does not match requested {team_qid}")
 
