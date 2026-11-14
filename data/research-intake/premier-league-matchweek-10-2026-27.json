@@ -2149,7 +2149,7 @@
         {
           "source_id": "club-560633",
           "name": "Official club match report",
-          "url": "https://www.newcastleunited.com/en/news/fulham-a-2627-match-report",
+          "url": "https://www.fulhamfc.com/news/2026/november/07/fulham-1-1-newcastle-united/",
           "source_type": "other",
           "checked_at": "2026-11-14T16:42:00Z",
           "reuse_rights": "pending",
@@ -2585,7 +2585,7 @@
         {
           "event_id": "560633-sub-2",
           "type": "substitution",
-          "minute": "72",
+          "minute": "71",
           "team_id": "football-data:63",
           "player_on": {
             "observed_name": "César Palacios",
@@ -2605,7 +2605,7 @@
         {
           "event_id": "560633-sub-3",
           "type": "substitution",
-          "minute": "77",
+          "minute": "76",
           "team_id": "football-data:63",
           "player_on": {
             "observed_name": "Kenny Tete",
@@ -2625,7 +2625,7 @@
         {
           "event_id": "560633-sub-4",
           "type": "substitution",
-          "minute": "78",
+          "minute": "77",
           "team_id": "football-data:63",
           "player_on": {
             "observed_name": "Ryan Sessegnon",
@@ -4088,7 +4088,7 @@
         {
           "event_id": "560638-goal-12",
           "type": "goal",
-          "minute": "42",
+          "minute": "40",
           "team_id": "football-data:397",
           "goal_type": "penalty",
           "assist_status": "none_confirmed",
@@ -4711,7 +4711,7 @@
         {
           "event_id": "560635-sub-9",
           "type": "substitution",
-          "minute": "90",
+          "minute": "90+1",
           "team_id": "football-data:64",
           "player_on": {
             "observed_name": "Joe Gomez",
