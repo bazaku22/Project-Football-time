@@ -44,6 +44,7 @@ def sparql_row(reference="https://www.wikidata.org/entity/reference/R1",
     return row
 
 
+# Regression coverage for both local JSONL and scoped WDQS SPARQL JSON input.
 class WikidataP54ExtractorTests(unittest.TestCase):
     def entity(self):
         return {
