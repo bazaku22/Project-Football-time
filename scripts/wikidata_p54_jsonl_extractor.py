@@ -152,27 +152,42 @@ def extract_entity(entity: dict) -> dict | None:
 
 
 def binding_value(row: dict, key: str) -> str:
+    """Read either a WDQS binding object or a flat-export string field."""
     item = row.get(key) or {}
-    return str(item.get("value") or "").strip()
+    if isinstance(item, dict):
+        value = item.get("value")
+    else:
+        value = item
+    return str(value or "").strip()
 
 
 def qid_from_uri(value: str) -> str | None:
     parsed = urlparse(value)
-    if parsed.netloc not in WIKIDATA_HOSTS:
+    if parsed.scheme not in {"http", "https"} or parsed.netloc.lower() not in WIKIDATA_HOSTS:
         return None
-    match = re.search(r"/entity/(Q[1-9][0-9]*)$", parsed.path)
-    return match.group(1) if match else None
+    match = re.search(r"/entity/(Q[1-9][0-9]*)$", parsed.path, re.IGNORECASE)
+    return match.group(1).upper() if match else None
 
 
-def statement_id_from_uri(value: str) -> str | None:
+def statement_id_from_uri(value: str, expected_player_qid: str | None = None) -> str | None:
+    """Accept Wikidata's '$' and flat-export '-' statement URI separators."""
     parsed = urlparse(value)
-    if parsed.netloc not in WIKIDATA_HOSTS:
+    if parsed.scheme not in {"http", "https"} or parsed.netloc.lower() not in WIKIDATA_HOSTS:
         return None
-    match = re.search(r"/entity/statement/(Q[1-9][0-9]*\$[A-Za-z0-9.$:_-]+)$", parsed.path)
-    return match.group(1) if match else None
+    match = re.search(
+        r"/entity/statement/([qQ][1-9][0-9]*)([$-])([A-Za-z0-9.$:_-]+)$",
+        parsed.path,
+    )
+    if not match:
+        return None
+    subject = match.group(1).upper()
+    if expected_player_qid and subject != expected_player_qid:
+        return None
+    return f"{subject}{match.group(2)}{match.group(3)}"
 
 
 def sparql_date(value: str) -> str | None:
+    """Parse a date/time literal; non-date blank-node URIs remain unresolved."""
     if not value:
         return None
     raw = value.strip()
@@ -184,22 +199,36 @@ def sparql_date(value: str) -> str | None:
         return None
 
 
-def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
-    """Normalize one-club WDQS SPARQL JSON while retaining exact statement provenance."""
-    if not isinstance(payload, dict) or not isinstance(payload.get("results", {}).get("bindings"), list):
-        raise ValueError("SPARQL JSON must contain results.bindings")
+def _sparql_rows(payload: object) -> list[dict]:
+    if isinstance(payload, dict):
+        results = payload.get("results")
+        bindings = results.get("bindings") if isinstance(results, dict) else None
+        if isinstance(bindings, list):
+            return bindings
+    if isinstance(payload, list):
+        return payload
+    raise ValueError("input must be a flat JSON array or SPARQL JSON results.bindings")
+
+
+def normalize_sparql_json(payload: object, team_qid: str) -> dict:
+    """Normalize one-club WDQS JSON in standard or flat-export form."""
     if not QID_RE.fullmatch(team_qid):
         raise ValueError("team-qid must be a Wikidata QID")
 
+    rows = _sparql_rows(payload)
     players: dict[str, dict] = {}
     statements: dict[str, dict] = {}
-    for line_number, row in enumerate(payload["results"]["bindings"], 1):
+    for line_number, row in enumerate(rows, 1):
+        if not isinstance(row, dict):
+            raise ValueError(f"row {line_number} must be an object")
         player_qid = qid_from_uri(binding_value(row, "player"))
         occupation_qid = qid_from_uri(binding_value(row, "occupation"))
         found_team_qid = qid_from_uri(binding_value(row, "team"))
-        statement_id = statement_id_from_uri(binding_value(row, "statement"))
+        statement_id = statement_id_from_uri(
+            binding_value(row, "statement"), expected_player_qid=player_qid
+        ) if player_qid else None
         if not player_qid or not found_team_qid or not statement_id or occupation_qid != "Q937857":
-            raise ValueError(f"row {line_number}: invalid player, team, or statement URI / occupation binding")
+            raise ValueError(f"row {line_number}: invalid player, team, statement subject, or occupation binding")
         if found_team_qid != team_qid:
             raise ValueError(f"row {line_number}: team {found_team_qid} does not match requested {team_qid}")
 
@@ -215,8 +244,11 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         end_raw = binding_value(row, "end")
         start = sparql_date(start_raw) if start_raw else None
         end = sparql_date(end_raw) if end_raw else None
-        if start_raw and start is None or end_raw and end is None:
-            raise ValueError(f"statement {statement_id}: invalid P580/P582 date qualifier")
+        # WDQS can serialize unbound/blank-node date values as genid URIs.
+        # Preserve those as unresolved rather than misclassifying them as dates.
+        for raw, parsed in ((start_raw, start), (end_raw, end)):
+            if raw and parsed is None and re.match(r"^[+]?\d{4,}-\d{2}-\d{2}", raw):
+                raise ValueError(f"statement {statement_id}: invalid P580/P582 date qualifier")
         key = f"{player_qid}|{statement_id}"
         statement = statements.get(key)
         if statement is None:
@@ -243,12 +275,13 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         if reference_node:
             source_qid = qid_from_uri(binding_value(row, "referenceSource"))
             reference_url = binding_value(row, "referenceUrl")
-            retrieved = binding_value(row, "retrieved")
+            retrieved_raw = binding_value(row, "retrieved")
+            retrieved = sparql_date(retrieved_raw) if retrieved_raw else None
             evidence = {
                 "reference_node": reference_node,
                 "source_urls": [reference_url] if reference_url.startswith("https://") else [],
                 "source_item_ids": [source_qid] if source_qid else [],
-                "retrieved_dates": [retrieved[:10]] if retrieved else [],
+                "retrieved_dates": [retrieved] if retrieved else [],
             }
             if evidence not in statement["reference_evidence"]:
                 statement["reference_evidence"].append(evidence)
@@ -271,7 +304,7 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         "as_of": AS_OF.isoformat(),
         "source": "Wikidata structured data",
         "source_license": "CC0-1.0",
-        "retrieval_mode": "manual_wdqs_sparql_json_export",
+        "retrieval_mode": "manual_wdqs_json_export",
         "status": "research_only_unmapped",
         "network_access": False,
         "production_import": False,
@@ -280,8 +313,9 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         "supabase_writes": 0,
         "supabase_deletes": 0,
         "supabase_migrations": 0,
-        "input_format": "wikidata_query_service_sparql_json",
+        "input_format": "wikidata_query_service_json",
         "club_qid_filter": team_qid,
+        "input_rows_scanned": len(rows),
         "input_statements_scanned": len(statements),
         "records_count": len(candidates),
         "club_qid_mapping_applied": False,
@@ -290,12 +324,11 @@ def normalize_sparql_json(payload: dict, team_qid: str) -> dict:
         "limitations": [
             "P106 association-football-player is a discovery filter, not a complete or authoritative player classification.",
             "P54 is historical membership evidence and does not prove 2026/27 registration, first-team status or roster completeness.",
-            "Missing or partial dates and missing references remain unresolved; no current-membership status is inferred.",
+            "Missing, partial or blank-node dates and missing references remain unresolved; no current-membership status is inferred.",
             "Reference URLs and source item IDs are evidence pointers; Wikidata CC0 does not relicense third-party referenced content.",
             "No name-only matching, canonical ID assignment, automatic merge, provider call or database write is performed.",
         ],
     }
-
 
 def iter_jsonl(path: Path) -> Iterator[dict]:
     with path.open("r", encoding="utf-8") as stream:
@@ -364,7 +397,7 @@ def extract(path: Path, dump_date: str) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--input", required=True, help="Local Wikidata JSONL dump or WDQS SPARQL JSON export")
+    parser.add_argument("--input", required=True, help="Local Wikidata JSONL dump, WDQS SPARQL JSON export, or flat WDQS JSON array")
     parser.add_argument("--input-format", choices=("jsonl", "sparql-json"), default="jsonl")
     parser.add_argument("--dump-date", help="Required for JSONL input, YYYY-MM-DD")
     parser.add_argument("--team-qid", help="Required for SPARQL JSON input; exact selected club QID")
@@ -389,7 +422,7 @@ def main() -> int:
     except (OSError, json.JSONDecodeError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2
-    print(f"Scanned {report.get('input_entities_scanned', report.get('input_statements_scanned', 0))} source records; extracted {report['records_count']} player candidates.")
+    print(f"Scanned {report.get('input_entities_scanned', report.get('input_rows_scanned', report.get('input_statements_scanned', 0)))} source records; extracted {report['records_count']} player candidates.")
     print("Output remains unmapped Research Only; no network/API calls or Production/Supabase writes.")
     return 0
 
