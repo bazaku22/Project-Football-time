@@ -343,6 +343,28 @@
       "source_urls": [
         "https://www.cbf.com.br/selecao-brasileira/noticias/selecao-brasileira/noticias/credenciamento-aberto-para-amistosos-da-selecao-brasileira-contra-japao-e-singapura"
       ]
+    },
+    {
+      "id": "INT-R1-016",
+      "competition": "UEFA Nations League",
+      "match_type": "nations_league",
+      "local_date": "2026-11-14",
+      "home_team": "Kosovo",
+      "home_country_code": "XK",
+      "away_team": "Israel",
+      "away_country_code": "IL",
+      "kickoff_utc": "2026-11-14T14:00:00Z",
+      "kickoff_local": "2026-11-14T15:00:00+01:00",
+      "source_timezone": "CET",
+      "neutral_venue": false,
+      "match_status": "scheduled",
+      "data_status": "fixture_verified",
+      "source_names": [
+        "UEFA"
+      ],
+      "source_urls": [
+        "https://www.uefa.com/uefanationsleague/match/2047896/"
+      ]
     }
   ],
   "rights_status": "source_terms_not_independently_cleared"
