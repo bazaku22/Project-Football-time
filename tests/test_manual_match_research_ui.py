@@ -20,7 +20,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v98"', sw)
+        self.assertIn('const CACHE = "football-time-v99"', sw)
 
 
     def test_legacy_player_ui_is_removed_without_affecting_match_events(self):
