@@ -51,9 +51,7 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn("ยังไม่มีสถิติฤดูกาล 2026/27 ที่ผ่านการตรวจสอบ", source)
         self.assertIn("<b>—</b>", source)
         self.assertIn("source.current_roster_boundary", source)
-        self.assertIn("player.appearances", source)
-        self.assertIn("player.goals", source)
-        self.assertIn("player.assists", source)
+        self.assertIn("appearances:0,goals:0,assists:0", source)
 
     def test_existing_five_league_registry_navigation_is_preserved(self):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
