@@ -38,9 +38,16 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertIn("function teamLedger(teamId)", source)
         self.assertIn("function provisionalNameStats(rosterPlayer,teamId)", source)
         self.assertIn("function normalizePlayerName(value)", source)
-        self.assertIn('matches.length!==1', source)
+        self.assertIn('verified.length>1', source)
+        self.assertIn('research.length>1', source)
+        self.assertIn('"provisional_research_match"', source)
+        self.assertIn('scope:"local_needs_review_records_only"', source)
         self.assertIn('"provisional_name_match"', source)
         self.assertIn("scope:\"recorded_verified_matches_only\"", source)
+        self.assertIn("local_needs_review_records_only", source)
+        self.assertIn("researchPreview=!trusted&&record.review_status===\"needs_review\"&&record.lineup_coverage===\"complete\"", source)
+        self.assertIn("provisional research", source)
+        self.assertIn("ไม่ใช่สถิติยืนยันหรือข้อมูลสำหรับ Production", source)
         self.assertIn("จับคู่ด้วยชื่อเต็มตรงกัน · provisional", source)
         self.assertIn("teamMappingPending:true", source)
         self.assertIn("rosterData.memberships.find(p=>p.id===selectedPlayer.id", source)
@@ -81,6 +88,32 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
         self.assertIn("providerName===item.provider_team_name", source)
         self.assertIn('item.review_required===false', source)
+
+    def test_manual_matchweek_10_intake_is_research_only_and_never_claims_verified_identity(self):
+        import json
+        path = ROOT / "data/research-intake/premier-league-matchweek-10-2026-27.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(len(data["records"]), 10)
+        self.assertEqual(len({str(row["match_id"]) for row in data["records"]}), 10)
+        self.assertEqual(data["dataset_status"], "research_records_present")
+        for record in data["records"]:
+            self.assertEqual(record["review_status"], "needs_review")
+            self.assertEqual(record["lineup_coverage"], "complete")
+            self.assertEqual(record["event_coverage"], "partial")
+            self.assertEqual(len(record["sources"]), 2)
+            self.assertTrue(all(source["reuse_rights"] == "pending" for source in record["sources"]))
+            self.assertTrue(all(player["identity_status"] == "unresolved" and player["ft_player_id"] is None for item in record["lineups"] for player in [item["player"]]))
+            self.assertEqual(sum(item["role"] == "starting_xi" for item in record["lineups"] if item["team_id"] == record["home_team"]["team_id"]), 11)
+            self.assertEqual(sum(item["role"] == "starting_xi" for item in record["lineups"] if item["team_id"] == record["away_team"]["team_id"]), 11)
+
+    def test_needs_review_preview_does_not_weaken_verified_publication_gate(self):
+        source = (ROOT / "js/player-database-mvp.js").read_text(encoding="utf-8")
+        verified_gate = source[source.index("function recordVerified"):source.index("function validPlayer")]
+        self.assertIn('record.review_status!=="verified"', verified_gate)
+        self.assertIn('s.reuse_rights==="confirmed"', verified_gate)
+        self.assertIn('s.permission_basis.trim()', verified_gate)
+        self.assertIn('researchPreview=!trusted&&record.review_status==="needs_review"', source)
+        self.assertIn('source_status:"needs_review_name_only"', source)
 
 if __name__ == "__main__":
     unittest.main()
