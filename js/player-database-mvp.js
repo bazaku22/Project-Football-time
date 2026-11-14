@@ -103,9 +103,9 @@
   return {verified:verifiedRows,pending:pendingRows,verifiedMatches,pendingMatches,season:data.season||"2026/27",teamMappingPending:false,canonicalTeamId};
  }
  function normalizePlayerName(value){
-  return String(value??"").normalize("NFKD").replace(/[\\u0300-\\u036f]/g,"").toLocaleLowerCase("en")
+  return String(value??"").normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLocaleLowerCase("en")
    .replace(/[ø]/g,"o").replace(/[ł]/g,"l").replace(/[đ]/g,"d").replace(/[æ]/g,"ae").replace(/[œ]/g,"oe").replace(/[ß]/g,"ss")
-   .replace(/[^a-z0-9]+/g," ").trim().replace(/\\s+/g," ");
+   .replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ");
  }
  function provisionalNameStats(rosterPlayer,teamId){
   const ledger=teamLedger(teamId);
