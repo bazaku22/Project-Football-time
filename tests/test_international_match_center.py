@@ -16,7 +16,7 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertEqual(len(DATA["fixtures"]), 16)
         ids = [row["id"] for row in DATA["fixtures"]]
         self.assertEqual(len(ids), len(set(ids)))
-        self.assertEqual(sum(bool(row["kickoff_utc"]) for row in DATA["fixtures"]), 14)
+        self.assertEqual(sum(bool(row["kickoff_utc"]) for row in DATA["fixtures"]), 15)
         self.assertEqual(sum(not row["kickoff_utc"] for row in DATA["fixtures"]), 1)
         self.assertEqual(DATA["display_policy"]["club_database_unchanged"], True)
         self.assertTrue(all(row["source_urls"] for row in DATA["fixtures"]))
