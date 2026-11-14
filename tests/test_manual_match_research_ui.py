@@ -15,12 +15,12 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.7"', html)
+        self.assertIn('content="6.26.5-beta.8"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v98"', sw)
+        self.assertIn('const CACHE = "football-time-v99"', sw)
 
 
     def test_legacy_player_ui_is_removed_without_affecting_match_events(self):
