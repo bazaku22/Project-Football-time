@@ -3,11 +3,11 @@
   "provider": "The Odds API",
   "market": "spreads",
   "region": "eu",
-  "fetchedAt": "2026-11-14T23:40:03.961032Z",
+  "fetchedAt": "2026-11-15T23:50:24.435702Z",
   "windowDays": 14,
   "quota": {
-    "remaining": 253,
-    "used": 247,
+    "remaining": 248,
+    "used": 252,
     "last": 5,
     "requestsPerRun": 5
   },
@@ -24,49 +24,49 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -2.75,
           "awayLine": 2.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -3.0,
           "awayLine": 3.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -2.5,
           "awayLine": 2.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": -3.0,
           "awayLine": 3.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
-          "homeLine": -2.75,
-          "awayLine": 2.75
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -3.0,
+          "awayLine": 3.0
         },
         {
           "bookmaker": "GTbets",
-          "lastUpdate": "2026-11-14T23:39:22Z",
+          "lastUpdate": "2026-11-15T23:49:20Z",
           "homeLine": -2.5,
           "awayLine": 2.5
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:22Z",
+          "lastUpdate": "2026-11-15T23:49:49Z",
           "homeLine": -3.0,
           "awayLine": 3.0
         }
       ],
-      "referenceHomeLine": -2.75,
-      "referenceAwayLine": 2.75
+      "referenceHomeLine": -3.0,
+      "referenceAwayLine": 3.0
     },
     {
       "id": "5dcc9d2b0da87770a4f49e924275be39",
@@ -80,37 +80,37 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "GTbets",
-          "lastUpdate": "2026-11-14T23:39:25Z",
+          "lastUpdate": "2026-11-15T23:49:38Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:38:07Z",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -130,37 +130,37 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:27Z",
+          "lastUpdate": "2026-11-15T23:49:51Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -180,45 +180,51 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:53Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.25,
           "awayLine": 1.25
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
         }
       ],
       "referenceHomeLine": -1.5,
@@ -236,37 +242,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -0.25,
           "awayLine": 0.25
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:51Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
         }
       ],
-      "referenceHomeLine": -0.25,
-      "referenceAwayLine": 0.25
+      "referenceHomeLine": -0.5,
+      "referenceAwayLine": 0.5
     },
     {
       "id": "9e8d72c6c27c1667be7b88416a36ca80",
@@ -280,31 +292,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:52Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -324,33 +348,45 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.25,
           "awayLine": 1.25
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:52Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
         }
       ],
       "referenceHomeLine": -1.5,
@@ -368,33 +404,45 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.75,
           "awayLine": 1.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
           "homeLine": -1.75,
           "awayLine": 1.75
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
         }
       ],
       "referenceHomeLine": -1.75,
@@ -412,31 +460,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -456,33 +516,45 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
           "homeLine": -0.25,
           "awayLine": 0.25
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
         }
       ],
       "referenceHomeLine": -0.25,
@@ -500,31 +572,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         }
@@ -544,31 +628,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -588,45 +684,51 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.75,
           "awayLine": 0.75
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
         }
       ],
       "referenceHomeLine": -0.75,
@@ -644,43 +746,49 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:09Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -700,43 +808,49 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -756,45 +870,51 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": 0.0,
           "awayLine": -0.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:57Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
         }
       ],
       "referenceHomeLine": 0.0,
@@ -812,39 +932,45 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:09Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
         }
       ],
       "referenceHomeLine": -1.0,
@@ -862,31 +988,37 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:51Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -906,25 +1038,37 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 1.25,
           "awayLine": -1.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:38Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         }
@@ -944,31 +1088,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:53Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         }
@@ -988,45 +1144,51 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:09Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:57Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.0,
           "awayLine": -1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
         }
       ],
       "referenceHomeLine": 1.0,
@@ -1044,33 +1206,39 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 0.25,
           "awayLine": -0.25
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:51Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
         }
       ],
       "referenceHomeLine": 0.25,
@@ -1088,37 +1256,49 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.75,
           "awayLine": -0.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:20Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:49:49Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         }
       ],
-      "referenceHomeLine": 1.0,
-      "referenceAwayLine": -1.0
+      "referenceHomeLine": 0.75,
+      "referenceAwayLine": -0.75
     },
     {
       "id": "e59809eb38340e3bca323cef070dfd34",
@@ -1132,25 +1312,43 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:53Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -1.25,
+          "awayLine": 1.25
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -1170,25 +1368,37 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:38Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -1208,31 +1418,43 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:38Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
         }
       ],
-      "referenceHomeLine": -0.25,
-      "referenceAwayLine": 0.25
+      "referenceHomeLine": -0.5,
+      "referenceAwayLine": 0.5
     },
     {
       "id": "d2113ca19873218496f8b2fe6c7e7c41",
@@ -1246,27 +1468,39 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:38Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
         }
       ],
       "referenceHomeLine": -0.25,
@@ -1284,27 +1518,39 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "GTbets",
+          "lastUpdate": "2026-11-15T23:49:38Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "BetOnline.ag",
+          "lastUpdate": "2026-11-15T23:50:05Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
         }
       ],
       "referenceHomeLine": -0.5,
@@ -1322,31 +1568,31 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "Matchbook",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         }
@@ -1366,25 +1612,31 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -1404,27 +1656,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
-          "homeLine": -1.5,
-          "awayLine": 1.5
+          "lastUpdate": "2026-11-15T23:49:55Z",
+          "homeLine": -2.5,
+          "awayLine": 2.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -2.0,
           "awayLine": 2.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -2.25,
+          "awayLine": 2.25
         }
       ],
       "referenceHomeLine": -2.0,
@@ -1442,37 +1700,43 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:09Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:57Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -1492,27 +1756,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
         }
       ],
       "referenceHomeLine": -1.0,
@@ -1530,27 +1800,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.0,
           "awayLine": -0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
-          "homeLine": -1.0,
-          "awayLine": 1.0
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
         }
       ],
       "referenceHomeLine": 0.0,
@@ -1568,25 +1844,25 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -1606,27 +1882,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
         }
       ],
       "referenceHomeLine": 0.0,
@@ -1644,31 +1926,37 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 0.25,
+          "awayLine": -0.25
         }
       ],
-      "referenceHomeLine": 0.0,
-      "referenceAwayLine": -0.0
+      "referenceHomeLine": 0.25,
+      "referenceAwayLine": -0.25
     },
     {
       "id": "8e6ee05b6ac28dc2357f72b9f5a0643e",
@@ -1682,25 +1970,25 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -1720,43 +2008,49 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:57Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -0.5,
           "awayLine": 0.5
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
         }
       ],
-      "referenceHomeLine": -1.0,
-      "referenceAwayLine": 1.0
+      "referenceHomeLine": -0.75,
+      "referenceAwayLine": 0.75
     },
     {
       "id": "9a214142c9b31ad8233dccad53f75d6d",
@@ -1770,27 +2064,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:49:22Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:19Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
         }
       ],
       "referenceHomeLine": -1.0,
@@ -1808,31 +2108,37 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
       ],
-      "referenceHomeLine": -1.5,
-      "referenceAwayLine": 1.5
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
     },
     {
       "id": "893268e5503c4e58fbf137e4b5db7e93",
@@ -1846,27 +2152,33 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:15Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
         }
       ],
       "referenceHomeLine": -1.0,
@@ -1884,25 +2196,31 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -1922,25 +2240,25 @@
       "bookmakers": [
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -1960,25 +2278,31 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.75,
           "awayLine": -0.75
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "Matchbook",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -1998,25 +2322,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:41Z",
+          "lastUpdate": "2026-11-15T23:49:54Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -2036,37 +2360,37 @@
       "bookmakers": [
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:09Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:52Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:54Z",
+          "lastUpdate": "2026-11-15T23:50:04Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "BetOnline.ag",
-          "lastUpdate": "2026-11-14T23:39:57Z",
+          "lastUpdate": "2026-11-15T23:49:56Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -2086,25 +2410,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2124,19 +2448,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2156,19 +2480,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2188,19 +2512,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2220,25 +2544,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": 0.0,
           "awayLine": -0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:53Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         }
@@ -2258,25 +2582,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2296,25 +2620,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2334,19 +2658,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.25,
           "awayLine": 1.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -2366,19 +2690,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2398,19 +2722,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 2.5,
           "awayLine": -2.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 2.5,
           "awayLine": -2.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 2.5,
           "awayLine": -2.5
         }
@@ -2430,19 +2754,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2462,19 +2786,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2494,25 +2818,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -0.25,
           "awayLine": 0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:53Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -2532,25 +2856,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:53Z",
           "homeLine": -0.5,
           "awayLine": 0.5
         }
@@ -2570,25 +2894,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -2608,19 +2932,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.75,
           "awayLine": -0.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         }
@@ -2640,19 +2964,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2672,25 +2996,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:53Z",
+          "lastUpdate": "2026-11-15T23:50:10Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:54Z",
+          "lastUpdate": "2026-11-15T23:49:24Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:24Z",
+          "lastUpdate": "2026-11-15T23:49:19Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "MyBookie.ag",
-          "lastUpdate": "2026-11-14T23:38:18Z",
+          "lastUpdate": "2026-11-15T23:48:53Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         }
@@ -2710,25 +3034,25 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": 1.5,
           "awayLine": -1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         }
@@ -2748,19 +3072,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:37Z",
+          "lastUpdate": "2026-11-15T23:50:03Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:42Z",
+          "lastUpdate": "2026-11-15T23:49:55Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         }
@@ -2780,19 +3104,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": -1.75,
           "awayLine": 1.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:38:58Z",
+          "lastUpdate": "2026-11-15T23:49:43Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:56Z",
+          "lastUpdate": "2026-11-15T23:49:37Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -2812,19 +3136,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.25,
           "awayLine": -0.25
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2844,19 +3168,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:22Z",
           "homeLine": 0.5,
           "awayLine": -0.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": 1.0,
           "awayLine": -1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": 0.0,
           "awayLine": 0.0
         }
@@ -2876,19 +3200,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": -2.0,
           "awayLine": 2.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -2908,19 +3232,19 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:55Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -0.75,
           "awayLine": 0.75
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:45Z",
+          "lastUpdate": "2026-11-15T23:49:29Z",
           "homeLine": -1.0,
           "awayLine": 1.0
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -1.5,
           "awayLine": 1.5
         }
@@ -2940,31 +3264,731 @@
       "bookmakers": [
         {
           "bookmaker": "Pinnacle",
-          "lastUpdate": "2026-11-14T23:39:40Z",
+          "lastUpdate": "2026-11-15T23:50:21Z",
           "homeLine": -2.25,
           "awayLine": 2.25
         },
         {
           "bookmaker": "1xBet",
-          "lastUpdate": "2026-11-14T23:39:11Z",
+          "lastUpdate": "2026-11-15T23:49:56Z",
           "homeLine": -2.5,
           "awayLine": 2.5
         },
         {
           "bookmaker": "Marathon Bet",
-          "lastUpdate": "2026-11-14T23:39:16Z",
+          "lastUpdate": "2026-11-15T23:49:44Z",
           "homeLine": -2.5,
           "awayLine": 2.5
         },
         {
           "bookmaker": "Coolbet",
-          "lastUpdate": "2026-11-14T23:39:43Z",
+          "lastUpdate": "2026-11-15T23:50:06Z",
           "homeLine": -2.5,
           "awayLine": 2.5
         }
       ],
       "referenceHomeLine": -2.5,
       "referenceAwayLine": 2.5
+    },
+    {
+      "id": "d3d47b94324eb7cde85bd93993437d1c",
+      "leagueId": "SA",
+      "league": "Serie A",
+      "sportKey": "soccer_italy_serie_a",
+      "homeTeam": "Udinese",
+      "awayTeam": "Fiorentina",
+      "commenceTime": "2026-11-29T11:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": 0.25,
+          "awayLine": -0.25
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:43Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:37Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "f45e9062c2f755b977c98d496c22697b",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Everton",
+      "awayTeam": "Liverpool",
+      "commenceTime": "2026-11-29T12:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:10Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "1ab9541320cecbe9f043565fd4a141e0",
+      "leagueId": "PD",
+      "league": "La Liga",
+      "sportKey": "soccer_spain_la_liga",
+      "homeTeam": "Valencia",
+      "awayTeam": "CA Osasuna",
+      "commenceTime": "2026-11-29T13:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": -0.25,
+          "awayLine": 0.25
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:56Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:44Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Coolbet",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        }
+      ],
+      "referenceHomeLine": -0.25,
+      "referenceAwayLine": 0.25
+    },
+    {
+      "id": "dc63586a1b1d938a461d71bf5b36d982",
+      "leagueId": "SA",
+      "league": "Serie A",
+      "sportKey": "soccer_italy_serie_a",
+      "homeTeam": "Sassuolo",
+      "awayTeam": "Napoli",
+      "commenceTime": "2026-11-29T14:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": 0.75,
+          "awayLine": -0.75
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:43Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:37Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        }
+      ],
+      "referenceHomeLine": 1.0,
+      "referenceAwayLine": -1.0
+    },
+    {
+      "id": "a370db12aaff183a94f8e9a6acb6d4c9",
+      "leagueId": "FL1",
+      "league": "Ligue 1",
+      "sportKey": "soccer_france_ligue_one",
+      "homeTeam": "Auxerre",
+      "awayTeam": "Marseille",
+      "commenceTime": "2026-11-29T14:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:29Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        }
+      ],
+      "referenceHomeLine": 0.5,
+      "referenceAwayLine": -0.5
+    },
+    {
+      "id": "56ea91809ff11d3a67557a21b3371cb9",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Fulham",
+      "awayTeam": "Bournemouth",
+      "commenceTime": "2026-11-29T14:05:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:09Z",
+          "homeLine": 0.0,
+          "awayLine": -0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "e9c2b74ecaafd494e3b2d8521b52216a",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Brighton and Hove Albion",
+      "awayTeam": "Newcastle United",
+      "commenceTime": "2026-11-29T14:05:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:09Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
+    },
+    {
+      "id": "e12585885a7f135127f276b7f1ecdf89",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Crystal Palace",
+      "awayTeam": "Hull City",
+      "commenceTime": "2026-11-29T14:05:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:10Z",
+          "homeLine": -0.75,
+          "awayLine": 0.75
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
+    },
+    {
+      "id": "09bb0ba9a9025d64fed410375c0c8f80",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Sunderland",
+      "awayTeam": "Tottenham Hotspur",
+      "commenceTime": "2026-11-29T14:05:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:10Z",
+          "homeLine": 0.25,
+          "awayLine": -0.25
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": 0.5,
+          "awayLine": -0.5
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "2aa9aa95157eb36fed45135c995cdd80",
+      "leagueId": "BL1",
+      "league": "Bundesliga",
+      "sportKey": "soccer_germany_bundesliga",
+      "homeTeam": "SC Freiburg",
+      "awayTeam": "RB Leipzig",
+      "commenceTime": "2026-11-29T14:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": 0.0,
+          "awayLine": -0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:55Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "69fc06d019491be2aa1bf69b8f8041e3",
+      "leagueId": "PD",
+      "league": "La Liga",
+      "sportKey": "soccer_spain_la_liga",
+      "homeTeam": "Deportivo La Coruña",
+      "awayTeam": "Barcelona",
+      "commenceTime": "2026-11-29T15:15:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:56Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:44Z",
+          "homeLine": 2.0,
+          "awayLine": -2.0
+        },
+        {
+          "bookmaker": "Coolbet",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 1.5,
+          "awayLine": -1.5
+        }
+      ],
+      "referenceHomeLine": 1.5,
+      "referenceAwayLine": -1.5
+    },
+    {
+      "id": "71c08940a73e9f42d503449f052a1bdf",
+      "leagueId": "FL1",
+      "league": "Ligue 1",
+      "sportKey": "soccer_france_ligue_one",
+      "homeTeam": "Toulouse",
+      "awayTeam": "Rennes",
+      "commenceTime": "2026-11-29T16:15:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": 0.0,
+          "awayLine": -0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:29Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "d20ede55e54ed7b55fdc36ca373727c0",
+      "leagueId": "PL",
+      "league": "Premier League",
+      "sportKey": "soccer_epl",
+      "homeTeam": "Arsenal",
+      "awayTeam": "Manchester City",
+      "commenceTime": "2026-11-29T16:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:10Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:19Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:24Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "MyBookie.ag",
+          "lastUpdate": "2026-11-15T23:48:53Z",
+          "homeLine": -0.5,
+          "awayLine": 0.5
+        }
+      ],
+      "referenceHomeLine": -0.5,
+      "referenceAwayLine": 0.5
+    },
+    {
+      "id": "98dc79e39433bb4c59bf9753e35a5cdf",
+      "leagueId": "BL1",
+      "league": "Bundesliga",
+      "sportKey": "soccer_germany_bundesliga",
+      "homeTeam": "TSG Hoffenheim",
+      "awayTeam": "Augsburg",
+      "commenceTime": "2026-11-29T16:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:55Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
+    },
+    {
+      "id": "c979bd4559d2d81a8e2fe8f2d4aec376",
+      "leagueId": "SA",
+      "league": "Serie A",
+      "sportKey": "soccer_italy_serie_a",
+      "homeTeam": "AS Roma",
+      "awayTeam": "Monza",
+      "commenceTime": "2026-11-29T17:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": -1.75,
+          "awayLine": 1.75
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:43Z",
+          "homeLine": -2.0,
+          "awayLine": 2.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:37Z",
+          "homeLine": -1.5,
+          "awayLine": 1.5
+        }
+      ],
+      "referenceHomeLine": -1.75,
+      "referenceAwayLine": 1.75
+    },
+    {
+      "id": "20c78c2ef75c4a6d7f4af81dd32e97cd",
+      "leagueId": "PD",
+      "league": "La Liga",
+      "sportKey": "soccer_spain_la_liga",
+      "homeTeam": "Celta Vigo",
+      "awayTeam": "Villarreal",
+      "commenceTime": "2026-11-29T17:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 0.0,
+          "awayLine": -0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:56Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:44Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Coolbet",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": 1.0,
+          "awayLine": -1.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "98415e21c147d701bd81e70b1af0f3a7",
+      "leagueId": "BL1",
+      "league": "Bundesliga",
+      "sportKey": "soccer_germany_bundesliga",
+      "homeTeam": "Borussia Dortmund",
+      "awayTeam": "Bayer Leverkusen",
+      "commenceTime": "2026-11-29T18:30:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": -0.25,
+          "awayLine": 0.25
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:03Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:55Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "3876ad367184af2f8fc04a544fc894aa",
+      "leagueId": "SA",
+      "league": "Serie A",
+      "sportKey": "soccer_italy_serie_a",
+      "homeTeam": "Como",
+      "awayTeam": "Juventus",
+      "commenceTime": "2026-11-29T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": -0.25,
+          "awayLine": 0.25
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:43Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:37Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "ca8aa566e27e1d05b47e8151b2066f9a",
+      "leagueId": "FL1",
+      "league": "Ligue 1",
+      "sportKey": "soccer_france_ligue_one",
+      "homeTeam": "Lyon",
+      "awayTeam": "AS Monaco",
+      "commenceTime": "2026-11-29T19:45:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:22Z",
+          "homeLine": -0.25,
+          "awayLine": 0.25
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:29Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        }
+      ],
+      "referenceHomeLine": 0.0,
+      "referenceAwayLine": -0.0
+    },
+    {
+      "id": "f892ea6d5eca105c36ca9468b12857f2",
+      "leagueId": "PD",
+      "league": "La Liga",
+      "sportKey": "soccer_spain_la_liga",
+      "homeTeam": "Real Sociedad",
+      "awayTeam": "Sevilla",
+      "commenceTime": "2026-11-29T20:00:00Z",
+      "provider": "The Odds API",
+      "bookmakers": [
+        {
+          "bookmaker": "Pinnacle",
+          "lastUpdate": "2026-11-15T23:50:21Z",
+          "homeLine": -0.25,
+          "awayLine": 0.25
+        },
+        {
+          "bookmaker": "1xBet",
+          "lastUpdate": "2026-11-15T23:49:56Z",
+          "homeLine": 0.0,
+          "awayLine": 0.0
+        },
+        {
+          "bookmaker": "Marathon Bet",
+          "lastUpdate": "2026-11-15T23:49:44Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        },
+        {
+          "bookmaker": "Coolbet",
+          "lastUpdate": "2026-11-15T23:50:06Z",
+          "homeLine": -1.0,
+          "awayLine": 1.0
+        }
+      ],
+      "referenceHomeLine": -1.0,
+      "referenceAwayLine": 1.0
     }
   ]
 }
