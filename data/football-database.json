@@ -1,35 +1,35 @@
 {
   "schemaVersion": "1.3.0",
-  "generatedAt": "2026-11-14T23:36:02.926848+00:00",
+  "generatedAt": "2026-11-15T23:46:19.385713+00:00",
   "source": {
     "provider": "football-data.org",
     "apiVersion": "v4",
     "attribution": "Data provided by football-data.org",
-    "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00",
+    "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00",
     "leagueSync": {
       "PL": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "PD": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "BL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "SA": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "FL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "ELC": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       }
     }
   },
@@ -2277,7 +2277,7 @@
       "goalsAgainst": 5,
       "goalDifference": 10,
       "points": 27,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2292,7 +2292,7 @@
       "goalsAgainst": 7,
       "goalDifference": 19,
       "points": 22,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2307,7 +2307,7 @@
       "goalsAgainst": 13,
       "goalDifference": 8,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2322,7 +2322,7 @@
       "goalsAgainst": 10,
       "goalDifference": 4,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2337,7 +2337,7 @@
       "goalsAgainst": 16,
       "goalDifference": 3,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2352,7 +2352,7 @@
       "goalsAgainst": 10,
       "goalDifference": 2,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2367,7 +2367,7 @@
       "goalsAgainst": 14,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2382,7 +2382,7 @@
       "goalsAgainst": 11,
       "goalDifference": 5,
       "points": 14,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2397,7 +2397,7 @@
       "goalsAgainst": 8,
       "goalDifference": 2,
       "points": 14,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2412,7 +2412,7 @@
       "goalsAgainst": 17,
       "goalDifference": -3,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2427,7 +2427,7 @@
       "goalsAgainst": 11,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2442,7 +2442,7 @@
       "goalsAgainst": 16,
       "goalDifference": -3,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2457,7 +2457,7 @@
       "goalsAgainst": 11,
       "goalDifference": 0,
       "points": 11,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2472,7 +2472,7 @@
       "goalsAgainst": 20,
       "goalDifference": -5,
       "points": 11,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2487,7 +2487,7 @@
       "goalsAgainst": 12,
       "goalDifference": -2,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2502,7 +2502,7 @@
       "goalsAgainst": 13,
       "goalDifference": -4,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2517,7 +2517,7 @@
       "goalsAgainst": 19,
       "goalDifference": -9,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2532,7 +2532,7 @@
       "goalsAgainst": 19,
       "goalDifference": -5,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2547,7 +2547,7 @@
       "goalsAgainst": 17,
       "goalDifference": -9,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PL",
@@ -2562,7 +2562,7 @@
       "goalsAgainst": 24,
       "goalDifference": -14,
       "points": 7,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2577,7 +2577,7 @@
       "goalsAgainst": 13,
       "goalDifference": 35,
       "points": 33,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2592,7 +2592,7 @@
       "goalsAgainst": 10,
       "goalDifference": 21,
       "points": 30,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2607,7 +2607,7 @@
       "goalsAgainst": 10,
       "goalDifference": 13,
       "points": 28,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2622,7 +2622,7 @@
       "goalsAgainst": 15,
       "goalDifference": 5,
       "points": 26,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2637,7 +2637,7 @@
       "goalsAgainst": 20,
       "goalDifference": 1,
       "points": 22,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2652,7 +2652,7 @@
       "goalsAgainst": 19,
       "goalDifference": -2,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2667,7 +2667,7 @@
       "goalsAgainst": 11,
       "goalDifference": 4,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2682,7 +2682,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2697,7 +2697,7 @@
       "goalsAgainst": 14,
       "goalDifference": 1,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2712,7 +2712,7 @@
       "goalsAgainst": 30,
       "goalDifference": -13,
       "points": 14,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2727,7 +2727,7 @@
       "goalsAgainst": 10,
       "goalDifference": 0,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2742,7 +2742,7 @@
       "goalsAgainst": 17,
       "goalDifference": -2,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2757,7 +2757,7 @@
       "goalsAgainst": 14,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2772,7 +2772,7 @@
       "goalsAgainst": 21,
       "goalDifference": -6,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2787,7 +2787,7 @@
       "goalsAgainst": 18,
       "goalDifference": -10,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2802,7 +2802,7 @@
       "goalsAgainst": 23,
       "goalDifference": -11,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2817,7 +2817,7 @@
       "goalsAgainst": 21,
       "goalDifference": -5,
       "points": 11,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2832,7 +2832,7 @@
       "goalsAgainst": 20,
       "goalDifference": -6,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2847,7 +2847,7 @@
       "goalsAgainst": 20,
       "goalDifference": -12,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "PD",
@@ -2862,7 +2862,7 @@
       "goalsAgainst": 23,
       "goalDifference": -14,
       "points": 5,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2877,7 +2877,7 @@
       "goalsAgainst": 9,
       "goalDifference": 20,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2892,7 +2892,7 @@
       "goalsAgainst": 7,
       "goalDifference": 9,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2907,7 +2907,7 @@
       "goalsAgainst": 10,
       "goalDifference": 10,
       "points": 19,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2922,7 +2922,7 @@
       "goalsAgainst": 13,
       "goalDifference": 14,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2937,7 +2937,7 @@
       "goalsAgainst": 17,
       "goalDifference": 3,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2952,7 +2952,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2967,7 +2967,7 @@
       "goalsAgainst": 18,
       "goalDifference": -1,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2982,7 +2982,7 @@
       "goalsAgainst": 15,
       "goalDifference": 0,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -2997,7 +2997,7 @@
       "goalsAgainst": 17,
       "goalDifference": -1,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3012,7 +3012,7 @@
       "goalsAgainst": 20,
       "goalDifference": -5,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3027,7 +3027,7 @@
       "goalsAgainst": 20,
       "goalDifference": -10,
       "points": 12,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3042,7 +3042,7 @@
       "goalsAgainst": 19,
       "goalDifference": -1,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3057,7 +3057,7 @@
       "goalsAgainst": 11,
       "goalDifference": -3,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3072,7 +3072,7 @@
       "goalsAgainst": 20,
       "goalDifference": 0,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3087,7 +3087,7 @@
       "goalsAgainst": 14,
       "goalDifference": -4,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3102,7 +3102,7 @@
       "goalsAgainst": 21,
       "goalDifference": -14,
       "points": 7,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3117,7 +3117,7 @@
       "goalsAgainst": 11,
       "goalDifference": -6,
       "points": 6,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "BL1",
@@ -3132,7 +3132,7 @@
       "goalsAgainst": 25,
       "goalDifference": -13,
       "points": 4,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3147,7 +3147,7 @@
       "goalsAgainst": 9,
       "goalDifference": 16,
       "points": 29,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3162,7 +3162,7 @@
       "goalsAgainst": 13,
       "goalDifference": 15,
       "points": 28,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3177,7 +3177,7 @@
       "goalsAgainst": 10,
       "goalDifference": 21,
       "points": 27,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3192,7 +3192,7 @@
       "goalsAgainst": 13,
       "goalDifference": 10,
       "points": 24,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3207,7 +3207,7 @@
       "goalsAgainst": 10,
       "goalDifference": 8,
       "points": 23,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3222,7 +3222,7 @@
       "goalsAgainst": 15,
       "goalDifference": 9,
       "points": 20,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3237,7 +3237,7 @@
       "goalsAgainst": 12,
       "goalDifference": 3,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3252,7 +3252,7 @@
       "goalsAgainst": 14,
       "goalDifference": 2,
       "points": 17,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3267,7 +3267,7 @@
       "goalsAgainst": 15,
       "goalDifference": -5,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3282,7 +3282,7 @@
       "goalsAgainst": 14,
       "goalDifference": 4,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3297,7 +3297,7 @@
       "goalsAgainst": 17,
       "goalDifference": -2,
       "points": 14,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3312,7 +3312,7 @@
       "goalsAgainst": 20,
       "goalDifference": -3,
       "points": 14,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3327,7 +3327,7 @@
       "goalsAgainst": 16,
       "goalDifference": -5,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3342,7 +3342,7 @@
       "goalsAgainst": 22,
       "goalDifference": -10,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3357,7 +3357,7 @@
       "goalsAgainst": 25,
       "goalDifference": -8,
       "points": 9,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3372,7 +3372,7 @@
       "goalsAgainst": 17,
       "goalDifference": -8,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3387,7 +3387,7 @@
       "goalsAgainst": 29,
       "goalDifference": -13,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3402,7 +3402,7 @@
       "goalsAgainst": 25,
       "goalDifference": -8,
       "points": 7,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3417,7 +3417,7 @@
       "goalsAgainst": 21,
       "goalDifference": -13,
       "points": 6,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "SA",
@@ -3432,7 +3432,7 @@
       "goalsAgainst": 25,
       "goalDifference": -13,
       "points": 5,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3447,7 +3447,7 @@
       "goalsAgainst": 10,
       "goalDifference": 12,
       "points": 23,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3462,7 +3462,7 @@
       "goalsAgainst": 7,
       "goalDifference": 7,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3477,7 +3477,7 @@
       "goalsAgainst": 10,
       "goalDifference": 7,
       "points": 20,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3492,7 +3492,7 @@
       "goalsAgainst": 14,
       "goalDifference": 8,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3507,7 +3507,7 @@
       "goalsAgainst": 9,
       "goalDifference": 6,
       "points": 17,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3522,7 +3522,7 @@
       "goalsAgainst": 12,
       "goalDifference": 3,
       "points": 17,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3537,7 +3537,7 @@
       "goalsAgainst": 11,
       "goalDifference": 2,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3552,7 +3552,7 @@
       "goalsAgainst": 21,
       "goalDifference": 0,
       "points": 16,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3567,7 +3567,7 @@
       "goalsAgainst": 12,
       "goalDifference": 6,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3582,7 +3582,7 @@
       "goalsAgainst": 8,
       "goalDifference": 1,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3597,7 +3597,7 @@
       "goalsAgainst": 15,
       "goalDifference": 2,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3612,7 +3612,7 @@
       "goalsAgainst": 14,
       "goalDifference": 1,
       "points": 13,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3627,7 +3627,7 @@
       "goalsAgainst": 22,
       "goalDifference": -4,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3642,7 +3642,7 @@
       "goalsAgainst": 24,
       "goalDifference": -11,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3657,7 +3657,7 @@
       "goalsAgainst": 19,
       "goalDifference": -7,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3672,7 +3672,7 @@
       "goalsAgainst": 19,
       "goalDifference": -10,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3687,7 +3687,7 @@
       "goalsAgainst": 17,
       "goalDifference": -10,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "FL1",
@@ -3702,7 +3702,7 @@
       "goalsAgainst": 22,
       "goalDifference": -13,
       "points": 2,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3717,7 +3717,7 @@
       "goalsAgainst": 14,
       "goalDifference": 14,
       "points": 29,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3732,7 +3732,7 @@
       "goalsAgainst": 19,
       "goalDifference": 11,
       "points": 29,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3747,7 +3747,7 @@
       "goalsAgainst": 18,
       "goalDifference": 6,
       "points": 29,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3762,7 +3762,7 @@
       "goalsAgainst": 18,
       "goalDifference": 8,
       "points": 28,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3777,7 +3777,7 @@
       "goalsAgainst": 15,
       "goalDifference": 8,
       "points": 28,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3792,7 +3792,7 @@
       "goalsAgainst": 18,
       "goalDifference": 4,
       "points": 26,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3807,7 +3807,7 @@
       "goalsAgainst": 15,
       "goalDifference": 14,
       "points": 24,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3822,7 +3822,7 @@
       "goalsAgainst": 18,
       "goalDifference": 6,
       "points": 24,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3837,7 +3837,7 @@
       "goalsAgainst": 23,
       "goalDifference": 14,
       "points": 23,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3852,7 +3852,7 @@
       "goalsAgainst": 19,
       "goalDifference": 2,
       "points": 22,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3867,7 +3867,7 @@
       "goalsAgainst": 18,
       "goalDifference": 2,
       "points": 22,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3882,7 +3882,7 @@
       "goalsAgainst": 24,
       "goalDifference": 8,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3897,7 +3897,7 @@
       "goalsAgainst": 23,
       "goalDifference": -1,
       "points": 21,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3912,7 +3912,7 @@
       "goalsAgainst": 27,
       "goalDifference": 0,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3927,7 +3927,7 @@
       "goalsAgainst": 20,
       "goalDifference": -2,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3942,7 +3942,7 @@
       "goalsAgainst": 27,
       "goalDifference": -4,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3957,7 +3957,7 @@
       "goalsAgainst": 24,
       "goalDifference": -8,
       "points": 18,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3972,7 +3972,7 @@
       "goalsAgainst": 29,
       "goalDifference": -9,
       "points": 17,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -3987,7 +3987,7 @@
       "goalsAgainst": 23,
       "goalDifference": -10,
       "points": 17,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4002,7 +4002,7 @@
       "goalsAgainst": 23,
       "goalDifference": -10,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4017,7 +4017,7 @@
       "goalsAgainst": 26,
       "goalDifference": -11,
       "points": 15,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4032,7 +4032,7 @@
       "goalsAgainst": 31,
       "goalDifference": -9,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4047,7 +4047,7 @@
       "goalsAgainst": 30,
       "goalDifference": -16,
       "points": 10,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     },
     {
       "leagueId": "ELC",
@@ -4062,7 +4062,7 @@
       "goalsAgainst": 30,
       "goalDifference": -17,
       "points": 8,
-      "updatedAt": "2026-11-14T23:36:02.926848+00:00"
+      "updatedAt": "2026-11-15T23:46:19.385713+00:00"
     }
   ],
   "matches": [
@@ -10840,15 +10840,67 @@
       "awayScore": null
     },
     {
-      "providerMatchId": 564768,
+      "providerMatchId": 564770,
       "leagueId": "PD",
       "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:79",
-      "awayTeamId": "football-data:285",
-      "homeTeamName": "CA Osasuna",
-      "awayTeamName": "Elche CF",
+      "utcDate": "2026-12-04T20:00:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:263",
+      "awayTeamId": "football-data:80",
+      "homeTeamName": "Deportivo Alavés",
+      "awayTeamName": "RCD Espanyol de Barcelona",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "providerMatchId": 564772,
+      "leagueId": "PD",
+      "season": "2026-2027",
+      "utcDate": "2026-12-05T13:00:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:5335",
+      "awayTeamId": "football-data:560",
+      "homeTeamName": "Real Racing Club de Santander",
+      "awayTeamName": "RC Deportivo La Coruña",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "providerMatchId": 564777,
+      "leagueId": "PD",
+      "season": "2026-2027",
+      "utcDate": "2026-12-05T15:15:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:87",
+      "awayTeamId": "football-data:88",
+      "homeTeamName": "Rayo Vallecano de Madrid",
+      "awayTeamName": "Levante UD",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "providerMatchId": 564776,
+      "leagueId": "PD",
+      "season": "2026-2027",
+      "utcDate": "2026-12-05T17:30:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:94",
+      "awayTeamId": "football-data:92",
+      "homeTeamName": "Villarreal CF",
+      "awayTeamName": "Real Sociedad de Fútbol",
+      "homeScore": null,
+      "awayScore": null
+    },
+    {
+      "providerMatchId": 564773,
+      "leagueId": "PD",
+      "season": "2026-2027",
+      "utcDate": "2026-12-05T20:00:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:81",
+      "awayTeamId": "football-data:558",
+      "homeTeamName": "FC Barcelona",
+      "awayTeamName": "RC Celta de Vigo",
       "homeScore": null,
       "awayScore": null
     },
@@ -10866,19 +10918,6 @@
       "awayScore": null
     },
     {
-      "providerMatchId": 564770,
-      "leagueId": "PD",
-      "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:263",
-      "awayTeamId": "football-data:80",
-      "homeTeamName": "Deportivo Alavés",
-      "awayTeamName": "RCD Espanyol de Barcelona",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
       "providerMatchId": 564771,
       "leagueId": "PD",
       "season": "2026-2027",
@@ -10892,41 +10931,15 @@
       "awayScore": null
     },
     {
-      "providerMatchId": 564772,
+      "providerMatchId": 564768,
       "leagueId": "PD",
       "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:5335",
-      "awayTeamId": "football-data:560",
-      "homeTeamName": "Real Racing Club de Santander",
-      "awayTeamName": "RC Deportivo La Coruña",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "providerMatchId": 564773,
-      "leagueId": "PD",
-      "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:81",
-      "awayTeamId": "football-data:558",
-      "homeTeamName": "FC Barcelona",
-      "awayTeamName": "RC Celta de Vigo",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "providerMatchId": 564774,
-      "leagueId": "PD",
-      "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:82",
-      "awayTeamId": "football-data:95",
-      "homeTeamName": "Getafe CF",
-      "awayTeamName": "Valencia CF",
+      "utcDate": "2026-12-06T13:00:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:79",
+      "awayTeamId": "football-data:285",
+      "homeTeamName": "CA Osasuna",
+      "awayTeamName": "Elche CF",
       "homeScore": null,
       "awayScore": null
     },
@@ -10934,8 +10947,8 @@
       "providerMatchId": 564775,
       "leagueId": "PD",
       "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
+      "utcDate": "2026-12-06T15:15:00Z",
+      "status": "TIMED",
       "homeTeamId": "football-data:77",
       "awayTeamId": "football-data:86",
       "homeTeamName": "Athletic Club",
@@ -10944,28 +10957,15 @@
       "awayScore": null
     },
     {
-      "providerMatchId": 564776,
+      "providerMatchId": 564774,
       "leagueId": "PD",
       "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:94",
-      "awayTeamId": "football-data:92",
-      "homeTeamName": "Villarreal CF",
-      "awayTeamName": "Real Sociedad de Fútbol",
-      "homeScore": null,
-      "awayScore": null
-    },
-    {
-      "providerMatchId": 564777,
-      "leagueId": "PD",
-      "season": "2026-2027",
-      "utcDate": "2026-12-06T00:00:00Z",
-      "status": "SCHEDULED",
-      "homeTeamId": "football-data:87",
-      "awayTeamId": "football-data:88",
-      "homeTeamName": "Rayo Vallecano de Madrid",
-      "awayTeamName": "Levante UD",
+      "utcDate": "2026-12-06T17:30:00Z",
+      "status": "TIMED",
+      "homeTeamId": "football-data:82",
+      "awayTeamId": "football-data:95",
+      "homeTeamName": "Getafe CF",
+      "awayTeamName": "Valencia CF",
       "homeScore": null,
       "awayScore": null
     },
