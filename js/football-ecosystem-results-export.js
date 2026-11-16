@@ -46,7 +46,9 @@
     if (!Array.isArray(envelope.records)) throw new Error("ไม่พบรายการผลการแข่งขัน");
     const seen = new Set(), counts = Object.fromEntries(LEAGUE_IDS.map(id => [id,0]));
     for (const row of envelope.records) {
-      if (!row || !MATCH_ID_PATTERN.test(row.match_id || "") || seen.has(row.match_id) ||
+      const allowedRecordKeys = ["match_id","home_score","away_score","status","result_revision","updated_at","correction_reason","source"];
+      if (!row || Object.keys(row).some(key => !allowedRecordKeys.includes(key)) ||
+          !MATCH_ID_PATTERN.test(row.match_id || "") || seen.has(row.match_id) ||
           !Number.isInteger(row.home_score) || row.home_score < 0 ||
           !Number.isInteger(row.away_score) || row.away_score < 0 ||
           row.status !== "FINISHED" || !Number.isInteger(row.result_revision) || row.result_revision < 1 ||
@@ -55,8 +57,7 @@
         throw new Error("พบผลการแข่งขันที่ขาดข้อมูล คะแนนหรือ Revision ไม่ถูกต้อง หรือมี Match ID ซ้ำ");
       }
       seen.add(row.match_id);
-      if (!LEAGUE_IDS.includes(row.league_id) || row.season_id !== SEASON_ID) throw new Error("พบผลการแข่งขันนอกขอบเขต");
-      counts[row.league_id] += 1;
+
     }
     return {total:envelope.records.length,counts};
   }
@@ -68,6 +69,7 @@
     const previous = opts.ledger || {}, nextLedger = JSON.parse(JSON.stringify(previous));
     const sourceMeta = database.source || {}, leagueSync = sourceMeta.leagueSync || {};
     const records = [];
+    const counts = Object.fromEntries(LEAGUE_IDS.map(id => [id,0]));
     let newResults = 0, revisedResults = 0;
     for (const match of database.matches) {
       if (!match || !LEAGUE_IDS.includes(match.leagueId) || match.season !== SEASON_ID ||
@@ -95,16 +97,17 @@
       }
       nextLedger[matchId] = {match_id:matchId,revision,fingerprint,home_score:match.homeScore,
         away_score:match.awayScore,updated_at:updatedAt,history};
-      records.push({match_id:matchId,league_id:match.leagueId,season_id:match.season,
-        home_score:match.homeScore,away_score:match.awayScore,status:"FINISHED",
+      records.push({match_id:matchId,home_score:match.homeScore,away_score:match.awayScore,status:"FINISHED",
         result_revision:revision,updated_at:updatedAt,
         source:{provider:match.resultSource || sourceMeta.provider || "football-data.org",verified_at:verifiedAt}});
+      counts[match.leagueId] += 1;
     }
     records.sort((a,b)=>a.updated_at.localeCompare(b.updated_at)||a.match_id.localeCompare(b.match_id));
     const envelope = {schema_version:"1.0.0",export_id:opts.exportId||makeExportId(now),
       exported_by:"football-time",exported_at:now,data_type:"match_results",
       scope:{league_ids:LEAGUE_IDS.slice(),season_ids:[SEASON_ID]},records};
     const summary = assertEnvelope(envelope);
+    summary.counts = counts;
     return {envelope,summary,nextLedger,newResults,revisedResults};
   }
   function downloadExport(prepared, storage) {
