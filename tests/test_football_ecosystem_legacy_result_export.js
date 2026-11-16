@@ -36,4 +36,11 @@ for (const row of built.envelope.records) {
   assert.equal("updated_at" in row, false);
 }
 assert.throws(() => api.buildLegacyResultSnapshot({matches:[]}), /ไม่มีผลเก่า/);
-console.log("Legacy result snapshot export tests passed: exact IDs, valid scores, explicit unverified provenance, no fabricated revisions.");
+const readiness = api.auditResultReadiness(db);
+assert.equal(readiness.legacySnapshot.total, 2);
+assert.equal(readiness.legacySnapshot.leagueCounts.PL, 1);
+assert.equal(readiness.legacySnapshot.leagueCounts.PD, 1);
+assert.equal(readiness.legacySnapshot.excluded.missingProviderId, 1);
+assert.equal(readiness.legacySnapshot.excluded.invalidScore, 1);
+assert.equal(readiness.totals.ready, 0, "legacy eligibility must not be mixed into verified readiness");
+console.log("Legacy result snapshot export tests passed: exact IDs, valid scores, explicit unverified provenance, separate legacy readiness, no fabricated revisions.");
