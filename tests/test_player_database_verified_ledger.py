@@ -178,7 +178,7 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn('content="6.26.5-beta.11"', index)
         self.assertIn("V6.26.5-beta.11", index)
-        self.assertIn('const CACHE = "football-time-v102";', service_worker)
+        self.assertIn('const CACHE = "football-time-v103";', service_worker)
 
 if __name__ == "__main__":
     unittest.main()
