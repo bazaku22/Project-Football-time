@@ -79,7 +79,7 @@
   const old=document.getElementById("experimentModelBreakdown");if(old)old.remove();
   const pct=v=>v==null?"—":(v*100).toFixed(1)+"%",num=v=>v==null?"—":v.toFixed(3);
   const cards=models.map(([key,label])=>{const subset=rows.filter(r=>r.modelVersion===key),m=modelMetrics(subset);return '<div class="card"><b>'+label+'</b><div class="small">'+subset.length+' Snapshot · ประเมินแล้ว '+m.count+' · รอผล '+Math.max(0,subset.length-m.count)+'</div><div class="experiment-kpis"><div class="experiment-kpi"><b>'+pct(m.accuracy)+'</b><span>1X2 Accuracy</span></div><div class="experiment-kpi"><b>'+num(m.brier)+'</b><span>Brier</span></div><div class="experiment-kpi"><b>'+num(m.logLoss)+'</b><span>Log Loss</span></div></div></div>';}).join("");
-  root.insertAdjacentHTML("beforeend",'<div id="experimentModelBreakdown"><div class="quality-note">ตัวเลขภาพรวมด้านบนรวมทุกเวอร์ชันเพื่อสรุปจำนวนรายการเท่านั้น การประเมินคุณภาพให้ดูแยกตามโมเดลด้านล่างเพื่อไม่ให้ผลสโมสรและทีมชาติปะปนกัน</div>'+cards+'</div>');
+  root.insertAdjacentHTML("beforeend",'<div id="experimentModelBreakdown"><div class="quality-note">ตัวเลขภาพรวมด้านบนรวมทุกเวอร์ชันเพื่อสรุปจำนวนรายการเท่านั้น การประเมินคุณภาพให้ดูแยกตามเวอร์ชันโมเดลด้านล่าง</div>'+cards+'</div>');
  }
  function enhance(fixtures){
   const rows=read();
