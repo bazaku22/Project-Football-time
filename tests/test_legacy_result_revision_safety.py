@@ -8,6 +8,7 @@ wanted = {"valid_score", "valid_finished_result", "parse_timestamp", "apply_resu
 nodes = [node for node in tree.body if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)) and node.name in wanted]
 assert {node.name for node in nodes} == wanted
 module = ast.Module(body=[ast.ImportFrom(module="datetime", names=[ast.alias(name="datetime"), ast.alias(name="timezone")], level=0), *nodes], type_ignores=[])
+module = ast.fix_missing_locations(module)
 namespace = {}
 exec(compile(module, str(SOURCE), "exec"), namespace)
 apply_result_revisions = namespace["apply_result_revisions"]
