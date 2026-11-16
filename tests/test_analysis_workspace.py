@@ -33,8 +33,8 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("insightTarget.replaceChildren()", body)
 
     def test_app_and_service_worker_versions_are_aligned(self):
-        self.assertIn('application-version" content="6.26.5-beta.12"', self.html)
-        self.assertIn('football-time-v102', self.service_worker)
+        self.assertIn('application-version" content="6.26.6-beta.1"', self.html)
+        self.assertIn('football-time-v105', self.service_worker)
         self.assertIn('application-version" content="6.26.5-beta.12"', self.workflow)
         self.assertIn('football-time-v102', self.workflow)
 
