@@ -34,7 +34,7 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
 
     def test_app_and_service_worker_versions_are_aligned(self):
         self.assertIn('application-version" content="6.26.5-beta.9"', self.html)
-        self.assertIn('football-time-v100', self.service_worker)
+        self.assertIn('football-time-v101', self.service_worker)
         self.assertIn('application-version" content="6.26.5-beta.9"', self.workflow)
         self.assertIn('football-time-v100', self.workflow)
 
