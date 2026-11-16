@@ -292,20 +292,18 @@
     const delivery = window.FootballTimeAppContext?.getDataDelivery?.();
     const deliveryLabel = delivery === "cache" ? "แหล่งส่งข้อมูล: แคช" :
       delivery === "network" ? "แหล่งส่งข้อมูล: เครือข่าย" : "แหล่งส่งข้อมูล: ไม่ทราบ";
-    state.textContent = (database
-      ? "แหล่งข้อมูลสโมสร: " + (database.source?.provider || "ไม่ระบุ") +
+    state.textContent = database
+      ? "แหล่งข้อมูล: " + (database.source?.provider || "ไม่ระบุ") +
         " · ซิงก์ล่าสุด " + formatUpdated(sourceTime) +
         " · " + deliveryLabel + " · ความสดรายลีก " + freshness
-      : "ฐานข้อมูลสโมสรไม่พร้อม · แสดงเฉพาะโปรแกรมทีมชาติชุดทดลอง") +
-      " · " + internationalLoadState + " (แยกจากฐานข้อมูลสโมสร)";
+      : "ฐานข้อมูล 5 ลีกใหญ่ไม่พร้อม";
     if (!rows.length) {
       root.innerHTML = '<div class="mc-empty"><b>ไม่พบการแข่งขันในตัวกรองนี้</b><span>ไม่มีข้อมูลที่ตรงกับช่วงเวลา ลีก หรือสถานะที่เลือก · ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง</span></div>';
       return;
     }
     const groups = new Map();
     rows.forEach((match) => {
-      const key = match.utcDate ? matchDate(match) :
-        (match.isInternational && match.localDate ? "source-date:" + match.localDate : "unknown");
+      const key = match.utcDate ? matchDate(match) : "unknown";
       if (!groups.has(key)) groups.set(key,[]);
       groups.get(key).push(match);
     });
