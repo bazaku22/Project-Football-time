@@ -143,15 +143,33 @@ The example is illustrative. Real names, IDs, dates, status, and source timestam
 ```json
 {
   "match_id": "FT-M-FOOTBALLDATA-560643",
+  "league_id": "PL",
+  "season_id": "2026-2027",
   "home_score": 2,
   "away_score": 1,
   "status": "FINISHED",
   "result_revision": 1,
   "updated_at": "2026-11-20T22:05:00+07:00",
+  "correction_reason": "Initial verified result.",
   "source": {
     "provider": "football-data.org",
     "verified_at": "2026-11-20T22:05:00+07:00"
-  }
+  },
+  "revision_history": [
+    {
+      "result_revision": 1,
+      "home_score": 2,
+      "away_score": 1,
+      "status": "FINISHED",
+      "change_type": "baseline",
+      "reason": "Initial verified result.",
+      "recorded_at": "2026-11-20T22:05:00+07:00",
+      "source": {
+        "provider": "football-data.org",
+        "verified_at": "2026-11-20T22:05:00+07:00"
+      }
+    }
+  ]
 }
 ```
 
