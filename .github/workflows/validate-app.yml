@@ -421,6 +421,13 @@ jobs:
           python3 -m unittest tests/test_player_database_verified_ledger.py -v
           python3 -m unittest tests/test_player_database_navigation.py -v
 
+      - name: Validate Football Time ecosystem result revision export
+        run: |
+          node --check js/football-ecosystem-export.js
+          node --check tests/test_football_ecosystem_result_export.js
+          node tests/test_football_ecosystem_result_export.js
+          python3 -m json.tool schemas/football-ecosystem-result-v1.schema.json > /dev/null
+
       - name: Validate Player Database 2026/27 roster MVP
         run: |
           python3 -m unittest tests/test_player_roster_database_mvp.py -v
