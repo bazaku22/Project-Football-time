@@ -1,4 +1,5 @@
 name: UI and Handicap Validation
+# Current application scope: five major club leagues only.
 
 on:
   pull_request:
