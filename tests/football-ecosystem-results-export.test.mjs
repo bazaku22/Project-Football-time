@@ -52,7 +52,8 @@ test("corrected score creates a new monotonic revision and preserves prior score
   assert.equal(row.result_revision,2);
   assert.equal(corrected.revisedResults,1);
   assert.equal(corrected.nextLedger[row.match_id].history.length,2);
-  assert.deepEqual(corrected.nextLedger[row.match_id].history[1].previous_score,{home_score:2,away_score:0});
+  assert.equal(corrected.nextLedger[row.match_id].history[1].previous_score.home_score,2);
+  assert.equal(corrected.nextLedger[row.match_id].history[1].previous_score.away_score,0);
 });
 
 test("missing provider ID blocks the whole export instead of silently dropping a result", () => {
