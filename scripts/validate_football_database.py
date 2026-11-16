@@ -109,6 +109,59 @@ for match in matches:
         assert match["homeScore"] is None, "Cancelled match has a home score."
         assert match["awayScore"] is None, "Cancelled match has an away score."
 
+result_history = db.get("resultRevisionHistory", [])
+assert isinstance(result_history, list), "Invalid result revision history."
+history_by_match = {}
+history_keys = set()
+
+def valid_utc_timestamp(value):
+    if not isinstance(value, str) or not value:
+        return False
+    try:
+        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return False
+    return parsed.tzinfo is not None
+
+def valid_score(value):
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+for entry in result_history:
+    assert isinstance(entry, dict), "Invalid result revision history row."
+    match_id = entry.get("matchId")
+    revision = entry.get("resultRevision")
+    provider_match_id = entry.get("providerMatchId")
+    assert isinstance(match_id, str) and match_id.startswith("FT-M-FOOTBALLDATA-"), "Invalid shared result Match ID."
+    assert isinstance(provider_match_id, str) and provider_match_id, "Missing provider match ID in result history."
+    assert match_id == "FT-M-FOOTBALLDATA-" + provider_match_id, "Shared Match ID/provider ID mismatch."
+    assert isinstance(revision, int) and not isinstance(revision, bool) and revision >= 1, "Invalid result revision."
+    key = (match_id, revision)
+    assert key not in history_keys, "Duplicate result revision history key."
+    history_keys.add(key)
+    assert entry.get("status") == "FINISHED", "Result history must contain a finished result snapshot."
+    assert valid_score(entry.get("homeScore")) and valid_score(entry.get("awayScore")), "Invalid score in result history."
+    assert valid_utc_timestamp(entry.get("recordedAt")), "Invalid result history timestamp."
+    source = entry.get("source")
+    assert isinstance(source, dict) and source.get("provider") and valid_utc_timestamp(source.get("verifiedAt")), "Invalid result history provenance."
+    assert entry.get("changeType") in {"baseline", "correction", "preserved"}, "Invalid result history change type."
+    assert isinstance(entry.get("reason"), str) and entry["reason"], "Result history reason is required."
+    history_by_match.setdefault(match_id, []).append(entry)
+
+for match in matches:
+    if match.get("status") == "FINISHED" and valid_score(match.get("homeScore")) and valid_score(match.get("awayScore")):
+        revision = match.get("resultRevision")
+        updated_at = match.get("resultUpdatedAt")
+        source = match.get("resultSource")
+        match_id = "FT-M-FOOTBALLDATA-" + str(match["providerMatchId"])
+        assert isinstance(revision, int) and not isinstance(revision, bool) and revision >= 1, "Finished result is missing a valid revision."
+        assert valid_utc_timestamp(updated_at), "Finished result is missing a valid update timestamp."
+        assert isinstance(source, dict) and source.get("provider") and valid_utc_timestamp(source.get("verifiedAt")), "Finished result provenance is invalid."
+        entries = history_by_match.get(match_id, [])
+        assert entries, "Finished result has no audit history."
+        latest = max(entries, key=lambda row: row["resultRevision"])
+        assert latest["resultRevision"] == revision, "Finished result revision does not match audit history."
+        assert (latest["homeScore"], latest["awayScore"]) == (match["homeScore"], match["awayScore"]), "Latest audit result does not match current score."
+
 for league_id in expected_data:
     assert any(row["leagueId"] == league_id for row in standings), f"Missing standings: {league_id}"
     assert any(row["leagueId"] == league_id for row in matches), f"Missing matches: {league_id}"
