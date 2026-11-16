@@ -410,7 +410,7 @@
       records.push(record);
       leagueCounts[match.leagueId]++;
     });
-    if (!records.length) throw new Error("ไม่มีผลเก่าที่มี Match ID และสกอร์ صالحสำหรับส่งออก");
+    if (!records.length) throw new Error("ไม่มีผลเก่าที่มี Match ID และสกอร์ถูกต้องสำหรับส่งออก");
     records.sort((a,b) => a.match_id.localeCompare(b.match_id));
     const envelope = {
       schema_version: "1.0.0",
