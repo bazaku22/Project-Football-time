@@ -28,10 +28,86 @@ class FootballDatabaseSyncTests(unittest.TestCase):
             for endpoint,data in zip(("teams","matches","standings"),payloads(code,n*10)):
                 (self.runner/f"{code}-{endpoint}.json").write_text(json.dumps(data))
     def tearDown(self): self.tmp.cleanup()
-    def build(self):
+    def run_build(self, check=True):
         env=dict(os.environ,RUNNER_TEMP=str(self.root/"runner"))
-        subprocess.run(["python3","scripts/build_football_database.py"],cwd=self.root,env=env,check=True,capture_output=True,text=True)
+        return subprocess.run(["python3","scripts/build_football_database.py"],cwd=self.root,env=env,check=check,capture_output=True,text=True)
+    def build(self):
+        self.run_build()
         return json.loads((self.root/"data"/"football-database.json").read_text())
+    def set_pl_result(self, home, away, status="FINISHED"):
+        path=self.runner/"PL-matches.json"
+        data=json.loads(path.read_text())
+        match=data["matches"][0]
+        match["status"]=status
+        match["score"]["fullTime"]={"home":home,"away":away}
+        path.write_text(json.dumps(data))
+    def test_first_finished_result_gets_revision_one_and_audit_entry(self):
+        self.set_pl_result(2, 1)
+        db=self.build()
+        match=next(x for x in db["matches"] if x["leagueId"]=="PL")
+        self.assertEqual(match["resultRevision"], 1)
+        self.assertEqual(match["resultUpdatedAt"], db["generatedAt"])
+        self.assertEqual(match["resultSource"]["provider"], "football-data.org")
+        history=[x for x in db["resultRevisionHistory"] if x["matchId"]=="FT-M-FOOTBALLDATA-10000"]
+        self.assertEqual(len(history), 1)
+        self.assertEqual(history[0]["resultRevision"], 1)
+        self.assertEqual((history[0]["homeScore"], history[0]["awayScore"]), (2, 1))
+        self.assertEqual(history[0]["changeType"], "baseline")
+
+    def test_unchanged_finished_result_keeps_revision_and_does_not_duplicate_history(self):
+        self.set_pl_result(2, 1)
+        first=self.build()
+        first_match=next(x for x in first["matches"] if x["leagueId"]=="PL")
+        updated_at=first_match["resultUpdatedAt"]
+        second=self.build()
+        second_match=next(x for x in second["matches"] if x["leagueId"]=="PL")
+        history=[x for x in second["resultRevisionHistory"] if x["matchId"]=="FT-M-FOOTBALLDATA-10000"]
+        self.assertEqual(second_match["resultRevision"], 1)
+        self.assertEqual(second_match["resultUpdatedAt"], updated_at)
+        self.assertEqual(len(history), 1)
+
+    def test_provider_score_correction_increments_revision_and_preserves_previous_audit(self):
+        self.set_pl_result(2, 1)
+        first=self.build()
+        first_updated=next(x for x in first["matches"] if x["leagueId"]=="PL")["resultUpdatedAt"]
+        self.set_pl_result(3, 1)
+        second=self.build()
+        match=next(x for x in second["matches"] if x["leagueId"]=="PL")
+        history=[x for x in second["resultRevisionHistory"] if x["matchId"]=="FT-M-FOOTBALLDATA-10000"]
+        self.assertEqual(match["resultRevision"], 2)
+        self.assertEqual((match["homeScore"], match["awayScore"]), (3, 1))
+        self.assertNotEqual(match["resultUpdatedAt"], first_updated)
+        self.assertEqual([x["resultRevision"] for x in history], [1, 2])
+        self.assertEqual((history[0]["homeScore"], history[0]["awayScore"]), (2, 1))
+        self.assertEqual((history[1]["homeScore"], history[1]["awayScore"]), (3, 1))
+        self.assertEqual(history[1]["changeType"], "correction")
+
+    def test_missing_score_for_previous_finished_match_refuses_publication(self):
+        self.set_pl_result(2, 1)
+        self.build()
+        database_path=self.root/"data"/"football-database.json"
+        before=database_path.read_text()
+        self.set_pl_result(None, None)
+        result=self.run_build(check=False)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Previously verified result disappeared", result.stderr)
+        self.assertEqual(database_path.read_text(), before)
+
+    def test_finished_result_omitted_from_provider_snapshot_is_preserved(self):
+        self.set_pl_result(2, 1)
+        self.build()
+        path=self.runner/"PL-matches.json"
+        data=json.loads(path.read_text())
+        data["matches"]=[]
+        path.write_text(json.dumps(data))
+        second=self.build()
+        match=next(x for x in second["matches"] if x.get("providerMatchId")==10000)
+        self.assertEqual(match["status"], "FINISHED")
+        self.assertEqual(match["resultRevision"], 1)
+        self.assertEqual((match["homeScore"], match["awayScore"]), (2, 1))
+        history=[x for x in second["resultRevisionHistory"] if x["matchId"]=="FT-M-FOOTBALLDATA-10000"]
+        self.assertEqual(len(history), 1)
+
     def test_points_deduction_is_accepted_by_database_validator(self):
         db=self.build()
         row=next(x for x in db["standings"] if x["leagueId"]=="PL")
