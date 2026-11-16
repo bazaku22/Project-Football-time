@@ -1,4 +1,6 @@
 from pathlib import Path
+
+# Release cache assertion follows the current app/service-worker version.
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
