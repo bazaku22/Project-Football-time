@@ -137,20 +137,6 @@
       const route = routes[button.dataset.primaryRoute];
       if (route) activate(route.page, route.tab, button.dataset.primaryRoute, route.focus);
     });
-    const home = $("#home");
-    if (home && !$("#homeQuickLinks")) {
-      const quick = document.createElement("section");
-      quick.id = "homeQuickLinks";
-      quick.className = "pn-quick-links";
-      quick.innerHTML = '<div class="pn-section-title"><span>เมนูหลัก</span><small>เลือกใช้งานได้ทันที</small></div><div class="pn-quick-grid">' +
-        '<button type="button" data-primary-route="leagues"><span>🏆</span><b>ลีกและทีม</b><small>ตารางคะแนน · สโมสร</small></button>' +
-        '<button type="button" data-primary-route="matches"><span>⚽</span><b>ศูนย์การแข่งขัน</b><small>โปรแกรม · ผลจริง</small></button>' +
-        '<button type="button" data-primary-route="players"><span>♙</span><b>ฐานข้อมูลผู้เล่น</b><small>รายชื่อ · สถิติ</small></button>' +
-        '<button type="button" data-primary-route="tools"><span>▦</span><b>เครื่องมือ</b><small>นำเข้า · ส่งออก · วิเคราะห์</small></button>' +
-        '</div>';
-      const dashboard = $("#homeTodayDashboard");
-      if (dashboard) dashboard.after(quick);
-    }
     if (!$("#toolsHubPage")) {
       const page = document.createElement("section");
       page.id = "toolsHubPage";
