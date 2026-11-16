@@ -7,16 +7,6 @@
     players: { page: "fixtures", tab: "playerDatabase" },
     tools: { page: "toolsHubPage" }
   };
-  const secondary = [
-    ["summary","สรุปผลโมเดลทดลอง"],
-    ["analysis","หลักการวิเคราะห์"],
-    ["archive","คลัง Legacy"],
-    ["advanced","วิเคราะห์เชิงลึก"],
-    ["internationalHandicap","ทีมชาติ AH"],
-    ["matchResearch","นำเข้าผลและสถิติ"],
-    ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"],
-    ["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"],
-  ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey, focus) {
     document.querySelectorAll(".page").forEach((node) => node.classList.toggle("active", node.id === page));
