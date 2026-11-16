@@ -1,8 +1,7 @@
-/* Adds national-team experimental estimates and Asian Handicap views without altering existing snapshots. */
+/* Adds Asian Handicap reference views for the five major club leagues. */
 (function(){
  "use strict";
  const KEY="pft_experiment_snapshots_v1";
- let research=null;
  let oddsData=null;
  let oddsLoadError=null;
  const ODDS_LEAGUES={"Premier League":"PL","La Liga":"PD","Bundesliga":"BL1","Serie A":"SA","Ligue 1":"FL1"};
@@ -92,6 +91,7 @@
   });
   return false;
  }
+ read(); // Remove saved national-team snapshots on startup; retain five-league club history only.
  const original=window.renderTestExperimentPanels;
  if(typeof original==="function")window.renderTestExperimentPanels=function(fixtures){
   original(fixtures);
