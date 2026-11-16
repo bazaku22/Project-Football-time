@@ -3,8 +3,9 @@
   const routes = {
     home: { page: "home" },
     leagues: { page: "fixtures", tab: "overview" },
-    analyze: { page: "matchAnalysis", tab: "probability" },
-    history: { page: "analysisHistory", tab: "accuracy" }
+    matches: { page: "home", focus: "#matchCenterApp" },
+    players: { page: "fixtures", tab: "playerDatabase" },
+    tools: { page: "toolsHubPage" }
   };
   const secondary = [
     ["summary","สรุปผลโมเดลทดลอง"],
@@ -17,7 +18,7 @@
     ["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"],
   ];
   const $ = (selector) => document.querySelector(selector);
-  function activate(page, tab, navKey) {
+  function activate(page, tab, navKey, focus) {
     document.querySelectorAll(".page").forEach((node) => node.classList.toggle("active", node.id === page));
     document.querySelectorAll("[data-primary-route]").forEach((node) =>
       node.classList.toggle("active", node.dataset.primaryRoute === navKey)
@@ -25,6 +26,7 @@
     if (tab && typeof window.switchDatabaseTab === "function") window.switchDatabaseTab(tab);
     if (page === "archive" && typeof window.render === "function") window.render();
     window.scrollTo(0, 0);
+    if (focus) requestAnimationFrame(() => document.querySelector(focus)?.scrollIntoView({behavior:"smooth",block:"start"}));
   }
   function mount() {
     const fixtures = $("#fixtures");
@@ -133,30 +135,46 @@
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [
-      '<button type="button" data-primary-route="home" class="active" aria-current="page">⚽ Match Center</button>',
-      '<button type="button" data-primary-route="leagues">▤ ลีกและทีม</button>',
-      '<button type="button" data-primary-route="analyze">◎ วิเคราะห์</button>',
-      '<button type="button" data-primary-route="history">▥ ประวัติ</button>'
+      '<button type="button" data-primary-route="home" class="active" aria-current="page"><span aria-hidden="true">⌂</span><b>หน้าหลัก</b></button>',
+      '<button type="button" data-primary-route="leagues"><span aria-hidden="true">🏆</span><b>ลีกและทีม</b></button>',
+      '<button type="button" data-primary-route="matches"><span aria-hidden="true">⚽</span><b>แมตช์</b></button>',
+      '<button type="button" data-primary-route="players"><span aria-hidden="true">♙</span><b>ผู้เล่น</b></button>',
+      '<button type="button" data-primary-route="tools"><span aria-hidden="true">▦</span><b>เครื่องมือ</b></button>'
     ].join("");
     nav.addEventListener("click", (event) => {
       const button = event.target.closest("[data-primary-route]");
       if (!button) return;
       const route = routes[button.dataset.primaryRoute];
-      if (route) activate(route.page, route.tab, button.dataset.primaryRoute);
+      if (route) activate(route.page, route.tab, button.dataset.primaryRoute, route.focus);
     });
     const home = $("#home");
-    if (home && !$("#secondaryTools")) {
-      const details = document.createElement("details");
-      details.id = "secondaryTools";
-      details.className = "pn-secondary card";
-      details.innerHTML = '<summary>เครื่องมือเพิ่มเติม</summary><p class="pn-note">รวมเครื่องมือรองที่ยังเปิดใช้งาน โดยไม่ปะปนกับเมนูหลัก</p><div class="pn-tool-grid">' +
-        secondary.map(([id,label]) => '<button type="button" class="secondary" data-secondary-route="' + id + '">' + label + '</button>').join("") +
+    if (home && !$("#homeQuickLinks")) {
+      const quick = document.createElement("section");
+      quick.id = "homeQuickLinks";
+      quick.className = "pn-quick-links";
+      quick.innerHTML = '<div class="pn-section-title"><span>เมนูหลัก</span><small>เลือกใช้งานได้ทันที</small></div><div class="pn-quick-grid">' +
+        '<button type="button" data-primary-route="leagues"><span>🏆</span><b>ลีกและทีม</b><small>ตารางคะแนน · สโมสร</small></button>' +
+        '<button type="button" data-primary-route="matches"><span>⚽</span><b>ศูนย์การแข่งขัน</b><small>โปรแกรม · ผลจริง</small></button>' +
+        '<button type="button" data-primary-route="players"><span>♙</span><b>ฐานข้อมูลผู้เล่น</b><small>รายชื่อ · สถิติ</small></button>' +
+        '<button type="button" data-primary-route="tools"><span>▦</span><b>เครื่องมือ</b><small>นำเข้า · ส่งออก · วิเคราะห์</small></button>' +
         '</div>';
-      const experiment = home.querySelector(".mc-experiment");
-      if (experiment) home.insertBefore(details, experiment);
-      else home.appendChild(details);
+      const dashboard = $("#homeTodayDashboard");
+      if (dashboard) dashboard.after(quick);
     }
-    home?.addEventListener("click", (event) => {
+    if (!$("#toolsHubPage")) {
+      const page = document.createElement("section");
+      page.id = "toolsHubPage";
+      page.className = "page";
+      page.innerHTML = '<div class="pn-tools-hero"><span class="pn-tools-icon">▦</span><div><div class="pn-tools-eyebrow">FOOTBALL TIME</div><h2>เครื่องมือ</h2><p>รวมเครื่องมือที่ใช้งานจริง แยกตามหน้าที่</p></div></div>' +
+        '<section class="pn-tools-group"><h3>วิเคราะห์และประเมินผล</h3><p>เครื่องมือวิเคราะห์ สรุปผล และตรวจสอบข้อมูลย้อนหลัง</p><div class="pn-tool-grid">' +
+        '<button type="button" data-secondary-route="summary">สรุปผลโมเดลทดลอง</button><button type="button" data-secondary-route="advanced">วิเคราะห์เชิงลึก</button><button type="button" data-secondary-route="internationalHandicap">วิเคราะห์ทีมชาติ AH</button><button type="button" data-secondary-route="archive">คลังข้อมูล Legacy</button>' +
+        '</div></section><section class="pn-tools-group"><h3>จัดการและเชื่อมต่อข้อมูล</h3><p>นำเข้าข้อมูล ตรวจสอบ และส่งออกไปยังแอปที่เกี่ยวข้อง</p><div class="pn-tool-grid">' +
+        '<button type="button" data-secondary-route="matchResearch">นำเข้าผลและสถิติ</button><button type="button" data-secondary-route="playerOperations">จัดการฐานข้อมูลผู้เล่น</button><button type="button" data-secondary-route="playerMatchEvents">บันทึกเหตุการณ์ผู้เล่น</button><button type="button" data-secondary-route="footballEcosystemExport">ส่งออกไป Football rich</button>' +
+        '</div></section><p class="pn-tools-note">เครื่องมือทั้งหมดทำงานตามขอบเขตข้อมูลเดิมของ Football Time · ไม่มีการเพิ่ม API หรือบริการเสียค่าใช้จ่าย</p>';
+      $("#main")?.appendChild(page);
+    }
+    const toolHub = $("#toolsHubPage");
+    toolHub?.addEventListener("click", (event) => {
       const button = event.target.closest("[data-secondary-route]");
       if (!button) return;
       const target = button.dataset.secondaryRoute;
@@ -181,6 +199,12 @@
         activate(target, null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       }
+    });
+    home?.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-primary-route]");
+      if (!button) return;
+      const route = routes[button.dataset.primaryRoute];
+      if (route) activate(route.page, route.tab, button.dataset.primaryRoute, route.focus);
     });
     document.querySelectorAll("[data-page]").forEach((button) => {
       button.addEventListener("click", () => {
