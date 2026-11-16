@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_secondary_navigation_exposes_manual_research_page(self):
         source = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
-        self.assertIn('["matchResearch","นำเข้าผลและสถิติ"]', source)
+        self.assertIn('data-secondary-route="matchResearch"', source)
         self.assertIn('researchPage.id = "manualMatchResearchPage"', source)
         self.assertIn('target === "matchResearch") {\n        activate("manualMatchResearchPage", null, "")', source)
         self.assertIn('activate(target, null, "")', source)
@@ -15,12 +15,12 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.12"', html)
+        self.assertIn('content="6.26.6-beta.1"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v104"', sw)
+        self.assertIn('const CACHE = "football-time-v105"', sw)
 
 
     def test_legacy_player_ui_is_removed_without_affecting_match_events(self):
