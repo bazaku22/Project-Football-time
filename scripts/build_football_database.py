@@ -195,6 +195,22 @@ def apply_result_revisions(current_matches, previous_database, generated_at):
         history_keys.add(key)
         history_by_match.setdefault(match_id, []).append(entry)
 
+    def legacy_snapshot(match):
+        source_meta = previous_database.get("source") if isinstance(previous_database.get("source"), dict) else {}
+        snapshot = {
+            "homeScore": match["homeScore"],
+            "awayScore": match["awayScore"],
+            "status": "FINISHED",
+            "classification": "legacy_database_snapshot",
+            "sourceProvider": source_meta.get("provider") or "unknown",
+            "verificationStatus": "not_independently_verified",
+            "revisionHistoryAvailable": False
+        }
+        # This is only the time the old database file was generated, not a result-verification time.
+        if previous_snapshot_at:
+            snapshot["observedAt"] = previous_snapshot_at
+        return snapshot
+
     current_by_id = {}
     for match in current_matches:
         provider_id = match.get("providerMatchId")
@@ -222,6 +238,29 @@ def apply_result_revisions(current_matches, previous_database, generated_at):
             )
 
         if not current_finished:
+            continue
+
+        if old_finished and not history_by_match.get(match_id):
+            if old_revision:
+                raise RuntimeError(
+                    f"Existing result revision metadata has no revision history for {match_id}; "
+                    "refusing to fabricate a baseline."
+                )
+            match["legacyResultSnapshot"] = legacy_snapshot(old)
+            if (old["homeScore"], old["awayScore"]) == (match["homeScore"], match["awayScore"]):
+                # Keep this historical score as an explicitly unverified legacy snapshot.
+                # Do not create resultRevision/resultSource from the database file timestamp.
+                continue
+            # A changed score from the current provider feed is a new verified observation.
+            # The old value remains separately preserved as a legacy snapshot, not revision 0.
+            revision = 1
+            updated_at = generated_at
+            reason = "First revision recorded from the current provider feed after a legacy snapshot."
+            append_history(match, revision, updated_at, reason, "baseline")
+            result_source = {"provider": "football-data.org", "verifiedAt": updated_at}
+            match["resultRevision"] = revision
+            match["resultUpdatedAt"] = updated_at
+            match["resultSource"] = result_source
             continue
 
         if old_finished:
@@ -293,6 +332,16 @@ def apply_result_revisions(current_matches, previous_database, generated_at):
             raise ValueError(f"Invalid previous result revision for {match_id}")
         revision = max(old_revision, latest_revision(match_id)) or 1
         latest_entries = history_by_match.get(match_id, [])
+        if not latest_entries and not old_revision:
+            preserved["legacyResultSnapshot"] = legacy_snapshot(old)
+            # Retain the old score without pretending it has a verified revision chain.
+            current_matches.append(preserved)
+            continue
+        if not latest_entries and old_revision:
+            raise RuntimeError(
+                f"Existing result revision metadata has no revision history for {match_id}; "
+                "refusing to fabricate a preserved baseline."
+            )
         updated_at = (
             parse_timestamp(old.get("resultUpdatedAt"))
             or (max(latest_entries, key=lambda row: row["resultRevision"]).get("recordedAt") if latest_entries else None)
