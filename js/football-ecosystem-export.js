@@ -169,8 +169,28 @@
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemExportPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemExportDownloadButton");
-      if (!previewButton && !downloadButton) return;
-      if (previewButton) {
+      if (!previewButton && !downloadButton && !auditButton) return;
+      if (auditButton) {
+        try {
+          const database = root.FootballTimeAppContext?.getDatabase();
+          const report = auditResultReadiness(database), t = report.totals;
+          const lines = ['รายงานตรวจสอบแบบอ่านอย่างเดียว · 5 ลีกหลัก',
+            'ฤดูกาล 2026/27: จบแล้ว ' + t.currentSeasonFinished + ' นัด',
+            'พร้อมส่งออกตามเงื่อนไขปัจจุบัน: ' + t.ready + ' นัด',
+            'ยังไม่ผ่านเงื่อนไข: ' + (t.currentSeasonFinished-t.ready) + ' นัด',
+            'ขาด Provider Match ID: ' + t.missingProviderId,
+            'ขาด/ผิดรูปแบบสกอร์: ' + t.missingScore,
+            'ขาด Revision/เวลาอัปเดต: ' + t.missingRevision,
+            'ขาด Provenance: ' + t.missingProvenance,
+            'ไม่มีประวัติ Revision ครบ: ' + t.missingHistory,
+            'ประวัติไม่ต่อเนื่อง/ไม่ตรงผลล่าสุด: ' + t.invalidHistory,
+            'ผลจบแล้วจากฤดูกาลอื่น (นอกขอบเขตส่งออก): ' + t.otherSeasonFinished,
+            '', 'แยกตามลีก (จบแล้ว / พร้อมส่งออก / ฤดูกาลอื่น)'];
+          LEAGUE_IDS.forEach(id => { const row = report.leagues[id]; lines.push(id + ': ' + row.currentSeasonFinished + ' / ' + row.ready + ' / ' + row.otherSeasonFinished); });
+          summary.textContent = lines.join(String.fromCharCode(10));
+          status.textContent = 'ตรวจสอบเสร็จแล้ว · อ่านข้อมูลเท่านั้น ไม่มีการแก้ไขหรือบันทึกฐานข้อมูล';
+        } catch (error) { summary.textContent = 'ตรวจสอบไม่สำเร็จ'; status.textContent = error.message || 'อ่านฐานข้อมูลไม่สำเร็จ'; }
+      } else if (previewButton) {
         const status = root.document.getElementById("ftEcosystemExportStatus");
         const preview = root.document.getElementById("ftEcosystemExportSummary");
         const download = root.document.getElementById("ftEcosystemExportDownloadButton");
@@ -348,6 +368,35 @@
   }
 
 
+  function auditResultReadiness(database) {
+    if (!database || !Array.isArray(database.matches)) throw new Error('ฐานข้อมูลหลักยังไม่พร้อมหรือไม่มีรายการแข่งขัน');
+    const historyRows = Array.isArray(database.resultRevisionHistory) ? database.resultRevisionHistory : [];
+    const historyByMatch = new Map();
+    historyRows.forEach(entry => { if (!entry || typeof entry.matchId !== 'string') return; const list = historyByMatch.get(entry.matchId) || []; list.push(entry); historyByMatch.set(entry.matchId, list); });
+    const leagues = Object.fromEntries(LEAGUE_IDS.map(id => [id, {currentSeasonFinished:0,ready:0,missingProviderId:0,missingScore:0,missingRevision:0,missingProvenance:0,missingHistory:0,invalidHistory:0,otherSeasonFinished:0}]));
+    database.matches.filter(m => m && LEAGUE_IDS.includes(m.leagueId) && m.status === 'FINISHED').forEach(match => {
+      const row = leagues[match.leagueId];
+      if (match.season !== SEASON_ID) { row.otherSeasonFinished++; return; }
+      row.currentSeasonFinished++;
+      const rawId = match.providerMatchId;
+      const matchId = rawId === null || rawId === undefined || String(rawId).trim() === '' ? null : 'FT-M-FOOTBALLDATA-' + String(rawId);
+      let issues = 0;
+      if (!matchId || !MATCH_ID_PATTERN.test(matchId)) { row.missingProviderId++; issues++; }
+      if (!Number.isInteger(match.homeScore) || match.homeScore < 0 || !Number.isInteger(match.awayScore) || match.awayScore < 0) { row.missingScore++; issues++; }
+      if (!Number.isInteger(match.resultRevision) || match.resultRevision < 1 || !isDateTime(match.resultUpdatedAt)) { row.missingRevision++; issues++; }
+      if (!match.resultSource || !match.resultSource.provider || !isDateTime(match.resultSource.verifiedAt)) { row.missingProvenance++; issues++; }
+      const history = matchId ? (historyByMatch.get(matchId) || []).slice().sort((a,b) => a.resultRevision-b.resultRevision) : [];
+      if (!history.length || !Number.isInteger(match.resultRevision) || history.length !== match.resultRevision) { row.missingHistory++; issues++; }
+      else {
+        const valid = history.every((entry,index) => entry.resultRevision === index+1 && Number.isInteger(entry.homeScore) && entry.homeScore >= 0 && Number.isInteger(entry.awayScore) && entry.awayScore >= 0 && entry.status === 'FINISHED' && isDateTime(entry.recordedAt) && entry.source && entry.source.provider && isDateTime(entry.source.verifiedAt));
+        const latest = history[history.length-1];
+        if (!valid || latest.homeScore !== match.homeScore || latest.awayScore !== match.awayScore || latest.resultRevision !== match.resultRevision) { row.invalidHistory++; issues++; }
+      }
+      if (!issues) row.ready++;
+    });
+    const totals = Object.keys(leagues).reduce((sum,id) => { Object.keys(sum).forEach(key => { sum[key] += leagues[id][key]; }); return sum; }, {currentSeasonFinished:0,ready:0,missingProviderId:0,missingScore:0,missingRevision:0,missingProvenance:0,missingHistory:0,invalidHistory:0,otherSeasonFinished:0});
+    return {leagues,totals,historyRows:historyRows.length};
+  }
   function initResultExport() {
     if (!root.document || root.document.documentElement.dataset.ftResultExportBound === "true") return;
     root.document.documentElement.dataset.ftResultExportBound = "true";
@@ -359,6 +408,7 @@
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
       const download = root.document.getElementById("ftEcosystemResultDownloadButton");
+      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
       if (previewButton) {
         try {
           const database = root.FootballTimeAppContext?.getDatabase();
@@ -383,7 +433,7 @@
   }
 
   root.FootballTimeEcosystemExport = {
-    buildExport, assertEnvelope, buildResultExport, assertResultEnvelope,
+    buildExport, assertEnvelope, buildResultExport, assertResultEnvelope, auditResultReadiness,
     init, initResultExport, leagueIds: LEAGUE_IDS.slice(), seasonId: SEASON_ID
   };
   if (root.document) {
