@@ -151,8 +151,8 @@ class MatchCenterTests(unittest.TestCase):
 
 
     def test_manual_match_events_keep_player_names_without_legacy_profile_links(self):
-        self.assertIn('const player = item.player?.name', UNIFIED)
-        self.assertIn('esc(player)', UNIFIED)
+        self.assertIn('const eventPlayer = (event)', UNIFIED)
+        self.assertIn('playerLink(event)', UNIFIED)
         self.assertNotIn("data-canonical-player-ref", UNIFIED)
         self.assertNotIn("pft-open-canonical-player", UNIFIED)
 
