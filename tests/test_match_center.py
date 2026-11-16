@@ -9,6 +9,7 @@ SYNC_WORKFLOW = (ROOT / ".github" / "workflows" / "update-football-database.yml"
 DATABASE_BUILDER = (ROOT / "scripts" / "build_football_database.py").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
 UNIFIED = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
+UNIFIED = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
 CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
 
 
