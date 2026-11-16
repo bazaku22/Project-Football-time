@@ -234,7 +234,7 @@ def apply_result_revisions(current_matches, previous_database, generated_at):
                 revision = known_revision or 1
                 updated_at = (
                     parse_timestamp(old.get("resultUpdatedAt"))
-                    or (latest_entries[-1].get("recordedAt") if latest_entries else None)
+                    or (max(latest_entries, key=lambda row: row["resultRevision"]).get("recordedAt") if latest_entries else None)
                     or previous_snapshot_at
                 )
                 if not updated_at:
@@ -247,7 +247,20 @@ def apply_result_revisions(current_matches, previous_database, generated_at):
                 reason = "Baseline revision preserved from the previous FT database snapshot."
                 append_history(old, revision, updated_at, reason, "baseline")
             else:
-                revision = known_revision + 1
+                baseline_revision = known_revision or 1
+                baseline_at = (
+                    parse_timestamp(old.get("resultUpdatedAt"))
+                    or (max(latest_entries, key=lambda row: row["resultRevision"]).get("recordedAt") if latest_entries else None)
+                    or previous_snapshot_at
+                )
+                if not baseline_at:
+                    raise RuntimeError(f"Missing trusted timestamp for prior result {match_id}.")
+                append_history(
+                    old, baseline_revision, baseline_at,
+                    "Baseline revision retained before recording a provider score correction.",
+                    "baseline"
+                )
+                revision = baseline_revision + 1
                 updated_at = generated_at
                 reason = (
                     "Provider score changed from "
