@@ -110,6 +110,7 @@
         '<div class="card"><b>Match Results · ผลจริงพร้อมประวัติ Revision</b>' +
         '<p class="profile-note">ส่งออกเฉพาะผลที่ FT ยืนยันเป็น FINISHED ใน 5 ลีกหลัก พร้อมเลข Revision, เวลาอัปเดต, แหล่งข้อมูล และประวัติทุก Revision เพื่อให้ Football rich ประเมินผลได้โดยไม่เขียนทับประวัติเดิม</p>' +
         '<div class="quality-note">ระบบจะยกเลิกการส่งออกทั้งชุดทันที หากพบผลที่ไม่มี Revision/Provenance หรือประวัติไม่ตรงกับผลล่าสุด · ไม่มีการเดาเลข Revision และไม่มีการแก้ข้อมูลต้นฉบับ</div>' +
+        '<button type="button" class="secondary" id="ftEcosystemResultAuditButton">ตรวจสอบความพร้อมของผลเก่า (อ่านอย่างเดียว)</button>' +
         '<button type="button" class="primary" id="ftEcosystemResultPreviewButton">ตรวจสอบผลจริงและเตรียมไฟล์</button>' +
         '<div id="ftEcosystemResultSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบผลจริง</div>' +
         '<button type="button" class="secondary" id="ftEcosystemResultDownloadButton" disabled>ดาวน์โหลดไฟล์ผลจริง JSON</button>' +
