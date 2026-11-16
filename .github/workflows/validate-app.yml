@@ -76,7 +76,7 @@ on:
       - "tests/test_handicap_reference.js"
       - "css/match-center.css"
       - "tests/test_handicap_history.js"
-      - "js/primary-navigation.js"
+      - "js/primary-navigation.js"\n      - "js/football-ecosystem-export.js"\n      - "tests/test_football_ecosystem_fixture_export.js"\n      - "docs/FOOTBALL-TIME-FIXTURE-EXPORT-V1.0.md"
       - "js/match-center.js"
       - "css/analysis-refinement.css"
       - "manifest.webmanifest"
@@ -231,7 +231,7 @@ jobs:
           node tests/test_handicap_history.js
           node tests/test_handicap_reference.js
           node --check js/player-team-alias-review.js
-          node --check js/primary-navigation.js
+          node --check js/primary-navigation.js\n          node --check js/football-ecosystem-export.js\n          node tests/test_football_ecosystem_fixture_export.js
           node --check js/match-center.js
           node --check js/test-experiment-enhancements.js
           python3 - <<'PY'
