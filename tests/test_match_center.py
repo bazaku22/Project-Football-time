@@ -29,10 +29,10 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('pft-football-database-error', MODULE)
         self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
 
-    def test_international_fixtures_are_separate_from_club_database(self):
-        self.assertIn("internationalFixtures", MODULE)
-        self.assertIn("แยกจากฐานข้อมูลสโมสร", MODULE)
-        self.assertNotIn("getFixtures?.()", MODULE)
+    def test_match_center_is_limited_to_five_major_leagues(self):
+        self.assertIn('CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1"])', MODULE)
+        self.assertNotIn("internationalFixtures", MODULE)
+        self.assertNotIn("Nations League", MODULE)
 
     def test_filters_and_time_are_bangkok_local(self):
         for key in ("upcoming","live","finished","all"):
@@ -76,8 +76,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.26.6-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.26.6-beta.1">', HTML)
+        self.assertIn('<title>Project Football Time V6.26.8-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.26.8-beta.1">', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
@@ -114,16 +114,13 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('timeZone:"Asia/Bangkok"', MODULE)
         self.assertIn('function shiftDateKey(dateKey, days)', MODULE)
 
-    def test_category_and_multi_competition_filters_are_present(self):
-        for category in ("all","club","international"):
-            self.assertIn('data-match-category="' + category + '"', HTML)
+    def test_league_filter_is_limited_to_supported_club_competitions(self):
+        self.assertNotIn('data-match-category="international"', HTML)
+        self.assertNotIn('data-match-category="club"', HTML)
         self.assertIn('id="matchCenterLeagueFilters"', HTML)
         self.assertIn('activeLeagues = new Set()', MODULE)
-        self.assertIn('activeLeagues.has(value)', MODULE)
-        self.assertIn('COMP:', MODULE)
-        self.assertIn('leagueFilterValues(match)', MODULE)
+        self.assertIn('activeLeagues.has(String(match.leagueId))', MODULE)
         self.assertIn('renderLeagueFilters()', MODULE)
-
 
     def test_daily_view_includes_finished_results_by_default(self):
         self.assertIn('let activeFilter = "all";', MODULE)
