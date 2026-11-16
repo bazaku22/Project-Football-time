@@ -11,12 +11,13 @@ class PrimaryNavigationTests(unittest.TestCase):
         routes = re.findall(r'^    (home|leagues|matches|players|tools): \{ page:', source, re.M)
         self.assertEqual(routes, ["home", "leagues", "matches", "players", "tools"])
 
-    def test_home_shortcuts_and_dashboard_are_present(self):
+    def test_home_is_compact_without_duplicate_shortcuts_or_dashboard(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         html = (ROOT / "index.html").read_text()
-        self.assertIn('id = "homeQuickLinks"', source)
+        self.assertNotIn("homeQuickLinks", source)
+        self.assertNotIn("homeTodayDashboard", html)
+        self.assertNotIn("home-dashboard.js", html)
         self.assertIn('id = "toolsHubPage"', source)
-        self.assertIn('id="homeTodayDashboard"', html)
         self.assertIn('id="matchCenterApp"', html)
 
     def test_all_secondary_destinations_are_reachable_from_tools_hub(self):
