@@ -107,6 +107,13 @@
         '<div id="ftEcosystemExportSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบข้อมูล</div>' +
         '<button type="button" class="secondary" id="ftEcosystemExportDownloadButton" disabled>ดาวน์โหลดไฟล์ JSON</button>' +
         '<p id="ftEcosystemExportStatus" class="profile-note" role="status" aria-live="polite">รอฐานข้อมูลฟุตบอลหลัก</p></div>' +
+        '<div class="card"><b>Match Results · ผลจริงพร้อมประวัติ Revision</b>' +
+        '<p class="profile-note">ส่งออกเฉพาะผลที่ FT ยืนยันเป็น FINISHED ใน 5 ลีกหลัก พร้อมเลข Revision, เวลาอัปเดต, แหล่งข้อมูล และประวัติทุก Revision เพื่อให้ Football rich ประเมินผลได้โดยไม่เขียนทับประวัติเดิม</p>' +
+        '<div class="quality-note">ระบบจะยกเลิกการส่งออกทั้งชุดทันที หากพบผลที่ไม่มี Revision/Provenance หรือประวัติไม่ตรงกับผลล่าสุด · ไม่มีการเดาเลข Revision และไม่มีการแก้ข้อมูลต้นฉบับ</div>' +
+        '<button type="button" class="primary" id="ftEcosystemResultPreviewButton">ตรวจสอบผลจริงและเตรียมไฟล์</button>' +
+        '<div id="ftEcosystemResultSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบผลจริง</div>' +
+        '<button type="button" class="secondary" id="ftEcosystemResultDownloadButton" disabled>ดาวน์โหลดไฟล์ผลจริง JSON</button>' +
+        '<p id="ftEcosystemResultStatus" class="profile-note" role="status" aria-live="polite">รอฐานข้อมูลผลการแข่งขัน</p></div>' +
         '<div class="card"><b>วิธีนำเข้าใน Football rich</b><ol class="profile-note"><li>ดาวน์โหลดไฟล์ JSON จากหน้านี้</li><li>เปิด Football rich → เครื่องมือ → นำเข้าข้อมูลจาก Football Time</li><li>เลือกไฟล์ JSON และตรวจสอบตัวอย่างก่อนยืนยันนำเข้า</li></ol><p class="profile-note">ไม่ต้องล้างข้อมูลหรือแคชของแอปใด ๆ ก่อนนำเข้า</p></div>';
       $("#main")?.appendChild(page);
       if (!document.querySelector('script[data-ft-fixture-export]')) {
