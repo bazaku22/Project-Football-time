@@ -489,6 +489,7 @@
       if (!previewButton && !downloadButton && !auditButton && !legacyPreviewButton && !legacyDownloadButton) return;
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
+      const legacySummary = root.document.getElementById("ftEcosystemLegacyResultSummary");
       const download = root.document.getElementById("ftEcosystemResultDownloadButton");
       const legacyDownload = root.document.getElementById("ftEcosystemLegacyResultDownloadButton");
       if (legacyPreviewButton) {
@@ -498,7 +499,7 @@
           preparedLegacy = buildLegacyResultSnapshot(database);
           const c = preparedLegacy.summary.leagueCounts;
           const x = preparedLegacy.summary.excluded;
-          summary.textContent = "Legacy Snapshot พร้อมส่งออก " + preparedLegacy.summary.total.toLocaleString("th-TH") +
+          legacySummary.textContent = "Legacy Snapshot พร้อมส่งออก " + preparedLegacy.summary.total.toLocaleString("th-TH") +
             " นัด · PL " + c.PL + " · PD " + c.PD + " · BL1 " + c.BL1 +
             " · SA " + c.SA + " · FL1 " + c.FL1 +
             " · ข้ามรายการ: ไม่มี Match ID " + x.missingProviderId +
@@ -507,7 +508,7 @@
           status.textContent = "พร้อมดาวน์โหลด Legacy Snapshot · ไม่มีการสร้าง Revision หรืออ้างว่าเป็นผลที่ตรวจสอบอิสระแล้ว";
         } catch (error) {
           preparedLegacy = null;
-          summary.textContent = "ยังไม่มี Legacy Snapshot ที่พร้อมดาวน์โหลด";
+          legacySummary.textContent = "ยังไม่มี Legacy Snapshot ที่พร้อมดาวน์โหลด";
           legacyDownload.disabled = true;
           status.textContent = error.message || "เตรียม Legacy Snapshot ไม่สำเร็จ";
         }
