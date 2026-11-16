@@ -4,41 +4,53 @@ import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
-class PrimaryNavigationTests(unittest.TestCase):
-    def test_four_primary_routes_are_defined(self):
-        source = (ROOT / "js/primary-navigation.js").read_text()
-        routes = re.findall(r'^    (home|leagues|analyze|history): \{ page:', source, re.M)
-        self.assertEqual(routes, ["home", "leagues", "analyze", "history"])
 
-    def test_navigation_keeps_secondary_destinations_reachable(self):
+class PrimaryNavigationTests(unittest.TestCase):
+    def test_five_primary_routes_are_defined(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        for target in ("summary", "analysis", "archive", "advanced"):
-            self.assertIn('["' + target + '"', source)
+        routes = re.findall(r'^    (home|leagues|matches|players|tools): \\{ page:', source, re.M)
+        self.assertEqual(routes, ["home", "leagues", "matches", "players", "tools"])
+
+    def test_home_shortcuts_and_dashboard_are_present(self):
+        source = (ROOT / "js/primary-navigation.js").read_text()
+        html = (ROOT / "index.html").read_text()
+        self.assertIn('id = "homeQuickLinks"', source)
+        self.assertIn('id = "toolsHubPage"', source)
+        self.assertIn('id="homeTodayDashboard"', html)
+        self.assertIn('id="matchCenterApp"', html)
+
+    def test_all_secondary_destinations_are_reachable_from_tools_hub(self):
+        source = (ROOT / "js/primary-navigation.js").read_text()
+        for target in ("analyze", "history", "summary", "advanced", "internationalHandicap",
+                       "archive", "matchResearch", "playerOperations", "playerMatchEvents",
+                       "footballEcosystemExport"):
+            self.assertIn('data-secondary-route="' + target + '"', source)
 
     def test_player_operations_center_route_targets_mounted_page(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         self.assertIn('target === "playerOperations"', source)
         self.assertIn('activate("playerOperationsPage", null, "")', source)
 
-    def test_legacy_player_database_route_is_removed(self):
+    def test_player_database_is_reached_through_existing_database_tab(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        html = (ROOT / "index.html").read_text()
-        self.assertNotIn('["players","ฐานข้อมูลนักเตะ"]', source)
-        self.assertNotIn('target === "players"', source)
-        self.assertNotIn('data-db-tab="players"', html)
+        player_module = (ROOT / "js/player-database-mvp.js").read_text()
+        self.assertIn('players: { page: "fixtures", tab: "playerDatabase" }', source)
+        self.assertIn('tab.dataset.dbTab="playerDatabase"', player_module)
 
-    def test_international_handicap_stays_in_secondary_tools(self):
+    def test_international_handicap_stays_in_tools_hub(self):
         navigation = (ROOT / "js/primary-navigation.js").read_text()
         workspace = (ROOT / "js/international-handicap-workspace.js").read_text()
-        self.assertIn('["internationalHandicap","ทีมชาติ AH"]', navigation)
+        self.assertIn('data-secondary-route="internationalHandicap"', navigation)
         self.assertIn('activate("internationalHandicap", null, "")', navigation)
         self.assertNotIn('nav.insertAdjacentHTML("beforeend"', workspace)
         self.assertNotIn('data-intl-route', workspace)
 
-    def test_history_routes_to_existing_accuracy_panel(self):
+    def test_analysis_and_history_remain_reachable(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        self.assertIn('analyze: { page: "matchAnalysis", tab: "probability" }', source)
-        self.assertIn('history: { page: "analysisHistory", tab: "accuracy" }', source)
+        self.assertIn('activate("matchAnalysis", null, "")', source)
+        self.assertIn('activate("analysisHistory", null, "")', source)
+        self.assertIn('analysisPage.id = "matchAnalysis"', source)
+        self.assertIn('historyPage.id = "analysisHistory"', source)
 
     def test_primary_navigation_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text()
@@ -51,7 +63,7 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_football_rich_fixture_export_tool_is_reachable_and_cached(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         worker = (ROOT / "sw.js").read_text()
-        self.assertIn('["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"]', source)
+        self.assertIn('data-secondary-route="footballEcosystemExport"', source)
         self.assertIn('activate("footballEcosystemExportPage", null, "")', source)
         self.assertIn('page.id = "footballEcosystemExportPage"', source)
         self.assertIn('./js/football-ecosystem-export.js', source)
@@ -69,9 +81,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.5-beta.12"', html)
-        self.assertIn('Project Football Time V6.26.5-beta.12', html)
-        self.assertIn('football-time-v102', sw)
+        self.assertIn('content="6.26.6-beta.1"', html)
+        self.assertIn('Project Football Time V6.26.6-beta.1', html)
+        self.assertIn('const CACHE = "football-time-v105"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
@@ -91,10 +103,6 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('data-db-subtab', source)
         self.assertIn('groupedTab !== tab', source)
 
-    def test_four_primary_items_replace_legacy_bottom_nav(self):
-        html = (ROOT / "index.html").read_text()
-        self.assertNotIn('data-page="summary"', html[html.index('<nav class="nav"'):html.index('</nav>')])
-        self.assertNotIn('data-page="archive"', html[html.index('<nav class="nav"'):html.index('</nav>')])
 
 if __name__ == "__main__":
     unittest.main()
