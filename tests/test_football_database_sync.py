@@ -54,6 +54,18 @@ class FootballDatabaseSyncTests(unittest.TestCase):
         self.assertEqual((history[0]["homeScore"], history[0]["awayScore"]), (2, 1))
         self.assertEqual(history[0]["changeType"], "baseline")
 
+    def test_finished_result_revision_passes_database_validator(self):
+        self.set_pl_result(2, 1)
+        db=self.build()
+        db["probabilitySnapshots"]=[]
+        (self.root/"data"/"football-database.json").write_text(json.dumps(db))
+        result=subprocess.run(
+            ["python3","scripts/validate_football_database.py"],
+            cwd=self.root,capture_output=True,text=True
+        )
+        self.assertEqual(result.returncode, 0, result.stdout+"\\n"+result.stderr)
+        self.assertIn("All reference and consistency checks passed.", result.stdout)
+
     def test_unchanged_finished_result_keeps_revision_and_does_not_duplicate_history(self):
         self.set_pl_result(2, 1)
         first=self.build()
