@@ -84,12 +84,9 @@
         }
         if (fixture.international_fixture_id) errors.push(label + ": รายการสโมสรห้ามใช้ international_fixture_id");
         fixtureKey = competition + ":" + String(fixture.provider_match_id ?? "");
-      } else if (competition === "UNL") {
-        if (!fixture.international_fixture_id) errors.push(label + ": Nations League ต้องใช้ international_fixture_id เดิม");
-        if (fixture.provider_match_id !== undefined && fixture.provider_match_id !== null && fixture.provider_match_id !== "") {
-          errors.push(label + ": รายการทีมชาติห้ามใช้ provider_match_id ของสโมสร");
-        }
-        fixtureKey = competition + ":" + String(fixture.international_fixture_id ?? "");
+      } else {
+        errors.push(label + ": รองรับเฉพาะ 5 ลีกใหญ่เท่านั้น");
+        return;
       }
       if (!fixture.home_team || !fixture.away_team) errors.push(label + ": ต้องระบุชื่อทั้งสองทีม");
       if (fixtureKeys.has(fixtureKey)) errors.push(label + ": พบ Fixture ซ้ำในไฟล์");
