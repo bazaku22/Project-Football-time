@@ -21,7 +21,7 @@ class PrimaryNavigationTests(unittest.TestCase):
 
     def test_all_secondary_destinations_are_reachable_from_tools_hub(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        for target in ("analyze", "history", "summary", "advanced", "internationalHandicap",
+        for target in ("analyze", "history", "summary", "advanced",
                        "archive", "matchResearch", "playerOperations", "playerMatchEvents",
                        "footballEcosystemExport"):
             self.assertIn('data-secondary-route="' + target + '"', source)
@@ -37,13 +37,20 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('players: { page: "fixtures", tab: "playerDatabase" }', source)
         self.assertIn('tab.dataset.dbTab="playerDatabase"', player_module)
 
-    def test_international_handicap_stays_in_tools_hub(self):
+    def test_international_tools_and_assets_are_removed(self):
         navigation = (ROOT / "js/primary-navigation.js").read_text()
-        workspace = (ROOT / "js/international-handicap-workspace.js").read_text()
-        self.assertIn('data-secondary-route="internationalHandicap"', navigation)
-        self.assertIn('activate("internationalHandicap", null, "")', navigation)
-        self.assertNotIn('nav.insertAdjacentHTML("beforeend"', workspace)
-        self.assertNotIn('data-intl-route', workspace)
+        html = (ROOT / "index.html").read_text()
+        worker = (ROOT / "sw.js").read_text()
+        self.assertNotIn("internationalHandicap", navigation)
+        self.assertNotIn("international-handicap", html)
+        self.assertNotIn("international-handicap", worker)
+        self.assertNotIn('data-match-category="international"', html)
+
+    def test_manual_research_is_limited_to_five_major_leagues(self):
+        source = (ROOT / "js/manual-match-research.js").read_text()
+        self.assertIn('new Set(["PL","PD","BL1","SA","FL1"])', source)
+        self.assertIn('value.records.filter((record) => CLUB.has(record?.competition_code))', source)
+        self.assertNotIn('"UNL"', source)
 
     def test_analysis_and_history_remain_reachable(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
@@ -83,7 +90,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text()
         self.assertIn('content="6.26.7-beta.1"', html)
         self.assertIn('Project Football Time V6.26.7-beta.1', html)
-        self.assertIn('const CACHE = "football-time-v106"', sw)
+        self.assertIn('const CACHE = "football-time-v107"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
