@@ -9,7 +9,6 @@ SYNC_WORKFLOW = (ROOT / ".github" / "workflows" / "update-football-database.yml"
 DATABASE_BUILDER = (ROOT / "scripts" / "build_football_database.py").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
 UNIFIED = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
-UNIFIED = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
 CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
 
 
@@ -78,8 +77,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V6.26.8-beta.1</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.26.8-beta.1">', HTML)
+        self.assertIn('<title>Project Football Time V6.26.9-beta.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.26.9-beta.1">', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
