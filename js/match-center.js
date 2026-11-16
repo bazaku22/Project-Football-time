@@ -12,7 +12,7 @@
   let activeSearch = "";
   let selectedDate = "";
   let calendarAnchorDate = "";
-  const MANUAL_RESEARCH_STORAGE_KEY  const MANUAL_RESEARCH_STORAGE_KEY = "pft_manual_match_research_2026_27_v1";
+  const MANUAL_RESEARCH_STORAGE_KEY = "pft_manual_match_research_2026_27_v1";
   function loadManualResearchRecords() {
     try {
       const stored = JSON.parse(localStorage.getItem(MANUAL_RESEARCH_STORAGE_KEY) || "null");
@@ -21,7 +21,7 @@
       return [];
     }
   }
-  function bangkokDate(  function bangkokDate(value = new Date()) {
+  function bangkokDate(value = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
       timeZone:"Asia/Bangkok",year:"numeric",month:"2-digit",day:"2-digit"
     }).formatToParts(value);
@@ -198,7 +198,7 @@
     }
     return '<section class="mc-analysis-summary"><div class="mc-analysis-title">คาดการณ์ก่อนแข่ง</div><div class="mc-analysis-1x2">'+outcome("เจ้าบ้าน",p.home)+outcome("เสมอ",p.draw)+outcome("ทีมเยือน",p.away)+'</div>'+handicapMarkup+'<div class="mc-analysis-source">ความน่าจะเป็นจากโมเดล Football Time · เส้นอ้างอิงจาก The Odds API</div></section>';
   }
-  function renderMatchStats(match) {  function renderMatchStats(match) {
+  function renderMatchStats(match) {
     const stats = match?.statistics || match?.stats || null;
     if (!stats || typeof stats !== "object") return "";
     const definitions = [
