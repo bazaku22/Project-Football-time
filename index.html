@@ -259,8 +259,8 @@ const TEST_RECORDS_URL="./data/test-records.json";
 const starterMatches=[];
 const verifiedResults={"002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}};
 function isMajorLeagueMatch(match){
- const candidates=[match?.competitionCode,match?.competition_code,match?.leagueCode,match?.league_code,match?.league,match?.competition,match?.competition_name];
- const allowed=new Set(["pl","premier league","english premier league","epl","pd","la liga","laliga","primera division","bl1","bundesliga","sa","serie a","seriea","fl1","ligue 1","ligue1"]);
+ const candidates=[match?.competitionCode,match?.competition_code,match?.leagueCode,match?.league_code,match?.leagueId,match?.league_id,match?.league,match?.leagueName,match?.league_name,match?.competition,match?.competitionName,match?.competition_name];
+ const allowed=new Set(["pl","premier league","english premier league","epl","พรีเมียร์ลีก","pd","la liga","laliga","primera division","ลาลีกา","bl1","bundesliga","บุนเดสลีกา","sa","serie a","seriea","เซเรียอา","fl1","ligue 1","ligue1","ลีกเอิง"]);
  return candidates.some(value=>allowed.has(String(value??"").trim().toLowerCase()));
 }
 function loadMatches(){
