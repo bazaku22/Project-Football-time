@@ -14,7 +14,7 @@
   function snapshotTimestamp(db) {
     const value = db?.source?.lastSuccessfulSync || db?.generatedAt;
     const parsed = value ? new Date(value) : null;
-    return parsed && !Number.isNaN(parsed.getTime()) ? parsed.toISOString() : nowIso();
+    return parsed && !Number.isNaN(parsed.getTime()) ? parsed.toISOString() : null;
   }
   function safeStatus(value) {
     const status = String(value || "").toUpperCase();
@@ -47,6 +47,22 @@
     const records = [];
     const skipped = { missingProviderId: 0, duplicateProviderId: 0, invalidFields: 0 };
     const seen = new Set();
+    if (!snapshotAt) {
+      skipped.invalidFields = candidates.length;
+      return {
+        envelope: {
+          schema_version: "1.0.0",
+          export_id: "FT-EXPORT-" + new Date().toISOString().replace(/[-:.TZ]/g, "").slice(0, 14) + "-" + Math.random().toString(36).slice(2, 8).toUpperCase(),
+          exported_by: "football-time",
+          exported_at: nowIso(),
+          data_type: "fixtures",
+          scope: { league_ids: leagueIds, season_ids: [seasonId] },
+          records
+        },
+        total: candidates.length,
+        skipped
+      };
+    }
     candidates.forEach((match) => {
       const providerId = match.providerMatchId == null ? "" : String(match.providerMatchId).trim();
       if (!providerId) {
@@ -63,8 +79,13 @@
       const status = safeStatus(match.status);
       const homeTeamId = match.homeTeamId == null ? "" : String(match.homeTeamId);
       const awayTeamId = match.awayTeamId == null ? "" : String(match.awayTeamId);
+      const homeTeam = (db.teams || []).find((team) => String(team.id) === homeTeamId);
+      const awayTeam = (db.teams || []).find((team) => String(team.id) === awayTeamId);
+      const homeTeamDisplayName = match.homeTeamName || homeTeam?.name || homeTeam?.shortName || "";
+      const awayTeamDisplayName = match.awayTeamName || awayTeam?.name || awayTeam?.shortName || "";
       if (!/^[A-Za-z0-9_-]+$/.test(providerId) ||
           !homeTeamId || !awayTeamId || homeTeamId === awayTeamId ||
+          !homeTeam || !awayTeam || !homeTeamDisplayName || !awayTeamDisplayName ||
           !kickoff || Number.isNaN(kickoff.getTime()) || !status) {
         skipped.invalidFields++;
         return;
@@ -77,8 +98,8 @@
         season_id: seasonId,
         home_team_id: homeTeamId,
         away_team_id: awayTeamId,
-        home_team_name: teamName(db, homeTeamId, match.homeTeamName),
-        away_team_name: teamName(db, awayTeamId, match.awayTeamName),
+        home_team_name: homeTeamDisplayName,
+        away_team_name: awayTeamDisplayName,
         kickoff_at: kickoff.toISOString(),
         status,
         source: {
@@ -129,21 +150,28 @@
     const matches = (database.matches || []).filter((match) =>
       leagues.includes(match.leagueId) && String(match.season) === seasonId
     );
+    const hasSnapshotTimestamp = Boolean(snapshotTimestamp(database));
     const counts = CORE_LEAGUES.filter((id) => leagues.includes(id)).map((id) => {
       const count = matches.filter((match) => match.leagueId === id).length;
       return id + " " + count + " นัด";
     });
-    const eligible = matches.filter((match) =>
-      match.providerMatchId != null && String(match.providerMatchId).trim() &&
-      match.homeTeamId != null && match.awayTeamId != null &&
-      match.utcDate && !Number.isNaN(new Date(match.utcDate).getTime()) &&
-      safeStatus(match.status)
-    ).length;
+    const eligible = hasSnapshotTimestamp ? matches.filter((match) => {
+      const homeId = String(match.homeTeamId ?? "");
+      const awayId = String(match.awayTeamId ?? "");
+      const hasTeams = (database.teams || []).some((team) => String(team.id) === homeId) &&
+        (database.teams || []).some((team) => String(team.id) === awayId);
+      return match.providerMatchId != null && String(match.providerMatchId).trim() &&
+        homeId && awayId && homeId !== awayId && hasTeams &&
+        (match.homeTeamName || teamName(database, homeId)) &&
+        (match.awayTeamName || teamName(database, awayId)) &&
+        match.utcDate && !Number.isNaN(new Date(match.utcDate).getTime()) &&
+        safeStatus(match.status);
+    }).length : 0;
     status.textContent = "ฐานข้อมูลพร้อม · " + (database.source?.provider || "ไม่ระบุแหล่งข้อมูล") +
       " · อัปเดต " + (database.source?.lastSuccessfulSync || database.generatedAt || "ไม่ระบุเวลา");
     summary.textContent = "พบ " + matches.length + " นัดในขอบเขตที่เลือก · คาดว่าส่งออกได้ " +
       eligible + " นัด · " + (counts.join(" / ") || "ยังไม่ได้เลือกลีก");
-    button.disabled = leagues.length === 0 || matches.length === 0;
+    button.disabled = leagues.length === 0 || matches.length === 0 || !hasSnapshotTimestamp;
   }
   function mount() {
     const button = $("ecExportFixtures");
