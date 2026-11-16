@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://football-ecosystem.local/schemas/envelope-v1.schema.json",
+  "title": "Football Ecosystem Exchange Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "export_id",
+    "exported_by",
+    "exported_at",
+    "data_type",
+    "scope",
+    "records"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "export_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "exported_by": {
+      "const": "football-time"
+    },
+    "exported_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data_type": {
+      "enum": [
+        "fixtures",
+        "clubs",
+        "team_statistics",
+        "players",
+        "player_statistics",
+        "match_results"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "league_ids",
+        "season_ids"
+      ],
+      "properties": {
+        "league_ids": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "PL",
+              "PD",
+              "BL1",
+              "SA",
+              "FL1"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "season_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{4}$"
+          },
+          "uniqueItems": true
+        }
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}
