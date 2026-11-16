@@ -169,28 +169,8 @@
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemExportPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemExportDownloadButton");
-      if (!previewButton && !downloadButton && !auditButton) return;
-      if (auditButton) {
-        try {
-          const database = root.FootballTimeAppContext?.getDatabase();
-          const report = auditResultReadiness(database), t = report.totals;
-          const lines = ['รายงานตรวจสอบแบบอ่านอย่างเดียว · 5 ลีกหลัก',
-            'ฤดูกาล 2026/27: จบแล้ว ' + t.currentSeasonFinished + ' นัด',
-            'พร้อมส่งออกตามเงื่อนไขปัจจุบัน: ' + t.ready + ' นัด',
-            'ยังไม่ผ่านเงื่อนไข: ' + (t.currentSeasonFinished-t.ready) + ' นัด',
-            'ขาด Provider Match ID: ' + t.missingProviderId,
-            'ขาด/ผิดรูปแบบสกอร์: ' + t.missingScore,
-            'ขาด Revision/เวลาอัปเดต: ' + t.missingRevision,
-            'ขาด Provenance: ' + t.missingProvenance,
-            'ไม่มีประวัติ Revision ครบ: ' + t.missingHistory,
-            'ประวัติไม่ต่อเนื่อง/ไม่ตรงผลล่าสุด: ' + t.invalidHistory,
-            'ผลจบแล้วจากฤดูกาลอื่น (นอกขอบเขตส่งออก): ' + t.otherSeasonFinished,
-            '', 'แยกตามลีก (จบแล้ว / พร้อมส่งออก / ฤดูกาลอื่น)'];
-          LEAGUE_IDS.forEach(id => { const row = report.leagues[id]; lines.push(id + ': ' + row.currentSeasonFinished + ' / ' + row.ready + ' / ' + row.otherSeasonFinished); });
-          summary.textContent = lines.join(String.fromCharCode(10));
-          status.textContent = 'ตรวจสอบเสร็จแล้ว · อ่านข้อมูลเท่านั้น ไม่มีการแก้ไขหรือบันทึกฐานข้อมูล';
-        } catch (error) { summary.textContent = 'ตรวจสอบไม่สำเร็จ'; status.textContent = error.message || 'อ่านฐานข้อมูลไม่สำเร็จ'; }
-      } else if (previewButton) {
+      if (!previewButton && !downloadButton) return;
+      if (previewButton) {
         const status = root.document.getElementById("ftEcosystemExportStatus");
         const preview = root.document.getElementById("ftEcosystemExportSummary");
         const download = root.document.getElementById("ftEcosystemExportDownloadButton");
@@ -404,12 +384,33 @@
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemResultPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemResultDownloadButton");
-      if (!previewButton && !downloadButton) return;
+      if (!previewButton && !downloadButton && !auditButton) return;
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
       const download = root.document.getElementById("ftEcosystemResultDownloadButton");
       const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
-      if (previewButton) {
+      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
+      if (auditButton) {
+        try {
+          const database = root.FootballTimeAppContext?.getDatabase();
+          const report = auditResultReadiness(database), t = report.totals;
+          const lines = ["รายงานตรวจสอบแบบอ่านอย่างเดียว · 5 ลีกหลัก",
+            "ฤดูกาล 2026/27: จบแล้ว " + t.currentSeasonFinished + " นัด",
+            "พร้อมส่งออกตามเงื่อนไขปัจจุบัน: " + t.ready + " นัด",
+            "ยังไม่ผ่านเงื่อนไข: " + (t.currentSeasonFinished-t.ready) + " นัด",
+            "ขาด Provider Match ID: " + t.missingProviderId,
+            "ขาด/ผิดรูปแบบสกอร์: " + t.missingScore,
+            "ขาด Revision/เวลาอัปเดต: " + t.missingRevision,
+            "ขาด Provenance: " + t.missingProvenance,
+            "ไม่มีประวัติ Revision ครบ: " + t.missingHistory,
+            "ประวัติไม่ต่อเนื่อง/ไม่ตรงผลล่าสุด: " + t.invalidHistory,
+            "ผลจบแล้วจากฤดูกาลอื่น (นอกขอบเขตส่งออก): " + t.otherSeasonFinished,
+            "", "แยกตามลีก (จบแล้ว / พร้อมส่งออก / ฤดูกาลอื่น)"];
+          LEAGUE_IDS.forEach(id => { const row = report.leagues[id]; lines.push(id + ": " + row.currentSeasonFinished + " / " + row.ready + " / " + row.otherSeasonFinished); });
+          summary.textContent = lines.join(String.fromCharCode(10));
+          status.textContent = "ตรวจสอบเสร็จแล้ว · อ่านข้อมูลเท่านั้น ไม่มีการแก้ไขหรือบันทึกฐานข้อมูล";
+        } catch (error) { summary.textContent = "ตรวจสอบไม่สำเร็จ"; status.textContent = error.message || "อ่านฐานข้อมูลไม่สำเร็จ"; }
+      } else if (previewButton) {
         try {
           const database = root.FootballTimeAppContext?.getDatabase();
           if (!database) throw new Error("กำลังโหลดฐานข้อมูลหลัก กรุณารอสักครู่แล้วลองใหม่");
