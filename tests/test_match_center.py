@@ -8,6 +8,7 @@ WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
 SYNC_WORKFLOW = (ROOT / ".github" / "workflows" / "update-football-database.yml").read_text(encoding="utf-8")
 DATABASE_BUILDER = (ROOT / "scripts" / "build_football_database.py").read_text(encoding="utf-8")
 MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
+UNIFIED = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
 CSS = (ROOT / "css" / "match-center.css").read_text(encoding="utf-8")
 
 
@@ -144,16 +145,16 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('ft.get("away")', DATABASE_BUILDER)
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
-        self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 2)
+        self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 0)
         self.assertIn('football-time-v102', WORKER)
 
 
 
     def test_manual_match_events_keep_player_names_without_legacy_profile_links(self):
-        self.assertIn('const player = item.player?.name', MODULE)
-        self.assertIn('esc(player)', MODULE)
-        self.assertNotIn("data-canonical-player-ref", MODULE)
-        self.assertNotIn("pft-open-canonical-player", MODULE)
+        self.assertIn('const player = item.player?.name', UNIFIED)
+        self.assertIn('esc(player)', UNIFIED)
+        self.assertNotIn("data-canonical-player-ref", UNIFIED)
+        self.assertNotIn("pft-open-canonical-player", UNIFIED)
 
 if __name__ == "__main__":
     unittest.main()
