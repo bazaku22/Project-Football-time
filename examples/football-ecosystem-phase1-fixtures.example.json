@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0.0",
+  "export_id": "FT-EXPORT-EXAMPLE-0001",
+  "exported_by": "football-time",
+  "exported_at": "2026-11-16T16:00:00+07:00",
+  "data_type": "fixtures",
+  "scope": {
+    "league_ids": [
+      "PL",
+      "PD",
+      "BL1",
+      "SA",
+      "FL1"
+    ],
+    "season_ids": [
+      "2026-2027"
+    ]
+  },
+  "records": [
+    {
+      "match_id": "FT-M-FOOTBALLDATA-560643",
+      "provider": "football-data",
+      "provider_match_id": "560643",
+      "league_id": "PL",
+      "season_id": "2026-2027",
+      "home_team_id": "football-data:65",
+      "away_team_id": "football-data:63",
+      "home_team_name": "Manchester City FC",
+      "away_team_name": "Fulham FC",
+      "kickoff_at": "2026-11-20T20:00:00+07:00",
+      "status": "SCHEDULED",
+      "source": {
+        "provider": "football-data.org",
+        "retrieved_at": "2026-11-16T15:45:00+07:00"
+      },
+      "record_updated_at": "2026-11-16T15:45:00+07:00"
+    }
+  ]
+}
