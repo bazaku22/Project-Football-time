@@ -56,7 +56,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
         self.assertIn('./js/primary-navigation.js', html)
-        self.assertIn('./css/primary-navigation.css?v=1', html)
+        self.assertIn('./css/primary-navigation.css?v=2', html)
         self.assertIn('./js/primary-navigation.js', sw)
         self.assertIn('./css/primary-navigation.css?v=1', sw)
 
