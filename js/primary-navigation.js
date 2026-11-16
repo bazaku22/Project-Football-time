@@ -14,7 +14,8 @@
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"],
     ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"],
-    ["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"],
+    ["footballEcosystemExport","ส่งออกโปรแกรมไป Football rich"],
+    ["footballEcosystemResultsExport","ส่งออกผลการแข่งขันไป Football rich"],
   ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey) {
@@ -116,6 +117,30 @@
         document.body.appendChild(script);
       }
     }
+
+    if (!$("#footballEcosystemResultsExportPage")) {
+      const page = document.createElement("section");
+      page.id = "footballEcosystemResultsExportPage";
+      page.className = "page";
+      page.innerHTML =
+        '<div class="sectionhead"><h2>ส่งออกผลการแข่งขันจริงไป Football rich</h2><span class="small">RESULT REVISIONS · V1.0</span></div>' +
+        '<div class="card"><b>Match Results · 5 ลีกหลัก · ฤดูกาล 2026/27</b>' +
+        '<p class="profile-note">ส่งออกเฉพาะผลที่ FT ระบุว่าจบการแข่งขันและมีคะแนนครบ ใช้ Shared Match ID เดิม พร้อม Revision และแหล่งที่มา Rich จะนำเข้าเพื่อประเมินผลเท่านั้น</p>' +
+        '<div class="quality-note">FT เป็นเจ้าของผลจริงเพียงแห่งเดียว · ไฟล์นี้แยกจาก Fixture Export · ไม่มี API ใหม่ · ไม่แก้ไขผลในฐานข้อมูลต้นฉบับ</div>' +
+        '<button type="button" class="primary" id="ftResultExportPreviewButton">ตรวจสอบผลและเตรียมไฟล์</button>' +
+        '<div id="ftResultExportSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบผลการแข่งขัน</div>' +
+        '<button type="button" class="secondary" id="ftResultExportDownloadButton" disabled>ดาวน์โหลดไฟล์ผลการแข่งขัน JSON</button>' +
+        '<p id="ftResultExportStatus" class="profile-note" role="status" aria-live="polite">รอฐานข้อมูลฟุตบอลหลัก</p></div>' +
+        '<div class="card"><b>ข้อควรทราบเกี่ยวกับ Revision</b><p class="profile-note">ระบบจะจดจำคะแนนที่ส่งออกแล้วในอุปกรณ์นี้ หาก FT พบคะแนนเปลี่ยนจากเดิม จะเพิ่ม Revision ใหม่โดยไม่ลบประวัติเดิม โปรดสำรองข้อมูลแอปตามปกติ และอย่าล้างข้อมูลเว็บไซต์ก่อนส่งออก</p>' +
+        '<ol class="profile-note"><li>ตรวจสอบจำนวนผลและ Revision</li><li>ดาวน์โหลดไฟล์ JSON</li><li>นำเข้าใน Football rich ผ่านเครื่องมือรับผลจาก Football Time</li></ol></div>';
+      $("#main")?.appendChild(page);
+      if (!document.querySelector('script[data-ft-result-export]')) {
+        const script = document.createElement("script");
+        script.src = "./js/football-ecosystem-results-export.js";
+        script.dataset.ftResultExport = "true";
+        document.body.appendChild(script);
+      }
+    }
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [
@@ -148,6 +173,8 @@
       const target = button.dataset.secondaryRoute;
       if (target === "footballEcosystemExport") {
         activate("footballEcosystemExportPage", null, "");
+      } else if (target === "footballEcosystemResultsExport") {
+        activate("footballEcosystemResultsExportPage", null, "");
       } else if (target === "internationalHandicap") {
         activate("internationalHandicap", null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
