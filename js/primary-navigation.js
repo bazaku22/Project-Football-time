@@ -146,7 +146,9 @@
       const button = event.target.closest("[data-secondary-route]");
       if (!button) return;
       const target = button.dataset.secondaryRoute;
-      if (target === "footballEcosystemExport") {\n        activate("footballEcosystemExportPage", null, "");\n      } else if (target === "internationalHandicap") {
+      if (target === "footballEcosystemExport") {
+        activate("footballEcosystemExportPage", null, "");
+      } else if (target === "internationalHandicap") {
         activate("internationalHandicap", null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "advanced") {
