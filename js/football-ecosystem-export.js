@@ -473,7 +473,20 @@
       if (!issues) row.ready++;
     });
     const totals = Object.keys(leagues).reduce((sum,id) => { Object.keys(sum).forEach(key => { sum[key] += leagues[id][key]; }); return sum; }, {currentSeasonFinished:0,ready:0,missingProviderId:0,missingScore:0,missingRevision:0,missingProvenance:0,missingHistory:0,invalidHistory:0,otherSeasonFinished:0});
-    return {leagues,totals,historyRows:historyRows.length};
+    // Legacy eligibility is intentionally independent of revision/provenance requirements.
+    const legacySnapshot = { total: 0, leagueCounts: Object.fromEntries(LEAGUE_IDS.map(id => [id, 0])), excluded: { missingProviderId: 0, invalidScore: 0, invalidMatchId: 0 } };
+    const legacySeen = new Set();
+    database.matches.filter(match => match && LEAGUE_IDS.includes(match.leagueId) && match.season === SEASON_ID && match.status === 'FINISHED').forEach(match => {
+      const rawId = match.providerMatchId;
+      if (rawId === null || rawId === undefined || String(rawId).trim() === '') { legacySnapshot.excluded.missingProviderId++; return; }
+      const matchId = 'FT-M-FOOTBALLDATA-' + String(rawId);
+      if (!MATCH_ID_PATTERN.test(matchId) || legacySeen.has(matchId)) { legacySnapshot.excluded.invalidMatchId++; return; }
+      if (!Number.isInteger(match.homeScore) || match.homeScore < 0 || !Number.isInteger(match.awayScore) || match.awayScore < 0) { legacySnapshot.excluded.invalidScore++; return; }
+      legacySeen.add(matchId);
+      legacySnapshot.total++;
+      legacySnapshot.leagueCounts[match.leagueId]++;
+    });
+    return {leagues,totals,legacySnapshot,historyRows:historyRows.length};
   }
   function initResultExport() {
     if (!root.document || root.document.documentElement.dataset.ftResultExportBound === "true") return;
@@ -531,8 +544,12 @@
             "ไม่มีประวัติ Revision ครบ: " + t.missingHistory,
             "ประวัติไม่ต่อเนื่อง/ไม่ตรงผลล่าสุด: " + t.invalidHistory,
             "ผลจบแล้วจากฤดูกาลอื่น (นอกขอบเขตส่งออก): " + t.otherSeasonFinished,
-            "", "แยกตามลีก (จบแล้ว / พร้อมส่งออก / ฤดูกาลอื่น)"];
-          LEAGUE_IDS.forEach(id => { const row = report.leagues[id]; lines.push(id + ": " + row.currentSeasonFinished + " / " + row.ready + " / " + row.otherSeasonFinished); });
+            "", "Legacy Snapshot (ใช้ Match ID + สกอร์ ไม่บังคับ Revision/Provenance): " + report.legacySnapshot.total + " นัด พร้อมส่งออก",
+            "Legacy ที่ข้าม: ไม่มี Match ID " + report.legacySnapshot.excluded.missingProviderId +
+              " · สกอร์ไม่ถูกต้อง " + report.legacySnapshot.excluded.invalidScore +
+              " · ID ซ้ำ/ผิดรูปแบบ " + report.legacySnapshot.excluded.invalidMatchId,
+            "", "แยกตามลีก (จบแล้ว / Verified พร้อมส่งออก / Legacy พร้อมส่งออก / ฤดูกาลอื่น)"];
+          LEAGUE_IDS.forEach(id => { const row = report.leagues[id]; lines.push(id + ": " + row.currentSeasonFinished + " / " + row.ready + " / " + report.legacySnapshot.leagueCounts[id] + " / " + row.otherSeasonFinished); });
           summary.textContent = lines.join(String.fromCharCode(10));
           status.textContent = "ตรวจสอบเสร็จแล้ว · อ่านข้อมูลเท่านั้น ไม่มีการแก้ไขหรือบันทึกฐานข้อมูล";
         } catch (error) { summary.textContent = "ตรวจสอบไม่สำเร็จ"; status.textContent = error.message || "อ่านฐานข้อมูลไม่สำเร็จ"; }
