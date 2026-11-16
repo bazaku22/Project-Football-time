@@ -1,5 +1,5 @@
 "use strict";
-const assert = require("node:assert/strict");
+const assert = require("node:assert/strict");\nconst fs = require("node:fs");\nconst path = require("node:path");
 require("../js/football-ecosystem-export.js");
 const exporter = globalThis.FootballTimeEcosystemExport;
 assert.ok(exporter, "export module must be available");
@@ -92,5 +92,13 @@ assert.throws(() => exporter.assertEnvelope(invalidScope), /ขอบเขต�
 const scoreLeak = JSON.parse(JSON.stringify(first.envelope));
 scoreLeak.records[0].home_score = 2;
 assert.throws(() => exporter.assertEnvelope(scoreLeak), /ฟิลด์ไม่รองรับ/);
+
+const actualDatabase = JSON.parse(fs.readFileSync(path.join(__dirname, "../data/football-database.json"), "utf8"));
+const actualExport = exporter.buildExport(actualDatabase);
+assert.ok(actualExport.summary.total > 0, "the repository database must produce fixture records");
+assert.ok(leagueIds.every(id => actualExport.summary.counts[id] > 0), "the live database must contain all five Phase 1 leagues");
+assert.ok(actualExport.envelope.records.every(row => row.season_id === "2026-2027"));
+assert.equal(new Set(actualExport.envelope.records.map(row => row.match_id)).size, actualExport.summary.total);
+assert.ok(actualExport.envelope.records.every(row => !("home_score" in row) && !("away_score" in row)));
 
 console.log("Football Time fixture export checks passed: five-league 2026/27 scope, stable shared IDs, provenance, all statuses, score exclusion, idempotent entity IDs, duplicate/missing/conflict guards, and no source-data mutation.");
