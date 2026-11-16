@@ -115,6 +115,12 @@
         '<div id="ftEcosystemResultSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบผลจริง</div>' +
         '<button type="button" class="secondary" id="ftEcosystemResultDownloadButton" disabled>ดาวน์โหลดไฟล์ผลจริง JSON</button>' +
         '<p id="ftEcosystemResultStatus" class="profile-note" role="status" aria-live="polite">รอฐานข้อมูลผลการแข่งขัน</p></div>' +
+        '<div class="card"><b>Legacy Match Results · ผลเก่าที่ไม่มี Revision History</b>' +
+        '<p class="profile-note">ส่งออกสกอร์เก่าที่มี Match ID และคะแนนครบ เพื่อเก็บเป็น Legacy Snapshot แยกจากผลที่มี Revision History · ใช้ประกอบการประเมินย้อนหลังได้โดยต้องแสดงสถานะว่าไม่ได้ตรวจสอบอิสระ</p>' +
+        '<div class="quality-note">ไฟล์นี้ไม่มีเลข Revision และไม่มี Revision History · เวลา Database Generated ใช้บอกเวลาของ Snapshot เท่านั้น ไม่ใช่เวลายืนยันผลการแข่งขัน · รายการที่ไม่มี Match ID หรือสกอร์ถูกต้องจะถูกข้าม</div>' +
+        '<button type="button" class="primary" id="ftEcosystemLegacyResultPreviewButton">ตรวจสอบ Legacy Snapshot และเตรียมไฟล์</button>' +
+        '<div id="ftEcosystemLegacyResultSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบ Legacy Snapshot</div>' +
+        '<button type="button" class="secondary" id="ftEcosystemLegacyResultDownloadButton" disabled>ดาวน์โหลด Legacy Snapshot JSON</button></div>' +
         '<div class="card"><b>วิธีนำเข้าใน Football rich</b><ol class="profile-note"><li>ดาวน์โหลดไฟล์ JSON จากหน้านี้</li><li>เปิด Football rich → เครื่องมือ → นำเข้าข้อมูลจาก Football Time</li><li>เลือกไฟล์ JSON และตรวจสอบตัวอย่างก่อนยืนยันนำเข้า</li></ol><p class="profile-note">ไม่ต้องล้างข้อมูลหรือแคชของแอปใด ๆ ก่อนนำเข้า</p></div>';
       $("#main")?.appendChild(page);
       if (!document.querySelector('script[data-ft-fixture-export]')) {

@@ -79,6 +79,10 @@ on:
       - "js/primary-navigation.js"
       - "js/football-ecosystem-export.js"
       - "tests/test_football_ecosystem_fixture_export.js"
+      - "tests/test_football_ecosystem_legacy_result_export.js"
+      - "tests/test_legacy_result_revision_safety.py"
+      - "schemas/football-ecosystem-legacy-result-snapshot-v1.schema.json"
+      - "docs/FOOTBALL-TIME-LEGACY-RESULT-SNAPSHOT-V1.0.md"
       - "docs/FOOTBALL-TIME-FIXTURE-EXPORT-V1.0.md"
       - "js/match-center.js"
       - "css/analysis-refinement.css"
@@ -426,7 +430,12 @@ jobs:
           node --check js/football-ecosystem-export.js
           node --check tests/test_football_ecosystem_result_export.js
           node tests/test_football_ecosystem_result_export.js
+          node --check tests/test_football_ecosystem_legacy_result_export.js
+          node tests/test_football_ecosystem_legacy_result_export.js
+          python3 -m py_compile tests/test_legacy_result_revision_safety.py
+          python3 -m unittest tests/test_legacy_result_revision_safety.py -v
           python3 -m json.tool schemas/football-ecosystem-result-v1.schema.json > /dev/null
+          python3 -m json.tool schemas/football-ecosystem-legacy-result-snapshot-v1.schema.json > /dev/null
 
       - name: Validate Player Database 2026/27 roster MVP
         run: |

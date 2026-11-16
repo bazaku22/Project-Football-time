@@ -40,7 +40,7 @@ class PlayerOperationsCenterTests(unittest.TestCase):
     def test_release_assets_are_versioned_and_cached(self):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn("6.26.5-beta.11", index)
+        self.assertIn("6.26.5-beta.12", index)
         self.assertIn("football-time-v102", sw)
         self.assertIn("./js/player-operations-center.js", sw)
         self.assertIn("./css/player-operations-center.css", sw)

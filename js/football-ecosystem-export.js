@@ -348,6 +348,104 @@
   }
 
 
+
+  function buildLegacyResultSnapshot(database, options) {
+    const opts = options || {};
+    if (!database || !Array.isArray(database.matches)) {
+      throw new Error("ฐานข้อมูลหลักยังไม่พร้อมหรือไม่มีรายการแข่งขัน");
+    }
+    const now = opts.now || new Date().toISOString();
+    if (!isDateTime(now)) throw new Error("เวลา Export ไม่ถูกต้อง");
+    const sourceMeta = database.source || {};
+    const observedAt = isDateTime(database.generatedAt) ? database.generatedAt : null;
+    const sourceProvider = typeof sourceMeta.provider === "string" && sourceMeta.provider.trim()
+      ? sourceMeta.provider.trim() : "unknown";
+    const leagueCounts = Object.fromEntries(LEAGUE_IDS.map(id => [id, 0]));
+    const excluded = { missingProviderId: 0, invalidScore: 0, invalidMatchId: 0 };
+    const seen = new Set();
+    const records = [];
+    database.matches.filter(match =>
+      match && LEAGUE_IDS.includes(match.leagueId) &&
+      match.season === SEASON_ID && match.status === "FINISHED"
+    ).forEach(match => {
+      const rawProviderId = match.providerMatchId;
+      if (rawProviderId === null || rawProviderId === undefined || String(rawProviderId).trim() === "") {
+        excluded.missingProviderId++;
+        return;
+      }
+      const providerMatchId = String(rawProviderId);
+      const matchId = "FT-M-FOOTBALLDATA-" + providerMatchId;
+      if (!MATCH_ID_PATTERN.test(matchId) || seen.has(matchId)) {
+        excluded.invalidMatchId++;
+        return;
+      }
+      if (!Number.isInteger(match.homeScore) || match.homeScore < 0 ||
+          !Number.isInteger(match.awayScore) || match.awayScore < 0) {
+        excluded.invalidScore++;
+        return;
+      }
+      seen.add(matchId);
+      const record = {
+        match_id: matchId,
+        provider: "football-data",
+        provider_match_id: providerMatchId,
+        league_id: match.leagueId,
+        season_id: match.season,
+        home_team_id: match.homeTeamId || null,
+        away_team_id: match.awayTeamId || null,
+        home_team_name: match.homeTeamName || null,
+        away_team_name: match.awayTeamName || null,
+        kickoff_at: isDateTime(match.utcDate) ? match.utcDate : null,
+        home_score: match.homeScore,
+        away_score: match.awayScore,
+        status: "FINISHED",
+        evidence: {
+          classification: "legacy_database_snapshot",
+          source_provider: sourceProvider,
+          database_generated_at: observedAt,
+          verification_status: "not_independently_verified",
+          revision_history_available: false
+        }
+      };
+      records.push(record);
+      leagueCounts[match.leagueId]++;
+    });
+    if (!records.length) throw new Error("ไม่มีผลเก่าที่มี Match ID และสกอร์ถูกต้องสำหรับส่งออก");
+    records.sort((a,b) => a.match_id.localeCompare(b.match_id));
+    const envelope = {
+      schema_version: "1.0.0",
+      export_id: opts.exportId || makeExportId(now),
+      exported_by: "football-time",
+      exported_at: now,
+      data_type: "legacy_match_result_snapshots",
+      snapshot_policy: "non_revision_legacy",
+      scope: { league_ids: LEAGUE_IDS.slice(), season_ids: [SEASON_ID] },
+      records
+    };
+    return {
+      envelope,
+      summary: {
+        total: records.length,
+        leagueCounts,
+        excluded,
+        databaseGeneratedAt: observedAt,
+        sourceProvider
+      }
+    };
+  }
+
+  function downloadLegacyResultSnapshot(envelope) {
+    const blob = new Blob([JSON.stringify(envelope, null, 2)], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = root.document.createElement("a");
+    anchor.href = url;
+    anchor.download = "football-time-legacy-result-snapshots-2026-27-" + new Date().toISOString().slice(0,10) + ".json";
+    root.document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
   function auditResultReadiness(database) {
     if (!database || !Array.isArray(database.matches)) throw new Error('ฐานข้อมูลหลักยังไม่พร้อมหรือไม่มีรายการแข่งขัน');
     const historyRows = Array.isArray(database.resultRevisionHistory) ? database.resultRevisionHistory : [];
@@ -381,15 +479,44 @@
     if (!root.document || root.document.documentElement.dataset.ftResultExportBound === "true") return;
     root.document.documentElement.dataset.ftResultExportBound = "true";
     let prepared = null;
+    let preparedLegacy = null;
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemResultPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemResultDownloadButton");
       const auditButton = event.target.closest("#ftEcosystemResultAuditButton");
-      if (!previewButton && !downloadButton && !auditButton) return;
+      const legacyPreviewButton = event.target.closest("#ftEcosystemLegacyResultPreviewButton");
+      const legacyDownloadButton = event.target.closest("#ftEcosystemLegacyResultDownloadButton");
+      if (!previewButton && !downloadButton && !auditButton && !legacyPreviewButton && !legacyDownloadButton) return;
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
+      const legacySummary = root.document.getElementById("ftEcosystemLegacyResultSummary");
       const download = root.document.getElementById("ftEcosystemResultDownloadButton");
-      if (auditButton) {
+      const legacyDownload = root.document.getElementById("ftEcosystemLegacyResultDownloadButton");
+      if (legacyPreviewButton) {
+        try {
+          const database = root.FootballTimeAppContext?.getDatabase();
+          if (!database) throw new Error("กำลังโหลดฐานข้อมูลหลัก กรุณารอสักครู่แล้วลองใหม่");
+          preparedLegacy = buildLegacyResultSnapshot(database);
+          const c = preparedLegacy.summary.leagueCounts;
+          const x = preparedLegacy.summary.excluded;
+          legacySummary.textContent = "Legacy Snapshot พร้อมส่งออก " + preparedLegacy.summary.total.toLocaleString("th-TH") +
+            " นัด · PL " + c.PL + " · PD " + c.PD + " · BL1 " + c.BL1 +
+            " · SA " + c.SA + " · FL1 " + c.FL1 +
+            " · ข้ามรายการ: ไม่มี Match ID " + x.missingProviderId +
+            " · สกอร์ไม่ถูกต้อง " + x.invalidScore + " · ID ซ้ำ/ผิดรูปแบบ " + x.invalidMatchId;
+          legacyDownload.disabled = false;
+          status.textContent = "พร้อมดาวน์โหลด Legacy Snapshot · ไม่มีการสร้าง Revision หรืออ้างว่าเป็นผลที่ตรวจสอบอิสระแล้ว";
+        } catch (error) {
+          preparedLegacy = null;
+          legacySummary.textContent = "ยังไม่มี Legacy Snapshot ที่พร้อมดาวน์โหลด";
+          legacyDownload.disabled = true;
+          status.textContent = error.message || "เตรียม Legacy Snapshot ไม่สำเร็จ";
+        }
+      } else if (legacyDownloadButton) {
+        if (!preparedLegacy) return;
+        downloadLegacyResultSnapshot(preparedLegacy.envelope);
+        if (status) status.textContent = "สร้างไฟล์ Legacy Snapshot แล้ว · Export ID: " + preparedLegacy.envelope.export_id;
+      } else if (auditButton) {
         try {
           const database = root.FootballTimeAppContext?.getDatabase();
           const report = auditResultReadiness(database), t = report.totals;
@@ -433,7 +560,7 @@
   }
 
   root.FootballTimeEcosystemExport = {
-    buildExport, assertEnvelope, buildResultExport, assertResultEnvelope, auditResultReadiness,
+    buildExport, assertEnvelope, buildResultExport, assertResultEnvelope, buildLegacyResultSnapshot, auditResultReadiness,
     init, initResultExport, leagueIds: LEAGUE_IDS.slice(), seasonId: SEASON_ID
   };
   if (root.document) {
