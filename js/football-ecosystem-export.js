@@ -384,12 +384,11 @@
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemResultPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemResultDownloadButton");
+      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
       if (!previewButton && !downloadButton && !auditButton) return;
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
       const download = root.document.getElementById("ftEcosystemResultDownloadButton");
-      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
-      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
       if (auditButton) {
         try {
           const database = root.FootballTimeAppContext?.getDatabase();
