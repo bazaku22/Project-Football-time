@@ -14,6 +14,7 @@
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"],
     ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"],
+    ["ecosystemExport","ส่งออกข้อมูลไป Football rich"],
   ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey) {
@@ -91,6 +92,30 @@
         '<label class="pme-check"><input id="pmeReviewedConfirm" type="checkbox"> ยืนยันว่าตรวจสอบหลักฐานและความครบถ้วนของแมตช์นี้แล้ว</label><p id="pmeReviewState" class="pme-note">ยังไม่ผ่านการยืนยัน</p>' +
         '<div class="pme-actions"><button type="button" class="primary" id="pmeSave">บันทึกในอุปกรณ์นี้</button><button type="button" class="secondary" id="pmeExport">ส่งออก JSON</button></div><div id="pmeStatus" class="pme-status pme-status-info" role="status" aria-live="polite">รอเลือกแมตช์</div></section>' +
         '<section class="pme-panel"><h3>6. ข้อมูลที่บันทึกไว้ในอุปกรณ์นี้</h3><div id="pmeSummary"></div><div id="pmeSavedList"></div><div class="pme-actions"><button type="button" class="secondary" id="pmeRenderStats">คำนวณสถิติจากข้อมูลในเครื่อง</button><button type="button" class="secondary" id="pmeClear">ล้างข้อมูลในอุปกรณ์นี้</button></div><p id="pmeStatsStatus" class="pme-note">ยังไม่มีสถิติให้คำนวณ</p><div id="pmeStatsTable"></div><div class="pme-restore"><b>นำเข้า / กู้คืน Ledger JSON</b><p class="pme-note">เลือกไฟล์ที่ส่งออกจากเครื่องนี้หรือไฟล์ Ledger ที่จัดทำตาม Schema 2026/27 ระบบจะตรวจโครงสร้างและ Match ID ก่อนแทนที่ข้อมูลในอุปกรณ์นี้เท่านั้น</p><input id="pmeImportFile" type="file" accept=".json,application/json" class="pme-control" aria-label="เลือกไฟล์ Player Match Event Ledger JSON"><button type="button" class="secondary" id="pmeImport">ตรวจสอบและนำเข้าไฟล์</button><p id="pmeImportStatus" class="pme-note" role="status" aria-live="polite">ยังไม่ได้เลือกไฟล์</p></div><p class="pme-note">ข้อมูล Local Storage จะไม่ซิงก์ข้ามอุปกรณ์โดยอัตโนมัติ โปรดส่งออก JSON เพื่อสำรองข้อมูลก่อนเปลี่ยนอุปกรณ์ การส่งออกไม่ได้เป็นการอนุญาตให้เผยแพร่ข้อมูล</p></section>';
+      $("#main")?.appendChild(page);
+    }
+    if (!$("#ecosystemExport")) {
+      const page = document.createElement("section");
+      page.id = "ecosystemExport";
+      page.className = "page";
+      page.innerHTML =
+        '<div class="sectionhead"><h2>ส่งออกข้อมูลไป Football rich</h2><span class="small">ECOSYSTEM EXPORT V1</span></div>' +
+        '<p class="profile-note">ส่งออกโปรแกรมแข่งขันจากฐานข้อมูล Football Time เป็น JSON ตาม Shared Data Contract v1.0 สำหรับนำเข้า Football rich · ขอบเขตระยะแรก 5 ลีกใหญ่ ฤดูกาล 2026/27</p>' +
+        '<section class="card"><h3 style="font-size:14px;margin:0 0 10px">1. เลือกขอบเขตข้อมูล</h3>' +
+        '<label class="field">ฤดูกาล<select id="ecSeason" class="filter"><option value="2026-2027">2026/27 (2026-2027)</option></select></label>' +
+        '<div class="ec-league-grid" style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:10px 0">' +
+        '<label><input type="checkbox" data-ec-league="PL" checked> Premier League (PL)</label>' +
+        '<label><input type="checkbox" data-ec-league="PD" checked> La Liga (PD)</label>' +
+        '<label><input type="checkbox" data-ec-league="BL1" checked> Bundesliga (BL1)</label>' +
+        '<label><input type="checkbox" data-ec-league="SA" checked> Serie A (SA)</label>' +
+        '<label><input type="checkbox" data-ec-league="FL1" checked> Ligue 1 (FL1)</label></div>' +
+        '<div id="ecDatabaseStatus" class="notice" role="status">กำลังตรวจสอบฐานข้อมูลหลัก…</div>' +
+        '<div id="ecExportSummary" class="notice">รอโหลดฐานข้อมูลฟุตบอล</div>' +
+        '<button type="button" class="primary" id="ecExportFixtures" disabled>ส่งออกโปรแกรมแข่งขัน JSON</button></section>' +
+        '<section class="card"><h3 style="font-size:14px;margin:0 0 8px">2. ผลการแข่งขันจริง</h3>' +
+        '<p class="notice">ยังไม่เปิดส่งออกผลจริงในขั้นตอนนี้ เพราะฐานข้อมูลปัจจุบันยังไม่มีหลักฐานยืนยันฟิลด์ result_revision และประวัติการแก้ไขผลที่ตรวจสอบได้ ระบบจะไม่สร้างเลข Revision หรือเวลาแก้ไขขึ้นเอง เพื่อป้องกัน Football rich รับผลที่ไม่มี Audit Trail</p>' +
+        '<span class="tag">รอพัฒนา Result Revision & Audit Log</span></section>' +
+        '<section class="card"><h3 style="font-size:14px;margin:0 0 8px">ข้อควรทราบ</h3><ul class="notice"><li>Football Time เป็นเจ้าของข้อมูลจริงและ Shared Match ID</li><li>รายการที่ไม่มี Provider Match ID หรือข้อมูลบังคับไม่ครบจะไม่ถูกส่งออก และจะแสดงจำนวนที่ข้ามไว้</li><li>การส่งออกไม่แก้ไขหรือลบข้อมูลในเครื่อง</li><li>การส่งออก JSON ยังไม่ได้นำข้อมูลเข้า Football rich โดยอัตโนมัติ</li></ul></section>';
       $("#main")?.appendChild(page);
     }
     const nav = $(".nav");

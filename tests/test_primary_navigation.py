@@ -46,6 +46,8 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('./js/primary-navigation.js', html)
         self.assertIn('./css/primary-navigation.css?v=1', html)
         self.assertIn('./js/primary-navigation.js', sw)
+        self.assertIn('./js/ecosystem-export-center.js', html)
+        self.assertIn('./js/ecosystem-export-center.js', sw)
         self.assertIn('./css/primary-navigation.css?v=1', sw)
 
     def test_team_and_league_insights_use_compact_subtabs(self):
@@ -62,7 +64,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text()
         self.assertIn('content="6.26.5-beta.9"', html)
         self.assertIn('Project Football Time V6.26.5-beta.9', html)
-        self.assertIn('football-time-v100', sw)
+        self.assertIn('football-time-v101', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()

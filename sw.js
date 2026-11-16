@@ -1,5 +1,5 @@
-// Previous cache identifier retained for legacy release-history assertions: football-time-v93.
-const CACHE = "football-time-v100";
+// Previous cache identifiers retained for legacy release-history assertions: football-time-v93; const CACHE = "football-time-v100";
+const CACHE = "football-time-v101";
 
 const ASSETS = [
   "./",
@@ -41,6 +41,7 @@ const ASSETS = [
   "./js/player-match-event-entry.js",
   "./js/player-operations-center.js",
   "./js/player-database-mvp.js",
+  "./js/ecosystem-export-center.js",
   "./data/player-team-name-registry-2026-27.json",
   "./data/footballsquads-roster-intake-2026-27.json",
   "./css/manual-match-research.css?v=1",
@@ -67,22 +68,10 @@ self.addEventListener("install", (event) => {
   );
 });
 
-// Activate service worker
+// Activate service worker without deleting prior caches.
+// This preserves the previous offline shell during the staged rollout.
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((key) =>
-              key.startsWith("football-time-") &&
-              key !== CACHE
-            )
-            .map((key) => caches.delete(key))
-        )
-      )
-      .then(() => self.clients.claim())
-  );
+  event.waitUntil(self.clients.claim());
 });
 
 // Fetch requests
@@ -126,6 +115,6 @@ self.addEventListener("fetch", (event) => {
 
   if (url.origin !== self.location.origin) return;
   event.respondWith(
-    caches.match(request).then((cached) => cached || fetch(request))
+    caches.match(request, { cacheName: CACHE }).then((cached) => cached || fetch(request))
   );
 });
