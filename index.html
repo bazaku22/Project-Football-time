@@ -72,7 +72,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
-<script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
 <header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.7-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
@@ -96,7 +95,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
   <div class="mc-category-filters" role="group" aria-label="ประเภทการแข่งขัน">
    <button type="button" class="mc-category active" data-match-category="all" aria-pressed="true">ทั้งหมด</button>
    <button type="button" class="mc-category" data-match-category="club" aria-pressed="false">สโมสร</button>
-   <button type="button" class="mc-category" data-match-category="international" aria-pressed="false">ทีมชาติ</button>
   </div>
   <div class="mc-league-filter-wrap"><div class="mc-filter-caption">เลือกลีก / รายการแข่งขัน (เลือกได้หลายรายการ)</div><div id="matchCenterLeagueFilters" class="mc-league-filters" role="group" aria-label="เลือกลีกและรายการแข่งขัน"></div></div>
   <div class="mc-toolbar"><div class="field"><label for="matchCenterSearch">ค้นหาทีม / คู่แข่งขัน</label><input id="matchCenterSearch" class="filter" type="search" placeholder="พิมพ์ชื่อทีมที่ต้องการค้นหา" autocomplete="off"></div></div>
@@ -129,7 +127,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  </details>
 </section>
 <section id="summary" class="page">
- <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">สโมสร · ทีมชาติ</span></div>
+ <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">5 ลีกใหญ่</span></div>
  <p class="profile-note">รวมจำนวนคำทำนาย ผลจริง และตัวชี้วัดการประเมินของแต่ละโมเดลแยกจากหน้ารายการแข่งขัน โดยไม่ปะปนกับ Legacy #001–#011 หรือ Calibration ของ 5 ลีกหลัก</p>
  <div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมสรุปผลชุดทดลอง…</div></div>
 </section>
@@ -236,7 +234,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>สถิติ Handicap (แยกจาก 1X2)</b><span class="small">ประเมินจากเส้นและเปอร์เซ็นต์ที่บันทึกก่อนแข่ง</span></div><div id="handicapAccuracySummary"><div class="empty">กำลังตรวจสอบประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ Handicap ย้อนหลัง</b><span class="small">Snapshot ไม่แก้ไขย้อนหลัง</span></div><div id="handicapHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ 1X2 ย้อนหลัง</b><span class="small">Snapshot เดิม · ใหม่ไปเก่า</span></div><div id="probabilityHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ…</div></div></div>
- <p class="profile-note">ประเมินเฉพาะ Club 1X2 Snapshot ที่บันทึกก่อนเริ่มแข่ง แยกตามลีก ฤดูกาล และเวอร์ชันโมเดล · ใช้ผลจริงจากสกอร์ FINISHED ก่อนข้อมูล annotation · ไม่แก้ไข Snapshot เดิม · Legacy, Handicap และ International แยกประเมิน</p>
+ <p class="profile-note">ประเมินเฉพาะ Club 1X2 Snapshot ที่บันทึกก่อนเริ่มแข่ง แยกตามลีก ฤดูกาล และเวอร์ชันโมเดล · ใช้ผลจริงจากสกอร์ FINISHED ก่อนข้อมูล annotation · ไม่แก้ไข Snapshot เดิม · ประเมินเฉพาะ 5 ลีกใหญ่</p>
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
@@ -1152,7 +1150,6 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/match-center.js"></script>
 <script src="./js/unified-match-center.js"></script>
 <script src="./js/primary-navigation.js"></script>
-<script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/research-insight.js"></script>
 <script src="./js/notification-center.js"></script>
 <script src="./js/manual-match-research.js"></script>
