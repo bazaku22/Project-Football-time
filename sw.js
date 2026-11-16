@@ -1,5 +1,5 @@
 // Previous cache identifiers retained for legacy release-history assertions: football-time-v93 and football-time-v102.
-const CACHE = "football-time-v105";
+const CACHE = "football-time-v106";
 
 const ASSETS = [
   "./",
@@ -13,7 +13,6 @@ const ASSETS = [
   "./css/match-center.css?v=7",
   "./css/match-center-mockup.css?v=1",
   "./css/primary-navigation.css?v=2",
-  "./css/home-dashboard.css?v=1",
   "./css/analysis-refinement.css?v=1",
   "./css/international-handicap.css?v=1",
   "./css/notification-center.css?v=1",
@@ -36,7 +35,6 @@ const ASSETS = [
   "./js/match-center-mockup.js",
   "./js/primary-navigation.js",
   "./js/football-ecosystem-export.js",
-  "./js/home-dashboard.js",
   "./js/notification-center.js",
   "./js/manual-match-research.js",
   "./js/player-match-event-entry.js",
