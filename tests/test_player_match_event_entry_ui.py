@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class PlayerMatchEventEntryUITests(unittest.TestCase):
     def test_secondary_tools_exposes_local_player_event_entry(self):
         nav = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
-        self.assertIn('["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"]', nav)
+        self.assertIn('data-secondary-route="playerMatchEvents"', nav)
         self.assertIn('page.id = "playerMatchEventEntryPage"', nav)
         self.assertIn('target === "playerMatchEvents"', nav)
         self.assertIn('activate("playerMatchEventEntryPage", null, "")', nav)
@@ -64,15 +64,15 @@ class PlayerMatchEventEntryUITests(unittest.TestCase):
     def test_styles_and_scripts_are_cached_and_app_version_is_bumped(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.12"', html)
-        self.assertIn('<span class="app-version">V6.26.5-beta.12</span>', html)
+        self.assertIn('content="6.26.6-beta.1"', html)
+        self.assertIn('<span class="app-version">V6.26.6-beta.1</span>', html)
         self.assertIn('<main id="main">', html)
         self.assertEqual(html.count('<main id="main">'), 1)
         self.assertIn('./css/player-match-event-entry.css?v=1', html)
         self.assertIn('./js/player-match-event-entry.js', html)
         self.assertIn('./css/player-match-event-entry.css?v=1', sw)
         self.assertIn('./js/player-match-event-entry.js', sw)
-        self.assertIn('const CACHE = "football-time-v104"', sw)
+        self.assertIn('const CACHE = "football-time-v105"', sw)
 
 
 if __name__ == "__main__":
