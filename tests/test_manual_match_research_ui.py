@@ -7,7 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_secondary_navigation_exposes_manual_research_page(self):
         source = (ROOT / "js/primary-navigation.js").read_text(encoding="utf-8")
-        self.assertIn('["matchResearch","นำเข้าผลและสถิติ"]', source)
+        self.assertIn('data-secondary-route="matchResearch"', source)
         self.assertIn('researchPage.id = "manualMatchResearchPage"', source)
         self.assertIn('target === "matchResearch") {\n        activate("manualMatchResearchPage", null, "")', source)
         self.assertIn('activate(target, null, "")', source)
