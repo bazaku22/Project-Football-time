@@ -52,7 +52,7 @@ class PlayerStatisticsImportUITests(unittest.TestCase):
         self.assertIn('"./css/football-discovery.css"', WORKER)
         self.assertIn('"./css/design-system.css?v=1"', WORKER)
         self.assertIn('"./css/match-center.css?v=7"', WORKER)
-        self.assertIn('"./css/primary-navigation.css?v=1"', WORKER)
+        self.assertIn('"./css/primary-navigation.css?v=2"', WORKER)
         self.assertIn('"./js/primary-navigation.js"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
         self.assertIn('"./css/ui-refresh-v2.css"', WORKER)
