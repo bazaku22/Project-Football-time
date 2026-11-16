@@ -1,5 +1,7 @@
 "use strict";
-const assert = require("node:assert/strict");\nconst fs = require("node:fs");\nconst path = require("node:path");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
 require("../js/football-ecosystem-export.js");
 const exporter = globalThis.FootballTimeEcosystemExport;
 assert.ok(exporter, "export module must be available");
