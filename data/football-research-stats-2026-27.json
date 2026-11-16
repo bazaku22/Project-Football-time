@@ -1,34 +1,34 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-15T13:04:59.826344+00:00",
+  "generatedAt": "2026-11-16T01:35:23.026784+00:00",
   "status": "derived_from_existing_database",
   "source": {
     "provider": "football-data.org",
-    "databaseGeneratedAt": "2026-11-14T23:36:02.926848+00:00",
+    "databaseGeneratedAt": "2026-11-15T23:46:19.385713+00:00",
     "leagueSync": {
       "PL": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "PD": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "BL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "SA": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "FL1": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       },
       "ELC": {
         "status": "fresh",
-        "lastSuccessfulSync": "2026-11-14T23:36:02.926848+00:00"
+        "lastSuccessfulSync": "2026-11-15T23:46:19.385713+00:00"
       }
     },
     "method": "Local calculations from existing completed fixtures/results; no additional source."
@@ -14313,33 +14313,9 @@
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
         },
         {
-          "matchId": 564768,
-          "homeTeamId": "football-data:79",
-          "awayTeamId": "football-data:285",
-          "sampleSize": 0,
-          "matches": [],
-          "limitation": "Descriptive only; small samples do not imply predictive certainty."
-        },
-        {
-          "matchId": 564769,
-          "homeTeamId": "football-data:559",
-          "awayTeamId": "football-data:84",
-          "sampleSize": 0,
-          "matches": [],
-          "limitation": "Descriptive only; small samples do not imply predictive certainty."
-        },
-        {
           "matchId": 564770,
           "homeTeamId": "football-data:263",
           "awayTeamId": "football-data:80",
-          "sampleSize": 0,
-          "matches": [],
-          "limitation": "Descriptive only; small samples do not imply predictive certainty."
-        },
-        {
-          "matchId": 564771,
-          "homeTeamId": "football-data:78",
-          "awayTeamId": "football-data:90",
           "sampleSize": 0,
           "matches": [],
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
@@ -14353,25 +14329,9 @@
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
         },
         {
-          "matchId": 564773,
-          "homeTeamId": "football-data:81",
-          "awayTeamId": "football-data:558",
-          "sampleSize": 0,
-          "matches": [],
-          "limitation": "Descriptive only; small samples do not imply predictive certainty."
-        },
-        {
-          "matchId": 564774,
-          "homeTeamId": "football-data:82",
-          "awayTeamId": "football-data:95",
-          "sampleSize": 0,
-          "matches": [],
-          "limitation": "Descriptive only; small samples do not imply predictive certainty."
-        },
-        {
-          "matchId": 564775,
-          "homeTeamId": "football-data:77",
-          "awayTeamId": "football-data:86",
+          "matchId": 564777,
+          "homeTeamId": "football-data:87",
+          "awayTeamId": "football-data:88",
           "sampleSize": 0,
           "matches": [],
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
@@ -14385,9 +14345,49 @@
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
         },
         {
-          "matchId": 564777,
-          "homeTeamId": "football-data:87",
-          "awayTeamId": "football-data:88",
+          "matchId": 564773,
+          "homeTeamId": "football-data:81",
+          "awayTeamId": "football-data:558",
+          "sampleSize": 0,
+          "matches": [],
+          "limitation": "Descriptive only; small samples do not imply predictive certainty."
+        },
+        {
+          "matchId": 564769,
+          "homeTeamId": "football-data:559",
+          "awayTeamId": "football-data:84",
+          "sampleSize": 0,
+          "matches": [],
+          "limitation": "Descriptive only; small samples do not imply predictive certainty."
+        },
+        {
+          "matchId": 564771,
+          "homeTeamId": "football-data:78",
+          "awayTeamId": "football-data:90",
+          "sampleSize": 0,
+          "matches": [],
+          "limitation": "Descriptive only; small samples do not imply predictive certainty."
+        },
+        {
+          "matchId": 564768,
+          "homeTeamId": "football-data:79",
+          "awayTeamId": "football-data:285",
+          "sampleSize": 0,
+          "matches": [],
+          "limitation": "Descriptive only; small samples do not imply predictive certainty."
+        },
+        {
+          "matchId": 564775,
+          "homeTeamId": "football-data:77",
+          "awayTeamId": "football-data:86",
+          "sampleSize": 0,
+          "matches": [],
+          "limitation": "Descriptive only; small samples do not imply predictive certainty."
+        },
+        {
+          "matchId": 564774,
+          "homeTeamId": "football-data:82",
+          "awayTeamId": "football-data:95",
           "sampleSize": 0,
           "matches": [],
           "limitation": "Descriptive only; small samples do not imply predictive certainty."
