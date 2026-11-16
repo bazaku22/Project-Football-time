@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://football-ecosystem.local/schemas/fixture-v1.schema.json",
+  "title": "Football Ecosystem Fixture v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "match_id",
+    "league_id",
+    "season_id",
+    "home_team_id",
+    "away_team_id",
+    "kickoff_at",
+    "status",
+    "record_updated_at"
+  ],
+  "properties": {
+    "match_id": {
+      "type": "string",
+      "pattern": "^FT-M-(FOOTBALLDATA-[A-Za-z0-9_-]+|LOCAL-[A-Za-z0-9-]+)$"
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider_match_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "league_id": {
+      "enum": [
+        "PL",
+        "PD",
+        "BL1",
+        "SA",
+        "FL1"
+      ]
+    },
+    "season_id": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{4}$"
+    },
+    "home_team_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "away_team_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "home_team_name": {
+      "type": "string"
+    },
+    "away_team_name": {
+      "type": "string"
+    },
+    "kickoff_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "enum": [
+        "SCHEDULED",
+        "TIMED",
+        "IN_PLAY",
+        "PAUSED",
+        "FINISHED",
+        "POSTPONED",
+        "SUSPENDED",
+        "CANCELLED",
+        "AWARDED"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "provider",
+        "retrieved_at"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": true
+    },
+    "record_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "not": {
+        "properties": {
+          "home_team_id": {
+            "const": ""
+          }
+        }
+      }
+    },
+    {
+      "not": {
+        "properties": {
+          "away_team_id": {
+            "const": ""
+          }
+        }
+      }
+    }
+  ],
+  "description": "One immutable FT-owned fixture identity. Validate cross-record team references and ensure home_team_id differs from away_team_id in application logic."
+}
