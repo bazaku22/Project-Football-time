@@ -90,8 +90,8 @@ class InternationalMatchCenterTests(unittest.TestCase):
         self.assertIn('"./data/international-handicap-snapshots-r1.json"', WORKER)
 
     def test_app_version_and_copy_are_updated(self):
-        self.assertIn('<title>Project Football Time V6.26.5-beta.11</title>', HTML)
-        self.assertIn('<meta name="application-version" content="6.26.5-beta.11">', HTML)
+        self.assertIn('<title>Project Football Time V6.26.5-beta.12</title>', HTML)
+        self.assertIn('<meta name="application-version" content="6.26.5-beta.12">', HTML)
         self.assertIn("ทีมชาติชุดทดลอง", MODULE)
 
 
