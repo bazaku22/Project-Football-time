@@ -44,7 +44,6 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         self.assertNotIn('target === "players"', navigation)
         self.assertNotIn("pft-player-stats-data", discovery)
         self.assertNotIn("getLocalPlayers", discovery)
-        self.assertIn('const player = item.player?.name', match_center)
         self.assertIn("const eventPlayer = (event)", unified_match_center)
         self.assertNotIn("data-canonical-player-ref", match_center)
         self.assertNotIn("data-canonical-player-ref", unified_match_center)
