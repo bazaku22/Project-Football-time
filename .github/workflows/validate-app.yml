@@ -123,6 +123,9 @@ on:
       - "css/player-match-event-entry.css"
       - "tests/test_player_match_event_entry_ui.py"
       - "js/player-database-mvp.js"
+      - "js/ecosystem-export-center.js"
+      - "docs/FOOTBALL-ECOSYSTEM-EXPORT-CENTER-V1.0.md"
+      - "tests/test_ecosystem_export_center.py"
       - "css/player-database-mvp.css"
       - "tests/test_player_database_verified_ledger.py"
       - "tests/test_player_database_navigation.py"
@@ -413,6 +416,8 @@ jobs:
       - name: Validate Player Database verified ledger integration
         run: |
           node --check js/player-database-mvp.js
+          node --check js/ecosystem-export-center.js
+          python3 -m unittest tests/test_ecosystem_export_center.py -v
           python3 -m unittest tests/test_player_database_verified_ledger.py -v
           python3 -m unittest tests/test_player_database_navigation.py -v
 
