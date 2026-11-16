@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "export_id": "FT-EXPORT-EXAMPLE-0002",
+  "exported_by": "football-time",
+  "exported_at": "2026-11-21T22:10:00+07:00",
+  "data_type": "match_results",
+  "scope": {
+    "league_ids": [
+      "PL"
+    ],
+    "season_ids": [
+      "2026-2027"
+    ]
+  },
+  "records": [
+    {
+      "match_id": "FT-M-FOOTBALLDATA-560643",
+      "home_score": 2,
+      "away_score": 1,
+      "status": "FINISHED",
+      "result_revision": 1,
+      "updated_at": "2026-11-21T22:05:00+07:00",
+      "source": {
+        "provider": "football-data.org",
+        "verified_at": "2026-11-21T22:05:00+07:00"
+      }
+    }
+  ]
+}
