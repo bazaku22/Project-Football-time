@@ -66,10 +66,6 @@ on:
       - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
       - "data/test-fixtures-2026-11.json"
-      - "data/national-team-research-2026-11.json"
-      - "data/international-match-fixtures-r1.json"
-      - "tests/test_international_match_center.py"
-      - "docs/phase-6-3-international-match-center.md"
       - "js/asian-handicap.js"
       - "js/handicap-history.js"
       - "js/handicap-reference.js"
@@ -96,12 +92,6 @@ on:
       - "docs/player-directory-and-statistics-intake-2026-27.md"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
-      - "scripts/fetch_international_handicap_odds.py"
-      - "tests/test_international_handicap_odds.py"
-      - ".github/workflows/update-international-handicap.yml"
-      - "data/experimental/international-r1/fixtures.json"
-      - "data/experimental/international-r1/team-aliases.json"
-      - "data/experimental/international-r1/README.md"
       - ".github/workflows/update-asian-handicap-odds.yml"
       - "data/asian-handicap-odds.json"
       - "docs/phase-5.7-odds-and-legacy-archive.md"
@@ -229,7 +219,7 @@ jobs:
           node --check sw.js
           node --check js/notification-center.js
           python3 -m unittest tests/test_notification_center.py -v
-          python3 -m unittest tests/test_match_center.py tests/test_international_match_center.py tests/test_primary_navigation.py tests/test_analysis_workspace.py
+          python3 -m unittest tests/test_match_center.py tests/test_primary_navigation.py tests/test_analysis_workspace.py
           node --check js/football-discovery.js
           node --check js/test-experiment.js
           node --check js/asian-handicap.js
@@ -294,8 +284,6 @@ jobs:
           node tests/test_asian_handicap.js
           python3 -m py_compile scripts/fetch_asian_handicap_odds.py
           python3 -m unittest tests/test_asian_handicap_odds.py
-          python3 -m py_compile scripts/fetch_international_handicap_odds.py
-          python3 -m unittest tests/test_international_handicap_odds.py
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -478,8 +466,8 @@ jobs:
 
           data = json.loads(Path("data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))
           fixtures = data.get("fixtures")
-          if not isinstance(fixtures, list) or len(fixtures) != 15:
-              raise SystemExit("Expected exactly 15 November test fixtures.")
+          if not isinstance(fixtures, list) or len(fixtures) != 3:
+              raise SystemExit("Expected exactly three November fixtures from the five major leagues.")
 
           ids = [row.get("id") for row in fixtures]
           if None in ids or len(ids) != len(set(ids)):
@@ -488,7 +476,10 @@ jobs:
           required = ("date", "kickoffUtc", "home", "away", "competition",
                       "localKickoff", "timezone", "sourceUrl", "sourceName", "status")
           bangkok = ZoneInfo("Asia/Bangkok")
+          allowed = {"Premier League", "La Liga", "Bundesliga", "Serie A", "Ligue 1"}
           for row in fixtures:
+              if row.get("competition") not in allowed:
+                  raise SystemExit(f"Non-major-league fixture is not allowed: {row.get('competition')}")
               missing = [key for key in required if not row.get(key)]
               if missing:
                   raise SystemExit(f"Fixture {row.get('id')} is missing: {missing}")
@@ -499,7 +490,7 @@ jobs:
                   raise SystemExit(f"Fixture {row['id']} kickoffUtc must be UTC.")
               kickoff.astimezone(bangkok)
 
-          print("November test fixtures: 15 records, unique IDs, required fields and UTC timestamps are valid.")
+          print("November test fixtures: five-league-only records, unique IDs, required fields and UTC timestamps are valid.")
           PY
 
       - name: Validate offline player match event ledger

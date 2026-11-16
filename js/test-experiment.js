@@ -35,7 +35,10 @@
   function readSnapshots() {
     try {
       const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      return Array.isArray(value) ? value : [];
+      if (!Array.isArray(value)) return [];
+      const retained = value.filter((row) => Object.prototype.hasOwnProperty.call(LEAGUE_BY_COMPETITION, row?.competition));
+      if (retained.length !== value.length) localStorage.setItem(STORAGE_KEY, JSON.stringify(retained));
+      return retained;
     } catch (error) {
       console.warn("Experiment history could not be read", error);
       return [];

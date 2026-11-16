@@ -20,25 +20,4 @@
 .nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:54px;border-radius:12px;color:#b8c9dc;font-size:10px;line-height:1.15}
 .nav button span{font-size:19px;line-height:1.1}
 .nav button b{font-size:10px;font-weight:650}
-.nav button.active{color:#8fe9df;background:linear-gradient(145deg,rgba(16,83,166,.7),rgba(11,54,112,.8));box-shadow:inset 0 0 0 1px rgba(54,171,255,.35)}
-.pn-quick-links{margin:0 0 18px}
-.pn-section-title{display:flex;justify-content:space-between;align-items:center;margin:0 0 9px;font-size:14px;font-weight:800}
-.pn-section-title small{font-size:10px;color:var(--muted);font-weight:500}
-.pn-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.pn-quick-grid button{display:grid;grid-template-columns:38px minmax(0,1fr);grid-template-rows:auto auto;align-items:center;column-gap:9px;text-align:left;min-width:0;padding:12px;border:1px solid rgba(64,151,225,.32);border-radius:13px;background:linear-gradient(145deg,#12315c,#0d2344);color:#edf6ff}
-.pn-quick-grid button>span{grid-row:1/3;display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:rgba(31,154,224,.16);color:#56d7e5;font-size:21px}
-.pn-quick-grid button b{font-size:12px}
-.pn-quick-grid button small{font-size:9px;color:#9bb9d8}
-.pn-tools-hero{display:flex;align-items:center;gap:13px;padding:17px;border:1px solid rgba(61,151,230,.32);border-radius:16px;background:radial-gradient(ellipse at 15% 0,rgba(25,135,228,.24),transparent 65%),linear-gradient(135deg,#0b2345,#102f59);margin:2px 0 16px}
-.pn-tools-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(32,156,220,.18);color:#5ed8e8;font-size:26px}
-.pn-tools-eyebrow{font-size:9px;letter-spacing:.12em;color:#5ed8e8;font-weight:800}
-.pn-tools-hero h2{font-size:21px;margin:2px 0}
-.pn-tools-hero p,.pn-tools-group p,.pn-tools-note{font-size:11px;color:var(--muted);margin:0;line-height:1.6}
-.pn-tools-group{padding:14px;margin:11px 0;border:1px solid #294766;border-radius:14px;background:linear-gradient(145deg,#142b49,#101f35)}
-.pn-tools-group h3{font-size:14px;margin:0 0 4px;color:#eaf4ff}
-.pn-tools-group p{margin-bottom:11px}
-.pn-tools-note{padding:10px 2px}
-.pn-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.pn-tool-grid button{min-height:43px;margin:0;padding:9px;border:1px solid #315a80;border-radius:10px;background:#102b4b;color:#dceeff;font-size:11px;font-weight:650;white-space:normal}
-.pn-tool-grid button:active,.pn-quick-grid button:active{border-color:#4bc9e8;background:#153d69}
-@media(max-width:360px){.nav button{font-size:9px;padding:7px 1px}.nav button span{font-size:17px}.nav button b{font-size:9px}.pn-quick-grid{gap:6px}.pn-quick-grid button{padding:9px;grid-template-columns:30px minmax(0,1fr);column-gap:7px}.pn-quick-grid button>span{width:29px;height:29px;font-size:18px}.pn-tool-grid{grid-template-columns:1fr}}
+.nav button.active{color:#8fe9df;background:linear-gradient(145deg,rgba(16,83,166,.7),rgba(11,54,112,.8));box-shadow:inset 0 0 0 1px rgba(54,171,255,.35)} 

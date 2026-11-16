@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.26.6-beta.1">
-<title>Project Football Time V6.26.6-beta.1</title>
+<meta name="application-version" content="6.26.9-beta.1">
+<title>Project Football Time V6.26.9-beta.1</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -61,9 +61,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <link rel="stylesheet" href="./css/football-research.css?v=1">
 <link rel="stylesheet" href="./css/match-center.css?v=7">
 <link rel="stylesheet" href="./css/primary-navigation.css?v=2">
-<link rel="stylesheet" href="./css/home-dashboard.css?v=1">
 <link rel="stylesheet" href="./css/analysis-refinement.css?v=1">
-<link rel="stylesheet" href="./css/international-handicap.css?v=1">
 <link rel="stylesheet" href="./css/notification-center.css?v=1">
 <link rel="stylesheet" href="./css/manual-match-research.css?v=1">
 <link rel="stylesheet" href="./css/player-match-event-entry.css?v=1">
@@ -72,29 +70,13 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/asian-handicap.js"></script>
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
-<script src="./js/international-handicap-model.js"></script>
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.6-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.26.9-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
 <dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main id="main">
 <section id="home" class="page active">
- <section id="homeTodayDashboard" class="home-dashboard" aria-labelledby="homeTodayTitle">
-  <div class="home-hero">
-   <div class="home-brandline"><span class="home-ball" aria-hidden="true">⚽</span><span>FOOTBALL TIME</span><span class="home-live-indicator">MATCHDAY</span></div>
-   <p class="home-eyebrow">ภาพรวมการแข่งขันวันนี้</p>
-   <h2 id="homeTodayTitle">Match Center</h2>
-   <p id="homeTodayDate" class="home-date">กำลังเตรียมข้อมูลการแข่งขันวันนี้…</p>
-   <div class="home-hero-glow" aria-hidden="true"></div>
-  </div>
-  <div class="home-status-grid" aria-label="สรุปจำนวนการแข่งขันวันนี้">
-   <article class="home-status-card home-status-live"><span class="home-status-label"><i></i> LIVE</span><strong id="homeLiveCount">—</strong><small>กำลังแข่งขัน</small></article>
-   <article class="home-status-card"><span class="home-status-label">UPCOMING</span><strong id="homeUpcomingCount">—</strong><small>รอแข่งขัน</small></article>
-   <article class="home-status-card"><span class="home-status-label">FULL TIME</span><strong id="homeFinishedCount">—</strong><small>จบการแข่งขัน</small></article>
-  </div>
-  <div class="home-dashboard-footer"><span id="homeDataFreshness">ข้อมูลจากฐานข้อมูลฟุตบอลหลัก</span><span id="homeTodayMatchTotal" class="home-match-total">— นัดวันนี้</span></div>
- </section>
- <div class="sectionhead"><h2>โปรแกรมและผลการแข่งขัน</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
+<div class="sectionhead"><h2>โปรแกรมและผลการแข่งขัน</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
  <p class="profile-note">เลือกวัน ลีก และสถานะ หรือค้นหาทีม เพื่อดูการแข่งขันและเปิดรายละเอียดได้จากหน้าเดียว</p>
 
  <div id="matchCenterApp">
@@ -107,11 +89,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
     <label class="mc-calendar-picker"><span>เลือกวันที่</span><input id="matchCenterDate" type="date" aria-label="เลือกวันที่แข่งขัน"></label>
    </div>
    <div id="matchCenterDateStrip" class="mc-date-strip" role="group" aria-label="เลือกวันแข่งขัน"></div>
-  </div>
-  <div class="mc-category-filters" role="group" aria-label="ประเภทการแข่งขัน">
-   <button type="button" class="mc-category active" data-match-category="all" aria-pressed="true">ทั้งหมด</button>
-   <button type="button" class="mc-category" data-match-category="club" aria-pressed="false">สโมสร</button>
-   <button type="button" class="mc-category" data-match-category="international" aria-pressed="false">ทีมชาติ</button>
   </div>
   <div class="mc-league-filter-wrap"><div class="mc-filter-caption">เลือกลีก / รายการแข่งขัน (เลือกได้หลายรายการ)</div><div id="matchCenterLeagueFilters" class="mc-league-filters" role="group" aria-label="เลือกลีกและรายการแข่งขัน"></div></div>
   <div class="mc-toolbar"><div class="field"><label for="matchCenterSearch">ค้นหาทีม / คู่แข่งขัน</label><input id="matchCenterSearch" class="filter" type="search" placeholder="พิมพ์ชื่อทีมที่ต้องการค้นหา" autocomplete="off"></div></div>
@@ -144,7 +121,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  </details>
 </section>
 <section id="summary" class="page">
- <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">สโมสร · ทีมชาติ</span></div>
+ <div class="sectionhead"><h2>สรุปผลโมเดลทดลอง</h2><span class="small">5 ลีกใหญ่</span></div>
  <p class="profile-note">รวมจำนวนคำทำนาย ผลจริง และตัวชี้วัดการประเมินของแต่ละโมเดลแยกจากหน้ารายการแข่งขัน โดยไม่ปะปนกับ Legacy #001–#011 หรือ Calibration ของ 5 ลีกหลัก</p>
  <div id="testExperimentSummary" class="card"><div class="empty">กำลังเตรียมสรุปผลชุดทดลอง…</div></div>
 </section>
@@ -251,7 +228,7 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <div class="card"><div class="topline"><b>สถิติ Handicap (แยกจาก 1X2)</b><span class="small">ประเมินจากเส้นและเปอร์เซ็นต์ที่บันทึกก่อนแข่ง</span></div><div id="handicapAccuracySummary"><div class="empty">กำลังตรวจสอบประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ Handicap ย้อนหลัง</b><span class="small">Snapshot ไม่แก้ไขย้อนหลัง</span></div><div id="handicapHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ Handicap…</div></div></div>
  <div class="card"><div class="topline"><b>รายการวิเคราะห์ 1X2 ย้อนหลัง</b><span class="small">Snapshot เดิม · ใหม่ไปเก่า</span></div><div id="probabilityHistoryList" class="probability-history-list"><div class="empty">กำลังเตรียมประวัติ…</div></div></div>
- <p class="profile-note">ประเมินเฉพาะ Club 1X2 Snapshot ที่บันทึกก่อนเริ่มแข่ง แยกตามลีก ฤดูกาล และเวอร์ชันโมเดล · ใช้ผลจริงจากสกอร์ FINISHED ก่อนข้อมูล annotation · ไม่แก้ไข Snapshot เดิม · Legacy, Handicap และ International แยกประเมิน</p>
+ <p class="profile-note">ประเมินเฉพาะ Club 1X2 Snapshot ที่บันทึกก่อนเริ่มแข่ง แยกตามลีก ฤดูกาล และเวอร์ชันโมเดล · ใช้ผลจริงจากสกอร์ FINISHED ก่อนข้อมูล annotation · ไม่แก้ไข Snapshot เดิม · ประเมินเฉพาะ 5 ลีกใหญ่</p>
 </div>
 </section>
 <section id="analysis" class="page"><div class="sectionhead"><h2>แนวทางการวิเคราะห์</h2></div><div class="card"><b>หลักการของโมเดล</b><p class="small">บันทึกคำทำนายก่อนแข่งขัน · แยกความน่าจะเป็นออกจากผลจริง · ไม่แก้คำทำนายย้อนหลัง · ตรวจสอบผลอย่างสม่ำเสมอ</p></div></section>
@@ -279,20 +256,26 @@ const STORAGE_KEY="pft_matches_v1";
 let footballDBDelivery="unknown";
 const DB_URL="./data/football-database.json";
 const TEST_RECORDS_URL="./data/test-records.json";
-const starterMatches=[
-{id:"007",home:"Vietnam U23",away:"Thailand U23",league:"ฟุตบอลทีมชาติ U23",date:"2026-11-10",time:"19:00",selectedTeam:"Thailand U23",handicap:"",prob:"32%",pred:"1-2"},
-{id:"006",home:"CE Sabadell",away:"Real Sociedad B",league:"LaLiga Hypermotion",date:"2026-11-10",time:"ยังไม่ยืนยัน",selectedTeam:"CE Sabadell",handicap:"",prob:"61%",pred:"1-0"},
-{id:"005",home:"CSKA Sofia II",away:"Rilski Sportist",league:"ลีกบัลแกเรีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"CSKA Sofia II",handicap:"",prob:"62%",pred:"2-0"},
-{id:"004",home:"Jayxun",away:"Olympic MobiUz",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Olympic MobiUz",handicap:"-1.5",prob:"58%",pred:"1-2",finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
-{id:"003",home:"Shurtan Guzor",away:"Bukhara State University",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Shurtan Guzor",handicap:"-1.5",prob:"72%",pred:"2-0",finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
-{id:"002",home:"Metallurg Bekabad",away:"Aral Nukus",league:"Uzbekistan Pro League",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"Metallurg Bekabad",handicap:"0",prob:"38%",pred:"1-1",finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},
-{id:"001",home:"FC Iberia 1999",away:"FC Gagra",league:"ลีกจอร์เจีย",date:"2026-11-09",time:"ยังไม่ยืนยัน",selectedTeam:"FC Iberia 1999",handicap:"-1.25",prob:"68%",pred:"2-0"}
-];
+const starterMatches=[];
 const verifiedResults={"002":{finalScore:"1-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"003":{finalScore:"3-0",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"},"004":{finalScore:"0-3",resultStatus:"ผ่าน",resultSource:"ผู้ใช้ตรวจสอบจาก LiveScore"}};
+function isMajorLeagueMatch(match){
+ const candidates=[match?.competitionCode,match?.competition_code,match?.leagueCode,match?.league_code,match?.leagueId,match?.league_id,match?.league,match?.leagueName,match?.league_name,match?.competition,match?.competitionName,match?.competition_name];
+ const allowed=new Set(["pl","premier league","english premier league","epl","พรีเมียร์ลีก","pd","la liga","laliga","primera division","ลาลีกา","bl1","bundesliga","บุนเดสลีกา","sa","serie a","seriea","เซเรียอา","fl1","ligue 1","ligue1","ลีกเอิง"]);
+ return candidates.some(value=>allowed.has(String(value??"").trim().toLowerCase()));
+}
 function loadMatches(){
  try{
+  localStorage.removeItem("pft_international_handicap_snapshots_r1");
+  localStorage.removeItem("pft_international_handicap_results_r1");
   const raw=localStorage.getItem(STORAGE_KEY);
-  if(raw!==null){const data=JSON.parse(raw);if(Array.isArray(data))return data;}
+  if(raw!==null){
+   const data=JSON.parse(raw);
+   if(Array.isArray(data)){
+    const retained=data.filter(isMajorLeagueMatch);
+    if(retained.length!==data.length)localStorage.setItem(STORAGE_KEY,JSON.stringify(retained));
+    return retained;
+   }
+  }
   localStorage.setItem(STORAGE_KEY,JSON.stringify(starterMatches));
  }catch(e){console.warn("Local storage unavailable",e);}
  return starterMatches.map(x=>({...x}));
@@ -1078,7 +1061,7 @@ function renderProbabilityAccuracy(){
  const seasonRows=metrics.bySeason.map(row=>'<div class="calibration-row"><span>'+esc(row.season)+' · '+row.count+' คู่</span><b>ถูก '+pct(row.accuracy)+'</b><span>Brier '+fmt(row.brier)+'</span></div>').join("");
  const comparisonRows=metrics.modelComparisons.map(row=>'<div class="calibration-row"><span>'+esc(row.modelA)+' → '+esc(row.modelB)+' · จับคู่ร่วมกัน '+row.pairedCount+' คู่</span><b>Δ Brier '+signed(row.brierDelta)+'</b><span>Δ LogLoss '+signed(row.logLossDelta)+' · Δ Accuracy '+pct(row.accuracyDelta)+'</span></div>').join("");
  const interval=ci?pct(ci.lower)+" – "+pct(ci.upper):"—";
- document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด · เก็บประวัติครบ</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่ประเมินผลได้</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>Accuracy · เลือกผลที่ % สูงสุด</span></div><div class="db-kpi"><b>'+interval+'</b><span>ช่วงความเชื่อมั่น Accuracy 95% (Wilson)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Multiclass Brier · 0–2 · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log Loss · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.topLabelEce)+'</b><span>Top-label ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.classwiseEce)+'</b><span>Classwise ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง</span></div></div><div class="quality-note">'+sampleNote+' · คัดออก '+metrics.excluded+' รายการ (ข้อมูลไม่ถูกต้อง '+metrics.excludedInvalid+' · International '+metrics.excludedScope+' · ซ้ำ '+metrics.excludedDuplicate+') · พบ annotation ไม่ตรงสกอร์จริง '+metrics.outcomeDisagreements+' รายการ โดยใช้สกอร์ FINISHED เป็นหลัก</div><div class="card"><b>เปรียบเทียบโมเดลบนคู่แข่งขันชุดเดียวกัน</b>'+(comparisonRows||'<div class="empty">ยังไม่มีเวอร์ชันที่มีคู่แข่งขันร่วมกัน</div>')+'<div class="small">ค่า Delta = โมเดล B ลบโมเดล A · ค่า Brier / Log Loss ติดลบหมายถึงโมเดล B ต่ำกว่า · เป็นการเปรียบเทียบเชิงพรรณนา ไม่ใช่การทดสอบนัยสำคัญทางสถิติ</div></div><div class="card"><b>ผลประเมินแยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามลีก × เวอร์ชันโมเดล</b>'+(leagueModelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามฤดูกาล</b>'+(seasonRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
+ document.getElementById("probabilityAccuracySummary").innerHTML='<div class="db-kpis"><div class="db-kpi"><b>'+metrics.totalSnapshots+'</b><span>Snapshot ทั้งหมด · เก็บประวัติครบ</span></div><div class="db-kpi"><b>'+metrics.validPreMatch+'</b><span>ผ่านเงื่อนไขก่อนแข่ง</span></div><div class="db-kpi"><b>'+n+'</b><span>คู่ที่ประเมินผลได้</span></div><div class="db-kpi"><b>'+pct(overall.accuracy)+'</b><span>Accuracy · เลือกผลที่ % สูงสุด</span></div><div class="db-kpi"><b>'+interval+'</b><span>ช่วงความเชื่อมั่น Accuracy 95% (Wilson)</span></div><div class="db-kpi"><b>'+fmt(overall.brier)+'</b><span>Multiclass Brier · 0–2 · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.logLoss)+'</b><span>Log Loss · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.topLabelEce)+'</b><span>Top-label ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+fmt(overall.classwiseEce)+'</b><span>Classwise ECE · ต่ำดีกว่า</span></div><div class="db-kpi"><b>'+metrics.pending+'</b><span>รอผลจริง</span></div></div><div class="quality-note">'+sampleNote+' · คัดออก '+metrics.excluded+' รายการ (ข้อมูลไม่ถูกต้อง '+metrics.excludedInvalid+' · รายการนอก 5 ลีกใหญ่ '+metrics.excludedScope+' · ซ้ำ '+metrics.excludedDuplicate+') · พบ annotation ไม่ตรงสกอร์จริง '+metrics.outcomeDisagreements+' รายการ โดยใช้สกอร์ FINISHED เป็นหลัก</div><div class="card"><b>เปรียบเทียบโมเดลบนคู่แข่งขันชุดเดียวกัน</b>'+(comparisonRows||'<div class="empty">ยังไม่มีเวอร์ชันที่มีคู่แข่งขันร่วมกัน</div>')+'<div class="small">ค่า Delta = โมเดล B ลบโมเดล A · ค่า Brier / Log Loss ติดลบหมายถึงโมเดล B ต่ำกว่า · เป็นการเปรียบเทียบเชิงพรรณนา ไม่ใช่การทดสอบนัยสำคัญทางสถิติ</div></div><div class="card"><b>ผลประเมินแยกตามลีก</b>'+(leagueRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามเวอร์ชันโมเดล</b>'+(modelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามลีก × เวอร์ชันโมเดล</b>'+(leagueModelRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div><div class="card"><b>ผลประเมินแยกตามฤดูกาล</b>'+(seasonRows||'<div class="empty">ยังไม่มีข้อมูล</div>')+'</div>';
  const topBins=overall.bins.map(bin=>'<div class="calibration-row"><span>'+Math.round(bin.min*100)+'–'+Math.round(bin.max*100)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("");
  const classBins=["home","draw","away"].map(key=>'<div class="small" style="margin-top:10px"><b>'+({home:"เจ้าบ้านชนะ",draw:"เสมอ",away:"ทีมเยือนชนะ"}[key])+' · ECE '+fmt(overall.classwise[key].ece)+'</b></div>'+overall.classwise[key].bins.map(bin=>'<div class="calibration-row"><span>'+Math.round(bin.min*100)+'–'+Math.round(bin.max*100)+'% · '+bin.count+' คู่</span><b>คาด '+pct(bin.meanProbability)+'</b><span>เกิดจริง '+pct(bin.observedRate)+'</span></div>').join("")).join("");
  document.getElementById("probabilityCalibration").innerHTML='<div class="small"><b>Top-label reliability</b> · วัดความน่าจะเป็นของผลลัพธ์ที่โมเดลให้น้ำหนักสูงสุด</div>'+(topBins||'<div class="empty">ยังไม่มีตัวอย่างที่มีผลจริงสำหรับ Calibration</div>')+'<div class="divider"></div><div class="small"><b>One-vs-rest reliability</b> · ประเมิน calibration ของเจ้าบ้าน / เสมอ / ทีมเยือนแยกกัน</div>'+classBins;
@@ -1167,8 +1150,6 @@ if("serviceWorker" in navigator&&location.protocol.startsWith("http"))navigator.
 <script src="./js/match-center.js"></script>
 <script src="./js/unified-match-center.js"></script>
 <script src="./js/primary-navigation.js"></script>
-<script src="./js/home-dashboard.js"></script>
-<script src="./js/international-handicap-workspace.js"></script>
 <script src="./js/research-insight.js"></script>
 <script src="./js/notification-center.js"></script>
 <script src="./js/manual-match-research.js"></script>

@@ -1,7 +1,7 @@
 "use strict";
 (() => {
   const STORAGE_KEY = "pft_manual_match_research_2026_27_v1";
-  const COMPETITIONS = new Set(["PL","PD","BL1","SA","FL1","UNL"]);
+  const COMPETITIONS = new Set(["PL","PD","BL1","SA","FL1"]);
   const CLUB = new Set(["PL","PD","BL1","SA","FL1"]);
   const AUTHORITATIVE = new Set(["competition_organiser","federation","licensed_provider"]);
   const RIGHTS = new Set(["confirmed","pending","prohibited"]);
@@ -20,8 +20,7 @@
       dataset_status:"research_intake_empty",
       scope:{
         club_competitions:["PL","PD","BL1","SA","FL1"],
-        international_competitions:["UNL"],
-        excluded:["friendlies","other_national_competitions"]
+        excluded:["all_non_club_competitions"]
       },
       timezone:"Asia/Bangkok",
       updated_at:null,
@@ -32,7 +31,18 @@
   function loadStored() {
     try {
       const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
-      return value && Array.isArray(value.records) ? value : emptyDataset();
+      if (!value || !Array.isArray(value.records)) return emptyDataset();
+      const retained = value.records.filter((record) => CLUB.has(record?.competition_code));
+      if (retained.length !== value.records.length ||
+          JSON.stringify(value.scope?.club_competitions) !== JSON.stringify(["PL","PD","BL1","SA","FL1"]) ||
+          Object.prototype.hasOwnProperty.call(value.scope || {}, "international_competitions")) {
+        value.records = retained;
+        value.scope = {club_competitions:["PL","PD","BL1","SA","FL1"],excluded:["all_non_club_competitions"]};
+        value.dataset_status = retained.length ? "research_records_present" : "research_intake_empty";
+        value.updated_at = new Date().toISOString();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+      }
+      return value;
     } catch (_) {
       return emptyDataset();
     }
@@ -48,8 +58,8 @@
       errors.push("รองรับเฉพาะฤดูกาล 2026/27 และเขตเวลา Asia/Bangkok");
     }
     if (JSON.stringify(data.scope?.club_competitions) !== JSON.stringify(["PL","PD","BL1","SA","FL1"]) ||
-        JSON.stringify(data.scope?.international_competitions) !== JSON.stringify(["UNL"])) {
-      errors.push("ขอบเขตต้องเป็น 5 ลีกหลักและ UEFA Nations League เท่านั้น");
+        Object.prototype.hasOwnProperty.call(data.scope || {}, "international_competitions")) {
+      errors.push("ขอบเขตข้อมูลต้องเป็น 5 ลีกใหญ่เท่านั้น");
     }
     if (!Array.isArray(data.records)) return errors.concat("records ต้องเป็น Array");
     const recordIds = new Set();
@@ -74,12 +84,9 @@
         }
         if (fixture.international_fixture_id) errors.push(label + ": รายการสโมสรห้ามใช้ international_fixture_id");
         fixtureKey = competition + ":" + String(fixture.provider_match_id ?? "");
-      } else if (competition === "UNL") {
-        if (!fixture.international_fixture_id) errors.push(label + ": Nations League ต้องใช้ international_fixture_id เดิม");
-        if (fixture.provider_match_id !== undefined && fixture.provider_match_id !== null && fixture.provider_match_id !== "") {
-          errors.push(label + ": รายการทีมชาติห้ามใช้ provider_match_id ของสโมสร");
-        }
-        fixtureKey = competition + ":" + String(fixture.international_fixture_id ?? "");
+      } else {
+        errors.push(label + ": รองรับเฉพาะ 5 ลีกใหญ่เท่านั้น");
+        return;
       }
       if (!fixture.home_team || !fixture.away_team) errors.push(label + ": ต้องระบุชื่อทั้งสองทีม");
       if (fixtureKeys.has(fixtureKey)) errors.push(label + ": พบ Fixture ซ้ำในไฟล์");
@@ -268,6 +275,9 @@
     stored.dataset_status = stored.records.length ? "research_records_present" : "research_intake_empty";
     downloadJson("football-time-manual-research-2026-27.json",stored);
   }
+
+  // Apply the five-league-only migration immediately on startup, not only when Tools is opened.
+  loadStored();
 
   function mount() {
     if (!$("manualMatchResearchPage")) return;

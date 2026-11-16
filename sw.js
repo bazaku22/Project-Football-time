@@ -1,5 +1,5 @@
 // Previous cache identifiers retained for legacy release-history assertions: football-time-v93 and football-time-v102.
-const CACHE = "football-time-v105";
+const CACHE = "football-time-v109";
 
 const ASSETS = [
   "./",
@@ -13,30 +13,21 @@ const ASSETS = [
   "./css/match-center.css?v=7",
   "./css/match-center-mockup.css?v=1",
   "./css/primary-navigation.css?v=2",
-  "./css/home-dashboard.css?v=1",
   "./css/analysis-refinement.css?v=1",
-  "./css/international-handicap.css?v=1",
   "./css/notification-center.css?v=1",
   "./manifest.webmanifest",
   "./icon-192.png",
   "./icon-512.png",
   "./data/football-database.json",
-  "./data/international-match-fixtures-r1.json",
-  "./data/international-handicap-snapshots-r1.json",
   "./data/test-records.json",
   "./data/test-fixtures-2026-11.json",
-  "./data/national-team-research-2026-11.json",
   "./data/asian-handicap-odds.json",
-  "./data/experimental/international-r1/fixtures.json",
-  "./data/experimental/international-r1/prediction-snapshots.json",
-  "./data/experimental/international-r1/handicap-reference.json",
   "./js/football-discovery.js",
   "./js/match-center.js",
   "./js/unified-match-center.js",
   "./js/match-center-mockup.js",
   "./js/primary-navigation.js",
   "./js/football-ecosystem-export.js",
-  "./js/home-dashboard.js",
   "./js/notification-center.js",
   "./js/manual-match-research.js",
   "./js/player-match-event-entry.js",
@@ -54,8 +45,6 @@ const ASSETS = [
   "./js/asian-handicap.js",
   "./js/handicap-history.js",
   "./js/handicap-reference.js",
-  "./js/international-handicap-model.js",
-  "./js/international-handicap-workspace.js",
   "./js/test-experiment-enhancements.js"
 ];
 

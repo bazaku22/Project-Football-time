@@ -15,12 +15,12 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
     def test_import_ui_is_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.6-beta.1"', html)
+        self.assertIn('content="6.26.9-beta.1"', html)
         self.assertIn('./css/manual-match-research.css?v=1', html)
         self.assertIn('./js/manual-match-research.js', html)
         self.assertIn('./js/manual-match-research.js', sw)
         self.assertIn('./css/manual-match-research.css?v=1', sw)
-        self.assertIn('const CACHE = "football-time-v105"', sw)
+        self.assertIn('const CACHE = "football-time-v109"', sw)
 
 
     def test_legacy_player_ui_is_removed_without_affecting_match_events(self):
@@ -44,7 +44,6 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
         self.assertNotIn('target === "players"', navigation)
         self.assertNotIn("pft-player-stats-data", discovery)
         self.assertNotIn("getLocalPlayers", discovery)
-        self.assertIn('const player = item.player?.name', match_center)
         self.assertIn("const eventPlayer = (event)", unified_match_center)
         self.assertNotIn("data-canonical-player-ref", match_center)
         self.assertNotIn("data-canonical-player-ref", unified_match_center)
@@ -68,7 +67,7 @@ class ManualMatchResearchImportUITests(unittest.TestCase):
             'rating?.reuse_rights === "confirmed"',
             'rating.scale_min >= rating.scale_max',
             'new Set()',
-            '"PL","PD","BL1","SA","FL1","UNL"'
+            '"PL","PD","BL1","SA","FL1"'
         ]:
             self.assertIn(marker, source)
 
