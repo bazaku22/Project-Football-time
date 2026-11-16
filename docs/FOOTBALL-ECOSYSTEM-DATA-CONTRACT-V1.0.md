@@ -110,6 +110,7 @@ Allowed `data_type` values:
 - `players`
 - `player_statistics`
 - `match_results`
+- `legacy_match_result_snapshots` (separate, explicitly unverified historical snapshots; never a revision chain)
 
 The `export_id` is unique per generated file. Re-exporting the same records creates a new export ID but does not change their entity IDs or result revisions. Timestamps must include an explicit timezone. Unknown optional values are omitted or represented as `null` according to the record schema; missing is never interpreted as zero.
 
@@ -181,6 +182,13 @@ Rules:
 - Goal/card events are optional and only included when verified. Incomplete events must be marked as partial or omitted; never invent scorers or assists.
 - Football rich imports revisions for evaluation. It must retain its prior imported revision and settlement audit trail.
 - A changed result causes affected evaluation records to be recalculated or marked pending recalculation; it must not rewrite the original prediction or forecast probabilities.
+
+
+## 7A. Legacy result snapshots (non-revision evidence)
+
+Legacy FT results that predate trusted Result Revision History use a separate envelope type: `legacy_match_result_snapshots`. Each record must be marked `legacy_database_snapshot`, `not_independently_verified`, and `revision_history_available: false`. The database generation timestamp is only the observation time of the source file, not a match-result verification timestamp. No revision number, result update time, correction reason, or revision history may be synthesized for this data type.
+
+Football rich must store these records separately from verified result snapshots and must not overwrite `match_results`, predictions, analyses, or performance records. Any retrospective use must be labelled as legacy/unverified and excluded from verified-result metrics unless the user explicitly selects a separate legacy analysis view.
 
 ## 8. Statistics and player data
 
