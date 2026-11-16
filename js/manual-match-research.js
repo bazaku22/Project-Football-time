@@ -276,6 +276,9 @@
     downloadJson("football-time-manual-research-2026-27.json",stored);
   }
 
+  // Apply the five-league-only migration immediately on startup, not only when Tools is opened.
+  loadStored();
+
   function mount() {
     if (!$("manualMatchResearchPage")) return;
     $("mrValidateButton").addEventListener("click",validatePending);
