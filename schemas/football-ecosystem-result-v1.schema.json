@@ -6,6 +6,8 @@
   "additionalProperties": false,
   "required": [
     "match_id",
+    "league_id",
+    "season_id",
     "home_score",
     "away_score",
     "status",
@@ -123,6 +125,19 @@
           }
         }
       }
+    },
+    "league_id": {
+      "type": "string",
+      "enum": [
+        "PL",
+        "PD",
+        "BL1",
+        "SA",
+        "FL1"
+      ]
+    },
+    "season_id": {
+      "const": "2026-2027"
     }
   }
 }
