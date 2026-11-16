@@ -18,6 +18,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertNotIn("homeTodayDashboard", html)
         self.assertNotIn("home-dashboard.js", html)
         self.assertIn('id = "toolsHubPage"', source)
+        self.assertNotIn("home-dashboard.js", (ROOT / "sw.js").read_text())
         self.assertIn('id="matchCenterApp"', html)
 
     def test_all_secondary_destinations_are_reachable_from_tools_hub(self):
@@ -46,6 +47,9 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertNotIn("international-handicap", html)
         self.assertNotIn("international-handicap", worker)
         self.assertNotIn('data-match-category="international"', html)
+        self.assertNotIn("Nations League", (ROOT / "js/primary-navigation.js").read_text())
+        self.assertNotIn("national-team-research", worker)
+        self.assertIn("loadStored();", (ROOT / "js/manual-match-research.js").read_text())
 
     def test_manual_research_is_limited_to_five_major_leagues(self):
         source = (ROOT / "js/manual-match-research.js").read_text()
@@ -89,9 +93,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.8-beta.1"', html)
-        self.assertIn('Project Football Time V6.26.8-beta.1', html)
-        self.assertIn('const CACHE = "football-time-v108"', sw)
+        self.assertIn('content="6.26.9-beta.1"', html)
+        self.assertIn('Project Football Time V6.26.9-beta.1', html)
+        self.assertIn('const CACHE = "football-time-v109"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
