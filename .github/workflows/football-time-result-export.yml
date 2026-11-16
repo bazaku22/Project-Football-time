@@ -1,0 +1,32 @@
+name: Football Time result export validation
+on:
+  pull_request:
+    paths:
+      - "js/football-ecosystem-results-export.js"
+      - "js/primary-navigation.js"
+      - "sw.js"
+      - "index.html"
+      - "tests/football-ecosystem-results-export.test.mjs"
+      - ".github/workflows/football-time-result-export.yml"
+  push:
+    branches: [main]
+    paths:
+      - "js/football-ecosystem-results-export.js"
+      - "tests/football-ecosystem-results-export.test.mjs"
+      - ".github/workflows/football-time-result-export.yml"
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Check exporter syntax
+        run: node --check js/football-ecosystem-results-export.js
+      - name: Run result export regression tests
+        run: node --test tests/football-ecosystem-results-export.test.mjs
+      - name: Check service worker and navigation syntax
+        run: |
+          node --check js/primary-navigation.js
+          node --check sw.js
