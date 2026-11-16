@@ -381,7 +381,7 @@
       renderCalendar(); render();
     });
     $("matchCenterMatches")?.addEventListener("click",(event) => {
-      const button = event.target.closest("[data-open-match]");
+      const button = event.target.closest("[data-unified-match]");
       if (button) openInDatabase(button);
     });
     const existing = window.FootballTimeAppContext?.getDatabase?.();
