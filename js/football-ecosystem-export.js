@@ -211,7 +211,7 @@
     }
     const seen = new Set();
     for (const row of envelope.records) {
-      if (!row || !MATCH_ID_PATTERN.test(row.match_id || "") || seen.has(row.match_id) ||
+      if (!row || !MATCH_ID_PATTERN.test(row.match_id || "") || !LEAGUE_IDS.includes(row.league_id) || row.season_id !== SEASON_ID || seen.has(row.match_id) ||
           !Number.isInteger(row.home_score) || row.home_score < 0 ||
           !Number.isInteger(row.away_score) || row.away_score < 0 ||
           row.status !== "FINISHED" ||
@@ -308,6 +308,8 @@
       }
       return {
         match_id: matchId,
+        league_id: match.leagueId,
+        season_id: match.season,
         home_score: match.homeScore,
         away_score: match.awayScore,
         status: "FINISHED",
