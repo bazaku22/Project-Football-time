@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://football-ecosystem.local/schemas/statistics-v1.schema.json",
+  "title": "Football Ecosystem Statistics v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "league_id",
+    "season_id",
+    "subject_type",
+    "subject_id",
+    "statistic_period",
+    "statistics",
+    "source",
+    "retrieved_at",
+    "record_updated_at"
+  ],
+  "properties": {
+    "league_id": {
+      "enum": [
+        "PL",
+        "PD",
+        "BL1",
+        "SA",
+        "FL1"
+      ]
+    },
+    "season_id": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{4}$"
+    },
+    "subject_type": {
+      "enum": [
+        "team",
+        "player"
+      ]
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statistic_period": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statistics": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "coverage": {
+      "enum": [
+        "complete",
+        "partial",
+        "unknown"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "record_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "description": "Null means unavailable/unknown; numeric zero is a confirmed zero. Validate that subject_id exists in FT's corresponding team/player catalogue."
+}
