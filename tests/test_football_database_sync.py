@@ -22,7 +22,7 @@ class FootballDatabaseSyncTests(unittest.TestCase):
           "teamSeasons":[{"teamId":i,"leagueId":"ELC","season":"2026-2027","providerCompetitionId":900,"seasonStart":"2026-07-01","seasonEnd":"2027-06-30"} for i in ids],
           "standings":[{"leagueId":"ELC","season":"2026-2027","teamId":i,"position":n,"played":0,"won":0,"draw":0,"lost":0,"goalsFor":0,"goalsAgainst":0,"goalDifference":0,"points":0,"updatedAt":"2026-11-10T18:32:58+00:00"} for n,i in enumerate(ids,1)],
           "matches":[{"providerMatchId":9000,"leagueId":"ELC","season":"2026-2027","utcDate":"2027-01-02T15:00:00Z","status":"SCHEDULED","homeTeamId":ids[0],"awayTeamId":ids[1],"homeTeamName":"Old Home","awayTeamName":"Old Away","homeScore":None,"awayScore":None}],
-          "probabilitySnapshots":[{"matchId":"preserved-history"}]}
+          "probabilitySnapshots":[{"matchId":"preserved-history"}],"resultRevisionHistory":[{"matchId":"FT-M-FOOTBALLDATA-777","providerMatchId":"777","resultRevision":1,"homeScore":1,"awayScore":0,"status":"FINISHED","changeType":"baseline","reason":"Previous immutable audit record","recordedAt":"2026-11-10T18:32:58+00:00","source":{"provider":"football-data.org","verifiedAt":"2026-11-10T18:32:58+00:00"}}]}
         (self.root/"data"/"football-database.json").write_text(json.dumps(previous))
         for n,code in enumerate(CORE,100):
             for endpoint,data in zip(("teams","matches","standings"),payloads(code,n*10)):
@@ -138,6 +138,7 @@ class FootballDatabaseSyncTests(unittest.TestCase):
         self.assertEqual(db["source"]["leagueSync"]["ELC"]["lastSuccessfulSync"],"2026-11-10T18:32:58+00:00")
         self.assertEqual(len([m for m in db["matches"] if m["leagueId"]=="ELC"]),1)
         self.assertEqual(db["probabilitySnapshots"],[{"matchId":"preserved-history"}])
+        self.assertEqual(db["resultRevisionHistory"][0]["matchId"],"FT-M-FOOTBALLDATA-777")
         self.assertTrue(all(db["source"]["leagueSync"][c]["status"]=="fresh" for c in CORE))
     def test_partial_elc_response_is_not_mixed_with_old_rows(self):
         (self.runner/"ELC-teams.json").write_text(json.dumps(payloads("ELC",990)[0]))
