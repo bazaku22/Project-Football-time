@@ -176,9 +176,9 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
     def test_beta9_release_invalidates_service_worker_cache_for_ledger_restore(self):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.9"', index)
-        self.assertIn("V6.26.5-beta.9", index)
-        self.assertIn('const CACHE = "football-time-v100";', service_worker)
+        self.assertIn('content="6.26.5-beta.10"', index)
+        self.assertIn("V6.26.5-beta.10", index)
+        self.assertIn('const CACHE = "football-time-v101";', service_worker)
 
 if __name__ == "__main__":
     unittest.main()

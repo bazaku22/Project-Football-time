@@ -14,6 +14,7 @@
     ["internationalHandicap","ทีมชาติ AH"],
     ["matchResearch","นำเข้าผลและสถิติ"],
     ["playerMatchEvents","บันทึกเหตุการณ์ผู้เล่น"],
+    ["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"],
   ];
   const $ = (selector) => document.querySelector(selector);
   function activate(page, tab, navKey) {
@@ -93,6 +94,28 @@
         '<section class="pme-panel"><h3>6. ข้อมูลที่บันทึกไว้ในอุปกรณ์นี้</h3><div id="pmeSummary"></div><div id="pmeSavedList"></div><div class="pme-actions"><button type="button" class="secondary" id="pmeRenderStats">คำนวณสถิติจากข้อมูลในเครื่อง</button><button type="button" class="secondary" id="pmeClear">ล้างข้อมูลในอุปกรณ์นี้</button></div><p id="pmeStatsStatus" class="pme-note">ยังไม่มีสถิติให้คำนวณ</p><div id="pmeStatsTable"></div><div class="pme-restore"><b>นำเข้า / กู้คืน Ledger JSON</b><p class="pme-note">เลือกไฟล์ที่ส่งออกจากเครื่องนี้หรือไฟล์ Ledger ที่จัดทำตาม Schema 2026/27 ระบบจะตรวจโครงสร้างและ Match ID ก่อนแทนที่ข้อมูลในอุปกรณ์นี้เท่านั้น</p><input id="pmeImportFile" type="file" accept=".json,application/json" class="pme-control" aria-label="เลือกไฟล์ Player Match Event Ledger JSON"><button type="button" class="secondary" id="pmeImport">ตรวจสอบและนำเข้าไฟล์</button><p id="pmeImportStatus" class="pme-note" role="status" aria-live="polite">ยังไม่ได้เลือกไฟล์</p></div><p class="pme-note">ข้อมูล Local Storage จะไม่ซิงก์ข้ามอุปกรณ์โดยอัตโนมัติ โปรดส่งออก JSON เพื่อสำรองข้อมูลก่อนเปลี่ยนอุปกรณ์ การส่งออกไม่ได้เป็นการอนุญาตให้เผยแพร่ข้อมูล</p></section>';
       $("#main")?.appendChild(page);
     }
+    if (!$("#footballEcosystemExportPage")) {
+      const page = document.createElement("section");
+      page.id = "footballEcosystemExportPage";
+      page.className = "page";
+      page.innerHTML =
+        '<div class="sectionhead"><h2>ส่งออกข้อมูลไป Football rich</h2><span class="small">FOOTBALL ECOSYSTEM · V1.0</span></div>' +
+        '<div class="card"><b>Fixtures · 5 ลีกหลัก · ฤดูกาล 2026/27</b>' +
+        '<p class="profile-note">สร้างไฟล์ JSON จากฐานข้อมูล Football Time ที่โหลดอยู่ในอุปกรณ์นี้ เพื่อส่งไปนำเข้าใน Football rich โดยตรง รวมโปรแกรมทุกสถานะ แต่ไม่รวมสกอร์หรือผลการแข่งขันจริง</p>' +
+        '<div class="quality-note">ขอบเขต: Premier League, La Liga, Bundesliga, Serie A และ Ligue 1 · ใช้ Shared Match ID จาก Provider Match ID เดิม · ไม่เรียก API เพิ่มและไม่แก้ไขข้อมูลต้นฉบับ</div>' +
+        '<button type="button" class="primary" id="ftEcosystemExportPreviewButton">ตรวจสอบข้อมูลและเตรียมไฟล์</button>' +
+        '<div id="ftEcosystemExportSummary" class="small" aria-live="polite">ยังไม่ได้ตรวจสอบข้อมูล</div>' +
+        '<button type="button" class="secondary" id="ftEcosystemExportDownloadButton" disabled>ดาวน์โหลดไฟล์ JSON</button>' +
+        '<p id="ftEcosystemExportStatus" class="profile-note" role="status" aria-live="polite">รอฐานข้อมูลฟุตบอลหลัก</p></div>' +
+        '<div class="card"><b>วิธีนำเข้าใน Football rich</b><ol class="profile-note"><li>ดาวน์โหลดไฟล์ JSON จากหน้านี้</li><li>เปิด Football rich → เครื่องมือ → นำเข้าข้อมูลจาก Football Time</li><li>เลือกไฟล์ JSON และตรวจสอบตัวอย่างก่อนยืนยันนำเข้า</li></ol><p class="profile-note">ไม่ต้องล้างข้อมูลหรือแคชของแอปใด ๆ ก่อนนำเข้า</p></div>';
+      $("#main")?.appendChild(page);
+      if (!document.querySelector('script[data-ft-fixture-export]')) {
+        const script = document.createElement("script");
+        script.src = "./js/football-ecosystem-export.js";
+        script.dataset.ftFixtureExport = "true";
+        document.body.appendChild(script);
+      }
+    }
     const nav = $(".nav");
     if (!nav) return;
     nav.innerHTML = [
@@ -123,7 +146,9 @@
       const button = event.target.closest("[data-secondary-route]");
       if (!button) return;
       const target = button.dataset.secondaryRoute;
-      if (target === "internationalHandicap") {
+      if (target === "footballEcosystemExport") {
+        activate("footballEcosystemExportPage", null, "");
+      } else if (target === "internationalHandicap") {
         activate("internationalHandicap", null, "");
         document.querySelectorAll("[data-primary-route]").forEach((node) => node.classList.remove("active"));
       } else if (target === "advanced") {

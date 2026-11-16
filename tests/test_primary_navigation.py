@@ -48,6 +48,15 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('./js/primary-navigation.js', sw)
         self.assertIn('./css/primary-navigation.css?v=1', sw)
 
+    def test_football_rich_fixture_export_tool_is_reachable_and_cached(self):
+        source = (ROOT / "js/primary-navigation.js").read_text()
+        worker = (ROOT / "sw.js").read_text()
+        self.assertIn('["footballEcosystemExport","ส่งออกข้อมูลไป Football rich"]', source)
+        self.assertIn('activate("footballEcosystemExportPage", null, "")', source)
+        self.assertIn('page.id = "footballEcosystemExportPage"', source)
+        self.assertIn('./js/football-ecosystem-export.js', source)
+        self.assertIn('"./js/football-ecosystem-export.js"', worker)
+
     def test_team_and_league_insights_use_compact_subtabs(self):
         html = (ROOT / "index.html").read_text()
         self.assertIn('const databaseSubtabOptions={', html)
@@ -60,9 +69,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.5-beta.9"', html)
-        self.assertIn('Project Football Time V6.26.5-beta.9', html)
-        self.assertIn('football-time-v100', sw)
+        self.assertIn('content="6.26.5-beta.10"', html)
+        self.assertIn('Project Football Time V6.26.5-beta.10', html)
+        self.assertIn('football-time-v101', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
