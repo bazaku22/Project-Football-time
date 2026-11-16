@@ -65,12 +65,6 @@ assert.notEqual(first.envelope.export_id, second.envelope.export_id);
 assert.equal(JSON.stringify(db), before, "export must not mutate the source database");
 assert.equal(exporter.assertEnvelope(first.envelope).total, 5);
 
-assert.throws(() => exporter.buildExport(database(), {
-  now: "2026-11-16T10:30:00Z",
-  exportId: "FT-EXPORT-BAD",
-  // malformed provider IDs are tested below by mutating the input dataset
-}), /./);
-
 const missingId = database();
 missingId.matches[0].providerMatchId = null;
 assert.throws(() => exporter.buildExport(missingId), /ไม่มี Provider Match ID/);
