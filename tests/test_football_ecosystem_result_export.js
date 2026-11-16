@@ -25,6 +25,8 @@ const db = {
 const built = api.buildResultExport(db, { now: "2026-11-21T00:00:00.000Z", exportId: "FT-EXPORT-TEST-1" });
 assert.equal(built.envelope.data_type, "match_results");
 assert.equal(built.envelope.records.length, 1);
+assert.equal(built.envelope.records[0].league_id, "PL");
+assert.equal(built.envelope.records[0].season_id, "2026-2027");
 assert.equal(built.envelope.records[0].result_revision, 2);
 assert.equal(built.envelope.records[0].revision_history.length, 2);
 assert.equal(built.envelope.records[0].revision_history[0].home_score, 1);
