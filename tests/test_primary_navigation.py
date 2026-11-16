@@ -58,7 +58,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         self.assertIn('./js/primary-navigation.js', html)
         self.assertIn('./css/primary-navigation.css?v=2', html)
         self.assertIn('./js/primary-navigation.js', sw)
-        self.assertIn('./css/primary-navigation.css?v=1', sw)
+        self.assertIn('./css/primary-navigation.css?v=2', sw)
 
     def test_football_rich_fixture_export_tool_is_reachable_and_cached(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
