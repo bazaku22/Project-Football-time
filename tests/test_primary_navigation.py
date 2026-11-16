@@ -8,7 +8,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 class PrimaryNavigationTests(unittest.TestCase):
     def test_five_primary_routes_are_defined(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        routes = re.findall(r'^    (home|leagues|matches|players|tools): \\{ page:', source, re.M)
+        routes = re.findall(r'^    (home|leagues|matches|players|tools): \{ page:', source, re.M)
         self.assertEqual(routes, ["home", "leagues", "matches", "players", "tools"])
 
     def test_home_shortcuts_and_dashboard_are_present(self):
