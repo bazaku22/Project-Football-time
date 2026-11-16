@@ -6,10 +6,11 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class NovemberExperimentContractTests(unittest.TestCase):
-    def test_fixture_schedule_remains_15_unique_entries(self):
+    def test_fixture_schedule_contains_only_five_major_league_sample(self):
         fixtures = json.loads((ROOT / "data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))["fixtures"]
-        self.assertEqual(len(fixtures), 15)
-        self.assertEqual(len({row["id"] for row in fixtures}), 15)
+        self.assertEqual(len(fixtures), 3)
+        self.assertEqual(len({row["id"] for row in fixtures}), 3)
+        self.assertTrue(all(row["competition"] in {"La Liga", "Bundesliga", "Ligue 1"} for row in fixtures))
 
     def test_legacy_store_is_preserved_and_read_only(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -31,18 +32,6 @@ class NovemberExperimentContractTests(unittest.TestCase):
         self.assertIn('id="testFixtureDays"', html)
         self.assertIn('data-fixture-day', html)
         self.assertIn('selectedTestFixtureDate', html)
-
-    def test_all_national_fixtures_have_researched_team_samples(self):
-        fixtures = json.loads((ROOT / "data/test-fixtures-2026-11.json").read_text(encoding="utf-8"))["fixtures"]
-        research = json.loads((ROOT / "data/national-team-research-2026-11.json").read_text(encoding="utf-8"))
-        national = [f for f in fixtures if f["competition"] in ("UEFA Nations League", "International Friendly")]
-        self.assertEqual(len(national), 12)
-        for fixture in national:
-            self.assertIn(fixture["home"], research["teams"])
-            self.assertIn(fixture["away"], research["teams"])
-            self.assertGreaterEqual(len(research["teams"][fixture["home"]]["matches"]), 3)
-            self.assertGreaterEqual(len(research["teams"][fixture["away"]]["matches"]), 3)
-            self.assertIn(fixture["id"], research["fixtures"])
 
     def test_handicap_is_additive_and_separate_from_legacy(self):
         script = (ROOT / "js/test-experiment-enhancements.js").read_text(encoding="utf-8")
