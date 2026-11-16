@@ -12,15 +12,6 @@
   let activeSearch = "";
   let selectedDate = "";
   let calendarAnchorDate = "";
-  const MANUAL_RESEARCH_STORAGE_KEY = "pft_manual_match_research_2026_27_v1";
-  function loadManualResearchRecords() {
-    try {
-      const stored = JSON.parse(localStorage.getItem(MANUAL_RESEARCH_STORAGE_KEY) || "null");
-      return Array.isArray(stored?.records) ? stored.records : [];
-    } catch (_) {
-      return [];
-    }
-  }
   function bangkokDate(value = new Date()) {
     const parts = new Intl.DateTimeFormat("en-GB", {
       timeZone:"Asia/Bangkok",year:"numeric",month:"2-digit",day:"2-digit"
