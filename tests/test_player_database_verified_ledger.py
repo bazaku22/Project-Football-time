@@ -173,12 +173,12 @@ class PlayerDatabaseVerifiedLedgerTests(unittest.TestCase):
         self.assertEqual((len(man_utd),sum(len(x["appearances"]) for x in man_utd.values()),sum(x["goals"] for x in man_utd.values()),sum(x["assists"] for x in man_utd.values())),(16,16,4,3))
         self.assertEqual((len(forest),sum(len(x["appearances"]) for x in forest.values()),sum(x["goals"] for x in forest.values()),sum(x["assists"] for x in forest.values())),(15,15,3,1))
 
-    def test_beta9_release_invalidates_service_worker_cache_for_ledger_restore(self):
+    def test_beta11_release_invalidates_service_worker_cache_for_ledger_restore(self):
         index = (ROOT / "index.html").read_text(encoding="utf-8")
         service_worker = (ROOT / "sw.js").read_text(encoding="utf-8")
-        self.assertIn('content="6.26.5-beta.10"', index)
-        self.assertIn("V6.26.5-beta.10", index)
-        self.assertIn('const CACHE = "football-time-v101";', service_worker)
+        self.assertIn('content="6.26.5-beta.11"', index)
+        self.assertIn("V6.26.5-beta.11", index)
+        self.assertIn('const CACHE = "football-time-v102";', service_worker)
 
 if __name__ == "__main__":
     unittest.main()

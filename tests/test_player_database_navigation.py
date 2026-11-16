@@ -1,4 +1,6 @@
 from pathlib import Path
+
+# Release cache assertion follows the current app/service-worker version.
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,7 +33,7 @@ class PlayerDatabaseNavigationTests(unittest.TestCase):
         self.assertIn("./data/player-team-name-registry-2026-27.json", script)
         self.assertIn("./data/player-team-name-registry-2026-27.json", sw)
         self.assertIn("./data/footballsquads-roster-intake-2026-27.json", sw)
-        self.assertIn('const CACHE = "football-time-v101";', sw)
+        self.assertIn('const CACHE = "football-time-v102";', sw)
 
 
 if __name__ == "__main__":
