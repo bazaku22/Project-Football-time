@@ -39,7 +39,11 @@ class NovemberExperimentContractTests(unittest.TestCase):
         self.assertIn('function renderApiHandicap(', script)
         self.assertIn('data-api-ah-panel', script)
         self.assertIn('data/asian-handicap-odds.json', script)
-        self.assertIn('pft-national-poisson-0.1', script)
+        self.assertNotIn('pft-national-poisson-0.1', script)
+        enhancement = (ROOT / "js/test-experiment-enhancements.js").read_text(encoding="utf-8")
+        self.assertIn("ODDS_LEAGUES[r?.competition]", enhancement)
+        self.assertIn("Remove saved national-team snapshots on startup", enhancement)
+        self.assertNotIn("national-team-research-2026-11.json", enhancement)
         self.assertIn('pft_experiment_snapshots_v1', script)
         self.assertIn('js/asian-handicap.js', (ROOT / "index.html").read_text(encoding="utf-8"))
 
