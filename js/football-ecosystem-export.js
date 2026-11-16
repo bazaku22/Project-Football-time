@@ -384,7 +384,7 @@
     root.document.addEventListener("click", event => {
       const previewButton = event.target.closest("#ftEcosystemResultPreviewButton");
       const downloadButton = event.target.closest("#ftEcosystemResultDownloadButton");
-      const auditButton = root.document.getElementById("ftEcosystemResultAuditButton");
+      const auditButton = event.target.closest("#ftEcosystemResultAuditButton");
       if (!previewButton && !downloadButton && !auditButton) return;
       const status = root.document.getElementById("ftEcosystemResultStatus");
       const summary = root.document.getElementById("ftEcosystemResultSummary");
