@@ -200,9 +200,194 @@
     });
   }
 
-  root.FootballTimeEcosystemExport = { buildExport, assertEnvelope, init, leagueIds: LEAGUE_IDS.slice(), seasonId: SEASON_ID };
+
+  function assertResultEnvelope(envelope) {
+    if (!envelope || envelope.schema_version !== "1.0.0" ||
+        envelope.exported_by !== "football-time" ||
+        envelope.data_type !== "match_results" ||
+        !isDateTime(envelope.exported_at) ||
+        !Array.isArray(envelope.records) || !envelope.records.length) {
+      throw new Error("โครงสร้างไฟล์ผลการแข่งขันไม่ถูกต้องหรือไม่มีผลที่พร้อมส่งออก");
+    }
+    const seen = new Set();
+    for (const row of envelope.records) {
+      if (!row || !MATCH_ID_PATTERN.test(row.match_id || "") || seen.has(row.match_id) ||
+          !Number.isInteger(row.home_score) || row.home_score < 0 ||
+          !Number.isInteger(row.away_score) || row.away_score < 0 ||
+          row.status !== "FINISHED" ||
+          !Number.isInteger(row.result_revision) || row.result_revision < 1 ||
+          !isDateTime(row.updated_at) ||
+          !row.source || typeof row.source.provider !== "string" ||
+          !row.source.provider || !isDateTime(row.source.verified_at) ||
+          !Array.isArray(row.revision_history) || !row.revision_history.length) {
+        throw new Error("พบผลการแข่งขันที่ขาดข้อมูล Revision หรือแหล่งที่มา");
+      }
+      seen.add(row.match_id);
+      const revisions = row.revision_history.slice().sort((a,b) => a.result_revision-b.result_revision);
+      if (revisions.length !== row.result_revision ||
+          revisions.some((item,index) => item.result_revision !== index+1 ||
+            !Number.isInteger(item.home_score) || item.home_score < 0 ||
+            !Number.isInteger(item.away_score) || item.away_score < 0 ||
+            item.status !== "FINISHED" || !isDateTime(item.recorded_at) ||
+            !item.source || !item.source.provider || !isDateTime(item.source.verified_at))) {
+        throw new Error("ประวัติ Revision ไม่ต่อเนื่องหรือมีข้อมูลไม่ครบ");
+      }
+      const latest = revisions[revisions.length-1];
+      if (latest.result_revision !== row.result_revision ||
+          latest.home_score !== row.home_score || latest.away_score !== row.away_score) {
+        throw new Error("ผลล่าสุดไม่ตรงกับ Revision ล่าสุดในประวัติ");
+      }
+    }
+    return { total: envelope.records.length };
+  }
+
+  function buildResultExport(database, options) {
+    const opts = options || {};
+    if (!database || !Array.isArray(database.matches) ||
+        !Array.isArray(database.resultRevisionHistory)) {
+      throw new Error("ฐานข้อมูลยังไม่มี Result Revision History ที่เชื่อถือได้");
+    }
+    const now = opts.now || new Date().toISOString();
+    if (!isDateTime(now)) throw new Error("เวลา Export ไม่ถูกต้อง");
+    const historyByMatch = new Map();
+    for (const entry of database.resultRevisionHistory) {
+      if (!entry || typeof entry.matchId !== "string" ||
+          !Number.isInteger(entry.resultRevision) || entry.resultRevision < 1) {
+        throw new Error("พบรายการ Result Revision History ที่ไม่ถูกต้อง");
+      }
+      const list = historyByMatch.get(entry.matchId) || [];
+      list.push(entry);
+      historyByMatch.set(entry.matchId, list);
+    }
+    const matches = database.matches.filter(match =>
+      match && LEAGUE_IDS.includes(match.leagueId) && match.season === SEASON_ID &&
+      match.status === "FINISHED"
+    );
+    const records = matches.map(match => {
+      const providerId = match.providerMatchId;
+      if (providerId === null || providerId === undefined || String(providerId).trim() === "") {
+        throw new Error("พบผลจริงที่ไม่มี Provider Match ID؛ ยกเลิกส่งออกเพื่อไม่สร้าง Shared Match ID ใหม่");
+      }
+      const matchId = "FT-M-FOOTBALLDATA-" + String(providerId);
+      if (!MATCH_ID_PATTERN.test(matchId) ||
+          !Number.isInteger(match.homeScore) || match.homeScore < 0 ||
+          !Number.isInteger(match.awayScore) || match.awayScore < 0 ||
+          !Number.isInteger(match.resultRevision) || match.resultRevision < 1 ||
+          !isDateTime(match.resultUpdatedAt) ||
+          !match.resultSource || !match.resultSource.provider ||
+          !isDateTime(match.resultSource.verifiedAt)) {
+        throw new Error("ผลจริงของ " + matchId + " ไม่มี Revision, Score หรือ Provenance ที่ครบถ้วน");
+      }
+      const history = (historyByMatch.get(matchId) || []).slice()
+        .sort((a,b) => a.resultRevision-b.resultRevision);
+      if (!history.length || history.length !== match.resultRevision) {
+        throw new Error("ประวัติ Revision ของ " + matchId + " ไม่ครบ จึงไม่ส่งออกผลจริง");
+      }
+      const revisionHistory = history.map(entry => {
+        if (!Number.isInteger(entry.homeScore) || entry.homeScore < 0 ||
+            !Number.isInteger(entry.awayScore) || entry.awayScore < 0 ||
+            entry.status !== "FINISHED" || !isDateTime(entry.recordedAt) ||
+            !entry.source || !entry.source.provider || !isDateTime(entry.source.verifiedAt)) {
+          throw new Error("ประวัติ Revision ของ " + matchId + " มีรายการไม่สมบูรณ์");
+        }
+        return {
+          result_revision: entry.resultRevision,
+          home_score: entry.homeScore,
+          away_score: entry.awayScore,
+          status: "FINISHED",
+          change_type: entry.changeType || "baseline",
+          reason: entry.reason || "",
+          recorded_at: entry.recordedAt,
+          source: { provider: entry.source.provider, verified_at: entry.source.verifiedAt }
+        };
+      });
+      const latest = revisionHistory[revisionHistory.length-1];
+      if (latest.result_revision !== match.resultRevision ||
+          latest.home_score !== match.homeScore || latest.away_score !== match.awayScore) {
+        throw new Error("ผลปัจจุบันไม่ตรงกับประวัติ Revision ล่าสุดของ " + matchId);
+      }
+      return {
+        match_id: matchId,
+        home_score: match.homeScore,
+        away_score: match.awayScore,
+        status: "FINISHED",
+        result_revision: match.resultRevision,
+        updated_at: match.resultUpdatedAt,
+        correction_reason: latest.reason,
+        source: {
+          provider: match.resultSource.provider,
+          verified_at: match.resultSource.verifiedAt
+        },
+        revision_history: revisionHistory
+      };
+    }).sort((a,b) => a.match_id.localeCompare(b.match_id));
+    const envelope = {
+      schema_version: "1.0.0",
+      export_id: opts.exportId || makeExportId(now),
+      exported_by: "football-time",
+      exported_at: now,
+      data_type: "match_results",
+      scope: { league_ids: LEAGUE_IDS.slice(), season_ids: [SEASON_ID] },
+      records
+    };
+    return { envelope, summary: assertResultEnvelope(envelope) };
+  }
+
+  function downloadResultExport(envelope) {
+    const blob = new Blob([JSON.stringify(envelope, null, 2)], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const anchor = root.document.createElement("a");
+    anchor.href = url;
+    anchor.download = "football-time-results-2026-27-" + new Date().toISOString().slice(0,10) + ".json";
+    root.document.body.appendChild(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+
+  function initResultExport() {
+    if (!root.document || root.document.documentElement.dataset.ftResultExportBound === "true") return;
+    root.document.documentElement.dataset.ftResultExportBound = "true";
+    let prepared = null;
+    root.document.addEventListener("click", event => {
+      const previewButton = event.target.closest("#ftEcosystemResultPreviewButton");
+      const downloadButton = event.target.closest("#ftEcosystemResultDownloadButton");
+      if (!previewButton && !downloadButton) return;
+      const status = root.document.getElementById("ftEcosystemResultStatus");
+      const summary = root.document.getElementById("ftEcosystemResultSummary");
+      const download = root.document.getElementById("ftEcosystemResultDownloadButton");
+      if (previewButton) {
+        try {
+          const database = root.FootballTimeAppContext?.getDatabase();
+          if (!database) throw new Error("กำลังโหลดฐานข้อมูลหลัก กรุณารอสักครู่แล้วลองใหม่");
+          prepared = buildResultExport(database);
+          summary.textContent = "พร้อมส่งออกผลจริง " + prepared.summary.total.toLocaleString("th-TH") +
+            " นัด · รวม Revision และประวัติการแก้ไขทุกเวอร์ชัน · 5 ลีกหลัก · 2026/27";
+          download.disabled = false;
+          status.textContent = "ตรวจสอบผลจริงและประวัติ Revision ผ่านแล้ว";
+        } catch (error) {
+          prepared = null;
+          summary.textContent = "ยังไม่มีไฟล์ผลจริงที่พร้อมดาวน์โหลด";
+          download.disabled = true;
+          status.textContent = error.message || "ตรวจสอบผลจริงไม่สำเร็จ";
+        }
+      } else if (downloadButton) {
+        if (!prepared) return;
+        downloadResultExport(prepared.envelope);
+        if (status) status.textContent = "สร้างไฟล์ผลจริงแล้ว · Export ID: " + prepared.envelope.export_id;
+      }
+    });
+  }
+
+  root.FootballTimeEcosystemExport = {
+    buildExport, assertEnvelope, buildResultExport, assertResultEnvelope,
+    init, initResultExport, leagueIds: LEAGUE_IDS.slice(), seasonId: SEASON_ID
+  };
   if (root.document) {
     if (root.document.readyState === "loading") root.document.addEventListener("DOMContentLoaded", init, { once: true });
     else init();
+    if (root.document.readyState === "loading") root.document.addEventListener("DOMContentLoaded", initResultExport, { once: true });
+    else initResultExport();
   }
 })(typeof globalThis !== "undefined" ? globalThis : window);
