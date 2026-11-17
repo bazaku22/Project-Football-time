@@ -153,7 +153,7 @@
       if(nav){
         const action=nav.dataset.nav;
         if(action==="root"){view={level:"root",leagueId:"",club:"",teamId:""};renderRoot();}
-        else if(action==="clubs"){view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}
+        else if(action==="clubs"){if(view.leagueId)renderClubList(view.leagueId);else{view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}}
         else if(action==="leagues"){view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}
         else if(action==="national"){view={level:"national",leagueId:"",club:"",teamId:""};renderNationalList();}
         else if(action==="players")renderCurrent();
