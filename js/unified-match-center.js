@@ -9,7 +9,7 @@
   const competition = (match) => window.FootballTimeMatchCenter?.getCompetitionName?.(match) || match.competitionName || match.leagueId || "ไม่ระบุรายการ";
   const homeName = (match) => match.homeTeamName || window.FootballTimeMatchCenter?.getTeamName?.(match.homeTeamId) || "เจ้าบ้าน";
   const awayName = (match) => match.awayTeamName || window.FootballTimeMatchCenter?.getTeamName?.(match.awayTeamId) || "ทีมเยือน";
-  const score = (match) => match.homeScore == null || match.awayScore == null ? "VS" : String(match.homeScore) + " – " + String(match.awayScore);
+  const score = (match) => match.homeScore == null || match.awayScore == null ? (String(match.status || "").toUpperCase() === "FINISHED" && match.resultVerification?.status === "pending_manual_confirmation" ? "รอยืนยันผล" : "VS") : String(match.homeScore) + " – " + String(match.awayScore);
   const dateTime = (match) => {
     if (!match.utcDate) return match.localDate ? "วันที่ตามประกาศ " + match.localDate : "ยังไม่ประกาศเวลา";
     const date = new Date(match.utcDate);
