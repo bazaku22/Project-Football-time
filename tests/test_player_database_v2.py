@@ -14,7 +14,12 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         ids = [player["playerId"] for player in data["players"]]
         self.assertEqual(len(ids), len(set(ids)))
         self.assertTrue(all(any(team["teamId"] == "THA" for team in player["nationalTeams"]) for player in data["players"]))
-        self.assertTrue(all(player["statistics"]["nationalTeam"]["period"] == "career" for player in data["players"]))
+        self.assertTrue(all(player["statistics"]["nationalTeam"]["period"] == "since-start-date" for player in data["players"]))
+        self.assertTrue(all(player["statistics"]["nationalTeam"]["startDate"] == "2026-11-17" for player in data["players"]))
+        self.assertEqual(sum(player["statistics"]["nationalTeam"]["goals"] for player in data["players"]), 3)
+        self.assertEqual(sum(player["statistics"]["nationalTeam"]["assists"] for player in data["players"]), 1)
+        self.assertTrue(any(player.get("statisticsArchive") for player in data["players"]))
+        self.assertEqual(data["nationalTeamMatches"][0]["matchId"], "THA-TJK-KC52-FINAL-2026-11-17")
         self.assertTrue(all(player["statistics"]["club"]["season"] == "2026/27" for player in data["players"]))
         self.assertIn("Player ID", " ".join(data["notes"]))
 
@@ -43,7 +48,7 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("./js/player-database-v2.js", sw)
         self.assertIn("./css/player-database-v2.css?v=2", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v115"', sw)
+        self.assertIn('const CACHE = "football-time-v116"', sw)
 
 
 if __name__ == "__main__":
