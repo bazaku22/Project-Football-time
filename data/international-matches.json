@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "datasetId": "football-time-international-matches-v1",
-  "updatedAt": "2026-11-17T14:00:00Z",
+  "updatedAt": "2026-11-17T15:00:00Z",
   "sourcePolicy": "Manual, evidence-backed national-team fixtures. No sports data API. Match IDs are shared with Football rich and must not be regenerated.",
   "leagues": [
     {
@@ -37,10 +37,10 @@
       "competitionName": "King's Cup 2026 – Final",
       "round": "Final",
       "matchType": "national_team",
-      "homeTeamId": "TJK-NATIONAL",
-      "awayTeamId": "THA-NATIONAL",
-      "homeTeamName": "Tajikistan",
-      "awayTeamName": "Thailand",
+      "homeTeamId": "THA-NATIONAL",
+      "awayTeamId": "TJK-NATIONAL",
+      "homeTeamName": "Thailand",
+      "awayTeamName": "Tajikistan",
       "utcDate": "2026-11-17T12:30:00.000Z",
       "localDate": "2026-11-17",
       "localTime": "19:30",
@@ -51,7 +51,7 @@
       "awayScore": null,
       "resultVerification": {
         "status": "pending_manual_confirmation",
-        "note": "Do not infer or auto-fill the final score. Confirm the official result before recording it."
+        "note": "ผลการแข่งขันยังคงรอการยืนยันด้วยตนเอง ห้ามเติมสกอร์จากข้อมูลภายนอกโดยอัตโนมัติ"
       },
       "richReference": {
         "matchId": "27dffc4f-406c-401e-9b95-a772304318a4",
@@ -64,6 +64,7 @@
             "id": "THA-NATIONAL",
             "name": "Thailand"
           },
+          "formation": "4-4-2",
           "startingXI": [
             {
               "shirtNumber": 20,
@@ -112,11 +113,198 @@
               "name": "Suphanan Bureerat"
             }
           ],
+          "substitutes": [
+            {
+              "shirtNumber": 1,
+              "name": "Patiwat Khammai",
+              "position": "GK"
+            },
+            {
+              "shirtNumber": 5,
+              "name": "Suphan Thongsong"
+            },
+            {
+              "shirtNumber": 8,
+              "name": "William Weidersjo"
+            },
+            {
+              "shirtNumber": 9,
+              "name": "Yotsakon Burapha"
+            },
+            {
+              "shirtNumber": 10,
+              "name": "Suphanat Mueanta"
+            },
+            {
+              "shirtNumber": 13,
+              "name": "Oussama Thiangkham"
+            },
+            {
+              "shirtNumber": 15,
+              "name": "Santiphap Channgom"
+            },
+            {
+              "shirtNumber": 16,
+              "name": "Iklas Sanron"
+            },
+            {
+              "shirtNumber": 18,
+              "name": "Weerathep Pomphan"
+            },
+            {
+              "shirtNumber": 19,
+              "name": "Teerapat Pruetong"
+            },
+            {
+              "shirtNumber": 22,
+              "name": "Seksan Ratree"
+            },
+            {
+              "shirtNumber": 23,
+              "name": "Sorawat Phosaman"
+            }
+          ],
+          "substitutesStatus": "named_substitutes",
           "source": {
-            "name": "Thairath – confirmed Thailand starting XI",
+            "name": "Thairath – Thailand confirmed starting XI",
             "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
             "checkedAt": "2026-11-17T11:59:00Z",
             "verificationStatus": "reported_official_lineup"
+          },
+          "startingXISource": {
+            "name": "Thairath – Thailand confirmed starting XI",
+            "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
+            "checkedAt": "2026-11-17T11:59:00Z",
+            "verificationStatus": "reported_official_lineup"
+          },
+          "substitutesSource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
+          }
+        },
+        {
+          "team": {
+            "id": "TJK-NATIONAL",
+            "name": "Tajikistan"
+          },
+          "formation": "4-2-3-1",
+          "startingXI": [
+            {
+              "shirtNumber": 23,
+              "name": "Oleg Baklov",
+              "position": "GK"
+            },
+            {
+              "shirtNumber": 2,
+              "name": "Zoir Dzhuraboev"
+            },
+            {
+              "shirtNumber": 3,
+              "name": "Tabrezi Davlatmir"
+            },
+            {
+              "shirtNumber": 6,
+              "name": "Vakhdat Khanonov"
+            },
+            {
+              "shirtNumber": 20,
+              "name": "Alijon Karomatullozoda"
+            },
+            {
+              "shirtNumber": 7,
+              "name": "Parvizdzhon Umarbaev"
+            },
+            {
+              "shirtNumber": 8,
+              "name": "Amirbek Dzhuraboev"
+            },
+            {
+              "shirtNumber": 10,
+              "name": "Shervoni Mabatshoev"
+            },
+            {
+              "shirtNumber": 14,
+              "name": "Sheriddin Boboev"
+            },
+            {
+              "shirtNumber": 17,
+              "name": "Ekhson Pandzhshanbe"
+            },
+            {
+              "shirtNumber": 25,
+              "name": "Nozim Babajanov"
+            }
+          ],
+          "substitutes": [
+            {
+              "shirtNumber": 4,
+              "name": "Sodikdzhon Kurbonov"
+            },
+            {
+              "shirtNumber": 5,
+              "name": "Faridun Davlatov"
+            },
+            {
+              "shirtNumber": 9,
+              "name": "Jakhongir Ergashev"
+            },
+            {
+              "shirtNumber": 11,
+              "name": "Muhammadjoni Hasan"
+            },
+            {
+              "shirtNumber": 12,
+              "name": "Mekhrubon Karimov"
+            },
+            {
+              "shirtNumber": 13,
+              "name": "Nuriddin Khamrokulov"
+            },
+            {
+              "shirtNumber": 16,
+              "name": "Daler Azizov"
+            },
+            {
+              "shirtNumber": 18,
+              "name": "Alisher Shukurov"
+            },
+            {
+              "shirtNumber": 19,
+              "name": "Akhtam Nazarov"
+            },
+            {
+              "shirtNumber": 21,
+              "name": "Muso Kakhorov"
+            },
+            {
+              "shirtNumber": 24,
+              "name": "Abdullo Ibragimzoda"
+            },
+            {
+              "shirtNumber": 26,
+              "name": "Azizbek Khaitov"
+            }
+          ],
+          "substitutesStatus": "named_substitutes",
+          "source": {
+            "name": "LiveFoot – King's Cup final lineups",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
+          },
+          "startingXISource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
+          },
+          "substitutesSource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
           }
         }
       ],

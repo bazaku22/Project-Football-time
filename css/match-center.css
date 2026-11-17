@@ -204,3 +204,20 @@
 .mc-national-flag{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;font-size:1.8rem;line-height:1;overflow:hidden;border-radius:8px;background:rgba(255,255,255,.06)}
 .mc-team .mc-national-flag{margin-inline-end:2px}
 .mc-detail-side .mc-national-flag{width:38px;height:38px;flex-basis:38px}
+
+/* National-team lineups: readable named starters and bench on mobile. */
+.mc-lineup-team{display:grid;gap:10px;padding:12px 0;border-bottom:1px solid rgba(145,178,204,.18)}
+.mc-lineup-team:last-child{border-bottom:0}
+.mc-lineup-team-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.mc-lineup-team-head b{font-size:.88rem;color:#b8f4e4}
+.mc-lineup-team-head span{font-size:.68rem;color:#a9bdce}
+.mc-lineup-group{display:grid;gap:7px}
+.mc-lineup-group h4{margin:0;font-size:.75rem;color:#dce8f0}
+.mc-lineup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
+.mc-lineup-player{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:6px;min-width:0;padding:5px 6px;border-radius:8px;background:rgba(5,19,32,.34);font-size:.7rem}
+.mc-lineup-number{color:#9cebd4;font-weight:750;font-variant-numeric:tabular-nums}
+.mc-lineup-name{min-width:0;overflow-wrap:anywhere;color:#edf4f8}
+.mc-lineup-player small{font-size:.58rem;color:#a9bdce}
+.mc-lineup-source{margin:0;font-size:.63rem;line-height:1.6;color:#91a8bb;overflow-wrap:anywhere}
+.mc-lineup-source a{color:#9cebd4;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:420px){.mc-lineup-grid{grid-template-columns:1fr}.mc-lineup-player{font-size:.74rem}}
