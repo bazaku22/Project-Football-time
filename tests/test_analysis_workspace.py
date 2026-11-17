@@ -33,9 +33,9 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("insightTarget.replaceChildren()", body)
 
     def test_app_and_service_worker_versions_are_aligned(self):
-        self.assertIn('application-version" content="6.26.16-beta.1"', self.html)
+        self.assertIn('application-version" content="6.26.17-beta.1"', self.html)
         self.assertIn('football-time-v119', self.service_worker)
-        self.assertIn('application-version" content="6.26.16-beta.1"', self.workflow)
+        self.assertIn('application-version" content="6.26.17-beta.1"', self.workflow)
         self.assertIn('football-time-v119', self.workflow)
 
     def test_probability_model_uses_five_and_ten_match_form_and_opponent_strength(self):
