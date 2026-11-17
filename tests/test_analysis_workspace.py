@@ -33,10 +33,10 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn("insightTarget.replaceChildren()", body)
 
     def test_app_and_service_worker_versions_are_aligned(self):
-        self.assertIn('application-version" content="6.26.18-beta.1"', self.html)
-        self.assertIn('football-time-v120', self.service_worker)
-        self.assertIn('application-version" content="6.26.18-beta.1"', self.workflow)
-        self.assertIn('football-time-v120', self.workflow)
+        self.assertIn('application-version" content="6.26.19-beta.1"', self.html)
+        self.assertIn('football-time-v121', self.service_worker)
+        self.assertIn('application-version" content="6.26.19-beta.1"', self.workflow)
+        self.assertIn('football-time-v121', self.workflow)
 
     def test_probability_model_uses_five_and_ten_match_form_and_opponent_strength(self):
         self.assertIn('const PROBABILITY_MODEL_VERSION="pft-poisson-2.0"', self.html)
