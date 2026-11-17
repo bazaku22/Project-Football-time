@@ -16,7 +16,8 @@ class MatchCenterTests(unittest.TestCase):
     def test_match_center_uses_real_database_and_five_core_leagues(self):
         self.assertIn('id="matchCenterApp"', HTML)
         self.assertIn('getDatabase?.()', MODULE)
-        self.assertIn('new Set(["PL","PD","BL1","SA","FL1"])', MODULE)
+        self.assertIn('new Set(["PL","PD","BL1","SA","FL1","INTL"])', MODULE)
+        self.assertIn("international-matches.json", MODULE)
         self.assertIn('pft-football-database-ready', MODULE)
 
     def test_experiment_fixtures_are_separate_and_collapsed(self):
@@ -30,8 +31,10 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('pft-football-database-error', MODULE)
         self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
 
-    def test_match_center_is_limited_to_five_major_leagues(self):
-        self.assertIn('CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1"])', MODULE)
+    def test_match_center_keeps_club_leagues_and_adds_separate_national_competition(self):
+        self.assertIn('CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","INTL"])', MODULE)
+        self.assertIn("mergeInternationalData", MODULE)
+        self.assertIn("loadInternationalData", MODULE)
         self.assertNotIn("internationalFixtures", MODULE)
         self.assertNotIn("Nations League", MODULE)
 
@@ -71,7 +74,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('providerMatchId !== ""', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v110", WORKER)
+        self.assertIn("football-time-v111", WORKER)
+        self.assertIn('"./data/international-matches.json"', WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
         self.assertIn('"./css/match-center.css?v=7"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
@@ -115,7 +119,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('timeZone:"Asia/Bangkok"', MODULE)
         self.assertIn('function shiftDateKey(dateKey, days)', MODULE)
 
-    def test_league_filter_is_limited_to_supported_club_competitions(self):
+    def test_league_filter_includes_the_separate_national_competition(self):
         self.assertNotIn('data-match-category="international"', HTML)
         self.assertNotIn('data-match-category="club"', HTML)
         self.assertIn('id="matchCenterLeagueFilters"', HTML)
