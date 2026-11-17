@@ -26,6 +26,8 @@ class V7CompactUiTests(unittest.TestCase):
         self.assertIn('id="leaguePicker"', self.html)
         self.assertIn('id="leagueCards" class="league-grid" hidden', self.html)
         self.assertIn('id="teamList" hidden', self.html)
+        self.assertIn('id="teamCount" hidden', self.html)
+        self.assertIn('id="leagueCount" hidden', self.html)
 
     def test_match_details_expand_inside_the_selected_match_card(self):
         self.assertIn('matchCard.append(detail())', self.detail)
