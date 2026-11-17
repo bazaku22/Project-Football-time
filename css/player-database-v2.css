@@ -28,3 +28,23 @@
 .player-v2-empty{padding:22px 13px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8;background:#14232d;border:1px dashed #405461;border-radius:12px;margin-top:12px}
 .player-v2-empty small{font-size:10px}
 @media(max-width:360px){.player-v2-photo{width:86px;height:108px}.player-v2-identity h3{font-size:15px}.player-v2-stat{padding:8px 3px}.player-v2-stat b{font-size:18px}}
+
+/* Hierarchical Player Database navigation */
+.player-v2-home-grid,.player-v2-directory{display:grid;gap:10px;margin-top:12px}
+.player-v2-category,.player-v2-directory-card{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:var(--panel);color:#f4f7f9;border:1px solid #344653;border-radius:13px;padding:13px;cursor:pointer;min-width:0}
+.player-v2-category-icon,.player-v2-team-flag{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:11px;background:#203b39;font-size:22px}
+.player-v2-category>span:nth-child(2),.player-v2-directory-card>span:nth-child(2){display:grid;gap:4px;min-width:0;flex:1}
+.player-v2-category b,.player-v2-directory-card b{font-size:14px}
+.player-v2-category small,.player-v2-directory-card small{font-size:10px;color:var(--muted);line-height:1.5}
+.player-v2-category strong{font-size:10px;color:#b7f3d9;white-space:nowrap}
+.player-v2-directory-card{padding:11px}
+.player-v2-league-code,.player-v2-club-mark{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:10px;background:#20313c;color:#b7f3d9;font-size:12px;font-weight:800}
+.player-v2-club-mark{font-size:20px}
+.player-v2-chevron{font-size:22px;color:var(--muted);padding-left:5px}
+.player-v2-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}
+.player-v2-toolbar .player-v2-back{margin:0}
+.player-v2-step{font-size:12px;color:var(--muted);font-weight:650}
+.player-v2-search{margin:5px 0 10px}
+.player-v2-note{line-height:1.7}
+.player-v2-stat-section .player-v2-section-head span{font-size:9px}
+@media(max-width:360px){.player-v2-category,.player-v2-directory-card{gap:8px;padding:10px}.player-v2-category-icon,.player-v2-team-flag,.player-v2-league-code,.player-v2-club-mark{width:36px;height:36px;flex-basis:36px}.player-v2-category b,.player-v2-directory-card b{font-size:13px}.player-v2-category strong{font-size:9px}}

@@ -7,29 +7,59 @@
   "datasetStatus": "TEST_DRAFT",
   "sources": [
     {
-      "publisher": "GOAL Thailand",
-      "publishedAt": "2026-11-15",
-      "url": "https://www.goal.com/th/%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%97%E0%B8%B5%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%E0%B9%84%E0%B8%97%E0%B8%A2--%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD-24-%E0%B8%84%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%97%E0%B9%89%E0%B8%B2%E0%B8%A2-%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%AD%E0%B8%9F%E0%B9%80%E0%B8%AD%E0%B8%9F-%E0%B8%84%E0%B8%B1%E0%B8%9E-2022-%E0%B9%83%E0%B8%84%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%94-%E0%B9%83%E0%B8%84%E0%B8%A3%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%94%E0%B9%82%E0%B8%9C/bltf7a05cee33ff5e2d",
+      "publisher": "FA Thailand",
+      "publishedAt": "2026-11-03",
+      "url": "https://www.fathailand.org/news-detail/9gbCq?language=th",
       "usedFor": [
-        "23-player squad",
-        "positions",
-        "club at squad announcement"
+        "official initial 23-player senior squad announcement for King's Cup 2026"
+      ]
+    },
+    {
+      "publisher": "AFF",
+      "publishedAt": "2026-11-05",
+      "url": "https://www.aseanfootball.org/v3/im-happy-with-the-players-selected-hudson/",
+      "usedFor": [
+        "cross-check of the initial senior squad and selected club affiliations"
+      ]
+    },
+    {
+      "publisher": "Thairath",
+      "publishedAt": "2026-11-14",
+      "url": "https://en.thairath.co.th/sport/thaifootball/2972496",
+      "usedFor": [
+        "final 23-player King's Cup roster and shirt numbers after squad changes"
       ]
     },
     {
       "publisher": "FA Thailand",
       "publishedAt": "2026-11-14",
-      "url": "https://fathailand.org/news-detail/dimKH?language=th",
+      "url": "https://www.fathailand.org/news-detail/dimKH",
       "usedFor": [
-        "official tournament coverage and match events"
+        "official match report and confirmation of players used against Brunei"
       ]
     },
     {
-      "publisher": "SiamSport",
-      "publishedAt": "2026-11-17",
-      "url": "https://www.siamsport.co.th/football-thailand/thai-national/112154/",
+      "publisher": "11v11",
+      "publishedAt": null,
+      "url": "https://www.11v11.com/teams/thailand/tab/stats/option/appearances/",
       "usedFor": [
-        "17 November 2026 final fixture"
+        "player-level senior international appearance totals where explicitly listed; source-specific as-of dates retained"
+      ]
+    },
+    {
+      "publisher": "RSSSF",
+      "publishedAt": "2026-10-22",
+      "url": "https://www.rsssf.org/miscellaneous/thai-recintlp.html",
+      "usedFor": [
+        "cross-check of Thailand senior international records; incomplete source, used only where no unresolved discrepancy"
+      ]
+    },
+    {
+      "publisher": "Thairath",
+      "publishedAt": "2026-11-14",
+      "url": "https://en.thairath.co.th/sport/thaifootball/2972496",
+      "usedFor": [
+        "squad identity verification; not used to infer career statistics"
       ]
     }
   ],
@@ -58,17 +88,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 32,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-09-26"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-09-26; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000002",
@@ -101,10 +142,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000003",
@@ -137,10 +188,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000004",
@@ -173,10 +234,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000005",
@@ -202,17 +273,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 18,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 18 senior international appearances as of 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000006",
@@ -245,10 +327,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000007",
@@ -274,17 +366,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 36,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000008",
@@ -317,10 +420,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000009",
@@ -346,17 +459,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 20,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2025-09-07"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 20 senior international appearances as of 2025-09-07; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000010",
@@ -382,17 +506,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 41,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000011",
@@ -418,17 +553,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 13,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 13 senior international appearances as of 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000012",
@@ -461,10 +607,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000013",
@@ -497,10 +653,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000014",
@@ -533,10 +699,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000015",
@@ -562,17 +738,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 50,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-02"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-02; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000016",
@@ -605,10 +792,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000017",
@@ -634,17 +831,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 14,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 14 senior international appearances as of 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000018",
@@ -677,10 +885,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000019",
@@ -706,17 +924,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 28,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 28 senior international appearances as of 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000020",
@@ -742,17 +971,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
-          "goals": null,
+          "appearances": 54,
+          "goals": 0,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-08-26"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "RSSSF Thailand record international players; 54 senior appearances and 0 goals as of 2026-08-26; source notes that the record is incomplete and subject to checking; assists remain unknown"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000021",
@@ -785,10 +1025,20 @@
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "Not populated: no sufficiently corroborated player-level senior A-international total located; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000022",
@@ -814,17 +1064,28 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 36,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2026-10-05"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 36 senior international appearances as of 2026-10-05; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     },
     {
       "playerId": "PFT-000023",
@@ -850,27 +1111,36 @@
           "season": "2026/27"
         },
         "nationalTeam": {
-          "appearances": null,
+          "appearances": 34,
           "goals": null,
           "assists": null,
-          "period": "career"
+          "period": "career",
+          "asOf": "2025-03-25"
         }
       },
       "provenance": {
-        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
-        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
-        "stats": "Not populated: totals and aggregation period have not yet been verified"
-      }
+        "identity": "Thailand King's Cup 2026 squad identity cross-checked against FA Thailand official squad announcement (2026-11-03) and Thairath final 23-player shirt-number list (2026-11-14)",
+        "club": "Provisional club affiliation from squad coverage; retained as a dated test snapshot and still requires independent club-level verification",
+        "stats": "Not populated: totals and aggregation period have not yet been verified",
+        "nationalTeamStats": "11v11 Thailand appearances table; 34 senior international appearances as of 2025-03-25; goals and assists remain unverified"
+      },
+      "nationalTeams": [
+        {
+          "teamId": "THA",
+          "name": "ทีมชาติไทย",
+          "competition": "King's Cup 2026",
+          "rosterStatus": "SQUAD",
+          "verifiedAsOf": "2026-11-14"
+        }
+      ]
     }
   ],
   "notes": [
-    "Test dataset for the Thailand men's senior squad named for the 52nd King's Cup in November 2026; not all 23 are confirmed starters.",
-    "Permanent Player IDs assigned for this explicitly approved test after identity matching against the published squad.",
-    "Club and national-team statistics remain separate and must never be combined.",
-    "Unknown statistics remain null and must display as an em dash, not zero.",
-    "Current clubs reflect the 15 November 2026 squad article and require re-verification before production use.",
-    "No unverified player photos or club crests were added; neutral placeholders are intentional.",
-    "National-team appearances, goals and assists use career totals across the player's senior international career; unknown totals remain null.",
-    "National-team statistics period is career lifetime (senior national team); club statistics remain season 2026/27."
+    "The active Thailand national-team roster contains 23 players named in the King's Cup 2026 squad. The 23 records retain their permanent Player IDs.",
+    "National-team membership is stored as a reference on the same player record; future club and national-team listings must reuse the same Player ID.",
+    "National-team statistics cover senior FIFA International A matches only. Youth teams and unofficial matches are excluded.",
+    "Appearances are populated only where a player-level senior international total and the source-specific latest appearance date were found. Conflicting or insufficiently corroborated totals remain null and display as —.",
+    "Goals and assists remain null unless independently verified; squad selection or absence from a top-appearance list is not evidence of zero.",
+    "Club statistics remain separate and scoped to season 2026/27. Current club league grouping remains unclassified until independently verified."
   ]
 }
