@@ -66,9 +66,9 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("./js/player-database-v2.js", html)
         self.assertIn("./js/player-database-v2.js", sw)
-        self.assertIn("./css/player-database-v2.css?v=3", sw)
+        self.assertIn("./css/player-database-v2.css?v=4", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v117"', sw)
+        self.assertIn('const CACHE = "football-time-v118"', sw)
 
 
 if __name__ == "__main__":
