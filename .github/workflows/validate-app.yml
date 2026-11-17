@@ -18,6 +18,8 @@ on:
       - "docs/automated-football-research-refresh.md"
       - ".github/workflows/update-football-research.yml"
       - "data/football-database.json"
+      - "data/international-matches.json"
+      - "tests/test_international_match_data.py"
       - "data/test-fixtures-2026-11.json"
       - "js/asian-handicap.js"
       - "js/handicap-history.js"
@@ -244,6 +246,9 @@ jobs:
         run: |
           python3 -m py_compile scripts/build_football_database.py scripts/validate_football_database.py scripts/phase6_league_catalog.py scripts/sync_elc_database.py
           python3 -m unittest tests/test_phase6_league_catalog.py tests/test_football_database_sync.py tests/test_elc_only_sync.py
+
+      - name: Validate international national-team pilot data
+        run: python3 -m unittest tests/test_international_match_data.py -v
 
       - name: Validate football database JSON
         run: |
