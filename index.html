@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1420">
-<meta name="application-version" content="6.27.0-beta.1">
-<title>Project Football Time V6.27.0-beta.1</title>
+<meta name="application-version" content="7.0.0">
+<title>Project Football Time V7.0</title>
 <link rel="manifest" href="manifest.webmanifest">
 <style>
 :root{color-scheme:dark;--bg:#101820;--panel:#1b2934;--muted:#9aabb7;--green:#66d9a6;--gold:#e7bd72;--line:#344653}
@@ -68,14 +68,15 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
 <script src="./js/handicap-history.js"></script>
 <script src="./js/handicap-reference.js"></script>
 <link rel="stylesheet" href="./css/modern-analytics-overhaul.css?v=1">
+<link rel="stylesheet" href="./css/v7-compact-ui.css?v=1">
 </head>
 <body>
-<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V6.27.0-beta.1</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
+<header><div class="brand"><div class="logo">⚽</div><div><h1>PROJECT FOOTBALL TIME</h1><div class="sub">MATCH CENTER · FOOTBALL DATABASE · MODEL TRACKER</div><span class="app-version">V7.0</span></div></div><button type="button" id="pftNotificationButton" class="pft-notification-trigger" aria-label="เปิดศูนย์การแจ้งเตือน" title="การแจ้งเตือน">🔔<span id="pftNotificationUnread" class="pft-notification-count"></span></button></header>
 <dialog id="pftNotificationDialog" class="pft-notification-dialog" aria-labelledby="pftNotificationTitle"><div class="pft-notification-head"><h2 id="pftNotificationTitle">การแจ้งเตือน</h2><div class="pft-notification-actions"><button type="button" id="pftNotificationClear">ล้างทั้งหมด</button><button type="button" id="pftNotificationClose" aria-label="ปิด">ปิด</button></div></div><div id="pftNotificationList" class="pft-notification-list"></div></dialog><div id="pftToastRoot" class="pft-toast-root" aria-live="polite" aria-atomic="false"></div>
 <main id="main">
 <section id="home" class="page active">
 <div class="sectionhead"><h2>โปรแกรมและผลการแข่งขัน</h2><span class="small" id="matchCenterCount">กำลังโหลด…</span></div>
- <p class="profile-note">เลือกวัน ลีก และสถานะ หรือค้นหาทีม เพื่อดูการแข่งขันและเปิดรายละเอียดได้จากหน้าเดียว</p>
+ <p class="profile-note">เลือกวัน ลีก และสถานะ เพื่อดูการแข่งขันและเปิดรายละเอียดได้จากหน้าเดียว</p>
 
  <div id="matchCenterApp">
   <div class="mc-calendar" aria-label="ปฏิทินโปรแกรมแข่งขัน">
@@ -89,7 +90,6 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
    <div id="matchCenterDateStrip" class="mc-date-strip" role="group" aria-label="เลือกวันแข่งขัน"></div>
   </div>
   <div class="mc-league-filter-wrap"><div class="mc-filter-caption">เลือกลีก / รายการแข่งขัน (เลือกได้หลายรายการ)</div><div id="matchCenterLeagueFilters" class="mc-league-filters" role="group" aria-label="เลือกลีกและรายการแข่งขัน"></div></div>
-  <div class="mc-toolbar"><div class="field"><label for="matchCenterSearch">ค้นหาทีม / คู่แข่งขัน</label><input id="matchCenterSearch" class="filter" type="search" placeholder="พิมพ์ชื่อทีมที่ต้องการค้นหา" autocomplete="off"></div></div>
   <div class="mc-filters" role="group" aria-label="กรองการแข่งขัน">
    <button type="button" class="mc-filter active" data-match-filter="all" aria-pressed="true">ทั้งหมด</button>
    <button type="button" class="mc-filter" data-match-filter="upcoming" aria-pressed="false">กำลังจะมาถึง</button>
@@ -132,12 +132,12 @@ table{width:100%;border-collapse:collapse;font-size:12px;white-space:nowrap}td,t
  <button data-db-tab="accuracy">ความแม่นยำ</button>
  <button data-db-tab="advanced">วิเคราะห์เชิงลึก</button>
 </div><div class="db-panel active" id="dbtab-overview"><div class="card"><div class="small">อัปเดตฐานข้อมูลล่าสุด</div><div class="value" id="dbUpdated">—</div><div class="small" id="dbSource" style="margin-top:5px">ข้อมูลจาก football-data.org</div></div>
- <div class="sectionhead"><h2>เลือกลีก</h2><span class="small" id="leagueCount">8 ลีก</span></div><div id="leagueCards" class="league-grid"></div>
- <div class="pillrow" id="leaguePicker"></div>
+ <div id="leagueCards" class="league-grid" hidden></div>
+ <div class="pillrow" id="leaguePicker" aria-label="เลือกลีก"></div>
   <div class="league-data-status" id="leagueDataStatus" role="status">กำลังตรวจสอบสถานะข้อมูลของลีก…</div>
  <div class="sectionhead"><h2 id="selectedLeagueTitle">Premier League</h2><span class="small" id="selectedLeagueCountry"></span></div>
  <div class="card"><div class="topline"><b>ตารางคะแนน</b><span class="small" id="tableSeason">ฤดูกาล —</span></div><div style="overflow-x:auto"><table><thead><tr><th>#</th><th>ทีม</th><th>แข่ง</th><th>ชนะ</th><th>เสมอ</th><th>แพ้</th><th>ได้/เสีย</th><th>ต่าง</th><th>แต้ม</th></tr></thead><tbody id="standingsBody"><tr><td colspan="9">กำลังโหลด…</td></tr></tbody></table></div></div>
- <div class="card"><div class="topline"><b>ทีมในลีก</b><span class="small" id="teamCount">—</span></div><div id="teamList"></div></div>
+ <div id="teamList" hidden></div>
  <div class="card"><div class="topline"><b>โปรแกรมและผลการแข่งขัน</b><span class="small" id="matchCount">—</span></div><div class="field"><label for="matchFilter">กรองการแข่งขัน</label><select id="matchFilter" class="filter"><option value="ALL">ทั้งหมด</option><option value="SCHEDULED">กำหนดแข่งขัน</option><option value="TIMED">มีเวลาแข่งขัน</option><option value="FINISHED">จบแล้ว</option></select></div><div id="databaseMatches"></div></div>
  <p class="notice">ข้อมูลฐานฟุตบอลเป็นข้อมูลอ้างอิงแบบอ่านอย่างเดียว ไม่แก้ไขรายการทดสอบที่คุณบันทึกไว้</p>
 </div>
