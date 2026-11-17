@@ -56,6 +56,6 @@
 .player-v2-shirt-numbers span{display:inline-flex;align-items:center;border:1px solid #344653;border-radius:7px;background:#14232d;padding:4px 7px;color:#dce6eb;font-size:10px}
 @media(max-width:360px){.player-v2-number{width:30px;height:34px;flex-basis:30px;font-size:11px}.player-v2-card{gap:7px;padding:9px}}
 
-.player-v2-sprite-photo{display:block;background-color:#22333f;background-repeat:no-repeat;background-size:400% 300%;}
+
 
 .player-v2-sprite-photo{display:block;background-color:#22333f;background-repeat:no-repeat;background-size:400% 300%;}
