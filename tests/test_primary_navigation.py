@@ -6,10 +6,10 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 
 class PrimaryNavigationTests(unittest.TestCase):
-    def test_five_primary_routes_are_defined(self):
+    def test_four_primary_routes_are_defined(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
-        routes = re.findall(r'^    (home|leagues|matches|players|tools): \{ page:', source, re.M)
-        self.assertEqual(routes, ["home", "leagues", "matches", "players", "tools"])
+        routes = re.findall(r'^    (home|leagues|matches|tools): \{ page:', source, re.M)
+        self.assertEqual(routes, ["home", "leagues", "matches", "tools"])
 
     def test_home_is_compact_without_duplicate_shortcuts_or_dashboard(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
@@ -24,20 +24,8 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_all_secondary_destinations_are_reachable_from_tools_hub(self):
         source = (ROOT / "js/primary-navigation.js").read_text()
         for target in ("analyze", "history", "summary", "advanced",
-                       "archive", "matchResearch", "playerOperations", "playerMatchEvents",
-                       "footballEcosystemExport"):
+                       "archive", "matchResearch", "footballEcosystemExport"):
             self.assertIn('data-secondary-route="' + target + '"', source)
-
-    def test_player_operations_center_route_targets_mounted_page(self):
-        source = (ROOT / "js/primary-navigation.js").read_text()
-        self.assertIn('target === "playerOperations"', source)
-        self.assertIn('activate("playerOperationsPage", null, "")', source)
-
-    def test_player_database_is_reached_through_existing_database_tab(self):
-        source = (ROOT / "js/primary-navigation.js").read_text()
-        player_module = (ROOT / "js/player-database-mvp.js").read_text()
-        self.assertIn('players: { page: "fixtures", tab: "playerDatabase" }', source)
-        self.assertIn('tab.dataset.dbTab="playerDatabase"', player_module)
 
     def test_international_tools_and_assets_are_removed(self):
         navigation = (ROOT / "js/primary-navigation.js").read_text()
@@ -93,9 +81,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.26.9-beta.1"', html)
-        self.assertIn('Project Football Time V6.26.9-beta.1', html)
-        self.assertIn('const CACHE = "football-time-v109"', sw)
+        self.assertIn('content="6.26.10-beta.1"', html)
+        self.assertIn('Project Football Time V6.26.10-beta.1', html)
+        self.assertIn('const CACHE = "football-time-v110"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
