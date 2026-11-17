@@ -8,45 +8,6 @@ on:
       - "js/notification-center.js"
       - "css/notification-center.css"
       - "tests/test_notification_center.py"
-      - "js/player-database.js"
-      - "data/player-position-pilot-2026-27.json"
-      - "tests/test_player_database_workspace.py"
-      - "js/player-identity-review.js"
-      - "js/player-team-alias-review.js"
-      - "css/player-identity-review.css"
-      - "css/player-directory.css"
-      - "css/player-hub.css"
-      - "js/player-hub.js"
-      - "tests/test_player_hub_five_phase.py"
-      - "tests/test_player_competition_statistics.py"
-      - "tests/test_player_directory_refresh.py"
-      - "tests/test_player_identity_review_ui.py"
-      - "js/reep-alias-pilot.js"
-      - "js/player-cloud.js"
-      - "supabase/functions/reep-aliases/index.ts"
-      - "docs/phase-5.6-reep-private-alias-pilot.md"
-      - "data/player-database.json"
-      - "data/current-player-squads-2026-27.json"
-      - "scripts/validate_current_player_squads.py"
-      - "tests/test_current_player_squad_validator.py"
-      - "scripts/validate_wikidata_player_membership.py"
-      - "tests/test_wikidata_player_membership.py"
-      - "data/wikidata-player-membership-review-2026-27.json"
-      - "docs/wikidata-offline-player-membership-review-2026-27.md"
-      - "docs/player-open-data-source-assessment-2026-11.md"
-      - "scripts/validate_player_intake_manifest.py"
-      - "tests/test_player_intake_manifest.py"
-      - "data/player-intake-manifest-2026-27.json"
-      - "docs/player-intake-manifest-2026-27.md"
-      - "data/player-coverage-2026-27.json"
-      - "scripts/validate_player_coverage.py"
-      - "tests/test_player_coverage.py"
-      - "docs/player-coverage-gap-analysis-2026-11-12.md"
-      - "scripts/player_source_pipeline.py"
-      - "tests/test_player_source_pipeline.py"
-      - "data/player-source-pipeline-report-2026-27.json"
-      - "docs/phase3-rights-cleared-player-source-pipeline-2026-27.md"
-      - "scripts/reep_snapshot_inspector.py"
       - "js/research-insight.js"
       - "css/football-research.css"
       - "sw.js"
@@ -56,14 +17,6 @@ on:
       - "data/football-research-stats-2026-27.json"
       - "docs/automated-football-research-refresh.md"
       - ".github/workflows/update-football-research.yml"
-      - "scripts/wikidata_p54_jsonl_extractor.py"
-      - "tests/test_wikidata_p54_jsonl_extractor.py"
-      - "docs/phase3-wikidata-local-jsonl-extractor-2026-27.md"
-      - "tests/test_reep_snapshot_inspector.py"
-      - "data/reep-snapshot-inspection-2026-27.json"
-      - "docs/phase3-reep-local-snapshot-inspection-2026-27.md"
-      - "scripts/update_player_database.py"
-      - ".github/workflows/update-player-database.yml"
       - "data/football-database.json"
       - "data/test-fixtures-2026-11.json"
       - "js/asian-handicap.js"
@@ -85,11 +38,6 @@ on:
       - "manifest.webmanifest"
       - "tests/test_primary_navigation.py"
       - "tests/test_analysis_workspace.py"
-      - "tests/test_player_statistics_import_ui.py"
-      - "data/player-statistics-intake-2026-27.json"
-      - "scripts/validate_player_statistics_intake.py"
-      - "tests/test_player_statistics_intake.py"
-      - "docs/player-directory-and-statistics-intake-2026-27.md"
       - "scripts/fetch_asian_handicap_odds.py"
       - "tests/test_asian_handicap_odds.py"
       - ".github/workflows/update-asian-handicap-odds.yml"
@@ -112,21 +60,6 @@ on:
       - "js/manual-match-research.js"
       - "css/manual-match-research.css"
       - "tests/test_manual_match_research_ui.py"
-      - "data/player-match-event-ledger-2026-27.json"
-      - "data/player-match-event-ledger-2026-27.schema.json"
-      - "scripts/validate_player_match_event_ledger.py"
-      - "tests/test_player_match_event_ledger.py"
-      - "js/player-match-event-entry.js"
-      - "css/player-match-event-entry.css"
-      - "tests/test_player_match_event_entry_ui.py"
-      - "js/player-database-mvp.js"
-      - "css/player-database-mvp.css"
-      - "tests/test_player_database_verified_ledger.py"
-      - "tests/test_player_database_navigation.py"
-      - "data/footballsquads-roster-intake-2026-27.json"
-      - "tests/test_player_roster_database_mvp.py"
-      - "docs/player-match-event-ledger-2026-27.md"
-      - ".github/workflows/player-match-event-ledger-tests.yml"
       - "docs/phase-6-5-match-calendar-filters.md"
       - "tests/test_football_database_sync.py"
       - "js/football-discovery.js"
@@ -137,12 +70,8 @@ on:
       - "scripts/build_probability_snapshots.py"
       - "scripts/phase6_league_catalog.py"
       - "tests/test_phase6_league_catalog.py"
-      - "scripts/match_player_sources.py"
       - "docs/phase-5.6-multi-source-foundation.md"
       - "tests/test_probability_snapshots.py"
-      - "scripts/wyscout_event_pilot.py"
-      - "tests/test_wyscout_event_pilot.py"
-      - "docs/phase-5.6-wyscout-parser-pilot.md"
       - ".github/workflows/validate-app.yml"
       - ".github/workflows/update-football-database.yml"
       - ".github/workflows/update-elc-only.yml"
@@ -227,7 +156,6 @@ jobs:
           node --check js/handicap-reference.js
           node tests/test_handicap_history.js
           node tests/test_handicap_reference.js
-          node --check js/player-team-alias-review.js
           node --check js/primary-navigation.js
           node --check js/football-ecosystem-export.js
           node tests/test_football_ecosystem_fixture_export.js
@@ -253,23 +181,6 @@ jobs:
                   raise SystemExit("Missing automatic API handicap UI marker: " + marker)
           print("Experiment summary tab and automatic API handicap UI markers are valid.")
           PY
-          node --check js/player-database.js
-          node --check js/player-hub.js
-          python3 -m unittest tests/test_player_database_workspace.py tests/test_player_directory_refresh.py tests/test_player_identity_review_ui.py tests/test_player_hub_five_phase.py tests/test_player_competition_statistics.py -v
-          python3 -m py_compile scripts/validate_current_player_squads.py
-          python3 scripts/validate_current_player_squads.py
-          python3 -m unittest tests/test_current_player_squad_validator.py -v
-          node --input-type=module --check < js/reep-alias-pilot.js
-
-      - name: Validate multi-source player identity matcher
-        run: |
-          python3 -m py_compile scripts/match_player_sources.py
-          python3 scripts/match_player_sources.py --self-test
-
-      - name: Validate Wyscout local event parser pilot
-        run: |
-          python3 -m py_compile scripts/wyscout_event_pilot.py
-          python3 -m unittest tests/test_wyscout_event_pilot.py
 
       - name: Validate probability metrics and calibration
         run: |
@@ -300,97 +211,6 @@ jobs:
           python3 -m py_compile scripts/build_probability_snapshots.py
           python3 tests/test_probability_snapshots.py
 
-      - name: Validate offline Wikidata player membership review
-        run: |
-          python3 -m py_compile scripts/validate_wikidata_player_membership.py
-          python3 -m unittest tests/test_wikidata_player_membership.py
-          python3 scripts/validate_wikidata_player_membership.py
-
-      - name: Validate rights-cleared player intake manifest
-        run: |
-          python3 -m py_compile scripts/validate_player_intake_manifest.py
-          python3 -m unittest tests/test_player_intake_manifest.py
-          python3 scripts/validate_player_intake_manifest.py
-          python3 -m py_compile scripts/validate_player_statistics_intake.py
-          python3 scripts/validate_player_statistics_intake.py
-          python3 -m unittest tests/test_player_statistics_intake.py -v
-
-      - name: Validate FootballSquads 2026/27 96-club roster intake
-        run: |
-          python3 -m py_compile scripts/validate_footballsquads_roster_intake.py
-          python3 -m unittest tests/test_footballsquads_roster_intake_validator.py -v
-          python3 scripts/validate_footballsquads_roster_intake.py
-
-      - name: Validate five-league 2026/27 player coverage register
-        run: |
-          python3 -m py_compile scripts/validate_player_coverage.py
-          python3 -m unittest tests/test_player_coverage.py
-          python3 scripts/validate_player_coverage.py
-
-      - name: Validate offline player source pipeline
-        run: |
-          python3 -m py_compile scripts/player_source_pipeline.py
-          python3 -m unittest tests/test_player_source_pipeline.py -v
-          python3 scripts/player_source_pipeline.py --output /tmp/player-source-pipeline-report.json
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          report = json.loads(Path("/tmp/player-source-pipeline-report.json").read_text(encoding="utf-8"))
-          if report.get("production_import") is not False or report.get("provider_api_calls") != 0:
-              raise SystemExit("Offline player source pipeline safety contract failed")
-          if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
-              raise SystemExit("Production Supabase mutation is forbidden in this pipeline")
-          print("Offline source pipeline safety contract is valid.")
-          PY
-
-      - name: Validate offline Wikidata JSONL P54 extractor
-        run: |
-          python3 -m py_compile scripts/wikidata_p54_jsonl_extractor.py
-          python3 -m unittest tests/test_wikidata_p54_jsonl_extractor.py -v
-          python3 - <<'PY'
-          import re
-          from pathlib import Path
-          source = Path("scripts/wikidata_p54_jsonl_extractor.py").read_text(encoding="utf-8")
-          forbidden_import = re.search(r"(?m)^\\s*(?:import|from)\\s+(?:requests|urllib|httpx|supabase)(?:\\.|\\s|$)", source)
-          if forbidden_import:
-              raise SystemExit("Unexpected network/database module import in local extractor.")
-          print("Wikidata extractor remains local-only with no network or database integration.")
-          PY
-
-      - name: Validate Reep local DuckDB snapshot inspector
-        run: |
-          python3 -m py_compile scripts/reep_snapshot_inspector.py
-          python3 -m unittest tests/test_reep_snapshot_inspector.py -v
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          report = json.loads(Path("data/reep-snapshot-inspection-2026-27.json").read_text(encoding="utf-8"))
-          if report.get("status") != "awaiting_local_snapshot":
-              raise SystemExit("Expected an explicit empty local-snapshot baseline.")
-          if report.get("production_import") is not False or report.get("provider_api_calls") != 0:
-              raise SystemExit("Reep snapshot inspection safety contract failed.")
-          if report.get("row_values_exported") is not False or report.get("external_access") is not False:
-              raise SystemExit("Reep inspector must remain schema-only and external-access-disabled.")
-          if any(report.get(key) != 0 for key in ("supabase_writes", "supabase_deletes", "supabase_migrations")):
-              raise SystemExit("Supabase mutations are forbidden in the Reep inspector.")
-          print("Reep inspector baseline is safe; no snapshot was falsely claimed as inspected.")
-          PY
-
-      - name: Validate player importer and database JSON
-        run: |
-          python3 -m py_compile scripts/update_player_database.py
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          data=json.loads(Path("data/player-database.json").read_text(encoding="utf-8"))
-          if data.get("schemaVersion") != 1 or not isinstance(data.get("records"), list):
-              raise SystemExit("Invalid player database schema")
-          ids=[x.get("id") for x in data["records"]]
-          if len(ids) != len(set(ids)):
-              raise SystemExit("Duplicate player record IDs")
-          print("Player database schema and IDs are valid.")
-          PY
-
       - name: Validate automated football research refresh
         run: |
           python3 -m py_compile scripts/build_football_research.py
@@ -401,17 +221,6 @@ jobs:
         run: |
           node --check js/manual-match-research.js
           python3 -m unittest tests/test_manual_match_research_ui.py -v
-
-      - name: Validate local player match event entry UI
-        run: |
-          node --check js/player-match-event-entry.js
-          python3 -m unittest tests/test_player_match_event_entry_ui.py -v
-
-      - name: Validate Player Database verified ledger integration
-        run: |
-          node --check js/player-database-mvp.js
-          python3 -m unittest tests/test_player_database_verified_ledger.py -v
-          python3 -m unittest tests/test_player_database_navigation.py -v
 
       - name: Validate Football Time ecosystem result revision export
         run: |
@@ -424,10 +233,6 @@ jobs:
           python3 -m unittest tests/test_legacy_result_revision_safety.py -v
           python3 -m json.tool schemas/football-ecosystem-result-v1.schema.json > /dev/null
           python3 -m json.tool schemas/football-ecosystem-legacy-result-snapshot-v1.schema.json > /dev/null
-
-      - name: Validate Player Database 2026/27 roster MVP
-        run: |
-          python3 -m unittest tests/test_player_roster_database_mvp.py -v
 
       - name: Validate manual match research intake contract
         run: |
@@ -492,11 +297,3 @@ jobs:
 
           print("November test fixtures: five-league-only records, unique IDs, required fields and UTC timestamps are valid.")
           PY
-
-      - name: Validate offline player match event ledger
-        run: |
-          python3 -m json.tool data/player-match-event-ledger-2026-27.json > /dev/null
-          python3 -m json.tool data/player-match-event-ledger-2026-27.schema.json > /dev/null
-          python3 -m py_compile scripts/validate_player_match_event_ledger.py tests/test_player_match_event_ledger.py
-          python3 -m unittest tests/test_player_match_event_ledger.py -v
-          python3 scripts/validate_player_match_event_ledger.py
