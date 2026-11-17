@@ -21,6 +21,10 @@ on:
       - "js/unified-match-center.js"
       - "js/manual-match-research.js"
       - "css/manual-match-research.css"
+      - "js/player-database-v2.js"
+      - "css/player-database-v2.css"
+      - "data/player-database-v2.json"
+      - "tests/test_player_database_v2.py"
       - "tests/test_manual_match_research_ui.py"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
@@ -60,7 +64,8 @@ jobs:
           node --check js/unified-match-center.js
           node --check js/match-center-mockup.js
           node --check js/manual-match-research.js
-          python3 -m unittest tests/test_manual_match_research_ui.py -v
+          node --check js/player-database-v2.js
+          python3 -m unittest tests/test_manual_match_research_ui.py tests/test_player_database_v2.py -v
           node --check sw.js
           python - <<'PY'
           import re
@@ -80,7 +85,7 @@ jobs:
         run: node tests/test_handicap_reference.js
       - name: Check app and service worker versions
         run: |
-          grep -q 'application-version" content="6.26.11-beta.1"' index.html
-          grep -q 'football-time-v113' sw.js
+          grep -q 'application-version" content="6.26.12-beta.1"' index.html
+          grep -q 'football-time-v114' sw.js
           grep -q 'analysis-refinement.css' sw.js
           ! grep -q 'rows.length>2500' index.html
