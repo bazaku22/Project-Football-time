@@ -49,7 +49,8 @@ class InternationalMatchDataTests(unittest.TestCase):
                 self.assertEqual(len({player["shirtNumber"] for player in lineup["substitutes"]}), 12)
                 self.assertEqual(lineup["substitutesStatus"], "named_substitutes")
                 self.assertNotIn("playerId", json.dumps(lineup))
-                self.assertTrue(lineup["source"]["url"])
+                self.assertTrue(lineup["startingXISource"]["url"])
+                self.assertTrue(lineup["substitutesSource"]["url"])
 
     def test_result_remains_pending_with_no_score(self):
         match = DATA["matches"][0]
