@@ -1,6 +1,9 @@
 "use strict";
 (() => {
-  const CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1"]);
+  const CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","INTL"]);
+  const INTERNATIONAL_DATA_URL = "./data/international-matches.json";
+  let baseDatabase = null;
+  let internationalData = null;
   const $ = (id) => document.getElementById(id);
   const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (c) => ({
     "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
@@ -68,6 +71,7 @@
     return (database?.teams || []).find((team) => String(team.id) === String(id)) || null;
   }
   function crest(team) {
+    if (team?.flagEmoji) return "<span class=\"mc-national-flag\" role=\"img\" aria-label=\"ธงชาติ " + esc(team.name || "") + "\">" + esc(team.flagEmoji) + "</span>";
     const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3);
     if (team?.crest) {
       return '<span class="mc-crest-wrap"><img src="' + esc(team.crest) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden class="mc-crest-fallback">' + esc(initials) + '</span></span>';
@@ -228,7 +232,7 @@
     const scoreReady = match.homeScore !== null && match.homeScore !== undefined &&
       match.awayScore !== null && match.awayScore !== undefined &&
       (kind === "finished" || kind === "live");
-    const score = scoreReady ? esc(match.homeScore) + " - " + esc(match.awayScore) : "VS";
+    const score = scoreReady ? esc(match.homeScore) + " - " + esc(match.awayScore) : (kind === "finished" && match.resultVerification?.status === "pending_manual_confirmation" ? "รอยืนยันผล" : "VS");
     const league = (database?.leagues || []).find((item) => item.id === match.leagueId);
     const time = match.utcDate ? formatThaiTime(match.utcDate) : "ไม่ประกาศเวลา";
     const providerMatchId = match.providerMatchId == null ? "" : String(match.providerMatchId);
@@ -387,9 +391,47 @@
     const existing = window.FootballTimeAppContext?.getDatabase?.();
     if (existing) setDatabase(existing);
     else { renderCalendar(); render(); }
+    loadInternationalData();
+  }
+  function mergeInternationalData(data) {
+    if (!data || !Array.isArray(data.matches) || !Array.isArray(data.teams) || !Array.isArray(data.leagues)) return data;
+    const merged = {
+      ...data,
+      leagues: [...(data.leagues || [])],
+      teams: [...(data.teams || [])],
+      matches: [...(data.matches || [])]
+    };
+    const addUnique = (target, incoming, key) => {
+      const ids = new Set(target.map((row) => String(row?.[key])));
+      incoming.forEach((row) => {
+        const id = String(row?.[key] ?? "");
+        if (id && !ids.has(id)) { target.push(row); ids.add(id); }
+      });
+    };
+    addUnique(merged.leagues, internationalData.leagues || [], "id");
+    addUnique(merged.teams, internationalData.teams || [], "id");
+    addUnique(merged.matches, internationalData.matches || [], "id");
+    return merged;
+  }
+  async function loadInternationalData() {
+    try {
+      const response = await fetch(INTERNATIONAL_DATA_URL, {cache:"no-store"});
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      const payload = await response.json();
+      if (payload.schemaVersion !== 1 || !Array.isArray(payload.matches) ||
+          !Array.isArray(payload.teams) || !Array.isArray(payload.leagues) ||
+          payload.matches.some((match) => !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(String(match.id || "")))) {
+        throw new Error("รูปแบบข้อมูลแมตช์ทีมชาติไม่ถูกต้อง");
+      }
+      internationalData = payload;
+      if (baseDatabase) setDatabase(baseDatabase);
+    } catch (error) {
+      console.error("International match data load failed", error);
+    }
   }
   function setDatabase(data) {
-    database = data && Array.isArray(data.matches) ? data : null;
+    baseDatabase = data && Array.isArray(data.matches) ? data : null;
+    database = baseDatabase ? mergeInternationalData(baseDatabase) : null;
     databaseError = "";
     renderLeagues();
     render();

@@ -17,6 +17,7 @@ on:
       - "tests/test_handicap_history.js"
       - "js/primary-navigation.js"
       - "js/match-center.js"
+      - "data/international-matches.json"
       - "js/unified-match-center.js"
       - "js/manual-match-research.js"
       - "css/manual-match-research.css"
@@ -80,6 +81,6 @@ jobs:
       - name: Check app and service worker versions
         run: |
           grep -q 'application-version" content="6.26.10-beta.1"' index.html
-          grep -q 'football-time-v110' sw.js
+          grep -q 'football-time-v111' sw.js
           grep -q 'analysis-refinement.css' sw.js
           ! grep -q 'rows.length>2500' index.html

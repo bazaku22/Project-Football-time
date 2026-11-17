@@ -199,3 +199,8 @@
 .mc-analysis-push,.mc-analysis-source{font-size:.57rem}
 .mc-analysis-source{line-height:1.35}
 .mc-analysis-data{max-height:260px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+
+/* National-team flag presentation in Match Center. */
+.mc-national-flag{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;flex:0 0 38px;font-size:1.8rem;line-height:1;overflow:hidden;border-radius:8px;background:rgba(255,255,255,.06)}
+.mc-team .mc-national-flag{margin-inline-end:2px}
+.mc-detail-side .mc-national-flag{width:38px;height:38px;flex-basis:38px}
