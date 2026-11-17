@@ -30,7 +30,7 @@
   const countNationalPlayers = (teamId) => players.filter(p => (p.nationalTeams || []).some(t => t.teamId === teamId)).length;
   function statsBlock(title, stats, sourceLabel) {
     const value = stats || {};
-    const asOf = value.asOf ? "ข้อมูล ณ "+value.asOf : sourceLabel;
+    const asOf = value.startDate ? "เริ่มนับ "+value.startDate+" · อัปเดต "+(value.asOf || value.startDate) : (value.asOf ? "ข้อมูล ณ "+value.asOf : sourceLabel);
     return '<section class="player-v2-stat-section"><div class="player-v2-section-head"><b>'+title+'</b><span>'+esc(asOf)+'</span></div><div class="player-v2-stat-grid">'+
       [['ลงสนาม','appearances'],['ประตู','goals'],['แอสซิสต์','assists']].map(([label,key]) =>
         '<div class="player-v2-stat"><b>'+stat(value[key])+'</b><span>'+label+'</span></div>'
@@ -122,7 +122,7 @@
       '<small>ทีมชาติ: '+nationalTeams+'</small></div></div>'+
       '<div class="player-v2-season">สถิติแยกตามประเภทการแข่งขัน</div>'+
       statsBlock("สถิติสโมสร",player.statistics?.club,"ฤดูกาล "+(player.statistics?.club?.season || SEASON))+
-      statsBlock("สถิติทีมชาติชุดใหญ่",player.statistics?.nationalTeam,"อาชีพ · FIFA International A Matches")+
+      statsBlock("สถิติทีมชาติชุดใหญ่",player.statistics?.nationalTeam,"เริ่มนับ 2026-11-17 · FIFA International A Matches")+
       '<p class="player-v2-note">สถิติทีมชาติครอบคลุมเฉพาะทีมชาติชุดใหญ่ A Match เท่านั้น ไม่รวม U23/U21/U20/U17 และเกมที่ไม่รับรอง · สถิติสโมสรและทีมชาติแยกจากกัน ไม่รวมยอดเข้าด้วยกัน · เครื่องหมาย — หมายถึงยังไม่มีข้อมูลที่ยืนยันได้</p>'+
       '</article>';
   }
