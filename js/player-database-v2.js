@@ -169,7 +169,7 @@
       if(card){const player=players.find(p=>String(p.playerId||"")===card.dataset.playerId);if(player)renderProfile(player);}
     });
     try {
-      const response = await fetch(DATA_URL + "?v=3", {cache:"no-store"});
+      const response = await fetch(DATA_URL, {cache:"no-store"});
       if (!response.ok) throw new Error("HTTP "+response.status);
       const data = await response.json();
       if (data.schemaVersion !== "2.0.0" || !Array.isArray(data.players)) throw new Error("รูปแบบข้อมูลไม่ถูกต้อง");

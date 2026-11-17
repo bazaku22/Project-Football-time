@@ -33,6 +33,8 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("assists", source)
         self.assertIn("ยังไม่มีข้อมูลที่ยืนยันได้", source)
         self.assertIn("safeImage", source)
+        self.assertIn("fetch(DATA_URL, {cache:\"no-store\"})", source)
+        self.assertNotIn("DATA_URL + \"?v=", source)
 
     def test_new_assets_are_loaded_and_cached(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
