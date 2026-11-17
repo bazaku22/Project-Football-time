@@ -48,30 +48,31 @@ class MatchCenterTests(unittest.TestCase):
             self.assertIn(marker, MODULE)
         self.assertIn("mc-crest-wrap", CSS)
 
-    def test_upcoming_match_handoff_opens_its_existing_probability_analysis(self):
-        self.assertIn('data-provider-match-id=', MODULE)
-        self.assertIn('data-match-action=', MODULE)
-        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
-        self.assertIn('data-db-tab="probability"', MODULE)
-        self.assertIn('probLeagueSelect', MODULE)
-        self.assertIn('probMatchSelect', MODULE)
-        self.assertIn('providerMatchId', MODULE)
-        self.assertIn('วิเคราะห์คู่นี้', MODULE)
+    def test_match_details_expand_inline_without_page_navigation(self):
+        self.assertIn('data-unified-match=', MODULE)
+        self.assertIn('aria-expanded="false"', MODULE)
+        self.assertIn('ดูรายละเอียดการแข่งขัน', MODULE)
+        self.assertNotIn('data-match-action=', MODULE)
+        self.assertNotIn('data-provider-match-id=', MODULE)
+        self.assertIn('matchCard.append(detail())', UNIFIED)
+        self.assertIn('detailHome.insertBefore(detail(),detailAnchor)', UNIFIED)
 
-    def test_match_center_handoff_uses_the_four_primary_navigation_routes(self):
-        self.assertIn('const route = button.dataset.matchAction === "analysis" ? "analyze" : "leagues"', MODULE)
-        self.assertIn("data-primary-route=\"' + route + '\"", MODULE)
-        self.assertIn("else document.querySelector('[data-page=\"fixtures\"]')?.click()", MODULE)
+    def test_match_detail_button_does_not_route_to_another_page(self):
+        self.assertNotIn('function openInDatabase', MODULE)
+        self.assertIn('open(matchButton)', UNIFIED)
+        self.assertIn('if (selectedButton === button) { close(); return; }', UNIFIED)
 
-    def test_non_upcoming_matches_keep_database_context_fallback(self):
-        self.assertIn('canOpenAnalysis ? "analysis" : "overview"', MODULE)
-        self.assertIn('data-db-tab="overview"', MODULE)
-        self.assertIn('discoveryDateFrom', MODULE)
+    def test_match_details_keep_database_context_and_tabs(self):
+        self.assertIn('getMatchById?.(id)', UNIFIED)
+        self.assertIn('data-mc-detail-tab="overview"', HTML)
+        self.assertIn('data-mc-detail-tab="events"', HTML)
+        self.assertIn('data-mc-detail-tab="statistics"', HTML)
+        self.assertIn('data-mc-detail-tab="analysis"', HTML)
 
-    def test_analysis_handoff_matches_the_existing_analysis_status_contract(self):
+    def test_analysis_summary_keeps_its_existing_data_contract(self):
         self.assertIn('["SCHEDULED","TIMED"]', MODULE)
-        self.assertIn('analysisStatus', MODULE)
-        self.assertIn('providerMatchId !== ""', MODULE)
+        self.assertIn('getMatchCardAnalysis', MODULE)
+        self.assertIn('renderAnalysisSummary(match,cardAnalysis)', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
         self.assertIn("football-time-v123", WORKER)
