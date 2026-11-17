@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "2.1.0",
   "season": "2026/27",
   "scope": "club-and-national-team",
   "generatedAt": "2026-11-18",
@@ -403,7 +403,12 @@
         "logoPublisher": "FootyLogos",
         "shirtNumber": 1,
         "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/patiwat-khammai/1019877",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-TRUE-BANGKOK-UNITED",
+        "names": {
+          "th": "ทรู แบงค็อก ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -462,7 +467,11 @@
         }
       ],
       "photoSourceUrl": "https://www.playmakerstats.com/player/patiwat-khammai/395342",
-      "photoPublisher": "Playmakerstats"
+      "photoPublisher": "Playmakerstats",
+      "names": {
+        "th": "ปฏิวัติ คำไหม"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000002",
@@ -475,7 +484,12 @@
         "logoPublisher": "Football Logos",
         "shirtNumber": 28,
         "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/saranon-anuin/923227",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-BG-PATHUM-UNITED",
+        "names": {
+          "th": "บีจี ปทุม ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -520,7 +534,11 @@
         }
       ],
       "photoSourceUrl": "https://www.ballthai.com/สรานนท์-เสียดาย-บีจี-บุกเจ๊า-แทมปิเนส-โรเวอร์ส-ในสิงคโปร์-คัพ-รอบรองฯ/",
-      "photoPublisher": "Ballthai"
+      "photoPublisher": "Ballthai",
+      "names": {
+        "th": "สรานนท์ อนุอินทร์"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000003",
@@ -530,7 +548,12 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20240910-143112-b0b7aeab-afd0-49aa-ba80-c06d34f1ad3f.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5792",
-        "logoPublisher": "Thai League"
+        "logoPublisher": "Thai League",
+        "clubId": "CLUB-TH-PATTANI-FC",
+        "names": {
+          "th": "ปัตตานี เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -575,7 +598,11 @@
         }
       ],
       "photoSourceUrl": "https://pattanifc.co/squad",
-      "photoPublisher": "Pattani FC Official"
+      "photoPublisher": "Pattani FC Official",
+      "names": {
+        "th": "ศรวัสย์ โพธิ์สมัน"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000004",
@@ -588,7 +615,12 @@
         "logoPublisher": "Thai League",
         "shirtNumber": 23,
         "shirtNumberSourceUrl": "https://www.fotmob.com/th/players/1231017/santiphap-channgom",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-CHONBURI-FC",
+        "names": {
+          "th": "ชลบุรี เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -631,7 +663,11 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "names": {
+        "th": "สันติภาพ จันทร์หง่อม"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000005",
@@ -641,7 +677,12 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
-        "logoPublisher": "Thai League"
+        "logoPublisher": "Thai League",
+        "clubId": "CLUB-TH-CHONBURI-FC",
+        "names": {
+          "th": "ชลบุรี เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -700,7 +741,11 @@
         }
       ],
       "photoSourceUrl": "https://www.thairath.co.th/sport/thaifootball/changsuek/2895724",
-      "photoPublisher": "Thairath"
+      "photoPublisher": "Thairath",
+      "names": {
+        "th": "ณัฐพงษ์ สายริยา"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000006",
@@ -713,7 +758,12 @@
         "logoPublisher": "Thai League",
         "shirtNumber": 2,
         "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/oussama-thiangkham/2203643",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-PT-PRACHUAP-FC",
+        "names": {
+          "th": "พีที ประจวบ เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -756,7 +806,11 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "names": {
+        "th": "อูแซมมา เทียงคาม"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000007",
@@ -769,7 +823,13 @@
         "logoPublisher": "Wikimedia Commons",
         "shirtNumber": 2,
         "shirtNumberSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-DE-SV-ELVERSBERG",
+        "names": {
+          "th": "เอลเวอร์สแบร์ก",
+          "en": "SV Elversberg"
+        },
+        "leagueId": "BL1"
       },
       "country": {
         "code": "TH",
@@ -828,7 +888,15 @@
         }
       ],
       "photoSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
-      "photoPublisher": "Bundesliga"
+      "photoPublisher": "Bundesliga",
+      "names": {
+        "th": "นิโคลัส มิคเกลสัน",
+        "en": "Nicholas Mickelson"
+      },
+      "aliases": [
+        "Nicholas Mickelson",
+        "Nicolas Mickelson"
+      ]
     },
     {
       "playerId": "PFT-000008",
@@ -841,7 +909,12 @@
         "logoPublisher": "Port FC Official Store",
         "shirtNumber": 36,
         "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-PORT-FC",
+        "names": {
+          "th": "การท่าเรือ เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -886,7 +959,11 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official"
+      "photoPublisher": "Port FC Official",
+      "names": {
+        "th": "พีฬาวัช อรรคธรรม"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000009",
@@ -896,7 +973,12 @@
         "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/true-bangkok-united.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.footylogos.com/dls/true-bangkok-united",
-        "logoPublisher": "FootyLogos"
+        "logoPublisher": "FootyLogos",
+        "clubId": "CLUB-TH-TRUE-BANGKOK-UNITED",
+        "names": {
+          "th": "ทรู แบงค็อก ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -955,7 +1037,11 @@
         }
       ],
       "photoSourceUrl": "https://www.naewna.com/sport/621119",
-      "photoPublisher": "Naewna"
+      "photoPublisher": "Naewna",
+      "names": {
+        "th": "สุพรรณ ทองสงค์"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000010",
@@ -968,7 +1054,12 @@
         "logoPublisher": "Port FC Official Store",
         "shirtNumber": 4,
         "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-PORT-FC",
+        "names": {
+          "th": "การท่าเรือ เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1027,7 +1118,11 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official"
+      "photoPublisher": "Port FC Official",
+      "names": {
+        "th": "ศุภนันท์ บุรีรัตน์"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000011",
@@ -1037,7 +1132,12 @@
         "logoUrl": "https://fathailand.org.122.155.17.109.no-domain.name/uploads/clubs/logos/56db0d7d60dab6852203012dadfd4964.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://fathailand.org/clubs-licensing/3",
-        "logoPublisher": "FA Thailand"
+        "logoPublisher": "FA Thailand",
+        "clubId": "CLUB-TH-MUANGTHONG-UNITED",
+        "names": {
+          "th": "เมืองทอง ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1096,7 +1196,11 @@
         }
       ],
       "photoSourceUrl": "https://www.siamsport.co.th/news/thaibev-sports/12643/",
-      "photoPublisher": "Siamsport"
+      "photoPublisher": "Siamsport",
+      "names": {
+        "th": "คคนะ คำยก"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000012",
@@ -1109,7 +1213,12 @@
         "logoPublisher": "FA Thailand",
         "shirtNumber": 5,
         "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-BURIRAM-UNITED",
+        "names": {
+          "th": "บุรีรัมย์ ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1154,7 +1263,11 @@
         }
       ],
       "photoSourceUrl": "https://www.buriramunited.com/en/team",
-      "photoPublisher": "Buriram United"
+      "photoPublisher": "Buriram United",
+      "names": {
+        "th": "ธีราทร บุญมาทัน"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000013",
@@ -1164,7 +1277,12 @@
         "logoUrl": "https://www.europlan-online.de/files/86fadfa8259b9c2b2464e3f868fa8453.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.europlan-online.de/sapporo-atsubetsu-park-stadium/stadion-58223.html",
-        "logoPublisher": "Europlan"
+        "logoPublisher": "Europlan",
+        "clubId": "CLUB-JP-HOKKAIDO-CONSADOLE-SAPPORO",
+        "names": {
+          "th": "ฮอกไกโด คอนซาโดเล ซัปโปโร"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1209,7 +1327,11 @@
         }
       ],
       "photoSourceUrl": "https://www.jleague.jp/player/1656015/",
-      "photoPublisher": "J.League"
+      "photoPublisher": "J.League",
+      "names": {
+        "th": "ธีรภัทร ปรือทอง"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000014",
@@ -1219,7 +1341,12 @@
         "logoUrl": "https://kalshi-public-docs.s3.us-east-1.amazonaws.com/structured_targets/AFCMEN_THA_UTH.webp",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://kalshi.com/sports/soccer/thai-league-1/futures",
-        "logoPublisher": "Kalshi"
+        "logoPublisher": "Kalshi",
+        "clubId": "CLUB-TH-UTHAI-THANI-FC",
+        "names": {
+          "th": "อุทัยธานี เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1262,7 +1389,11 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "names": {
+        "th": "วิลเลียม เวเดอร์เฌอ"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000015",
@@ -1275,7 +1406,12 @@
         "logoPublisher": "Europlan",
         "shirtNumber": 7,
         "shirtNumberSourceUrl": "https://www.transfermarkt.com/supachok-sarachat/profil/spieler/426623/",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-JP-HOKKAIDO-CONSADOLE-SAPPORO",
+        "names": {
+          "th": "ฮอกไกโด คอนซาโดเล ซัปโปโร"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1334,7 +1470,11 @@
         }
       ],
       "photoSourceUrl": "https://www.siamsport.co.th/football-jleague/71987/",
-      "photoPublisher": "Siamsport"
+      "photoPublisher": "Siamsport",
+      "names": {
+        "th": "สุภโชค สารชาติ"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000016",
@@ -1347,7 +1487,12 @@
         "logoPublisher": "FA Thailand",
         "shirtNumber": 21,
         "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-BURIRAM-UNITED",
+        "names": {
+          "th": "บุรีรัมย์ ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1392,7 +1537,11 @@
         }
       ],
       "photoSourceUrl": "https://www.hatyaifocus.com/news-detail/29757/",
-      "photoPublisher": "Hatyaifocus"
+      "photoPublisher": "Hatyaifocus",
+      "names": {
+        "th": "อิคลาส สันหรน"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000017",
@@ -1405,7 +1554,12 @@
         "logoPublisher": "FA Thailand",
         "shirtNumber": 11,
         "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-BURIRAM-UNITED",
+        "names": {
+          "th": "บุรีรัมย์ ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1464,7 +1618,11 @@
         }
       ],
       "photoSourceUrl": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
-      "photoPublisher": "Ballthai"
+      "photoPublisher": "Ballthai",
+      "names": {
+        "th": "อนันต์ ยอดสังวาลย์"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000018",
@@ -1474,7 +1632,12 @@
         "logoUrl": "https://assets.football-logos.cc/logos/thailand/1500x1500/bg-pathum-united.4aa3a264.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://football-logos.cc/thailand/bg-pathum-united/",
-        "logoPublisher": "Football Logos"
+        "logoPublisher": "Football Logos",
+        "clubId": "CLUB-TH-BG-PATHUM-UNITED",
+        "names": {
+          "th": "บีจี ปทุม ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1519,7 +1682,11 @@
         }
       ],
       "photoSourceUrl": "https://www.hudl.com/profile/16081220",
-      "photoPublisher": "Hudl"
+      "photoPublisher": "Hudl",
+      "names": {
+        "th": "สารัช อยู่เย็น"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000019",
@@ -1532,7 +1699,12 @@
         "logoPublisher": "Port FC Official Store",
         "shirtNumber": 17,
         "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2939126",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-PORT-FC",
+        "names": {
+          "th": "การท่าเรือ เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1591,7 +1763,11 @@
         }
       ],
       "photoSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2939126",
-      "photoPublisher": "Thairath"
+      "photoPublisher": "Thairath",
+      "names": {
+        "th": "เสกสรรค์ ราตรี"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000020",
@@ -1601,7 +1777,12 @@
         "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/true-bangkok-united.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.footylogos.com/dls/true-bangkok-united",
-        "logoPublisher": "FootyLogos"
+        "logoPublisher": "FootyLogos",
+        "clubId": "CLUB-TH-TRUE-BANGKOK-UNITED",
+        "names": {
+          "th": "ทรู แบงค็อก ยูไนเต็ด"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1660,7 +1841,11 @@
         }
       ],
       "photoSourceUrl": "https://www.dailynews.co.th/news/3119042/",
-      "photoPublisher": "Dailynews"
+      "photoPublisher": "Dailynews",
+      "names": {
+        "th": "วีระเทพ ป้อมพันธุ์"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000021",
@@ -1670,7 +1855,12 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
-        "logoPublisher": "Thai League"
+        "logoPublisher": "Thai League",
+        "clubId": "CLUB-TH-CHONBURI-FC",
+        "names": {
+          "th": "ชลบุรี เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1715,7 +1905,11 @@
         }
       ],
       "photoSourceUrl": "https://www.ballthai.com/ยศกร-ระเบิดฟอร์มเก่ง-จ่อโยกลุยต่างแดน-ในฤดูกาล-2026-27/",
-      "photoPublisher": "Ballthai"
+      "photoPublisher": "Ballthai",
+      "names": {
+        "th": "ยศกร บูรพา"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000022",
@@ -1728,7 +1922,12 @@
         "logoPublisher": "Port FC Official Store",
         "shirtNumber": 14,
         "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-TH-PORT-FC",
+        "names": {
+          "th": "การท่าเรือ เอฟซี"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1787,7 +1986,11 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official"
+      "photoPublisher": "Port FC Official",
+      "names": {
+        "th": "ธีรศักดิ์ เผยพิมาย"
+      },
+      "aliases": []
     },
     {
       "playerId": "PFT-000023",
@@ -1800,7 +2003,12 @@
         "logoPublisher": "RB Omiya Ardija",
         "shirtNumber": 21,
         "shirtNumberSourceUrl": "https://www.youtube.com/watch?v=PIDE0IcPvVI",
-        "shirtNumberVerifiedAsOf": "2026-11-18"
+        "shirtNumberVerifiedAsOf": "2026-11-18",
+        "clubId": "CLUB-JP-RB-OMIYA-ARDIJA",
+        "names": {
+          "th": "อาร์บี โอมิยะ อาร์ดิจา"
+        },
+        "leagueId": "OTHER"
       },
       "country": {
         "code": "TH",
@@ -1859,7 +2067,11 @@
         }
       ],
       "photoSourceUrl": "https://www.rbomiya.com/news/?id=46380",
-      "photoPublisher": "RB Omiya Ardija"
+      "photoPublisher": "RB Omiya Ardija",
+      "names": {
+        "th": "ศุภณัฏฐ์ เหมือนตา"
+      },
+      "aliases": []
     }
   ],
   "notes": [
@@ -1871,7 +2083,8 @@
     "Appearances are 1 only for starting players and substitutes explicitly confirmed in the FA Thailand report; unverified appearances remain null and display as —.",
     "Future eligible matches add to these baseline totals. Club statistics remain separate and scoped to season 2026/27.",
     "Player list order is based on the shirt number for the selected membership: national-team shirt number for national-team views and current-club shirt number for club views. Unverified club shirt numbers remain null and sort after numbered players.",
-    "Player photos and club crests are linked from their cited publisher/source pages. Missing or unverified player photos continue to use the neutral placeholder; do not infer or generate identity images."
+    "Player photos and club crests are linked from their cited publisher/source pages. Missing or unverified player photos continue to use the neutral placeholder; do not infer or generate identity images.",
+    "Identity matching uses permanent Player ID and Club ID. Display names are localized; aliases are lookup hints only and never sufficient alone to auto-merge uncertain identities."
   ],
   "nationalTeamStatsPolicy": {
     "scope": "FIFA International A Matches only; senior national team",
