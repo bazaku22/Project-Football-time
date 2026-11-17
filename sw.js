@@ -1,11 +1,12 @@
 // Previous cache identifiers retained for legacy release-history assertions: football-time-v93, football-time-v102, football-time-v111, and football-time-v117.
 // Previous player stylesheet cache key: ./css/player-database-v2.css?v=3.
-const CACHE = "football-time-v122";
+const CACHE = "football-time-v123";
 
 const ASSETS = [
   "./",
   "./index.html",
   "./css/modern-analytics-overhaul.css?v=1",
+  "./css/v7-compact-ui.css?v=1",
   "./match-center-mockup.html",
   "./css/ui-refresh.css",
   "./css/ui-refresh-v2.css",
