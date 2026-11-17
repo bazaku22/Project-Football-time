@@ -2,7 +2,7 @@
   "schemaVersion": "2.0.0",
   "season": "2026/27",
   "scope": "club-and-national-team",
-  "generatedAt": "2026-11-17",
+  "generatedAt": "2026-11-18",
   "datasetId": "THA-MNT-KINGS-CUP-2026-BASELINE",
   "datasetStatus": "TEST_DRAFT",
   "sources": [
@@ -85,6 +85,310 @@
       "usedFor": [
         "cross-check that Kakana's pass preceded Supachok's opening goal"
       ]
+    },
+    {
+      "publisher": "Thairath",
+      "publishedAt": "2026-11-14",
+      "url": "https://en.thairath.co.th/sport/thaifootball/2972496",
+      "usedFor": [
+        "officially published shirt numbers for all 23 Thailand senior national-team players in King's Cup 2026"
+      ]
+    },
+    {
+      "publisher": "FootyLogos",
+      "publishedAt": null,
+      "url": "https://www.footylogos.com/dls/true-bangkok-united",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Football Logos",
+      "publishedAt": null,
+      "url": "https://football-logos.cc/thailand/bg-pathum-united/",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Thai League",
+      "publishedAt": null,
+      "url": "https://thaileague.co.th/v1/club-info/?id=5792",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Thai League",
+      "publishedAt": null,
+      "url": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Thai League",
+      "publishedAt": null,
+      "url": "https://thaileague.co.th/results/155",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Wikimedia Commons",
+      "publishedAt": null,
+      "url": "https://commons.wikimedia.org/wiki/Category:SV_Elversberg",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Port FC Official Store",
+      "publishedAt": null,
+      "url": "https://www.portfcstore.com/en",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "FA Thailand",
+      "publishedAt": null,
+      "url": "https://fathailand.org/clubs-licensing/3",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "FA Thailand",
+      "publishedAt": null,
+      "url": "https://fathailand.org/match-results/29/148?language=en",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Europlan",
+      "publishedAt": null,
+      "url": "https://www.europlan-online.de/sapporo-atsubetsu-park-stadium/stadion-58223.html",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Kalshi",
+      "publishedAt": null,
+      "url": "https://kalshi.com/sports/soccer/thai-league-1/futures",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "RB Omiya Ardija",
+      "publishedAt": null,
+      "url": "https://www.rbomiya.com/news/?id=43448",
+      "usedFor": [
+        "club crest image source for current club identification"
+      ]
+    },
+    {
+      "publisher": "Playmakerstats",
+      "publishedAt": null,
+      "url": "https://www.playmakerstats.com/player/patiwat-khammai/395342",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Ballthai",
+      "publishedAt": null,
+      "url": "https://www.ballthai.com/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Thairath",
+      "publishedAt": null,
+      "url": "https://www.thairath.co.th/sport/thaifootball/changsuek/2895724",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Naewna",
+      "publishedAt": null,
+      "url": "https://www.naewna.com/sport/621119",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "SPACEBAR",
+      "publishedAt": null,
+      "url": "https://spacebar.th/sport/suphanan-bureerat-interview",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Siamsport",
+      "publishedAt": null,
+      "url": "https://www.siamsport.co.th/news/thaibev-sports/12643/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Buriram United",
+      "publishedAt": null,
+      "url": "https://www.buriramunited.com/en/team",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Siamsport",
+      "publishedAt": null,
+      "url": "https://www.siamsport.co.th/football-jleague/71987/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Hudl",
+      "publishedAt": null,
+      "url": "https://www.hudl.com/profile/16081220",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Dailynews",
+      "publishedAt": null,
+      "url": "https://www.dailynews.co.th/news/3119042/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Ballthai",
+      "publishedAt": null,
+      "url": "https://www.ballthai.com/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Thairath",
+      "publishedAt": null,
+      "url": "https://en.thairath.co.th/sport/thaifootball/2939126",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "J.League",
+      "publishedAt": null,
+      "url": "https://www.jleague.jp/player/1656015/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "RB Omiya Ardija",
+      "publishedAt": null,
+      "url": "https://www.rbomiya.com/news/?id=46380",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Pattani FC Official",
+      "publishedAt": null,
+      "url": "https://pattanifc.co/squad",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Hatyaifocus",
+      "publishedAt": null,
+      "url": "https://www.hatyaifocus.com/news-detail/29757/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Ballthai",
+      "publishedAt": null,
+      "url": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Bundesliga",
+      "publishedAt": null,
+      "url": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "current squad shirt numbers and official portraits for Port FC players"
+      ]
+    },
+    {
+      "publisher": "Buriram United Official",
+      "publishedAt": null,
+      "url": "https://www.buriramunited.com/team",
+      "usedFor": [
+        "current squad shirt numbers for Buriram United players"
+      ]
+    },
+    {
+      "publisher": "FotMob",
+      "publishedAt": null,
+      "url": "https://www.fotmob.com/th/players/1231017/santiphap-channgom",
+      "usedFor": [
+        "current Chonburi FC shirt number for Santipap Channgom"
+      ]
+    },
+    {
+      "publisher": "Sofascore",
+      "publishedAt": null,
+      "url": "https://www.sofascore.com/football/player/oussama-thiangkham/2203643",
+      "usedFor": [
+        "current PT Prachuap FC shirt number for Oussama Thiangkham"
+      ]
+    },
+    {
+      "publisher": "Bundesliga",
+      "publishedAt": null,
+      "url": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "usedFor": [
+        "current SV Elversberg player portrait and shirt number"
+      ]
     }
   ],
   "players": [
@@ -93,8 +397,13 @@
       "name": "ปฏิวัติ คำไหม",
       "currentClub": {
         "name": "ทรู แบงค็อก ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/true-bangkok-united.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.footylogos.com/dls/true-bangkok-united",
+        "logoPublisher": "FootyLogos",
+        "shirtNumber": 1,
+        "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/patiwat-khammai/1019877",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -102,7 +411,7 @@
         "flag": "🇹🇭"
       },
       "position": "GK",
-      "photoUrl": null,
+      "photoUrl": "https://www.playmakerstats.com/img/jogadores/new/53/42/395342_patiwat_khammai_20250107102625.png",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -132,7 +441,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 1,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -148,15 +460,22 @@
           },
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-09-26; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.playmakerstats.com/player/patiwat-khammai/395342",
+      "photoPublisher": "Playmakerstats"
     },
     {
       "playerId": "PFT-000002",
       "name": "สรานนท์ อนุอินทร์",
       "currentClub": {
         "name": "บีจี ปทุม ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://assets.football-logos.cc/logos/thailand/1500x1500/bg-pathum-united.4aa3a264.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://football-logos.cc/thailand/bg-pathum-united/",
+        "logoPublisher": "Football Logos",
+        "shirtNumber": 28,
+        "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/saranon-anuin/923227",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -164,7 +483,7 @@
         "flag": "🇹🇭"
       },
       "position": "GK",
-      "photoUrl": null,
+      "photoUrl": "https://www.ballthai.com/wp-content/uploads/2025/04/saranon-anuin.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -194,17 +513,24 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 20,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.ballthai.com/สรานนท์-เสียดาย-บีจี-บุกเจ๊า-แทมปิเนส-โรเวอร์ส-ในสิงคโปร์-คัพ-รอบรองฯ/",
+      "photoPublisher": "Ballthai"
     },
     {
       "playerId": "PFT-000003",
       "name": "ศรวัสย์ โพธิ์สมัน",
       "currentClub": {
         "name": "ปัตตานี เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20240910-143112-b0b7aeab-afd0-49aa-ba80-c06d34f1ad3f.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5792",
+        "logoPublisher": "Thai League"
       },
       "country": {
         "code": "TH",
@@ -212,7 +538,7 @@
         "flag": "🇹🇭"
       },
       "position": "GK",
-      "photoUrl": null,
+      "photoUrl": "https://pattanifc.co/payload-api/media/file/Player-7.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -242,17 +568,27 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 23,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://pattanifc.co/squad",
+      "photoPublisher": "Pattani FC Official"
     },
     {
       "playerId": "PFT-000004",
       "name": "สันติภาพ จันทร์หง่อม",
       "currentClub": {
         "name": "ชลบุรี เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
+        "logoPublisher": "Thai League",
+        "shirtNumber": 23,
+        "shirtNumberSourceUrl": "https://www.fotmob.com/th/players/1231017/santiphap-channgom",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -290,7 +626,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 15,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ]
     },
@@ -299,8 +638,10 @@
       "name": "ณัฐพงษ์ สายริยา",
       "currentClub": {
         "name": "ชลบุรี เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
+        "logoPublisher": "Thai League"
       },
       "country": {
         "code": "TH",
@@ -308,7 +649,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://static.thairath.co.th/media/dFQROr7oWzulq5Fa6rpUCKoReoOHZuGDhiJ7TS4RwXbfUWQRfj9TG4O56Uy2S2H6Cl3.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -338,7 +679,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 2,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -354,15 +698,22 @@
           },
           "provenance": "11v11 Thailand appearances table; 18 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.thairath.co.th/sport/thaifootball/changsuek/2895724",
+      "photoPublisher": "Thairath"
     },
     {
       "playerId": "PFT-000006",
       "name": "อูแซมมา เทียงคาม",
       "currentClub": {
         "name": "พีที ประจวบ เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221222-100218-53c5d390-ae70-4346-8d2a-07934624aa89.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://thaileague.co.th/results/155",
+        "logoPublisher": "Thai League",
+        "shirtNumber": 2,
+        "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/oussama-thiangkham/2203643",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -400,7 +751,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 13,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ]
     },
@@ -409,8 +763,13 @@
       "name": "นิโคลัส มิคเกลสัน",
       "currentClub": {
         "name": "เอลเวอร์สแบร์ก",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/SV%2007%20Elversberg.svg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://commons.wikimedia.org/wiki/Category:SV_Elversberg",
+        "logoPublisher": "Wikimedia Commons",
+        "shirtNumber": 2,
+        "shirtNumberSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -418,7 +777,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://assets.bundesliga.com/player/dfl-obj-j01boa-dfl-clu-000n6l-dfl-sea-0001ka-body.png?crop=10%2C0%2C75%2C80&fit=256%2C256",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -448,7 +807,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 12,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -464,15 +826,22 @@
           },
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "photoPublisher": "Bundesliga"
     },
     {
       "playerId": "PFT-000008",
       "name": "พีฬาวัช อรรคธรรม",
       "currentClub": {
         "name": "การท่าเรือ เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.portfcstore.com/en",
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 36,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -480,7 +849,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGC5816.jpeg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -510,17 +879,24 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 4,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000009",
       "name": "สุพรรณ ทองสงค์",
       "currentClub": {
         "name": "ทรู แบงค็อก ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/true-bangkok-united.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.footylogos.com/dls/true-bangkok-united",
+        "logoPublisher": "FootyLogos"
       },
       "country": {
         "code": "TH",
@@ -528,7 +904,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://static.naewna.com/uploads/news/source/621119.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -558,7 +934,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 5,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -574,15 +953,22 @@
           },
           "provenance": "11v11 Thailand appearances table; 20 senior international appearances as of 2025-09-07; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.naewna.com/sport/621119",
+      "photoPublisher": "Naewna"
     },
     {
       "playerId": "PFT-000010",
       "name": "ศุภนันท์ บุรีรัตน์",
       "currentClub": {
         "name": "การท่าเรือ เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.portfcstore.com/en",
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 4,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -590,7 +976,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGL6806.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -620,7 +1006,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 21,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -636,15 +1025,19 @@
           },
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000011",
       "name": "คคนะ คำยก",
       "currentClub": {
         "name": "เมืองทอง ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://fathailand.org.122.155.17.109.no-domain.name/uploads/clubs/logos/56db0d7d60dab6852203012dadfd4964.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://fathailand.org/clubs-licensing/3",
+        "logoPublisher": "FA Thailand"
       },
       "country": {
         "code": "TH",
@@ -652,7 +1045,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.siamsport.co.th/static/b1b280ec-464b-4ffe-8150-3f0fd841e2cf.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -682,7 +1075,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 14,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -698,15 +1094,22 @@
           },
           "provenance": "11v11 Thailand appearances table; 13 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.siamsport.co.th/news/thaibev-sports/12643/",
+      "photoPublisher": "Siamsport"
     },
     {
       "playerId": "PFT-000012",
       "name": "ธีราทร บุญมาทัน",
       "currentClub": {
         "name": "บุรีรัมย์ ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 5,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -714,7 +1117,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.buriramunited.com/uploads/team/small/20240806/afstuwxz3468.png",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -744,17 +1147,24 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 3,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.buriramunited.com/en/team",
+      "photoPublisher": "Buriram United"
     },
     {
       "playerId": "PFT-000013",
       "name": "ธีรภัทร ปรือทอง",
       "currentClub": {
         "name": "ฮอกไกโด คอนซาโดเล ซัปโปโร",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.europlan-online.de/files/86fadfa8259b9c2b2464e3f868fa8453.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.europlan-online.de/sapporo-atsubetsu-park-stadium/stadion-58223.html",
+        "logoPublisher": "Europlan"
       },
       "country": {
         "code": "TH",
@@ -762,7 +1172,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.jleague.jp/img/cache/2026/sapporo/player/main/1656015_l.webp",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -792,17 +1202,24 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 19,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.jleague.jp/player/1656015/",
+      "photoPublisher": "J.League"
     },
     {
       "playerId": "PFT-000014",
       "name": "วิลเลียม เวเดอร์เฌอ",
       "currentClub": {
         "name": "อุทัยธานี เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://kalshi-public-docs.s3.us-east-1.amazonaws.com/structured_targets/AFCMEN_THA_UTH.webp",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://kalshi.com/sports/soccer/thai-league-1/futures",
+        "logoPublisher": "Kalshi"
       },
       "country": {
         "code": "TH",
@@ -840,7 +1257,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 8,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ]
     },
@@ -849,8 +1269,13 @@
       "name": "สุภโชค สารชาติ",
       "currentClub": {
         "name": "ฮอกไกโด คอนซาโดเล ซัปโปโร",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.europlan-online.de/files/86fadfa8259b9c2b2464e3f868fa8453.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.europlan-online.de/sapporo-atsubetsu-park-stadium/stadion-58223.html",
+        "logoPublisher": "Europlan",
+        "shirtNumber": 7,
+        "shirtNumberSourceUrl": "https://www.transfermarkt.com/supachok-sarachat/profil/spieler/426623/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -858,7 +1283,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.siamsport.co.th/static/cb2b8c86-90ef-48f3-b2b1-89c3d7d1266e.webp",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -888,7 +1313,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 7,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -904,15 +1332,22 @@
           },
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-02; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.siamsport.co.th/football-jleague/71987/",
+      "photoPublisher": "Siamsport"
     },
     {
       "playerId": "PFT-000016",
       "name": "อิคลาส สันหรน",
       "currentClub": {
         "name": "บุรีรัมย์ ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 21,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -920,7 +1355,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.hatyaifocus.com/ckeditor/upload/news/1/%E0%B9%80%E0%B8%99%E0%B8%95%E0%B8%A3/%E0%B8%9E.%E0%B8%A2.68/11-11-68/539251224_1308668683947299_5302606320159569141_n.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -950,17 +1385,27 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 16,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.hatyaifocus.com/news-detail/29757/",
+      "photoPublisher": "Hatyaifocus"
     },
     {
       "playerId": "PFT-000017",
       "name": "อนันต์ ยอดสังวาลย์",
       "currentClub": {
         "name": "บุรีรัมย์ ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 11,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -968,7 +1413,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://media.ballthai.com/2026/03/Anan-Yodsangwal-1.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -998,7 +1443,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 11,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -1014,15 +1462,19 @@
           },
           "provenance": "11v11 Thailand appearances table; 14 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
+      "photoPublisher": "Ballthai"
     },
     {
       "playerId": "PFT-000018",
       "name": "สารัช อยู่เย็น",
       "currentClub": {
         "name": "บีจี ปทุม ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://assets.football-logos.cc/logos/thailand/1500x1500/bg-pathum-united.4aa3a264.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://football-logos.cc/thailand/bg-pathum-united/",
+        "logoPublisher": "Football Logos"
       },
       "country": {
         "code": "TH",
@@ -1030,7 +1482,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://static.hudl.com/users/temp/16074197_6bc148d3e59049f6a9f4f6b5c8d4504c.png",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1060,17 +1512,27 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 6,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.hudl.com/profile/16081220",
+      "photoPublisher": "Hudl"
     },
     {
       "playerId": "PFT-000019",
       "name": "เสกสรรค์ ราตรี",
       "currentClub": {
         "name": "การท่าเรือ เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.portfcstore.com/en",
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 17,
+        "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2939126",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1078,7 +1540,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://static.thairath.co.th/media/dFQROr7oWzulq5Fa7HCSfN4VAeHdWGkQbuYnf5L5eQTbZ1lSCeqixcNhR6NaA7eT9zg.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1108,7 +1570,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 22,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -1124,15 +1589,19 @@
           },
           "provenance": "11v11 Thailand appearances table; 28 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2939126",
+      "photoPublisher": "Thairath"
     },
     {
       "playerId": "PFT-000020",
       "name": "วีระเทพ ป้อมพันธุ์",
       "currentClub": {
         "name": "ทรู แบงค็อก ยูไนเต็ด",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/true-bangkok-united.png",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.footylogos.com/dls/true-bangkok-united",
+        "logoPublisher": "FootyLogos"
       },
       "country": {
         "code": "TH",
@@ -1140,7 +1609,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.dailynews.co.th/wp-content/uploads/2024/01/422349612_695627059435373_6341039268220953623_n.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1170,7 +1639,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 18,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -1186,15 +1658,19 @@
           },
           "provenance": "RSSSF Thailand record international players; 54 senior appearances and 0 goals as of 2026-08-26; source notes that the record is incomplete and subject to checking; assists remain unknown"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.dailynews.co.th/news/3119042/",
+      "photoPublisher": "Dailynews"
     },
     {
       "playerId": "PFT-000021",
       "name": "ยศกร บูรพา",
       "currentClub": {
         "name": "ชลบุรี เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
+        "logoPublisher": "Thai League"
       },
       "country": {
         "code": "TH",
@@ -1202,7 +1678,7 @@
         "flag": "🇹🇭"
       },
       "position": "FW",
-      "photoUrl": null,
+      "photoUrl": "https://media.ballthai.com/2026/04/Yotsakon-Burapha.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1232,17 +1708,27 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 9,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.ballthai.com/ยศกร-ระเบิดฟอร์มเก่ง-จ่อโยกลุยต่างแดน-ในฤดูกาล-2026-27/",
+      "photoPublisher": "Ballthai"
     },
     {
       "playerId": "PFT-000022",
       "name": "ธีรศักดิ์ เผยพิมาย",
       "currentClub": {
         "name": "การท่าเรือ เอฟซี",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.portfcstore.com/en",
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 14,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1250,7 +1736,7 @@
         "flag": "🇹🇭"
       },
       "position": "FW",
-      "photoUrl": null,
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGC7109.jpeg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1280,7 +1766,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 17,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -1296,15 +1785,22 @@
           },
           "provenance": "11v11 Thailand appearances table; 36 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000023",
       "name": "ศุภณัฏฐ์ เหมือนตา",
       "currentClub": {
         "name": "อาร์บี โอมิยะ อาร์ดิจา",
-        "logoUrl": null,
-        "verifiedAsOf": "2026-11-15"
+        "logoUrl": "https://www.rbomiya.com/files/tinymce/202411/nmdglveoj3ht57ip/emblem_OA.jpg",
+        "verifiedAsOf": "2026-11-15",
+        "logoSourceUrl": "https://www.rbomiya.com/news/?id=43448",
+        "logoPublisher": "RB Omiya Ardija",
+        "shirtNumber": 21,
+        "shirtNumberSourceUrl": "https://www.youtube.com/watch?v=PIDE0IcPvVI",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1312,7 +1808,7 @@
         "flag": "🇹🇭"
       },
       "position": "FW",
-      "photoUrl": null,
+      "photoUrl": "https://www.rbomiya.com/files/image/46380/1/MS109957.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1342,7 +1838,10 @@
           "name": "ทีมชาติไทย",
           "competition": "King's Cup 2026",
           "rosterStatus": "SQUAD",
-          "verifiedAsOf": "2026-11-14"
+          "verifiedAsOf": "2026-11-14",
+          "shirtNumber": 10,
+          "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
+          "shirtNumberVerifiedAsOf": "2026-11-14"
         }
       ],
       "statisticsArchive": [
@@ -1358,7 +1857,9 @@
           },
           "provenance": "11v11 Thailand appearances table; 34 senior international appearances as of 2025-03-25; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.rbomiya.com/news/?id=46380",
+      "photoPublisher": "RB Omiya Ardija"
     }
   ],
   "notes": [
@@ -1368,7 +1869,9 @@
     "Only senior FIFA International A Matches count. Youth teams and unofficial matches are excluded.",
     "The baseline match recorded Thailand's 3-0 win: Supachok Sarachat 1 goal; Teerasak Poeiphimai 2 goals; Kakana Khamyok 1 assist. No assist is assigned to the two rebound/deflection sequences where the official report does not establish a credited assist.",
     "Appearances are 1 only for starting players and substitutes explicitly confirmed in the FA Thailand report; unverified appearances remain null and display as —.",
-    "Future eligible matches add to these baseline totals. Club statistics remain separate and scoped to season 2026/27."
+    "Future eligible matches add to these baseline totals. Club statistics remain separate and scoped to season 2026/27.",
+    "Player list order is based on the shirt number for the selected membership: national-team shirt number for national-team views and current-club shirt number for club views. Unverified club shirt numbers remain null and sort after numbered players.",
+    "Player photos and club crests are linked from their cited publisher/source pages. Missing or unverified player photos continue to use the neutral placeholder; do not infer or generate identity images."
   ],
   "nationalTeamStatsPolicy": {
     "scope": "FIFA International A Matches only; senior national team",

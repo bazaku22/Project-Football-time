@@ -48,3 +48,10 @@
 .player-v2-note{line-height:1.7}
 .player-v2-stat-section .player-v2-section-head span{font-size:9px}
 @media(max-width:360px){.player-v2-category,.player-v2-directory-card{gap:8px;padding:10px}.player-v2-category-icon,.player-v2-team-flag,.player-v2-league-code,.player-v2-club-mark{width:36px;height:36px;flex-basis:36px}.player-v2-category b,.player-v2-directory-card b{font-size:13px}.player-v2-category strong{font-size:9px}}
+
+/* Shirt-number-first player directory */
+.player-v2-card{gap:9px}
+.player-v2-number{width:34px;height:38px;display:grid;place-items:center;flex:0 0 34px;border-radius:9px;background:#203b39;border:1px solid #3b655d;color:#b7f3d9;font-size:12px;font-weight:800;font-variant-numeric:tabular-nums}
+.player-v2-shirt-numbers{display:flex;flex-wrap:wrap;gap:6px}
+.player-v2-shirt-numbers span{display:inline-flex;align-items:center;border:1px solid #344653;border-radius:7px;background:#14232d;padding:4px 7px;color:#dce6eb;font-size:10px}
+@media(max-width:360px){.player-v2-number{width:30px;height:34px;flex-basis:30px;font-size:11px}.player-v2-card{gap:7px;padding:9px}}
