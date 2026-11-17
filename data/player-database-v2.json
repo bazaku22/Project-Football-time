@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "2.0.0",
+  "season": "2026/27",
+  "scope": "club-and-national-team",
+  "generatedAt": null,
+  "players": [],
+  "notes": [
+    "Player IDs are permanent and must not be assigned until identity evidence is verified and explicitly approved.",
+    "Club and national-team statistics are stored separately and must never be combined.",
+    "Only verified appearances, goals and assists may be populated; unknown values remain null.",
+    "Player photos and club crests must use verified image sources; otherwise the UI uses a neutral placeholder."
+  ]
+}
