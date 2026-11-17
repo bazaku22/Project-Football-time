@@ -81,7 +81,7 @@ class InternationalMatchDataTests(unittest.TestCase):
 
     def test_dataset_is_precached_and_cache_version_bumped(self):
         self.assertIn('"./data/international-matches.json"', WORKER)
-        self.assertIn('football-time-v116', WORKER)
+        self.assertIn('football-time-v117', WORKER)
 
     def test_match_center_merges_static_intl_records_without_changing_core_db(self):
         self.assertIn("mergeInternationalData", MODULE)
