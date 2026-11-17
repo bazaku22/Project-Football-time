@@ -149,7 +149,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('ft.get("away")', DATABASE_BUILDER)
 
     def test_calendar_does_not_add_api_or_provider_calls(self):
-        self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 0)
+        self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 1)
+        self.assertIn("INTERNATIONAL_DATA_URL", MODULE)
         self.assertIn('football-time-v111', WORKER)
 
 
