@@ -107,11 +107,13 @@
       page.id = "toolsHubPage";
       page.className = "page";
       page.innerHTML = '<div class="pn-tools-hero"><span class="pn-tools-icon">▦</span><div><div class="pn-tools-eyebrow">FOOTBALL TIME</div><h2>เครื่องมือ</h2><p>รวมเครื่องมือที่ใช้งานจริง แยกตามหน้าที่</p></div></div>' +
-        '<section class="pn-tools-group"><h3>วิเคราะห์และประเมินผล</h3><p>เครื่องมือวิเคราะห์ สรุปผล และตรวจสอบข้อมูลย้อนหลัง</p><div class="pn-tool-grid">' +
-        '<button type="button" data-secondary-route="analyze">วิเคราะห์การแข่งขัน</button><button type="button" data-secondary-route="history">ประวัติการวิเคราะห์</button><button type="button" data-secondary-route="summary">สรุปผลโมเดลทดลอง</button><button type="button" data-secondary-route="advanced">วิเคราะห์เชิงลึก</button><button type="button" data-secondary-route="archive">คลังข้อมูล Legacy</button>' +
-        '</div></section><section class="pn-tools-group"><h3>จัดการและเชื่อมต่อข้อมูล</h3><p>นำเข้าข้อมูล ตรวจสอบ และส่งออกไปยังแอปที่เกี่ยวข้อง</p><div class="pn-tool-grid">' +
+        '<section class="pn-tools-group"><h3>วิเคราะห์และประเมินผล</h3><p>เครื่องมือหลักสำหรับตรวจสอบการคาดการณ์และข้อมูลย้อนหลัง</p><div class="pn-tool-grid">' +
+        '<button type="button" data-secondary-route="analyze">วิเคราะห์การแข่งขัน</button><button type="button" data-secondary-route="history">ประวัติการวิเคราะห์</button><button type="button" data-secondary-route="advanced">วิเคราะห์เชิงลึก</button>' +
+        '</div></section><section class="pn-tools-group"><h3>จัดการและเชื่อมต่อข้อมูล</h3><p>นำเข้าข้อมูลที่ตรวจสอบแล้ว และส่งออกผลจริงไปยัง Football rich</p><div class="pn-tool-grid">' +
         '<button type="button" data-secondary-route="matchResearch">นำเข้าผลและสถิติ</button><button type="button" data-secondary-route="footballEcosystemExport">ส่งออกไป Football rich</button>' +
-        '</div></section><p class="pn-tools-note">เครื่องมือทั้งหมดทำงานตามขอบเขตข้อมูลเดิมของ Football Time · ไม่มีการเพิ่ม API หรือบริการเสียค่าใช้จ่าย</p>';
+        '</div></section><details class="pn-tools-advanced"><summary>พื้นที่ทดลองและคลังข้อมูลเก่า</summary><p>ส่วนนี้เก็บเครื่องมือทดลองและข้อมูล Legacy แยกจากการใช้งานประจำวัน โดยไม่ลบประวัติเดิม</p><div class="pn-tool-grid">' +
+        '<button type="button" data-secondary-route="summary">สรุปผลโมเดลทดลอง</button><button type="button" data-secondary-route="archive">คลังข้อมูล Legacy</button>' +
+        '</div></details><p class="pn-tools-note">เครื่องมือทั้งหมดทำงานตามขอบเขตข้อมูลเดิมของ Football Time · ไม่มีการเพิ่ม API หรือบริการเสียค่าใช้จ่าย</p>';
       $("#main")?.appendChild(page);
     }
     const toolHub = $("#toolsHubPage");
