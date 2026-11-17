@@ -57,3 +57,5 @@
 @media(max-width:360px){.player-v2-number{width:30px;height:34px;flex-basis:30px;font-size:11px}.player-v2-card{gap:7px;padding:9px}}
 
 .player-v2-sprite-photo{display:block;background-color:#22333f;background-repeat:no-repeat;background-size:400% 300%;}
+
+.player-v2-sprite-photo{display:block;background-color:#22333f;background-repeat:no-repeat;background-size:400% 300%;}
