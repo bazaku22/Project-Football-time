@@ -139,6 +139,7 @@
       '<article class="player-v2-profile"><div class="player-v2-hero">'+image(player.photoUrl,"ภาพนักเตะ","player-v2-photo")+
       '<div class="player-v2-identity"><h3>'+esc(player.name || "ไม่ระบุชื่อ")+'</h3><small>Player ID: '+esc(player.playerId || "ยังไม่กำหนด")+'</small>'+
       '<div>'+country+'</div><span class="player-v2-position">'+esc(player.position || "ไม่ระบุตำแหน่ง")+'</span>'+
+      '<div class="player-v2-shirt-numbers"><span>เบอร์สโมสร '+(clubShirt === null ? "—" : "#"+clubShirt)+'</span><span>เบอร์ทีมชาติ '+(Number.isInteger(Number(nationalShirt)) && nationalShirt !== null && nationalShirt !== undefined ? "#"+Number(nationalShirt) : "—")+'</span></div>'+
       '<div class="player-v2-club">'+image(club.logoUrl,"ตราสโมสร","player-v2-club-logo")+'<span>'+esc(club.name || "ยังไม่มีสโมสร")+'</span></div>'+
       '<small>ทีมชาติ: '+nationalTeams+'</small></div></div>'+
       '<div class="player-v2-season">สถิติแยกตามประเภทการแข่งขัน</div>'+
