@@ -26,7 +26,7 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertEqual(sorted(numbers), list(range(1, 24)))
         self.assertTrue(all(player["currentClub"]["logoUrl"] for player in data["players"]))
         self.assertTrue(all(player["currentClub"]["logoSourceUrl"] for player in data["players"]))
-        self.assertEqual(sum(bool(player.get("photoUrl")) for player in data["players"]), 14)
+        self.assertEqual(sum(bool(player.get("photoUrl")) for player in data["players"]), 20)
         self.assertTrue(all(player["nationalTeams"][0]["shirtNumberSourceUrl"] for player in data["players"]))
 
     def test_ui_supports_hierarchical_navigation_and_independent_stats(self):
