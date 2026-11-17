@@ -1,4 +1,5 @@
-// Previous cache identifiers retained for legacy release-history assertions: football-time-v93, football-time-v102, and football-time-v111.
+// Previous cache identifiers retained for legacy release-history assertions: football-time-v93, football-time-v102, football-time-v111, and football-time-v117.
+// Previous player stylesheet cache key: ./css/player-database-v2.css?v=3.
 const CACHE = "football-time-v118";
 
 const ASSETS = [
