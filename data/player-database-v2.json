@@ -817,9 +817,9 @@
       "name": "นิโคลัส มิคเกลสัน",
       "currentClub": {
         "name": "เอลเวอร์สแบร์ก",
-        "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/SV%2007%20Elversberg.svg",
+        "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/SV_Elversberg_Logo_2021.svg/3840px-SV_Elversberg_Logo_2021.svg.png",
         "verifiedAsOf": "2026-11-15",
-        "logoSourceUrl": "https://commons.wikimedia.org/wiki/Category:SV_Elversberg",
+        "logoSourceUrl": "https://commons.wikimedia.org/wiki/File:SV_Elversberg_Logo_2021.svg",
         "logoPublisher": "Wikimedia Commons",
         "shirtNumber": 2,
         "shirtNumberSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
@@ -837,7 +837,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": "https://assets.bundesliga.com/player/dfl-obj-j01boa-dfl-clu-000n6l-dfl-sea-0001ka-body.png?crop=10%2C0%2C75%2C80&fit=256%2C256",
+      "photoUrl": "https://assets.bundesliga.com/player/dfl-obj-j01boa-dfl-clu-000n6l-dfl-sea-0001ka-body.png?crop=0%2C0%2C100%2C55&fit=1200%2C630",
       "season": "2026/27",
       "statistics": {
         "club": {
