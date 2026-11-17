@@ -12,7 +12,7 @@
     if (Number.isInteger(spriteIndex) && spriteIndex >= 0 && spriteIndex < 11) {
       const col = spriteIndex % 4, row = Math.floor(spriteIndex / 4);
       const x = (col / 3) * 100, y = (row / 2) * 100;
-      return '<div class="'+cls+' player-v2-sprite-photo" role="img" aria-label="'+esc(alt)+'" style="background-image:url(\"'+PORTRAIT_SPRITE_URL+'\");background-position:'+x+'% '+y+'%;"></div>';
+      return '<div class="'+cls+' player-v2-sprite-photo" role="img" aria-label="'+esc(alt)+'" style="background-image:url('+PORTRAIT_SPRITE_URL+');background-position:'+x+'% '+y+'%;"></div>';
     }
     const src = safeImage(url);
     return src ? '<img class="'+cls+'" data-image-fallback="1" src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy">' :
