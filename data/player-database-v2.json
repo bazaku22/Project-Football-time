@@ -628,7 +628,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Santiphap_Channgom_Chon_VS_Rayong_Sept13_2026_MD2_TL_ChonburiStadium.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -667,7 +667,10 @@
       "names": {
         "th": "สันติภาพ จันทร์หง่อม"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceUrl": "https://commons.wikimedia.org/wiki/File:Santiphap_Channgom_Chon_VS_Rayong_Sept13_2026_MD2_TL_ChonburiStadium.jpg",
+      "photoPublisher": "Siam.Soccer / Wikimedia Commons",
+      "photoLicense": "CC0 1.0"
     },
     {
       "playerId": "PFT-000005",
@@ -771,7 +774,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://www.siamsport.co.th/static/86409/thumbnail.webp",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -810,7 +813,10 @@
       "names": {
         "th": "อูแซมมา เทียงคาม"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceUrl": "https://www.siamsport.co.th/football-thailand/thaileague-1/86409/",
+      "photoPublisher": "Siamsport",
+      "photoLicense": "Publisher-hosted editorial image; reuse subject to publisher terms"
     },
     {
       "playerId": "PFT-000007",
@@ -1338,15 +1344,16 @@
       "name": "วิลเลียม เวเดอร์เฌอ",
       "currentClub": {
         "name": "อุทัยธานี เอฟซี",
-        "logoUrl": "https://kalshi-public-docs.s3.us-east-1.amazonaws.com/structured_targets/AFCMEN_THA_UTH.webp",
+        "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/uthai-thani-fc.png",
         "verifiedAsOf": "2026-11-15",
-        "logoSourceUrl": "https://kalshi.com/sports/soccer/thai-league-1/futures",
-        "logoPublisher": "Kalshi",
+        "logoSourceUrl": "https://www.footylogos.com/logos/uthai-thani-fc",
+        "logoPublisher": "FootyLogos",
         "clubId": "CLUB-TH-UTHAI-THANI-FC",
         "names": {
           "th": "อุทัยธานี เอฟซี"
         },
-        "leagueId": "OTHER"
+        "leagueId": "OTHER",
+        "logoCredit": "Credit FootyLogos.com as source"
       },
       "country": {
         "code": "TH",
@@ -1354,7 +1361,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.national-football-teams.com/media/cache/players_page/uploads/person_photos/William_Weidersjo_95776-66e77ff516468.jpeg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1393,7 +1400,10 @@
       "names": {
         "th": "วิลเลียม เวเดอร์เฌอ"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceUrl": "https://www.national-football-teams.com/player/95776/William_Weidersjo.html",
+      "photoPublisher": "National Football Teams (photo credited to SiebenW)",
+      "photoLicense": "Source attribution displayed; reuse terms not stated"
     },
     {
       "playerId": "PFT-000015",
@@ -2084,7 +2094,8 @@
     "Future eligible matches add to these baseline totals. Club statistics remain separate and scoped to season 2026/27.",
     "Player list order is based on the shirt number for the selected membership: national-team shirt number for national-team views and current-club shirt number for club views. Unverified club shirt numbers remain null and sort after numbered players.",
     "Player photos and club crests are linked from their cited publisher/source pages. Missing or unverified player photos continue to use the neutral placeholder; do not infer or generate identity images.",
-    "Identity matching uses permanent Player ID and Club ID. Display names are localized; aliases are lookup hints only and never sufficient alone to auto-merge uncertain identities."
+    "Identity matching uses permanent Player ID and Club ID. Display names are localized; aliases are lookup hints only and never sufficient alone to auto-merge uncertain identities.",
+    "Portrait follow-up: Santiphap Channgom uses a CC0 1.0 Wikimedia Commons match photo; Oussama Thiangkham uses a Siamsport publisher-hosted editorial image; William Weidersjo uses a portrait credited by National Football Teams to SiebenW (reuse terms not stated). Uthai Thani crest URL replaced with direct 512x512 PNG from FootyLogos."
   ],
   "nationalTeamStatsPolicy": {
     "scope": "FIFA International A Matches only; senior national team",
