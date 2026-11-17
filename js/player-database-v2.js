@@ -9,7 +9,7 @@
   };
   const image = (url, alt, cls) => {
     const src = safeImage(url);
-    return src ? '<img class="'+cls+'" src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy" referrerpolicy="no-referrer">' :
+    return src ? '<img class="'+cls+'" data-image-fallback="1" src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy">' :
       '<div class="'+cls+' player-v2-image-placeholder" aria-label="'+esc(alt)+'">⚽</div>';
   };
   const stat = (value) => Number.isFinite(Number(value)) && value !== null && value !== "" ? String(Number(value)) : "—";
@@ -80,7 +80,7 @@
     selectedId = ""; query = "";
     const cards = leagues.map(league => {
       const count = players.filter(p=>p.currentClub && leagueFor(p)===league.id).length;
-      const clubCount = new Set(players.filter(p=>p.currentClub && leagueFor(p)===league.id).map(p=>p.currentClub.name)).size;
+      const clubCount = new Set(players.filter(p=>p.currentClub && leagueFor(p)===league.id).map(p=>clubIdFor(p))).size;
       return '<button type="button" class="player-v2-directory-card" data-league="'+esc(league.id)+'"><span class="player-v2-league-code">'+esc(league.short)+'</span><span><b>'+esc(league.name)+'</b><small>'+clubCount+' สโมสร · '+count+' นักเตะ</small></span><span class="player-v2-chevron">›</span></button>';
     }).join("");
     root().innerHTML = navHeader("เลือกลีก","root","กลับหน้าหมวด")+
@@ -115,7 +115,8 @@
     if(kind==="club") view={level:"players",leagueId:view.leagueId,club:key,teamId:""};
     else view={level:"players",leagueId:"",club:"",teamId:key};
     const team = kind==="national" ? players.flatMap(p=>p.nationalTeams||[]).find(t=>t.teamId===key) : null;
-    const title = kind==="club" ? key : (team?.name || "ทีมชาติ");
+    const clubRecord = kind==="club" ? players.find(p=>clubIdFor(p)===key)?.currentClub : null;
+    const title = kind==="club" ? displayClubName(clubRecord) : (team?.name || "ทีมชาติ");
     const backAction = kind==="club" ? "clubs" : "national";
     const filtered = players.filter(p => kind==="club" ? clubIdFor(p)===key : (p.nationalTeams||[]).some(t=>t.teamId===key));
     const cards = sortByShirtNumber(filtered,kind,key)
@@ -128,7 +129,7 @@
     document.getElementById("playerV2Search")?.addEventListener("input",event=>{
       query=event.target.value.trim();
       const current=sortByShirtNumber(players.filter(p=>kind==="club"?clubIdFor(p)===key:(p.nationalTeams||[]).some(t=>t.teamId===key)),kind,key)
-        .filter(p=>[p.name,p.playerId,p.currentClub?.name,p.country?.name].join(" ").toLowerCase().includes(query.toLowerCase()));
+        .filter(p=>searchablePlayerText(p).includes(query.toLowerCase()));
       const list=document.getElementById("playerV2List");
       if(list) list.innerHTML=current.map(p=>playerCard(p,kind,key)).join("") || '<div class="player-v2-empty">ไม่พบรายชื่อนักเตะที่ตรงกับคำค้น</div>';
     });
@@ -176,6 +177,17 @@
       '<div id="playerV2Content"><div class="player-v2-empty">กำลังโหลดฐานข้อมูลนักเตะ…</div></div>'+
       '<p class="player-v2-note">แสดงเฉพาะข้อมูลที่ตรวจสอบได้ · ไม่เดาภาพนักเตะ ตราสโมสร หรือสถิติ</p>';
     fixtures.appendChild(panel);
+    panel.addEventListener("error",event=>{
+      const failed=event.target;
+      if(failed instanceof HTMLImageElement && failed.dataset.imageFallback==="1"){
+        const placeholder=document.createElement("span");
+        placeholder.className=failed.className+" player-v2-image-placeholder";
+        placeholder.setAttribute("role","img");
+        placeholder.setAttribute("aria-label",failed.alt || "ไม่มีภาพ");
+        placeholder.textContent="⚽";
+        failed.replaceWith(placeholder);
+      }
+    },true);
     panel.addEventListener("click",event=>{
       const nav=event.target.closest("[data-nav]");
       if(nav){
