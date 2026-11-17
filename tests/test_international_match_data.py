@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / "data" / "international-matches.json").read_text(encoding="utf-8"))
 MODULE = (ROOT / "js" / "match-center.js").read_text(encoding="utf-8")
 WORKER = (ROOT / "sw.js").read_text(encoding="utf-8")
+DETAIL = (ROOT / "js" / "unified-match-center.js").read_text(encoding="utf-8")
 
 class InternationalMatchDataTests(unittest.TestCase):
     def test_dataset_has_shared_uuid_match_id(self):
@@ -57,6 +58,12 @@ class InternationalMatchDataTests(unittest.TestCase):
         self.assertIsNone(match["homeScore"])
         self.assertIsNone(match["awayScore"])
         self.assertEqual(match["resultVerification"]["status"], "pending_manual_confirmation")
+
+    def test_match_detail_renders_named_lineups_and_source_links(self):
+        self.assertIn("mc-lineup-team", DETAIL)
+        self.assertIn("mc-lineup-player", DETAIL)
+        self.assertIn("startingXISource", DETAIL)
+        self.assertIn("substitutesSource", DETAIL)
 
     def test_dataset_is_precached_and_cache_version_bumped(self):
         self.assertIn('"./data/international-matches.json"', WORKER)
