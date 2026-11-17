@@ -8,7 +8,14 @@ ROOT = Path(__file__).resolve().parents[1]
 class PlayerDatabaseV2Tests(unittest.TestCase):
     def test_data_contract_has_unique_ids_and_thailand_roster(self):
         data = json.loads((ROOT / "data/player-database-v2.json").read_text(encoding="utf-8"))
-        self.assertEqual(data["schemaVersion"], "2.0.0")
+        self.assertEqual(data["schemaVersion"], "2.1.0")
+        self.assertTrue(all(player["currentClub"].get("clubId") for player in data["players"]))
+        self.assertTrue(all(player.get("names", {}).get("th") for player in data["players"]))
+        nicholas = next(player for player in data["players"] if player["playerId"] == "PFT-000007")
+        self.assertEqual(nicholas["names"]["en"], "Nicholas Mickelson")
+        self.assertIn("Nicholas Mickelson", nicholas["aliases"])
+        self.assertEqual(nicholas["currentClub"]["leagueId"], "BL1")
+        self.assertEqual(nicholas["currentClub"]["clubId"], "CLUB-DE-SV-ELVERSBERG")
         self.assertEqual(data["season"], "2026/27")
         self.assertEqual(len(data["players"]), 23)
         ids = [player["playerId"] for player in data["players"]]
@@ -45,6 +52,10 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("ยังไม่มีข้อมูลที่ยืนยันได้", source)
         self.assertIn("safeImage", source)
         self.assertIn("sortByShirtNumber", source)
+        self.assertIn("clubIdFor", source)
+        self.assertIn("searchablePlayerText", source)
+        self.assertIn("data-image-fallback", source)
+        self.assertIn("player-v2-image-placeholder", source)
         self.assertIn("player-v2-number", source)
         self.assertIn("เบอร์ทีมชาติ", source)
         self.assertIn("fetch(DATA_URL, {cache:\"no-store\"})", source)
@@ -55,9 +66,9 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("./js/player-database-v2.js", html)
         self.assertIn("./js/player-database-v2.js", sw)
-        self.assertIn("./css/player-database-v2.css?v=3", sw)
+        self.assertIn("./css/player-database-v2.css?v=4", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v117"', sw)
+        self.assertIn('const CACHE = "football-time-v118"', sw)
 
 
 if __name__ == "__main__":
