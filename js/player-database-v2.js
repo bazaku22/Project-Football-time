@@ -27,6 +27,28 @@
   let view = {level:"root",leagueId:"",club:"",teamId:""};
   const root = () => document.getElementById("playerV2Content");
   const leagueFor = (player) => player.currentClub?.leagueId || "OTHER";
+  const shirtNumberFor = (player, kind, key) => {
+    const raw = kind === "club" ? player.currentClub?.shirtNumber :
+      (player.nationalTeams || []).find(team => team.teamId === key)?.shirtNumber;
+    const number = Number(raw);
+    return raw === null || raw === undefined || raw === "" || !Number.isInteger(number) || number < 1 ? null : number;
+  };
+  const sortByShirtNumber = (list, kind, key) => [...list].sort((a,b) => {
+    const an = shirtNumberFor(a,kind,key), bn = shirtNumberFor(b,kind,key);
+    if (an === null && bn !== null) return 1;
+    if (bn === null && an !== null) return -1;
+    if (an !== null && bn !== null && an !== bn) return an - bn;
+    return String(a.name || "").localeCompare(String(b.name || ""),"th");
+  });
+  const playerCard = (player, kind, key) => {
+    const shirt = shirtNumberFor(player,kind,key);
+    return '<button type="button" class="player-v2-card" data-player-id="'+esc(player.playerId || "")+'">'+
+      '<span class="player-v2-number" aria-label="เบอร์เสื้อ '+(shirt === null ? "ยังไม่ยืนยัน" : shirt)+'">'+(shirt === null ? "—" : "#"+shirt)+'</span>'+
+      image(player.photoUrl,player.name || "ภาพนักเตะ","player-v2-card-photo")+
+      '<span class="player-v2-card-main"><b>'+esc(player.name || "ไม่ระบุชื่อ")+'</b><small>Player ID: '+esc(player.playerId || "ยังไม่กำหนด")+'</small>'+
+      '<small>'+(player.country?.flag ? esc(player.country.flag)+" " : "")+esc(player.country?.name || "ไม่ระบุประเทศ")+' · '+esc(player.position || "ไม่ระบุตำแหน่ง")+'</small>'+
+      '<span class="player-v2-club">'+image(player.currentClub?.logoUrl,"ตราสโมสร","player-v2-club-logo")+esc(player.currentClub?.name || "ยังไม่มีสโมสร")+'</span></span></button>';
+  };
   const countNationalPlayers = (teamId) => players.filter(p => (p.nationalTeams || []).some(t => t.teamId === teamId)).length;
   function statsBlock(title, stats, sourceLabel) {
     const value = stats || {};
@@ -91,22 +113,19 @@
     const title = kind==="club" ? key : (team?.name || "ทีมชาติ");
     const backAction = kind==="club" ? "clubs" : "national";
     const filtered = players.filter(p => kind==="club" ? p.currentClub?.name===key : (p.nationalTeams||[]).some(t=>t.teamId===key));
-    const cards = filtered.filter(p=>[p.name,p.playerId,p.currentClub?.name,p.country?.name].join(" ").toLowerCase().includes(query.toLowerCase())).map(p =>
-      '<button type="button" class="player-v2-card" data-player-id="'+esc(p.playerId || "")+'">'+image(p.photoUrl,p.name || "ภาพนักเตะ","player-v2-card-photo")+
-      '<span class="player-v2-card-main"><b>'+esc(p.name || "ไม่ระบุชื่อ")+'</b><small>Player ID: '+esc(p.playerId || "ยังไม่กำหนด")+'</small>'+
-      '<small>'+(p.country?.flag ? esc(p.country.flag)+" " : "")+esc(p.country?.name || "ไม่ระบุประเทศ")+' · '+esc(p.position || "ไม่ระบุตำแหน่ง")+'</small>'+
-      '<span class="player-v2-club">'+image(p.currentClub?.logoUrl,"ตราสโมสร","player-v2-club-logo")+esc(p.currentClub?.name || "ยังไม่มีสโมสร")+'</span></span></button>'
-    ).join("");
+    const cards = sortByShirtNumber(filtered,kind,key)
+      .filter(p=>[p.name,p.playerId,p.currentClub?.name,p.country?.name].join(" ").toLowerCase().includes(query.toLowerCase()))
+      .map(p=>playerCard(p,kind,key)).join("");
     root().innerHTML = navHeader(title,backAction,kind==="club"?"กลับรายชื่อสโมสร":"กลับรายชื่อทีมชาติ")+
       '<input id="playerV2Search" class="filter player-v2-search" type="search" placeholder="ค้นหาชื่อนักเตะ / Player ID" aria-label="ค้นหานักเตะในหมวดนี้">'+
       '<div class="player-v2-list" id="playerV2List">'+(cards || '<div class="player-v2-empty">ไม่พบรายชื่อนักเตะในหมวดนี้</div>')+'</div>'+
-      '<p class="player-v2-note">มี '+filtered.length+' รายชื่อ · แตะนักเตะเพื่อดูข้อมูลและสถิติแยกหมวด</p>';
+      '<p class="player-v2-note">เรียงตามเบอร์เสื้อ · มี '+filtered.length+' รายชื่อ · เบอร์ที่ยังไม่ยืนยันจะแสดงท้ายรายการ</p>';
     document.getElementById("playerV2Search")?.addEventListener("input",event=>{
       query=event.target.value.trim();
-      const current=players.filter(p=>kind==="club"?p.currentClub?.name===key:(p.nationalTeams||[]).some(t=>t.teamId===key))
+      const current=sortByShirtNumber(players.filter(p=>kind==="club"?p.currentClub?.name===key:(p.nationalTeams||[]).some(t=>t.teamId===key)),kind,key)
         .filter(p=>[p.name,p.playerId,p.currentClub?.name,p.country?.name].join(" ").toLowerCase().includes(query.toLowerCase()));
       const list=document.getElementById("playerV2List");
-      if(list) list.innerHTML=current.map(p=>'<button type="button" class="player-v2-card" data-player-id="'+esc(p.playerId||"")+'">'+image(p.photoUrl,p.name||"ภาพนักเตะ","player-v2-card-photo")+'<span class="player-v2-card-main"><b>'+esc(p.name||"ไม่ระบุชื่อ")+'</b><small>Player ID: '+esc(p.playerId||"ยังไม่กำหนด")+'</small><small>'+(p.country?.flag?esc(p.country.flag)+" ":"")+esc(p.country?.name||"ไม่ระบุประเทศ")+' · '+esc(p.position||"ไม่ระบุตำแหน่ง")+'</small><span class="player-v2-club">'+image(p.currentClub?.logoUrl,"ตราสโมสร","player-v2-club-logo")+esc(p.currentClub?.name||"ยังไม่มีสโมสร")+'</span></span></button>').join("") || '<div class="player-v2-empty">ไม่พบรายชื่อนักเตะที่ตรงกับคำค้น</div>';
+      if(list) list.innerHTML=current.map(p=>playerCard(p,kind,key)).join("") || '<div class="player-v2-empty">ไม่พบรายชื่อนักเตะที่ตรงกับคำค้น</div>';
     });
   }
   function renderProfile(player) {
@@ -114,6 +133,8 @@
     const club = player.currentClub || {};
     const country = player.country ? ((player.country.flag ? esc(player.country.flag)+" " : "")+esc(player.country.name || "")) : "ยังไม่มีข้อมูล";
     const nationalTeams = (player.nationalTeams||[]).map(t=>esc(t.name)).join(" · ") || "ยังไม่มีรายชื่อทีมชาติ";
+    const nationalShirt = (player.nationalTeams||[]).find(t=>t.teamId==="THA")?.shirtNumber;
+    const clubShirt = Number.isInteger(Number(club.shirtNumber)) && club.shirtNumber !== null ? Number(club.shirtNumber) : null;
     root().innerHTML = '<button type="button" class="player-v2-back" data-nav="players">‹ กลับไปหน้ารายชื่อ</button>'+
       '<article class="player-v2-profile"><div class="player-v2-hero">'+image(player.photoUrl,"ภาพนักเตะ","player-v2-photo")+
       '<div class="player-v2-identity"><h3>'+esc(player.name || "ไม่ระบุชื่อ")+'</h3><small>Player ID: '+esc(player.playerId || "ยังไม่กำหนด")+'</small>'+
@@ -181,7 +202,7 @@
     }
   }
   const link = document.createElement("link");
-  link.rel = "stylesheet"; link.href = "./css/player-database-v2.css?v=2";
+  link.rel = "stylesheet"; link.href = "./css/player-database-v2.css?v=3";
   document.head.appendChild(link);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init, {once:true});
   else init();
