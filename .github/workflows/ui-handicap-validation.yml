@@ -4,7 +4,8 @@ name: UI and Handicap Validation
 on:
   pull_request:
     paths:
-      - "index.html"\n      - "css/modern-analytics-overhaul.css"
+      - "index.html"
+      - "css/modern-analytics-overhaul.css"
       - "js/asian-handicap.js"
       - "js/handicap-history.js"
       - "js/handicap-reference.js"
@@ -24,7 +25,8 @@ on:
       - "js/player-database-v2.js"
       - "css/player-database-v2.css"
       - "data/player-database-v2.json"
-      - "tests/test_player_database_v2.py"\n      - "tests/test_data_preservation.py"
+      - "tests/test_player_database_v2.py"
+      - "tests/test_data_preservation.py"
       - "tests/test_manual_match_research_ui.py"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
