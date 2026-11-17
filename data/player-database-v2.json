@@ -301,6 +301,94 @@
       "usedFor": [
         "player portrait image source"
       ]
+    },
+    {
+      "publisher": "Pattani FC Official",
+      "publishedAt": null,
+      "url": "https://pattanifc.co/squad",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Hatyaifocus",
+      "publishedAt": null,
+      "url": "https://www.hatyaifocus.com/news-detail/29757/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Ballthai",
+      "publishedAt": null,
+      "url": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Bundesliga",
+      "publishedAt": null,
+      "url": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "player portrait image source"
+      ]
+    },
+    {
+      "publisher": "Port FC Official",
+      "publishedAt": null,
+      "url": "https://portfcofficial.com/players/",
+      "usedFor": [
+        "current squad shirt numbers and official portraits for Port FC players"
+      ]
+    },
+    {
+      "publisher": "Buriram United Official",
+      "publishedAt": null,
+      "url": "https://www.buriramunited.com/team",
+      "usedFor": [
+        "current squad shirt numbers for Buriram United players"
+      ]
+    },
+    {
+      "publisher": "FotMob",
+      "publishedAt": null,
+      "url": "https://www.fotmob.com/th/players/1231017/santiphap-channgom",
+      "usedFor": [
+        "current Chonburi FC shirt number for Santipap Channgom"
+      ]
+    },
+    {
+      "publisher": "Sofascore",
+      "publishedAt": null,
+      "url": "https://www.sofascore.com/football/player/oussama-thiangkham/2203643",
+      "usedFor": [
+        "current PT Prachuap FC shirt number for Oussama Thiangkham"
+      ]
+    },
+    {
+      "publisher": "Bundesliga",
+      "publishedAt": null,
+      "url": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "usedFor": [
+        "current SV Elversberg player portrait and shirt number"
+      ]
     }
   ],
   "players": [
@@ -450,7 +538,7 @@
         "flag": "🇹🇭"
       },
       "position": "GK",
-      "photoUrl": null,
+      "photoUrl": "https://pattanifc.co/payload-api/media/file/Player-7.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -485,7 +573,9 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://pattanifc.co/squad",
+      "photoPublisher": "Pattani FC Official"
     },
     {
       "playerId": "PFT-000004",
@@ -495,7 +585,10 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20230704-102010-b6246a4c-c503-43a1-8108-1f9e05cc0c79.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://thaileague.co.th/v1/club-info/?id=5522&tn=175",
-        "logoPublisher": "Thai League"
+        "logoPublisher": "Thai League",
+        "shirtNumber": 23,
+        "shirtNumberSourceUrl": "https://www.fotmob.com/th/players/1231017/santiphap-channgom",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -617,7 +710,10 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221222-100218-53c5d390-ae70-4346-8d2a-07934624aa89.png",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://thaileague.co.th/results/155",
-        "logoPublisher": "Thai League"
+        "logoPublisher": "Thai League",
+        "shirtNumber": 2,
+        "shirtNumberSourceUrl": "https://www.sofascore.com/football/player/oussama-thiangkham/2203643",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -670,7 +766,10 @@
         "logoUrl": "https://commons.wikimedia.org/wiki/Special:FilePath/SV%2007%20Elversberg.svg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://commons.wikimedia.org/wiki/Category:SV_Elversberg",
-        "logoPublisher": "Wikimedia Commons"
+        "logoPublisher": "Wikimedia Commons",
+        "shirtNumber": 2,
+        "shirtNumberSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -678,7 +777,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://assets.bundesliga.com/player/dfl-obj-j01boa-dfl-clu-000n6l-dfl-sea-0001ka-body.png?crop=10%2C0%2C75%2C80&fit=256%2C256",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -727,7 +826,9 @@
           },
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
+      "photoPublisher": "Bundesliga"
     },
     {
       "playerId": "PFT-000008",
@@ -737,7 +838,10 @@
         "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.portfcstore.com/en",
-        "logoPublisher": "Port FC Official Store"
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 36,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -745,7 +849,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGC5816.jpeg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -780,7 +884,9 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000009",
@@ -859,7 +965,10 @@
         "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.portfcstore.com/en",
-        "logoPublisher": "Port FC Official Store"
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 4,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -867,7 +976,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": "https://spacebar.th/_next/image?q=75&url=%2Fapi%2Fmedia%2Ffile%2FSuphanan_Bureerat_Interview_SPACEBAR_Photo08_a175b8848a.jpeg&w=3840",
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGL6806.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -917,8 +1026,8 @@
           "provenance": "11v11 Thailand appearances table; senior Thailand international appearance total as published on 2026-10-05; goals and assists remain unverified"
         }
       ],
-      "photoSourceUrl": "https://spacebar.th/sport/suphanan-bureerat-interview",
-      "photoPublisher": "SPACEBAR"
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000011",
@@ -997,7 +1106,10 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
-        "logoPublisher": "FA Thailand"
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 5,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1232,7 +1344,10 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
-        "logoPublisher": "FA Thailand"
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 21,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1240,7 +1355,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://www.hatyaifocus.com/ckeditor/upload/news/1/%E0%B9%80%E0%B8%99%E0%B8%95%E0%B8%A3/%E0%B8%9E.%E0%B8%A2.68/11-11-68/539251224_1308668683947299_5302606320159569141_n.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1275,7 +1390,9 @@
           "shirtNumberSourceUrl": "https://en.thairath.co.th/sport/thaifootball/2972496",
           "shirtNumberVerifiedAsOf": "2026-11-14"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.hatyaifocus.com/news-detail/29757/",
+      "photoPublisher": "Hatyaifocus"
     },
     {
       "playerId": "PFT-000017",
@@ -1285,7 +1402,10 @@
         "logoUrl": "https://competition.tl.prod.c0d1um.io/media/tournament_team/logo/20221011-102932-73b0dcd6-e1dd-4b9e-887a-cf18fc2f7862.jpg",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://fathailand.org/match-results/29/148?language=en",
-        "logoPublisher": "FA Thailand"
+        "logoPublisher": "FA Thailand",
+        "shirtNumber": 11,
+        "shirtNumberSourceUrl": "https://www.buriramunited.com/team",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1293,7 +1413,7 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
+      "photoUrl": "https://media.ballthai.com/2026/03/Anan-Yodsangwal-1.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1342,7 +1462,9 @@
           },
           "provenance": "11v11 Thailand appearances table; 14 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
+      "photoPublisher": "Ballthai"
     },
     {
       "playerId": "PFT-000018",
@@ -1603,7 +1725,10 @@
         "logoUrl": "https://www.portfcstore.com/cdn/shop/files/logo-Port-FC_59_Final_CS4.png?v=1756686951",
         "verifiedAsOf": "2026-11-15",
         "logoSourceUrl": "https://www.portfcstore.com/en",
-        "logoPublisher": "Port FC Official Store"
+        "logoPublisher": "Port FC Official Store",
+        "shirtNumber": 14,
+        "shirtNumberSourceUrl": "https://portfcofficial.com/players/",
+        "shirtNumberVerifiedAsOf": "2026-11-18"
       },
       "country": {
         "code": "TH",
@@ -1611,7 +1736,7 @@
         "flag": "🇹🇭"
       },
       "position": "FW",
-      "photoUrl": null,
+      "photoUrl": "https://portfcofficial.com/wp-content/uploads/2025/08/IMGC7109.jpeg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1660,7 +1785,9 @@
           },
           "provenance": "11v11 Thailand appearances table; 36 senior international appearances as of 2026-10-05; goals and assists remain unverified"
         }
-      ]
+      ],
+      "photoSourceUrl": "https://portfcofficial.com/players/",
+      "photoPublisher": "Port FC Official"
     },
     {
       "playerId": "PFT-000023",
