@@ -22,6 +22,12 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertEqual(data["nationalTeamMatches"][0]["matchId"], "THA-TJK-KC52-FINAL-2026-11-17")
         self.assertTrue(all(player["statistics"]["club"]["season"] == "2026/27" for player in data["players"]))
         self.assertIn("Player ID", " ".join(data["notes"]))
+        numbers = [player["nationalTeams"][0]["shirtNumber"] for player in data["players"]]
+        self.assertEqual(sorted(numbers), list(range(1, 24)))
+        self.assertTrue(all(player["currentClub"]["logoUrl"] for player in data["players"]))
+        self.assertTrue(all(player["currentClub"]["logoSourceUrl"] for player in data["players"]))
+        self.assertEqual(sum(bool(player.get("photoUrl")) for player in data["players"]), 14)
+        self.assertTrue(all(player["nationalTeams"][0]["shirtNumberSourceUrl"] for player in data["players"]))
 
     def test_ui_supports_hierarchical_navigation_and_independent_stats(self):
         source = (ROOT / "js/player-database-v2.js").read_text(encoding="utf-8")
@@ -38,6 +44,9 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("assists", source)
         self.assertIn("ยังไม่มีข้อมูลที่ยืนยันได้", source)
         self.assertIn("safeImage", source)
+        self.assertIn("sortByShirtNumber", source)
+        self.assertIn("player-v2-number", source)
+        self.assertIn("เบอร์ทีมชาติ", source)
         self.assertIn("fetch(DATA_URL, {cache:\"no-store\"})", source)
         self.assertNotIn("DATA_URL + \"?v=", source)
 
@@ -46,9 +55,9 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("./js/player-database-v2.js", html)
         self.assertIn("./js/player-database-v2.js", sw)
-        self.assertIn("./css/player-database-v2.css?v=2", sw)
+        self.assertIn("./css/player-database-v2.css?v=3", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v116"', sw)
+        self.assertIn('const CACHE = "football-time-v117"', sw)
 
 
 if __name__ == "__main__":
