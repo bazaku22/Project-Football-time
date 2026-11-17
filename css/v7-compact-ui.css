@@ -1,0 +1,40 @@
+/* Football Time V7.0 — compact mobile-first refinements */
+header{padding:7px max(12px,calc((100vw - 900px)/2))}
+header .brand{gap:8px;min-height:34px}
+header .logo{width:34px;height:34px;flex:0 0 34px;border-radius:10px;font-size:18px}
+header h1{font-size:14px;line-height:1.2;letter-spacing:.035em}
+header .sub{display:none}
+header .app-version{margin-top:2px;font-size:9px}
+header .pft-notification-trigger{width:34px;height:34px;min-width:34px;padding:5px;border-radius:10px}
+header .discovery-search{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:7px;max-width:620px;margin:6px auto 0;padding:0}
+header .discovery-search label{margin:0;font-size:10px;white-space:nowrap}
+header .discovery-search input{min-height:35px;height:35px;padding:6px 11px;border-radius:10px;font-size:12px}
+header .discovery-search-results{top:calc(100% + 5px)}
+#leagueCards[hidden],#teamList[hidden]{display:none!important}
+#leaguePicker{display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;overflow-y:hidden;padding:3px 1px 9px;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+#leaguePicker .pill{flex:0 0 auto;scroll-snap-align:start;white-space:nowrap;min-height:34px;padding:7px 13px}
+#leaguePicker::-webkit-scrollbar{height:4px}
+#leaguePicker::-webkit-scrollbar-thumb{background:rgba(123,199,255,.35);border-radius:8px}
+.mc-match-card .mc-detail-view{margin:12px 0 0;padding:12px;border:1px solid var(--ft-border-strong);border-radius:14px;background:rgba(5,15,26,.55);scroll-margin-top:78px}
+.mc-match-card .mc-detail-toolbar{position:sticky;top:4px;z-index:1;background:rgba(8,19,33,.92);backdrop-filter:blur(10px)}
+.mc-match-card .mc-detail-back{font-size:11px;min-height:32px;padding:6px 10px}
+.mc-match-card .mc-detail-tabs{display:flex;gap:6px;overflow-x:auto;padding:8px 0}
+.mc-match-card .mc-detail-tabs button{flex:0 0 auto;white-space:nowrap}
+.mc-open-match{min-height:34px;padding:7px 11px;border-radius:10px;font-size:11px;font-weight:750}
+.discovery-favorites-card,.discovery-date-card,.discovery-star{display:none!important}
+@media(max-width:520px){
+ header{padding:6px 10px}
+ header .brand{gap:7px}
+ header .logo{width:31px;height:31px;flex-basis:31px}
+ header h1{font-size:12px}
+ header .app-version{font-size:8px}
+ header .discovery-search{margin-top:5px;gap:6px}
+ header .discovery-search label{font-size:9px}
+ header .discovery-search input{height:33px;min-height:33px;font-size:11px}
+ #leaguePicker .pill{min-height:32px;padding:6px 11px;font-size:11px}
+ .mc-match-card .mc-detail-view{padding:9px}
+}
+@media(max-width:360px){
+ header .discovery-search{grid-template-columns:1fr}
+ header .discovery-search label{display:none}
+}
