@@ -1,0 +1,30 @@
+.player-v2-intro,.player-v2-note{font-size:11px;color:var(--muted);line-height:1.7;margin:8px 0 13px}
+.player-v2-list{display:grid;gap:9px;margin-top:12px}
+.player-v2-card{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:var(--panel);color:#f4f7f9;border:1px solid #344653;border-radius:14px;padding:11px;cursor:pointer}
+.player-v2-card-photo{width:68px;height:78px;object-fit:cover;border-radius:10px;flex-shrink:0;background:#22333f}
+.player-v2-image-placeholder{display:grid;place-items:center;color:#91a4b1;background:#22333f;border:1px solid #344653}
+.player-v2-card-main{min-width:0;display:grid;gap:4px}
+.player-v2-card-main>b{font-size:14px}
+.player-v2-card-main>small{font-size:10px;color:var(--muted)}
+.player-v2-club{display:flex;align-items:center;gap:7px;font-size:11px;color:#dce6eb;margin-top:3px}
+.player-v2-club-logo{width:22px;height:22px;object-fit:contain;flex-shrink:0}
+.player-v2-profile{background:var(--panel);border:1px solid #344653;border-radius:15px;padding:13px;margin-top:10px}
+.player-v2-back{border:1px solid #344653;background:#14232d;color:#e8f0f4;border-radius:9px;padding:9px 12px;margin-top:12px}
+.player-v2-hero{display:flex;gap:13px;align-items:flex-start}
+.player-v2-photo{width:104px;height:122px;object-fit:cover;border-radius:12px;flex-shrink:0;background:#22333f}
+.player-v2-identity{min-width:0;display:grid;gap:7px;font-size:12px}
+.player-v2-identity h3{font-size:17px;line-height:1.35;margin:0}
+.player-v2-identity small{font-size:10px;color:var(--muted)}
+.player-v2-position{justify-self:start;border-radius:7px;background:#24463f;color:#b7f3d9;padding:5px 8px;font-size:10px}
+.player-v2-season{font-size:11px;color:var(--muted);margin:16px 0 8px}
+.player-v2-stat-section{border-top:1px solid #344653;padding-top:12px;margin-top:12px}
+.player-v2-section-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:9px}
+.player-v2-section-head b{font-size:13px}
+.player-v2-section-head span{font-size:10px;color:var(--muted)}
+.player-v2-stat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.player-v2-stat{background:#14232d;border:1px solid #344653;border-radius:10px;padding:10px 5px;text-align:center}
+.player-v2-stat b{display:block;font-size:21px;line-height:1.3}
+.player-v2-stat span{font-size:10px;color:var(--muted)}
+.player-v2-empty{padding:22px 13px;text-align:center;color:var(--muted);font-size:12px;line-height:1.8;background:#14232d;border:1px dashed #405461;border-radius:12px;margin-top:12px}
+.player-v2-empty small{font-size:10px}
+@media(max-width:360px){.player-v2-photo{width:86px;height:108px}.player-v2-identity h3{font-size:15px}.player-v2-stat{padding:8px 3px}.player-v2-stat b{font-size:18px}}
