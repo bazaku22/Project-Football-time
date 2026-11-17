@@ -4,7 +4,8 @@ const CACHE = "football-time-v122";
 
 const ASSETS = [
   "./",
-  "./index.html",\n  "./css/modern-analytics-overhaul.css?v=1",
+  "./index.html",
+  "./css/modern-analytics-overhaul.css?v=1",
   "./match-center-mockup.html",
   "./css/ui-refresh.css",
   "./css/ui-refresh-v2.css",
