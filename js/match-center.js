@@ -318,35 +318,6 @@
     });
     render();
   }
-  function openInDatabase(button) {
-    const route = button.dataset.matchAction === "analysis" ? "analyze" : "leagues";
-    const primaryRoute = document.querySelector('[data-primary-route="' + route + '"]');
-    if (primaryRoute) primaryRoute.click();
-    else document.querySelector('[data-page="fixtures"]')?.click();
-    const providerMatchId = button.dataset.providerMatchId || "";
-    if (button.dataset.matchAction === "analysis" && providerMatchId) {
-      document.querySelector('[data-db-tab="probability"]')?.click();
-      const leagueSelect = $("probLeagueSelect");
-      const matchSelect = $("probMatchSelect");
-      if (leagueSelect && matchSelect) {
-        leagueSelect.value = button.dataset.matchLeague || "";
-        leagueSelect.dispatchEvent(new Event("change",{bubbles:true}));
-        const hasMatch = [...matchSelect.options].some((option) => option.value === providerMatchId);
-        if (hasMatch) {
-          matchSelect.value = providerMatchId;
-          matchSelect.dispatchEvent(new Event("change",{bubbles:true}));
-          $("probabilityOutput")?.scrollIntoView({behavior:"smooth",block:"start"});
-          return;
-        }
-      }
-    }
-    document.querySelector('[data-db-tab="overview"]')?.click();
-    const from = $("discoveryDateFrom"), to = $("discoveryDateTo"), league = $("discoveryDateLeague");
-    if (from) { from.value = button.dataset.matchDate || ""; from.dispatchEvent(new Event("input",{bubbles:true})); }
-    if (to) { to.value = button.dataset.matchDate || ""; to.dispatchEvent(new Event("input",{bubbles:true})); }
-    if (league) { league.value = button.dataset.matchLeague || "ALL"; league.dispatchEvent(new Event("change",{bubbles:true})); }
-    $("discoveryDateCard")?.scrollIntoView({behavior:"smooth",block:"start"});
-  }
   function mount() {
     selectedDate = bangkokDate();
     calendarAnchorDate = selectedDate;
