@@ -534,11 +534,14 @@
         }
       ],
       "photoSourceUrl": "https://www.ballthai.com/สรานนท์-เสียดาย-บีจี-บุกเจ๊า-แทมปิเนส-โรเวอร์ส-ในสิงคโปร์-คัพ-รอบรองฯ/",
-      "photoPublisher": "Ballthai",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "สรานนท์ อนุอินทร์"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 0,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000003",
@@ -628,7 +631,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://upload.wikimedia.org/wikipedia/commons/7/74/Santiphap_Channgom_Chon_VS_Rayong_Sept13_2026_MD2_TL_ChonburiStadium.jpg",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -667,7 +670,10 @@
       "names": {
         "th": "สันติภาพ จันทร์หง่อม"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceUrl": "https://commons.wikimedia.org/wiki/File:Santiphap_Channgom_Chon_VS_Rayong_Sept13_2026_MD2_TL_ChonburiStadium.jpg",
+      "photoPublisher": "Siam.Soccer / Wikimedia Commons",
+      "photoLicense": "CC0 1.0"
     },
     {
       "playerId": "PFT-000005",
@@ -741,11 +747,14 @@
         }
       ],
       "photoSourceUrl": "https://www.thairath.co.th/sport/thaifootball/changsuek/2895724",
-      "photoPublisher": "Thairath",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "ณัฐพงษ์ สายริยา"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 1,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000006",
@@ -771,7 +780,7 @@
         "flag": "🇹🇭"
       },
       "position": "DF",
-      "photoUrl": null,
+      "photoUrl": "https://www.siamsport.co.th/static/86409/thumbnail.webp",
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -810,7 +819,10 @@
       "names": {
         "th": "อูแซมมา เทียงคาม"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceUrl": "https://www.siamsport.co.th/football-thailand/thaileague-1/86409/",
+      "photoPublisher": "Siamsport",
+      "photoLicense": "Publisher-hosted editorial image; reuse subject to publisher terms"
     },
     {
       "playerId": "PFT-000007",
@@ -888,7 +900,7 @@
         }
       ],
       "photoSourceUrl": "https://www.bundesliga.com/en/player/nicholas-mickelson",
-      "photoPublisher": "Bundesliga",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "นิโคลัส มิคเกลสัน",
         "en": "Nicholas Mickelson"
@@ -896,7 +908,10 @@
       "aliases": [
         "Nicholas Mickelson",
         "Nicolas Mickelson"
-      ]
+      ],
+      "photoSpriteIndex": 7,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000008",
@@ -959,11 +974,14 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "พีฬาวัช อรรคธรรม"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 3,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000009",
@@ -1118,11 +1136,14 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "ศุภนันท์ บุรีรัตน์"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 10,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000011",
@@ -1196,11 +1217,14 @@
         }
       ],
       "photoSourceUrl": "https://www.siamsport.co.th/news/thaibev-sports/12643/",
-      "photoPublisher": "Siamsport",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "คคนะ คำยก"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 8,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000012",
@@ -1263,11 +1287,14 @@
         }
       ],
       "photoSourceUrl": "https://www.buriramunited.com/en/team",
-      "photoPublisher": "Buriram United",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "ธีราทร บุญมาทัน"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 2,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000013",
@@ -1338,15 +1365,16 @@
       "name": "วิลเลียม เวเดอร์เฌอ",
       "currentClub": {
         "name": "อุทัยธานี เอฟซี",
-        "logoUrl": "https://kalshi-public-docs.s3.us-east-1.amazonaws.com/structured_targets/AFCMEN_THA_UTH.webp",
+        "logoUrl": "https://www.footylogos.com/dls/logo/rgba-v1/uthai-thani-fc.png",
         "verifiedAsOf": "2026-11-15",
-        "logoSourceUrl": "https://kalshi.com/sports/soccer/thai-league-1/futures",
-        "logoPublisher": "Kalshi",
+        "logoSourceUrl": "https://www.footylogos.com/logos/uthai-thani-fc",
+        "logoPublisher": "FootyLogos",
         "clubId": "CLUB-TH-UTHAI-THANI-FC",
         "names": {
           "th": "อุทัยธานี เอฟซี"
         },
-        "leagueId": "OTHER"
+        "leagueId": "OTHER",
+        "logoCredit": "Credit FootyLogos.com as source"
       },
       "country": {
         "code": "TH",
@@ -1354,7 +1382,6 @@
         "flag": "🇹🇭"
       },
       "position": "MF",
-      "photoUrl": null,
       "season": "2026/27",
       "statistics": {
         "club": {
@@ -1393,7 +1420,8 @@
       "names": {
         "th": "วิลเลียม เวเดอร์เฌอ"
       },
-      "aliases": []
+      "aliases": [],
+      "photoStatus": "unverified_identity_placeholder"
     },
     {
       "playerId": "PFT-000015",
@@ -1470,11 +1498,14 @@
         }
       ],
       "photoSourceUrl": "https://www.siamsport.co.th/football-jleague/71987/",
-      "photoPublisher": "Siamsport",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "สุภโชค สารชาติ"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 5,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000016",
@@ -1618,11 +1649,14 @@
         }
       ],
       "photoSourceUrl": "https://www.ballthai.com/อนันต์-ลั่นพร้อมช่วย-ช้างศึก-ล้ม-เติร์กเมฯ-คว้าตั๋วรอบสุดท้ายเอเชียน-คัพ/",
-      "photoPublisher": "Ballthai",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "อนันต์ ยอดสังวาลย์"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 6,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000018",
@@ -1682,11 +1716,14 @@
         }
       ],
       "photoSourceUrl": "https://www.hudl.com/profile/16081220",
-      "photoPublisher": "Hudl",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "สารัช อยู่เย็น"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 4,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000019",
@@ -1986,11 +2023,14 @@
         }
       ],
       "photoSourceUrl": "https://portfcofficial.com/players/",
-      "photoPublisher": "Port FC Official",
+      "photoPublisher": "User-provided image",
       "names": {
         "th": "ธีรศักดิ์ เผยพิมาย"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSpriteIndex": 9,
+      "photoSourceType": "user-provided",
+      "photoSourceLabel": "52nd King's Cup 2026 Thailand squad poster supplied in this conversation"
     },
     {
       "playerId": "PFT-000023",
@@ -2066,12 +2106,13 @@
           "provenance": "11v11 Thailand appearances table; 34 senior international appearances as of 2025-03-25; goals and assists remain unverified"
         }
       ],
-      "photoSourceUrl": "https://www.rbomiya.com/news/?id=46380",
-      "photoPublisher": "RB Omiya Ardija",
+      "photoSourceUrl": "https://www.rbomiya.com/jp-ja/news/omiya-46380",
+      "photoPublisher": "RB Omiya Ardija official",
       "names": {
         "th": "ศุภณัฏฐ์ เหมือนตา"
       },
-      "aliases": []
+      "aliases": [],
+      "photoSourceType": "official-club"
     }
   ],
   "notes": [
@@ -2084,7 +2125,9 @@
     "Future eligible matches add to these baseline totals. Club statistics remain separate and scoped to season 2026/27.",
     "Player list order is based on the shirt number for the selected membership: national-team shirt number for national-team views and current-club shirt number for club views. Unverified club shirt numbers remain null and sort after numbered players.",
     "Player photos and club crests are linked from their cited publisher/source pages. Missing or unverified player photos continue to use the neutral placeholder; do not infer or generate identity images.",
-    "Identity matching uses permanent Player ID and Club ID. Display names are localized; aliases are lookup hints only and never sufficient alone to auto-merge uncertain identities."
+    "Identity matching uses permanent Player ID and Club ID. Display names are localized; aliases are lookup hints only and never sufficient alone to auto-merge uncertain identities.",
+    "Portrait follow-up: Santiphap Channgom uses a CC0 1.0 Wikimedia Commons match photo; Oussama Thiangkham uses a Siamsport publisher-hosted editorial image; William Weidersjo uses a portrait credited by National Football Teams to SiebenW (reuse terms not stated). Uthai Thani crest URL replaced with direct 512x512 PNG from FootyLogos.",
+    "Eleven Thailand senior players shown on the user-provided 52nd King's Cup 2026 poster now use individually cropped portrait tiles from that poster. William Wedderburn's previously supplied image was removed after the user identified it as the wrong person; a neutral placeholder is retained pending a verified portrait. Suphanat Mueanta uses the official RB Omiya Ardija signing image."
   ],
   "nationalTeamStatsPolicy": {
     "scope": "FIFA International A Matches only; senior national team",
