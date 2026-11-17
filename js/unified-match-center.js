@@ -36,10 +36,22 @@
     const goals = events.filter((event) => ["goal","penalty_goal","own_goal"].includes(String(event.type||event.detail||"").toLowerCase()));
     const goalMarkup = goals.length ? '<div class="mc-detail-list">' + goals.slice(0,3).map((event) => '<div class="mc-detail-row"><span>' + esc(eventMinute(event)) + ' · ' + playerLink(event) + (event.assist?.name ? '<small> · แอสซิสต์ ' + esc(event.assist.name) + '</small>' : event.assister?.name ? '<small> · แอสซิสต์ ' + esc(event.assister.name) + '</small>' : '') + '</span><b>' + esc(event.type || "ประตู") + '</b></div>').join("") + '</div>' + (goals.length>3?'<p class="mc-detail-muted">มีเหตุการณ์ประตูทั้งหมด '+goals.length+' รายการ · ดูทั้งหมดในแท็บ Events</p>':"") : empty("ยังไม่มีข้อมูลผู้ทำประตูและผู้แอสซิสต์ที่ตรวจสอบได้");
     const lineups = match.lineups || match.teams?.lineups;
-    const lineupMarkup = Array.isArray(lineups) && lineups.length ? '<div class="mc-detail-list">' + lineups.map((team) => '<div class="mc-detail-row"><b>' + esc(team.team?.name || team.teamName || team.name || "ทีม") + '</b><span>' + esc(team.formation || "ไม่ระบุแผน") + ' · ' + list(team.startXI || team.startingXI).length + ' ตัวจริง</span></div>').join("") + '</div>' : empty("ยังไม่มีข้อมูลไลน์อัปหรือแผนการเล่น");
+    const playerRows = (players) => list(players).map((player) => {
+      const number = player.shirtNumber == null ? "—" : "#" + player.shirtNumber;
+      const role = player.captain ? " · กัปตัน" : "";
+      return '<div class="mc-lineup-player"><span class="mc-lineup-number">' + esc(number) + '</span><span class="mc-lineup-name">' + esc(player.name || player.playerName || "ไม่ระบุชื่อ") + esc(role) + '</span>' + (player.position ? '<small>' + esc(player.position) + '</small>' : '') + '</div>';
+    }).join("");
+    const lineupMarkup = Array.isArray(lineups) && lineups.length ? lineups.map((team) => {
+      const teamName = team.team?.name || team.teamName || team.name || "ทีม";
+      const starters = team.startXI || team.startingXI;
+      const substitutes = team.substitutes || team.bench || [];
+      const source = team.source || {};
+      const sourceMarkup = source.url ? '<a href="' + esc(source.url) + '" target="_blank" rel="noopener noreferrer">' + esc(source.name || "แหล่งข้อมูลไลน์อัป") + '</a>' : esc(source.name || "ไม่ระบุแหล่งข้อมูล");
+      return '<section class="mc-lineup-team"><div class="mc-lineup-team-head"><b>' + esc(teamName) + '</b><span>' + esc(team.formation || "ไม่ระบุแผน") + '</span></div><div class="mc-lineup-group"><h4>ตัวจริง (' + list(starters).length + ')</h4>' + (list(starters).length ? '<div class="mc-lineup-grid">' + playerRows(starters) + '</div>' : empty("ยังไม่มีรายชื่อตัวจริง")) + '</div><div class="mc-lineup-group"><h4>ตัวสำรองที่มีชื่อ (' + list(substitutes).length + ')</h4>' + (list(substitutes).length ? '<div class="mc-lineup-grid">' + playerRows(substitutes) + '</div>' : empty("ยังไม่มีรายชื่อตัวสำรอง")) + '<p class="mc-detail-muted">รายชื่อบนม้านั่งสำรอง ไม่ได้หมายความว่าลงสนามทุกคน</p></div><p class="mc-lineup-source">แหล่งข้อมูล: ' + sourceMarkup + ' · สถานะ: ' + esc(source.verificationStatus || "ไม่ระบุ") + '</p></section>';
+    }).join("") : empty("ยังไม่มีข้อมูลไลน์อัปหรือแผนการเล่น");
     const context = match.competitionContext || match.standingsContext;
     const contextMarkup = context ? '<pre class="mc-detail-muted">' + esc(JSON.stringify(context,null,2)) + '</pre>' : empty("ยังไม่มีข้อมูลอันดับและบริบทของรายการ");
-    return card("ผู้ทำประตูและแอสซิสต์",goalMarkup) + card("Lineups & Team Formation",lineupMarkup) + card("Competition Context",contextMarkup);
+    return card("ผู้ทำประตูและแอสซิสต์",goalMarkup) + card("รายชื่อตัวจริงและตัวสำรอง",lineupMarkup) + card("Competition Context",contextMarkup);
   }
   function eventsPanel(match) {
     const events = list(match.events || match.researchRecord?.events).slice().sort((a,b) => Number(a.minute ?? a.time?.elapsed ?? 999)-Number(b.minute ?? b.time?.elapsed ?? 999));
