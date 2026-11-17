@@ -24,11 +24,25 @@ class InternationalMatchDataTests(unittest.TestCase):
         self.assertEqual({team["id"] for team in DATA["teams"]}, {"TJK-NATIONAL", "THA-NATIONAL"})
         self.assertIn('"INTL"', MODULE)
 
-    def test_result_is_not_guessed_or_auto_filled(self):
+    def test_final_result_is_verified_and_revisioned(self):
         match = DATA["matches"][0]
-        self.assertIsNone(match["homeScore"])
-        self.assertIsNone(match["awayScore"])
-        self.assertEqual(match["resultVerification"]["status"], "pending_manual_confirmation")
+        self.assertEqual((match["homeScore"], match["awayScore"]), (3, 0))
+        self.assertEqual(match["status"], "FINISHED")
+        self.assertEqual(match["resultVerification"]["status"], "verified")
+        self.assertEqual(match["resultRevision"], 1)
+        self.assertEqual(len(match["resultRevisionHistory"]), 1)
+        self.assertEqual(match["resultRevisionHistory"][0]["revision"], 1)
+
+    def test_verified_match_events_and_provenance(self):
+        match = DATA["matches"][0]
+        self.assertEqual([event["type"] for event in match["events"]], ["red_card", "goal", "goal", "goal"])
+        self.assertEqual([event["minute"] for event in match["events"]], [38, 40, 49, 75])
+        self.assertEqual([event["player"]["name"] for event in match["events"]][1:],
+                         ["Supachok Sarachat", "Theerasak Phaepimay", "Theerasak Phaepimay"])
+        for event in match["events"]:
+            self.assertGreaterEqual(len(event["sourceUrls"]), 2)
+        self.assertNotIn("assist", json.dumps(match["events"]).lower())
+        self.assertNotIn("playerId", json.dumps(match))
 
     def test_thailand_is_home_and_tajikistan_is_away(self):
         match = DATA["matches"][0]
@@ -53,11 +67,11 @@ class InternationalMatchDataTests(unittest.TestCase):
                 self.assertTrue(lineup["startingXISource"]["url"])
                 self.assertTrue(lineup["substitutesSource"]["url"])
 
-    def test_result_remains_pending_with_no_score(self):
+    def test_result_revision_history_preserves_initial_verified_result(self):
         match = DATA["matches"][0]
-        self.assertIsNone(match["homeScore"])
-        self.assertIsNone(match["awayScore"])
-        self.assertEqual(match["resultVerification"]["status"], "pending_manual_confirmation")
+        self.assertEqual(match["resultRevisionHistory"][0]["homeScore"], match["homeScore"])
+        self.assertEqual(match["resultRevisionHistory"][0]["awayScore"], match["awayScore"])
+        self.assertTrue(match["resultRevisionHistory"][0]["sourceUrls"])
 
     def test_match_detail_renders_named_lineups_and_source_links(self):
         self.assertIn("mc-lineup-team", DETAIL)
@@ -67,7 +81,7 @@ class InternationalMatchDataTests(unittest.TestCase):
 
     def test_dataset_is_precached_and_cache_version_bumped(self):
         self.assertIn('"./data/international-matches.json"', WORKER)
-        self.assertIn('football-time-v112', WORKER)
+        self.assertIn('football-time-v113', WORKER)
 
     def test_match_center_merges_static_intl_records_without_changing_core_db(self):
         self.assertIn("mergeInternationalData", MODULE)
