@@ -212,26 +212,7 @@
       search.innerHTML = '<label for="discoverySearchInput">ค้นหาฟุตบอล</label><input id="discoverySearchInput" type="search" autocomplete="off" placeholder="ค้นหาทีม ลีก นักเตะ หรือการแข่งขัน" aria-controls="discoverySearchResults" aria-expanded="false"><div id="discoverySearchResults" class="discovery-search-results" hidden></div>';
       header.append(search);
     }
-    const home = $("home");
-    if (home && !$("discoveryFavoritesCard")) {
-      const card = document.createElement("section");
-      card.id = "discoveryFavoritesCard";
-      card.className = "card discovery-favorites-card";
-      card.innerHTML = '<div class="topline"><b>รายการโปรด</b><span id="discoveryFavoriteStatus" class="small">บันทึกในอุปกรณ์นี้เท่านั้น</span></div><div id="discoveryFavorites"></div>';
-      const heading = home.querySelector(".sectionhead");
-      if (heading) heading.insertAdjacentElement("afterend",card);
-      else home.prepend(card);
-    }
-    const overview = $("dbtab-overview");
-    const matchCard = $("databaseMatches")?.closest(".card");
-    if (overview && matchCard && !$("discoveryDateCard")) {
-      const card = document.createElement("section");
-      card.id = "discoveryDateCard";
-      card.className = "card discovery-date-card";
-      card.innerHTML = '<div class="topline"><b>ค้นหาตามวันที่แข่งขัน</b><span class="small">ทุกลีก</span></div><div class="discovery-date-controls"><div class="field"><label for="discoveryDateFrom">ตั้งแต่วันที่</label><input id="discoveryDateFrom" type="date"></div><div class="field"><label for="discoveryDateTo">ถึงวันที่</label><input id="discoveryDateTo" type="date"></div><div class="field discovery-date-league"><label for="discoveryDateLeague">ลีก</label><select id="discoveryDateLeague" class="filter"><option value="ALL">ทุกลีก</option></select></div></div><div id="discoveryDateResults" aria-live="polite"><div class="discovery-empty">เลือกวันเริ่มต้นหรือวันสิ้นสุดเพื่อค้นหาโปรแกรมและผลการแข่งขัน</div></div><button type="button" class="secondary discovery-clear-date" id="discoveryClearDate">ล้างตัวกรองวันที่</button>';
-      matchCard.insertAdjacentElement("beforebegin",card);
-    }
-    refreshLeagueOptions();
+    // V7.0 removes the redundant favorites and date-search panels from the UI.
     renderFavorites();
   }
   function refreshLeagueOptions() {

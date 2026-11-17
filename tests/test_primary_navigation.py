@@ -81,9 +81,9 @@ class PrimaryNavigationTests(unittest.TestCase):
     def test_ui_release_and_service_worker_cache_are_bumped_together(self):
         html = (ROOT / "index.html").read_text()
         sw = (ROOT / "sw.js").read_text()
-        self.assertIn('content="6.27.0-beta.1"', html)
-        self.assertIn('Project Football Time V6.27.0-beta.1', html)
-        self.assertIn('const CACHE = "football-time-v122"', sw)
+        self.assertIn('content="7.0"', html)
+        self.assertIn('Project Football Time V7.0', html)
+        self.assertIn('const CACHE = "football-time-v123"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
