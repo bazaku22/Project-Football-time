@@ -61,6 +61,8 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("data-image-fallback", source)
         self.assertIn("player-v2-image-placeholder", source)
         self.assertIn("PORTRAIT_SPRITE_URL", source)
+        self.assertIn("background-image:url(", source)
+        self.assertNotIn('background-image:url(\\\"', source)
         self.assertIn("player-v2-sprite-photo", source)
         self.assertIn("player-v2-number", source)
         self.assertIn("เบอร์ทีมชาติ", source)
@@ -75,7 +77,7 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("./css/player-database-v2.css?v=5", sw)
         self.assertIn("./data/player-database-v2.json", sw)
         self.assertIn("./assets/player-portraits/kings-cup-2026-sprite.jpg", sw)
-        self.assertIn('const CACHE = "football-time-v119"', sw)
+        self.assertIn('const CACHE = "football-time-v120"', sw)
 
 
 if __name__ == "__main__":
