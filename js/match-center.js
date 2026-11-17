@@ -415,7 +415,7 @@
   }
   async function loadInternationalData() {
     try {
-      const response = await fetch(INTERNATIONAL_DATA_URL + "?v=1", {cache:"no-store"});
+      const response = await fetch(INTERNATIONAL_DATA_URL, {cache:"no-store"});
       if (!response.ok) throw new Error("HTTP " + response.status);
       const payload = await response.json();
       if (payload.schemaVersion !== 1 || !Array.isArray(payload.matches) ||
