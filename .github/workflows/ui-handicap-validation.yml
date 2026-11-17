@@ -24,7 +24,7 @@ on:
       - "js/player-database-v2.js"
       - "css/player-database-v2.css"
       - "data/player-database-v2.json"
-      - "tests/test_player_database_v2.py"
+      - "tests/test_player_database_v2.py"\n      - "tests/test_data_preservation.py"
       - "tests/test_manual_match_research_ui.py"
       - "css/analysis-refinement.css"
       - "tests/test_asian_handicap.js"
@@ -65,7 +65,7 @@ jobs:
           node --check js/match-center-mockup.js
           node --check js/manual-match-research.js
           node --check js/player-database-v2.js
-          python3 -m unittest tests/test_manual_match_research_ui.py tests/test_player_database_v2.py -v
+          python3 -m unittest tests/test_manual_match_research_ui.py tests/test_player_database_v2.py tests/test_data_preservation.py -v
           node --check sw.js
           python - <<'PY'
           import re
