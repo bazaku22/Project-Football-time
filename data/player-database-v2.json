@@ -2,12 +2,875 @@
   "schemaVersion": "2.0.0",
   "season": "2026/27",
   "scope": "club-and-national-team",
-  "generatedAt": null,
-  "players": [],
+  "generatedAt": "2026-11-17",
+  "datasetId": "THA-MNT-KINGS-CUP-2026-TEST",
+  "datasetStatus": "TEST_DRAFT",
+  "sources": [
+    {
+      "publisher": "GOAL Thailand",
+      "publishedAt": "2026-11-15",
+      "url": "https://www.goal.com/th/%E0%B8%82%E0%B9%88%E0%B8%B2%E0%B8%A7/%E0%B8%97%E0%B8%B5%E0%B8%A1%E0%B8%8A%E0%B8%B2%E0%B8%95%E0%B8%B4%E0%B9%84%E0%B8%97%E0%B8%A2--%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD-24-%E0%B8%84%E0%B8%99%E0%B8%AA%E0%B8%B8%E0%B8%94%E0%B8%97%E0%B9%89%E0%B8%B2%E0%B8%A2-%E0%B9%80%E0%B8%AD%E0%B9%80%E0%B8%AD%E0%B8%9F%E0%B9%80%E0%B8%AD%E0%B8%9F-%E0%B8%84%E0%B8%B1%E0%B8%9E-2022-%E0%B9%83%E0%B8%84%E0%B8%A3%E0%B8%95%E0%B8%B4%E0%B8%94-%E0%B9%83%E0%B8%84%E0%B8%A3%E0%B8%AB%E0%B8%A5%E0%B8%B8%E0%B8%94%E0%B9%82%E0%B8%9C/bltf7a05cee33ff5e2d",
+      "usedFor": [
+        "23-player squad",
+        "positions",
+        "club at squad announcement"
+      ]
+    },
+    {
+      "publisher": "FA Thailand",
+      "publishedAt": "2026-11-14",
+      "url": "https://fathailand.org/news-detail/dimKH?language=th",
+      "usedFor": [
+        "official tournament coverage and match events"
+      ]
+    },
+    {
+      "publisher": "SiamSport",
+      "publishedAt": "2026-11-17",
+      "url": "https://www.siamsport.co.th/football-thailand/thai-national/112154/",
+      "usedFor": [
+        "17 November 2026 final fixture"
+      ]
+    }
+  ],
+  "players": [
+    {
+      "playerId": "PFT-000001",
+      "name": "ปฏิวัติ คำไหม",
+      "currentClub": {
+        "name": "ทรู แบงค็อก ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "GK",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000002",
+      "name": "สรานนท์ อนุอินทร์",
+      "currentClub": {
+        "name": "บีจี ปทุม ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "GK",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000003",
+      "name": "ศรวัสย์ โพธิ์สมัน",
+      "currentClub": {
+        "name": "ปัตตานี เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "GK",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000004",
+      "name": "สันติภาพ จันทร์หง่อม",
+      "currentClub": {
+        "name": "ชลบุรี เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000005",
+      "name": "ณัฐพงษ์ สายริยา",
+      "currentClub": {
+        "name": "ชลบุรี เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000006",
+      "name": "อูแซมมา เทียงคาม",
+      "currentClub": {
+        "name": "พีที ประจวบ เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000007",
+      "name": "นิโคลัส มิคเกลสัน",
+      "currentClub": {
+        "name": "เอลเวอร์สแบร์ก",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000008",
+      "name": "พีฬาวัช อรรคธรรม",
+      "currentClub": {
+        "name": "การท่าเรือ เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000009",
+      "name": "สุพรรณ ทองสงค์",
+      "currentClub": {
+        "name": "ทรู แบงค็อก ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000010",
+      "name": "ศุภนันท์ บุรีรัตน์",
+      "currentClub": {
+        "name": "การท่าเรือ เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "DF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000011",
+      "name": "คคนะ คำยก",
+      "currentClub": {
+        "name": "เมืองทอง ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000012",
+      "name": "ธีราทร บุญมาทัน",
+      "currentClub": {
+        "name": "บุรีรัมย์ ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000013",
+      "name": "ธีรภัทร ปรือทอง",
+      "currentClub": {
+        "name": "ฮอกไกโด คอนซาโดเล ซัปโปโร",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000014",
+      "name": "วิลเลียม เวเดอร์เฌอ",
+      "currentClub": {
+        "name": "อุทัยธานี เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000015",
+      "name": "สุภโชค สารชาติ",
+      "currentClub": {
+        "name": "ฮอกไกโด คอนซาโดเล ซัปโปโร",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000016",
+      "name": "อิคลาส สันหรน",
+      "currentClub": {
+        "name": "บุรีรัมย์ ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000017",
+      "name": "อนันต์ ยอดสังวาลย์",
+      "currentClub": {
+        "name": "บุรีรัมย์ ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000018",
+      "name": "สารัช อยู่เย็น",
+      "currentClub": {
+        "name": "บีจี ปทุม ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000019",
+      "name": "เสกสรรค์ ราตรี",
+      "currentClub": {
+        "name": "การท่าเรือ เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000020",
+      "name": "วีระเทพ ป้อมพันธุ์",
+      "currentClub": {
+        "name": "ทรู แบงค็อก ยูไนเต็ด",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "MF",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000021",
+      "name": "ยศกร บูรพา",
+      "currentClub": {
+        "name": "ชลบุรี เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "FW",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000022",
+      "name": "ธีรศักดิ์ เผยพิมาย",
+      "currentClub": {
+        "name": "การท่าเรือ เอฟซี",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "FW",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    },
+    {
+      "playerId": "PFT-000023",
+      "name": "ศุภณัฏฐ์ เหมือนตา",
+      "currentClub": {
+        "name": "อาร์บี โอมิยะ อาร์ดิจา",
+        "logoUrl": null,
+        "verifiedAsOf": "2026-11-15"
+      },
+      "country": {
+        "code": "TH",
+        "name": "Thailand",
+        "flag": "🇹🇭"
+      },
+      "position": "FW",
+      "photoUrl": null,
+      "season": "2026/27",
+      "statistics": {
+        "club": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "season": "2026/27"
+        },
+        "nationalTeam": {
+          "appearances": null,
+          "goals": null,
+          "assists": null,
+          "period": "career"
+        }
+      },
+      "provenance": {
+        "identity": "GOAL Thailand squad announcement dated 2026-11-15; cross-checked against FA Thailand tournament coverage",
+        "club": "GOAL Thailand squad announcement dated 2026-11-15; historical snapshot, not a live transfer check",
+        "stats": "Not populated: totals and aggregation period have not yet been verified"
+      }
+    }
+  ],
   "notes": [
-    "Player IDs are permanent and must not be assigned until identity evidence is verified and explicitly approved.",
-    "Club and national-team statistics are stored separately and must never be combined.",
-    "Only verified appearances, goals and assists may be populated; unknown values remain null.",
-    "Player photos and club crests must use verified image sources; otherwise the UI uses a neutral placeholder."
+    "Test dataset for the Thailand men's senior squad named for the 52nd King's Cup in November 2026; not all 23 are confirmed starters.",
+    "Permanent Player IDs assigned for this explicitly approved test after identity matching against the published squad.",
+    "Club and national-team statistics remain separate and must never be combined.",
+    "Unknown statistics remain null and must display as an em dash, not zero.",
+    "Current clubs reflect the 15 November 2026 squad article and require re-verification before production use.",
+    "No unverified player photos or club crests were added; neutral placeholders are intentional.",
+    "National-team appearances, goals and assists use career totals across the player's senior international career; unknown totals remain null.",
+    "National-team statistics period is career lifetime (senior national team); club statistics remain season 2026/27."
   ]
 }
