@@ -103,28 +103,46 @@
       button.setAttribute("aria-selected",String(active));
     });
   }
-  function open(id) {
+  const detailHome = detail()?.parentNode || null;
+  const detailAnchor = detail()?.nextSibling || null;
+  let selectedCard = null;
+  let selectedButton = null;
+  function close() {
+    if (!detail()) return;
+    detail().hidden = true;
+    if (detailHome) detailHome.insertBefore(detail(),detailAnchor);
+    if (selectedButton) {
+      selectedButton.textContent = "ดูรายละเอียดการแข่งขัน";
+      selectedButton.setAttribute("aria-expanded","false");
+    }
+    selectedMatch = null;
+    selectedCard = null;
+    selectedButton = null;
+  }
+  function open(button) {
+    const id = button?.dataset?.unifiedMatch;
+    if (!id) return;
+    if (selectedButton === button) { close(); return; }
+    if (selectedMatch) close();
     selectedMatch = window.FootballTimeMatchCenter?.getMatchById?.(id);
     if (!selectedMatch) return;
+    const matchCard = button.closest(".mc-match-card");
+    if (!matchCard) return;
+    selectedCard = matchCard;
+    selectedButton = button;
     activeTab = "overview";
     $("mcDetailCompetition").textContent = competition(selectedMatch);
     $("mcDetailSummary").innerHTML = summaryMarkup(selectedMatch);
-    if (root()) root().hidden = true;
-    const app = $("matchCenterApp");
-    app?.querySelectorAll(":scope > .mc-calendar,:scope > .mc-category-filters,:scope > .mc-league-filter-wrap,:scope > .mc-toolbar,:scope > .mc-filters,:scope > .mc-data-line").forEach((node) => node.hidden = true);
+    matchCard.append(detail());
     detail().hidden = false;
+    button.textContent = "ซ่อนรายละเอียด";
+    button.setAttribute("aria-expanded","true");
     renderPanel();
-    detail().scrollIntoView({behavior:"smooth",block:"start"});
-  }
-  function close() {
-    detail().hidden = true;
-    if (root()) root().hidden = false;
-    $("matchCenterApp")?.querySelectorAll(":scope > .mc-calendar,:scope > .mc-category-filters,:scope > .mc-league-filter-wrap,:scope > .mc-toolbar,:scope > .mc-filters,:scope > .mc-data-line").forEach((node) => node.hidden = false);
-    selectedMatch = null;
+    detail().scrollIntoView({behavior:"smooth",block:"nearest"});
   }
   document.addEventListener("click",(event) => {
     const matchButton = event.target.closest("[data-unified-match]");
-    if (matchButton) { event.preventDefault(); open(matchButton.dataset.unifiedMatch); return; }
+    if (matchButton) { event.preventDefault(); open(matchButton); return; }
     const tab = event.target.closest("[data-mc-detail-tab]");
     if (tab) { activeTab = tab.dataset.mcDetailTab; renderPanel(); }
     if (event.target.closest("#mcDetailBack")) close();
