@@ -13,7 +13,7 @@ class V7CompactUiTests(unittest.TestCase):
         self.sw = (ROOT / "sw.js").read_text(encoding="utf-8")
 
     def test_v7_release_assets_are_versioned_and_cached(self):
-        self.assertIn('content="7.0.0"', self.html)
+        self.assertIn('content="7.0"', self.html)
         self.assertIn('V7.0</span>', self.html)
         self.assertIn('football-time-v123', self.sw)
         self.assertIn('v7-compact-ui.css?v=1', self.html)
