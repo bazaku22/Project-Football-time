@@ -170,6 +170,18 @@
             "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
             "checkedAt": "2026-11-17T11:59:00Z",
             "verificationStatus": "reported_official_lineup"
+          },
+          "startingXISource": {
+            "name": "Thairath – Thailand confirmed starting XI",
+            "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
+            "checkedAt": "2026-11-17T11:59:00Z",
+            "verificationStatus": "reported_official_lineup"
+          },
+          "substitutesSource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
           }
         },
         {
@@ -278,6 +290,18 @@
           "substitutesStatus": "named_substitutes",
           "source": {
             "name": "LiveFoot – King's Cup final lineups",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
+          },
+          "startingXISource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
+            "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "checkedAt": "2026-11-17T14:30:00Z",
+            "verificationStatus": "secondary_match_report"
+          },
+          "substitutesSource": {
+            "name": "LiveFoot – King's Cup final lineups and bench",
             "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
             "checkedAt": "2026-11-17T14:30:00Z",
             "verificationStatus": "secondary_match_report"
