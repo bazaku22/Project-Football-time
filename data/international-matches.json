@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "datasetId": "football-time-international-matches-v1",
+  "updatedAt": "2026-11-17T14:00:00Z",
+  "sourcePolicy": "Manual, evidence-backed national-team fixtures. No sports data API. Match IDs are shared with Football rich and must not be regenerated.",
+  "leagues": [
+    {
+      "id": "INTL",
+      "name": "ทีมชาติ / รายการนานาชาติ",
+      "type": "national_team"
+    }
+  ],
+  "teams": [
+    {
+      "id": "TJK-NATIONAL",
+      "name": "Tajikistan",
+      "shortName": "Tajikistan",
+      "tla": "TJK",
+      "countryCode": "TJ",
+      "flagEmoji": "🇹🇯",
+      "teamType": "national"
+    },
+    {
+      "id": "THA-NATIONAL",
+      "name": "Thailand",
+      "shortName": "Thailand",
+      "tla": "THA",
+      "countryCode": "TH",
+      "flagEmoji": "🇹🇭",
+      "teamType": "national"
+    }
+  ],
+  "matches": [
+    {
+      "id": "27dffc4f-406c-401e-9b95-a772304318a4",
+      "leagueId": "INTL",
+      "competitionName": "King's Cup 2026 – Final",
+      "round": "Final",
+      "matchType": "national_team",
+      "homeTeamId": "TJK-NATIONAL",
+      "awayTeamId": "THA-NATIONAL",
+      "homeTeamName": "Tajikistan",
+      "awayTeamName": "Thailand",
+      "utcDate": "2026-11-17T12:30:00.000Z",
+      "localDate": "2026-11-17",
+      "localTime": "19:30",
+      "timezone": "Asia/Bangkok",
+      "venue": "Sisaket Province Stadium (Ko Klang Nam), Sisaket, Thailand",
+      "status": "FINISHED",
+      "homeScore": null,
+      "awayScore": null,
+      "resultVerification": {
+        "status": "pending_manual_confirmation",
+        "note": "Do not infer or auto-fill the final score. Confirm the official result before recording it."
+      },
+      "richReference": {
+        "matchId": "27dffc4f-406c-401e-9b95-a772304318a4",
+        "source": "Football rich match window",
+        "verifiedByUserCopy": true
+      },
+      "lineups": [
+        {
+          "team": {
+            "id": "THA-NATIONAL",
+            "name": "Thailand"
+          },
+          "startingXI": [
+            {
+              "shirtNumber": 20,
+              "name": "Saranon Anuin",
+              "position": "GK"
+            },
+            {
+              "shirtNumber": 2,
+              "name": "Natthaphong Sairiya"
+            },
+            {
+              "shirtNumber": 3,
+              "name": "Theerathon Bunmathan",
+              "captain": true
+            },
+            {
+              "shirtNumber": 4,
+              "name": "Phiawat Akkatham"
+            },
+            {
+              "shirtNumber": 6,
+              "name": "Sarach Yooyen"
+            },
+            {
+              "shirtNumber": 7,
+              "name": "Supachok Sarachat"
+            },
+            {
+              "shirtNumber": 11,
+              "name": "Anan Yodsangwal"
+            },
+            {
+              "shirtNumber": 12,
+              "name": "Nicholas Mickelson"
+            },
+            {
+              "shirtNumber": 14,
+              "name": "Kakhana Khamyok"
+            },
+            {
+              "shirtNumber": 17,
+              "name": "Theerasak Phaepimay"
+            },
+            {
+              "shirtNumber": 21,
+              "name": "Suphanan Bureerat"
+            }
+          ],
+          "source": {
+            "name": "Thairath – confirmed Thailand starting XI",
+            "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
+            "checkedAt": "2026-11-17T11:59:00Z",
+            "verificationStatus": "reported_official_lineup"
+          }
+        }
+      ],
+      "sources": [
+        {
+          "name": "King's Cup Sisaket – official schedule",
+          "url": "https://kingscupsisaket.com/en/schedule.html",
+          "checkedAt": "2026-11-17T12:00:00Z",
+          "supports": [
+            "competition",
+            "round",
+            "teams",
+            "kickoff",
+            "venue"
+          ]
+        },
+        {
+          "name": "Thairath – Thailand starting XI",
+          "url": "https://en.thairath.co.th/sport/thaifootball/2973085",
+          "checkedAt": "2026-11-17T11:59:00Z",
+          "supports": [
+            "Thailand starting XI"
+          ]
+        }
+      ]
+    }
+  ]
+}
