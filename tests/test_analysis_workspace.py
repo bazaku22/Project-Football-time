@@ -36,7 +36,7 @@ class AnalysisWorkspaceContractTests(unittest.TestCase):
         self.assertIn('application-version" content="6.26.11-beta.1"', self.html)
         self.assertIn('football-time-v113', self.service_worker)
         self.assertIn('application-version" content="6.26.11-beta.1"', self.workflow)
-        self.assertIn('football-time-v111', self.workflow)
+        self.assertIn('football-time-v113', self.workflow)
 
     def test_probability_model_uses_five_and_ten_match_form_and_opponent_strength(self):
         self.assertIn('const PROBABILITY_MODEL_VERSION="pft-poisson-2.0"', self.html)
