@@ -245,10 +245,7 @@
     const homeMark = crest(home);
     const awayMark = crest(away);
     const topLabel = league?.name || match.leagueId;
-    const bottom = '<button type="button" class="mc-open-match" data-unified-match="' + esc(matchId(match)) + '" data-match-date="' + esc(String(match.utcDate || "").slice(0,10)) +
-        '" data-match-league="' + esc(match.leagueId) +
-        '" data-provider-match-id="' + esc(providerMatchId) +
-        '" data-match-action="' + (canOpenAnalysis ? "analysis" : "overview") + '">' + actionLabel + '</button>';
+    const bottom = '<button type="button" class="mc-open-match" data-unified-match="' + esc(matchId(match)) + '" aria-controls="unifiedMatchDetail" aria-expanded="false">ดูรายละเอียดการแข่งขัน</button>';
     return '<article class="mc-match-card">' +
       '<div class="mc-match-top"><span class="mc-league-name">' + esc(topLabel) + '</span>' +
       '<span class="mc-status mc-status-' + kind + '">' + esc(statusLabel(match)) + '</span></div>' +
@@ -379,14 +376,6 @@
       else if (activeLeagues.has(value)) activeLeagues.delete(value);
       else activeLeagues.add(value);
       renderLeagueFilters(); renderCalendar(); render();
-    });
-    $("matchCenterSearch")?.addEventListener("input",(event) => {
-      activeSearch = String(event.target.value || "").trim();
-      renderCalendar(); render();
-    });
-    $("matchCenterMatches")?.addEventListener("click",(event) => {
-      const button = event.target.closest("[data-unified-match]");
-      if (button) openInDatabase(button);
     });
     const existing = window.FootballTimeAppContext?.getDatabase?.();
     if (existing) setDatabase(existing);
