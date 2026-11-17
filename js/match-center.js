@@ -232,7 +232,7 @@
     const scoreReady = match.homeScore !== null && match.homeScore !== undefined &&
       match.awayScore !== null && match.awayScore !== undefined &&
       (kind === "finished" || kind === "live");
-    const score = scoreReady ? esc(match.homeScore) + " - " + esc(match.awayScore) : "VS";
+    const score = scoreReady ? esc(match.homeScore) + " - " + esc(match.awayScore) : (kind === "finished" && match.resultVerification?.status === "pending_manual_confirmation" ? "รอยืนยันผล" : "VS");
     const league = (database?.leagues || []).find((item) => item.id === match.leagueId);
     const time = match.utcDate ? formatThaiTime(match.utcDate) : "ไม่ประกาศเวลา";
     const providerMatchId = match.providerMatchId == null ? "" : String(match.providerMatchId);
