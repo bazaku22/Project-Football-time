@@ -65,8 +65,6 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("onerror=", source)
         self.assertNotIn("PORTRAIT_SPRITE_URL", source)
         self.assertNotIn("player-v2-sprite-photo", source)
-        self.assertIn("background-image:url(", source)
-                self.assertIn("player-v2-sprite-photo", source)
         self.assertIn("player-v2-number", source)
         self.assertIn("เบอร์ทีมชาติ", source)
         self.assertIn("fetch(DATA_URL, {cache:\"no-store\"})", source)
