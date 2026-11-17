@@ -134,7 +134,7 @@
     if(view.level==="players") return renderPlayerList(view.teamId?"national":"club",view.teamId||view.club);
     renderRoot();
   }
-  function init() {
+  async function init() {
     const fixtures = document.getElementById("fixtures");
     const subnav = fixtures?.querySelector(".db-subnav");
     if (!fixtures || !subnav || document.getElementById("dbtab-players")) return;

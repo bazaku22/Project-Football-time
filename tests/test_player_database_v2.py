@@ -1,5 +1,4 @@
 import json
-import re
 import unittest
 from pathlib import Path
 
@@ -7,17 +6,28 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class PlayerDatabaseV2Tests(unittest.TestCase):
-    def test_data_contract_is_empty_and_separates_club_and_national_stats(self):
+    def test_data_contract_has_unique_ids_and_thailand_roster(self):
         data = json.loads((ROOT / "data/player-database-v2.json").read_text(encoding="utf-8"))
         self.assertEqual(data["schemaVersion"], "2.0.0")
         self.assertEqual(data["season"], "2026/27")
-        self.assertEqual(data["players"], [])
-        self.assertIn("Player IDs", " ".join(data["notes"]))
+        self.assertEqual(len(data["players"]), 23)
+        ids = [player["playerId"] for player in data["players"]]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertTrue(all(any(team["teamId"] == "THA" for team in player["nationalTeams"]) for player in data["players"]))
+        self.assertTrue(all(player["statistics"]["nationalTeam"]["period"] == "career" for player in data["players"]))
+        self.assertTrue(all(player["statistics"]["club"]["season"] == "2026/27" for player in data["players"]))
+        self.assertIn("Player ID", " ".join(data["notes"]))
 
-    def test_ui_supports_compact_cards_and_two_independent_stat_groups(self):
+    def test_ui_supports_hierarchical_navigation_and_independent_stats(self):
         source = (ROOT / "js/player-database-v2.js").read_text(encoding="utf-8")
-        self.assertIn('statsBlock("สถิติสโมสร", player.statistics?.club', source)
-        self.assertIn('statsBlock("สถิติทีมชาติ", player.statistics?.nationalTeam', source)
+        self.assertIn('statsBlock("สถิติสโมสร",player.statistics?.club', source)
+        self.assertIn('statsBlock("สถิติทีมชาติชุดใหญ่",player.statistics?.nationalTeam', source)
+        self.assertIn("renderRoot", source)
+        self.assertIn("renderLeagueList", source)
+        self.assertIn("renderNationalList", source)
+        self.assertIn('data-nav="clubs"', source)
+        self.assertIn('data-nav="national"', source)
+        self.assertIn("FIFA International A Matches", source)
         self.assertIn("appearances", source)
         self.assertIn("goals", source)
         self.assertIn("assists", source)
@@ -29,6 +39,10 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("./js/player-database-v2.js", html)
         self.assertIn("./js/player-database-v2.js", sw)
-        self.assertIn("./css/player-database-v2.css?v=1", sw)
+        self.assertIn("./css/player-database-v2.css?v=2", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v114"', sw)
+        self.assertIn('const CACHE = "football-time-v115"', sw)
+
+
+if __name__ == "__main__":
+    unittest.main()
