@@ -59,6 +59,7 @@ jobs:
           node --check js/unified-match-center.js
           node --check js/match-center-mockup.js
           node --check js/manual-match-research.js
+          python3 -m unittest tests/test_manual_match_research_ui.py -v
           node --check sw.js
           python - <<'PY'
           import re
