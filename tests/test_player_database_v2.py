@@ -33,8 +33,9 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertEqual(sorted(numbers), list(range(1, 24)))
         self.assertTrue(all(player["currentClub"]["logoUrl"] for player in data["players"]))
         self.assertTrue(all(player["currentClub"]["logoSourceUrl"] for player in data["players"]))
-        self.assertEqual(sum(bool(player.get("photoUrl")) for player in data["players"]), 23)
-        self.assertEqual(sum(bool(player.get("photoUrl")) for player in data["players"]), len(data["players"]))
+        self.assertEqual(sum(bool(player.get("photoUrl") or player.get("photoSpriteIndex") is not None) for player in data["players"]), len(data["players"]))
+        self.assertNotIn("photoUrl", next(player for player in data["players"] if player["playerId"] == "PFT-000014"))
+        self.assertEqual(next(player for player in data["players"] if player["playerId"] == "PFT-000023")["photoPublisher"], "RB Omiya Ardija official")
         self.assertTrue(all(player["nationalTeams"][0]["shirtNumberSourceUrl"] for player in data["players"]))
 
     def test_ui_supports_hierarchical_navigation_and_independent_stats(self):
@@ -57,6 +58,8 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("searchablePlayerText", source)
         self.assertIn("data-image-fallback", source)
         self.assertIn("player-v2-image-placeholder", source)
+        self.assertIn("PORTRAIT_SPRITE_URL", source)
+        self.assertIn("player-v2-sprite-photo", source)
         self.assertIn("player-v2-number", source)
         self.assertIn("เบอร์ทีมชาติ", source)
         self.assertIn("fetch(DATA_URL, {cache:\"no-store\"})", source)
@@ -67,9 +70,10 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text(encoding="utf-8")
         self.assertIn("./js/player-database-v2.js", html)
         self.assertIn("./js/player-database-v2.js", sw)
-        self.assertIn("./css/player-database-v2.css?v=4", sw)
+        self.assertIn("./css/player-database-v2.css?v=5", sw)
         self.assertIn("./data/player-database-v2.json", sw)
-        self.assertIn('const CACHE = "football-time-v118"', sw)
+        self.assertIn("./assets/player-portraits/kings-cup-2026-sprite.jpg", sw)
+        self.assertIn('const CACHE = "football-time-v119"', sw)
 
 
 if __name__ == "__main__":
