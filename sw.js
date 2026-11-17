@@ -1,5 +1,5 @@
 // Previous cache identifiers retained for legacy release-history assertions: football-time-v93 and football-time-v102.
-const CACHE = "football-time-v110";
+const CACHE = "football-time-v111";
 
 const ASSETS = [
   "./",
@@ -19,6 +19,7 @@ const ASSETS = [
   "./icon-192.png",
   "./icon-512.png",
   "./data/football-database.json",
+  "./data/international-matches.json",
   "./data/test-records.json",
   "./data/test-fixtures-2026-11.json",
   "./data/asian-handicap-odds.json",
