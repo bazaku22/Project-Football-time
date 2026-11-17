@@ -61,7 +61,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -97,7 +97,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -133,7 +133,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -169,7 +169,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -205,7 +205,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -241,7 +241,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -277,7 +277,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -313,7 +313,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -349,7 +349,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -385,7 +385,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -421,7 +421,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -457,7 +457,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -493,7 +493,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -529,7 +529,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -565,7 +565,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -601,7 +601,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -637,7 +637,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -673,7 +673,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -709,7 +709,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -745,7 +745,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -781,7 +781,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -817,7 +817,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -853,7 +853,7 @@
           "appearances": null,
           "goals": null,
           "assists": null,
-          "period": null
+          "period": "career"
         }
       },
       "provenance": {
@@ -870,6 +870,7 @@
     "Unknown statistics remain null and must display as an em dash, not zero.",
     "Current clubs reflect the 15 November 2026 squad article and require re-verification before production use.",
     "No unverified player photos or club crests were added; neutral placeholders are intentional.",
-    "National-team statistics aggregation period is not yet defined; career totals are not inferred."
+    "National-team appearances, goals and assists use career totals across the player's senior international career; unknown totals remain null.",
+    "National-team statistics period is career lifetime (senior national team); club statistics remain season 2026/27."
   ]
 }
