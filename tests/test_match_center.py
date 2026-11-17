@@ -16,7 +16,7 @@ class MatchCenterTests(unittest.TestCase):
     def test_match_center_uses_real_database_and_five_core_leagues(self):
         self.assertIn('id="matchCenterApp"', HTML)
         self.assertIn('getDatabase?.()', MODULE)
-        self.assertIn('new Set(["PL","PD","BL1","SA","FL1","INTL"])', MODULE)
+        self.assertIn('new Set(["PL","PD","BL1","SA","FL1","ELC","INTL"])', MODULE)
         self.assertIn("international-matches.json", MODULE)
         self.assertIn('pft-football-database-ready', MODULE)
 
@@ -32,7 +32,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้', MODULE)
 
     def test_match_center_keeps_club_leagues_and_adds_separate_national_competition(self):
-        self.assertIn('CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","INTL"])', MODULE)
+        self.assertIn('CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","ELC","INTL"])', MODULE)
         self.assertIn("mergeInternationalData", MODULE)
         self.assertIn("loadInternationalData", MODULE)
         self.assertNotIn("internationalFixtures", MODULE)
@@ -47,6 +47,8 @@ class MatchCenterTests(unittest.TestCase):
         for marker in ("homeTeamId","awayTeamId","homeTeamName","awayTeamName","homeScore","awayScore","utcDate","leagueId"):
             self.assertIn(marker, MODULE)
         self.assertIn("mc-crest-wrap", CSS)
+        self.assertNotIn("mc-crest-fallback", MODULE)
+        self.assertIn("team?.crest", MODULE)
 
     def test_match_details_expand_inline_without_page_navigation(self):
         self.assertIn('data-unified-match=', MODULE)
@@ -75,15 +77,15 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('renderAnalysisSummary(match,cardAnalysis)', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v123", WORKER)
+        self.assertIn("football-time-v124", WORKER)
         self.assertIn('"./data/international-matches.json"', WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
-        self.assertIn('"./css/match-center.css?v=7"', WORKER)
+        self.assertIn('"./css/match-center.css?v=8"', WORKER)
         self.assertIn('"./js/match-center.js"', WORKER)
 
     def test_app_version_is_consistent_and_visible(self):
-        self.assertIn('<title>Project Football Time V7.0</title>', HTML)
-        self.assertIn('<meta name="application-version" content="7.0">', HTML)
+        self.assertIn('<title>Project Football Time V7.1</title>', HTML)
+        self.assertIn('<meta name="application-version" content="7.1">', HTML)
 
 
     def test_match_cards_show_compact_model_and_automatic_handicap_summary(self):
@@ -98,7 +100,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('headers.set("X-PFT-Data-Source", "cache")', WORKER)
         self.assertIn('response.headers.get("X-PFT-Data-Source")', HTML)
         self.assertIn('getDataDelivery:()=>footballDBDelivery', HTML)
-        self.assertIn("ความสดรายลีก", MODULE)
+        self.assertNotIn("ความสดรายลีก", MODULE)
+        self.assertNotIn('id="matchCenterDataState"', HTML)
 
     def test_dynamic_data_cache_ignores_cache_busting_query_strings(self):
         self.assertIn('new Request(url.origin + url.pathname, { method: "GET" })', WORKER)
@@ -127,6 +130,8 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('activeLeagues = new Set()', MODULE)
         self.assertIn('activeLeagues.has(String(match.leagueId))', MODULE)
         self.assertIn('renderLeagueFilters()', MODULE)
+        self.assertIn('id="matchCenterLeagueSelect"', MODULE)
+        self.assertIn("CORE_LEAGUES.has(String(match.leagueId))", MODULE)
 
     def test_daily_view_includes_finished_results_by_default(self):
         self.assertIn('let activeFilter = "all";', MODULE)
@@ -152,7 +157,7 @@ class MatchCenterTests(unittest.TestCase):
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 1)
         self.assertIn("INTERNATIONAL_DATA_URL", MODULE)
-        self.assertIn('football-time-v123', WORKER)
+        self.assertIn('football-time-v124', WORKER)
 
 
 

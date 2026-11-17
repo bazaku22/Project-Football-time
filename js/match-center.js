@@ -1,6 +1,6 @@
 "use strict";
 (() => {
-  const CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","INTL"]);
+  const CORE_LEAGUES = new Set(["PL","PD","BL1","SA","FL1","ELC","INTL"]);
   const INTERNATIONAL_DATA_URL = "./data/international-matches.json";
   let baseDatabase = null;
   let internationalData = null;
@@ -72,11 +72,10 @@
   }
   function crest(team) {
     if (team?.flagEmoji) return "<span class=\"mc-national-flag\" role=\"img\" aria-label=\"ธงชาติ " + esc(team.name || "") + "\">" + esc(team.flagEmoji) + "</span>";
-    const initials = String(team?.shortName || team?.tla || team?.name || "⚽").trim().slice(0,3);
     if (team?.crest) {
-      return '<span class="mc-crest-wrap"><img src="' + esc(team.crest) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><span hidden class="mc-crest-fallback">' + esc(initials) + '</span></span>';
+      return '<span class="mc-crest-wrap"><img src="' + esc(team.crest) + '" alt="" loading="lazy" decoding="async" onerror="this.hidden=true"></span>';
     }
-    return '<span class="mc-crest-fallback">' + esc(initials || "⚽") + '</span>';
+    return '<span class="mc-crest-wrap mc-crest-empty" aria-hidden="true"></span>';
   }
   function matchId(match) {
     return String(match.id || [match.leagueId,match.utcDate,match.homeTeamId,match.awayTeamId].join("|"));
@@ -154,17 +153,23 @@
   function renderLeagueFilters() {
     const root = $("matchCenterLeagueFilters");
     if (!root) return;
-    const leagues = (database?.leagues || []).filter((league) => CORE_LEAGUES.has(String(league.id)));
-    const chips = leagues.map((league) => ({value:String(league.id),label:league.name}));
-    const allActive = activeLeagues.size === 0;
-    root.innerHTML = '<button type="button" class="mc-league-chip' + (allActive ? ' active' : '') +
-      '" data-league-filter="ALL" aria-pressed="' + String(allActive) + '">ทุกลีก / รายการ</button>' +
-      chips.map((chip) => {
-        const active = activeLeagues.has(chip.value);
-        return '<button type="button" class="mc-league-chip' + (active ? ' active' : '') +
-          '" data-league-filter="' + esc(chip.value) + '" aria-pressed="' + String(active) + '">' +
-          esc(chip.label) + '</button>';
-      }).join("");
+    const leagueMap = new Map(
+      (database?.leagues || [])
+        .filter((league) => CORE_LEAGUES.has(String(league.id)))
+        .map((league) => [String(league.id), league.name || String(league.id)])
+    );
+    const knownNames = {ELC:"EFL Championship",INTL:"รายการทีมชาติ"};
+    (database?.matches || []).forEach((match) => {
+      const id = String(match.leagueId || "");
+      if (CORE_LEAGUES.has(id) && !leagueMap.has(id)) leagueMap.set(id, knownNames[id] || id);
+    });
+    const selected = activeLeagues.values().next().value || "";
+    root.innerHTML = '<select id="matchCenterLeagueSelect" class="mc-league-select" aria-label="เลือกลีกหรือรายการแข่งขัน">' +
+      '<option value="">ทุกลีก / รายการแข่งขัน</option>' +
+      [...leagueMap.entries()].map(([id,name]) =>
+        '<option value="' + esc(id) + '"' + (id === selected ? ' selected' : '') + '>' + esc(name) + '</option>'
+      ).join("") +
+      '</select>';
   }
   function probabilityBand(value) {
     return value >= 65 ? "สูง" : value >= 40 ? "กลาง" : "ต่ำ";
@@ -262,10 +267,10 @@
     const root = $("matchCenterMatches");
     const count = $("matchCenterCount");
     const state = $("matchCenterDataState");
-    if (!root || !count || !state) return;
+    if (!root || !count) return;
     if (!database) {
       count.textContent = "—";
-      state.textContent = databaseError || "กำลังโหลดข้อมูลการแข่งขัน…";
+      if (state) state.textContent = databaseError || "กำลังโหลดข้อมูลการแข่งขัน…";
       root.innerHTML = databaseError
         ? '<div class="mc-empty"><b>ไม่สามารถโหลดฐานข้อมูลการแข่งขันได้</b><span>' + esc(databaseError) + '</span></div>'
         : '<div class="mc-empty">กำลังโหลดข้อมูลการแข่งขัน…</div>';
@@ -274,21 +279,7 @@
     renderCalendar();
     const rows = filteredMatches();
     count.textContent = rows.length + " นัด";
-    const sourceTime = database?.source?.lastSuccessfulSync || database?.generatedAt;
-    const leagueSync = database?.source?.leagueSync || {};
-    const freshness = ["PL","PD","BL1","SA","FL1","ELC"].map((code) => {
-      const row = leagueSync[code];
-      const label = row?.status === "fresh" ? "ใหม่" : row?.status === "stale" ? "ข้อมูลเดิม" : "ไม่ทราบ";
-      return code + ": " + label;
-    }).join(" · ");
-    const delivery = window.FootballTimeAppContext?.getDataDelivery?.();
-    const deliveryLabel = delivery === "cache" ? "แหล่งส่งข้อมูล: แคช" :
-      delivery === "network" ? "แหล่งส่งข้อมูล: เครือข่าย" : "แหล่งส่งข้อมูล: ไม่ทราบ";
-    state.textContent = database
-      ? "แหล่งข้อมูล: " + (database.source?.provider || "ไม่ระบุ") +
-        " · ซิงก์ล่าสุด " + formatUpdated(sourceTime) +
-        " · " + deliveryLabel + " · ความสดรายลีก " + freshness
-      : "ฐานข้อมูล 5 ลีกใหญ่ไม่พร้อม";
+    if (state) state.textContent = "";
     if (!rows.length) {
       root.innerHTML = '<div class="mc-empty"><b>ไม่พบการแข่งขันในตัวกรองนี้</b><span>ไม่มีข้อมูลที่ตรงกับช่วงเวลา ลีก หรือสถานะที่เลือก · ระบบจะไม่ใช้โปรแกรมทดลองแทนข้อมูลจริง</span></div>';
       return;
@@ -339,13 +330,10 @@
     );
     $(".mc-calendar-today")?.addEventListener("click",() => setSelectedDate(bangkokDate()));
     $(".mc-calendar-yesterday")?.addEventListener("click",() => setSelectedDate(shiftDateKey(bangkokDate(),-1)));
-    $("matchCenterLeagueFilters")?.addEventListener("click",(event) => {
-      const button = event.target.closest("[data-league-filter]");
-      if (!button) return;
-      const value = button.dataset.leagueFilter;
-      if (value === "ALL") activeLeagues.clear();
-      else if (activeLeagues.has(value)) activeLeagues.delete(value);
-      else activeLeagues.add(value);
+    $("matchCenterLeagueFilters")?.addEventListener("change",(event) => {
+      const select = event.target.closest("#matchCenterLeagueSelect");
+      if (!select) return;
+      activeLeagues = select.value ? new Set([select.value]) : new Set();
       renderLeagueFilters(); renderCalendar(); render();
     });
     const existing = window.FootballTimeAppContext?.getDatabase?.();
