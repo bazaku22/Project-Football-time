@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "datasetId": "football-time-international-matches-v1",
-  "updatedAt": "2026-11-17T15:00:00Z",
+  "updatedAt": "2026-11-17T22:30:00+07:00",
   "sourcePolicy": "Manual, evidence-backed national-team fixtures. No sports data API. Match IDs are shared with Football rich and must not be regenerated.",
   "leagues": [
     {
@@ -47,11 +47,12 @@
       "timezone": "Asia/Bangkok",
       "venue": "Sisaket Province Stadium (Ko Klang Nam), Sisaket, Thailand",
       "status": "FINISHED",
-      "homeScore": null,
-      "awayScore": null,
+      "homeScore": 3,
+      "awayScore": 0,
       "resultVerification": {
-        "status": "pending_manual_confirmation",
-        "note": "ผลการแข่งขันยังคงรอการยืนยันด้วยตนเอง ห้ามเติมสกอร์จากข้อมูลภายนอกโดยอัตโนมัติ"
+        "status": "verified",
+        "verifiedAt": "2026-11-17T22:30:00+07:00",
+        "note": "ยืนยันผล 3-0 จากรายงานสมาคมกีฬาฟุตบอลแห่งประเทศไทย และตรวจทานเหตุการณ์ประตู/ใบแดงกับ LiveFoot และ ZeroZero; ไม่เติมแอสซิสต์ที่ไม่มีหลักฐานยืนยัน"
       },
       "richReference": {
         "matchId": "27dffc4f-406c-401e-9b95-a772304318a4",
@@ -327,6 +328,133 @@
           "checkedAt": "2026-11-17T11:59:00Z",
           "supports": [
             "Thailand starting XI"
+          ]
+        },
+        {
+          "name": "FA Thailand – Official match report: Thailand 3-0 Tajikistan",
+          "url": "https://fathailand.org/news-detail/2EqgF",
+          "checkedAt": "2026-11-17T22:30:00+07:00",
+          "supports": [
+            "final_score",
+            "red_card_minute",
+            "goal_scorers",
+            "goal_minutes"
+          ],
+          "sourceType": "federation"
+        },
+        {
+          "name": "LiveFoot – King's Cup final match timeline",
+          "url": "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+          "checkedAt": "2026-11-17T22:30:00+07:00",
+          "supports": [
+            "final_score",
+            "goal_scorers",
+            "goal_minutes",
+            "red_card"
+          ],
+          "sourceType": "match_report"
+        },
+        {
+          "name": "ZeroZero – King's Cup final live report",
+          "url": "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053",
+          "checkedAt": "2026-11-17T22:30:00+07:00",
+          "supports": [
+            "final_score",
+            "goal_scorers",
+            "goal_minutes",
+            "red_card"
+          ],
+          "sourceType": "match_report"
+        }
+      ],
+      "resultRevision": 1,
+      "resultUpdatedAt": "2026-11-17T22:30:00+07:00",
+      "resultRevisionHistory": [
+        {
+          "revision": 1,
+          "homeScore": 3,
+          "awayScore": 0,
+          "status": "FINISHED",
+          "changeType": "initial_verified_result",
+          "recordedAt": "2026-11-17T22:30:00+07:00",
+          "sourceUrls": [
+            "https://fathailand.org/news-detail/2EqgF",
+            "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053"
+          ]
+        }
+      ],
+      "events": [
+        {
+          "eventId": "27dffc4f-406c-401e-9b95-a772304318a4-E01",
+          "type": "red_card",
+          "minute": 38,
+          "player": {
+            "name": "Nozim Babajanov",
+            "shirtNumber": 25
+          },
+          "team": {
+            "id": "TJK-NATIONAL",
+            "name": "Tajikistan"
+          },
+          "sourceUrls": [
+            "https://fathailand.org/news-detail/2EqgF",
+            "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053"
+          ]
+        },
+        {
+          "eventId": "27dffc4f-406c-401e-9b95-a772304318a4-E02",
+          "type": "goal",
+          "minute": 40,
+          "player": {
+            "name": "Supachok Sarachat",
+            "shirtNumber": 7
+          },
+          "team": {
+            "id": "THA-NATIONAL",
+            "name": "Thailand"
+          },
+          "sourceUrls": [
+            "https://fathailand.org/news-detail/2EqgF",
+            "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053"
+          ]
+        },
+        {
+          "eventId": "27dffc4f-406c-401e-9b95-a772304318a4-E03",
+          "type": "goal",
+          "minute": 49,
+          "player": {
+            "name": "Theerasak Phaepimay",
+            "shirtNumber": 17
+          },
+          "team": {
+            "id": "THA-NATIONAL",
+            "name": "Thailand"
+          },
+          "sourceUrls": [
+            "https://fathailand.org/news-detail/2EqgF",
+            "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053"
+          ]
+        },
+        {
+          "eventId": "27dffc4f-406c-401e-9b95-a772304318a4-E04",
+          "type": "goal",
+          "minute": 75,
+          "player": {
+            "name": "Theerasak Phaepimay",
+            "shirtNumber": 17
+          },
+          "team": {
+            "id": "THA-NATIONAL",
+            "name": "Thailand"
+          },
+          "sourceUrls": [
+            "https://fathailand.org/news-detail/2EqgF",
+            "https://www.livefoot.fr/direct/king-s-cup-international/match-thailande-vs-tadjikistan-00d20336",
+            "https://www.zerozero.pt/live-ao-minuto/2026-11-17-tailandia-tajiquistao/12861053"
           ]
         }
       ]
