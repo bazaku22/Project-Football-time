@@ -79,32 +79,32 @@
       "name": "Everton",
       "clubId": "CLUB-ENG-EVERTON",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/everton.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 49,
       "sourceLastUpdated": null
     },
     {
       "name": "Fulham",
       "clubId": "CLUB-ENG-FULHAM",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/fulham.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 56,
       "sourceLastUpdated": null
     },
     {
       "name": "Hull City",
       "clubId": "CLUB-ENG-HULL-CITY",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/hullc.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 35,
       "sourceLastUpdated": null
     },
     {
       "name": "Ipswich Town",
       "clubId": "CLUB-ENG-IPSWICH-TOWN",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/ipswich.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
       "sourceLastUpdated": null
     },
     {
@@ -173,6 +173,6 @@
     }
   ],
   "totalClubs": 20,
-  "clubsCollected": 8,
-  "totalStagedPlayerCandidates": 455
+  "clubsCollected": 12,
+  "totalStagedPlayerCandidates": 646
 }
