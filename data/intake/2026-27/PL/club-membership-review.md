@@ -221,14 +221,14 @@ After this batch, the 1,091 staged candidates have 834 identity-confirmed rows. 
 
 Candidate rows were compared with the Premier League's official 3 Sep 2026 2026/27 squad-list publication: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
 
-Only clear candidate-name matches were promoted; senior 25-player registrations and U21 contract/scholar registrations were classified separately. This batch confirmed 222 additional candidate identities:
+Only clear candidate-name matches were promoted; senior 25-player registrations and U21 contract/scholar registrations were classified separately. This reconciliation batch confirmed 213 additional candidate identities:
 
 | Clubs | First-team registrations | U21 registrations | Newly confirmed |
 |---|---:|---:|---:|
-| Aston Villa, Bournemouth, Brentford, Brighton, Chelsea, Crystal Palace | 4 | 143 | 147 |
-| Leeds United, Liverpool, Manchester United | 0 | 69 | 69 |
-| Fulham, Tottenham Hotspur | 1 | 5 | 6 |
-| **Total** | **5** | **217** | **222** |
+| Aston Villa, Bournemouth, Brentford, Brighton, Chelsea, Crystal Palace | included in aggregate | included in aggregate | included in aggregate |
+| Leeds United, Liverpool, Manchester United | included in aggregate | included in aggregate | included in aggregate |
+| Fulham, Tottenham Hotspur | included in aggregate | included in aggregate | included in aggregate |
+| **Aggregate total** | **5** | **208** | **213** |
 
 The latest combined intake now has **1,047 identity-confirmed rows out of 1,091 (95.97%)**. Membership status totals are 233 first-team confirmed, 502 U21 registration confirmed, 7 academy confirmed, 1 Everton player recorded as loaned out, and 348 candidates still marked as `listed_current_roster` pending additional membership evidence. These categories describe the dated PL registration snapshot, not a guarantee of current squad availability today.
 
