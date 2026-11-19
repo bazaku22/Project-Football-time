@@ -220,7 +220,8 @@
       "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
     },
     "identityConfirmedRows": 1047,
-    "identityConfirmedAsOf": "2026-11-19"
+    "identityConfirmedAsOf": "2026-11-19",
+    "identityPendingRows": 44
   },
   "membershipReviewSummary": {
     "status": "PARTIAL_ROW_LEVEL_RECONCILIATION",
@@ -352,6 +353,27 @@
         "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
         "sourcePublished": "2026-09-03",
         "note": "Exact candidate-name matches only; Mykhaylo Mudryk classified as Tottenham first-team registration; Chibby Nwoko, Khai Vally, Miracle Adewole, Ronny Moncur and Oliver Boast classified U21."
+      },
+      {
+        "clubs": [
+          "Aston Villa",
+          "AFC Bournemouth",
+          "Brentford",
+          "Brighton & Hove Albion",
+          "Chelsea",
+          "Crystal Palace",
+          "Leeds United",
+          "Liverpool",
+          "Manchester United",
+          "Fulham",
+          "Tottenham Hotspur"
+        ],
+        "firstTeamRows": 5,
+        "u21RegistrationRows": 208,
+        "confirmedRows": 213,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "Aggregate of latest official PL registration reconciliations; exact candidate-name matches only. Current CSV validation is authoritative for totals."
       }
     ],
     "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster."
