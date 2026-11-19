@@ -199,7 +199,7 @@
       "source": "https://www.premierleague.com/en/news/4725682",
       "sourcePublished": "2026-09-22",
       "clubsChecked": 13,
-      "newlyEvidenceBackedCandidateRows": 325,
+      "newlyEvidenceBackedCandidateRows": 326,
       "clubCounts": {
         "Arsenal": 22,
         "Coventry City": 26,
@@ -213,7 +213,7 @@
         "Newcastle United": 26,
         "Nottingham Forest": 24,
         "Sunderland": 25,
-        "Tottenham Hotspur": 27
+        "Tottenham Hotspur": 28
       },
       "verificationType": "IDENTITY_ONLY_EXACT_NAME_AND_SHIRT_NUMBER",
       "membershipStatusChanged": false,
