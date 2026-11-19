@@ -19,11 +19,8 @@ The following names appear in the staged FootballSquads transcription but were n
 
 | Club | Candidate name as staged | Why held |
 |---|---|---|
-| Everton | Luca Davis | Not located in the 3 Sep PL senior/U21 registration section; verify official academy membership |
 | Manchester City | Josh Wilson-Esbrand | Not located in the 3 Sep PL senior/U21 registration section; verify current club/loan status with official club source |
 | Nottingham Forest | John | Name is insufficiently specific; the PL list includes John Victor, but identity equivalence must not be assumed |
-| Nottingham Forest | Jaxon Tomak | Not located in the 3 Sep PL senior/U21 registration section; verify official academy membership |
-| Nottingham Forest | Azae Bonnick | Not located in the 3 Sep PL senior/U21 registration section; verify official academy membership |
 
 ## Candidate checks resolved by current official club evidence
 
@@ -36,6 +33,24 @@ These five candidates were absent from the 3 September PL registration snapshot,
 | Chelsea | Josh Henry | Chelsea's 12 Nov international call-up article identifies him in England U17; Chelsea's 7 Nov U18 match report also lists him: https://www.chelseafc.com/en/news/article/chelsea-international-call-ups-and-schedules-for-november-2026 and https://www.chelseafc.com/en/match/chelsea-u18-vs-charlton-athletic-u18-english-u18-premier-league-cup-2026-11-07 | Chelsea academy affiliation confirmed |
 | Everton | Tyrique George | Everton's current 2026/27 Premier League squad page lists him in the first-team forwards: https://www.premierleague.com/en/clubs/11/news/squad | Current Everton first-team listing confirmed |
 | Newcastle United | Scott Bailey | Newcastle's official U21 squad page lists him; official profile confirms DOB 22 Jan 2006 and academy history: https://www.newcastleunited.com/en/teams/U21 and https://www.newcastleunited.com/en/teams/U21/scott-bailey | Newcastle U21 affiliation confirmed |
+
+
+## Resolved by official club/competition evidence — 2026-11-19
+
+These records are removed from the hold queue, not from the dataset. CSV rows now carry evidence links and a more precise membership status:
+
+| Club | Player | Reconciled status | Evidence |
+|---|---|---|---|
+| Chelsea | Leo Black | Academy member confirmed (Cobham Next Gen) | Chelsea signing announcement, 29 Sep 2026; Chelsea PL2 team sheet |
+| Chelsea | Jacob Dako | Academy member confirmed (U18) | Chelsea U18 match reports, 17 and 24 Oct 2026 |
+| Chelsea | Josh Henry | Academy member confirmed (UEFA Youth League squad) | UEFA Chelsea Youth League squad |
+| Everton | Luca Davis | Everton player, loaned to Morecambe until Jan 2027 | Morecambe loan announcement, 15 Oct 2026 |
+| Everton | Tyrique George | First-team member confirmed | Everton men's team page and 2 Nov 2026 team sheet |
+| Newcastle United | Scott Bailey | Academy/U21 member confirmed | Newcastle U21 profile and current U21 squad page |
+| Nottingham Forest | Jaxon Tomak | Academy/U21 member confirmed | Newcastle U21 match report identifies him in Forest U21 team and records his goal |
+| Nottingham Forest | Azae Bonnick | Academy/B team member confirmed | Forest academy announcement, 22 Oct 2026 |
+
+The statuses distinguish club attachment from registration in the Premier League's dated senior/U21 list. Luca Davis remains an Everton player on loan; do not count him as currently available to Everton's first team.
 
 ## Interpretation and safe handling
 
