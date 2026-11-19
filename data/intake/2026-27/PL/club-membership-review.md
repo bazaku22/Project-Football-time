@@ -62,3 +62,9 @@ Both remain separate candidates. The CSV records carry the resolution evidence. 
 - FootballSquads 2026/27 source index: https://www.footballsquads.co.uk/eng/2026-2027/engprem.htm
 
 FootballSquads attribution remains as recorded in the manifest and intake documentation.
+
+## 7. Official Premier League registration cross-check — review queue opened
+
+The official 3 September 2026 PL registration publication has now been used as a dated baseline for the 20 club sections. A separate hold queue records candidate names not located in that publication and an ambiguous Nottingham Forest entry (`John`). These are **not removals**: the PL page lists submitted senior squads and registered U21 contract/scholar players, not every academy player. Each held name must be checked against the club's current official men's/academy source before membership is changed.
+
+See [official-pl-registration-review-queue.md](official-pl-registration-review-queue.md) for the explicit candidates and safe-handling rules. This is a partial row-level check, not certification of all 1,091 candidates. All unreviewed rows remain pending; no Player IDs, statistics, or production imports were added.
