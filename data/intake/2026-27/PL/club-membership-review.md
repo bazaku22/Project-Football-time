@@ -215,3 +215,23 @@ Clear candidate-name matches were assigned the registration class shown by the o
 Candidates not matched to the published registration list remain pending; absence from this registration snapshot is not evidence that a player has left the club. The check does not add separate U21 app rosters: U21 remains an internal registration status within the combined club list.
 
 After this batch, the 1,091 staged candidates have 834 identity-confirmed rows. Membership statuses are 228 first-team confirmed, 294 U21 registration confirmed, 7 academy confirmed, 1 Everton player loaned out, and 561 candidates still pending row-level membership review. No permanent Player IDs or statistics were added, and no production import occurred.
+
+
+## 17. Further official PL registration reconciliation — 19 Nov 2026
+
+Candidate rows were compared with the Premier League's official 3 Sep 2026 2026/27 squad-list publication: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+
+Only clear candidate-name matches were promoted; senior 25-player registrations and U21 contract/scholar registrations were classified separately. This batch confirmed 222 additional candidate identities:
+
+| Clubs | First-team registrations | U21 registrations | Newly confirmed |
+|---|---:|---:|---:|
+| Aston Villa, Bournemouth, Brentford, Brighton, Chelsea, Crystal Palace | 4 | 143 | 147 |
+| Leeds United, Liverpool, Manchester United | 0 | 69 | 69 |
+| Fulham, Tottenham Hotspur | 1 | 5 | 6 |
+| **Total** | **5** | **217** | **222** |
+
+The latest combined intake now has **1,047 identity-confirmed rows out of 1,091 (95.97%)**. Membership status totals are 233 first-team confirmed, 502 U21 registration confirmed, 7 academy confirmed, 1 Everton player recorded as loaned out, and 348 candidates still marked as `listed_current_roster` pending additional membership evidence. These categories describe the dated PL registration snapshot, not a guarantee of current squad availability today.
+
+Forty-four candidate identities remain pending. Ambiguous or non-matching names were deliberately not promoted, including Arsenal's short name Gabriel, Hull City's Lewis Coyle / official Lewie Coyle spelling difference, and other unmatched candidate rows. No absence from the 3 Sep registration list is treated as proof of departure.
+
+All rosters remain one combined club list; U21 is internal registration metadata only. No Player IDs or appearances/goals/assists were added. This is still staging-only and has not been imported into the app database.
