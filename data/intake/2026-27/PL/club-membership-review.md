@@ -28,9 +28,13 @@ The intake manifest contains explicit FootballSquads page update dates for only 
 
 Where an official club or Premier League source provides a later and clearer membership record, record the source and observation date separately rather than overwriting the FootballSquads provenance.
 
-## 4. Chelsea shirt-number clarification
+## 4. Chelsea shirt-number clarification — resolved
 
-The user confirmed on 2026-11-19 that Chelsea's current No. 1 shirt assignment belongs to Martínez. The Chelsea candidate CSV now records that clarification and treats the older 19 August squad-number announcement naming Robert Sánchez as superseded for the shirt-number field. This resolves the shirt-number discrepancy for this intake. It does not, by itself, verify every detail of Martínez's identity or current registration; the official Premier League squad-list and club profile remain the evidence to retain for player-level membership.
+The user flagged that Chelsea's current No. 1 shirt belongs to Martínez. This is now independently confirmed by:
+- Premier League's all-20-club 2026/27 squad-number list, published 22 September 2026, which lists Emiliano Martínez as Chelsea No. 1: https://www.premierleague.com/en/news/4725682
+- Chelsea FC's official update, 4 September 2026, stating Emiliano Martínez switched to No. 1 after Robert Sánchez's loan move to Como: https://www.chelseafc.com/en/news/article/emi-martinez-changes-chelsea-squad-number
+
+The older 19 August squad-number announcement naming Robert Sánchez is superseded for the current shirt-number field. Chelsea's candidate CSV now records the later official evidence. This resolves the shirt-number discrepancy; it does not certify every Chelsea candidate's identity or current membership.
 
 ## 5. Identity collision already resolved
 
@@ -51,6 +55,8 @@ Both remain separate candidates. The CSV records carry the resolution evidence. 
 ## Sources
 
 - Premier League, "See all the 2026/27 Premier League squad lists", published 3 September 2026: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+- Premier League, all 20 clubs' 2026/27 squad numbers, published 22 September 2026: https://www.premierleague.com/en/news/4725682
+- Chelsea FC, Emi Martinez changes Chelsea squad number, 4 September 2026: https://www.chelseafc.com/en/news/article/emi-martinez-changes-chelsea-squad-number
 - Premier League, 2026/27 table: https://www.premierleague.com/en/tables/premier-league/2026-27?ha=H
 - Chelsea FC, "Chelsea squad numbers confirmed for the 2026/27 season", 19 August 2026: https://www.chelseafc.com/en/news/article/chelsea-squad-numbers-confirmed-for-the-2026-27-season
 - FootballSquads 2026/27 source index: https://www.footballsquads.co.uk/eng/2026-2027/engprem.htm
