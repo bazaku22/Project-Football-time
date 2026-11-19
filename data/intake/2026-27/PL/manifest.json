@@ -47,32 +47,32 @@
       "name": "Brighton & Hove Albion",
       "clubId": "CLUB-ENG-BRIGHTON",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/brighton.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 62,
       "sourceLastUpdated": null
     },
     {
       "name": "Chelsea",
       "clubId": "CLUB-ENG-CHELSEA",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/chelsea.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 54,
       "sourceLastUpdated": null
     },
     {
       "name": "Coventry City",
       "clubId": "CLUB-ENG-COVENTRY-CITY",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/coventry.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 27,
       "sourceLastUpdated": null
     },
     {
       "name": "Crystal Palace",
       "clubId": "CLUB-ENG-CRYSTAL-PALACE",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/cpalace.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 70,
       "sourceLastUpdated": null
     },
     {
@@ -173,6 +173,6 @@
     }
   ],
   "totalClubs": 20,
-  "clubsCollected": 4,
-  "totalStagedPlayerCandidates": 242
+  "clubsCollected": 8,
+  "totalStagedPlayerCandidates": 455
 }
