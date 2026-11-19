@@ -124,7 +124,7 @@
     selectedId = ""; query = "";
     const countryGroup = countryLeagueGroups.find(country=>country.leagues.some(league=>league.id===leagueId));
     view = {level:"clubs",leagueId,club:"",teamId:"",countryId:countryGroup?.countryId || ""};
-    const league = leagues.find(x=>x.id===leagueId);
+    const league = leagues.find(x=>x.id===leagueId) || countryLeagueGroups.flatMap(country=>country.leagues).find(x=>x.id===leagueId);
     const clubs = [...new Map(players.filter(p=>p.currentClub && leagueFor(p)===leagueId).map(p=>[clubIdFor(p),p.currentClub])).entries()].sort((a,b)=>displayClubName(a[1]).localeCompare(displayClubName(b[1]),"th"));
     const cards = clubs.map(([clubId,club]) => {
       const count = players.filter(p=>clubIdFor(p)===clubId && leagueFor(p)===leagueId).length;
@@ -231,7 +231,7 @@
       if(nav){
         const action=nav.dataset.nav;
         if(action==="root"){view={level:"root",leagueId:"",club:"",teamId:""};renderRoot();}
-        else if(action==="clubs"){if(view.leagueId)renderClubList(view.leagueId);else{view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}}
+        else if(action==="clubs"){view={level:"leagues",leagueId:"",club:"",teamId:"",countryId:""};renderLeagueList();}
         else if(action==="leagues"){view={level:"leagues",leagueId:"",club:"",teamId:"",countryId:""};renderLeagueList();}
         else if(action==="countries"){view={level:"countries",leagueId:"",club:"",teamId:"",countryId:""};renderCountryList();}
         else if(action==="country-leagues"){renderCountryLeagueList(view.countryId);}
