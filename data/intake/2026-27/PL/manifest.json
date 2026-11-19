@@ -111,32 +111,32 @@
       "name": "Leeds United",
       "clubId": "CLUB-ENG-LEEDS-UNITED",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/leeds.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 45,
       "sourceLastUpdated": null
     },
     {
       "name": "Liverpool",
       "clubId": "CLUB-ENG-LIVERPOOL",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/liverpool.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 58,
       "sourceLastUpdated": null
     },
     {
       "name": "Manchester City",
       "clubId": "CLUB-ENG-MANCHESTER-CITY",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/mancity.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 48,
       "sourceLastUpdated": null
     },
     {
       "name": "Manchester United",
       "clubId": "CLUB-ENG-MANCHESTER-UNITED",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/manutd.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 81,
       "sourceLastUpdated": null
     },
     {
@@ -173,6 +173,6 @@
     }
   ],
   "totalClubs": 20,
-  "clubsCollected": 12,
-  "totalStagedPlayerCandidates": 646
+  "clubsCollected": 16,
+  "totalStagedPlayerCandidates": 878
 }
