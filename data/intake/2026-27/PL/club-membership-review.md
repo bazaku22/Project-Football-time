@@ -141,7 +141,7 @@ The Chelsea and Liverpool official men's squad pages include the club's current 
 
 A further cross-check compared the staged candidate's player name and shirt number with the Premier League's official all-20-club 2026/27 squad-number publication (published 22 September 2026): https://www.premierleague.com/en/news/4725682
 
-Where both the name and shirt number matched, the CSV row's `identity_status` was set to `identity_confirmed` and the official source was recorded in its notes. This added **325 evidence-backed identity matches across 13 clubs**:
+Where both the name and shirt number matched, the CSV row's `identity_status` was set to `identity_confirmed` and the official source was recorded in its notes. This added **326 evidence-backed identity matches across 13 clubs**:
 
 | Club | Exact name + shirt-number matches |
 |---|---:|
@@ -157,9 +157,12 @@ Where both the name and shirt number matched, the CSV row's `identity_status` wa
 | Newcastle United | 26 |
 | Nottingham Forest | 24 |
 | Sunderland | 25 |
-| Tottenham Hotspur | 27 |
-| **Total** | **325** |
+| Tottenham Hotspur | 28 |
+| **Total** | **326** |
 
 Important limitation: the Premier League article states that its number list includes players from the clubs' 25-man squads and academy players who have appeared or may appear in first-team squads during 2026/27. Therefore, an exact match confirms the candidate's identity against an official club-number record, but this cross-check alone does not distinguish senior registration from U21/academy registration. Accordingly, this batch changed `identity_status` only; it did not change `membership_status`. No-match rows were left untouched and are not treated as proof of departure or former-club status.
 
 The wider row-level review remains incomplete. All 1,091 candidates remain staged and not imported. Permanent Player IDs and appearances/goals/assists remain blank. The 23 existing Thailand national-team records and PFT-000001–PFT-000023 remain untouched.
+
+
+The Tottenham Hotspur comparison was checked once more against the source's printed player name: the staged `Andrew Robertson` #3 entry matches the Premier League's `Andrew Robertson` #3 listing exactly. It is now included in the identity-confirmed count; the candidate's name was not abbreviated or rewritten.
