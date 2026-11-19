@@ -194,7 +194,31 @@
       }
     ],
     "permanentPlayerIdsAssigned": 0,
-    "statisticsFieldsPopulated": 0
+    "statisticsFieldsPopulated": 0,
+    "officialSquadNumberCrossCheck": {
+      "source": "https://www.premierleague.com/en/news/4725682",
+      "sourcePublished": "2026-09-22",
+      "clubsChecked": 13,
+      "newlyEvidenceBackedCandidateRows": 325,
+      "clubCounts": {
+        "Arsenal": 22,
+        "Coventry City": 26,
+        "Crystal Palace": 27,
+        "Everton": 18,
+        "Fulham": 27,
+        "Hull City": 26,
+        "Ipswich Town": 25,
+        "Leeds United": 27,
+        "Manchester City": 25,
+        "Newcastle United": 26,
+        "Nottingham Forest": 24,
+        "Sunderland": 25,
+        "Tottenham Hotspur": 27
+      },
+      "verificationType": "IDENTITY_ONLY_EXACT_NAME_AND_SHIRT_NUMBER",
+      "membershipStatusChanged": false,
+      "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
+    }
   },
   "membershipReviewSummary": {
     "status": "PARTIAL_ROW_LEVEL_RECONCILIATION",
