@@ -120,3 +120,18 @@ The matching CSV rows now carry `first_team_member_confirmed` and `identity_conf
 
 This is a targeted confirmation batch, not a complete review of each club's entire senior and academy population. It does not validate all remaining candidates, nor does it establish player statistics. No permanent Player IDs or appearances/goals/assists were added, and no production import occurred.
 
+
+## 12. Three-club official men's squad / PL registration cross-check — 19 Nov 2026
+
+A further batch was reconciled against official current club squad sources. Rows were updated only when the candidate name and shirt number matched the official page.
+
+| Club | Rows confirmed | Evidence |
+|---|---:|---|
+| Chelsea | 30 | https://www.chelseafc.com/en/teams/mens-profiles |
+| Liverpool | 32 | https://www.liverpoolfc.com/teams/mens-team |
+| Manchester United | 23 first-team squad entries; 9 U21-registration entries | https://www.manutd.com/en/news/premier-league-squad-confirmed-for-2026-27 and https://www.manutd.com/en/news/confirmed-our-2026-27-squad-numbers |
+
+For Manchester United, the official Premier League submission distinguishes the 25-man senior list from the U21 registration group. The nine candidates in the U21 registration group (Leny Yoro, Ayden Heaven, Harry Amass, Kobbie Mainoo, Jack Fletcher, Tyler Fletcher, Tynan Thompson, Shea Lacey and JJ Gabriel) now carry the internal status `u21_registration_confirmed`. This is only an evidence/status distinction; the app continues to use one combined club roster and no separate U21 display category.
+
+The Chelsea and Liverpool official men's squad pages include the club's current men's squad listing; this check confirms club squad membership and name/number matching, not an assertion that every listed player is a regular senior first-team selection. Rows not matched on both name and number remain unchanged.
+
