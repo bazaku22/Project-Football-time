@@ -28,9 +28,9 @@ The intake manifest contains explicit FootballSquads page update dates for only 
 
 Where an official club or Premier League source provides a later and clearer membership record, record the source and observation date separately rather than overwriting the FootballSquads provenance.
 
-## 4. Known source conflict requiring row-level resolution
+## 4. Chelsea shirt-number clarification
 
-Chelsea's FootballSquads candidate file begins with Emiliano Martínez as goalkeeper No. 1. The Premier League's 3 September squad-list page also lists Damián Emiliano Martínez in Chelsea's senior squad, while Chelsea's 19 August squad-number announcement listed Robert Sánchez as No. 1. These publications are from different dates and disagree. Keep the candidate staged and mark the conflict for manual resolution using the latest official club roster/profile; do not silently replace either name based on the older announcement alone.
+The user confirmed on 2026-11-19 that Chelsea's current No. 1 shirt assignment belongs to Martínez. The Chelsea candidate CSV now records that clarification and treats the older 19 August squad-number announcement naming Robert Sánchez as superseded for the shirt-number field. This resolves the shirt-number discrepancy for this intake. It does not, by itself, verify every detail of Martínez's identity or current registration; the official Premier League squad-list and club profile remain the evidence to retain for player-level membership.
 
 ## 5. Identity collision already resolved
 
