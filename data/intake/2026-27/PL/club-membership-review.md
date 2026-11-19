@@ -175,3 +175,25 @@ Arsenal candidate rows were compared with the Premier League's official 2026/27 
 Only clear player-name matches were promoted. This adds **21 first-team squad confirmations** and **39 registered U21 contract/scholar confirmations** (60 total). The CSV records now include the PL source and registration classification in their notes, and the corresponding membership_status and identity_status fields were updated. Candidates not matched to the official list remain unchanged; absence from this dated registration snapshot is not proof of departure or lack of academy membership.
 
 The app roster remains a single combined Arsenal roster. U21 is an internal registration status only and does not create a separate roster section. This batch does not add Player IDs or statistics and does not complete the remaining row-level review for Arsenal or the other 19 clubs.
+
+
+## 15. Five-club official Premier League registration reconciliation — 19 Nov 2026
+
+A further candidate-level comparison was completed against the Premier League's official 2026/27 submitted registration publication (3 September 2026): https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+
+Only clear candidate-name matches were promoted, with the registration class taken from the official page. This batch updated 92 rows: **6 first-team registration rows** and **85 U21 contract/scholar registration rows**; one additional Coventry City row (Daniel Bentley) was already identity-confirmed from the earlier squad-number review. The new identity-confirmed total is therefore 669.
+
+| Club | First-team registrations | U21 registrations | Rows updated |
+|---|---:|---:|---:|
+| Coventry City | 1 | 0 | 1 |
+| Crystal Palace | 1 | 33 | 34 |
+| Everton | 3 | 25 | 28 |
+| Fulham | 1 | 24 | 25 |
+| Hull City | 0 | 3 | 3 |
+| **Total** | **6** | **85** | **91 new identity confirmations** |
+
+A possible name discrepancy was deliberately left pending: the Hull City candidate Lewis Coyle was not promoted because the official PL registration page spells the registered player Lewie Coyle; no automatic name correction was made. Candidates absent from the PL registration snapshot remain unchanged and are not presumed to have left the club.
+
+Current membership-status totals across all 1,091 staged rows are: 224 first-team confirmed, 133 U21 registration confirmed, 7 academy confirmed, 1 Everton player loaned out, and 726 still listed as candidates pending row-level membership verification. U21 remains an internal status only; the app roster remains one combined club list.
+
+No permanent Player IDs or appearances/goals/assists were added. The 1,091-row intake remains staging-only and has not been imported into the production player database.
