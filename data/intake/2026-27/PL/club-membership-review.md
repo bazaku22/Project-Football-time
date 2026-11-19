@@ -104,3 +104,19 @@ Evidence:
 
 The initial 10-entry official registration hold queue is now resolved. This does not mean all 1,091 roster candidates have been individually reconciled; the wider row-level review remains incomplete. No permanent Player IDs or player statistics were added, and no production import occurred.
 
+
+## 11. Current official first-team roster cross-check — 19 Nov 2026
+
+A further four-club batch was checked against current official club squad pages or the club's published 2026/27 first-team squad-number list. Candidate rows were promoted only where both the player name and shirt number matched the official source. This batch confirms **110 first-team entries**:
+
+| Club | Candidate rows matched | Official source |
+|---|---:|---|
+| Aston Villa | 28 | https://www.avfc.co.uk/teams/ |
+| AFC Bournemouth | 28 | https://www.afcb.co.uk/teams/ |
+| Brentford | 28 | https://www.brentfordfc.com/en/teams/mens and https://www.brentfordfc.com/en/news/first-team-2026-27-premier-league-squad-numbers-confirmed |
+| Brighton & Hove Albion | 26 | https://www.brightonandhovealbion.com/media-article/mft-news-kit-numbers-premier-league-2026-27-season-august-2026 |
+
+The matching CSV rows now carry `first_team_member_confirmed` and `identity_confirmed`, with evidence URLs in the notes field. Rows that did not match both name and shirt number were left unchanged; non-matches are not automatically treated as former players or departures.
+
+This is a targeted confirmation batch, not a complete review of each club's entire senior and academy population. It does not validate all remaining candidates, nor does it establish player statistics. No permanent Player IDs or appearances/goals/assists were added, and no production import occurred.
+
