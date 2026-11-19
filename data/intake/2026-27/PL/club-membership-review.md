@@ -235,3 +235,16 @@ The latest combined intake now has **1,047 identity-confirmed rows out of 1,091 
 Forty-four candidate identities remain pending. Ambiguous or non-matching names were deliberately not promoted, including Arsenal's short name Gabriel, Hull City's Lewis Coyle / official Lewie Coyle spelling difference, and other unmatched candidate rows. No absence from the 3 Sep registration list is treated as proof of departure.
 
 All rosters remain one combined club list; U21 is internal registration metadata only. No Player IDs or appearances/goals/assists were added. This is still staging-only and has not been imported into the app database.
+## 18. Additional official club-source identity reconciliation — 19 Nov 2026
+
+A further review checked the remaining identity-pending rows against official club pages, squad pages and current-season match reports. Thirty-nine additional candidate identities were confirmed and evidence URLs were added to their CSV notes. The resulting identity audit is:
+
+- **1,086 identity-confirmed candidates out of 1,091 (99.54%)**
+- **5 identity-pending candidates:** Arsenal — Mylor Bernard; Hull City — Tilen Golič; Ipswich Town — Tom Taylor; Liverpool — Bailey Hall-MacDonald; Sunderland — Juan Riquelme Angulo.
+- Jay Spearing's identity is confirmed, but Liverpool's official records identify him as academy staff/player-coach rather than a current registered player. His membership remains pending and he must not be imported as a player without current registration evidence.
+- Charlie Scorer's identity is confirmed by Sunderland's official 2026/27 U18 report, which identifies him as an under-16 player. His precise current membership classification remains pending.
+- Other confirmed identity evidence was added for Arsenal academy candidates, Brentford B, Brighton, Crystal Palace, Fulham, Hull City, Leeds United, Manchester United, Newcastle United and Sunderland candidates. Only exact or otherwise corroborated matches were promoted; no fuzzy-name assumptions were used.
+
+**Important distinction:** identity confirmation is not the same as confirmation of current player membership. The CSV audit still shows **348 candidates** with `listed_current_roster` status pending further individual membership evidence. The membership counts in `manifest.json` remain unchanged by identity-only confirmations.
+
+No permanent Player IDs were assigned, no appearances/goals/assists were populated, and no production import occurred. All 1,091 candidate rows remain staged in PR #217.
