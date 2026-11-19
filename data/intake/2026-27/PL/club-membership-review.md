@@ -78,7 +78,7 @@ A second-source review resolved eight of the earlier hold-queue entries without 
 - Newcastle United: Scott Bailey is confirmed in the U21 squad.
 - Nottingham Forest: Jaxon Tomak is identified in a Forest U21 match report; Azae Bonnick is confirmed by the club as a Forest B Team player.
 
-The CSV rows now carry explicit membership statuses and official evidence URLs. The review queue retains two unresolved entries: Manchester City's Josh Wilson-Esbrand (current 2026/27 status not yet independently established) and Nottingham Forest's short-name entry `John` (do not assume it is John Victor without row-level identity evidence).
+The CSV rows now carry explicit membership statuses and official evidence URLs. At the time of this review, Manchester City's Josh Wilson-Esbrand and Nottingham Forest's short-name entry `John` remained unresolved; both were subsequently reconciled in sections 9 and 10 below.
 
 This is still a partial review, not verification of all 1,091 candidates. The dated Premier League list remains a registration snapshot, not a full academy directory. No permanent Player IDs or player statistics were added; no production database import occurred.
 
@@ -92,5 +92,15 @@ Evidence:
 - https://www.premierleague.com/en/clubs/17/nottingham-forest/squad
 - https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
 
-Manchester City's Josh Wilson-Esbrand remains unresolved. Current official Manchester City men's and EDS squad pages do not list him, and the latest official loan coverage found refers to 2025/26. This absence alone does not establish departure; keep the candidate on hold pending a definitive current-season club/academy or transfer source.
+At the time of this section's initial check, Josh Wilson-Esbrand's 2026/27 status remained unresolved. A subsequent current-season official EDS match report resolved this; see section 10 below.
+
+
+## 10. Manchester City EDS membership resolved — 19 Nov 2026
+
+The remaining Josh Wilson-Esbrand hold is resolved. Manchester City's official 2026/27 Vertu Trophy match report for the match at Mansfield identifies **Joshua Wilson-Esbrand** in City's EDS match squad. This is a current-season official club match report and matches the staged candidate's full identity. The Manchester City CSV row is now marked `academy_member_confirmed` and `identity_confirmed`.
+
+Evidence:
+- https://live.mancity.com/news/eds-academy/mansfield-v-manchester-city-vertu-trophy-match-report-63922753
+
+The initial 10-entry official registration hold queue is now resolved. This does not mean all 1,091 roster candidates have been individually reconciled; the wider row-level review remains incomplete. No permanent Player IDs or player statistics were added, and no production import occurred.
 
