@@ -82,3 +82,15 @@ The CSV rows now carry explicit membership statuses and official evidence URLs. 
 
 This is still a partial review, not verification of all 1,091 candidates. The dated Premier League list remains a registration snapshot, not a full academy directory. No permanent Player IDs or player statistics were added; no production database import occurred.
 
+
+## 9. Nottingham Forest short-name identity resolved — 19 Nov 2026
+
+The staged candidate `John` (shirt 12, goalkeeper, Brazil) is reconciled to **John Victor**. Nottingham Forest's current official men's first-team page and the official 2026/27 Premier League squad page identify John Victor as the club's No.12 Brazilian goalkeeper. The shirt number, position and nationality match the staged candidate, so the canonical player-name field in the Forest CSV is now `John Victor`; the source-name field retains `John` for traceability.
+
+Evidence:
+- https://www.nottinghamforest.co.uk/teams/
+- https://www.premierleague.com/en/clubs/17/nottingham-forest/squad
+- https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+
+Manchester City's Josh Wilson-Esbrand remains unresolved. Current official Manchester City men's and EDS squad pages do not list him, and the latest official loan coverage found refers to 2025/26. This absence alone does not establish departure; keep the candidate on hold pending a definitive current-season club/academy or transfer source.
+
