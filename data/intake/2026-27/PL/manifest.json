@@ -176,7 +176,7 @@
   "clubsCollected": 20,
   "totalStagedPlayerCandidates": 1091,
   "identityReviewSummary": {
-    "status": "PARTIAL_RECONCILIATION_5_IDENTITIES_PENDING",
+    "status": "PARTIAL_RECONCILIATION_3_IDENTITIES_PENDING",
     "crossClubSameNameCandidates": [
       {
         "playerName": "Ben Wilson",
@@ -219,20 +219,22 @@
       "membershipStatusChanged": false,
       "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
     },
-    "identityConfirmedRows": 1086,
+    "identityConfirmedRows": 1088,
     "identityConfirmedAsOf": "2026-11-19",
-    "identityPendingRows": 5,
+    "identityPendingRows": 3,
     "latestFollowUp": {
       "date": "2026-11-19",
-      "additionalIdentityConfirmedRows": 39,
-      "identityConfirmedRows": 1086,
-      "identityPendingRows": 5,
+      "additionalIdentityConfirmedRows": 41,
+      "identityConfirmedRows": 1088,
+      "identityPendingRows": 3,
       "notes": [
-        "Additional official club-source evidence reconciled 39 identities after the prior 1,047/44 audit.",
-        "Jay Spearing is identity-confirmed but official Liverpool evidence identifies him as academy staff/player-coach historically, not a current registered player; keep membership pending and exclude from player import pending a current player-registration source.",
-        "Charlie Scorer is identified in Sunderland's official 2026/27 U18 report as an under-16 player; identity confirmed, membership classification remains pending.",
-        "Five candidates remain identity-pending: Arsenal Mylor Bernard; Hull City Tilen Golič; Ipswich Town Tom Taylor; Liverpool Bailey Hall-MacDonald; Sunderland Juan Riquelme Angulo.",
-        "Membership review remains separate: 348 candidates still have listed_current_roster status pending individual membership evidence."
+        "41 additional identity confirmations after the prior 1,047/44 audit, using official club or competition evidence where available.",
+        "Arsenal candidate Mylor Bernard corrected to official spelling Mylo Bernard; UEFA Youth League profile confirms Arsenal, forward, shirt 65 and England nationality.",
+        "Sunderland Juan Riquelme Angulo confirmed by official Sunderland men's squad and international roundup; candidate shirt 50, forward and Ecuador nationality match. Membership status promoted to first_team_member_confirmed.",
+        "Jay Spearing is identity-confirmed but Liverpool official records identify him as academy staff/player-coach, not a current registered player; membership remains pending and exclude from player import absent current player registration.",
+        "Charlie Scorer is identity-confirmed by Sunderland's 2026/27 U18 report; precise current membership classification remains pending.",
+        "Three identities remain pending: Hull City Tilen Golič; Ipswich Town Tom Taylor; Liverpool Bailey Hall-MacDonald.",
+        "Identity and membership are separate: 347 candidates still have listed_current_roster membership status pending individual membership evidence."
       ]
     }
   },
@@ -241,8 +243,8 @@
     "asOf": "2026-11-19",
     "totalCandidates": 1091,
     "counts": {
-      "listed_current_roster": 348,
-      "first_team_member_confirmed": 233,
+      "listed_current_roster": 347,
+      "first_team_member_confirmed": 234,
       "academy_member_confirmed": 7,
       "u21_registration_confirmed": 502,
       "loaned_out_from_everton": 1
