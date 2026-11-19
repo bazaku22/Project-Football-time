@@ -23,25 +23,25 @@
       "name": "Aston Villa",
       "clubId": "CLUB-ENG-ASTON-VILLA",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/avilla.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
-      "sourceLastUpdated": null
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 72,
+      "sourceLastUpdated": "2026-09-24"
     },
     {
       "name": "AFC Bournemouth",
       "clubId": "CLUB-ENG-BOURNEMOUTH",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/bourne.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
-      "sourceLastUpdated": null
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 41,
+      "sourceLastUpdated": "2026-09-17"
     },
     {
       "name": "Brentford",
       "clubId": "CLUB-ENG-BRENTFORD",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/brentf.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
-      "sourceLastUpdated": null
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 52,
+      "sourceLastUpdated": "2026-11-10"
     },
     {
       "name": "Brighton & Hove Albion",
@@ -171,5 +171,8 @@
       "stagedPlayerCandidates": 0,
       "sourceLastUpdated": null
     }
-  ]
+  ],
+  "totalClubs": 20,
+  "clubsCollected": 4,
+  "totalStagedPlayerCandidates": 242
 }
