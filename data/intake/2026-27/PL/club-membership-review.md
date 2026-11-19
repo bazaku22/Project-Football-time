@@ -197,3 +197,21 @@ A possible name discrepancy was deliberately left pending: the Hull City candida
 Current membership-status totals across all 1,091 staged rows are: 224 first-team confirmed, 133 U21 registration confirmed, 7 academy confirmed, 1 Everton player loaned out, and 726 still listed as candidates pending row-level membership verification. U21 remains an internal status only; the app roster remains one combined club list.
 
 No permanent Player IDs or appearances/goals/assists were added. The 1,091-row intake remains staging-only and has not been imported into the production player database.
+
+
+## 16. Eight-club official Premier League registration reconciliation — 19 Nov 2026
+
+The next candidate-level batches were compared with the Premier League's 3 September 2026 submitted registration publication: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+
+Clear candidate-name matches were assigned the registration class shown by the official PL source. This added 165 identity-confirmed rows:
+
+| Clubs | First-team registrations | U21 registrations | Rows confirmed |
+|---|---:|---:|---:|
+| Ipswich Town, Leeds United, Manchester City | 2 | 60 | 62 |
+| Newcastle United, Sunderland, Tottenham Hotspur | 2 | 69 | 71 |
+| Nottingham Forest, Arsenal | 0 | 32 | 32 |
+| **Total** | **4** | **161** | **165** |
+
+Candidates not matched to the published registration list remain pending; absence from this registration snapshot is not evidence that a player has left the club. The check does not add separate U21 app rosters: U21 remains an internal registration status within the combined club list.
+
+After this batch, the 1,091 staged candidates have 834 identity-confirmed rows. Membership statuses are 228 first-team confirmed, 294 U21 registration confirmed, 7 academy confirmed, 1 Everton player loaned out, and 561 candidates still pending row-level membership review. No permanent Player IDs or statistics were added, and no production import occurred.
