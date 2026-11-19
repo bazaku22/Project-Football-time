@@ -77,7 +77,7 @@ class MatchCenterTests(unittest.TestCase):
         self.assertIn('renderAnalysisSummary(match,cardAnalysis)', MODULE)
 
     def test_offline_asset_and_cache_are_versioned(self):
-        self.assertIn("football-time-v124", WORKER)
+        self.assertIn("football-time-v125", WORKER)
         self.assertIn('"./data/international-matches.json"', WORKER)
         self.assertIn('"./js/handicap-reference.js"', WORKER)
         self.assertIn('"./css/match-center.css?v=8"', WORKER)
@@ -157,7 +157,7 @@ class MatchCenterTests(unittest.TestCase):
     def test_calendar_does_not_add_api_or_provider_calls(self):
         self.assertEqual(len(re.findall(r"\bfetch\s*\(", MODULE)), 1)
         self.assertIn("INTERNATIONAL_DATA_URL", MODULE)
-        self.assertIn('football-time-v124', WORKER)
+        self.assertIn('football-time-v125', WORKER)
 
 
 
