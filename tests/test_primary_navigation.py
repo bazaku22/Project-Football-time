@@ -83,7 +83,7 @@ class PrimaryNavigationTests(unittest.TestCase):
         sw = (ROOT / "sw.js").read_text()
         self.assertIn('content="7.1"', html)
         self.assertIn('Project Football Time V7.1', html)
-        self.assertIn('const CACHE = "football-time-v124"', sw)
+        self.assertIn('const CACHE = "football-time-v125"', sw)
 
     def test_visible_app_version_matches_release_metadata_and_title(self):
         html = (ROOT / "index.html").read_text()
