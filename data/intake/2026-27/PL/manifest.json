@@ -218,17 +218,19 @@
       "verificationType": "IDENTITY_ONLY_EXACT_NAME_AND_SHIRT_NUMBER",
       "membershipStatusChanged": false,
       "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
-    }
+    },
+    "identityConfirmedRows": 578,
+    "identityConfirmedAsOf": "2026-11-19"
   },
   "membershipReviewSummary": {
     "status": "PARTIAL_ROW_LEVEL_RECONCILIATION",
     "asOf": "2026-11-19",
     "totalCandidates": 1091,
     "counts": {
-      "listed_current_roster": 817,
-      "first_team_member_confirmed": 218,
+      "listed_current_roster": 757,
+      "first_team_member_confirmed": 239,
       "academy_member_confirmed": 7,
-      "u21_registration_confirmed": 48,
+      "u21_registration_confirmed": 87,
       "loaned_out_from_everton": 1
     },
     "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
