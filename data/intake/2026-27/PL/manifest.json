@@ -176,7 +176,7 @@
   "clubsCollected": 20,
   "totalStagedPlayerCandidates": 1091,
   "identityReviewSummary": {
-    "status": "PENDING_IDENTITY_RECONCILIATION",
+    "status": "RECONCILED_CROSS_CLUB_NAME_COLLISIONS",
     "crossClubSameNameCandidates": [
       {
         "playerName": "Ben Wilson",
@@ -184,8 +184,13 @@
           "Brentford",
           "Coventry City"
         ],
-        "status": "unresolved_same_name_collision",
-        "note": "Same display name appears in two club roster candidate files. Do not assume these are the same person; verify using date of birth or another reliable identity attribute before linking or assigning Player IDs."
+        "status": "resolved_distinct_people",
+        "resolution": "Two different players confirmed using date of birth, position and club records. Brentford B midfielder born 2008-08-12; Coventry City goalkeeper born 1992-08-09. Both remain separate roster candidates.",
+        "evidence": [
+          "https://www.brentfordfc.com/en/teams/men-s-b-team/ben-wilson",
+          "https://www.brentfordfc.com/en/news/brentford-b-team-sign-ben-wilson-glenavon-northern-ireland",
+          "https://www.skysports.com/football/player/109489/ben-wilson"
+        ]
       }
     ],
     "permanentPlayerIdsAssigned": 0,
