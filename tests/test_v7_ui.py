@@ -15,7 +15,7 @@ class V7CompactUiTests(unittest.TestCase):
     def test_v7_release_assets_are_versioned_and_cached(self):
         self.assertIn('content="7.1"', self.html)
         self.assertIn('V7.1</span>', self.html)
-        self.assertIn('football-time-v124', self.sw)
+        self.assertIn('football-time-v125', self.sw)
         self.assertIn('v7-compact-ui.css?v=1', self.html)
         self.assertIn('./css/v7-compact-ui.css?v=1', self.sw)
 

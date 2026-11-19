@@ -92,6 +92,6 @@ jobs:
       - name: Check app and service worker versions
         run: |
           grep -q 'application-version" content="7.1"' index.html
-          grep -q 'football-time-v124' sw.js
+          grep -q 'football-time-v125' sw.js
           grep -q 'analysis-refinement.css' sw.js
           ! grep -q 'rows.length>2500' index.html

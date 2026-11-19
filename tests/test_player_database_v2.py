@@ -47,6 +47,11 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn('statsBlock("สถิติทีมชาติชุดใหญ่",player.statistics?.nationalTeam', source)
         self.assertIn("renderRoot", source)
         self.assertIn("renderLeagueList", source)
+        self.assertIn("renderCountryList", source)
+        self.assertIn("renderCountryLeagueList", source)
+        self.assertIn('data-country=', source)
+        self.assertIn('countryId:"ENG"', source)
+        self.assertIn('id:"ELC",name:"EFL Championship"', source)
         self.assertIn("renderNationalList", source)
         self.assertIn('data-nav="clubs"', source)
         self.assertIn('data-nav="national"', source)
@@ -78,7 +83,7 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("./css/player-database-v2.css?v=6", sw)
         self.assertIn("./data/player-database-v2.json", sw)
         self.assertNotIn("kings-cup-2026-sprite.jpg", sw)
-        self.assertIn('const CACHE = "football-time-v124"', sw)
+        self.assertIn('const CACHE = "football-time-v125"', sw)
 
 
 if __name__ == "__main__":
