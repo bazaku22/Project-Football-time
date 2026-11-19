@@ -219,7 +219,7 @@
       "membershipStatusChanged": false,
       "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
     },
-    "identityConfirmedRows": 669,
+    "identityConfirmedRows": 834,
     "identityConfirmedAsOf": "2026-11-19"
   },
   "membershipReviewSummary": {
@@ -227,10 +227,10 @@
     "asOf": "2026-11-19",
     "totalCandidates": 1091,
     "counts": {
-      "listed_current_roster": 726,
-      "first_team_member_confirmed": 224,
+      "listed_current_roster": 561,
+      "first_team_member_confirmed": 228,
       "academy_member_confirmed": 7,
-      "u21_registration_confirmed": 133,
+      "u21_registration_confirmed": 294,
       "loaned_out_from_everton": 1
     },
     "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
@@ -276,6 +276,41 @@
         "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
         "sourcePublished": "2026-09-03",
         "note": "92 candidate rows updated in the batch; one row (Daniel Bentley) already had identity_confirmed from the prior squad-number cross-check, so 91 are new identity confirmations. Lewis Coyle remains pending because the official source spells the registered player Lewie Coyle."
+      },
+      {
+        "clubs": [
+          "Ipswich Town",
+          "Leeds United",
+          "Manchester City"
+        ],
+        "firstTeamRows": 2,
+        "u21RegistrationRows": 60,
+        "confirmedRows": 62,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Newcastle United",
+          "Sunderland",
+          "Tottenham Hotspur"
+        ],
+        "firstTeamRows": 2,
+        "u21RegistrationRows": 69,
+        "confirmedRows": 71,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Nottingham Forest",
+          "Arsenal"
+        ],
+        "firstTeamRows": 0,
+        "u21RegistrationRows": 32,
+        "confirmedRows": 32,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
       }
     ],
     "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster."
