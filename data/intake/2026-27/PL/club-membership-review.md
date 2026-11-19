@@ -135,3 +135,31 @@ For Manchester United, the official Premier League submission distinguishes the 
 
 The Chelsea and Liverpool official men's squad pages include the club's current men's squad listing; this check confirms club squad membership and name/number matching, not an assertion that every listed player is a regular senior first-team selection. Rows not matched on both name and number remain unchanged.
 
+
+
+## 13. Official Premier League squad-number identity cross-check — 19 Nov 2026
+
+A further cross-check compared the staged candidate's player name and shirt number with the Premier League's official all-20-club 2026/27 squad-number publication (published 22 September 2026): https://www.premierleague.com/en/news/4725682
+
+Where both the name and shirt number matched, the CSV row's `identity_status` was set to `identity_confirmed` and the official source was recorded in its notes. This added **325 evidence-backed identity matches across 13 clubs**:
+
+| Club | Exact name + shirt-number matches |
+|---|---:|
+| Arsenal | 22 |
+| Coventry City | 26 |
+| Crystal Palace | 27 |
+| Everton | 18 |
+| Fulham | 27 |
+| Hull City | 26 |
+| Ipswich Town | 25 |
+| Leeds United | 27 |
+| Manchester City | 25 |
+| Newcastle United | 26 |
+| Nottingham Forest | 24 |
+| Sunderland | 25 |
+| Tottenham Hotspur | 27 |
+| **Total** | **325** |
+
+Important limitation: the Premier League article states that its number list includes players from the clubs' 25-man squads and academy players who have appeared or may appear in first-team squads during 2026/27. Therefore, an exact match confirms the candidate's identity against an official club-number record, but this cross-check alone does not distinguish senior registration from U21/academy registration. Accordingly, this batch changed `identity_status` only; it did not change `membership_status`. No-match rows were left untouched and are not treated as proof of departure or former-club status.
+
+The wider row-level review remains incomplete. All 1,091 candidates remain staged and not imported. Permanent Player IDs and appearances/goals/assists remain blank. The 23 existing Thailand national-team records and PFT-000001–PFT-000023 remain untouched.
