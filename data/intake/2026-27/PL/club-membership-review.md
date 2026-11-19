@@ -68,3 +68,17 @@ FootballSquads attribution remains as recorded in the manifest and intake docume
 The official 3 September 2026 PL registration publication has now been used as a dated baseline for the 20 club sections. A separate hold queue records candidate names not located in that publication and an ambiguous Nottingham Forest entry (`John`). These are **not removals**: the PL page lists submitted senior squads and registered U21 contract/scholar players, not every academy player. Each held name must be checked against the club's current official men's/academy source before membership is changed.
 
 See [official-pl-registration-review-queue.md](official-pl-registration-review-queue.md) for the explicit candidates and safe-handling rules. This is a partial row-level check, not certification of all 1,091 candidates. All unreviewed rows remain pending; no Player IDs, statistics, or production imports were added.
+
+
+## 8. Candidate-level official source reconciliation — 19 Nov 2026
+
+A second-source review resolved eight of the earlier hold-queue entries without deleting any candidate:
+- Chelsea academy: Leo Black, Jacob Dako and Josh Henry.
+- Everton: Tyrique George is confirmed in the first-team group; Luca Davis is confirmed as an Everton player currently loaned to Morecambe until January 2027.
+- Newcastle United: Scott Bailey is confirmed in the U21 squad.
+- Nottingham Forest: Jaxon Tomak is identified in a Forest U21 match report; Azae Bonnick is confirmed by the club as a Forest B Team player.
+
+The CSV rows now carry explicit membership statuses and official evidence URLs. The review queue retains two unresolved entries: Manchester City's Josh Wilson-Esbrand (current 2026/27 status not yet independently established) and Nottingham Forest's short-name entry `John` (do not assume it is John Victor without row-level identity evidence).
+
+This is still a partial review, not verification of all 1,091 candidates. The dated Premier League list remains a registration snapshot, not a full academy directory. No permanent Player IDs or player statistics were added; no production database import occurred.
+
