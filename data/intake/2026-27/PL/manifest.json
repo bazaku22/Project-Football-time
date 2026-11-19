@@ -225,10 +225,10 @@
     "asOf": "2026-11-19",
     "totalCandidates": 1091,
     "counts": {
-      "listed_current_roster": 877,
-      "first_team_member_confirmed": 197,
+      "listed_current_roster": 817,
+      "first_team_member_confirmed": 218,
       "academy_member_confirmed": 7,
-      "u21_registration_confirmed": 9,
+      "u21_registration_confirmed": 48,
       "loaned_out_from_everton": 1
     },
     "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
@@ -249,6 +249,16 @@
           "Manchester United"
         ],
         "confirmedRows": 85
+      },
+      {
+        "clubs": [
+          "Arsenal"
+        ],
+        "firstTeamRows": 21,
+        "u21RegistrationRows": 39,
+        "confirmedRows": 60,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
       }
     ],
     "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster."
