@@ -143,36 +143,36 @@
       "name": "Newcastle United",
       "clubId": "CLUB-ENG-NEWCASTLE-UNITED",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/newcas.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 59,
       "sourceLastUpdated": null
     },
     {
       "name": "Nottingham Forest",
       "clubId": "CLUB-ENG-NOTTINGHAM-FOREST",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/nottmf.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
       "sourceLastUpdated": null
     },
     {
       "name": "Sunderland",
       "clubId": "CLUB-ENG-SUNDERLAND",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/sunder.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
       "sourceLastUpdated": null
     },
     {
       "name": "Tottenham Hotspur",
       "clubId": "CLUB-ENG-TOTTENHAM-HOTSPUR",
       "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/tottenha.htm",
-      "rosterStatus": "pending",
-      "stagedPlayerCandidates": 0,
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 52,
       "sourceLastUpdated": null
     }
   ],
   "totalClubs": 20,
-  "clubsCollected": 16,
-  "totalStagedPlayerCandidates": 878
+  "clubsCollected": 20,
+  "totalStagedPlayerCandidates": 1091
 }
