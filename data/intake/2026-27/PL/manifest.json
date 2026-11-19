@@ -174,5 +174,21 @@
   ],
   "totalClubs": 20,
   "clubsCollected": 20,
-  "totalStagedPlayerCandidates": 1091
+  "totalStagedPlayerCandidates": 1091,
+  "identityReviewSummary": {
+    "status": "PENDING_IDENTITY_RECONCILIATION",
+    "crossClubSameNameCandidates": [
+      {
+        "playerName": "Ben Wilson",
+        "clubs": [
+          "Brentford",
+          "Coventry City"
+        ],
+        "status": "unresolved_same_name_collision",
+        "note": "Same display name appears in two club roster candidate files. Do not assume these are the same person; verify using date of birth or another reliable identity attribute before linking or assigning Player IDs."
+      }
+    ],
+    "permanentPlayerIdsAssigned": 0,
+    "statisticsFieldsPopulated": 0
+  }
 }
