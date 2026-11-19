@@ -166,3 +166,12 @@ The wider row-level review remains incomplete. All 1,091 candidates remain stage
 
 
 The Tottenham Hotspur comparison was checked once more against the source's printed player name: the staged `Andrew Robertson` #3 entry matches the Premier League's `Andrew Robertson` #3 listing exactly. It is now included in the identity-confirmed count; the candidate's name was not abbreviated or rewritten.
+
+
+## 14. Arsenal official PL registration reconciliation — 19 Nov 2026
+
+Arsenal candidate rows were compared with the Premier League's official 2026/27 submitted registration list published 3 September 2026: https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists
+
+Only clear player-name matches were promoted. This adds **21 first-team squad confirmations** and **39 registered U21 contract/scholar confirmations** (60 total). The CSV records now include the PL source and registration classification in their notes, and the corresponding membership_status and identity_status fields were updated. Candidates not matched to the official list remain unchanged; absence from this dated registration snapshot is not proof of departure or lack of academy membership.
+
+The app roster remains a single combined Arsenal roster. U21 is an internal registration status only and does not create a separate roster section. This batch does not add Player IDs or statistics and does not complete the remaining row-level review for Arsenal or the other 19 clubs.
