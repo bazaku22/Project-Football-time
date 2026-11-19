@@ -19,14 +19,14 @@ The following names appear in the staged FootballSquads transcription but were n
 
 | Club | Candidate name as staged | Why held |
 |---|---|---|
-| Manchester City | Josh Wilson-Esbrand | Not located in the 3 Sep PL senior/U21 registration section; verify current club/loan status with official club source |
-| Nottingham Forest | John | Name is insufficiently specific; the PL list includes John Victor, but identity equivalence must not be assumed |
+| Manchester City | Josh Wilson-Esbrand | Not present on the current official men's first-team or EDS squad pages, nor in the 2026/27 PL registration list; latest official loan coverage found relates to 2025/26 only. Current 2026/27 club/academy status remains unresolved; do not assume departure |
 
 ## Candidate checks resolved by current official club evidence
 
 These five candidates were absent from the 3 September PL registration snapshot, but subsequent/current official club evidence confirms their club association. They are removed from the *hold queue*, not promoted to fully reconciled player identity records; their staged CSV identity status remains pending and no permanent Player IDs are assigned.
 
 | Club | Candidate | Official evidence | Review outcome |
+| Nottingham Forest | John → John Victor | First-team identity confirmed: official Forest and PL squad pages list John Victor as shirt 12 Brazilian goalkeeper; staged row matched shirt 12, BRA and goalkeeper. CSV canonical name updated to John Victor. |
 |---|---|---|---|
 | Chelsea | Leo Black | Chelsea announced his signing through 2028 on 29 Sep 2026: https://www.chelseafc.com/en/news/article/leo-black-signs-for-chelsea | Chelsea affiliation confirmed; academy/Next Gen context |
 | Chelsea | Jacob Dako | Chelsea U18 match reports list him in the team and record his goals on 17 and 24 Oct 2026: https://www.chelseafc.com/en/news/article/under-18-premier-league-report-west-bromwich-albion-3-5-chelsea and https://www.chelseafc.com/en/news/article/under-18-premier-league-report-chelsea-4-1-ipswich-town | Chelsea U18 participation confirmed |
@@ -63,7 +63,7 @@ The statuses distinguish club attachment from registration in the Premier League
 
 ## Scope limitation
 
-This pass establishes the official PL registration baseline, resolves five initial hold-queue entries using current official club evidence, and leaves five entries in the explicit hold queue (Everton's Luca Davis; Manchester City's Josh Wilson-Esbrand; Nottingham Forest's John, Jaxon Tomak and Azae Bonnick). It does not claim that all 1,091 candidate identities and memberships have been individually verified. All other candidates continue to carry their existing pending review status.
+This pass establishes the official PL registration baseline, resolves five initial hold-queue entries using current official club evidence, and leaves five entries in the explicit hold queue (Everton's Luca Davis; Manchester City's Josh Wilson-Esbrand; Nottingham Forest's John, Jaxon Tomak and Azae Bonnick). Only one explicit hold remains: Manchester City's Josh Wilson-Esbrand. Nottingham Forest's short-name row `John` was reconciled to John Victor using the exact shirt number, nationality, position and current official club/PL squad listings. It does not claim that all 1,091 candidate identities and memberships have been individually verified. All other candidates continue to carry their existing pending review status.
 
 FootballSquads attribution remains:
 `Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved`
