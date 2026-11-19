@@ -13,13 +13,19 @@
       '<span class="'+cls+' player-v2-image-placeholder" aria-label="'+esc(alt)+'">⚽</span>';
   };
   const stat = (value) => Number.isFinite(Number(value)) && value !== null && value !== "" ? String(Number(value)) : "—";
+  // Keep the five major leagues as the primary directory.
   const leagues = [
     {id:"PL",name:"Premier League",short:"PL"},
     {id:"PD",name:"LaLiga",short:"PD"},
     {id:"BL1",name:"Bundesliga",short:"BL1"},
     {id:"SA",name:"Serie A",short:"SA"},
-    {id:"FL1",name:"Ligue 1",short:"FL1"},
-    {id:"OTHER",name:"ลีกอื่น ๆ / ยังไม่จัดลีก",short:"อื่น ๆ"}
+    {id:"FL1",name:"Ligue 1",short:"FL1"}
+  ];
+  // Additional domestic leagues are grouped by country, not mixed into the five-league directory.
+  const countryLeagueGroups = [
+    {countryId:"ENG",name:"อังกฤษ",englishName:"England",flag:"🇬🇧",leagues:[
+      {id:"ELC",name:"EFL Championship",short:"ELC"}
+    ]}
   ];
   let players = [];
   let selectedId = "";
@@ -83,13 +89,41 @@
       const clubCount = new Set(players.filter(p=>p.currentClub && leagueFor(p)===league.id).map(p=>clubIdFor(p))).size;
       return '<button type="button" class="player-v2-directory-card" data-league="'+esc(league.id)+'"><span class="player-v2-league-code">'+esc(league.short)+'</span><span><b>'+esc(league.name)+'</b><small>'+clubCount+' สโมสร · '+count+' นักเตะ</small></span><span class="player-v2-chevron">›</span></button>';
     }).join("");
+    const countryCards = countryLeagueGroups.map(country => {
+      const leagueCount = country.leagues.length;
+      return '<button type="button" class="player-v2-directory-card" data-country="'+esc(country.countryId)+'"><span class="player-v2-team-flag">'+esc(country.flag)+'</span><span><b>'+esc(country.name)+'</b><small>'+esc(country.englishName)+' · '+leagueCount+' ลีก</small></span><span class="player-v2-chevron">›</span></button>';
+    }).join("");
     root().innerHTML = navHeader("เลือกลีก","root","กลับหน้าหมวด")+
-      '<div class="player-v2-directory">'+cards+'</div>'+
+      '<h3 class="player-v2-directory-heading">5 ลีกใหญ่</h3><div class="player-v2-directory">'+cards+'</div>'+
+      '<h3 class="player-v2-directory-heading">ลีกอื่นตามประเทศ</h3><div class="player-v2-directory">'+countryCards+'</div>'+
       '<p class="player-v2-note">ลีกที่ยังไม่มีข้อมูลนักเตะจะแสดงเป็น 0 คน และจะเติมรายชื่อเมื่อมีข้อมูลสโมสรที่ตรวจสอบแล้ว</p>';
+  }
+  function renderCountryList() {
+    selectedId = ""; query = "";
+    const cards = countryLeagueGroups.map(country => {
+      return '<button type="button" class="player-v2-directory-card" data-country="'+esc(country.countryId)+'"><span class="player-v2-team-flag">'+esc(country.flag)+'</span><span><b>'+esc(country.name)+'</b><small>'+esc(country.englishName)+' · '+country.leagues.length+' ลีก</small></span><span class="player-v2-chevron">›</span></button>';
+    }).join("");
+    root().innerHTML = navHeader("เลือกประเทศ","leagues","กลับไปเลือกลีก")+
+      '<div class="player-v2-directory">'+cards+'</div>';
+  }
+  function renderCountryLeagueList(countryId) {
+    selectedId = ""; query = "";
+    const country = countryLeagueGroups.find(item=>item.countryId===countryId);
+    if(!country){view={level:"leagues",leagueId:"",club:"",teamId:"",countryId:""};return renderLeagueList();}
+    view = {level:"country-leagues",leagueId:"",club:"",teamId:"",countryId};
+    const cards = country.leagues.map(league => {
+      const count = players.filter(p=>p.currentClub && leagueFor(p)===league.id).length;
+      const clubCount = new Set(players.filter(p=>p.currentClub && leagueFor(p)===league.id).map(p=>clubIdFor(p))).size;
+      return '<button type="button" class="player-v2-directory-card" data-league="'+esc(league.id)+'"><span class="player-v2-league-code">'+esc(league.short)+'</span><span><b>'+esc(league.name)+'</b><small>'+clubCount+' สโมสร · '+count+' นักเตะ</small></span><span class="player-v2-chevron">›</span></button>';
+    }).join("");
+    root().innerHTML = navHeader("ลีกใน"+country.name,"countries","กลับไปเลือกประเทศ")+
+      '<div class="player-v2-directory">'+cards+'</div>'+
+      '<p class="player-v2-note">แสดงเฉพาะลีกที่ลงทะเบียนไว้ในประเทศนี้ · รายชื่อนักเตะจะเพิ่มเมื่อผ่านการตรวจสอบข้อมูล</p>';
   }
   function renderClubList(leagueId) {
     selectedId = ""; query = "";
-    view = {level:"clubs",leagueId,club:"",teamId:""};
+    const countryGroup = countryLeagueGroups.find(country=>country.leagues.some(league=>league.id===leagueId));
+    view = {level:"clubs",leagueId,club:"",teamId:"",countryId:countryGroup?.countryId || ""};
     const league = leagues.find(x=>x.id===leagueId);
     const clubs = [...new Map(players.filter(p=>p.currentClub && leagueFor(p)===leagueId).map(p=>[clubIdFor(p),p.currentClub])).entries()].sort((a,b)=>displayClubName(a[1]).localeCompare(displayClubName(b[1]),"th"));
     const cards = clubs.map(([clubId,club]) => {
@@ -97,7 +131,9 @@
       const secondary = club.names?.en ? '<small>'+esc(club.names.en)+'</small>' : "";
       return '<button type="button" class="player-v2-directory-card" data-club="'+esc(clubId)+'"><span class="player-v2-club-mark">⚽</span><span><b>'+esc(displayClubName(club))+'</b>'+secondary+'<small>'+count+' นักเตะ</small></span><span class="player-v2-chevron">›</span></button>';
     }).join("");
-    root().innerHTML = navHeader(league?.name || "เลือกสโมสร","leagues","กลับไปเลือกลีค")+
+    const backAction = countryGroup ? "country-leagues" : "leagues";
+    const backLabel = countryGroup ? "กลับไปเลือกลีคใน"+countryGroup.name : "กลับไปเลือกลีค";
+    root().innerHTML = navHeader(league?.name || "เลือกสโมสร",backAction,backLabel)+
       (cards ? '<div class="player-v2-directory">'+cards+'</div>' : '<div class="player-v2-empty">ยังไม่มีรายชื่อนักเตะในลีกนี้<br><small>จะเพิ่มเมื่อมีข้อมูลลีกและสโมสรที่ตรวจสอบได้</small></div>');
   }
   function renderNationalList() {
@@ -158,6 +194,8 @@
   function renderCurrent() {
     if(view.level==="root") return renderRoot();
     if(view.level==="leagues") return renderLeagueList();
+    if(view.level==="countries") return renderCountryList();
+    if(view.level==="country-leagues") return renderCountryLeagueList(view.countryId);
     if(view.level==="clubs") return renderClubList(view.leagueId);
     if(view.level==="national") return renderNationalList();
     if(view.level==="players") return renderPlayerList(view.teamId?"national":"club",view.teamId||view.club);
@@ -194,11 +232,15 @@
         const action=nav.dataset.nav;
         if(action==="root"){view={level:"root",leagueId:"",club:"",teamId:""};renderRoot();}
         else if(action==="clubs"){if(view.leagueId)renderClubList(view.leagueId);else{view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}}
-        else if(action==="leagues"){view={level:"leagues",leagueId:"",club:"",teamId:""};renderLeagueList();}
+        else if(action==="leagues"){view={level:"leagues",leagueId:"",club:"",teamId:"",countryId:""};renderLeagueList();}
+        else if(action==="countries"){view={level:"countries",leagueId:"",club:"",teamId:"",countryId:""};renderCountryList();}
+        else if(action==="country-leagues"){renderCountryLeagueList(view.countryId);}
         else if(action==="national"){view={level:"national",leagueId:"",club:"",teamId:""};renderNationalList();}
         else if(action==="players")renderCurrent();
         return;
       }
+      const country=event.target.closest("[data-country]");
+      if(country){renderCountryLeagueList(country.dataset.country);return;}
       const league=event.target.closest("[data-league]");
       if(league){renderClubList(league.dataset.league);return;}
       const club=event.target.closest("[data-club]");
