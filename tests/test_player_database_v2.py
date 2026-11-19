@@ -83,7 +83,7 @@ class PlayerDatabaseV2Tests(unittest.TestCase):
         self.assertIn("./css/player-database-v2.css?v=6", sw)
         self.assertIn("./data/player-database-v2.json", sw)
         self.assertNotIn("kings-cup-2026-sprite.jpg", sw)
-        self.assertIn('const CACHE = "football-time-v124"', sw)
+        self.assertIn('const CACHE = "football-time-v125"', sw)
 
 
 if __name__ == "__main__":
