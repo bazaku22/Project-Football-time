@@ -234,7 +234,7 @@
         "Jay Spearing is identity-confirmed but Liverpool official records identify him as academy staff/player-coach, not a current registered player; membership remains pending and exclude from player import absent current player registration.",
         "Charlie Scorer is identity-confirmed by Sunderland's 2026/27 U18 report; precise current membership classification remains pending.",
         "Three identities remain pending: Hull City Tilen Golič; Ipswich Town Tom Taylor; Liverpool Bailey Hall-MacDonald.",
-        "22 candidates still have listed_current_roster membership status pending individual membership evidence, after the 2026-11-20 official-club reconciliation."
+        "11 candidates still have listed_current_roster membership status pending individual membership evidence after the 2026-11-20 official-source reconciliation."
       ]
     }
   },
@@ -243,10 +243,10 @@
     "asOf": "2026-11-20",
     "totalCandidates": 1091,
     "counts": {
-      "first_team_member_confirmed": 512,
-      "u21_registration_confirmed": 527,
-      "academy_member_confirmed": 29,
-      "listed_current_roster": 22,
+      "first_team_member_confirmed": 519,
+      "u21_registration_confirmed": 528,
+      "academy_member_confirmed": 32,
+      "listed_current_roster": 11,
       "loaned_out_from_everton": 1
     },
     "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
@@ -392,24 +392,19 @@
       }
     ],
     "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster.",
-    "note": "Updated 2026-11-20 after 22 additional current-membership confirmations from official club first-team, U21 and academy sources. Twenty-two candidates remain listed_current_roster pending individual evidence.",
+    "note": "Updated 2026-11-20 after a further official-source review of 11 candidates. Eleven candidates remain listed_current_roster pending individual membership evidence.",
     "latestReconciliation": {
       "date": "2026-11-20",
-      "newlyConfirmed": 22,
-      "firstTeamConfirmed": 3,
-      "academyMemberConfirmed": 19,
-      "remainingPending": 22,
+      "newlyConfirmed": 11,
+      "firstTeamConfirmed": 7,
+      "u21RegistrationConfirmed": 1,
+      "academyMemberConfirmed": 3,
+      "remainingPending": 11,
       "notes": [
-        "Crystal Palace: Harry Lee, Taha Majni, Nathanael Kalembo and Remi Ahazie-Shittu confirmed in official U21/U18 squads; Walter Benítez confirmed in first team.",
-        "Everton: Justin Clarke confirmed in an official U21 match report.",
-        "Fulham: Michael Allen, Marley Clarke and Cooper Covington confirmed in official U21/U18 profiles.",
-        "Leeds United: Roman Egan-Riley and Robbie Cook confirmed in official U21 team reports.",
-        "Liverpool: Patrik Farkas confirmed by official Academy profile and contract announcement.",
-        "Manchester United: Victor Musa, David Eze, Isaac Konde and Karim Cassim confirmed in official U21/U18 squad profiles.",
-        "Newcastle United: Joelinton confirmed in the men's first team; Alfie Hutchinson confirmed in the U18 academy. Official profile also corrected their positions to midfielder and forward respectively.",
-        "Nottingham Forest: Aaron Bott confirmed in an official B Team match report.",
-        "Sunderland: Charlie Scorer and James Barker confirmed in current-season U18 match reports.",
-        "Tottenham Hotspur: James Maddison confirmed in the official 2026/27 Premier League squad submission."
+        "First-team squad list: Kaine Kesler-Hayden (Coventry City); Ryan Giles, Elliot Stroud, Matt Crooks, Regan Slater and Tim Iroegbunam (Hull City); Fraser Barnsley (Everton). Each exact name and shirt number was cross-checked against the official Premier League 2026/27 squad-number publication.",
+        "U21 squad participation: Ben Barclay confirmed as Brighton men's U21 overage player/mentor; his current-season PL2 match report and official player profile support U21 membership.",
+        "Academy membership: Isaac Silva confirmed in Chelsea's 2026/27 U18 match report; Adler Nascimento confirmed as Crystal Palace U21 forward with eight 2026/27 appearances; Jayden Koussou confirmed in Newcastle's current U18 squad and 2026/27 match reports. Newcastle's current official U18 squad page spells his name Jayden Kouossu, and the staged name was corrected accordingly.",
+        "Bailey Hall-MacDonald remains pending identity review. Liverpool sources identify a player named Bailey Hall, but do not establish that he is the candidate Bailey Hall-MacDonald; no identity conflation was made."
       ]
     }
   },
@@ -427,10 +422,10 @@
       "pending_identity_review": 3
     },
     "membershipStatusCounts": {
-      "first_team_member_confirmed": 512,
-      "u21_registration_confirmed": 527,
-      "academy_member_confirmed": 29,
-      "listed_current_roster": 22,
+      "first_team_member_confirmed": 519,
+      "u21_registration_confirmed": 528,
+      "academy_member_confirmed": 32,
+      "listed_current_roster": 11,
       "loaned_out_from_everton": 1
     }
   }

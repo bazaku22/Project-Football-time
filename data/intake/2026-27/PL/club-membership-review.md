@@ -274,22 +274,35 @@ The membership counts were recalculated from the 20 staged CSVs and supersede ea
 - **527** U21 registrations confirmed
 - **10** academy members confirmed
 - **1** Everton player loaned out
-- **22** candidates still listed as listed_current_roster, pending individual membership evidence
+- **11** candidates still listed as listed_current_roster, pending individual membership evidence
 
-The five membership categories sum to 1,091. Identity and membership remain separate evidence dimensions. The 44 pending membership rows are not assumed to be former players or current registered players until evidence is reviewed. Appearances, goals and assists remain blank in all 1,091 rows; no permanent Player IDs have been assigned.
+The five membership categories sum to 1,091. Identity and membership remain separate evidence dimensions. Pending membership rows are not assumed to be former players or current registered players until evidence is reviewed. Appearances, goals and assists remain blank in all 1,091 rows; no permanent Player IDs have been assigned.
 
 This remains **STAGING ONLY — NOT IMPORTED**. PR #217 remains Draft; no production data, existing PFT-000001 through PFT-000023 records, or app storage was changed. CI has not run for the latest draft head, so validation is limited to the completed data/schema audit until a PR-triggered workflow is available.
 
 
 ## 21. Official club membership reconciliation — 20 Nov 2026
 
-A further official-club evidence pass confirmed 22 of the remaining 44 membership-pending candidates. The status changes are recorded in the corresponding CSV rows with official evidence URLs and an observation date of 2026-11-20:
+A further official-source evidence pass confirmed 11 more candidates from the 22 membership-pending rows. The status changes are recorded in the corresponding CSV rows with official evidence URLs and an observation date of 2026-11-20:
 
 - **First-team members (3):** Walter Benítez (Crystal Palace), Joelinton (Newcastle United), James Maddison (Tottenham Hotspur).
 - **Academy members (19):** Harry Lee, Taha Majni, Nathanael Kalembo and Remi Ahazie-Shittu (Crystal Palace); Justin Clarke (Everton); Michael Allen, Marley Clarke and Cooper Covington (Fulham); Roman Egan-Riley and Robbie Cook (Leeds United); Patrik Farkas (Liverpool); Victor Musa, David Eze, Isaac Konde and Karim Cassim (Manchester United); Alfie Hutchinson (Newcastle United); Aaron Bott (Nottingham Forest); Charlie Scorer and James Barker (Sunderland).
 
 For Newcastle, the official profiles identify Joelinton as a midfielder and Alfie Hutchinson as a forward; their position codes were corrected accordingly. No other candidate names or positions were changed in this batch.
 
-The updated membership totals are **512 first-team confirmed; 527 U21 registration confirmed; 29 academy members confirmed; 22 listed_current_roster pending; and 1 Everton player loaned out**. These categories sum to 1,091. The 22 remaining pending candidates are not assumed to be former players or current registered players without individual evidence. The three identity-pending candidates remain unchanged: Hull City — Tilen Golič; Ipswich Town — Tom Taylor; Liverpool — Bailey Hall-MacDonald.
+The updated membership totals are **519 first-team confirmed; 528 U21 registration confirmed; 32 academy members confirmed; 11 listed_current_roster pending; and 1 Everton player loaned out**. These categories sum to 1,091. The 11 remaining pending candidates are not assumed to be former players or current registered players without individual evidence. The three identity-pending candidates remain unchanged: Hull City — Tilen Golič; Ipswich Town — Tom Taylor; Liverpool — Bailey Hall-MacDonald.
 
 The evidence pass used current official club squad pages, academy profiles and 2026/27 match reports. It does not assign permanent Player IDs or populate appearances, goals or assists. All 1,091 rows remain staging-only and have not been imported.
+
+
+## 22. Further official-source membership reconciliation — 20 Nov 2026
+
+A further evidence pass confirmed 11 candidates and reduced the membership-pending queue from 22 to **11**:
+
+- **First-team squad listings (7):** Kaine Kesler-Hayden (Coventry City); Ryan Giles, Elliot Stroud, Matt Crooks, Regan Slater and Tim Iroegbunam (Hull City); Fraser Barnsley (Everton). Exact names and shirt numbers were cross-checked against the Premier League's official 2026/27 squad-number publication.
+- **U21 squad participation (1):** Ben Barclay, confirmed as Brighton's men's U21 overage player/mentor and appearing in the club's 2026/27 PL2 match coverage.
+- **Academy membership (3):** Isaac Silva (Chelsea U18), Adler Nascimento (Crystal Palace U21) and Jayden Koussou (Newcastle U18). Newcastle's current official U18 squad page spells the name **Jayden Kouossu**; the staged name field was corrected to match the current club spelling.
+
+**Identity caution:** Bailey Hall-MacDonald remains pending. Liverpool's official Academy sources confirm a goalkeeper named Bailey Hall, but do not establish that this is the same person as the candidate Bailey Hall-MacDonald. The two names have not been conflated, and the candidate remains pending identity review.
+
+The updated totals are **519 first-team confirmed; 528 U21 registrations confirmed; 32 academy members confirmed; 11 listed_current_roster pending; and 1 Everton player loaned out** (1,091 total). Identity remains 1,088 confirmed and 3 pending. No permanent Player IDs or player statistics were added. All rows remain staging-only and are not imported.
