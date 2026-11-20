@@ -220,7 +220,7 @@
       "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
     },
     "identityConfirmedRows": 1088,
-    "identityConfirmedAsOf": "2026-11-19",
+    "identityConfirmedAsOf": "2026-11-20",
     "identityPendingRows": 3,
     "latestFollowUp": {
       "date": "2026-11-19",
@@ -234,19 +234,19 @@
         "Jay Spearing is identity-confirmed but Liverpool official records identify him as academy staff/player-coach, not a current registered player; membership remains pending and exclude from player import absent current player registration.",
         "Charlie Scorer is identity-confirmed by Sunderland's 2026/27 U18 report; precise current membership classification remains pending.",
         "Three identities remain pending: Hull City Tilen Golič; Ipswich Town Tom Taylor; Liverpool Bailey Hall-MacDonald.",
-        "Identity and membership are separate: 347 candidates still have listed_current_roster membership status pending individual membership evidence."
+        "44 candidates still have listed_current_roster membership status pending individual membership evidence, based on the normalized 2026-11-20 audit."
       ]
     }
   },
   "membershipReviewSummary": {
     "status": "PARTIAL_ROW_LEVEL_RECONCILIATION",
-    "asOf": "2026-11-19",
+    "asOf": "2026-11-20",
     "totalCandidates": 1091,
     "counts": {
-      "listed_current_roster": 347,
-      "first_team_member_confirmed": 234,
-      "academy_member_confirmed": 7,
-      "u21_registration_confirmed": 502,
+      "first_team_member_confirmed": 509,
+      "u21_registration_confirmed": 527,
+      "academy_member_confirmed": 10,
+      "listed_current_roster": 44,
       "loaned_out_from_everton": 1
     },
     "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
@@ -391,6 +391,28 @@
         "note": "Aggregate of latest official PL registration reconciliations; exact candidate-name matches only. Current CSV validation is authoritative for totals."
       }
     ],
-    "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster."
+    "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster.",
+    "note": "Counts recalculated from the normalized 20-club CSV intake on 2026-11-20. Membership remains a partial row-level reconciliation; listed_current_roster rows still require individual membership evidence."
+  },
+  "integrityAudit": {
+    "date": "2026-11-20",
+    "csvFormat": "RFC4180-compatible UTF-8 CSV; all fields quoted and embedded quotes escaped",
+    "columns": 23,
+    "totalRows": 1091,
+    "clubs": 20,
+    "duplicateNamesWithinClub": 0,
+    "malformedRows": 0,
+    "statisticsValuesPopulated": 0,
+    "identityStatusCounts": {
+      "identity_confirmed": 1088,
+      "pending_identity_review": 3
+    },
+    "membershipStatusCounts": {
+      "first_team_member_confirmed": 509,
+      "u21_registration_confirmed": 527,
+      "academy_member_confirmed": 10,
+      "listed_current_roster": 44,
+      "loaned_out_from_everton": 1
+    }
   }
 }
