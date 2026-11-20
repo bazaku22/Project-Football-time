@@ -1,0 +1,432 @@
+{
+  "dataset": "Football Time Player Database V2 — Premier League club roster intake",
+  "season": "2026/27",
+  "leagueId": "PL",
+  "countryId": "ENG",
+  "observedAt": "2026-11-19",
+  "status": "STAGING_NOT_IMPORTED",
+  "rosterPolicy": "Single combined club roster view; do not create a separate U21 category. Keep current club membership distinct from player identity and statistics.",
+  "playerIdPolicy": "No permanent Player IDs assigned in this intake stage. Preserve existing PFT-000001 through PFT-000023 and reconcile possible duplicates before assigning new IDs.",
+  "statisticsPolicy": "Appearances, goals and assists remain blank until an eligible source clearly verifies all-club-competition scope and reuse terms.",
+  "attribution": "Source of Material is http://www.footballsquads.com. Material: © FootballSquads.com, 1999 - , All Rights Reserved",
+  "sourceIndex": "https://www.footballsquads.co.uk/eng/2026-2027/engprem.htm",
+  "clubs": [
+    {
+      "name": "Arsenal",
+      "clubId": "CLUB-ENG-ARSENAL",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/arsenal.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 77,
+      "sourceLastUpdated": "2026-10-27"
+    },
+    {
+      "name": "Aston Villa",
+      "clubId": "CLUB-ENG-ASTON-VILLA",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/avilla.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 72,
+      "sourceLastUpdated": "2026-09-24"
+    },
+    {
+      "name": "AFC Bournemouth",
+      "clubId": "CLUB-ENG-BOURNEMOUTH",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/bourne.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 41,
+      "sourceLastUpdated": "2026-09-17"
+    },
+    {
+      "name": "Brentford",
+      "clubId": "CLUB-ENG-BRENTFORD",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/brentf.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 52,
+      "sourceLastUpdated": "2026-11-10"
+    },
+    {
+      "name": "Brighton & Hove Albion",
+      "clubId": "CLUB-ENG-BRIGHTON",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/brighton.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 62,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Chelsea",
+      "clubId": "CLUB-ENG-CHELSEA",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/chelsea.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 54,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Coventry City",
+      "clubId": "CLUB-ENG-COVENTRY-CITY",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/coventry.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 27,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Crystal Palace",
+      "clubId": "CLUB-ENG-CRYSTAL-PALACE",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/cpalace.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 70,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Everton",
+      "clubId": "CLUB-ENG-EVERTON",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/everton.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 49,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Fulham",
+      "clubId": "CLUB-ENG-FULHAM",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/fulham.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 56,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Hull City",
+      "clubId": "CLUB-ENG-HULL-CITY",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/hullc.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 35,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Ipswich Town",
+      "clubId": "CLUB-ENG-IPSWICH-TOWN",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/ipswich.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Leeds United",
+      "clubId": "CLUB-ENG-LEEDS-UNITED",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/leeds.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 45,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Liverpool",
+      "clubId": "CLUB-ENG-LIVERPOOL",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/liverpool.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 58,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Manchester City",
+      "clubId": "CLUB-ENG-MANCHESTER-CITY",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/mancity.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 48,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Manchester United",
+      "clubId": "CLUB-ENG-MANCHESTER-UNITED",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/manutd.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 81,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Newcastle United",
+      "clubId": "CLUB-ENG-NEWCASTLE-UNITED",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/newcas.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 59,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Nottingham Forest",
+      "clubId": "CLUB-ENG-NOTTINGHAM-FOREST",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/nottmf.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Sunderland",
+      "clubId": "CLUB-ENG-SUNDERLAND",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/sunder.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 51,
+      "sourceLastUpdated": null
+    },
+    {
+      "name": "Tottenham Hotspur",
+      "clubId": "CLUB-ENG-TOTTENHAM-HOTSPUR",
+      "sourceUrl": "https://www.footballsquads.co.uk/eng/2026-2027/engprem/tottenha.htm",
+      "rosterStatus": "collected",
+      "stagedPlayerCandidates": 52,
+      "sourceLastUpdated": null
+    }
+  ],
+  "totalClubs": 20,
+  "clubsCollected": 20,
+  "totalStagedPlayerCandidates": 1091,
+  "identityReviewSummary": {
+    "status": "PARTIAL_RECONCILIATION_3_IDENTITIES_PENDING",
+    "crossClubSameNameCandidates": [
+      {
+        "playerName": "Ben Wilson",
+        "clubs": [
+          "Brentford",
+          "Coventry City"
+        ],
+        "status": "resolved_distinct_people",
+        "resolution": "Two different players confirmed using date of birth, position and club records. Brentford B midfielder born 2008-08-12; Coventry City goalkeeper born 1992-08-09. Both remain separate roster candidates.",
+        "evidence": [
+          "https://www.brentfordfc.com/en/teams/men-s-b-team/ben-wilson",
+          "https://www.brentfordfc.com/en/news/brentford-b-team-sign-ben-wilson-glenavon-northern-ireland",
+          "https://www.skysports.com/football/player/109489/ben-wilson"
+        ]
+      }
+    ],
+    "permanentPlayerIdsAssigned": 0,
+    "statisticsFieldsPopulated": 0,
+    "officialSquadNumberCrossCheck": {
+      "source": "https://www.premierleague.com/en/news/4725682",
+      "sourcePublished": "2026-09-22",
+      "clubsChecked": 13,
+      "newlyEvidenceBackedCandidateRows": 326,
+      "clubCounts": {
+        "Arsenal": 22,
+        "Coventry City": 26,
+        "Crystal Palace": 27,
+        "Everton": 18,
+        "Fulham": 27,
+        "Hull City": 26,
+        "Ipswich Town": 25,
+        "Leeds United": 27,
+        "Manchester City": 25,
+        "Newcastle United": 26,
+        "Nottingham Forest": 24,
+        "Sunderland": 25,
+        "Tottenham Hotspur": 28
+      },
+      "verificationType": "IDENTITY_ONLY_EXACT_NAME_AND_SHIRT_NUMBER",
+      "membershipStatusChanged": false,
+      "note": "The official Premier League squad-number publication includes 25-man squad players and academy players who have appeared or may appear in first-team squads. Exact name and shirt-number matches support identity reconciliation only; this batch does not distinguish senior registration from U21/academy registration and does not certify unmatched candidates as former players."
+    },
+    "identityConfirmedRows": 1088,
+    "identityConfirmedAsOf": "2026-11-20",
+    "identityPendingRows": 3,
+    "latestFollowUp": {
+      "date": "2026-11-19",
+      "additionalIdentityConfirmedRows": 41,
+      "identityConfirmedRows": 1088,
+      "identityPendingRows": 3,
+      "notes": [
+        "41 additional identity confirmations after the prior 1,047/44 audit, using official club or competition evidence where available.",
+        "Arsenal candidate Mylor Bernard corrected to official spelling Mylo Bernard; UEFA Youth League profile confirms Arsenal, forward, shirt 65 and England nationality.",
+        "Sunderland Juan Riquelme Angulo confirmed by official Sunderland men's squad and international roundup; candidate shirt 50, forward and Ecuador nationality match. Membership status promoted to first_team_member_confirmed.",
+        "Jay Spearing is identity-confirmed but Liverpool official records identify him as academy staff/player-coach, not a current registered player; membership remains pending and exclude from player import absent current player registration.",
+        "Charlie Scorer is identity-confirmed by Sunderland's 2026/27 U18 report; precise current membership classification remains pending.",
+        "Three identities remain pending: Hull City Tilen Golič; Ipswich Town Tom Taylor; Liverpool Bailey Hall-MacDonald.",
+        "11 candidates still have listed_current_roster membership status pending individual membership evidence after the 2026-11-20 official-source reconciliation."
+      ]
+    }
+  },
+  "membershipReviewSummary": {
+    "status": "PARTIAL_ROW_LEVEL_RECONCILIATION",
+    "asOf": "2026-11-20",
+    "totalCandidates": 1091,
+    "counts": {
+      "first_team_member_confirmed": 519,
+      "u21_registration_confirmed": 528,
+      "academy_member_confirmed": 32,
+      "listed_current_roster": 11,
+      "loaned_out_from_everton": 1
+    },
+    "specialRegistrationHoldQueue": "All 10 initial candidates resolved with official club/competition evidence; this does not complete the 1,091-row review.",
+    "verifiedBatches": [
+      {
+        "clubs": [
+          "Aston Villa",
+          "AFC Bournemouth",
+          "Brentford",
+          "Brighton & Hove Albion"
+        ],
+        "confirmedRows": 110
+      },
+      {
+        "clubs": [
+          "Chelsea",
+          "Liverpool",
+          "Manchester United"
+        ],
+        "confirmedRows": 85
+      },
+      {
+        "clubs": [
+          "Arsenal"
+        ],
+        "firstTeamRows": 21,
+        "u21RegistrationRows": 39,
+        "confirmedRows": 60,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Coventry City",
+          "Crystal Palace",
+          "Everton",
+          "Fulham",
+          "Hull City"
+        ],
+        "firstTeamRows": 6,
+        "u21RegistrationRows": 85,
+        "confirmedRows": 91,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "92 candidate rows updated in the batch; one row (Daniel Bentley) already had identity_confirmed from the prior squad-number cross-check, so 91 are new identity confirmations. Lewis Coyle remains pending because the official source spells the registered player Lewie Coyle."
+      },
+      {
+        "clubs": [
+          "Ipswich Town",
+          "Leeds United",
+          "Manchester City"
+        ],
+        "firstTeamRows": 2,
+        "u21RegistrationRows": 60,
+        "confirmedRows": 62,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Newcastle United",
+          "Sunderland",
+          "Tottenham Hotspur"
+        ],
+        "firstTeamRows": 2,
+        "u21RegistrationRows": 69,
+        "confirmedRows": 71,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Nottingham Forest",
+          "Arsenal"
+        ],
+        "firstTeamRows": 0,
+        "u21RegistrationRows": 32,
+        "confirmedRows": 32,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03"
+      },
+      {
+        "clubs": [
+          "Aston Villa",
+          "AFC Bournemouth",
+          "Brentford",
+          "Brighton & Hove Albion",
+          "Chelsea",
+          "Crystal Palace"
+        ],
+        "firstTeamRows": 4,
+        "u21RegistrationRows": 143,
+        "confirmedRows": 147,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "Exact candidate-name matches from the official registration list. Three Brighton and one Brentford senior registrations were classified as first-team; the remaining 143 were U21. Unsupported or ambiguous names were left pending."
+      },
+      {
+        "clubs": [
+          "Leeds United",
+          "Liverpool",
+          "Manchester United"
+        ],
+        "firstTeamRows": 0,
+        "u21RegistrationRows": 69,
+        "confirmedRows": 69,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "Exact candidate-name matches only; 1 Leeds, 23 Liverpool, 45 Manchester United U21 registration candidates confirmed."
+      },
+      {
+        "clubs": [
+          "Fulham",
+          "Tottenham Hotspur"
+        ],
+        "firstTeamRows": 1,
+        "u21RegistrationRows": 5,
+        "confirmedRows": 6,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "Exact candidate-name matches only; Mykhaylo Mudryk classified as Tottenham first-team registration; Chibby Nwoko, Khai Vally, Miracle Adewole, Ronny Moncur and Oliver Boast classified U21."
+      },
+      {
+        "clubs": [
+          "Aston Villa",
+          "AFC Bournemouth",
+          "Brentford",
+          "Brighton & Hove Albion",
+          "Chelsea",
+          "Crystal Palace",
+          "Leeds United",
+          "Liverpool",
+          "Manchester United",
+          "Fulham",
+          "Tottenham Hotspur"
+        ],
+        "firstTeamRows": 5,
+        "u21RegistrationRows": 208,
+        "confirmedRows": 213,
+        "source": "https://www.premierleague.com/en/news/4706139/see-all-the-202627-premier-league-squad-lists",
+        "sourcePublished": "2026-09-03",
+        "note": "Aggregate of latest official PL registration reconciliations; exact candidate-name matches only. Current CSV validation is authoritative for totals."
+      }
+    ],
+    "policy": "Only promote rows with official evidence and matching identity attributes; unverified candidates remain staged. U21 is an internal registration status only and must not create a separate app roster.",
+    "note": "Updated 2026-11-20 after a further official-source review of 11 candidates. Eleven candidates remain listed_current_roster pending individual membership evidence.",
+    "latestReconciliation": {
+      "date": "2026-11-20",
+      "newlyConfirmed": 11,
+      "firstTeamConfirmed": 7,
+      "u21RegistrationConfirmed": 1,
+      "academyMemberConfirmed": 3,
+      "remainingPending": 11,
+      "notes": [
+        "First-team squad list: Kaine Kesler-Hayden (Coventry City); Ryan Giles, Elliot Stroud, Matt Crooks, Regan Slater and Tim Iroegbunam (Hull City); Fraser Barnsley (Everton). Each exact name and shirt number was cross-checked against the official Premier League 2026/27 squad-number publication.",
+        "U21 squad participation: Ben Barclay confirmed as Brighton men's U21 overage player/mentor; his current-season PL2 match report and official player profile support U21 membership.",
+        "Academy membership: Isaac Silva confirmed in Chelsea's 2026/27 U18 match report; Adler Nascimento confirmed as Crystal Palace U21 forward with eight 2026/27 appearances; Jayden Koussou confirmed in Newcastle's current U18 squad and 2026/27 match reports. Newcastle's current official U18 squad page spells his name Jayden Kouossu, and the staged name was corrected accordingly.",
+        "Bailey Hall-MacDonald remains pending identity review. Liverpool sources identify a player named Bailey Hall, but do not establish that he is the candidate Bailey Hall-MacDonald; no identity conflation was made."
+      ]
+    }
+  },
+  "integrityAudit": {
+    "date": "2026-11-20",
+    "csvFormat": "All 20 club CSVs normalized to RFC4180-compatible UTF-8; every field quoted and embedded quotes escaped",
+    "columns": 23,
+    "totalRows": 1091,
+    "clubs": 20,
+    "duplicateNamesWithinClub": 0,
+    "malformedRows": 0,
+    "statisticsValuesPopulated": 0,
+    "identityStatusCounts": {
+      "identity_confirmed": 1088,
+      "pending_identity_review": 3
+    },
+    "membershipStatusCounts": {
+      "first_team_member_confirmed": 519,
+      "u21_registration_confirmed": 528,
+      "academy_member_confirmed": 32,
+      "listed_current_roster": 11,
+      "loaned_out_from_everton": 1
+    }
+  }
+}
