@@ -1,6 +1,6 @@
 # Premier League 2026/27 — club membership and roster freshness review
 
-Review date: 2026-11-19  
+Review date: 2026-11-20  
 Dataset status: STAGING ONLY — NOT IMPORTED
 
 ## 1. Competition and club-set check
@@ -261,3 +261,21 @@ Membership totals were updated only for Juan Riquelme Angulo and are now: 234 fi
 Jay Spearing remains an identity-confirmed but non-player/staff-role warning: Liverpool's official records identify him as an academy coach/player-coach, not a current registered player. Do not import him as a player without current player-registration evidence. Charlie Scorer is identity-confirmed from Sunderland's current-season U18 report; exact membership classification remains pending.
 
 These identity totals do not mean all club membership is complete. All 1,091 records remain staged and not imported. No permanent Player IDs or statistics were added.
+
+
+## 20. CSV normalization and reconciled audit — 20 Nov 2026
+
+A full integrity repair was completed after the prior audit identified malformed quote/newline handling in several staged CSVs. All 20 club CSVs have now been rewritten in a consistent RFC4180-compatible UTF-8 format: 23 columns per record, all fields quoted, embedded quotes escaped, and one physical line per record. The candidate rows and their evidence notes were preserved; no player was added or removed during normalization.
+
+The normalized dataset reconciles to **1,091 candidate rows across 20 clubs**, with no duplicate player names within a club and no malformed records. The identity totals remain **1,088 identity-confirmed and 3 identity-pending** (Hull City — Tilen Golič; Ipswich Town — Tom Taylor; Liverpool — Bailey Hall-MacDonald).
+
+The membership counts were recalculated from the 20 staged CSVs and supersede earlier counts in sections 17–19 and prior snapshots of this document:
+- **509** first-team members confirmed
+- **527** U21 registrations confirmed
+- **10** academy members confirmed
+- **1** Everton player loaned out
+- **44** candidates still listed as listed_current_roster, pending individual membership evidence
+
+The five membership categories sum to 1,091. Identity and membership remain separate evidence dimensions. The 44 pending membership rows are not assumed to be former players or current registered players until evidence is reviewed. Appearances, goals and assists remain blank in all 1,091 rows; no permanent Player IDs have been assigned.
+
+This remains **STAGING ONLY — NOT IMPORTED**. PR #217 remains Draft; no production data, existing PFT-000001 through PFT-000023 records, or app storage was changed. CI has not run for the latest draft head, so validation is limited to the completed data/schema audit until a PR-triggered workflow is available.

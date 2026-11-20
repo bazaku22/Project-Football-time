@@ -396,7 +396,7 @@
   },
   "integrityAudit": {
     "date": "2026-11-20",
-    "csvFormat": "RFC4180-compatible UTF-8 CSV; all fields quoted and embedded quotes escaped",
+    "csvFormat": "All 20 club CSVs normalized to RFC4180-compatible UTF-8; every field quoted and embedded quotes escaped",
     "columns": 23,
     "totalRows": 1091,
     "clubs": 20,
